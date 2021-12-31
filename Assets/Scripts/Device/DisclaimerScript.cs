@@ -14,6 +14,7 @@ public class DisclaimerScript : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        Asterisk.Initialize();
         // --------------------------------------------------------------------------------
         if (GlobalControls.crate) {
             Logo.GetComponent<Image>().enabled = false;

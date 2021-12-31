@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
@@ -38,6 +39,12 @@ public static class LuaScriptBinder {
         UserData.RegisterType<LuaSpriteShader.MatrixFourByFour>();
         UserData.RegisterType<LuaDiscord>();
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        AsteriskLuaScriptBinder.Initialize();
+        // --------------------------------------------------------------------------------
+
         // Overworld bindings
         UserData.RegisterType<LuaEventOW>();
         UserData.RegisterType<LuaPlayerOW>();
@@ -71,6 +78,11 @@ public static class LuaScriptBinder {
             script.Globals["windows"] = false;
         #endif
         script.Globals["CYFversion"] = GlobalControls.CYFversion;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        AsteriskLuaScriptBinder.BoundScriptGlobal(ref script);
+        // --------------------------------------------------------------------------------
         if (!UnitaleUtil.IsOverworld) {
             script.Globals["CreateSprite"] = (Func<string, string, int, DynValue>)SpriteUtil.MakeIngameSprite;
             script.Globals["CreateLayer"] = (Func<string, string, bool, bool>)SpriteUtil.CreateLayer;
@@ -241,6 +253,12 @@ public static class LuaScriptBinder {
         UserData.RegisterType<LuaSpriteShader>();
         UserData.RegisterType<LuaSpriteShader.MatrixFourByFour>();
         UserData.RegisterType<LuaDiscord>();
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        AsteriskLuaScriptBinder.Initialize();
+        // --------------------------------------------------------------------------------
 
         // Overworld bindings
         UserData.RegisterType<LuaEventOW>();
