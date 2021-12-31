@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod.Lua;
+using System;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
@@ -11,6 +12,8 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
+            UserData.RegisterType<LuaButton>();
+            UserData.RegisterType<LuaButtonController>();
         }
 
         public static void BoundScriptGlobal(ref Script script)
@@ -18,6 +21,12 @@ namespace AsteriskMod
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
+        }
+
+        public static void BoundScriptUserData(ref Script script)
+        {
+            DynValue ui = UserData.Create(new LuaButtonController());
+            script.Globals.Set("ButtonUtil", ui);
         }
     }
 }

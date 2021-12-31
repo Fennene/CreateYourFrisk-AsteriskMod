@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AsteriskMod;
+using AsteriskMod.Lua;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +25,11 @@ public class UIController : MonoBehaviour {
     public static UIController instance;    // The instance of this class, only one UIController should exist at all times
     public TextManager mainTextManager;     // Main text manager in the arena
 
-    private static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
+    // --------------------------------------------------------------------------------
     private Image fightButton, actButton, itemButton, mercyButton;                                  // UI button objects in the scene
 
     private Actions action = Actions.FIGHT;     // Current action chosen when entering the state ENEMYSELECT
@@ -83,6 +89,11 @@ public class UIController : MonoBehaviour {
         MERCYMENU,      // Open up the mercy menu
         ENEMYDIALOGUE,  // The Player is visible and the arena is resizing, but the enemy still has own dialogue
         DIALOGRESULT,   // Transition state leading to either UIState.ENEMYDIALOGUE or UIState.DEFENDING
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        CUSTOMSTATE,    // CustomState
+        // --------------------------------------------------------------------------------
         DONE,           // Finished state of battle. Returns the Player to the mod selection screen or the overworld
         SPAREIDLE,      // Used for OnSpare()'s inactivity, to make it works like OnDeath(). You don't want to go in there
         UNUSED,         // Used for OnDeath. Keep this state secret, please
@@ -1054,9 +1065,35 @@ public class UIController : MonoBehaviour {
 
                 int actionIndex = (int)action;
 
-                if (left)  actionIndex--;
-                if (right) actionIndex++;
-                actionIndex = Math.Mod(actionIndex, 4);
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //if (left) actionIndex--;
+                //if (right) actionIndex++;
+                //actionIndex = Math.Mod(actionIndex, 4);
+                bool[] buttonActive = new bool[4] {
+                    LuaButtonController.FIGHT.GetActive(),
+                    LuaButtonController.ACT.GetActive(),
+                    LuaButtonController.ITEM.GetActive(),
+                    LuaButtonController.MERCY.GetActive()
+                };
+                if (left)
+                {
+                    actionIndex = Math.Mod(actionIndex - 1, 4);
+                    while (!buttonActive[actionIndex])
+                    {
+                        actionIndex = Math.Mod(actionIndex - 1, 4);
+                    }
+                }
+                if (right)
+                {
+                    actionIndex = Math.Mod(actionIndex + 1, 4);
+                    while (!buttonActive[actionIndex])
+                    {
+                        actionIndex = Math.Mod(actionIndex + 1, 4);
+                    }
+                }
+                // --------------------------------------------------------------------------------
                 action = (Actions)actionIndex;
                 SetPlayerOnAction(action);
                 PlaySound(AudioClipRegistry.GetSound("menumove"));
@@ -1407,6 +1444,12 @@ public class UIController : MonoBehaviour {
         PlayerController.instance.SetPosition(48, 25, true);
         fightUI = GameObject.Find("FightUI").GetComponent<FightUIController>();
         fightUI.gameObject.SetActive(false);
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
+        // --------------------------------------------------------------------------------
 
         if (UnitaleUtil.firstErrorShown) return;
         encounter.CallOnSelfOrChildren("EncounterStarting");

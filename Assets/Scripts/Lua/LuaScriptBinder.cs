@@ -144,6 +144,11 @@ public static class LuaScriptBinder {
         script.Globals.Set("Time", TimeInfo);
         DynValue DiscordMgr = UserData.Create(new LuaDiscord());
         script.Globals.Set("Discord", DiscordMgr);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        AsteriskLuaScriptBinder.BoundScriptUserData(ref script);
+        // --------------------------------------------------------------------------------
         scriptlist.Add(script);
         return script;
     }
