@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -10,6 +11,10 @@ public class DisclaimerScript : MonoBehaviour {
     public GameObject Logo, LogoCrate, Desc1, Desc2, Desc3, Desc4, Desc5, Version;
 
     private void Start() {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------
         if (GlobalControls.crate) {
             Logo.GetComponent<Image>().enabled = false;
             LogoCrate.GetComponent<Image>().enabled = true;
