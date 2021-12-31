@@ -30,8 +30,15 @@ public class DisclaimerScript : MonoBehaviour {
             Version.GetComponent<Transform>().localPosition = new Vector3(0f, 160f, 0f);
             Version.GetComponent<Text>().color              = new Color(1f, 1f, 1f, 1f);
             Version.GetComponent<Text>().text               = "Not Unitale v0.2.1a";
-        } else
-            Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion;
+        } else {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            Version.GetComponent<Text>().horizontalOverflow = HorizontalWrapMode.Overflow;
+            //Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion;
+            Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion + Asterisk.GetVersionDisplay();
+            // --------------------------------------------------------------------------------
+        }
     }
 
     /// <summary>
