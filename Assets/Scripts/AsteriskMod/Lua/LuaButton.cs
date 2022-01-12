@@ -42,19 +42,36 @@ namespace AsteriskMod.Lua
         {
             Image image = button.GetComponent<Image>();
             SpriteUtil.SwapSpriteFromFile(image, inactiveTexturePath);
+            Sprite activeTexture = SpriteRegistry.Get(activeTexturePath);
             switch (buttonID)
             {
                 case 0:
-                    UIController.fightButtonSprite = SpriteRegistry.Get(activeTexturePath);
+                    if (image.overrideSprite == UIController.fightButtonSprite)
+                    {
+                        image.overrideSprite = activeTexture;
+                    }
+                    UIController.fightButtonSprite = activeTexture;
                     break;
                 case 1:
-                    UIController.actButtonSprite = SpriteRegistry.Get(activeTexturePath);
+                    if (image.overrideSprite == UIController.actButtonSprite)
+                    {
+                        image.overrideSprite = activeTexture;
+                    }
+                    UIController.actButtonSprite = activeTexture;
                     break;
                 case 2:
-                    UIController.itemButtonSprite = SpriteRegistry.Get(activeTexturePath);
+                    if (image.overrideSprite == UIController.itemButtonSprite)
+                    {
+                        image.overrideSprite = activeTexture;
+                    }
+                    UIController.itemButtonSprite = activeTexture;
                     break;
                 case 3:
-                    UIController.mercyButtonSprite = SpriteRegistry.Get(activeTexturePath);
+                    if (image.overrideSprite == UIController.mercyButtonSprite)
+                    {
+                        image.overrideSprite = activeTexture;
+                    }
+                    UIController.mercyButtonSprite = activeTexture;
                     break;
             }
         }

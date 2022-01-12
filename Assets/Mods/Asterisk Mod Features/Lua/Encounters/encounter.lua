@@ -20,6 +20,7 @@ function EncounterStarting()
     if Asterisk == nil then
         error("This game can be launched on only CYF-AsteriskMod.")
     end
+    Player.name = "FN"
     ButtonUtil.SetActives(true, true, true, false)
 end
 
