@@ -77,6 +77,18 @@ namespace AsteriskMod.Lua
             }
         }
 
+        public float x
+        {
+            get { return position.x; }
+            set { MoveTo(value, position.y); }
+        }
+
+        public float y
+        {
+            get { return position.y; }
+            set { MoveTo(position.x, value); }
+        }
+
         public void MoveTo(float x, float y)
         {
             button.GetComponent<RectTransform>().anchoredPosition = new Vector2(button.GetComponent<RectTransform>().anchoredPosition.x - position.x, button.GetComponent<RectTransform>().anchoredPosition.y - position.y);

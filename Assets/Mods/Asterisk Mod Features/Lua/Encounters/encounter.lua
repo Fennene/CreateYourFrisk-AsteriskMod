@@ -22,7 +22,9 @@ function EncounterStarting()
         error("This game can be launched on only CYF-AsteriskMod.")
     end
 
-    Player.name = "FN"
+    Player.name = "Fennene"
+    Player.lv = 20
+    Player.hp = 99
 
     -- Set activate of buttons
     ButtonUtil.SetActives(true, true, true, false)
@@ -34,6 +36,19 @@ function EncounterStarting()
     -- Move
     ButtonUtil.FIGHT.Move(-187, 0)
     ButtonUtil.ITEM.Move(187, 0)
+end
+
+function FirstFrameUpdate()
+    PlayerUtil.SetLV("??")
+    PlayerUtil.HPUIMoveTo(-40, 0)
+    PlayerUtil.SetHPLabelColor(1, 1, 0)
+    PlayerUtil.SetHPBarFillColor32(0, 255, 255)
+    PlayerUtil.HPTextMoveTo(10, 0)
+end
+
+function Update()
+    PlayerUtil.SetNameColor(1, 1, 1)
+    PlayerUtil.SetLVColor(1, 0, 0)
 end
 
 function EnemyDialogueStarting()

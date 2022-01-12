@@ -14,6 +14,7 @@ namespace AsteriskMod
         {
             UserData.RegisterType<LuaButton>();
             UserData.RegisterType<LuaButtonController>();
+            UserData.RegisterType<PlayerUtil>();
         }
 
         public static void BoundScriptGlobal(ref Script script)
@@ -25,8 +26,10 @@ namespace AsteriskMod
 
         public static void BoundScriptUserData(ref Script script)
         {
-            DynValue ui = UserData.Create(new LuaButtonController());
-            script.Globals.Set("ButtonUtil", ui);
+            DynValue buttonUtil = UserData.Create(new LuaButtonController());
+            script.Globals.Set("ButtonUtil", buttonUtil);
+            DynValue playerUtil = UserData.Create(new PlayerUtil());
+            script.Globals.Set("PlayerUtil", playerUtil);
         }
     }
 }

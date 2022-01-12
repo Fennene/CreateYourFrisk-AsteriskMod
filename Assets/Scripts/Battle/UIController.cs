@@ -109,6 +109,12 @@ public class UIController : MonoBehaviour {
     public delegate void Message();
     public static event Message SendToStaticInit;
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private bool firstFrameUpdate = true;
+    // --------------------------------------------------------------------------------
+
     public void ActionDialogResult(TextMessage msg, UIState afterDialogState, ScriptWrapper caller = null) {
         ActionDialogResult(new[] { msg }, afterDialogState, caller);
     }
@@ -1531,6 +1537,17 @@ public class UIController : MonoBehaviour {
         stateSwitched = false;
         if (encounter.gameOverStance)
             return;
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (firstFrameUpdate)
+        {
+            encounter.TryCall("FirstFrameUpdate");
+            firstFrameUpdate = false;
+        }
+        // --------------------------------------------------------------------------------
+
         if (encounterHasUpdate)
             encounter.TryCall("Update");
 
