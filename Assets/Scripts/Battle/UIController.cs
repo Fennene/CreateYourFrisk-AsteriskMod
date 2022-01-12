@@ -1273,25 +1273,37 @@ public class UIController : MonoBehaviour {
 
     private void SetPlayerOnAction(Actions newAction) {
         switch (newAction) {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
             case Actions.FIGHT:
                 fightButton.overrideSprite = fightButtonSprite;
-                PlayerController.instance.SetPosition(48, 25, true);
+                Vector2 fightPos = LuaButtonController.FIGHT.GetRelativePosition();
+                PlayerController.instance.SetPosition(48 + fightPos.x, 25 + fightPos.y, true);
+                //PlayerController.instance.SetPosition(48, 25, true);
                 break;
 
             case Actions.ACT:
                 actButton.overrideSprite = actButtonSprite;
-                PlayerController.instance.SetPosition(202, 25, true);
+                Vector2 actPos = LuaButtonController.ACT.GetRelativePosition();
+                PlayerController.instance.SetPosition(202 + actPos.x, 25 + actPos.y, true);
+                //PlayerController.instance.SetPosition(202, 25, true);
                 break;
 
             case Actions.ITEM:
                 itemButton.overrideSprite = itemButtonSprite;
-                PlayerController.instance.SetPosition(361, 25, true);
+                Vector2 itemPos = LuaButtonController.ITEM.GetRelativePosition();
+                PlayerController.instance.SetPosition(361 + itemPos.x, 25 + itemPos.y, true);
+                //PlayerController.instance.SetPosition(361, 25, true);
                 break;
 
             case Actions.MERCY:
                 mercyButton.overrideSprite = mercyButtonSprite;
-                PlayerController.instance.SetPosition(515, 25, true);
+                Vector2 mercyPos = LuaButtonController.MERCY.GetRelativePosition();
+                PlayerController.instance.SetPosition(515 + mercyPos.x, 25 + mercyPos.y, true);
+                //PlayerController.instance.SetPosition(515, 25, true);
                 break;
+            // --------------------------------------------------------------------------------
         }
     }
 

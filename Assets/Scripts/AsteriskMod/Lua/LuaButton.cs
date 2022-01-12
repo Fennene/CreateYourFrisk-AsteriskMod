@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Loaders;
+//using MoonSharp.Interpreter.Loaders;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
+//using Object = UnityEngine.Object;
 
 namespace AsteriskMod.Lua
 {
@@ -21,6 +21,7 @@ namespace AsteriskMod.Lua
             buttonID = id;
             isActive = true;
             button = buttonObject;
+            position = Vector2.zero;
         }
 
         public void SetActive(bool active)
@@ -74,6 +75,29 @@ namespace AsteriskMod.Lua
                     UIController.mercyButtonSprite = activeTexture;
                     break;
             }
+        }
+
+        public void MoveTo(float x, float y)
+        {
+            button.GetComponent<RectTransform>().anchoredPosition = new Vector2(button.GetComponent<RectTransform>().anchoredPosition.x - position.x, button.GetComponent<RectTransform>().anchoredPosition.y - position.y);
+            position = new Vector2(x, y);
+            button.GetComponent<RectTransform>().anchoredPosition = new Vector2(button.GetComponent<RectTransform>().anchoredPosition.x + x, button.GetComponent<RectTransform>().anchoredPosition.y + y);
+        }
+
+        public void Move(float x, float y)
+        {
+            MoveTo(position.x + x, position.y + y);
+        }
+
+        public void ResetPosition()
+        {
+            MoveTo(0, 0);
+        }
+
+        [MoonSharpHidden]
+        internal Vector2 GetRelativePosition()
+        {
+            return position;
         }
     }
 }
