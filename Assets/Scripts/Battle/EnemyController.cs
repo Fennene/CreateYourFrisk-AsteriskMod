@@ -225,6 +225,82 @@ public class EnemyController : MonoBehaviour {
         set { script.SetVar("voice", DynValue.NewString(value)); }
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public int[] BackgroundMiniBarColor
+    {
+        get
+        {
+            DynValue bgBarColor = script.GetVar("minibgcolor");
+            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
+            {
+                return new int[3] { 255, 0, 0 };
+            }
+            int[] _ = new int[bgBarColor.Table.Length];
+            //for (int i = 0; i < bgBarColor.Table.Length; i++)
+            for (int i = 0; i < 3; i++)
+                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
+            return _;
+        }
+        set
+        {
+            DynValue[] values = new DynValue[value.Length];
+            for (int i = 0; i < value.Length; i++)
+                values[i] = DynValue.NewNumber(value[i]);
+            script.SetVar("minibgcolor", DynValue.NewTuple(values));
+        }
+    }
+
+    public int[] BackgroundBarColor
+    {
+        get
+        {
+            DynValue bgBarColor = script.GetVar("bgcolor");
+            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
+            {
+                return new int[3] { 64, 64, 64 };
+            }
+            int[] _ = new int[bgBarColor.Table.Length];
+            //for (int i = 0; i < bgBarColor.Table.Length; i++)
+            for (int i = 0; i < 3; i++)
+                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
+            return _;
+        }
+        set
+        {
+            DynValue[] values = new DynValue[value.Length];
+            for (int i = 0; i < value.Length; i++)
+                values[i] = DynValue.NewNumber(value[i]);
+            script.SetVar("bgcolor", DynValue.NewTuple(values));
+        }
+    }
+
+    public int[] FillBarColor
+    {
+        get
+        {
+            DynValue bgBarColor = script.GetVar("fillcolor");
+            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
+            {
+                return new int[3] { 0, 255, 0 };
+            }
+            int[] _ = new int[bgBarColor.Table.Length];
+            //for (int i = 0; i < bgBarColor.Table.Length; i++)
+            for (int i = 0; i < 3; i++)
+                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
+            return _;
+        }
+        set
+        {
+            DynValue[] values = new DynValue[value.Length];
+            for (int i = 0; i < value.Length; i++)
+                values[i] = DynValue.NewNumber(value[i]);
+            script.SetVar("fillcolor", DynValue.NewTuple(values));
+        }
+    }
+    // --------------------------------------------------------------------------------
+
     public string DefenseMissText {
         get { return script.GetVar("defensemisstext").String; }
         set { script.SetVar("defensemisstext", DynValue.NewString(value)); }
@@ -380,6 +456,21 @@ public class EnemyController : MonoBehaviour {
     /// <param name="active"></param>
     public void SetActive(bool active) {
         inFight = active;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        try
+        {
+            if (script.GetVar("OnActive") != null)
+            {
+                script.Call("OnActive", DynValue.NewBoolean(active));
+            }
+        }
+        catch (InterpreterException ex)
+        {
+            UnitaleUtil.DisplayLuaError(scriptName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+        }
+        // --------------------------------------------------------------------------------
         script.SetVar("isactive", DynValue.NewBoolean(active));
     }
 

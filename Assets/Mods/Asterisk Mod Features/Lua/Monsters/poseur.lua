@@ -12,6 +12,9 @@ check = "Check message goes here."
 dialogbubble = "right" -- See documentation for what bubbles you have available.
 canspare = false
 cancheck = true
+minibgcolor = {255, 0, 0}
+bgcolor = {255, 0, 0}
+fillcolor = {0, 255, 255}
 
 -- Happens after the slash animation but before 
 function HandleAttack(attackstatus)

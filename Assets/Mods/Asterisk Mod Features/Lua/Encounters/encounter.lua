@@ -11,6 +11,9 @@ enemypositions = {
 {0, 0}
 }
 
+flee = false
+sparetext = "Skip Turn"
+
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
 
 function EncounterStarting()
@@ -27,15 +30,15 @@ function EncounterStarting()
     Player.hp = 99
 
     -- Set activate of buttons
-    ButtonUtil.SetActives(true, true, true, false)
+    ButtonUtil.SetActives(true, true, false, true)
     -- Move all buttoms to center
     ButtonUtil.FIGHT.MoveTo(234, 0)
     ButtonUtil.ACT.MoveTo(81, 0)
-    ButtonUtil.ITEM.MoveTo(-79, 0)
-    --ButtonUtil.MERCY.MoveTo(-234, 0)
+    --ButtonUtil.ITEM.MoveTo(-79, 0)
+    ButtonUtil.MERCY.MoveTo(-234, 0)
     -- Move
     ButtonUtil.FIGHT.Move(-187, 0)
-    ButtonUtil.ITEM.Move(187, 0)
+    ButtonUtil.MERCY.Move(187, 0)
 
     -- Camera's Reverse
     --Misc.CameraVerticalReverse()

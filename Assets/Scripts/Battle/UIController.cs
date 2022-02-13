@@ -423,10 +423,30 @@ public class UIController : MonoBehaviour {
                 selectedMercy = 0;
                 string[] mercyOptions = new string[1 + (encounter.CanRun ? 1 : 0)];
                 mercyOptions[0] = "Spare";
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                DynValue spareText = EnemyEncounter.script.GetVar("sparetext");
+                if (spareText != null && spareText.Type == DataType.String)
+                {
+                    mercyOptions[0] = spareText.String;
+                }
+                // --------------------------------------------------------------------------------
                 if (encounter.EnabledEnemies.Cast<EnemyController>().Any(enemy => enemy.CanSpare))
                     mercyOptions[0] = "[starcolor:ffff00][color:ffff00]" + mercyOptions[0] + "[color:ffffff]";
                 if (encounter.CanRun)
+                {
                     mercyOptions[1] = "Flee";
+                    // --------------------------------------------------------------------------------
+                    //                          Asterisk Mod Modification
+                    // --------------------------------------------------------------------------------
+                    DynValue fleeText = EnemyEncounter.script.GetVar("fleetext");
+                    if (fleeText != null && fleeText.Type == DataType.String)
+                    {
+                        mercyOptions[1] = fleeText.String;
+                    }
+                    // --------------------------------------------------------------------------------
+                }
                 SetPlayerOnSelection(0);
                 if (!GlobalControls.retroMode)
                     mainTextManager.SetEffect(new TwitchEffect(mainTextManager));
@@ -491,7 +511,15 @@ public class UIController : MonoBehaviour {
                         RectTransform lifeBarRect = lifeBar.GetComponent<RectTransform>();
                         lifeBarRect.anchoredPosition = new Vector2(maxWidth, initialHealthPos.y - i * mainTextManager.Charset.LineSpacing);
                         lifeBarRect.sizeDelta = new Vector2(90, lifeBarRect.sizeDelta.y);
-                        lifeBar.setFillColor(Color.green);
+                        // --------------------------------------------------------------------------------
+                        //                          Asterisk Mod Modification
+                        // --------------------------------------------------------------------------------
+                        //lifeBar.setFillColor(Color.green);
+                        int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
+                        lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
+                        int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
+                        lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+                        // --------------------------------------------------------------------------------
                         float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
                         if (encounter.EnabledEnemies[i].HP < 0) {
                             lifeBar.fill.rectTransform.offsetMin = new Vector2(-90 * hpDivide, 0);
@@ -830,7 +858,15 @@ public class UIController : MonoBehaviour {
             RectTransform lifeBarRect = lifeBar.GetComponent<RectTransform>();
             lifeBarRect.anchoredPosition = new Vector2(maxWidth, initialHealthPos.y - (i - page * 2) * mainTextManager.Charset.LineSpacing);
             lifeBarRect.sizeDelta = new Vector2(90, lifeBarRect.sizeDelta.y);
-            lifeBar.setFillColor(Color.green);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //lifeBar.setFillColor(Color.green);
+            int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
+            lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
+            int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
+            lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+            // --------------------------------------------------------------------------------
             float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
             if (encounter.EnabledEnemies[i].HP < 0) {
                 lifeBar.fill.rectTransform.offsetMin = new Vector2(-90 * hpDivide, 0);
