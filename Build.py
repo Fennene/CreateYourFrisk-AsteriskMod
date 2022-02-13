@@ -23,6 +23,7 @@ If not provided, the script will automatically use 7-Zip to package all of your 
 
 # This is the version of CYF to name the executables and the Documentation folder
 CYFversion = "0.6.5"
+AsteriskVersion = "0.5"
 
 # This is the path we will build to
 buildPath = os.getcwd() + "\\bin"
@@ -58,12 +59,12 @@ if not os.path.exists(sevenZPath):
 # Define a list of pairs of folder names, command line arguments for Unity, and target names respectively
 # * Mac is not in this list, see below
 buildTargets = [
-    ("CYF v" + CYFversion + " - Windows (32-bit)", "-buildWindowsPlayer",        "Create Your Frisk " + CYFversion + ".exe"),
-    ("CYF v" + CYFversion + " - Windows (64-bit)", "-buildWindows64Player",      "Create Your Frisk " + CYFversion + ".exe"),
-    ("CYF v" + CYFversion + " - Linux (32-bit)",   "-buildLinux32Player",        "Create Your Frisk " + CYFversion + ".x86"),
-    ("CYF v" + CYFversion + " - Linux (64-bit)",   "-buildLinux64Player",        "Create Your Frisk " + CYFversion + ".x86_64")
+    ("CYF v" + CYFversion + " Asterisk v" + AsteriskVersion + " - Windows (32-bit)", "-buildWindowsPlayer",        "Create Your Frisk " + CYFversion + " Asterisk " + AsteriskVersion + ".exe"),
+    ("CYF v" + CYFversion + " Asterisk v" + AsteriskVersion + " - Windows (64-bit)", "-buildWindows64Player",      "Create Your Frisk " + CYFversion + " Asterisk " + AsteriskVersion + ".exe"),
+    ("CYF v" + CYFversion + " Asterisk v" + AsteriskVersion + " - Linux (32-bit)",   "-buildLinux32Player",        "Create Your Frisk " + CYFversion + " Asterisk " + AsteriskVersion + ".x86"),
+    ("CYF v" + CYFversion + " Asterisk v" + AsteriskVersion + " - Linux (64-bit)",   "-buildLinux64Player",        "Create Your Frisk " + CYFversion + " Asterisk " + AsteriskVersion + ".x86_64")
 ]
-macTarget = ("CYF v" + CYFversion + " - Mac",      "-buildOSXUniversalPlayer",   "Create Your Frisk " + CYFversion + ".app")
+macTarget = ("CYF v" + CYFversion + " Asterisk v" + AsteriskVersion + " - Mac",      "-buildOSXUniversalPlayer",   "Create Your Frisk " + CYFversion + " Asterisk " + AsteriskVersion + ".app")
 
 hidePaths = [
     "Default\\Sprites\\AsrielOW\\Huggu",
@@ -117,7 +118,7 @@ def buildWithUnity(folder, argument, target):
     # Copy over the Documentation
     print("Copying Documentation...", end="")
     sys.stdout.flush()
-    shutil.copytree("Documentation CYF 1.0", buildPath + "\\" + folder + "\\Documentation CYF " + CYFversion)
+    shutil.copytree("Documentation CYF 1.0", buildPath + "\\" + folder + "\\Documentation CYF " + CYFversion + " Asterisk " + AsteriskVersion)
     print("Done.")
 
     # Copy over the Default and Mods folders
@@ -245,7 +246,7 @@ def buildForMac():
     # Copy over the Documentation
     print("Copying Documentation...", end="")
     sys.stdout.flush()
-    shutil.copytree("Documentation CYF 1.0", buildPath + "\\" + macTarget[0] + "\\Documentation CYF " + CYFversion)
+    shutil.copytree("Documentation CYF 1.0", buildPath + "\\" + macTarget[0] + "\\Documentation CYF " + CYFversion + " Asterisk " + AsteriskVersion)
     print("Done.")
 
     # Copy over the Default and Mods folders
