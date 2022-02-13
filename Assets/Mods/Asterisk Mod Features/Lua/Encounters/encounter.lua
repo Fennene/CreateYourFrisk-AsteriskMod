@@ -37,6 +37,8 @@ function EncounterStarting()
     ButtonUtil.FIGHT.Move(-187, 0)
     ButtonUtil.ITEM.Move(187, 0)
 
+    -- Below methods of PlayerUtil works in EncounterStarting().
+    -- However, recommend to use methods of PlayerUtil in FirstFrameUpdate().
     --PlayerUtil.SetHPLabelColor(1, 1, 0)
     --PlayerUtil.SetHPBarFillColor32(0, 255, 255)
     --PlayerUtil.HPTextMoveTo(10, 0)
@@ -48,11 +50,20 @@ function FirstFrameUpdate()
     PlayerUtil.SetHPLabelColor(1, 1, 0)
     PlayerUtil.SetHPBarFillColor32(0, 255, 255)
     PlayerUtil.HPTextMoveTo(10, 0)
+    --[[
+    PlayerUtil.SetHPControlOverride(true)
+    PlayerUtil.SetHPBarLength(30)
+    ]]
+    PlayerUtil.SetHPControlOverride(true)
+    PlayerUtil.SetHP(50, 99)
+    PlayerUtil.SetHPText("?? / 99")
 end
 
 function Update()
     PlayerUtil.SetNameColor(1, 1, 1)
     PlayerUtil.SetLVColor(1, 0, 0)
+    PlayerUtil.SetHPTextColor32(0, 175, 0)
+    --PlayerUtil.SetHP(20, 30, true)
 end
 
 function EnemyDialogueStarting()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 
 public class UIStats : MonoBehaviour {
     public static UIStats instance;
@@ -46,6 +47,11 @@ public class UIStats : MonoBehaviour {
 
     public void setHP(float hpCurrent) {
         if (!initialized) return;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (PlayerUIManager.Instance.hpbarControlOverride) return;
+        // --------------------------------------------------------------------------------
         float hpMax  = PlayerCharacter.instance.MaxHP,
               hpFrac = hpCurrent / hpMax;
         lifebar.setInstant(hpFrac);
@@ -57,7 +63,40 @@ public class UIStats : MonoBehaviour {
 
     public void setMaxHP() {
         if (!initialized) return;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (PlayerUIManager.Instance.hpbarControlOverride) return;
+        // --------------------------------------------------------------------------------
         lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), lifebarRt.sizeDelta.y);
         setHP(PlayerCharacter.instance.HP);
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    internal void setHPOverride(float hp, int maxhp, bool updateHPText)
+    {
+        if (!initialized) return;
+        float hpMax = maxhp,
+              hpFrac = hp / hpMax;
+        lifebar.setInstantOverride(hpFrac, maxhp);
+        if (!updateHPText) return;
+        int count = UnitaleUtil.DecimalCount(hp);
+        string sHpCurrent = hp < 10 ? "0" + hp.ToString("F" + count) : hp.ToString("F" + count);
+        string sHpMax = hpMax < 10 ? "0" + hpMax : "" + hpMax;
+        hpTextMan.SetText(new TextMessage(sHpCurrent + " / " + sHpMax, false, true));
+    }
+
+    internal void setMaxHPOverride(int maxhp)
+    {
+        if (!initialized) return;
+        lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, maxhp * 1.2f), lifebarRt.sizeDelta.y);
+    }
+
+    internal void setHPTextOverride(string hpText)
+    {
+        hpTextMan.SetText(new TextMessage(hpText, false, true));
+    }
+    // --------------------------------------------------------------------------------
 }

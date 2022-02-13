@@ -51,6 +51,27 @@ public class LifeBarController : MonoBehaviour {
         //fill.rectTransform.offsetMax = new Vector2(-(1 - fillvalue) * PlayerCharacter.instance.MaxHP * 1.2f, fill.rectTransform.offsetMin.y);
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    internal void setInstantOverride(float fillvalue, int maxhp)
+    {
+        currentFill = fillvalue;
+        desiredFill = fillvalue;
+        //fill.fillAmount = fillvalue;
+        //fill.rectTransform.sizeDelta = new Vector2(1, fillvalue);
+        //if (player) fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * 90, fill.rectTransform.offsetMin.y);
+        //else if (whenDamage) fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * whenDamageValue, fill.rectTransform.offsetMin.y);
+        //else
+        //{
+            if (fillvalue > 1)
+                fillvalue = 1;
+            fill.rectTransform.offsetMax = new Vector2(-(Mathf.Min(maxhp, 100) * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
+        //}
+        //fill.rectTransform.offsetMax = new Vector2(-(1 - fillvalue) * PlayerCharacter.instance.MaxHP * 1.2f, fill.rectTransform.offsetMin.y);
+    }
+    // --------------------------------------------------------------------------------
+
     /// <summary>
     /// Start a linear-time transition from current fill to this value.
     /// </summary>

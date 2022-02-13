@@ -14,6 +14,11 @@ namespace AsteriskMod
         private Vector2 hpPosition;
         private Vector2 hpTextPositon;
 
+        public bool hpbarControlOverride;
+        internal int forceChangeHP;
+        internal int forceChangeMaxHP;
+        internal string forceChangeHPString;
+
         public static PlayerUIManager Instance;
 
         private void Start()
@@ -24,6 +29,10 @@ namespace AsteriskMod
             namelvPosition = Vector2.zero;
             hpPosition = Vector2.zero;
             hpTextPositon = Vector2.zero;
+            hpbarControlOverride = false;
+            forceChangeHP = -1;
+            forceChangeMaxHP = -1;
+            forceChangeHPString = "";
             Instance = this;
         }
 
@@ -165,18 +174,16 @@ namespace AsteriskMod
             textMan.GetComponent<TextManager>().SetText(new TextMessage(hp, false, true));
         }
 
-        /*
         public void SetHPTextColor(Color color)
         {
             Transform HPLabel = HPManager.transform.Find("HPLabel");
             GameObject barManager = HPLabel.transform.Find("HPBar").gameObject;
             GameObject textMan = barManager.transform.Find("HPTextParent").gameObject;
+            for (var i = 0; i < textMan.transform.childCount; i++)
+            {
+                textMan.transform.GetChild(i).GetComponent<MaskImage>().color = color;
+                textMan.transform.GetChild(i).GetComponent<Letter>().colorFromText = color;
+            }
         }
-        */
-
-        /*
-                NameLVManager.transform.GetChild(i).GetComponent<MaskImage>().color = color;
-                NameLVManager.transform.GetChild(i).GetComponent<Letter>().colorFromText = color;
-        */
     }
 }

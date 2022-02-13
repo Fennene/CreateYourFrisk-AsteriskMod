@@ -168,7 +168,6 @@ namespace AsteriskMod.Lua
             return table;
         }
 
-        /*
         public static void SetHPTextColor(float r, float g, float b, float a = 1.0f)
         {
             PlayerUIManager.Instance.SetHPTextColor(new Color(r, g, b, a));
@@ -178,6 +177,34 @@ namespace AsteriskMod.Lua
         {
             PlayerUIManager.Instance.SetHPTextColor(new Color32(r, g, b, a));
         }
-        */
+
+        public static void SetHPControlOverride(bool active)
+        {
+            PlayerUIManager.Instance.hpbarControlOverride = active;
+        }
+
+        public static void SetHP(int newHP, int newMaxHP, bool updateHPText = false)
+        {
+            if (UIStats.instance)
+            {
+                UIStats.instance.setHPOverride(newHP, newMaxHP, updateHPText);
+            }
+        }
+
+        public static void SetHPBarLength(int newMaxHP)
+        {
+            if (UIStats.instance)
+            {
+                UIStats.instance.setMaxHPOverride(newMaxHP);
+            }
+        }
+
+        public static void SetHPText(string hpText)
+        {
+            if (UIStats.instance)
+            {
+                UIStats.instance.setHPTextOverride(hpText);
+            }
+        }
     }
 }
