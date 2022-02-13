@@ -16,6 +16,20 @@ There is CYF's [**Discord server**](https://discord.gg/GFJ5277)! Feel free to ch
 
 ***
 
+## Asterisk Mod
+
+Current version is **v0.5.**
+
+Asterisk Mod adds some strong functions and objects to original CYF.
+
+For example
+
+"PlayerUtil.SetHPText()"  can change text showing the player's HP to any string.
+
+You can inactive MERCY Button by "ButtonUtil.MERCY.SetActive(false)".
+
+***
+
 ## Download
 
 To download the engine, go to [~~**the releases page**~~](https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases).
