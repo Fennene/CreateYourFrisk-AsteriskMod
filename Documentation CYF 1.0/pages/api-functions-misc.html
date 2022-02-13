@@ -117,8 +117,16 @@ it's w3c valid, at least
                 <li><span class="term">Misc.MoveCameraTo(<span class="number"></span> x, <span class="number"></span> y)</span> - Moves the bottom-left of the camera directly to the point (<span class="term">x</span>, <span class="term">y</span>).<br>
                 <span class="term">(0, 0)</span> is the starting position.</li><br>
                 <li><span class="term">Misc.ResetCamera()</span> - Resets the position of the camera. Same as calling <span class="term">MoveCameraTo(0, 0)</span> in battle - in the Overworld, this instead resets the camera to the Player's position.</li><br>
+
+                <li><span class="Asterisk"></span><span class="term">Misc.CameraHorizontalReverse()</span> - Reverses camera Horizontally.</li><br>
+                <li><span class="Asterisk"></span><span class="term">Misc.CameraVerticalReverse()</span> - Reverses camera Vertically</li><br>
+                <li><span class="Asterisk"></span><span class="term">Misc.ResetCameraReverse()</span> - Resets reversed camera.</li><br>
+
                 <li><span class="number"></span> <span class="term">Misc.cameraX</span> - Gets or sets the current x position of the bottom-left corner of the camera.</li><br>
                 <li><span class="number"></span> <span class="term">Misc.cameraY</span> - Gets or sets the current y position of the bottom-left corner of the camera.</li><br>
+
+                <li><span class="Asterisk"></span><span class="number"></span> <span class="term">Misc.cameraRotation</span> - Gets or sets the camera's rotation, in degrees.</li><br>
+
                 <li><span class="boolean"></span> <span class="term">Misc.FullScreen</span> - Gets or sets whether the user is in fullscreen mode.</li><br>
                 <li><span class="new"></span><span class="number"></span> <span class="term">Misc.WindowWidth</span> (read-only) - Returns the width of the game window if it were running in windowed mode (even in fullscreen). If in wide fullscreen with <span class="term">Misc.SetWideFullscreen</span>, this includes the extra displayed pixels.</li><br>
                 <li>

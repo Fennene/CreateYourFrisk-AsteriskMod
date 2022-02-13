@@ -3234,6 +3234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408fcbbdb1abf7d47b1f94dc554e2097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpbarControlOverride: 0
 --- !u!114 &2026747198
 MonoBehaviour:
   m_ObjectHideFlags: 0

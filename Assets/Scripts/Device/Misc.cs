@@ -96,6 +96,34 @@ public class Misc {
             MoveCameraTo(0f, 0f);
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public static float cameraRotation
+    {
+        get { return Camera.main.transform.eulerAngles.z; }
+        set { Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, Math.Mod(value, 360)); }
+    }
+
+    public static void CameraHorizontalReverse()
+    {
+        Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, 180, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 500);
+    }
+
+    public static void CameraVerticalReverse()
+    {
+        Camera.main.transform.eulerAngles = new Vector3(180, Camera.main.transform.eulerAngles.y, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 500);
+    }
+
+    public static void ResetCameraReverse()
+    {
+        Camera.main.transform.eulerAngles = Vector3.zero;
+        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -10);
+    }
+    // --------------------------------------------------------------------------------
+
     public LuaSpriteShader ScreenShader {
         get { return CameraShader.luashader; }
     }

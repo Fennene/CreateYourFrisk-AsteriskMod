@@ -37,6 +37,11 @@ function EncounterStarting()
     ButtonUtil.FIGHT.Move(-187, 0)
     ButtonUtil.ITEM.Move(187, 0)
 
+    -- Camera's Reverse
+    --Misc.CameraVerticalReverse()
+    --Misc.CameraHorizontalReverse()
+    --Misc.ResetCameraReverse()
+
     -- Below methods of PlayerUtil works in EncounterStarting().
     -- However, recommend to use methods of PlayerUtil in FirstFrameUpdate().
     --PlayerUtil.SetHPLabelColor(1, 1, 0)
