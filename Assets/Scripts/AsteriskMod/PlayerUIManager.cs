@@ -55,7 +55,7 @@ namespace AsteriskMod
 
         public void MoveNameLVPosition(float x, float y)
         {
-            SetPosition(namelvPosition.x + x, namelvPosition.y + y);
+            SetNameLVPosition(namelvPosition.x + x, namelvPosition.y + y);
         }
 
         public Vector2 GetNameLVPosition()
@@ -106,7 +106,7 @@ namespace AsteriskMod
 
         public void MoveHPPosition(float x, float y)
         {
-            SetPosition(hpPosition.x + x, hpPosition.y + y);
+            SetHPPosition(hpPosition.x + x, hpPosition.y + y);
         }
 
         public Vector2 GetHPPosition()
@@ -149,7 +149,7 @@ namespace AsteriskMod
 
         public void MoveHPTextPosition(float x, float y)
         {
-            SetPosition(hpTextPositon.x + x, hpTextPositon.y + y);
+            SetHPTextPosition(hpTextPositon.x + x, hpTextPositon.y + y);
         }
 
         public Vector2 GetHPTextPosition()
@@ -172,6 +172,11 @@ namespace AsteriskMod
             GameObject barManager = HPLabel.transform.Find("HPBar").gameObject;
             GameObject textMan = barManager.transform.Find("HPTextParent").gameObject;
         }
+        */
+
+        /*
+                NameLVManager.transform.GetChild(i).GetComponent<MaskImage>().color = color;
+                NameLVManager.transform.GetChild(i).GetComponent<Letter>().colorFromText = color;
         */
     }
 }

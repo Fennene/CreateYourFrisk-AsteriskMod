@@ -36,6 +36,10 @@ function EncounterStarting()
     -- Move
     ButtonUtil.FIGHT.Move(-187, 0)
     ButtonUtil.ITEM.Move(187, 0)
+
+    --PlayerUtil.SetHPLabelColor(1, 1, 0)
+    --PlayerUtil.SetHPBarFillColor32(0, 255, 255)
+    --PlayerUtil.HPTextMoveTo(10, 0)
 end
 
 function FirstFrameUpdate()

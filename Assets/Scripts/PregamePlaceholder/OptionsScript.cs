@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
@@ -16,6 +17,12 @@ public class OptionsScript : MonoBehaviour {
     // game objects
     public GameObject ResetRG, ResetAG, ClearSave, Safe, Retro, Fullscreen, Scale, Discord, Exit;
     public Text Description;
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public GameObject AsteriskBG, Asterisk, Back;
+    public Text ModName, ModVersion;
+    // --------------------------------------------------------------------------------
 
     // Use this for initialization
     private void Start() {
@@ -133,6 +140,16 @@ public class OptionsScript : MonoBehaviour {
         // exit
         Exit.GetComponent<Button>().onClick.AddListener(() => {SceneManager.LoadScene("ModSelect");});
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        Asterisk.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(true); });
+        ModName.text = AsteriskMod.Asterisk.ModName;
+        ModVersion.text = AsteriskMod.Asterisk.ModVersion;
+        Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
+        AsteriskBG.SetActive(false);
+        // --------------------------------------------------------------------------------
+
         // Crate Your Frisk
         if (!GlobalControls.crate) return;
         // labels
@@ -199,6 +216,13 @@ public class OptionsScript : MonoBehaviour {
             case "Exit":
                 response = "Returns to the Mod Select screen.";
                 return !GlobalControls.crate ? response : Temmify.Convert(response);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            case "Asterisk":
+                response = "Show Asterisk Mod's information.";
+                return !GlobalControls.crate ? response : Temmify.Convert(response);
+            // --------------------------------------------------------------------------------
             default:
                 return !GlobalControls.crate ? "Hover over an option and its description will appear here!" : "HOVR OVR DA TING N GET TEXT HEAR!!";
         }
@@ -246,6 +270,17 @@ public class OptionsScript : MonoBehaviour {
                 else if (mousePosY <=  60 && mousePosY >  20)
                     hoverItem = "Exit";
             }
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            if (mousePosX >= 350 && mousePosX <= 600)
+            {
+                if (mousePosY <= 60 && mousePosY > 20)
+                    hoverItem = "Asterisk";
+            }
+
+            Asterisk.SetActive(hoverItem != "Discord");
+            // --------------------------------------------------------------------------------
 
             Description.GetComponent<Text>().text = GetDescription(hoverItem);
         }
