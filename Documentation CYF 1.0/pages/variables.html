@@ -14,7 +14,7 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>CYF Documentation - Special Variables</title>
+    <title>*CYF Documentation - Special Variables</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
@@ -39,11 +39,11 @@ it's w3c valid, at least
                     <li><a href="controls.html">Controls</a></li>
                     <li><a href="basic.html">Basic setup</a></li>
                     <li><a href="unity.html"><span class="CYF"></span> Unity Setup (Optional)</a></li>
-                    <li class="active" style="margin-left:5px;">&gt; Special Variables &lt;</li>
+                    <li class="active aster" style="margin-left:5px;">&gt; Special Variables &lt;</li>
                     <li><a href="terms.html">Terminology</a></li>
                 <li class="li-header">API</li>
                     <li><a href="api-text.html">Text commands</a></li>
-                    <li class="new"><a href="api-events.html">Game events</a></li>
+                    <li class="aster"><a href="api-events.html">Game events</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                     <li class="li-indent">Functions &amp; Objects:</li>
                         <li class="li-indent new"><a href="api-functions-main.html">Misc. Functions</a></li>
@@ -67,6 +67,10 @@ it's w3c valid, at least
                     <li><a href="shaders.html">Introduction</a></li>
                     <li><a href="shaders-object.html">The Shader Object</a></li>
                     <li><a href="shaders-coding.html">Coding a Shader</a></li>
+                    <hr style="margin-top:10px;margin-bottom:10px;">
+                <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
+                    <li class="li-indent"><a href="../asterpages/api-playerutil.html">The PlayerUtil Object</a></li>
+                    <li class="li-indent"><a href="../asterpages/api-buttonutil.html">The ButtonUtil Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"><span class="CYF"></span> Overworld</li>
                     <li class="new"><a href="overworld.html">Basics</a></li>
@@ -104,6 +108,21 @@ it's w3c valid, at least
                 <br><span class="function"><span class="CYF"></span> <span class="boolean"></span> isCYF [E/M/W]</span>
                 A value - true by default - that indicates that if you're on CYF. nil if not on CYF. Test it with
                 <span class="term">if not isCYF then</span> or <span class="term">if isCYF then</span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="Asterisk"></span> <span class="boolean"></span> isModifiedCYF [E/M/W]</span>
+                A value - true by default - that indicates that if you're on modified CYF. nil if not on original CYF or Unitale. Test it with
+                <span class="term">if not isModifiedCYF then</span> or <span class="term">if isModifiedCYF then</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="Asterisk"></span> <span class="boolean"></span> Asterisk [E/M/W]</span>
+                A value - true by default - that indicates that if you're on CYF-AsteriskMod. nil if not on CYF-Asterisk. Test it with
+                <span class="term">if not Asterisk then</span> or <span class="term">if Asterisk then</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="Asterisk"></span> <span class="string"></span> AsteriskVersion [E/M/W]</span>
+                Returns a different string based on the version of AsteriskMod you are using.<br>
             </p>
 
             <p>

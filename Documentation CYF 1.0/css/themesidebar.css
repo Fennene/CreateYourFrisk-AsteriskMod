@@ -92,6 +92,13 @@ span.userdata {
     padding-right: 2.5px;
     */
 }
+span.Asterisk {
+    color: #007fff;
+}
+span.Asterisk::before {
+    content: " <Asterisk>";
+}
+
 span.CYF {
     color: #ffff00;
 }
@@ -143,6 +150,45 @@ span.new::before {
     opacity: 0.25;
 }
 .nav-sidebar li.li-indent.new.active::before {
+    left: -25px;
+}
+
+span.aster::before {
+    content: "..";
+    color: transparent;
+    
+    font-size: 28px;
+    
+    background-image: url("../img/new-asterisk.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 17px 22px;
+    
+    image-rendering: optimizeSpeed;             /*                     */
+    image-rendering: -moz-crisp-edges;          /* Firefox             */
+    image-rendering: -o-crisp-edges;            /* Opera               */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+    image-rendering: pixelated;                 /* Chrome as of 2019   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+}
+
+.nav-sidebar li.aster::before {
+    position: absolute;
+    content: url("../img/new-asterisk.png");
+    left: -15px;
+    margin-top: 6px;
+    z-index: 1;
+}
+.nav-sidebar li.li-indent.aster::before {
+    left: 0px;
+}
+.nav-sidebar li.aster.active::before {
+    margin-top: 0px;
+    left: -20px;
+    opacity: 0.25;
+}
+.nav-sidebar li.li-indent.aster.active::before {
     left: -25px;
 }
 
