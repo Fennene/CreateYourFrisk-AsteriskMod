@@ -14,16 +14,11 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>*CYF Documentation - The ButtonUtil Object</title>
+    <title>*CYF Documentation - The PlayerUtil Object</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
     <link href="../css/shThemeRDark.css" rel="stylesheet">
-
-    <!-- Syntax highlighting -->
-    <script type="text/javascript" src="../js/shCore.js"></script>
-    <script type="text/javascript" src="../js/shBrushLua.js"></script>
-    <script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 <body>
 <img src="../img/bg2.png" alt="Undertale background" class="backimg">
@@ -69,8 +64,9 @@ it's w3c valid, at least
                     <li><a href="../pages/shaders-coding.html">Coding a Shader</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
+                    <li class="li-indent active" style="margin-left:5px;">&gt; Basis &lt;</a></li>
                     <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
-                    <li class="li-indent active" style="margin-left:5px;">&gt; The ButtonUtil Object &lt;</a></li>
+                    <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"><span class="CYF"></span> Overworld</li>
                     <li class="new"><a href="../pages/overworld.html">Basics</a></li>
@@ -95,84 +91,137 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-api-playerutil">
-            <h2><span class="Asterisk"></span> The ButtonUtil object [E/M/W]</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-basis">
+            <h2>Asterisk Mod</h2><br><br>
             <p>
-                You can use this object to modify buttons.
+                Asterisk Mod v0.5.2 by Nil256 [FenneneProject]
+                <br><br>
+                Asterisk Mod is a folk of original Create Your Frisk.
+                That adds some strong functions and objects.
+            </p><br><br>
+
+            <p>
+                Asterisk Mod adds and modifies below features to original CYF:
+                <ul>
+                    <li>
+                        <span class="term">PlayerUtil</span>: controls the UI of the player's status.
+                    </li><br>
+                    <li>
+                        <span class="term">ButtonUtil</span>: controls the Buttons.
+                    </li><br>
+                    <li>
+                        <span class="term">Special Variables</span>: control the UI for example, text of MERCYMENU and 
+                        enemy's life bar.
+                    </li><br>
+                    <li>
+                        <span class="term">Game Events</span>: adds functions which run some the time point.
+                    </li><br>
+                    <li>
+                        <span class="term">The Misc Object</span>: reverses and rotates screen.
+                    </li><br>
+                </ul>
+                <br>
+                There are new 3 symbols in this documentaion and those means:<br>
+                <ul>
+                    <li>
+                        <span class="Asterisk"></span> are only usable in AsteriskMod.
+                    </li><br>
+                    <li>
+                        <span class="AsteriskExperiment"></span> are only usable in AsteriskMod 
+                        when "Experimental Features" is enabled.
+                    </li><br>
+                    <li>
+                        <span class="aster">Indicates content <u>new or changed CYF's content</u> in Asterisk Mod.</span>
+                    </li><br>
+                </ul>
             </p><br>
 
             <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.FIGHT</span>
-                This function returns property of FIGHT Button as Button object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ACT</span>
-                This function returns property of ACT Button as Button object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ITEM</span>
-                This function returns property of ITEM Button as Button object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.MERCY</span>
-                This function returns property of MERCY Button as Button object.
-            </p>
-            <p>
-                <br><span class="function">ButtonUtil.SetActives(<span class="boolean"></span> fight = true, <span class="boolean"></span> act = true, <span class="boolean"></span> item = true, <span class="boolean"></span> mercy = true)</span>
-                Sets the activates of all buttons at once.
+                Asterisk Mod also adds some options.<br>
+                You can see that info and options when you select <span class="term">Asterisk Mod Option</span>.
+                <br>
+                There are below options available:
                 <ul>
-                    <li><span class="term">fight</span>: active of FIGHT Button.</li>
-                    <li><span class="term">act</span>: active of ACT Button.</li>
-                    <li><span class="term">item</span>: active of ITEM Button.</li>
-                    <li><span class="term">mercy</span>: active of MERCY Button.</li>
-                </ul><br>
-                <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
+                    <li>
+                        <span class="term">Experimental Features</span>: Allow experimental features.
+                        <br>Experiment features contains the contents which will be added future update and
+                        the contents that may occur some error or may be unstable.
+                    </li>
+                </ul>
+                <br>
+                I may be add <span class="term">Language</span> Option (Japanese) in future update...?
+            </p><br><br>
+
+            <p>
+                You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
+                That is codes which modified or added by *Mod.
+            </p><br>
+
+            <hr>
+            
+            <h3>Release Notes</h3><br><br>
+
+            <h4>v0.5.2</h4>
+            <p>
+                <ul>
+                    <li>
+                        Fix the problem we can select inactive button by <span class="term">SetAction()</span>.
+                    </li>
+                    <li>
+                        Fix the problem soul select FIGHT Button even if FIGHT Button is inactive.
+                    </li>
+                    <li>
+                        Add the functions of reversing camera.
+                    </li>
+                    <li>
+                        Add the variable of rotating camera.
+                    </li>
+                    <li>
+                        Add the variables controling the UI of enemy's life bar in Enemy Script.
+                    </li>
+                    <li>
+                        Add the variables changing texts in MERCYMENU.
+                    </li>
+                    <li>
+                        Add <span class="term">Experimental Features</span>.<br>
+                        <ul>
+                            <li>
+                                Add the option about experiment features.
+                            </li>
+                            <li>
+                                Add the game event named <span class="term">BeforeEncounterEnding()</span> 
+                                which run before ending encounter.
+                            </li>
+                            <li>
+                                Add the game event named <span class="term">OnActive()</span> 
+                                which run in called <span class="term">SetActive()</span>.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </p>
 
-            <br><hr>
-            <h3>The Button object</h3><br><br>
+            <br>
+
+            <h4>v0.5</h4>
             <p>
-                You can modify position, activate and texture of buttons.
-            </p><br>
-            <p>
-                <br><span class="function"><span class="number"></span> button.x</span>
-                Horizontal position of sprite relative to the normal positon.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> button.y</span>
-                Vertical position of sprite relative to the normal positon.
-            </p>
-            <p>
-                <br><span class="function">button.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Moves the sprite <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
-                <br><br>
-                See <span class="term">button.x</span> and <span class="term">button.y</span>.
-            </p>
-            <p>
-                <br><span class="function">button.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Same as setting x and y simultaneously.
-                <br><br>
-                See <span class="term">button.x</span> and <span class="term">button.y</span>.
-            </p>
-            <p>
-                <br><span class="function">button.ResetPosition()</span>
-                Sets the button's position to normal position.
-                <br>This is same as <span class="term">button.MoveTo(0, 0)</span>.
-            </p>
-            <p>
-                <br><span class="function">button.SetActive(<span class="boolean"></span> active)</span>
-                Either true or false. If false, the button disappear and the player can't select that.
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> button.GetActive()</span>
-                This function returns activate of the button.
-            </p>
-            <p>
-                <br><span class="function">button.SetSprite(<span class="string"></span> inactiveTexturePath, <span class="string"></span> activeTexturePath)</span>
-                Change the button's current texture.
                 <ul>
-                    <li><span class="term">inactiveTexturePath</span>: the image while the player doesn't select.</li>
-                    <li><span class="term">activeTexturePath</span>: the image when the player select.</li>
+                    <li>
+                        Add special variables <span class="term">isModifiedCYF</span>,
+                        <span class="term">Asterisk</span> and <span class="term">AsteriskVersion</span>.
+                    </li>
+                    <li>
+                        Add the game event named <span class="term">FirstFrameUpdate()</span>.
+                    </li>
+                    <li>
+                        Add <span class="term">The PlayerUtil Object</span>.
+                    </li>
+                    <li>
+                        Add <span class="term">The ButtonUtil Object</span>.
+                    </li>
+                    <li>
+                        Add <span class="term">button Object</span>.
+                    </li>
                 </ul>
             </p>
         </div>

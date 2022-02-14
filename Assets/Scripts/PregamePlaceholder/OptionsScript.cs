@@ -20,7 +20,7 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject AsteriskBG, Asterisk, Back;
+    public GameObject AsteriskBG, Asterisk, Back, Experiment;
     public Text ModName, ModVersion;
     // --------------------------------------------------------------------------------
 
@@ -147,6 +147,15 @@ public class OptionsScript : MonoBehaviour {
         ModName.text = AsteriskMod.Asterisk.ModName;
         ModVersion.text = AsteriskMod.Asterisk.ModVersion;
         Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
+        Experiment.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            AsteriskMod.Asterisk.experimentMode = !AsteriskMod.Asterisk.experimentMode;
+
+            LuaScriptBinder.SetAlMighty(null, "*CYFExperiment", DynValue.NewBoolean(AsteriskMod.Asterisk.experimentMode), true);
+
+            Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (AsteriskMod.Asterisk.experimentMode ? "On" : "Off");
+        });
+        Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (AsteriskMod.Asterisk.experimentMode ? "On" : "Off");
         AsteriskBG.SetActive(false);
         // --------------------------------------------------------------------------------
 

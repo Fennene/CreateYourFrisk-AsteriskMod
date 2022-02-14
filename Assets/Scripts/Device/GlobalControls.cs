@@ -1,3 +1,4 @@
+using AsteriskMod;
 using UnityEngine;
 using System.Linq;
 using System.Collections;
@@ -26,6 +27,7 @@ public class GlobalControls : MonoBehaviour {
     public static bool isInFight;       // True if we're in a battle, false otherwise
     public static bool isInShop;        // True if we're in a shop, false otherwise
     public static bool allowWipeSave;   // Allows you to wipe your save in the Error scene if it couldn't load properly
+    public static bool asteriskExperiment; // Asterisk Mod Modification: Asterisk Mod Option
     private bool screenShaking;         // True if a screenshake is occuring, false otherwise
 
     public static string[] nonOWScenes = { "Battle", "Error", "ModSelect", "Options", "TitleScreen", "Disclaimer", "EnterName", "TransitionOverworld", "Intro" };   // Scenes in which you're not considered to be in the overworld
@@ -78,6 +80,12 @@ public class GlobalControls : MonoBehaviour {
         if (LuaScriptBinder.GetAlMighty(null, "CYFWindowScale")      != null
          && LuaScriptBinder.GetAlMighty(null, "CYFWindowScale").Type == DataType.Number)
             ScreenResolution.windowScale = (int)LuaScriptBinder.GetAlMighty(null, "CYFWindowScale").Number;
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        Asterisk.LoadOption();
+        // --------------------------------------------------------------------------------
 
         // Start Discord RPC (also checks for an AlMightyGlobal within)
         DiscordControls.Start();

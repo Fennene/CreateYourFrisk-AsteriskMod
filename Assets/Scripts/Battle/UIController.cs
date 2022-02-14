@@ -1350,6 +1350,20 @@ public class UIController : MonoBehaviour {
     }
 
     public void MovePlayerToAction(Actions act) {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        bool[] buttonActive = new bool[4] {
+            LuaButtonController.FIGHT.GetActive(),
+            LuaButtonController.ACT.GetActive(),
+            LuaButtonController.ITEM.GetActive(),
+            LuaButtonController.MERCY.GetActive()
+        };
+        int targetAction = (int)act;
+        if (!buttonActive[targetAction])
+            return;
+        // --------------------------------------------------------------------------------
+
         fightButton.overrideSprite = null;
         actButton.overrideSprite = null;
         itemButton.overrideSprite = null;
@@ -1508,6 +1522,24 @@ public class UIController : MonoBehaviour {
         if (UnitaleUtil.firstErrorShown) return;
         encounter.CallOnSelfOrChildren("EncounterStarting");
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        bool[] buttonActive = new bool[4] {
+            LuaButtonController.FIGHT.GetActive(),
+            LuaButtonController.ACT.GetActive(),
+            LuaButtonController.ITEM.GetActive(),
+            LuaButtonController.MERCY.GetActive()
+        };
+        int firstActionIndex = 0;
+        while (!buttonActive[firstActionIndex])
+        {
+            firstActionIndex = Math.Mod(firstActionIndex + 1, 4);
+        }
+        action = (Actions)firstActionIndex;
+        SetPlayerOnAction(action);
+        // --------------------------------------------------------------------------------
+
         if (!stateSwitched)
             SwitchState(UIState.ACTIONSELECT, true);
     }
@@ -1515,6 +1547,19 @@ public class UIController : MonoBehaviour {
     public void CheckAndTriggerVictory() {
         if (encounter.EnabledEnemies.Length > 0)
             return;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (Asterisk.experimentMode)
+        {
+            if (EnemyEncounter.script.GetVar("BeforeEncounterEnding") != null)
+            {
+                DynValue endEncounter = EnemyEncounter.script.Call("BeforeEncounterEnding", new DynValue[2] { DynValue.NewNumber(exp), DynValue.NewNumber(gold) });
+                if (endEncounter != null && endEncounter.Type == DataType.Boolean && endEncounter.Boolean)
+                    return;
+            }
+        }
+        // --------------------------------------------------------------------------------
         Camera.main.GetComponent<AudioSource>().Stop();
         bool levelUp = PlayerCharacter.instance.AddBattleResults(exp, gold);
         Inventory.RemoveAddedItems();

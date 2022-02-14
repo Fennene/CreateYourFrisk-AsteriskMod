@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MoonSharp.Interpreter;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,10 @@ namespace AsteriskMod
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
 
         public const string ModName = "Asterisk Mod";
-        public const string ModVersion = "v0.5.1";
+        public const string ModVersion = "v0.5.2";
+
+        public static bool experimentMode;
+        public static Languages languages = Languages.English;
 
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
@@ -28,6 +32,15 @@ namespace AsteriskMod
         public static string GetVersionDisplay()
         {
             return " *" + ModVersion;
+        }
+
+        public static void LoadOption()
+        {
+            string optionID_experiment = "*CYFExperiment";
+            if (LuaScriptBinder.GetAlMighty(null, optionID_experiment) != null && LuaScriptBinder.GetAlMighty(null, optionID_experiment).Type == DataType.Boolean)
+            {
+                experimentMode = LuaScriptBinder.GetAlMighty(null, optionID_experiment).Boolean;
+            }
         }
     }
 }

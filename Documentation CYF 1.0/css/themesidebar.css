@@ -92,11 +92,18 @@ span.userdata {
     padding-right: 2.5px;
     */
 }
+
 span.Asterisk {
     color: #007fff;
 }
 span.Asterisk::before {
     content: " <Asterisk>";
+}
+span.AsteriskExperiment {
+    color: #cf32cf;
+}
+span.AsteriskExperiment::before {
+    content: " <Experiment>";
 }
 
 span.CYF {

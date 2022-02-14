@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.Linq;
 using MoonSharp.Interpreter;
 using UnityEngine;
@@ -459,16 +460,19 @@ public class EnemyController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        try
+        if (Asterisk.experimentMode)
         {
-            if (script.GetVar("OnActive") != null)
+            try
             {
-                script.Call("OnActive", DynValue.NewBoolean(active));
+                if (script.GetVar("OnActive") != null)
+                {
+                    script.Call("OnActive", DynValue.NewBoolean(active));
+                }
             }
-        }
-        catch (InterpreterException ex)
-        {
-            UnitaleUtil.DisplayLuaError(scriptName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+            catch (InterpreterException ex)
+            {
+                UnitaleUtil.DisplayLuaError(scriptName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+            }
         }
         // --------------------------------------------------------------------------------
         script.SetVar("isactive", DynValue.NewBoolean(active));
