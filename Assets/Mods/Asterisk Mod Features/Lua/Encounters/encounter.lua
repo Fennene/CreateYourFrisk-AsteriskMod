@@ -15,6 +15,7 @@ flee = false
 sparetext = "Skip Turn"
 
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+final_attack = false
 
 function EncounterStarting()
     -- If player launch this mod with official CYF, show error
@@ -74,6 +75,15 @@ function Update()
     --PlayerUtil.SetHP(20, 30, true)
 end
 
+function EnteringState(newState, oldState)
+    if oldState == "DEFENDING" and final_attack then
+        BattleDialogue({"[noskip]YOU WON!\nYou earned 7 XP and 36 gold."})
+    end
+    if oldState == "DIALOGRESULT" and final_attack then
+        State("DONE")
+    end
+end
+
 function EnemyDialogueStarting()
 end
 
@@ -91,4 +101,13 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeEncounterEnding()
+    final_attack = true
+    wavetimer = math.huge
+    Audio.Stop()
+    nextwaves = {"bullettest_bouncy_end"}
+    State("DEFENDING")
+    return true
 end
