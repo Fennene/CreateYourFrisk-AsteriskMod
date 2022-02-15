@@ -6,7 +6,7 @@ var link = document.createElement("a");
 var src;
 
 var locationSplit = window.location.pathname.split("/");
-if (locationSplit[locationSplit.length - 2] !== "pages") {
+if (locationSplit[locationSplit.length - 2] !== "pages" && locationSplit[locationSplit.length - 2] !== "asterpages") {
     src = "img/fontbt_0.png";
 } else {
     src = "../img/fontbt_0.png";
