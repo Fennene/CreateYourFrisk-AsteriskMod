@@ -207,7 +207,16 @@ public class LuaPlayerStatus {
     /// </summary>
     /// <param name="overrideControl"></param>
     public void SetControlOverride(bool overrideControl) {
-        if (UIController.instance.GetState() == UIController.UIState.DEFENDING) player.setControlOverride(overrideControl);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //if (UIController.instance.GetState() == UIController.UIState.DEFENDING) player.setControlOverride(overrideControl);
+        UIController.UIState state = UIController.instance.GetState();
+        if (state == UIController.UIState.DEFENDING || state == UIController.UIState.CUSTOMSTATE)
+        {
+            player.setControlOverride(overrideControl);
+        }
+        // --------------------------------------------------------------------------------
     }
 
     /// <summary>

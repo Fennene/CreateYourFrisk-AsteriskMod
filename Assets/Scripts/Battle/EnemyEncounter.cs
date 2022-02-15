@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AsteriskMod;
+using AsteriskMod.Lua;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MoonSharp.Interpreter;
@@ -400,4 +402,167 @@ public class EnemyEncounter : MonoBehaviour {
     public void EndWaveTimer() { waveTimer = Time.time; }
 
     public bool WaveInProgress() { return Time.time < waveTimer; }
+
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private ScriptWrapper customStateScript;
+    private string currentCustomStateName;
+    private bool customStateHasUpdate;
+
+    private void TryCallStateStarting(UIController.UIState oldState)
+    {
+        customStateHasUpdate = !(customStateScript.script.Globals["Update"] == null);
+        if (customStateScript.script.Globals["StateEnding"] == null)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, "All the state scripts need an StateEnding() function!");
+            return;
+        }
+        try
+        {
+            customStateScript.script.Call(customStateScript.script.Globals["StateStarting"], DynValue.NewString(oldState.ToString()));
+        }
+        catch (InternalErrorException ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            if (customStateScript.script.Globals["StateStarting"] == null)
+                UnitaleUtil.DisplayLuaError(currentCustomStateName, "All the state scripts need an StateStarting() function!");
+            else
+                UnitaleUtil.DisplayLuaError(currentCustomStateName, "This error is a " + ex.GetType() + " error.\nPlease send this error to the main dev.\n\n" + ex.Message + "\n\n" + ex.StackTrace);
+        }
+    }
+
+    public void StartCustomState(UIController.UIState oldState)
+    {
+        if (!Asterisk.experimentMode)
+        {
+            UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature in v0.5.x. You should enable \"Experimental Feature\" in AsteriskMod's option.");
+            return;
+        }
+        DynValue customStateName = script.GetVar("customstatename");
+        if (customStateName.Type != DataType.String)
+        {
+            string errorText = "customstatename is a " + customStateName.Type + ", but should be a string.";
+            if (customStateName.Type == DataType.Nil) errorText = "customstatename is not defined in your script.";
+            UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, errorText);
+            return;
+        }
+        try
+        {
+            customStateScript = new ScriptWrapper() { scriptname = customStateName.String };
+            customStateScript.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
+            customStateScript.script.Globals["CreateProjectile"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectile;
+            customStateScript.script.Globals["CreateProjectileAbs"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectileAbs;
+            DynValue CustomStateEditor = UserData.Create(new StateEditor());
+            customStateScript.script.Globals.Set("StateEditor", CustomStateEditor);
+            DynValue ArenaStatus = UserData.Create(ArenaManager.luaStatus);
+            customStateScript.script.Globals.Set("Arena", ArenaStatus);
+            //StateEditor
+            currentCustomStateName = customStateName.String;
+            try
+            {
+                customStateScript.DoString(ScriptRegistry.Get(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String));
+            }
+            catch (InternalErrorException ex)
+            {
+                UnitaleUtil.DisplayLuaError(customStateName.String + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                //if (!GlobalControls.retroMode && !ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
+                if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
+                    UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "The state \"" + customStateName.String + "\" doesn't exist.");
+                else
+                    UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
+            }
+            TryCallStateStarting(oldState);
+            script.SetVar("CustomState", UserData.Create(customStateScript));
+        }
+        catch (InterpreterException ex)
+        {
+            UnitaleUtil.DisplayLuaError(customStateName.String + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+        }
+    }
+
+    public void UpdateCustomState()
+    {
+        if (!customStateHasUpdate) return;
+        try
+        {
+            customStateScript.script.Call(customStateScript.script.Globals["Update"]);
+        }
+        catch (InternalErrorException ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, "This error is a " + ex.GetType() + " error.\nPlease send this error to the main dev.\n\n" + ex.Message + "\n\n" + ex.StackTrace);
+        }
+    }
+
+    public void EndCustomState(UIController.UIState newState)
+    {
+        ArenaManager.instance.resetArena();
+        ScriptWrapper scr = (ScriptWrapper)script["CustomState"].UserData.Object;
+        try
+        {
+            scr.Call("StateEnding", DynValue.NewString(newState.ToString()));
+            LuaScriptBinder.scriptlist.Remove(scr.script);
+        }
+        catch
+        {
+            UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "You shouldn't override CustomState, now you get an error :P");
+        }
+        script.SetVar("CustomState", DynValue.NewString(""));
+    }
+
+    private void CustomStateCallSafely(string functionName)
+    {
+        if (customStateScript.script.Globals[functionName] == null) return;
+        try
+        {
+            customStateScript.script.Call(customStateScript.script.Globals[functionName]);
+        }
+        catch (InterpreterException ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, "This error is a " + ex.GetType() + " error.\nPlease send this error to the main dev.\n\n" + ex.Message + "\n\n" + ex.StackTrace);
+        }
+    }
+
+    public void CustomStateHandleAction()
+    {
+        CustomStateCallSafely("HandleAction");
+    }
+
+    public void CustomStateHandleArrows(bool left, bool right, bool up, bool down)
+    {
+        if (customStateScript.script.Globals["HandleArrows"] == null) return;
+        try
+        {
+            customStateScript.script.Call(customStateScript.script.Globals["HandleArrows"], DynValue.NewBoolean(left), DynValue.NewBoolean(right), DynValue.NewBoolean(up), DynValue.NewBoolean(down));
+        }
+        catch (InterpreterException ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            UnitaleUtil.DisplayLuaError(currentCustomStateName, "This error is a " + ex.GetType() + " error.\nPlease send this error to the main dev.\n\n" + ex.Message + "\n\n" + ex.StackTrace);
+        }
+    }
+
+    public void CustomStateHandleCancel()
+    {
+        CustomStateCallSafely("HandleCancel");
+    }
+    // --------------------------------------------------------------------------------
 }

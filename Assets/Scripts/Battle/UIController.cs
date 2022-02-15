@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    //private static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;
     public static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
     // --------------------------------------------------------------------------------
     private Image fightButton, actButton, itemButton, mercyButton;                                  // UI button objects in the scene
@@ -324,6 +325,20 @@ public class UIController : MonoBehaviour {
             PlayerController.instance.setControlOverride(true);
         }
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (state == UIState.CUSTOMSTATE)
+        {
+            if (!Asterisk.experimentMode)
+            {
+                UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature in v0.5.x. You should enable \"Experimental Feature\" in AsteriskMod's option.");
+                return;
+            }
+            encounter.EndCustomState(newState);
+        }
+        // --------------------------------------------------------------------------------
+
         if (state == UIState.ENEMYSELECT && forcedAction == Actions.FIGHT)
             foreach (LifeBarController lbc in arenaParent.GetComponentsInChildren<LifeBarController>())
                 Destroy(lbc.gameObject);
@@ -608,6 +623,14 @@ public class UIController : MonoBehaviour {
                         sbTextMan.letterSound.clip = AudioClipRegistry.GetVoice(encounter.EnabledEnemies[i].Voice);
                 }
                 break;
+
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            case UIState.CUSTOMSTATE:
+                encounter.StartCustomState(oldState);
+                break;
+            // --------------------------------------------------------------------------------
 
             case UIState.DONE:
                 //StaticInits.Reset();
@@ -1084,6 +1107,13 @@ public class UIController : MonoBehaviour {
                             DoNextMonsterDialogue();
                     }
                     break;
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                case UIState.CUSTOMSTATE:
+                    encounter.CustomStateHandleAction();
+                    break;
+                // --------------------------------------------------------------------------------
             }
         else
             PlaySound(AudioClipRegistry.GetSound("menuconfirm"));
@@ -1263,6 +1293,14 @@ public class UIController : MonoBehaviour {
 
                 SetPlayerOnSelection(selectedMercy * 2);
                 break;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            case UIState.CUSTOMSTATE:
+                if (!left && !right && !up && !down) return;
+                encounter.CustomStateHandleArrows(left, right, up, down);
+                return;
+            // --------------------------------------------------------------------------------
         }
     }
 
@@ -1301,6 +1339,10 @@ public class UIController : MonoBehaviour {
             case UIState.ITEMMENU:
             case UIState.MERCYMENU:
                 SwitchState(UIState.ACTIONSELECT);
+                break;
+
+            case UIState.CUSTOMSTATE:
+                encounter.CustomStateHandleCancel();
                 break;
         }
     }
@@ -1377,7 +1419,12 @@ public class UIController : MonoBehaviour {
     // 0    1
     // 2    3
     // 4    5
-    private void SetPlayerOnSelection(int selection) {
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    // private void SetPlayerOnSelection(int selection) {
+    public void SetPlayerOnSelection(int selection) {
+        // --------------------------------------------------------------------------------
         int xMv = selection % 2; // remainder safe again, selection is never negative
         int yMv = selection / 2;
         // HACK: remove hardcoding of this sometime, ever... probably not happening lmao
@@ -1653,6 +1700,15 @@ public class UIController : MonoBehaviour {
             else          UpdateMonsterDialogue();
         }
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (state == UIState.CUSTOMSTATE)
+        {
+            encounter.UpdateCustomState();
+        }
+        // --------------------------------------------------------------------------------
+
         if (state == UIState.DEFENDING) {
             if (!encounter.WaveInProgress()) {
                 if (GlobalControls.retroMode)
@@ -1718,4 +1774,16 @@ public class UIController : MonoBehaviour {
         //    if ((Vector2)arenaParent.transform.position == new Vector2(320, 90))
         //        PlayerController.instance.setControlOverride(false);
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
+    {
+        fightButton.overrideSprite = fight ? fightButtonSprite : null;
+        actButton.overrideSprite = act ? actButtonSprite : null;
+        itemButton.overrideSprite = item ? itemButtonSprite : null;
+        mercyButton.overrideSprite = mercy ? mercyButtonSprite : null;
+    }
+    // --------------------------------------------------------------------------------
 }
