@@ -59,12 +59,12 @@ it's w3c valid, at least
                     <li class="new"><a href="../pages/cyf-text.html"><span class="CYF"></span> The Text Object</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
-                    <li class="active" style="margin-left:5px;">&gt; About &lt;</a></li>
-                    <li><a href="api-playerutil.html">The PlayerUtil Object</a></li>
+                    <li><a href="basis.html">About</a></li>
+                    <li class="active"><a href="customstate-stateeditor.html">The PlayerUtil Object</a></li>
                     <li><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent"><span class="AsteriskExperiment"></span> CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
-                    <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
+                    <li class="li-indent active">&gt; Available Var/Fun/Obj &lt;</li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
                     <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
@@ -96,163 +96,92 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-basis">
-            <h2>Asterisk Mod</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-customstate-stateeditor">
+            <h2>Available Variables, Functions and Objects in CustomState</h2><br><br>
             <p>
-                Asterisk Mod v0.5.2.4 by Nil256 [FenneneProject]
+                There is a list of variables, functions, and objects you can use in State Script.<br>
+                You can use almost features written <span class="term">[E/M/W]</span> in this document in state scripts.<br><br>
+                If you want to know each feature, see the other pages.
+            </p><br><br>
+
+            <h4>variables</h4>
+
+            <ul>
+                <li>
+                    <span class="string"></span> <span class="term">var</span>: variable.
+                </li><br>
+            </ul>
+
+
+
+
+
+
+
+
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            <p>
+                <br><span class="function">StateEditor.SetDialogText(<span class="string"></span> text)</span>
+                Sets text in dialog box.<br>
+                This is like setting <span class="term">encountertext</span>.
+            </p>
+            <p>
+                <br><span class="function">StateEditor.SetChoicesDialogText(<span class="luatable"><span class="string"></span></span> texts [, <span class="boolean"></span> singleList = true])</span>
+                Sets choices in dialog box, as table of string.<br>
+                <ul>
+                    <li>
+                        <span class="term">singleList</span>: If true(default), choices will be lined up like 
+                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
+                        If false, choices will be line up like <span class="term">ACTMENU</span>.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                <br><span class="function">StateEditor.SetDialogTextPuase(<span class="boolean"></span> puase)</span>
+                Pauses the text of dialog box object's typing, in the same way as <span class="term">text.SetPause()</span>.
+            </p>
+            <p>
+                <br><span class="function">StateEditor.SetDialogTextEffect(<span class="string"></span> effect [, <span class="number"></span> intensity = -1])</span>
+                Sets the effect of text in dialog box object, in the same way as <span class="term">text.SetEffect()</span>.
+            </p>
+
+            <p>
+                <br><span class="function">StateEditor.SetButtonActive(<span class="boolean"></span> fight = false, <span class="boolean"></span> act = false, <span class="boolean"></span> item = false, <span class="boolean"></span> mercy = false)</span>
+                Changes each button's displaying.<br>
+                If true, the button is changed like the player selects. (changes to yellow(normal))<br>
+                If false, the button is changed to orange (normal).
+            </p>
+
+            <p>
+                <br><span class="function">StateEditor.SetPlayerOnSelection(<span class="number"></span> selection [, <span class="boolean"></span> singleList = true)</span>
+                Sets the position of the player's soul, as a integer number.<br>
+                This is useful for moving the soul to correct position after using <span class="term">StateEditor.SetChoicesDialogText()</span>.
+                <ul>
+                    <li>
+                        <span class="term">singleList</span>: If true(default), the soul will be moved to like 
+                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
+                        If false, the soul will moved like <span class="term">ACTMENU</span>.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                <br><span class="function">StateEditor.SetPlayerVisible(<span class="boolean"></span> visible)</span>
+                Changes the visible of the player's soul, 
+                but different way of <span class="term">Player.soul.alpha</span>.<br>
+                If you use this to invisible the soul, 
+                you should set to visible it in <span class="term">StateEnding()</span>.
                 <br><br>
-                Asterisk Mod is a folk of original Create Your Frisk.
-                That adds some strong functions and objects.
-            </p><br><br>
-
-            <p>
-                Asterisk Mod adds and modifies below features to original CYF:
-                <ul>
-                    <li>
-                        <span class="term">PlayerUtil</span>: controls the UI of the player's status.
-                    </li><br>
-                    <li>
-                        <span class="term">ButtonUtil</span>: controls the Buttons.
-                    </li><br>
-                    <li>
-                        <span class="term">Special Variables</span>: control the UI for example, text of MERCYMENU and 
-                        enemy's life bar.
-                    </li><br>
-                    <li>
-                        <span class="term">Game Events</span>: adds functions which run some the time point.
-                    </li><br>
-                    <li>
-                        <span class="term">The Misc Object</span>: reverses and rotates screen.
-                    </li><br>
-                </ul>
-                <br>
-                There are new 3 symbols in this documentaion and those means:<br>
-                <ul>
-                    <li>
-                        <span class="Asterisk"></span> are only usable in AsteriskMod.
-                    </li><br>
-                    <li>
-                        <span class="AsteriskExperiment"></span> are only usable in AsteriskMod 
-                        when "Experimental Features" is enabled.
-                    </li><br>
-                    <li>
-                        <span class="aster">Indicates content <u>new or changed CYF's content</u> in Asterisk Mod.</span>
-                    </li><br>
-                </ul>
-            </p><br>
-
-            <p>
-                Asterisk Mod also adds some options.<br>
-                You can see that info and options when you select <span class="term">Asterisk Mod Option</span>.
-                <br>
-                There are below options available:
-                <ul>
-                    <li>
-                        <span class="term">Experimental Features</span>: Allow experimental features.
-                        <br>Experiment features contains the contents which will be added future update and
-                        the contents that may occur some error or may be unstable.
-                    </li>
-                </ul>
-                <br>
-                I may be add <span class="term">Language</span> Option (Japanese) in future update...?
-            </p><br><br>
-
-            <p>
-                You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
-                That is codes which modified or added by *Mod.
-            </p><br>
-
-            <hr>
-            
-            <h3>Release Notes</h3><br><br>
-
-            <h4>v0.5.2.4 (beta/debug version)</h4>
-            <p>
-                <ul>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the new content <span class="term">CustomState</span>.
-                            </li>
-                            <li>
-                                Add the state <span class="term">CUSTOMSTATE</span>.
-                            </li>
-                            <li>
-                                Add <span class="term">State Scripts</span>.
-                            </li>
-                            <li>
-                                Add the variable <span class="term">customstatename</span> in Encounter Script.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                Technical Note: <span class="term">Player.soul.alpha</span> is changed the transparency of the soul, but 
+                this function is changed the enable of the soul's Image Component. That sounds NOT good, however it is 
+                used to change the visible of the soul in CYF engine.
             </p>
 
-            <br>
-
-            <h4>v0.5.2</h4>
             <p>
-                <ul>
-                    <li>
-                        Fix the problem we can select inactive button by <span class="term">SetAction()</span>.
-                    </li>
-                    <li>
-                        Fix the problem soul select FIGHT Button even if FIGHT Button is inactive.
-                    </li>
-                    <li>
-                        Add the functions of reversing camera.
-                    </li>
-                    <li>
-                        Add the variable of rotating camera.
-                    </li>
-                    <li>
-                        Add the variables controling the UI of enemy's life bar in Enemy Script.
-                    </li>
-                    <li>
-                        Add the variables changing texts in MERCYMENU.
-                    </li>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the option about experiment features.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">BeforeEncounterEnding()</span> 
-                                which run before ending encounter.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">OnActive()</span> 
-                                which run in called <span class="term">SetActive()</span>.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5</h4>
-            <p>
-                <ul>
-                    <li>
-                        Add special variables <span class="term">isModifiedCYF</span>,
-                        <span class="term">Asterisk</span> and <span class="term">AsteriskVersion</span>.
-                    </li>
-                    <li>
-                        Add the game event named <span class="term">FirstFrameUpdate()</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">The PlayerUtil Object</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">The ButtonUtil Object</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">button Object</span>.
-                    </li>
-                </ul>
+                <br><span class="function">StateEditor.ForceResetArena()</span>
+                Reset arena.
+                <br><br>
+                This function is called automatically before calling <span class="term">StateEnding()</span>.
             </p>
         </div>
 

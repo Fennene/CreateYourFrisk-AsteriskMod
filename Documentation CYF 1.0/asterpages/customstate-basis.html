@@ -59,11 +59,11 @@ it's w3c valid, at least
                     <li class="new"><a href="../pages/cyf-text.html"><span class="CYF"></span> The Text Object</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
-                    <li class="active" style="margin-left:5px;">&gt; About &lt;</a></li>
+                    <li><a href="basis.html">About</a></li>
                     <li><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent"><span class="AsteriskExperiment"></span> CustomState:</li>
-                    <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
+                    <li class="li-indent active">&gt; Basis &lt;</li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
                     <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
@@ -96,163 +96,74 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-basis">
-            <h2>Asterisk Mod</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-customstate">
+            <h2><span class="AsteriskExperiment"></span> CustomState</h2><br><br>
             <p>
-                Asterisk Mod v0.5.2.4 by Nil256 [FenneneProject]
+                CustomState is one of very strong feature in Asterisk Mod.<br>
+                Asterisk Mod adds new type of script, named <span class="term">State Script</span>.<br>
+                You can control your state with that script.
                 <br><br>
-                Asterisk Mod is a folk of original Create Your Frisk.
-                That adds some strong functions and objects.
-            </p><br><br>
-
-            <p>
-                Asterisk Mod adds and modifies below features to original CYF:
-                <ul>
-                    <li>
-                        <span class="term">PlayerUtil</span>: controls the UI of the player's status.
-                    </li><br>
-                    <li>
-                        <span class="term">ButtonUtil</span>: controls the Buttons.
-                    </li><br>
-                    <li>
-                        <span class="term">Special Variables</span>: control the UI for example, text of MERCYMENU and 
-                        enemy's life bar.
-                    </li><br>
-                    <li>
-                        <span class="term">Game Events</span>: adds functions which run some the time point.
-                    </li><br>
-                    <li>
-                        <span class="term">The Misc Object</span>: reverses and rotates screen.
-                    </li><br>
-                </ul>
-                <br>
-                There are new 3 symbols in this documentaion and those means:<br>
-                <ul>
-                    <li>
-                        <span class="Asterisk"></span> are only usable in AsteriskMod.
-                    </li><br>
-                    <li>
-                        <span class="AsteriskExperiment"></span> are only usable in AsteriskMod 
-                        when "Experimental Features" is enabled.
-                    </li><br>
-                    <li>
-                        <span class="aster">Indicates content <u>new or changed CYF's content</u> in Asterisk Mod.</span>
-                    </li><br>
-                </ul>
+                This feature is <b><u>NOT</u></b> similarly to CustomState in CYF v0.6.6.
             </p><br>
 
-            <p>
-                Asterisk Mod also adds some options.<br>
-                You can see that info and options when you select <span class="term">Asterisk Mod Option</span>.
-                <br>
-                There are below options available:
-                <ul>
-                    <li>
-                        <span class="term">Experimental Features</span>: Allow experimental features.
-                        <br>Experiment features contains the contents which will be added future update and
-                        the contents that may occur some error or may be unstable.
-                    </li>
-                </ul>
-                <br>
-                I may be add <span class="term">Language</span> Option (Japanese) in future update...?
-            </p><br><br>
+            <h4>Note that you should enable <span class="term">Experimental Features</span> in AsteriskMod's option.</h4>
 
-            <p>
-                You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
-                That is codes which modified or added by *Mod.
-            </p><br>
-
+            <br>
             <hr>
-            
-            <h3>Release Notes</h3><br><br>
 
-            <h4>v0.5.2.4 (beta/debug version)</h4>
+            <h3>Basic Setup</h3>
+
             <p>
-                <ul>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the new content <span class="term">CustomState</span>.
-                            </li>
-                            <li>
-                                Add the state <span class="term">CUSTOMSTATE</span>.
-                            </li>
-                            <li>
-                                Add <span class="term">State Scripts</span>.
-                            </li>
-                            <li>
-                                Add the variable <span class="term">customstatename</span> in Encounter Script.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                The <i>State scripts</i> are located in <span class="term">YOUR MOD/Lua/States/</span>.<br>
+                After you create files, what you should do is to write <span class="term">StateStarting()</span> and <span class="term">StateEnding()</span> in the script.
+            </p><br>
+
+            <h3>Available variables, function and objects</h3>
+
+            <p>
+                You can use almost features written <span class="term">[E/M/W]</span> in this document to state scripts.<br>
+                Additionally, you can use <span class="term">the Arena object</span> and 
+                <span class="term">the StateEditor object</span> to control UIs.<br>
+                Moreover, <span class="term">Player.SetControlOverride()</span> works in the scripts.
+                <br><br>
+                See pages in <span>CustomState</span> scetion for more information.
+            </p><br>
+
+            <h3>How to enter to your CustomState</h3>
+
+            <p>
+                <br><span class="function"><span class="AsteriskExperiment"></span> <span class="string"></span> customstatename [E]</span>
+                A name of your CustomState.<br>
+                you want when you want to enter CustomState. You can modify this at any time, and it'll get read out before it enters any CustomState (when you call <span class="term">State("CUSTOMSTATE")</span>).
             </p>
 
-            <br>
-
-            <h4>v0.5.2</h4>
             <p>
-                <ul>
-                    <li>
-                        Fix the problem we can select inactive button by <span class="term">SetAction()</span>.
-                    </li>
-                    <li>
-                        Fix the problem soul select FIGHT Button even if FIGHT Button is inactive.
-                    </li>
-                    <li>
-                        Add the functions of reversing camera.
-                    </li>
-                    <li>
-                        Add the variable of rotating camera.
-                    </li>
-                    <li>
-                        Add the variables controling the UI of enemy's life bar in Enemy Script.
-                    </li>
-                    <li>
-                        Add the variables changing texts in MERCYMENU.
-                    </li>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the option about experiment features.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">BeforeEncounterEnding()</span> 
-                                which run before ending encounter.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">OnActive()</span> 
-                                which run in called <span class="term">SetActive()</span>.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
+                <br><span class="function"><span class="AsteriskExperiment"></span> <span class="string"></span> State("CUSTOMSTATE") [E]</span>
+                When starting this state, <span class="term">customstatename</span> is read out from the Encounter script and the script in the States folder with matching name will be CustomState.
+                <br><br>
+                I don't recommend call this function in the state script. (I think it may work but we need more debugs.)
+                <br><br>
+                Note that when <span class="term">Experimental Features</span> is disabled, an error will occur.
+            </p><br><br>
 
-            <br>
-
-            <h4>v0.5</h4>
             <p>
-                <ul>
-                    <li>
-                        Add special variables <span class="term">isModifiedCYF</span>,
-                        <span class="term">Asterisk</span> and <span class="term">AsteriskVersion</span>.
-                    </li>
-                    <li>
-                        Add the game event named <span class="term">FirstFrameUpdate()</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">The PlayerUtil Object</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">The ButtonUtil Object</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">button Object</span>.
-                    </li>
-                </ul>
+                <font color="#FFF">* You can enter CustomState by using above 2 features.</font>
+            </p><br>
+
+            <h3>Currently confirmed issues</h3>
+
+            <p>
+                I will <b><u>NOT</u></b> remove this features in future update without fatal error.
+                <br><br>
+                State Scripts show error complexly.<br>
+                I don't know why that does.<br>
+                However I think if you are not beginners, you could guess the cause from the type of exception.
+            </p><br>
+
+            <h3>Implementation in *Mod's the formal version</h3>
+
+            <p>
+                CustomState feature may be experimental feature until AsteriskMod is v0.6.x.
             </p>
         </div>
 
