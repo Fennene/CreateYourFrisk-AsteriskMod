@@ -1,7 +1,4 @@
--- A basic encounter script skeleton you can copy and modify for your own creations.
-
--- music = "shine_on_you_crazy_diamond" --Either OGG or WAV. Extension is added automatically. Uncomment for custom music.
-encountertext = "Poseur strikes a pose!" --Modify as necessary. It will only be read out in the action select screen.
+encountertext = "Poseur strikes a pose!"
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 4.0
 arenasize = {155, 130}
@@ -14,8 +11,8 @@ enemypositions = {
 {0, 0}
 }
 
--- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+item_inventory = {"DogTest1", "DogTest2", "DogTest3", "DogTest4", "DogTest5", "DogTest6", "DogTest7", "DogTest8"}
 
 function EncounterStarting()
     if isModifiedCYF == nil then
@@ -32,6 +29,10 @@ function EncounterStarting()
 
     Inventory.AddCustomItems({"Fake"}, {3})
     Inventory.SetInventory({"Fake"})
+end
+
+function FirstFrameUpdate()
+    PlayerUtil.HPUIMoveTo(-40, 0)
 end
 
 function EnteringState(newState, oldState)
@@ -57,5 +58,8 @@ function HandleSpare()
 end
 
 function HandleItem(ItemID)
+    if #item_inventory == 0 then
+        Inventory.SetInventory({})
+    end
     BattleDialog({"Selected item " .. ItemID .. "."})
 end
