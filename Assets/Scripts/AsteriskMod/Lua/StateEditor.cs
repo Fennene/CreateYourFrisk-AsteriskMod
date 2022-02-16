@@ -49,6 +49,11 @@ namespace AsteriskMod.Lua
             UIController.instance.mainTextManager.SetEffect(targetEffect);
         }
 
+        public static bool GetLineCompleteDialogText()
+        {
+            return UIController.instance.mainTextManager.LineComplete();
+        }
+
         public static void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
         {
             UIController.instance.SetButtonActive(fight, act, item, mercy);
