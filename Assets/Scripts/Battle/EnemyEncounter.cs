@@ -461,7 +461,6 @@ public class EnemyEncounter : MonoBehaviour {
             customStateScript.script.Globals.Set("StateEditor", CustomStateEditor);
             DynValue ArenaStatus = UserData.Create(ArenaManager.luaStatus);
             customStateScript.script.Globals.Set("Arena", ArenaStatus);
-            //StateEditor
             currentCustomStateName = customStateName.String;
             try
             {

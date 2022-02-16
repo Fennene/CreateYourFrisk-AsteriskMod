@@ -104,85 +104,145 @@ it's w3c valid, at least
                 If you want to know each feature, see the other pages.
             </p><br><br>
 
-            <h4>variables</h4>
+            <h4>Variables</h4>
 
-            <ul>
+            <p><ul>
                 <li>
-                    <span class="string"></span> <span class="term">var</span>: variable.
+                    <span class="boolean"></span> <span class="term">isCYF</span>: whether is CYF or not. always true.
                 </li><br>
-            </ul>
+                <li>
+                    <span class="boolean"></span> <span class="term">isModifiedCYF</span>: whether is modified CYF or original CYF. always true.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">Asterisk</span>: whether AsteriskMod is enabled or disabled. always true.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">AsteriskExperiment</span>: whether <span class="term">Experimental Features</span> is enabled or disabled.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">safe</span>: whether CYF's safe mode is enable or disable.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">windows</span>: whether the client uses windows OS or not.
+                </li><br>
+                <li>
+                    <span class="string"></span> <span class="term">CYFversion</span>: a value shows CYF's version. always <span class="term">v0.6.5</span>.
+                </li><br>
+                <li>
+                    <span class="string"></span> <span class="term">AsteriskVersion</span>: a value shows AsteriskMod's version.
+                </li><br>
+                <li>
+                    <span class="userdata">script</span> <span class="term">Encounter</span><i>[NeedMoreDebug]</i>: returns Encounter Script as script object.
+                </li><br>
+            </ul></p><br>
 
+            <h4>Functions</h4>
 
+            <p><ul>
+                <li>
+                    <span class="term">SetGlobal</span>: sets a value that can access anywhere in script.
+                </li><br>
+                <li>
+                    <font face="segoe ui" color="#FFF"><b>object</b></font> <span class="term">GetGlobal</span>: gets a value set by <span class="term">SetGlobal</span>.
+                </li><br>
+                <li>
+                    <span class="term">SetRealGlobal</span>: sets a value that can access anywhere in all mods until CYF closes.
+                </li><br>
+                <li>
+                    <font face="segoe ui" color="#FFF"><b>object</b></font> <span class="term">GetRealGlobal</span>: gets a value set by <span class="term">SetRealGlobal</span>.
+                </li><br>
+                <li>
+                    <span class="term">SetAlMightyGlobal</span>: sets a value and save that to CYF's save data.
+                </li><br>
+                <li>
+                    <font face="segoe ui" color="#FFF"><b>object</b></font> <span class="term">GetAlMightyGlobal</span>: gets a value from CYF's save data.
+                </li><br>
+                <li>
+                    <span class="term">DEBUG</span>: opens debugger and shows a data from a value inputted.
+                </li><br>
+                <li>
+                    <span class="term">EnableDebugger</span>: sets whether debugger is enabled or disabled.
+                </li><br>
+                <li>
+                    <span class="term">State</span>: changes mod's state.
+                </li><br>
+                <li>
+                    <span class="string"></span> <span class="term">GetCurrentState</span>: gets current mod's state.
+                </li><br>
+                <li>
+                    <span class="term">SetFrameBasedMovement</span>: changes the movement's base of the player's soul.
+                </li><br>
+                <li>
+                    <span class="term">SetAction</span><i>[NeedMoreDebug]</i>: moves the player's soul on any button.
+                </li><br>
+                <li>
+                    <span class="term">AllowPlayerDef</span>: whether include the player's def or not to calculate the damage of player.
+                </li><br>
+                <li>
+                    <span class="term">BattleDialog or BattleDialogue</span>: sets text in dialog box and go to the state <span class="term">DIALOGRESULT</span>.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">CreateLayer</span>: creates layer. returns whether success or not.
+                </li><br>
+                <li>
+                    <span class="userdata">sprite</span> <span class="term">CreateSprite</span>: creates sprite object.
+                </li><br>
+                <li>
+                    <span class="term">CreateProjectileLayer</span>: IDK. See the section <span class="term">Projectile Managemnt</span>.
+                </li><br>
+                <li>
+                    <span class="userdata">text</span> <span class="term">CreateText</span>: creates text object.
+                </li><br>
+                <li>
+                    <span class="userdata">bullet</span> <span class="term">CreateProjectile and CreateProjectileAbs</span><i>[NeedMoreDebug]</i>: creates bullet object.
+                </li><br>
+                <li>
+                    <span class="term">SetPPCollision</span>: sets whether use PPCollisionSystem or not to check collide the player's soul and bullet.
+                </li><br>
+                <!--
+                <li>
+                    <span class="term">fun</span>: function.
+                </li><br>
+                -->
+            </ul></p><br>
 
+            <h4>Objects</h4>
 
-
-
-
-
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-            <p>
-                <br><span class="function">StateEditor.SetDialogText(<span class="string"></span> text)</span>
-                Sets text in dialog box.<br>
-                This is like setting <span class="term">encountertext</span>.
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SetChoicesDialogText(<span class="luatable"><span class="string"></span></span> texts [, <span class="boolean"></span> singleList = true])</span>
-                Sets choices in dialog box, as table of string.<br>
-                <ul>
-                    <li>
-                        <span class="term">singleList</span>: If true(default), choices will be lined up like 
-                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
-                        If false, choices will be line up like <span class="term">ACTMENU</span>.
-                    </li>
-                </ul>
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SetDialogTextPuase(<span class="boolean"></span> puase)</span>
-                Pauses the text of dialog box object's typing, in the same way as <span class="term">text.SetPause()</span>.
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SetDialogTextEffect(<span class="string"></span> effect [, <span class="number"></span> intensity = -1])</span>
-                Sets the effect of text in dialog box object, in the same way as <span class="term">text.SetEffect()</span>.
-            </p>
-
-            <p>
-                <br><span class="function">StateEditor.SetButtonActive(<span class="boolean"></span> fight = false, <span class="boolean"></span> act = false, <span class="boolean"></span> item = false, <span class="boolean"></span> mercy = false)</span>
-                Changes each button's displaying.<br>
-                If true, the button is changed like the player selects. (changes to yellow(normal))<br>
-                If false, the button is changed to orange (normal).
-            </p>
-
-            <p>
-                <br><span class="function">StateEditor.SetPlayerOnSelection(<span class="number"></span> selection [, <span class="boolean"></span> singleList = true)</span>
-                Sets the position of the player's soul, as a integer number.<br>
-                This is useful for moving the soul to correct position after using <span class="term">StateEditor.SetChoicesDialogText()</span>.
-                <ul>
-                    <li>
-                        <span class="term">singleList</span>: If true(default), the soul will be moved to like 
-                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
-                        If false, the soul will moved like <span class="term">ACTMENU</span>.
-                    </li>
-                </ul>
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SetPlayerVisible(<span class="boolean"></span> visible)</span>
-                Changes the visible of the player's soul, 
-                but different way of <span class="term">Player.soul.alpha</span>.<br>
-                If you use this to invisible the soul, 
-                you should set to visible it in <span class="term">StateEnding()</span>.
-                <br><br>
-                Technical Note: <span class="term">Player.soul.alpha</span> is changed the transparency of the soul, but 
-                this function is changed the enable of the soul's Image Component. That sounds NOT good, however it is 
-                used to change the visible of the soul in CYF engine.
-            </p>
-
-            <p>
-                <br><span class="function">StateEditor.ForceResetArena()</span>
-                Reset arena.
-                <br><br>
-                This function is called automatically before calling <span class="term">StateEnding()</span>.
-            </p>
+            <p><ul>            
+                <li>
+                    <span class="term">Player</span>: the Player object.
+                </li><br>
+                <li>
+                    <span class="term">Audio</span>: the Audio object.
+                </li><br>
+                <li>
+                    <span class="term">NewAudio</span>: the NewAudio object.
+                </li><br>
+                <li>
+                    <span class="term">Inventory</span>: the Inventory object.
+                </li><br>
+                <li>
+                    <span class="term">Misc</span>: the Misc object.
+                </li><br>
+                <li>
+                    <span class="term">Time</span>: the Time object.
+                </li><br>
+                <li>
+                    <span class="term">Discord</span>: the Discord object.
+                </li><br>
+                <li>
+                    <span class="term">ButtonUtil</span>: the ButtonUtil object.
+                </li><br>
+                <li>
+                    <span class="term">PlayerUtil</span>: the PlayerUtil object.
+                </li><br>
+                <li>
+                    <span class="term">StateEditor</span><i>[NeedMoreDebug]</i>: the StateEditor object.
+                </li><br>
+                <li>
+                    <span class="term">Arena</span><i>[NeedMoreDebug]</i>: the Arena object.
+                </li><br>
+            </ul></p>
         </div>
 
         <div class="tab-pane text-style" id="mercy">
