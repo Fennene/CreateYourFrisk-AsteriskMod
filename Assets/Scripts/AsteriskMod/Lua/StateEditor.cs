@@ -19,11 +19,6 @@ namespace AsteriskMod.Lua
             UIController.instance.mainTextManager.SetPause(puase);
         }
 
-        public static void HideDialogText()
-        {
-            UIController.instance.mainTextManager.DestroyChars();
-        }
-
         public static void SetDialogTextEffect(string effect, float intensity = -1)
         {
             if (effect == null)
@@ -49,9 +44,19 @@ namespace AsteriskMod.Lua
             UIController.instance.mainTextManager.SetEffect(targetEffect);
         }
 
+        public static void SkipDialogText()
+        {
+            if (UIController.instance.mainTextManager.CanSkip() && !UIController.instance.mainTextManager.LineComplete())
+                UIController.instance.mainTextManager.DoSkipFromPlayer();
+        }
+
         public static bool GetLineCompleteDialogText()
         {
             return UIController.instance.mainTextManager.LineComplete();
+        }
+        public static void HideDialogText()
+        {
+            UIController.instance.mainTextManager.DestroyChars();
         }
 
         public static void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
