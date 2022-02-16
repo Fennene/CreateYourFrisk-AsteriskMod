@@ -53,6 +53,11 @@ public class EnemyController : MonoBehaviour {
 
     internal bool spared;
     internal bool killed;
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    internal bool canSetActive = true;
+    // --------------------------------------------------------------------------------
     public bool canMove;
 
     public string Name {
@@ -460,13 +465,20 @@ public class EnemyController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        if (!canSetActive)
+        {
+            UnitaleUtil.DisplayLuaError(scriptName, "Do NOT call SetActive() in OnActive!");
+            return;
+        }
         if (Asterisk.experimentMode)
         {
             try
             {
                 if (script.GetVar("OnActive") != null)
                 {
+                    canSetActive = false;
                     script.Call("OnActive", DynValue.NewBoolean(active));
+                    canSetActive = true;
                 }
             }
             catch (InterpreterException ex)

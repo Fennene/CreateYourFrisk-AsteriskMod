@@ -253,8 +253,9 @@ end
             <p>
                 <br><span class="function"><span class="AsteriskExperiment"> </span>OnActive(<span class="boolean"></span> active)</span>
                 Happens after called <span class="term">SetActive()</span>.<br>
-                <font color="#FFF">* Note: You must <b><u>NOT</u></b> call <span class="term">SetActive()</span> in this function.
-                </font>
+                <font color="#FFF">* Note: You can <b><u>NOT</u></b> call <span class="term">SetActive()</span> in this function.
+                </font><br>
+                If you call <span class="term">SetActive()</span> in this function, the engine show warning and lua error for safe.
                 <br><br>
                 * Note: <span class="term">SetActive()</span> will be called by the engine
                 if enemy is spared or killed 
