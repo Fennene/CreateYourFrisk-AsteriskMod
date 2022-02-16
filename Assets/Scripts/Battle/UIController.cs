@@ -379,6 +379,22 @@ public class UIController : MonoBehaviour {
                 forcedAction = Actions.NONE;
                 PlayerController.instance.setControlOverride(true);
                 PlayerController.instance.GetComponent<Image>().enabled = true;
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                bool[] buttonActive = new bool[4] {
+                    LuaButtonController.FIGHT.GetActive(),
+                    LuaButtonController.ACT.GetActive(),
+                    LuaButtonController.ITEM.GetActive(),
+                    LuaButtonController.MERCY.GetActive()
+                };
+                int actionIndex = (int)action;
+                while (!buttonActive[actionIndex])
+                {
+                    actionIndex = Math.Mod(actionIndex + 1, 4);
+                }
+                action = (Actions)actionIndex;
+                // --------------------------------------------------------------------------------
                 SetPlayerOnAction(action);
                 mainTextManager.SetPause(ArenaManager.instance.isResizeInProgress());
                 mainTextManager.SetCaller(EnemyEncounter.script); // probably not necessary due to ActionDialogResult changes
@@ -1568,24 +1584,6 @@ public class UIController : MonoBehaviour {
 
         if (UnitaleUtil.firstErrorShown) return;
         encounter.CallOnSelfOrChildren("EncounterStarting");
-
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
-        bool[] buttonActive = new bool[4] {
-            LuaButtonController.FIGHT.GetActive(),
-            LuaButtonController.ACT.GetActive(),
-            LuaButtonController.ITEM.GetActive(),
-            LuaButtonController.MERCY.GetActive()
-        };
-        int firstActionIndex = 0;
-        while (!buttonActive[firstActionIndex])
-        {
-            firstActionIndex = Math.Mod(firstActionIndex + 1, 4);
-        }
-        action = (Actions)firstActionIndex;
-        SetPlayerOnAction(action);
-        // --------------------------------------------------------------------------------
 
         if (!stateSwitched)
             SwitchState(UIState.ACTIONSELECT, true);
