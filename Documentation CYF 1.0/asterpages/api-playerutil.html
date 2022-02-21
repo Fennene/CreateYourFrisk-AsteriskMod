@@ -100,6 +100,7 @@ it's w3c valid, at least
             <h2><span class="Asterisk"></span> The PlayerUtil object [E/M/W]</h2><br><br>
             <p>
                 You can use this object to modify the player's UI.
+                You can get the alpha of the player's soul.
             </p><br>
 
 
@@ -318,6 +319,15 @@ it's w3c valid, at least
                 <br>For example, PlayerUtil.SetHPTextColor32(255, 0, 0) makes the text red.
                 <br>Black areas are not affected by coloration.
                 <br>The 4th value is the alpha (transparency) value of the text.
+            </p>
+
+
+            <br><hr>
+            <h3>Misc.</h3>
+            <p>
+                <br><span class="function"><span class="number"></span> PlayerUtil.GetSoulAlpha()</span>
+                Gets the alpha (transparency) of the player's soul.
+                <br>When the player damaged, the soul will be blinking. This function can be get that blinking as number 0 or 1.
             </p>
         </div>
 

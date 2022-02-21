@@ -15,7 +15,6 @@ namespace AsteriskMod
             UserData.RegisterType<LuaButton>();
             UserData.RegisterType<LuaButtonController>();
             UserData.RegisterType<PlayerUtil>();
-            UserData.RegisterType<StringUtil>();
             UserData.RegisterType<StateEditor>();
         }
 
@@ -33,8 +32,6 @@ namespace AsteriskMod
             script.Globals.Set("ButtonUtil", buttonUtil);
             DynValue playerUtil = UserData.Create(new PlayerUtil());
             script.Globals.Set("PlayerUtil", playerUtil);
-            DynValue stringutil = UserData.Create(new StringUtil());
-            script.Globals.Set("StringUtil", stringutil);
         }
     }
 }

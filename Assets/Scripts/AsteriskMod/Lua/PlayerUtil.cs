@@ -206,5 +206,11 @@ namespace AsteriskMod.Lua
                 UIStats.instance.setHPTextOverride(hpText);
             }
         }
+
+        public static int GetSoulAlpha()
+        {
+            if (PlayerController.instance == null) return 1;
+            return PlayerController.instance.selfImg.enabled ? 1 : 0;
+        }
     }
 }
