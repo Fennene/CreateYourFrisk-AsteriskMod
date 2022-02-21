@@ -15,6 +15,7 @@ namespace AsteriskMod
             UserData.RegisterType<LuaButton>();
             UserData.RegisterType<LuaButtonController>();
             UserData.RegisterType<PlayerUtil>();
+            UserData.RegisterType<StringUtil>();
             UserData.RegisterType<StateEditor>();
         }
 
