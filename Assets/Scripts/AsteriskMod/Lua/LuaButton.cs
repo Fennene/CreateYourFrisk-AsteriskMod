@@ -111,5 +111,32 @@ namespace AsteriskMod.Lua
         {
             return position;
         }
+
+        public void SetColor(float r, float g, float b, float a = 1.0f)
+        {
+            button.GetComponent<Image>().color = new Color(r, g, b, a);
+        }
+
+        public void SetColor32(byte r, byte g, byte b, byte a = 255)
+        {
+            button.GetComponent<Image>().color = new Color32(r, g, b, a);
+        }
+
+        public void ResetColor()
+        {
+            button.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        }
+
+        /*
+        public void Hide()
+        {
+            button.GetComponent<Image>().enabled = false;
+        }
+
+        public void Show()
+        {
+            button.GetComponent<Image>().enabled = true;
+        }
+        */
     }
 }

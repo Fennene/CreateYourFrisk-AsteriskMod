@@ -41,6 +41,8 @@ function EncounterStarting()
     ButtonUtil.FIGHT.Move(-187, 0)
     ButtonUtil.MERCY.Move(187, 0)
 
+    ButtonUtil.FIGHT.SetColor(0.9, 0.7, 0)
+
     -- Camera's Reverse
     --Misc.CameraVerticalReverse()
     --Misc.CameraHorizontalReverse()
