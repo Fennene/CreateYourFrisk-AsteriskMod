@@ -423,7 +423,7 @@ public class EnemyEncounter : MonoBehaviour {
         {
             customStateScript.script.Call(customStateScript.script.Globals["StateStarting"], DynValue.NewString(oldState.ToString()));
         }
-        catch (InternalErrorException ex)
+        catch (InterpreterException ex)
         {
             UnitaleUtil.DisplayLuaError(currentCustomStateName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
         }
@@ -494,7 +494,7 @@ public class EnemyEncounter : MonoBehaviour {
         {
             customStateScript.script.Call(customStateScript.script.Globals["Update"]);
         }
-        catch (InternalErrorException ex)
+        catch (InterpreterException ex)
         {
             UnitaleUtil.DisplayLuaError(currentCustomStateName, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
         }

@@ -18,7 +18,7 @@ There is CYF's [**Discord server**](https://discord.gg/GFJ5277)! Feel free to ch
 
 ## Asterisk Mod
 
-Current version is **v0.5.2.5**.
+Current version is **v0.5.2.6**.
 
 Asterisk Mod adds some strong functions and objects to original CYF.
 
@@ -27,6 +27,8 @@ For example
 "PlayerUtil.SetHPText()"  can change text showing the player's HP to any string.
 
 You can inactive MERCY Button by "ButtonUtil.MERCY.SetActive(false)".
+
+Moreover, you can create your CustomState by State Script!
 
 ***
 
@@ -38,7 +40,7 @@ To download the engine, go to [~~**the releases page**~~](https://github.com/Fen
 
 ## Unity Version
 
-CYF's latest version is **v0.6.5** and AsteriskMod's latest version is **v0.5.0**. It was built using **Unity Personal 2018.2.13f1**.
+CYF's latest version is **v0.6.5** and AsteriskMod's latest version is **v0.5.2.6**. It was built using **Unity Personal 2018.2.13f1**.
 
 To get this version of Unity, either:
 
