@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -27,6 +29,12 @@ public class SelectOMatic : MonoBehaviour {
     public Text       ListText, ListShadow, BackText, BackShadow, NextText, NextShadow, ExitText, ExitShadow, OptionsText, OptionsShadow;
     public GameObject  ModContainer,     ModBackground,     ModTitle,     ModTitleShadow,     EncounterCount,     EncounterCountShadow;
     public GameObject AnimContainer, AnimModBackground, AnimModTitle, AnimModTitleShadow, AnimEncounterCount, AnimEncounterCountShadow;
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public GameObject ModDescShadow, ModDesc, ExistDescInfoShadow, ExistDescInfo;
+    // --------------------------------------------------------------------------------
 
     // Use this for initialization
     private void Start() {
@@ -276,6 +284,67 @@ public class SelectOMatic : MonoBehaviour {
             NextText.color = new Color(0.25f, 0.25f, 0.25f, 1f);
         else
             NextText.color = new Color(1f, 1f, 1f, 1f);
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        bool existDesc = false;
+        ModDescShadow.SetActive(false);
+        ModDesc.SetActive(false);
+        ModDescShadow.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
+        ModDesc.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
+        ModDescShadow.GetComponent<Text>().text = "";
+        ModDesc.GetComponent<Text>().text = "";
+        if (Asterisk.experimentMode)
+        {
+            string targetFile = FileLoader.pathToModFile("info.cyfmod");
+            if (File.Exists(targetFile))
+            {
+                string[] infoFileData = File.ReadAllLines(targetFile);
+                string descFilePath = "";
+                for (int i = 0; i < infoFileData.Length; i++)
+                {
+                    string line = infoFileData[i].Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
+                    if (!line.Contains('=')) continue;
+                    string[] _ = line.Split(new char[1] { '=' }, 2);
+                    string key = _[0];
+                    string parameter = _[1];
+                    parameter = parameter.Replace("\"", "");
+                    switch (key)
+                    {
+                        case "align":
+                            TextAnchor anchor;
+                            try
+                            {
+                                anchor = (TextAnchor)Enum.Parse(typeof(TextAnchor), parameter);
+                                ModDesc.GetComponent<Text>().alignment = anchor;
+                                ModDescShadow.GetComponent<Text>().alignment = anchor;
+                            }
+                            catch
+                            {
+                            }
+                            break;
+                        case "descfile":
+                            descFilePath = parameter;
+                            break;
+                    }
+                }
+                if (descFilePath != "")
+                {
+                    targetFile = FileLoader.pathToModFile(descFilePath);
+                    if (File.Exists(targetFile))
+                    {
+                        string description = File.ReadAllText(targetFile);
+                        ModDescShadow.GetComponent<Text>().text = Regex.Replace(description, "<[^>]*?>", "");
+                        ModDesc.GetComponent<Text>().text = description;
+                        existDesc = true;
+                    }
+                }
+            }
+        }
+        ExistDescInfoShadow.SetActive(existDesc);
+        ExistDescInfo.SetActive(existDesc);
+        // --------------------------------------------------------------------------------
     }
 
     // Goes to the next or previous mod with a little scrolling animation.
@@ -305,6 +374,15 @@ public class SelectOMatic : MonoBehaviour {
         ModTitle.transform.Translate(640             * dir, 0, 0);
         EncounterCountShadow.transform.Translate(640 * dir, 0, 0);
         EncounterCount.transform.Translate(640       * dir, 0, 0);
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        ModDescShadow.transform.Translate(640       * dir, 0, 0);
+        ModDesc.transform.Translate(640             * dir, 0, 0);
+        ExistDescInfoShadow.transform.Translate(640 * dir, 0, 0);
+        ExistDescInfo.transform.Translate(640       * dir, 0, 0);
+        // --------------------------------------------------------------------------------
 
         // Actually choose the new mod
         CurrentSelectedMod = (CurrentSelectedMod + dir) % modDirs.Count;
@@ -402,9 +480,35 @@ public class SelectOMatic : MonoBehaviour {
                 //content.transform.GetChild(selectedItem).GetComponent<MenuButton>().StartAnimation(1);
             }
 
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
             // Return to the Disclaimer screen
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-                btnExit.GetComponent<Button>().onClick.Invoke();
+            //if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+            //    btnExit.GetComponent<Button>().onClick.Invoke();
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                // Exist
+                if (Asterisk.experimentMode && Input.GetKeyDown(KeyCode.Escape))
+                {
+                    btnExit.GetComponent<Button>().onClick.Invoke();
+                }
+                else if (!Input.GetKeyDown(KeyCode.Escape))
+                {
+                    // Exit
+                    if (!Asterisk.experimentMode)
+                    {
+                        btnExit.GetComponent<Button>().onClick.Invoke();
+                    }
+                    // Show/Hide Description
+                    else
+                    {
+                        ModDesc.SetActive(!ModDesc.activeSelf);
+                        ModDescShadow.SetActive(!ModDescShadow.activeSelf);
+                    }
+                }
+            }
+            // --------------------------------------------------------------------------------
             // Encounter or Mod List controls:
         } else {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)) {

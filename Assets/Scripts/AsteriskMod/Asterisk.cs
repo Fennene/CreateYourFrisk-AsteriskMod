@@ -26,7 +26,10 @@ namespace AsteriskMod
         {
             ControlPanel.instance.WindowBasisName = WindowBasisName;
             ControlPanel.instance.WinodwBsaisNmae = WinodwBsaisNmae;
-            Misc.WindowName = GlobalControls.crate ? ControlPanel.instance.WinodwBsaisNmae : ControlPanel.instance.WindowBasisName;
+            #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+                Misc.WindowName = GlobalControls.crate ? ControlPanel.instance.WinodwBsaisNmae : ControlPanel.instance.WindowBasisName;
+            #else
+            #endif
         }
 
         public static string GetVersionDisplay()
