@@ -15,7 +15,7 @@ namespace AsteriskMod
         public const string ModVersion = "v0.5.2.7";
 
         public static bool experimentMode;
-        public static Languages languages = Languages.English;
+        public static Languages language = Languages.English;
 
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
@@ -26,10 +26,6 @@ namespace AsteriskMod
         {
             ControlPanel.instance.WindowBasisName = WindowBasisName;
             ControlPanel.instance.WinodwBsaisNmae = WinodwBsaisNmae;
-            #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-                Misc.WindowName = GlobalControls.crate ? ControlPanel.instance.WinodwBsaisNmae : ControlPanel.instance.WindowBasisName;
-            #else
-            #endif
         }
 
         public static string GetVersionDisplay()
@@ -43,6 +39,20 @@ namespace AsteriskMod
             if (LuaScriptBinder.GetAlMighty(null, optionID_experiment) != null && LuaScriptBinder.GetAlMighty(null, optionID_experiment).Type == DataType.Boolean)
             {
                 experimentMode = LuaScriptBinder.GetAlMighty(null, optionID_experiment).Boolean;
+            }
+            string optionID_lang = "*CYFLanguage";
+            if (LuaScriptBinder.GetAlMighty(null, optionID_lang) != null && LuaScriptBinder.GetAlMighty(null, optionID_lang).Type == DataType.String)
+            {
+                string lang = LuaScriptBinder.GetAlMighty(null, optionID_lang).String;
+                switch (lang)
+                {
+                    case "en":
+                        language = Languages.English;
+                        break;
+                    case "jp":
+                        language = Languages.Japanese;
+                        break;
+                }
             }
         }
     }

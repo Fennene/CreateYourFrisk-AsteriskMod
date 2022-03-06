@@ -53,6 +53,12 @@ public class GlobalControls : MonoBehaviour {
         // Load map names for the overworld
         UnitaleUtil.AddKeysToMapCorrespondanceList();
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        Asterisk.Initialize();
+        // --------------------------------------------------------------------------------
+
         // Use AlMightyGlobals to load Crate Your Frisk, Safe Mode, Retromode and Fullscreen mode preferences
         // CrateYourFrisk
         if (LuaScriptBinder.GetAlMighty(null, "CrateYourFrisk") != null && LuaScriptBinder.GetAlMighty(null, "CrateYourFrisk").Boolean)
