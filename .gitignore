@@ -63,6 +63,10 @@ sysinfo.txt
 !/Assets/Mods/RTLGeno.meta
 !/Assets/Mods/@Title
 !/Assets/Mods/@Title.meta
+!/Assets/Mods/Asterisk Mod Features
+!/Assets/Mods/Asterisk Mod Features.meta
+!/Assets/Mods/Custom State Test
+!/Assets/Mods/Custom State Test.meta
 
 # IDE Stuff and others
 /.vs/*
