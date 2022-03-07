@@ -121,6 +121,7 @@ span.unitale::before{
     content: " <0.2.1a>";
 }
 
+/*
 span.new::before {
     content: "..";
     color: transparent;
@@ -132,13 +133,13 @@ span.new::before {
     background-position: center;
     background-size: 10px 22px;
     
-    image-rendering: optimizeSpeed;             /*                     */
-    image-rendering: -moz-crisp-edges;          /* Firefox             */
-    image-rendering: -o-crisp-edges;            /* Opera               */
-    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
-    image-rendering: pixelated;                 /* Chrome as of 2019   */
-    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
-    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+    image-rendering: optimizeSpeed;             /*                     /
+    image-rendering: -moz-crisp-edges;          /* Firefox             /
+    image-rendering: -o-crisp-edges;            /* Opera               /
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) /
+    image-rendering: pixelated;                 /* Chrome as of 2019   /
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       /
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                /
 }
 
 .nav-sidebar li.new::before {
@@ -159,6 +160,7 @@ span.new::before {
 .nav-sidebar li.li-indent.new.active::before {
     left: -25px;
 }
+*/
 
 span.aster::before {
     content: "..";
