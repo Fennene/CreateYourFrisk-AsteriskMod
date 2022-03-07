@@ -36,7 +36,7 @@ public class DisclaimerScript : MonoBehaviour {
             // --------------------------------------------------------------------------------
             Version.GetComponent<Text>().horizontalOverflow = HorizontalWrapMode.Overflow;
             //Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion;
-            Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion + Asterisk.GetVersionDisplay();
+            Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion + " *" + Asterisk.ModVersion;
             // --------------------------------------------------------------------------------
         }
     }

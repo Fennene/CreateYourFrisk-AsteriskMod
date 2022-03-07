@@ -19,6 +19,20 @@ namespace AsteriskMod.Lua
             UIController.instance.mainTextManager.SetPause(puase);
         }
 
+        public static void SetDialogFont(string fontName)
+        {
+            if (fontName == null)
+                throw new CYFException("StateEditor.SetDialogFont: The first argument (the font name) is nil.\n\nSee the documentation for proper usage.");
+            UnderFont uf = SpriteFontRegistry.Get(fontName);
+            if (uf == null)
+                throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
+            UIController.instance.mainTextManager.SetFont(uf, false);
+            /*
+            default_charset = uf;
+            UpdateBubble();
+            */
+        }
+
         public static void SetDialogTextEffect(string effect, float intensity = -1)
         {
             if (effect == null)

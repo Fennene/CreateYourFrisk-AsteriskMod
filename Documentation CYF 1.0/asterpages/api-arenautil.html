@@ -14,11 +14,16 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>*CYF Documentation - The StateEditor Object</title>
+    <title>*CYF Documentation - The ArenaUtil Object</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
     <link href="../css/shThemeRDark.css" rel="stylesheet">
+
+    <!-- Syntax highlighting -->
+    <script type="text/javascript" src="../js/shCore.js"></script>
+    <script type="text/javascript" src="../js/shBrushLua.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 <body>
 <img src="../img/bg2.png" alt="Undertale background" class="backimg">
@@ -64,12 +69,13 @@ it's w3c valid, at least
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
+                    <li class="li-indent active">&gt; The ArenaUtil Object &lt;</li>
                     <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li><span class="AsteriskExperiment"></span> CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
-                    <li class="li-indent active">&gt; The StateEditor Object &lt;</li>
+                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> <span class="new"></span>Shaders</li>
                     <li><a href="../pages/shaders.html">Introduction</a></li>
@@ -99,91 +105,30 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-customstate-stateeditor">
-            <h2>The StateEditor object [S]</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-api-arenautil">
+            <h2><span class="Asterisk"></span> The ArenaUtil object [E/M/W]</h2><br><br>
             <p>
-                You can control configured UIs by CYF like text of dialog box.<br>
-                It works in only State Scripts.
-            </p><br>
-
-            <p>
-                <br><span class="function">StateEditor.SetDialogText(<span class="string"></span> text)</span>
-                Sets text in dialog box.<br>
-                This is like setting <span class="term">encountertext</span>.
+                You can use this object to modify arena.<br>
+                You can use this in any scripts.
             </p>
             <p>
-                <br><span class="function">StateEditor.SetChoicesDialogText(<span class="luatable"><span class="string"></span></span> texts [, <span class="boolean"></span> singleList = true])</span>
-                Sets choices in dialog box, as table of string.<br>
-                <ul>
-                    <li>
-                        <span class="term">singleList</span>: If true(default), choices will be lined up like 
-                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
-                        If false, choices will be line up like <span class="term">ACTMENU</span>.
-                    </li>
-                </ul>
+                <br><span class="function">ArenaUtil.SetBorderColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                Sets the border's color of arena, as 3 or 4 values from 0 to 1.
+                <br>For example, ArenaUtil.SetBorderColor(1.0, 0.0, 0.0) makes the text red.
+                <br>Black areas are not affected by coloration.
+                <br>The 4th value is the alpha (transparency) value of the border.
             </p>
             <p>
-                <br><span class="function">StateEditor.SetDialogTextPuase(<span class="boolean"></span> puase)</span>
-                Pauses the text of dialog box object's typing, in the same way as <span class="term">text.SetPause()</span>.
+                <br><span class="function">ArenaUtil.SetBorderColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                Sets the border's color of arena, as 3 or 4 integer values from 0 to 255.
+                <br>For example, ArenaUtil.SetBorderColor32(255, 0, 0) makes the text red.
+                <br>Black areas are not affected by coloration.
+                <br>The 4th value is the alpha (transparency) value of the border.
             </p>
             <p>
-                <br><span class="function">StateEditor.SetDialogFont(<span class="string"></span> fontName)</span>
-                Sets the font of text in dialog box object, in the same way as <span class="term">text.SetFont()</span>.
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SetDialogTextEffect(<span class="string"></span> effect [, <span class="number"></span> intensity = -1])</span>
-                Sets the effect of text in dialog box object, in the same way as <span class="term">text.SetEffect()</span>.
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SkipDialogText()</span>
-                Skip the text in dialog box like the player press X key and skip text.
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> StateEditor.GetLineCompleteDialogText()</span>
-                Returns true if the current line (page) of the text in dialog box is fully displayed, false otherwise.
-                That is similar to <span class="term">text.lineComplete</span>.
-            </p>
-            <p>
-                <br><span class="function">StateEditor.HideDialogText()</span>
-                Hide the text in dialog box.
-            </p>
-
-            <p>
-                <br><span class="function">StateEditor.SetButtonActive(<span class="boolean"></span> fight = false, <span class="boolean"></span> act = false, <span class="boolean"></span> item = false, <span class="boolean"></span> mercy = false)</span>
-                Changes each button's displaying.<br>
-                If true, the button is changed like the player selects. (changes to yellow(normal))<br>
-                If false, the button is changed to orange (normal).
-            </p>
-
-            <p>
-                <br><span class="function">StateEditor.SetPlayerOnSelection(<span class="number"></span> selection [, <span class="boolean"></span> singleList = true)</span>
-                Sets the position of the player's soul, as a integer number.<br>
-                This is useful for moving the soul to correct position after using <span class="term">StateEditor.SetChoicesDialogText()</span>.
-                <ul>
-                    <li>
-                        <span class="term">singleList</span>: If true(default), the soul will be moved to like 
-                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
-                        If false, the soul will moved like <span class="term">ACTMENU</span>.
-                    </li>
-                </ul>
-            </p>
-            <p>
-                <br><span class="function">StateEditor.SetPlayerVisible(<span class="boolean"></span> visible)</span>
-                Changes the visible of the player's soul, 
-                but different way of <span class="term">Player.soul.alpha</span>.<br>
-                If you use this to invisible the soul, 
-                you should set to visible it in <span class="term">StateEnding()</span>.
-                <br><br>
-                Technical Note: <span class="term">Player.soul.alpha</span> is changed the transparency of the soul, but 
-                this function is changed the enable of the soul's Image Component. That sounds NOT good, however it is 
-                used to change the visible of the soul in CYF engine.
-            </p>
-
-            <p>
-                <br><span class="function">StateEditor.ForceResetArena()</span>
-                Reset arena.
-                <br><br>
-                This function is called automatically before calling <span class="term">StateEnding()</span>.
+                <br><span class="function">ArenaUtil.SetDialogTextPosition(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Moves the text in dialog box to the position relative to normal position.<br>
+                <span class="term">ArenaUtil.SetDialogTextPosition(0, 0)</span> moves the text on its normal position.
             </p>
         </div>
 

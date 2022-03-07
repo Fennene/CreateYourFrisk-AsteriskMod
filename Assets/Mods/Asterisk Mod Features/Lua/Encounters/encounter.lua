@@ -43,6 +43,8 @@ function EncounterStarting()
 
     ButtonUtil.FIGHT.SetColor(0.9, 0.7, 0)
 
+    --ArenaUtil.SetDialogTextPosition(0, 0)
+
     -- Camera's Reverse
     --Misc.CameraVerticalReverse()
     --Misc.CameraHorizontalReverse()
@@ -53,6 +55,18 @@ function EncounterStarting()
     --PlayerUtil.SetHPLabelColor(1, 1, 0)
     --PlayerUtil.SetHPBarFillColor32(0, 255, 255)
     --PlayerUtil.HPTextMoveTo(10, 0)
+end
+
+function SetFell(active)
+    local c = 1
+    local prefix = "[effect:rotate]"
+    if active then
+        c = 0
+        prefix = "[color:ff0000]" .. prefix
+    end
+    ArenaUtil.SetBorderColor(1, c, c)
+    enemies[1].GetVar("monstersprite").color = {1, c, c}
+    enemies[1].SetVar("dialogueprefix", prefix)
 end
 
 function FirstFrameUpdate()

@@ -14,11 +14,16 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>*CYF Documentation - Asterisk Mod</title>
+    <title>*CYF Documentation - Additional Setup</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
     <link href="../css/shThemeRDark.css" rel="stylesheet">
+
+    <!-- Syntax highlighting -->
+    <script type="text/javascript" src="../js/shCore.js"></script>
+    <script type="text/javascript" src="../js/shBrushLua.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 <body>
 <img src="../img/bg2.png" alt="Undertale background" class="backimg">
@@ -59,8 +64,8 @@ it's w3c valid, at least
                     <li class="new"><a href="../pages/cyf-text.html"><span class="CYF"></span> The Text Object</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
-                    <li class="active" style="margin-left:5px;">&gt; About &lt;</a></li>
-                    <li><a href="setup.html">Additional Setup</a></li>
+                    <li><a href="basis.html">About</a></li>
+                    <li class="active" style="margin-left:5px;">&gt; Additional Setup &lt;</a></li>
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
@@ -99,14 +104,107 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-basis">
-            <h2><font color="#007fff">* Asterisk Mod</font></h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-setup">
+            <h2>Additional Setup</h2><br><br>
+
+            <p>Currently, Asterisk Mod adds scripts are set up like this:</p>
+            <ul>
+                <li>
+                    <u>State scripts</u> - will contain some functions. You can set the behavior of the state you create.
+                    (See <span class="term">CustomState</span> section for more information.)
+                </li>
+            </ul>
+
+            <br><hr>
+
+            <span class="AsteriskExperiment"></span> <h3>Your Mod's Information</h3><br><br>
+
             <p>
-                Asterisk Mod v0.5.2.8 by Nil256 [FenneneProject]
-                <br><br>
-                Asterisk Mod is a folk of original Create Your Frisk.
-                That adds some strong functions and objects.
+                Asterisk Mod adds the way to add a description of your own mod.<br><br>
+                If you enable <span class="term">Experimental Features</span>, you can't back to the disclaimer(title) screen.
+                Instead of that, you can see the description by pressing X (or Shift) key.<br>
+                (You can back to the disclaimer(title) screen by Escape key.)
+            </p><br>
+
+            <p>
+                If you add the description of your mod, you should do that:<br>
+                <ol>
+                    <li>
+                        prepare a text file written the description.
+                    </li>
+                    <li>
+                        Put it somewhere in your own mod.
+                    </li>
+                    <li>
+                        Create a file named <span class="term">info.cyfmod</span> directly under the directory of your mod.
+                    </li>
+                    <li>
+                        Write <span class="term">descfile="[the path of the text file]"</span> to info.cyfmod
+                    </li>
+                </ol>
+            </p><br>
+
+            <p>
+                For example:<br>
+            <div class="code-container">
+<pre class="brush: lua;">
+-- files:
+YOURMOD
+├─ Audio
+├─ Lua
+├─ Sounds
+├─ Sprites
+├─ description.txt
+└─ info.cyfmod
+</pre>
+            </div>
+            <div class="code-container">
+<pre class="brush: lua;">
+-- info.cyfmod:
+descfile="description.txt"
+</pre>
+            </div>
             </p><br><br>
+
+            <p>
+                <span class="term">info.cyfmod</span> is written like .ini file.
+                <div class="code-container">
+<pre class="brush: lua;">
+key="parameter"
+</pre>
+                </div>
+                There are available keys in info.cyfmod:<br><br>
+                <ul>
+                    <li>
+                        <span class="term">align</span> - sets alignment of the description. <span class="term">UpperLeft</span> by default.<br>
+                        You can choose the paramter in the following:
+                        <ul>
+                            <li>UpperLeft</li>
+                            <li>UpperCenter</li>
+                            <li>UpperRight</li>
+                            <li>MiddleLeft</li>
+                            <li>MiddleCenter</li>
+                            <li>MiddleRight</li>
+                            <li>LowerLeft</li>
+                            <li>LowerCenter</li>
+                            <li>LowerRight</li>
+                        </ul>
+                    </li><br>
+                    <li>
+                        <span class="term">descfile</span> - sets the path of the file written the description.
+                    </li>
+                </ul>
+            </p>
+
+
+
+
+
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
 
             <p>
                 Nil256 (AsteriskMod's developer) is not good at English.
@@ -180,7 +278,7 @@ it's w3c valid, at least
             
             <h3>Release Notes</h3><br><br>
 
-            <h4>v0.5.2.8</h4>
+            <h4>v0.5.2.8 (beta/debug verison)</h4>
             <p>
                 <ul>
                     <li>

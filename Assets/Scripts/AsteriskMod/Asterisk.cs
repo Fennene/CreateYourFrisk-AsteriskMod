@@ -12,7 +12,7 @@ namespace AsteriskMod
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
 
         public const string ModName = "Asterisk Mod";
-        public const string ModVersion = "v0.5.2.7";
+        public const string ModVersion = "v0.5.2.8";
 
         public static bool experimentMode;
         public static Languages language = Languages.English;
@@ -26,11 +26,6 @@ namespace AsteriskMod
         {
             ControlPanel.instance.WindowBasisName = WindowBasisName;
             ControlPanel.instance.WinodwBsaisNmae = WinodwBsaisNmae;
-        }
-
-        public static string GetVersionDisplay()
-        {
-            return " *" + ModVersion;
         }
 
         public static void LoadOption()
