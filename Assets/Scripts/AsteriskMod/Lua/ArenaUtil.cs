@@ -20,11 +20,14 @@ namespace AsteriskMod.Lua
 
         public static void SetDialogTextPosition(int x, int y)
         {
-            Vector3 oldPosition = new Vector3(UIController.instance.mainTextManager.transform.position.x, UIController.instance.mainTextManager.transform.position.y, UIController.instance.mainTextManager.transform.position.z);
-            Vector2 oldRelativePos = new Vector2(textPosition.x, textPosition.y);
+            Vector3 oldPosition = UIController.instance.mainTextManager.transform.position;
+            Vector2 oldRelativePos = textPosition;
             textPosition = new Vector2(x, y);
-            Vector3 newPosition = new Vector3(oldPosition.x - oldRelativePos.x + textPosition.x, oldPosition.y - oldRelativePos.y + textPosition.y, oldPosition.z);
-            UIController.instance.mainTextManager.transform.position = newPosition;
+            UIController.instance.mainTextManager.transform.position = new Vector3(
+                oldPosition.x - oldRelativePos.x + textPosition.x,
+                oldPosition.y - oldRelativePos.y + textPosition.y,
+                oldPosition.z
+            );
         }
     }
 }
