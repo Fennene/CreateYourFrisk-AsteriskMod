@@ -121,7 +121,6 @@ span.unitale::before{
     content: " <0.2.1a>";
 }
 
-/*
 span.new::before {
     content: "..";
     color: transparent;
@@ -133,13 +132,13 @@ span.new::before {
     background-position: center;
     background-size: 10px 22px;
     
-    image-rendering: optimizeSpeed;             /*                     /
-    image-rendering: -moz-crisp-edges;          /* Firefox             /
-    image-rendering: -o-crisp-edges;            /* Opera               /
-    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) /
-    image-rendering: pixelated;                 /* Chrome as of 2019   /
-    image-rendering: optimize-contrast;         /* CSS3 Proposed       /
-    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                /
+    image-rendering: optimizeSpeed;             /*                     */
+    image-rendering: -moz-crisp-edges;          /* Firefox             */
+    image-rendering: -o-crisp-edges;            /* Opera               */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+    image-rendering: pixelated;                 /* Chrome as of 2019   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
 }
 
 .nav-sidebar li.new::before {
@@ -160,7 +159,6 @@ span.new::before {
 .nav-sidebar li.li-indent.new.active::before {
     left: -25px;
 }
-*/
 
 span.aster::before {
     content: "..";
@@ -334,4 +332,109 @@ body {
 .li-indent, .li-indent a {
     left: 5px !important;
     width: 160px !important;
+}
+
+ul.rn li {
+    list-style-type: none;
+    position: relative;
+}
+
+ul.rn li::before {
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    background: #0c0;
+    content: "";
+}
+ul.rn li li::before {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    border: solid 2px;
+    color: #0c0;
+    background: #000;
+    content: "";
+}
+
+ul.rn li.fix::before {
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    background: #ff0;
+    content: "";
+}
+ul.rn li.fix li::before {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    border: solid 2px;
+    color: #ff0;
+    background: #000;
+    content: "";
+}
+
+ul.rn li.modify::before {
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    background: #fff;
+    content: "";
+}
+ul.rn li.modify li::before{
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    border: solid 2px;
+    color: #fff;
+    background: #000;
+    content: "";
+}
+
+ul.rn li.del::before {
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    background: #ff0000;
+    content: "";
+}
+ul.rn li.del li::before {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    border: solid 2px;
+    color: #f00;
+    background: #000;
+    content: "";
 }

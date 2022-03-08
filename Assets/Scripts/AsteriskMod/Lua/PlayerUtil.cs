@@ -17,11 +17,6 @@ namespace AsteriskMod.Lua
             PlayerUIManager.Instance.SetPosition(x, y);
         }
 
-        public static void ResetUIPosition()
-        {
-            PlayerUIManager.Instance.SetPosition(0, 0);
-        }
-
         public static Table GetUIPosition()
         {
             Vector2 pos = PlayerUIManager.Instance.GetPosition();
@@ -39,11 +34,6 @@ namespace AsteriskMod.Lua
         public static void NameUIMoveTo(float x, float y)
         {
             PlayerUIManager.Instance.SetNameLVPosition(x, y);
-        }
-
-        public static void ResetNameUIPosition()
-        {
-            PlayerUIManager.Instance.SetNameLVPosition(0, 0);
         }
 
         public static Table GetNameUIPosition()
@@ -100,11 +90,6 @@ namespace AsteriskMod.Lua
             PlayerUIManager.Instance.SetHPPosition(x, y);
         }
 
-        public static void ResetHPUIPosition()
-        {
-            PlayerUIManager.Instance.SetHPPosition(0, 0);
-        }
-
         public static Table GetHPUIPosition()
         {
             Vector2 pos = PlayerUIManager.Instance.GetHPPosition();
@@ -152,11 +137,6 @@ namespace AsteriskMod.Lua
         public static void HPTextMoveTo(float x, float y)
         {
             PlayerUIManager.Instance.SetHPTextPosition(x, y);
-        }
-
-        public static void ResetHPTextPosition()
-        {
-            PlayerUIManager.Instance.SetHPTextPosition(0, 0);
         }
 
         public static Table GetHPTextPosition()

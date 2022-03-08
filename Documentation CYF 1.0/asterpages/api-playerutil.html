@@ -111,9 +111,16 @@ it's w3c valid, at least
                 Note: You shouldn't call below methods in <span class="term">EncounterStarting()</span>.
                 <br>You should call them in <span class="term">FirstFrameUpdate()</span> instead of it.
             </h4>
+
             <p>
                 (See <span class="ref">Game events</span>.)
             </p>
+
+            <p><font color="#F22" size="+1">
+                <br>Asterisk Mod v0.5.2.8 removes the functions of reset UIs' position!
+                <br>Instead of that, you should call the functions like ...MoveTo(0, 0).
+            </font></p>
+
             <br>
 
 
@@ -128,12 +135,8 @@ it's w3c valid, at least
             </p>
             <p>
                 <br><span class="function">PlayerUtil.UIMoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Moves the player's UI to this position relative to normal position.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.ResetUIPosition()</span>
-                Moves the player's UI on its normal position. 
-                This is same as <span class="term">PlayerUtil.UIMoveTo(0, 0)</span>.
+                Moves the player's UI to this position relative to normal position.<br>
+                You can move the player's UI on its normal position by calling <span class="term">PlayerUtil.UIMoveTo(0, 0)</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.GetUIPosition() returns <span class="luatable"><span class="number"></span></span></span>
@@ -152,12 +155,8 @@ it's w3c valid, at least
             </p>
             <p>
                 <br><span class="function">PlayerUtil.NameUIMoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Moves the player's NameUI to this position relative to normal position.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.ResetNameUIPosition()</span>
-                Moves the player's NameUI on its normal position. 
-                This is same as <span class="term">PlayerUtil.NameUIMoveTo(0, 0)</span>.
+                Moves the player's NameUI to this position relative to normal position.<br>
+                You can move the player's NameUI on its normal position by calling <span class="term">PlayerUtil.NameUIMoveTo(0, 0)</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.GetNameUIPosition() returns <span class="luatable"><span class="number"></span></span></span>
@@ -204,11 +203,7 @@ it's w3c valid, at least
             <p>
                 <br><span class="function">PlayerUtil.HPUIMoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the player's HPUI to this position relative to normal position.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.ResetHPUIPosition()</span>
-                Moves the player's HPUI on its normal position. 
-                This is same as <span class="term">PlayerUtil.HPUIMoveTo(0, 0)</span>.
+                You can move the player's HPUI on its normal position by calling <span class="term">PlayerUtil.HPUIMoveTo(0, 0)</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.GetHPUIPosition() returns <span class="luatable"><span class="number"></span></span></span>
@@ -295,11 +290,7 @@ it's w3c valid, at least
             <p>
                 <br><span class="function">PlayerUtil.HPTextMoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the player's text of HP to this position relative to normal position.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.ResetHPTextPosition()</span>
-                Moves the player's text of HP on its normal position. 
-                This is same as <span class="term">PlayerUtil.HPUIMoveTo(0, 0)</span>.
+                You can move the player's text of HP on its normal position by calling <span class="term">PlayerUtil.HPUIMoveTo(0, 0)</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.GetHPTextPosition() returns <span class="luatable"><span class="number"></span></span></span>

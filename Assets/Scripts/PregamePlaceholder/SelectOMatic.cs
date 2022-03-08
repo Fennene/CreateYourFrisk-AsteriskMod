@@ -325,7 +325,8 @@ public class SelectOMatic : MonoBehaviour {
                             }
                             break;
                         case "descfile":
-                            descFilePath = parameter;
+                            if (!parameter.Contains(".."))
+                                descFilePath = parameter;
                             break;
                     }
                 }
