@@ -21,6 +21,7 @@ namespace AsteriskMod
 
         public static void BoundScriptGlobal(ref Script script)
         {
+            script.Globals["retroMode"] = GlobalControls.retroMode;
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;

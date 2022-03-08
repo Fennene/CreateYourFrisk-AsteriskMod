@@ -288,7 +288,6 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        bool existDesc = false;
         ModDescShadow.SetActive(false);
         ModDesc.SetActive(false);
         ModDescShadow.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
@@ -297,54 +296,19 @@ public class SelectOMatic : MonoBehaviour {
         ModDesc.GetComponent<Text>().text = "";
         if (Asterisk.experimentMode)
         {
-            string targetFile = FileLoader.pathToModFile("info.cyfmod");
-            if (File.Exists(targetFile))
-            {
-                string[] infoFileData = File.ReadAllLines(targetFile);
-                string descFilePath = "";
-                for (int i = 0; i < infoFileData.Length; i++)
-                {
-                    string line = infoFileData[i].Replace("\r", "").Replace("\n", "").Replace("\t", "").Replace(" ", "");
-                    if (!line.Contains('=')) continue;
-                    string[] _ = line.Split(new char[1] { '=' }, 2);
-                    string key = _[0];
-                    string parameter = _[1];
-                    parameter = parameter.Replace("\"", "");
-                    switch (key)
-                    {
-                        case "align":
-                            TextAnchor anchor;
-                            try
-                            {
-                                anchor = (TextAnchor)Enum.Parse(typeof(TextAnchor), parameter);
-                                ModDesc.GetComponent<Text>().alignment = anchor;
-                                ModDescShadow.GetComponent<Text>().alignment = anchor;
-                            }
-                            catch
-                            {
-                            }
-                            break;
-                        case "descfile":
-                            if (!parameter.Contains(".."))
-                                descFilePath = parameter;
-                            break;
-                    }
-                }
-                if (descFilePath != "")
-                {
-                    targetFile = FileLoader.pathToModFile(descFilePath);
-                    if (File.Exists(targetFile))
-                    {
-                        string description = File.ReadAllText(targetFile);
-                        ModDescShadow.GetComponent<Text>().text = Regex.Replace(description, "<[^>]*?>", "");
-                        ModDesc.GetComponent<Text>().text = description;
-                        existDesc = true;
-                    }
-                }
-            }
+            ModData data = ModData.GetCurrentModData();
+            ModDescShadow.GetComponent<Text>().alignment = data.descAnchor;
+            ModDesc.GetComponent<Text>().alignment = data.descAnchor;
+            ModDescShadow.GetComponent<Text>().text = Regex.Replace(data.description, "<[^>]*?>", "");
+            ModDesc.GetComponent<Text>().text = data.description;
+            ExistDescInfoShadow.SetActive(data.description != "");
+            ExistDescInfo.SetActive(data.description != "");
         }
-        ExistDescInfoShadow.SetActive(existDesc);
-        ExistDescInfo.SetActive(existDesc);
+        else
+        {
+            ExistDescInfoShadow.SetActive(false);
+            ExistDescInfo.SetActive(false);
+        }
         // --------------------------------------------------------------------------------
     }
 

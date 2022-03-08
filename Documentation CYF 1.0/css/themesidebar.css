@@ -93,6 +93,13 @@ span.userdata {
     */
 }
 
+span.CYF {
+    color: #ffff00;
+}
+span.CYF::before {
+    content: " <CYF>";
+}
+
 span.Asterisk {
     color: #007fff;
 }
@@ -105,12 +112,11 @@ span.AsteriskExperiment {
 span.AsteriskExperiment::before {
     content: " <Experiment>";
 }
-
-span.CYF {
-    color: #ffff00;
+span.Delete {
+    color: #ff1010;
 }
-span.CYF::before {
-    content: " <CYF>";
+span.Delete::before {
+    content: " <MayBeDeleted>";
 }
 
 span.unitale{
@@ -164,12 +170,12 @@ span.aster::before {
     content: "..";
     color: transparent;
     
-    font-size: 28px;
+    font-size: 30px;
     
-    background-image: url("../img/new-asterisk.png");
+    background-image: url("../img/asterisk.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 17px 22px;
+    background-size: 19px 22px;
     
     image-rendering: optimizeSpeed;             /*                     */
     image-rendering: -moz-crisp-edges;          /* Firefox             */
@@ -179,23 +185,48 @@ span.aster::before {
     image-rendering: optimize-contrast;         /* CSS3 Proposed       */
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
 }
-
 .nav-sidebar li.aster::before {
     position: absolute;
-    content: url("../img/new-asterisk.png");
+    content: url("../img/asterisk.png");
     left: -15px;
     margin-top: 6px;
     z-index: 1;
 }
-.nav-sidebar li.li-indent.aster::before {
+span.asternew::before {
+    content: "..";
+    color: transparent;
+    
+    font-size: 30px;
+    
+    background-image: url("../img/asterisk-new.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 19px 22px;
+    
+    image-rendering: optimizeSpeed;             /*                     */
+    image-rendering: -moz-crisp-edges;          /* Firefox             */
+    image-rendering: -o-crisp-edges;            /* Opera               */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+    image-rendering: pixelated;                 /* Chrome as of 2019   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+}
+.nav-sidebar li.asternew::before {
+    position: absolute;
+    content: url("../img/asterisk-new.png");
+    left: -15px;
+    margin-top: 6px;
+    z-index: 1;
+}
+.nav-sidebar li.li-indent.aster::before, .nav-sidebar li.li-indent.asternew::before {
     left: 0px;
 }
-.nav-sidebar li.aster.active::before {
+.nav-sidebar li.aster.active::before, .nav-sidebar li.asternew.active::before {
     margin-top: 0px;
     left: -20px;
     opacity: 0.25;
 }
-.nav-sidebar li.li-indent.aster.active::before {
+.nav-sidebar li.li-indent.aster.active::before, .nav-sidebar li.li-indent.asternew.active::before {
     left: -25px;
 }
 
