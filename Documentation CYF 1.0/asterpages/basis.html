@@ -34,11 +34,11 @@ it's w3c valid, at least
                     <li><a href="../pages/controls.html">Controls</a></li>
                     <li><a href="../pages/basic.html">Basic setup</a></li>
                     <li><a href="../pages/unity.html"><span class="CYF"></span> Unity Setup (Optional)</a></li>
-                    <li class="aster"><a href="../pages/variables.html">Special Variables</a></li>
+                    <li class="asternew"><a href="../pages/variables.html">Special Variables</a></li>
                     <li><a href="../pages/terms.html">Terminology</a></li>
                 <li class="li-header">API</li>
                     <li><a href="../pages/api-text.html">Text commands</a></li>
-                    <li class="aster"><a href="../pages/api-events.html">Game events</a></li>
+                    <li class="asternew"><a href="../pages/api-events.html">Game events</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                     <li class="li-indent">Functions &amp; Objects:</li>
                         <li class="li-indent"><a href="../pages/api-functions-main.html">Misc. Functions</a></li>
@@ -60,16 +60,16 @@ it's w3c valid, at least
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
                     <li class="active" style="margin-left:5px;">&gt; About &lt;</a></li>
-                    <li><a href="setup.html">Additional Setup</a></li>
+                    <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li>Functions &amp; Objects:</li>
-                    <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
+                    <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li><span class="AsteriskExperiment"></span> CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
-                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li class="li-indent asternew"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> Shaders</li>
                     <li><a href="../pages/shaders.html">Introduction</a></li>
@@ -111,9 +111,11 @@ it's w3c valid, at least
             <p>
                 Nil256 (AsteriskMod's developer) is not good at English.
                 There may be some mistakes of English in this documentation, Sorry.
-                <br><br>
-                <a href="https://youtube.com/playlist?list=PLLY7ni-lCe-JqbAU7wVEEfyMRNbZ6E8JN" target="_blank" rel="noopener noreferrer">https://youtube.com/playlist?list=PLLY7ni-lCe-JqbAU7wVEEfyMRNbZ6E8JN</a>
-                <br>This link is AsteriskMod's official movie how AsteriskMod's functions are worked.
+                <!--
+                    <br><br>
+                    <a href="https://youtube.com/playlist?list=PLLY7ni-lCe-JqbAU7wVEEfyMRNbZ6E8JN" target="_blank" rel="noopener noreferrer">https://youtube.com/playlist?list=PLLY7ni-lCe-JqbAU7wVEEfyMRNbZ6E8JN</a>
+                    <br>This link is AsteriskMod's official movie how AsteriskMod's functions are worked.
+                -->
             </p><br><br>
 
             <p>
@@ -126,10 +128,13 @@ it's w3c valid, at least
                         <span class="term">ButtonUtil</span>: controls the Buttons.
                     </li><br>
                     <li>
+                        <span class="term">ArenaUtil</span>: controls the object in arena.
+                    </li><br>
+                    <li>
                         <span class="term">CustomState</span>: You can create your own state.
                     </li><br>
                     <li>
-                        <span class="term">Special Variables</span>: control the UI for example, text of MERCYMENU and 
+                        <span class="term">Special Variables</span>: controls the UI for example, text of MERCYMENU and 
                         enemy's life bar.
                     </li><br>
                     <li>
@@ -138,9 +143,12 @@ it's w3c valid, at least
                     <li>
                         <span class="term">The Misc Object</span>: reverses and rotates screen.
                     </li><br>
+                    <li>
+                        <span class="term">Mod's Info</span>: You can add your mod's description.
+                    </li><br>
                 </ul>
                 <br>
-                There are new 3 symbols in this documentaion and those means:<br>
+                There are new 5 symbols in this documentaion and those means:<br>
                 <ul>
                     <li>
                         <span class="Asterisk"></span> are only usable in AsteriskMod.
@@ -150,7 +158,13 @@ it's w3c valid, at least
                         when "Experimental Features" is enabled.
                     </li><br>
                     <li>
-                        <span class="aster">Indicates content <u>new or changed CYF's content</u> in Asterisk Mod.</span>
+                        <span class="Delete"></span>  means it may be deleted by Asterisk Mod v0.5.4.
+                    </li>
+                    <li>
+                        <span class="aster">Indicates <u>new or changed CYF's content</u> in Asterisk Mod.</span>
+                    </li>
+                    <li>
+                        <span class="asternew">Indicates <u>new or changed content</u> in Asterisk Mod v0.5.3.</span>
                     </li><br>
                 </ul>
             </p><br>
@@ -196,7 +210,13 @@ it's w3c valid, at least
                             <li>
                                 Make using <span class="term">"../"</span> in <span class="term">info.cyfmod</span> unallowed.
                             </li>
+                            <li>
+                                Make <span class="term">info.cyfmod</span> that is over 1MB unallowed.
+                            </li>
                         </ul>
+                    </li>
+                    <li>
+                        Add the variable named <span class="term">retroMode</span>.
                     </li>
                     <li>
                         Add the <span class="term">ArenaUtil</span> object.
