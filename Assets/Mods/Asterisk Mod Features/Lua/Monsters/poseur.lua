@@ -1,6 +1,6 @@
 -- A basic monster script skeleton you can copy and modify for your own creations.
 comments = {"Smells like the work\rof an enemy stand.", "Poseur is posing like his\rlife depends on it.", "Poseur's limbs shouldn't be\rmoving in this way."}
-commands = {"JP Button", "Dye Red"}
+commands = {"JP Button", "Dye Red", "Error"}
 randomdialogue = {"Random\nDialogue\n1.", "Random\nDialogue\n2.", "Random\nDialogue\n3."}
 
 sprite = "poseur" --Always PNG. Extension is added automatically.
@@ -50,5 +50,8 @@ function HandleCustomCommand(command)
         commands[2] = "dye red"
         Encounter.Call("SetFell", false)
         BattleDialog({"White."})
+    end
+    if command == "ERROR" then
+        NotExistsMethod()
     end
 end

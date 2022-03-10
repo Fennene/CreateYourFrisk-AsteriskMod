@@ -261,7 +261,9 @@ MonoBehaviour:
     If you''re not in the Unity editor, you shouldn''t actually be reading this text.
 
 
-    Press Esc to reset.'
+    Press Esc to reset.
+
+    Press C to copy above error message.'
 --- !u!222 &993327296
 CanvasRenderer:
   m_ObjectHideFlags: 0

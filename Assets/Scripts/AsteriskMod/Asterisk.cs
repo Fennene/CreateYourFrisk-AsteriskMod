@@ -15,7 +15,8 @@ namespace AsteriskMod
         public const string ModVersion = "v0.5.2.8";
 
         public static bool experimentMode;
-        public static Languages language = Languages.English;
+        public static Languages language;
+        public static bool showErrorDog;
 
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
@@ -26,19 +27,21 @@ namespace AsteriskMod
         {
             ControlPanel.instance.WindowBasisName = WindowBasisName;
             ControlPanel.instance.WinodwBsaisNmae = WinodwBsaisNmae;
+            language = Languages.English;
+            showErrorDog = true;
         }
 
         public static void LoadOption()
         {
-            string optionID_experiment = "*CYFExperiment";
-            if (LuaScriptBinder.GetAlMighty(null, optionID_experiment) != null && LuaScriptBinder.GetAlMighty(null, optionID_experiment).Type == DataType.Boolean)
+            string optionID = "*CYFExperiment";
+            if (LuaScriptBinder.GetAlMighty(null, optionID) != null && LuaScriptBinder.GetAlMighty(null, optionID).Type == DataType.Boolean)
             {
-                experimentMode = LuaScriptBinder.GetAlMighty(null, optionID_experiment).Boolean;
+                experimentMode = LuaScriptBinder.GetAlMighty(null, optionID).Boolean;
             }
-            string optionID_lang = "*CYFLanguage";
-            if (LuaScriptBinder.GetAlMighty(null, optionID_lang) != null && LuaScriptBinder.GetAlMighty(null, optionID_lang).Type == DataType.String)
+            optionID = "*CYFLanguage";
+            if (LuaScriptBinder.GetAlMighty(null, optionID) != null && LuaScriptBinder.GetAlMighty(null, optionID).Type == DataType.String)
             {
-                string lang = LuaScriptBinder.GetAlMighty(null, optionID_lang).String;
+                string lang = LuaScriptBinder.GetAlMighty(null, optionID).String;
                 switch (lang)
                 {
                     case "en":
@@ -48,6 +51,11 @@ namespace AsteriskMod
                         language = Languages.Japanese;
                         break;
                 }
+            }
+            optionID = "*CYFErrorDog";
+            if (LuaScriptBinder.GetAlMighty(null, optionID) != null && LuaScriptBinder.GetAlMighty(null, optionID).Type == DataType.Boolean)
+            {
+                showErrorDog = LuaScriptBinder.GetAlMighty(null, optionID).Boolean;
             }
         }
     }

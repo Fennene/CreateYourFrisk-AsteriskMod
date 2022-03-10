@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -16,6 +17,24 @@ public class ErrorDisplay : MonoBehaviour {
         }
         UnitaleUtil.firstErrorShown = false;
         string mess = !GlobalControls.modDev ? "restart CYF" : "reload";
-        GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess;
+        GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess + "\nPress C to copy above error messages.";
+        transform.parent.Find("wof").gameObject.SetActive(Asterisk.showErrorDog);
+        // --------------------------------------------------------------------------------
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GUIUtility.systemCopyBuffer = Message;
+        }
+    }
+    // --------------------------------------------------------------------------------
 }

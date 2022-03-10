@@ -20,7 +20,7 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject AsteriskBG, Asterisk, Back, Experiment;
+    public GameObject AsteriskBG, Asterisk, Back, Experiment, Dog;
     public Text ModName, ModVersion;
     // --------------------------------------------------------------------------------
 
@@ -81,32 +81,32 @@ public class OptionsScript : MonoBehaviour {
 
         // toggle retrocompatibility mode
         Retro.GetComponent<Button>().onClick.AddListener(() => {
-            GlobalControls.retroMode =!GlobalControls.retroMode;
+            GlobalControls.retroMode = !GlobalControls.retroMode;
 
             // save RetroMode preferences to AlMighties
             LuaScriptBinder.SetAlMighty(null, "CYFRetroMode", DynValue.NewBoolean(GlobalControls.retroMode), true);
 
             Retro.GetComponentInChildren<Text>().text = !GlobalControls.crate
                 ? ("Retrocompatibility Mode: " + (GlobalControls.retroMode ? "On" : "Off"))
-                : ( "RETORCMOAPTIILBIYT MOD: " + (GlobalControls.retroMode ? "ON" : "OFF"));
+                : ("RETORCMOAPTIILBIYT MOD: " + (GlobalControls.retroMode ? "ON" : "OFF"));
         });
         Retro.GetComponentInChildren<Text>().text = !GlobalControls.crate
             ? ("Retrocompatibility Mode: " + (GlobalControls.retroMode ? "On" : "Off"))
-            : ( "RETORCMOAPTIILBIYT MOD: " + (GlobalControls.retroMode ? "ON" : "OFF"));
+            : ("RETORCMOAPTIILBIYT MOD: " + (GlobalControls.retroMode ? "ON" : "OFF"));
 
         // toggle pixel-perfect fullscreen
         Fullscreen.GetComponent<Button>().onClick.AddListener(() => {
-            ScreenResolution.perfectFullscreen =!ScreenResolution.perfectFullscreen;
+            ScreenResolution.perfectFullscreen = !ScreenResolution.perfectFullscreen;
 
             // save RetroMode preferences to AlMighties
             LuaScriptBinder.SetAlMighty(null, "CYFPerfectFullscreen", DynValue.NewBoolean(ScreenResolution.perfectFullscreen), true);
 
             Fullscreen.GetComponentInChildren<Text>().text = !GlobalControls.crate
-                ? ( "Blurless Fullscreen: " + (ScreenResolution.perfectFullscreen ? "On" : "Off"))
+                ? ("Blurless Fullscreen: " + (ScreenResolution.perfectFullscreen ? "On" : "Off"))
                 : ("NOT UGLEE FULLSCREEN: " + (ScreenResolution.perfectFullscreen ? "ON" : "OFF"));
         });
         Fullscreen.GetComponentInChildren<Text>().text = !GlobalControls.crate
-            ? ( "Blurless Fullscreen: " + (ScreenResolution.perfectFullscreen ? "On" : "Off"))
+            ? ("Blurless Fullscreen: " + (ScreenResolution.perfectFullscreen ? "On" : "Off"))
             : ("NOT UGLEE FULLSCREEN: " + (ScreenResolution.perfectFullscreen ? "ON" : "OFF"));
 
         // change window scale
@@ -124,7 +124,7 @@ public class OptionsScript : MonoBehaviour {
             LuaScriptBinder.SetAlMighty(null, "CYFWindowScale", DynValue.NewNumber(ScreenResolution.windowScale), true);
 
             Scale.GetComponentInChildren<Text>().text = !GlobalControls.crate
-                ? ( "Window Scale: " + ScreenResolution.windowScale.ToString() + "x")
+                ? ("Window Scale: " + ScreenResolution.windowScale.ToString() + "x")
                 : ("WEENDO STRECH: " + ScreenResolution.windowScale.ToString() + "X");
         });
         ScreenResolution.windowScale--;
@@ -138,7 +138,7 @@ public class OptionsScript : MonoBehaviour {
         Discord.GetComponentInChildren<Text>().text = (!GlobalControls.crate ? "Discord Display: " : "DEESCORD DESPLAY: ") + DiscordControls.ChangeVisibilitySetting(0);
 
         // exit
-        Exit.GetComponent<Button>().onClick.AddListener(() => {SceneManager.LoadScene("ModSelect");});
+        Exit.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("ModSelect"); });
 
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
@@ -147,6 +147,15 @@ public class OptionsScript : MonoBehaviour {
         ModName.text = AsteriskMod.Asterisk.ModName;
         ModVersion.text = AsteriskMod.Asterisk.ModVersion;
         Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
+        Dog.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            AsteriskMod.Asterisk.showErrorDog = !AsteriskMod.Asterisk.showErrorDog;
+
+            LuaScriptBinder.SetAlMighty(null, "*CYFErrorDog", DynValue.NewBoolean(AsteriskMod.Asterisk.showErrorDog), true);
+
+            Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (AsteriskMod.Asterisk.showErrorDog ? "On" : "Off");
+        });
+        Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (AsteriskMod.Asterisk.showErrorDog ? "On" : "Off");
         Experiment.GetComponent<Button>().onClick.AddListener(() =>
         {
             AsteriskMod.Asterisk.experimentMode = !AsteriskMod.Asterisk.experimentMode;

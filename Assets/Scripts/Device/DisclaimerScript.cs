@@ -11,11 +11,6 @@ public class DisclaimerScript : MonoBehaviour {
     public GameObject Logo, LogoCrate, Desc1, Desc2, Desc3, Desc4, Desc5, Version;
 
     private void Start() {
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
-        Asterisk.Initialize();
-        // --------------------------------------------------------------------------------
         if (GlobalControls.crate) {
             Logo.GetComponent<Image>().enabled = false;
             LogoCrate.GetComponent<Image>().enabled = true;
