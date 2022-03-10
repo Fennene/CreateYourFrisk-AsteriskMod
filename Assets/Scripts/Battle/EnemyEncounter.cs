@@ -473,8 +473,6 @@ public class EnemyEncounter : MonoBehaviour {
             catch (Exception ex)
             {
                 //if (!GlobalControls.retroMode && !ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
-                Debug.Log(ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + "ROOM"));
-                Debug.Log(ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + "ROOMNOTFOUND"));
                 if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
                     UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "The state \"" + customStateName.String + "\" doesn't exist.");
                 else
