@@ -332,7 +332,7 @@ public class UIController : MonoBehaviour {
         {
             if (!Asterisk.experimentMode)
             {
-                UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature in v0.5.x. You should enable \"Experimental Feature\" in AsteriskMod's option.");
+                UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature by v0.5.3. You should enable \"Experimental Feature\" in AsteriskMod's option.");
                 return;
             }
             encounter.EndCustomState(newState);

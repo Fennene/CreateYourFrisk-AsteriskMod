@@ -440,7 +440,7 @@ public class EnemyEncounter : MonoBehaviour {
     {
         if (!Asterisk.experimentMode)
         {
-            UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature in v0.5.x. You should enable \"Experimental Feature\" in AsteriskMod's option.");
+            UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature by v0.5.3. You should enable \"Experimental Feature\" in AsteriskMod's option.");
             return;
         }
         DynValue customStateName = script.GetVar("customstatename");
@@ -466,13 +466,15 @@ public class EnemyEncounter : MonoBehaviour {
             {
                 customStateScript.DoString(ScriptRegistry.Get(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String));
             }
-            catch (InternalErrorException ex)
+            catch (InterpreterException ex)
             {
                 UnitaleUtil.DisplayLuaError(customStateName.String + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
             }
             catch (Exception ex)
             {
                 //if (!GlobalControls.retroMode && !ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
+                Debug.Log(ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + "ROOM"));
+                Debug.Log(ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + "ROOMNOTFOUND"));
                 if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
                     UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "The state \"" + customStateName.String + "\" doesn't exist.");
                 else
