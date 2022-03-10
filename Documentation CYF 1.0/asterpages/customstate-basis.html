@@ -153,6 +153,18 @@ it's w3c valid, at least
                 <font color="#FFF">* You can enter CustomState by using above 2 features.</font>
             </p><br>
 
+            <h3>Coding</h3>
+
+            <p>
+                <!--
+                <span class="term">The StateEditor object</span> is made based on the engine's code.
+                <br><br>
+                -->
+                <span class="asternew"></span> The engine does NOT reset arena automatically when customstate has ended.
+                You should call <span class="term">StateEditor.ResetArena()</span> in <span class="term">StateEnding()</span> when you modify arena with <span class="term">the arena object</span>.
+                (If you will enter to <span class="term">DEFENDING</span>, probably you don't need it.)
+            </p><br>
+
             <h3>Implementation in *Mod's the formal version</h3>
 
             <p>

@@ -506,7 +506,6 @@ public class EnemyEncounter : MonoBehaviour {
 
     public void EndCustomState(UIController.UIState newState)
     {
-        ArenaManager.instance.resetArena();
         ScriptWrapper scr = (ScriptWrapper)script["CustomState"].UserData.Object;
         try
         {
@@ -517,7 +516,7 @@ public class EnemyEncounter : MonoBehaviour {
         {
             UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "You shouldn't override CustomState, now you get an error :P");
         }
-        script.SetVar("CustomState", DynValue.NewString(""));
+        script.SetVar("CustomState", DynValue.NewNil());
     }
 
     private void CustomStateCallSafely(string functionName)

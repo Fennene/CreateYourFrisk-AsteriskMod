@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using System;
+using UnityEngine.UI;
 
 namespace AsteriskMod.Lua
 {
@@ -88,9 +89,25 @@ namespace AsteriskMod.Lua
             PlayerController.instance.GetComponent<Image>().enabled = visible;
         }
 
-        public static void ForceResetArena()
+        public static void ResetArena()
         {
             ArenaManager.instance.resetArena();
+        }
+
+        public static void SetCurrentAction(string action, bool playerMoveAndUpdateButton)
+        {
+            try
+            {
+                UIController.Actions nextAction = (UIController.Actions)Enum.Parse(typeof(UIController.Actions), action, true);
+                if ((UIController.instance.frozenState == UIController.UIState.PAUSE || !UIController.instance.stateSwitched) && nextAction != UIController.Actions.NONE)
+                {
+                    UIController.instance.MovePlayerToAction(nextAction, playerMoveAndUpdateButton);
+                }
+            }
+            catch
+            {
+                throw new CYFException("StateEditor.SetCurrentAction() can only take \"FIGHT\", \"ACT\", \"ITEM\" or \"MERCY\", but you entered \"" + action + "\".");
+            }
         }
     }
 }

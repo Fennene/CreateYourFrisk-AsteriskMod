@@ -1407,7 +1407,7 @@ public class UIController : MonoBehaviour {
         }
     }
 
-    public void MovePlayerToAction(Actions act) {
+    public void MovePlayerToAction(Actions act, bool updateButton = true) {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
@@ -1420,6 +1420,10 @@ public class UIController : MonoBehaviour {
         int targetAction = (int)act;
         if (!buttonActive[targetAction])
             return;
+
+        action = act;
+
+        if (!updateButton) return;
         // --------------------------------------------------------------------------------
 
         fightButton.overrideSprite = null;
@@ -1427,7 +1431,11 @@ public class UIController : MonoBehaviour {
         itemButton.overrideSprite = null;
         mercyButton.overrideSprite = null;
 
-        action = act;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        // action = act;
+        // --------------------------------------------------------------------------------
         SetPlayerOnAction(action);
     }
 

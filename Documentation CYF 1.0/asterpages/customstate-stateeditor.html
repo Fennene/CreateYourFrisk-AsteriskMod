@@ -127,7 +127,7 @@ it's w3c valid, at least
                 Pauses the text of dialog box object's typing, in the same way as <span class="term">text.SetPause()</span>.
             </p>
             <p>
-                <br><span class="asternew"></span> <span class="function">StateEditor.SetDialogFont(<span class="string"></span> fontName)</span>
+                <br><span class="function"><span class="asternew"></span> StateEditor.SetDialogFont(<span class="string"></span> fontName)</span>
                 Sets the font of text in dialog box object, in the same way as <span class="term">text.SetFont()</span>.
             </p>
             <p>
@@ -156,6 +156,20 @@ it's w3c valid, at least
             </p>
 
             <p>
+                <br><span class="function"><span class="asternew"></span> StateEditor.SetCurrentAction(<span class="string"></span> action, <span class="boolean"></span> playerMoveAndUpdateButton)</span>
+                Sets current player's action forced.<br>
+                If you change action with it, the player will select action you change in ACTIONSELECT automatically.
+                <ul>
+                    <li>
+                        <span class="term">action</span>: "FIGHT", "ACT", "ITEM" or "MERCY".
+                    </li>
+                    <li>
+                        <span class="term">playerMoveAndUpdateButton</span>: If true, changes button looks and moves the player's soul to selected button.
+                    </li>
+                </ul>
+            </p>
+
+            <p>
                 <br><span class="function">StateEditor.SetPlayerOnSelection(<span class="number"></span> selection [, <span class="boolean"></span> singleList = true)</span>
                 Sets the position of the player's soul, as a integer number.<br>
                 This is useful for moving the soul to correct position after using <span class="term">StateEditor.SetChoicesDialogText()</span>.
@@ -180,10 +194,11 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">StateEditor.ForceResetArena()</span>
-                Reset arena.
-                <br><br>
-                This function is called automatically before calling <span class="term">StateEnding()</span>.
+                <br><span class="function">StateEditor.ResetArena()</span>
+                Reset arena.<br>
+                <span class="asternew"></span> <font color="#FFF">You should call this function in <span class="term">StateEnding()</span> if you change arena with <span class="term">the arena object</span>.</font>
+                <br>
+                <span class="asternew"></span> This function's name was <span class="term">StateEditor.ForceResetArena()</span> until Asterisk Mod v0.5.2.7.
             </p>
         </div>
 
