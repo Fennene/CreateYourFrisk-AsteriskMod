@@ -20,7 +20,7 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject AsteriskBG, Asterisk, Back, Experiment, Dog;
+    public GameObject AsteriskBG, Asterisk, Back, Experiment, Dog, DescVisible;
     public Text ModName, ModVersion;
     // --------------------------------------------------------------------------------
 
@@ -147,6 +147,15 @@ public class OptionsScript : MonoBehaviour {
         ModName.text = AsteriskMod.Asterisk.ModName;
         ModVersion.text = AsteriskMod.Asterisk.ModVersion;
         Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
+        DescVisible.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            AsteriskMod.Asterisk.alwaysShowDesc = !AsteriskMod.Asterisk.alwaysShowDesc;
+
+            LuaScriptBinder.SetAlMighty(null, "*CYFDescVisibility", DynValue.NewBoolean(AsteriskMod.Asterisk.alwaysShowDesc), true);
+
+            DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (AsteriskMod.Asterisk.alwaysShowDesc ? "On" : "Off");
+        });
+        DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (AsteriskMod.Asterisk.alwaysShowDesc ? "On" : "Off");
         Dog.GetComponent<Button>().onClick.AddListener(() =>
         {
             AsteriskMod.Asterisk.showErrorDog = !AsteriskMod.Asterisk.showErrorDog;

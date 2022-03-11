@@ -33,7 +33,8 @@ public class SelectOMatic : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject ModDescShadow, ModDesc, ExistDescInfoShadow, ExistDescInfo;
+    public GameObject     ModDescShadow,     ModDesc, ExistDescInfoShadow, ExistDescInfo;
+    public GameObject AnimModDescShadow, AnimModDesc;
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -288,8 +289,6 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        ModDescShadow.SetActive(false);
-        ModDesc.SetActive(false);
         ModDescShadow.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
         ModDesc.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
         ModDescShadow.GetComponent<Text>().text = "";
@@ -301,11 +300,16 @@ public class SelectOMatic : MonoBehaviour {
             ModDesc.GetComponent<Text>().alignment = data.descAnchor;
             ModDescShadow.GetComponent<Text>().text = Regex.Replace(data.description, "<[^>]*?>", "");
             ModDesc.GetComponent<Text>().text = data.description;
-            ExistDescInfoShadow.SetActive(data.description != "");
-            ExistDescInfo.SetActive(data.description != "");
+            bool hasDescription = data.description != "";
+            ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+            ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+            ExistDescInfoShadow.SetActive(hasDescription);
+            ExistDescInfo.SetActive(hasDescription);
         }
         else
         {
+            ModDescShadow.SetActive(false);
+            ModDesc.SetActive(false);
             ExistDescInfoShadow.SetActive(false);
             ExistDescInfo.SetActive(false);
         }
@@ -332,6 +336,14 @@ public class SelectOMatic : MonoBehaviour {
         AnimModTitle            .GetComponent<Text>().text    = ModTitle.GetComponent<Text>().text;
         AnimEncounterCountShadow.GetComponent<Text>().text    = EncounterCountShadow.GetComponent<Text>().text;
         AnimEncounterCount      .GetComponent<Text>().text    = EncounterCount.GetComponent<Text>().text;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        AnimModDescShadow.GetComponent<Text>().text      = ModDesc.activeSelf ? ModDescShadow.GetComponent<Text>().text : "";
+        AnimModDescShadow.GetComponent<Text>().alignment = ModDescShadow.GetComponent<Text>().alignment;
+        AnimModDesc.GetComponent<Text>().text            = ModDesc.activeSelf ? ModDesc.GetComponent<Text>().text : "";
+        AnimModDesc.GetComponent<Text>().alignment       = ModDesc.GetComponent<Text>().alignment;
+        // --------------------------------------------------------------------------------
 
         // Move all real assets to the side
         ModBackground.transform.Translate(640        * dir, 0, 0);
@@ -339,14 +351,11 @@ public class SelectOMatic : MonoBehaviour {
         ModTitle.transform.Translate(640             * dir, 0, 0);
         EncounterCountShadow.transform.Translate(640 * dir, 0, 0);
         EncounterCount.transform.Translate(640       * dir, 0, 0);
-
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         ModDescShadow.transform.Translate(640       * dir, 0, 0);
         ModDesc.transform.Translate(640             * dir, 0, 0);
-        ExistDescInfoShadow.transform.Translate(640 * dir, 0, 0);
-        ExistDescInfo.transform.Translate(640       * dir, 0, 0);
         // --------------------------------------------------------------------------------
 
         // Actually choose the new mod

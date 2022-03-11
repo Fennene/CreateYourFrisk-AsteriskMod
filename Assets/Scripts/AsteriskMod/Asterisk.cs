@@ -16,6 +16,7 @@ namespace AsteriskMod
 
         public static bool experimentMode;
         public static Languages language;
+        public static bool alwaysShowDesc;
         public static bool showErrorDog;
 
         // --------------------------------------------------------------------------------
@@ -28,6 +29,7 @@ namespace AsteriskMod
             ControlPanel.instance.WindowBasisName = WindowBasisName;
             ControlPanel.instance.WinodwBsaisNmae = WinodwBsaisNmae;
             language = Languages.English;
+            alwaysShowDesc = true;
             showErrorDog = true;
         }
 
@@ -51,6 +53,11 @@ namespace AsteriskMod
                         language = Languages.Japanese;
                         break;
                 }
+            }
+            optionID = "*CYFDescVisibility";
+            if (LuaScriptBinder.GetAlMighty(null, optionID) != null && LuaScriptBinder.GetAlMighty(null, optionID).Type == DataType.Boolean)
+            {
+                alwaysShowDesc = LuaScriptBinder.GetAlMighty(null, optionID).Boolean;
             }
             optionID = "*CYFErrorDog";
             if (LuaScriptBinder.GetAlMighty(null, optionID) != null && LuaScriptBinder.GetAlMighty(null, optionID).Type == DataType.Boolean)
