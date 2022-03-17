@@ -1132,7 +1132,15 @@ public class UIController : MonoBehaviour {
                 // --------------------------------------------------------------------------------
             }
         else
-            PlaySound(AudioClipRegistry.GetSound("menuconfirm"));
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //PlaySound(AudioClipRegistry.GetSound("menuconfirm"));
+            {
+                if (state != UIState.CUSTOMSTATE)
+                    PlaySound(AudioClipRegistry.GetSound("menuconfirm"));
+            }
+            // --------------------------------------------------------------------------------
     }
 
     private void HandleArrows() {

@@ -121,17 +121,6 @@ it's w3c valid, at least
                 After you create files, what you should do is to write <span class="term">StateStarting()</span> and <span class="term">StateEnding()</span> in the script.
             </p><br>
 
-            <h3>Available variables, function and objects</h3>
-
-            <p>
-                You can use almost features written <span class="term">[E/M/W]</span> in this document to state scripts.<br>
-                Additionally, you can use <span class="term">the Arena object</span> and 
-                <span class="term">the StateEditor object</span> to control UIs.<br>
-                Moreover, <span class="term">Player.SetControlOverride()</span> works in the scripts.
-                <br><br>
-                See pages in <span>CustomState</span> scetion for more information.
-            </p><br>
-
             <h3>How to enter to your CustomState</h3>
 
             <p>
@@ -147,23 +136,52 @@ it's w3c valid, at least
                 I don't recommend call this function in the state script. (I think it may work but we need more debugs.)
                 <br><br>
                 Note that when <span class="term">Experimental Features</span> is disabled, an error will occur.
-            </p><br><br>
+            </p><br>
 
             <p>
                 <font color="#FFF">* You can enter CustomState by using above 2 features.</font>
             </p><br>
 
-            <h3>Coding</h3>
+            <hr><br>
+
+            <h3>Available variables, function and objects</h3>
 
             <p>
-                <!--
-                <span class="term">The StateEditor object</span> is made based on the engine's code.
+                You can use almost features written <span class="term">[E/M/W]</span> in this document to state scripts.<br>
+                Additionally, you can use <span class="term">the Arena object</span> and 
+                <span class="term">the StateEditor object</span> to control UIs.<br>
+                Moreover, <span class="term">Player.SetControlOverride()</span> works in the scripts.
                 <br><br>
-                -->
-                <span class="asternew"></span> The engine does NOT reset arena automatically when customstate has ended.
+                See pages in <span>CustomState</span> scetion for more information.
+            </p><br>
+
+            <h3>Coding</h3><br><br>
+
+            <!--
+                <h4>StateEditor object</h4>
+
+                <p>
+                    <span class="term">The StateEditor object</span> is made based on the engine's code.
+                    <br><br>
+                </p><br>
+            -->
+
+            <h4>The end of CustomState</h4>
+
+            <p>
+                The engine does NOT reset arena automatically when customstate has ended.
                 You should call <span class="term">StateEditor.ResetArena()</span> in <span class="term">StateEnding()</span> when you modify arena with <span class="term">the arena object</span>.
                 (If you will enter to <span class="term">DEFENDING</span>, probably you don't need it.)
             </p><br>
+
+            <h4>CustomState to CustomState</h4>
+
+            <p>
+                I think you sometimes want to change CustomState to another CustomState.<br>
+                If you want to do: you can change <span class="term">customstatename</span> by use <span class="term">Encounter["customstatename"]</span> and I recommend that you should put <span class="term">State("CUSTOMSTATE")</span> in the END of <span class="term">Update()</span>.
+            </p><br>
+
+            <hr><br>
 
             <h3>Implementation in *Mod's the formal version</h3>
 

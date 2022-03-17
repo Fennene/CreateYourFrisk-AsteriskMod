@@ -510,6 +510,7 @@ public class EnemyEncounter : MonoBehaviour {
         try
         {
             scr.Call("StateEnding", DynValue.NewString(newState.ToString()));
+            ScriptWrapper.instances.Remove(scr);
             LuaScriptBinder.scriptlist.Remove(scr.script);
         }
         catch
@@ -517,6 +518,9 @@ public class EnemyEncounter : MonoBehaviour {
             UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "You shouldn't override CustomState, now you get an error :P");
         }
         script.SetVar("CustomState", DynValue.NewNil());
+        customStateScript = null;
+        currentCustomStateName += " <Removed>";
+        customStateHasUpdate = false;
     }
 
     private void CustomStateCallSafely(string functionName)
