@@ -457,34 +457,20 @@ public class SelectOMatic : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            // Return to the Disclaimer screen
-            //if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-            //    btnExit.GetComponent<Button>().onClick.Invoke();
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.Escape))
+            // Show/Hide Description
+            if (Asterisk.experimentMode && Input.GetKeyDown(KeyCode.V))
             {
-                // Exist
-                if (Asterisk.experimentMode && Input.GetKeyDown(KeyCode.Escape))
-                {
-                    btnExit.GetComponent<Button>().onClick.Invoke();
-                }
-                else if (!Input.GetKeyDown(KeyCode.Escape))
-                {
-                    // Exit
-                    if (!Asterisk.experimentMode)
-                    {
-                        btnExit.GetComponent<Button>().onClick.Invoke();
-                    }
-                    // Show/Hide Description
-                    else
-                    {
-                        ModDesc.SetActive(!ModDesc.activeSelf);
-                        ModDescShadow.SetActive(!ModDescShadow.activeSelf);
-                    }
-                }
+                ModDesc.SetActive(!ModDesc.activeSelf);
+                ModDescShadow.SetActive(!ModDescShadow.activeSelf);
             }
             // --------------------------------------------------------------------------------
-            // Encounter or Mod List controls:
-        } else {
+            // Return to the Disclaimer screen
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+                btnExit.GetComponent<Button>().onClick.Invoke();
+
+        // Encounter or Mod List controls:
+        }
+        else {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)) {
                 // Store previous value of selectedItem
                 int previousSelectedItem = selectedItem;
