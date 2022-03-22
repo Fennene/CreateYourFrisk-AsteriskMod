@@ -39,11 +39,11 @@ it's w3c valid, at least
                     <li><a href="controls.html">Controls</a></li>
                     <li><a href="basic.html">Basic setup</a></li>
                     <li><a href="unity.html"><span class="CYF"></span> Unity Setup (Optional)</a></li>
-                    <li class="asternew"><a href="variables.html">Special Variables</a></li>
+                    <li class="aster"><a href="variables.html">Special Variables</a></li>
                     <li><a href="terms.html">Terminology</a></li>
                 <li class="li-header">API</li>
                     <li><a href="api-text.html">Text commands</a></li>
-                    <li class="asternew"><a href="api-events.html">Game events</a></li>
+                    <li class="aster"><a href="api-events.html">Game events</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                     <li class="li-indent">Functions &amp; Objects:</li>
                         <li class="li-indent"><a href="api-functions-main.html">Misc. Functions</a></li>
@@ -54,7 +54,7 @@ it's w3c valid, at least
                         <li class="li-indent"><a href="api-functions-input.html">The Input Object</a></li>
                         <li class="li-indent"><a href="api-functions-time.html">The Time Object</a></li>
                         <li class="li-indent"><a href="cyf-inventory.html"><span class="CYF"></span> The Inventory Object</a></li>
-                        <li class="li-indent active aster" style="margin-left:5px;">&gt; <span class="CYF"></span>The Misc Object &lt;</li>
+                        <li class="li-indent active asternew" style="margin-left:5px;">&gt; <span class="CYF"></span>The Misc Object &lt;</li>
                         <li class="li-indent"><a href="api-functions-discord.html"><span class="CYF"></span> The Discord Object</a></li>
                         <li class="li-indent"><a href="api-functions-waves.html">The Arena Object</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
@@ -65,16 +65,16 @@ it's w3c valid, at least
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
                     <li><a href="../asterpages/basis.html">About</a></li>
-                    <li class="asternew"><a href="../asterpages/setup.html">Additional Setup</a></li>
+                    <li><a href="../asterpages/setup.html">Additional Setup</a></li>
                     <li>Functions &amp; Objects:</li>
-                    <li class="li-indent asternew"><a href="../asterpages/api-playerutil.html">The PlayerUtil Object</a></li>
+                    <li class="li-indent"><a href="../asterpages/api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="../asterpages/api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent asternew"><a href="../asterpages/api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent"><a href="../asterpages/api-arenautil.html">The ArenaUtil Object</a></li>
                     <li><span class="AsteriskExperiment"></span> CustomState:</li>
                     <li class="li-indent"><a href="../asterpages/customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="../asterpages/customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="../asterpages/customstate-event.html">Available Events</a></li>
-                    <li class="li-indent asternew"><a href="../asterpages/customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li class="li-indent"><a href="../asterpages/customstate-stateeditor.html">The StateEditor Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> Shaders</li>
                     <li><a href="shaders.html">Introduction</a></li>
@@ -179,6 +179,53 @@ CreateProjectileAbs("bullet", 0 - widthOnEachSide, 240) -- creates a bullet at t
                 <li><span class="number"></span> <span class="term">Misc.WindowY</span> - Gets or sets the Y position of the bottom left corner of the window.</li><br>
                 <li><span class="term">Misc.MoveWindow(<span class="number"></span> X, <span class="number"></span>  Y)</span> - Moves the window X pixels horizontally and Y pixels vertically.</li><br>
                 <li><span class="term">Misc.MoveWindowTo(<span class="number"></span> X, <span class="number"></span> Y)</span> - Moves the bottom left corner of the window to the given coordinates.
+                </li><br>
+                <li><span class="asternew"></span> <span class="AsteriskExperiment"></span> <span class="number"></span> <span class="term">Misc.MessageBox(<span class="string"></span> text [, <span class="string"></span> title = "" [, <span class="number"></span> iconType = 0 [, <span class="number"></span> buttonType = 0]]])</span> - Shows MessageBox.
+                    <ul>
+                        <li>
+                            <span class="term">text</span>: the message.
+                        </li>
+                        <li>
+                            <span class="term">title</span>: the text of title bar in the windonw of message box.
+                        </li>
+                        <li>
+                            <span class="term">iconType</span>: there are available options
+                            <ul>
+                                <li>0 - None</li>
+                                <li>1 - Red Circle and White x symbol.</li>
+                                <li>2 - Blue Circle and White ? symbol.</li>
+                                <li>3 - Yellow Triangle and Black ! symbol.</li>
+                                <li>4 - Blue Circle and White i symbol.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="term">buttonType</span>: there are available options
+                            <ul>
+                                <li>0 - OK</li>
+                                <li>1 - OK and Cancel</li>
+                                <li>2 - Abort, Rerry and Ignore</li>
+                                <li>3 - Yes, No and Cancel</li>
+                                <li>4 - Yes and No</li>
+                                <li>5 - Retry and Cancel</li>
+                                <li>6 - Cancel, Retry and Continue</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="term">Result</span>: MessageBox returns int value:
+                            <ul>
+                                <li>1 - The <span class="term">OK</span> button was selected.</li>
+                                <li>2 - The <span class="term">Cancel</span> button was selected.</li>
+                                <li>3 - The <span class="term">Abort</span> button was selected.</li>
+                                <li>4 - The <span class="term">Retry</span> button was selected.</li>
+                                <li>5 - The <span class="term">Ignore</span> button was selected.</li>
+                                <li>6 - The <span class="term">Yes</span> button was selected.</li>
+                                <li>7 - The <span class="term">No</span> button was selected.</li>
+                                <li>10 - The <span class="term">Try Again</span> button was selected.</li>
+                                <li>11 - The <span class="term">Continue</span> button was selected.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <a href="https://docs.microsoft.com/ja-jp/windows/win32/api/winuser/nf-winuser-messagebox?redirectedfrom=MSDN">There is the reference of MessageBox here.</a>
                 </li><br>
             </ul>
             <hr>

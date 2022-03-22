@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.IO;
@@ -286,10 +287,59 @@ public class Misc {
         private const uint MB_OKCANCEL = 0x00000001;
         private const uint MB_ABORTRETRYIGNORE = 0x00000002;
         private const uint MB_YESNOCANCEL = 0x00000003;
+        private const uint MB_YESNO = 0x00000004;
+        private const uint MB_RETRYCANCEL = 0x00000005;
+        private const uint MB_CANCELTRYCONTINUE = 0x00000006;
+        private const uint MB_ICONNONE = 0x00000000;
+        private const uint MB_ICONERROR = 0x00000010;
+        private const uint MB_ICONQUESTION = 0x00000020;
+        private const uint MB_ICONWARNING = 0x00000030;
+        private const uint MB_ICONINFORMATION = 0x00000040;
 
-        public static int MessageBox(string text, string title)
+        private static uint ConvertButtonType(int buttonType)
         {
-            return MsgBox(window, text, title, 0u);
+            switch (buttonType)
+            {
+                case 1:
+                    return MB_OKCANCEL;
+                case 2:
+                    return MB_ABORTRETRYIGNORE;
+                case 3:
+                    return MB_YESNOCANCEL;
+                case 4:
+                    return MB_YESNO;
+                case 5:
+                    return MB_RETRYCANCEL;
+                case 6:
+                    return MB_CANCELTRYCONTINUE;
+            }
+            return MB_OK;
+        }
+
+        private static uint ConvertIconType(int iconType)
+        {
+            switch (iconType)
+            {
+                case 1:
+                    return MB_ICONERROR;
+                case 2:
+                    return MB_ICONQUESTION;
+                case 3:
+                    return MB_ICONWARNING;
+                case 4:
+                    return MB_ICONINFORMATION;
+            }
+            return MB_ICONNONE;
+        }
+
+        public static int MessageBox(string text, string title = "", int iconType = 0, int buttonType = 0)
+        {
+            if (!Asterisk.experimentMode)
+            {
+                UnitaleUtil.DisplayLuaError("Experimental Feature", "Misc.MessageBox is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
+                return 0;
+            }
+            return MsgBox(window, text, title, ConvertIconType(iconType) + ConvertButtonType(buttonType));
         }
         // --------------------------------------------------------------------------------
 
@@ -331,6 +381,12 @@ public class Misc {
         public static Rect GetWindowRect() {
             UnitaleUtil.DisplayLuaError("Windows-only function", "This feature is Windows-only! Sorry, but you can't use it here.");
             return new Rect();
+        }
+
+        public static int MessageBox(string text, string title = "", int iconType = 0, int buttonType = 0)
+        {
+            UnitaleUtil.DisplayLuaError("Windows-only function", "This feature is Windows-only! Sorry, but you can't use it here.");
+            return 0;
         }
     #endif
 }
