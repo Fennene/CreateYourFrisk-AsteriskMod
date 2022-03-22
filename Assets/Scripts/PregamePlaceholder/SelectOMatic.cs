@@ -305,6 +305,11 @@ public class SelectOMatic : MonoBehaviour {
             ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
             ExistDescInfoShadow.SetActive(hasDescription);
             ExistDescInfo.SetActive(hasDescription);
+            Font font = Resources.Load<Font>("Fonts/" + ((data.font == ModDataFont.EightBit) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
+            ModTitleShadow.GetComponent<Text>().font = font;
+            ModTitle.GetComponent<Text>().font = font;
+            EncounterCountShadow.GetComponent<Text>().font = font;
+            EncounterCount.GetComponent<Text>().font = font;
         }
         else
         {
@@ -312,6 +317,11 @@ public class SelectOMatic : MonoBehaviour {
             ModDesc.SetActive(false);
             ExistDescInfoShadow.SetActive(false);
             ExistDescInfo.SetActive(false);
+            Font font = Resources.Load<Font>("Fonts/PixelOperator/PixelOperator-Bold");
+            ModTitleShadow.GetComponent<Text>().font = font;
+            ModTitle.GetComponent<Text>().font = font;
+            EncounterCountShadow.GetComponent<Text>().font = font;
+            EncounterCount.GetComponent<Text>().font = font;
         }
         // --------------------------------------------------------------------------------
     }
@@ -343,6 +353,10 @@ public class SelectOMatic : MonoBehaviour {
         AnimModDescShadow.GetComponent<Text>().alignment = ModDescShadow.GetComponent<Text>().alignment;
         AnimModDesc.GetComponent<Text>().text            = ModDesc.activeSelf ? ModDesc.GetComponent<Text>().text : "";
         AnimModDesc.GetComponent<Text>().alignment       = ModDesc.GetComponent<Text>().alignment;
+        AnimModTitleShadow.GetComponent<Text>().font       = ModTitleShadow.GetComponent<Text>().font;
+        AnimModTitle.GetComponent<Text>().font             = ModTitle.GetComponent<Text>().font;
+        AnimEncounterCountShadow.GetComponent<Text>().font = EncounterCountShadow.GetComponent<Text>().font;
+        AnimEncounterCount.GetComponent<Text>().font       = EncounterCount.GetComponent<Text>().font;
         // --------------------------------------------------------------------------------
 
         // Move all real assets to the side

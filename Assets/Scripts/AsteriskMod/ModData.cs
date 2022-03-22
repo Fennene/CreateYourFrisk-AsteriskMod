@@ -4,12 +4,20 @@ using UnityEngine;
 
 namespace AsteriskMod
 {
+    public enum ModDataFont
+    {
+        Pixel,
+        EightBit,
+        JP
+    }
+
     public struct ModData
     {
         public string title;
         public string subitle;
         public string description;
         public TextAnchor descAnchor;
+        public ModDataFont font;
 
         public static ModData Empty
         {
@@ -20,6 +28,7 @@ namespace AsteriskMod
                 _.subitle = "";
                 _.description = "";
                 _.descAnchor = TextAnchor.UpperLeft;
+                _.font = ModDataFont.Pixel;
                 return _;
             }
         }
@@ -68,6 +77,23 @@ namespace AsteriskMod
                             result.descAnchor = (TextAnchor)Enum.Parse(typeof(TextAnchor), parameter); ;
                         }
                         catch { }
+                        break;
+                    case "font":
+                        string font = parameter.ToLower().Replace("-", " ").Replace("_", " ");
+                        if (font == "8bit" || font == "8bitoperator" || font == "8bit operator" || font == "8bitoperator jve")
+                        {
+                            result.font = ModDataFont.EightBit;
+                        }
+                        /*
+                        else if (font == "pixel" || font == "pixeloperator" || font == "pixel operator")
+                        {
+                            result.font = ModDataFont.Pixel;
+                        }
+                        */
+                        else
+                        {
+                            result.font = ModDataFont.Pixel;
+                        }
                         break;
                 }
             }
