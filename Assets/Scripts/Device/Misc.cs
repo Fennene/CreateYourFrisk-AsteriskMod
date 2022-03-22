@@ -276,6 +276,23 @@ public class Misc {
             GetWindowRect(window, out r);
             return new Rect(r.Left, r.Top, Mathf.Abs(r.Right - r.Left), Mathf.Abs(r.Top - r.Bottom));
         }
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        [DllImport("user32.dll", EntryPoint = "MessageBox", CharSet = CharSet.Auto)]
+        private static extern int MsgBox(int hWnd, string lpText, string lpCaption, uint uType);
+        private const uint MB_OK = 0x00000000;
+        private const uint MB_OKCANCEL = 0x00000001;
+        private const uint MB_ABORTRETRYIGNORE = 0x00000002;
+        private const uint MB_YESNOCANCEL = 0x00000003;
+
+        public static int MessageBox(string text, string title)
+        {
+            return MsgBox(window, text, title, 0u);
+        }
+        // --------------------------------------------------------------------------------
+
     #else
         public static string WindowName {
             get {

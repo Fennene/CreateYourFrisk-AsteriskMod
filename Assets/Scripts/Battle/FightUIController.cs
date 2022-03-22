@@ -12,7 +12,13 @@ public class FightUIController : MonoBehaviour {
     public int presetDmg = 0;
     public LuaSpriteController line;
     private float borderX;
-    private const float xSpeed = -450.0f;
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //private const float xSpeed = -450.0f;
+    private const float xSpeed = 450.0f;
+    private float xDirection = -1f;
+    // --------------------------------------------------------------------------------
     public int[] shakeX; //Modify it in the Editor if needed
     //private int[] shakeX = new int[] { 24, 0, 0, 0, 0, -48, 0, 0, 0, 0, 38, 0, 0, 0, 0, -28, 0, 0, 0, 0, 20, 0, 0, 0, 0, -12, 0, 0, 0, 0, 8, 0, 0, 0, 0, -2, 0, 0, 0, 0};
     private readonly string[] lineAnim = { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
@@ -68,7 +74,13 @@ public class FightUIController : MonoBehaviour {
         commonInit();
         finishingFade = false;
         stopped = false;
-        targetRt.anchoredPosition = new Vector2(GetComponent<RectTransform>().rect.width / 2, 0);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //targetRt.anchoredPosition = new Vector2(GetComponent<RectTransform>().rect.width / 2, 0);
+        xDirection = Mathf.Pow(-1, Math.RandomRange(1, 3));
+        targetRt.anchoredPosition = new Vector2(GetComponent<RectTransform>().rect.width / 2 * -xDirection, 0);
+        // --------------------------------------------------------------------------------
         for (int i = 0; i < targetNumber; i++) {
             LaunchInstance(true);
             boundFightUiInstances[boundFightUiInstances.Count - 1].Init(targetIDs[i]);
@@ -83,7 +95,12 @@ public class FightUIController : MonoBehaviour {
         line.StopAnimation();
         line.img.gameObject.SetActive(true);
         line.img.GetComponent<Image>().enabled = true;
-        borderX = -GetComponent<RectTransform>().rect.width / 2;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //borderX = -GetComponent<RectTransform>().rect.width / 2;
+        borderX = GetComponent<RectTransform>().rect.width / 2;
+        // --------------------------------------------------------------------------------
     }
     public void commonQuickInit() {
         if (UIController.instance.state == UIController.UIState.ATTACKING) return;
@@ -158,7 +175,12 @@ public class FightUIController : MonoBehaviour {
 
     public bool Finished() {
         if (!stopped)
-            return targetRt.anchoredPosition.x < borderX;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //return targetRt.anchoredPosition.x < borderX;
+            return Mathf.Abs(targetRt.anchoredPosition.x) > borderX;
+            // --------------------------------------------------------------------------------
         return boundFightUiInstances.All(fight => fight.Finished());
     }
 
@@ -221,7 +243,12 @@ public class FightUIController : MonoBehaviour {
         if (stopped)
             return;
 
-        float mv = xSpeed * Time.deltaTime;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //float mv = xSpeed * Time.deltaTime;
+        float mv = xSpeed * Time.deltaTime * xDirection;
+        // --------------------------------------------------------------------------------
         targetRt.anchoredPosition = new Vector2(targetRt.anchoredPosition.x + mv, 0);
         if (!Finished() || boundFightUiInstances.Count == 0) return;
         stopped = true;
