@@ -8,11 +8,24 @@ public class LuaFile {
     public string openMode { get; private set; }
     public string filePath { get; private set; }
 
-    public LuaFile(string path, string mode = "rw") {
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //public LuaFile(string path, string mode = "rw") {
+    public LuaFile(string path, string mode = "rw", bool fullPath = false) {
+    // --------------------------------------------------------------------------------
         if (path == null)        throw new CYFException("Cannot open a file with a nil path.");
         if (path.Contains("..")) throw new CYFException("You cannot open a file outside of a mod folder. The use of \"..\" is forbidden.");
 
-        path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
+        if (!fullPath)
+            path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
+        else
+            path = path.Replace('\\', '/');
+        // --------------------------------------------------------------------------------
 
         if (mode != "r" && mode != "w" && mode != "rw" && mode != "wr") throw new CYFException("A file's open mode can only be \"r\" (read), \"w\" (write) or \"rw\" (read + write).");
         if (mode.Contains("r") && !File.Exists(path))                   throw new CYFException("You can't open a file that doesn't exist in read-only mode.");

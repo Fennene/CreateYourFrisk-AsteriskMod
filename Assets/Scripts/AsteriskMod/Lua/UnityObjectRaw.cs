@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.AsteriskMod.Lua
 {
-    public class UnityObject
+    public class UnityObjectRaw
     {
         private GameObject _gameObject;
         private bool isUserCreated = false;
