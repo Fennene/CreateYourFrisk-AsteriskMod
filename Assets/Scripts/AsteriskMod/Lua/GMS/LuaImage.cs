@@ -11,20 +11,21 @@ namespace AsteriskMod.Lua.GMS
 
         public bool hasComponent
         {
-            get;
-            private set;
+            get { return _image != null; }
         }
 
         public LuaImage(Image image, UnityObject self)
         {
             _image = image;
-            hasComponent = (image != null);
             unityObject = self;
         }
 
-        internal void Remove()
+        public void Remove()
         {
-            hasComponent = false;
+            if (unityObject.isReferenced)
+                throw new CYFException("GameObject \"" + unityObject.name + "\"'s any component can't be removed.");
+            GameObject.Destroy(_image);
+            _image = null;
         }
 
         public void MoveTo(float x, float y, float z = 0)
