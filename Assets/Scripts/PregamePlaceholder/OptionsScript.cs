@@ -22,6 +22,7 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     public GameObject AsteriskBG, Asterisk, Back, Experiment, Dog, DescVisible;
     public Text ModName, ModVersion;
+    public GameObject CaYF;
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -174,6 +175,10 @@ public class OptionsScript : MonoBehaviour {
             Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (AsteriskMod.Asterisk.experimentMode ? "On" : "Off");
         });
         Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (AsteriskMod.Asterisk.experimentMode ? "On" : "Off");
+        if (GlobalControls.crate)
+        {
+            CaYF.SetActive(true);
+        }
         AsteriskBG.SetActive(false);
         // --------------------------------------------------------------------------------
 
