@@ -29,7 +29,7 @@ namespace AsteriskMod.Lua.GMS
             Image = new LuaImage(_gameObject.GetComponent<Image>(), this);
         }
 
-        public bool exists
+        public bool isactive
         {
             get { return _gameObject != null; }
         }
@@ -46,6 +46,7 @@ namespace AsteriskMod.Lua.GMS
                 throw new CYFException("GameObject \"" + name + "\" can't be removed.");
             Image.Remove();
             GameObject.Destroy(_gameObject);
+            _gameObject = null;
         }
 
         public void MoveTo(float x, float y, float z = 0)

@@ -76,6 +76,15 @@ span.boolean::before {
     font-weight: bold;
     /* font-size: 12px; */
 }
+
+span.nullable_boolean::before {
+    color: #D6312D;
+    content: "boolean?";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
+
 span.userdata {
     /* display: contents !important; */
     

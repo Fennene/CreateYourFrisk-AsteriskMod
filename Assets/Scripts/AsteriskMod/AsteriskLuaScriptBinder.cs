@@ -25,6 +25,7 @@ namespace AsteriskMod
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
+            script.Globals["AsteriskCustomStateUpdate"] = false;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
         }
 

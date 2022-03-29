@@ -140,7 +140,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="Asterisk"></span> <span class="boolean"></span> retroMode [E/M/W]</span>
+                <br><span class="function"><span class="Asterisk"></span> <span class="boolean"></span> retroMode [E/M/W]</span>
                 True if CYF's retrocompatibility mode is enabled, false otherwise.
             </p>
 
@@ -167,8 +167,36 @@ it's w3c valid, at least
 
             <p>
                 <br><span class="function"><span class="Asterisk"></span> <span class="string"></span> AsteriskVersion [E/M/W]</span>
-                Returns a different string based on the version of AsteriskMod you are using.<br>
+                Returns a different string based on the version of AsteriskMod you are using.<br><br>
+                <span class="asternew"></span> <font color="#FFF">I'm sorry. I make a mistake of version's format.</font><br>
+                <ul>
+                    <li><span class="term">Versions before v0.5.2.9</span>: Current version's number with "v".<br>
+                    For example, in AsteriskMod v0.5.2.7, this will be "v0.5.2.7".</li>
+                    <br>
+                    <li><span class="term">Versions after v0.5.2.8</span>: Current version's number.<br>
+                    For example, in AsteriskMod v0.5.3, this will be "0.5.3".</li>
+                </ul>
             </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="Asterisk"></span> <span class="nullable_boolean"></span> AsteriskCustomStateUpdate [E/M/W]</span>
+                Returns <span class="term">true</span> if AsteriskMod is v0.5.3.x, <span class="term">false</span> if AsteriskMod is v0.5.2.9, <span class="term">nil</span> if AsteriskMod is before v0.5.2.9.<br><br>
+                You don't need check to exists "v" if you use this.
+                <div class="code-container">
+<pre class="brush: lua;">if AsteriskCustomStateUpdate == nil then
+    if AsteriskVersion > "v0.5.2.7" then
+        -- body
+    end
+else
+    if not AsteriskCustomStateUpdate then -- <=> if AsteriskVersion == "0.5.2.9" then
+    else
+        if AsteriskVersion > "0.5.3.2" then
+            -- body
+        end
+    end
+end
+</pre>
+                </div>
+            </p><br>
 
             <hr>
             <h4>Encounter script variables</h4>
