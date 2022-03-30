@@ -19,6 +19,17 @@ namespace AsteriskMod
         internal int forceChangeMaxHP;
         internal string forceChangeHPString;
 
+        private byte requests = 0;
+        private const byte REQUEST_SET_LV = 8;
+        private string request_set_lv_value;
+        private const byte REQUEST_SET_NAME_COLOR = 4;
+        private Color request_set_name_color_value;
+        private const byte REQUEST_SET_LV_COLOR = 2;
+        private Color request_set_lv_color_value;
+        private const byte REQUEST_SET_NAMELV_COLOR = 1;
+        private Color request_set_namelv_color_value;
+        private int[] request_set_namelv_color_value2 = new int[2] { 0, 0 };
+
         public static PlayerUIManager Instance;
 
         private void Start()
@@ -74,13 +85,34 @@ namespace AsteriskMod
 
         public void SetLVText(string lvText)
         {
+            if (NameLVManager.GetComponent<TextManager>() == null)
+            {
+                requests += REQUEST_SET_LV;
+                request_set_lv_value = lvText;
+                return;
+            }
             NameLVManager.GetComponent<TextManager>().SetText(new TextMessage(PlayerCharacter.instance.Name.ToUpper() + "  LV " + lvText, false, true));
         }
 
         public void SetNameLVColor(bool name, Color color)
         {
+            if (NameLVManager.transform.childCount == 0)
+            {
+                if (name)
+                {
+                    requests += REQUEST_SET_NAME_COLOR;
+                    request_set_name_color_value = color;
+                }
+                else
+                {
+                    requests += REQUEST_SET_LV_COLOR;
+                    request_set_lv_color_value = color;
+                }
+                return;
+            }
             StringInfo stringInfo = new StringInfo(PlayerCharacter.instance.Name);
             int length = stringInfo.LengthInTextElements;
+            //length = PlayerCharacter.instance.Name.Length;
             //Debug.Log("isNameColor: " + name);
             //Debug.Log("NameLength: " + length);
             //Debug.Log("Children: " + NameLVManager.transform.childCount);
@@ -99,6 +131,13 @@ namespace AsteriskMod
 
         public void SetNameLVColorManually(int start, int end, Color color)
         {
+            if (NameLVManager.transform.childCount == 0)
+            {
+                requests += REQUEST_SET_NAMELV_COLOR;
+                request_set_namelv_color_value = color;
+                request_set_namelv_color_value2 = new int[2] { start, end };
+                return;
+            }
             for (var i = start - 1; i <= end - 1; i++)
             {
                 NameLVManager.transform.GetChild(i).GetComponent<MaskImage>().color = color;
@@ -183,6 +222,35 @@ namespace AsteriskMod
             {
                 textMan.transform.GetChild(i).GetComponent<MaskImage>().color = color;
                 textMan.transform.GetChild(i).GetComponent<Letter>().colorFromText = color;
+            }
+        }
+
+        /// <summary>
+        /// Call methods called before initialize objects again.<br />
+        /// 初期化前に呼ばれた関数を再度呼び出します。
+        /// </summary>
+        public void Request()
+        {
+            if (requests == 0) return;
+            if (((double)requests / 8.0) >= 1.0)
+            {
+                NameLVManager.GetComponent<TextManager>().SetText(new TextMessage(PlayerCharacter.instance.Name.ToUpper() + "  LV " + request_set_lv_value, false, true));
+                requests -= REQUEST_SET_LV;
+            }
+            if (((double)requests / 4.0) >= 1.0)
+            {
+                SetNameLVColor(true, request_set_name_color_value);
+                requests -= REQUEST_SET_NAME_COLOR;
+            }
+            if (((double)requests / 2.0) >= 1.0)
+            {
+                SetNameLVColor(false, request_set_lv_color_value);
+                requests -= REQUEST_SET_LV_COLOR;
+            }
+            if (requests % 2 == 1)
+            {
+                SetNameLVColorManually(request_set_namelv_color_value2[0], request_set_namelv_color_value2[1], request_set_namelv_color_value);
+                requests -= REQUEST_SET_NAMELV_COLOR;
             }
         }
     }

@@ -23,6 +23,12 @@ possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_tou
 function EncounterStarting()
     Player.name = string.upper("Nil256")
 
+    --PlayerUtil.SetLVColor(1, 1, 0)
+    --PlayerUtil.SetHPControlOverride(true)
+    --PlayerUtil.SetHPBarLength(99)
+    --PlayerUtil.SetHP(50, 99, false)
+    PlayerUtil.SetHPTextColor(1, 0, 0)
+
     Audio.Stop()
     State("PAUSE")
 end

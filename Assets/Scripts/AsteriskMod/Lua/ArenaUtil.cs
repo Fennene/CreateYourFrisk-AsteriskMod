@@ -29,5 +29,15 @@ namespace AsteriskMod.Lua
                 oldPosition.z
             );
         }
+
+        public static void SetDialogTextVolume(float value)
+        {
+            ArenaUIManager.Instance.SetTextVolume(value);
+        }
+
+        public static float GetDialogTextVolume()
+        {
+            return ArenaUIManager.Instance.GetTextVolume();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AsteriskMod;
+using MoonSharp.Interpreter;
 using UnityEngine;
 
 public class UIStats : MonoBehaviour {
@@ -13,6 +14,12 @@ public class UIStats : MonoBehaviour {
     private GameObject hpRect;
 
     private bool initialized;
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private bool encounterHasOnHPChanged;
+    // --------------------------------------------------------------------------------
 
     private void Awake() { instance = this; }
 
@@ -33,6 +40,12 @@ public class UIStats : MonoBehaviour {
         initialized = true;
         setMaxHP();
         setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null;
+        // --------------------------------------------------------------------------------
     }
 
     public void setPlayerInfo(string newName, int newLv) {
@@ -59,6 +72,13 @@ public class UIStats : MonoBehaviour {
         string sHpCurrent = hpCurrent < 10 ? "0" + hpCurrent.ToString("F" + count) : hpCurrent.ToString("F" + count);
         string sHpMax     = hpMax     < 10 ? "0" + hpMax : "" + hpMax;
         hpTextMan.SetText(new TextMessage(sHpCurrent + " / " + sHpMax, false, true));
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (encounterHasOnHPChanged && Asterisk.experimentMode)
+            UIController.instance.encounter.TryCall("OnHPChanged");
+        // --------------------------------------------------------------------------------
     }
 
     public void setMaxHP() {
@@ -75,6 +95,10 @@ public class UIStats : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    private uint requests = 0;
+    private const byte REQUEST_SET_HP_TEXT = 1;
+    private string request_set_hp_text_value;
+
     internal void setHPOverride(float hp, int maxhp, bool updateHPText)
     {
         if (!initialized) return;
@@ -96,7 +120,26 @@ public class UIStats : MonoBehaviour {
 
     internal void setHPTextOverride(string hpText)
     {
+        if (!initialized)
+        {
+            requests += REQUEST_SET_HP_TEXT;
+            request_set_hp_text_value = hpText;
+            return;
+        }
         hpTextMan.SetText(new TextMessage(hpText, false, true));
+    }
+
+    /// <summary>
+    /// Call methods called before initialize objects again.<br />
+    /// 初期化前に呼ばれた関数を再度呼び出します。
+    /// </summary>
+    internal void Request()
+    {
+        if (requests == 0) return;
+        if (requests % 2 == 1)
+        {
+            hpTextMan.SetText(new TextMessage(request_set_hp_text_value, false, true));
+        }
     }
     // --------------------------------------------------------------------------------
 }

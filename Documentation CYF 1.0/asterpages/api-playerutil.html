@@ -173,6 +173,10 @@ it's w3c valid, at least
                 <br>For example, PlayerUtil.SetNameColor(1.0, 0.0, 0.0) makes the text red.
                 <br>Black areas are not affected by coloration.
                 <br>The 4th value is the alpha (transparency) value of the text.
+                <br><br>
+                <font color="#FFF">You can't change color by using this function in <span class="term">EncounterStarting()</span> or <span class="term">FirstFrameUpdate()</span>.</font><br>
+                That's because of technical issue of CYF. (GameObject NameLV have invisibility mysterious objects.)<br>
+                You should call it in <span class="term">Update()</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.SetNameColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
@@ -180,14 +184,24 @@ it's w3c valid, at least
                 <br>For example, PlayerUtil.SetNameColor32(255, 0, 0) makes the text red.
                 <br>Black areas are not affected by coloration.
                 <br>The 4th value is the alpha (transparency) value of the text.
+                <br><br>
+                <font color="#FFF">You can't change color by using this function in <span class="term">EncounterStarting()</span> or <span class="term">FirstFrameUpdate()</span>.</font><br>
+                That's because of technical issue of CYF. (GameObject NameLV have invisibility mysterious objects.)<br>
+                You should call it in <span class="term">Update()</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.SetLVColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
                 Sets the text's color of the player's LV, as 3 or 4 values from 0 to 1.
+                <br><br>
+                <font color="#FFF">If this function call in <span class="term">EncounterStarting()</span> or <span class="term">FirstFrameUpdate()</span>, the color of LV's text will be changed, but the color of name's text will also come to be changed.</font><br>
+                That's because of technical issue of CYF. (GameObject NameLV have invisibility mysterious objects.)
             </p>
             <p>
                 <br><span class="function">PlayerUtil.SetLVColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
                 Sets the text's color of the player's LV, as 3 or 4 integer values from 0 to 255.
+                <br><br>
+                <font color="#FFF">If this function call in <span class="term">EncounterStarting()</span> or <span class="term">FirstFrameUpdate()</span>, the color of LV's text will be changed, but the color of name's text will also come to be changed.</font><br>
+                That's because of technical issue of CYF. (GameObject NameLV have invisibility mysterious objects.)
             </p>
 
 

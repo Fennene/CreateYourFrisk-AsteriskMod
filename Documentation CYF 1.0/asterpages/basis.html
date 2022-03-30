@@ -38,7 +38,7 @@ it's w3c valid, at least
                     <li><a href="../pages/terms.html">Terminology</a></li>
                 <li class="li-header">API</li>
                     <li><a href="../pages/api-text.html">Text commands</a></li>
-                    <li class="aster"><a href="../pages/api-events.html">Game events</a></li>
+                    <li class="asternew"><a href="../pages/api-events.html">Game events</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                     <li class="li-indent">Functions &amp; Objects:</li>
                         <li class="li-indent"><a href="../pages/api-functions-main.html">Misc. Functions</a></li>
@@ -61,6 +61,7 @@ it's w3c valid, at least
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
                     <li class="active" style="margin-left:5px;">&gt; About &lt;</a></li>
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
+                    <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
@@ -102,7 +103,7 @@ it's w3c valid, at least
         <div class="tab-pane active text-style" id="asterisk-basis">
             <h2><font color="#007fff">* Asterisk Mod</font></h2><br><br>
             <p>
-                Asterisk Mod v0.5.2.8 by Nil256 [FenneneProject]
+                Asterisk Mod v0.5.2.9 by Nil256 [FenneneProject]
                 <br><br>
                 Asterisk Mod is a folk of original Create Your Frisk.
                 That adds some strong functions and objects.
@@ -121,6 +122,12 @@ it's w3c valid, at least
             <p>
                 Asterisk Mod adds and modifies below features to original CYF:
                 <ul>
+                    <li>
+                        <span class="term">Copying Error</span>: You can copy error message.
+                    </li><br>
+                    <li>
+                        <span class="term">Mod's Info</span>: You can add your mod's description.
+                    </li><br>
                     <li>
                         <span class="term">PlayerUtil</span>: controls the UI of the player's status.
                     </li><br>
@@ -141,10 +148,10 @@ it's w3c valid, at least
                         <span class="term">Game Events</span>: adds functions which run some the time point.
                     </li><br>
                     <li>
-                        <span class="term">The Misc Object</span>: reverses and rotates screen.
+                        <span class="term">The Misc Object</span>: reverses and rotates screen and shows message box.
                     </li><br>
                     <li>
-                        <span class="term">Mod's Info</span>: You can add your mod's description.
+                        <span class="term">The Text Object</span>: sets voice's volume.
                     </li><br>
                 </ul>
                 <br>
@@ -170,32 +177,6 @@ it's w3c valid, at least
             </p><br>
 
             <p>
-                Asterisk Mod also adds some options.<br>
-                You can see that info and options when you select <span class="term">Asterisk Mod Option</span>.
-                <br>
-                There are below options available:
-                <ul>
-                    <li>
-                        <span class="term">Show Always The Description</span>: Switch visibility of mods' description.
-                    </li>
-                    <li>
-                        <span class="term">Show Error Dog</span>: Switch visibility of the dog in error screen.
-                    </li><br>
-                    <li>
-                        <span class="term">Experimental Features</span>: Allow Experimental Features.
-                        <br>Experiment features contains the contents which will be added future update and
-                        the contents that may occur some error or may be unstable.
-                    </li>
-                </ul>
-                <br>
-                I may be add <span class="term">Language</span> Option (Japanese) in future update...?
-            </p><br><br>
-
-            <p>
-                Press C key to copy the error message in error screen when error has occurred.
-            </p><br>
-
-            <p>
                 You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
                 That is codes which modified or added by Asterisk Mod.
             </p><br>
@@ -209,6 +190,9 @@ it's w3c valid, at least
             </p><br>
 
             <h4>v0.5.2.9 (beta/debug version)</h4>
+            <p>
+                [CustomState Update 1/2]
+            </p>
             <p>
                 <ul class="rn">
                     <li class="fix">
@@ -240,11 +224,18 @@ it's w3c valid, at least
                         Add the function <span class="term">Text.GetSoundVolume()</span>.
                     </li>
                     <li>
+                        Add <span class="term">subtitle</span> parameter in <span class="term">info.cyfmod</span>.
+                    </li>
+                    <li>
+                        Add <span class="term">font</span> parameter in <span class="term">info.cyfmod</span>.
+                    </li>
+                    <li>
                         Add <span class="term">Experimental Features</span>.
                         <ul>
                             <li>Add <span class="term">Misc.MessageBox()</span>.</li>
-                            <li>Add <span class="term">subtitle</span> parameter in <span class="term">info.cyfmod</span>.</li>
-                            <li>Add <span class="term">font</span> parameter in <span class="term">info.cyfmod</span>.</li>
+                        </ul>
+                        <ul>
+                            <li>Add GameEvent <span class="term">OnHPChanged()</span>.</li>
                         </ul>
                     </li>
                 </ul>

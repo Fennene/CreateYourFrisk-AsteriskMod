@@ -27,6 +27,11 @@ namespace AsteriskMod
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             script.Globals["AsteriskCustomStateUpdate"] = false;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
+
+            if (!UnitaleUtil.IsOverworld)
+            {
+                script.Globals["ExistsLayer"] = (Func<string, bool>)ExistsLayer;
+            }
         }
 
         public static void BoundScriptUserData(ref Script script)
@@ -37,6 +42,17 @@ namespace AsteriskMod
             script.Globals.Set("PlayerUtil", playerUtil);
             DynValue arenaUtil = UserData.Create(new ArenaUtil());
             script.Globals.Set("ArenaUtil", arenaUtil);
+        }
+
+        public static bool ExistsLayer(string name)
+        {
+            return name != null && GameObject.Find((UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/") + name + "Layer") != null;
+        }
+
+        public static void LateInitialize()
+        {
+            PlayerUIManager.Instance.Request();
+            UIStats.instance.Request();
         }
     }
 }
