@@ -564,4 +564,23 @@ public class LuaTextManager : TextManager {
         CheckExists();
         return (int)UnitaleUtil.CalcTextHeight(this);
     }
+
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public void SetSoundVolume(float value)
+    {
+        if (value < 0) value = 0;
+        else if (value > 1) value = 1;
+        //GetComponent<AudioSource>().volume = value;
+        GetComponents<AudioSource>()[1].volume = value;
+    }
+
+    public float GetSoundVolume()
+    {
+        //return GetComponent<AudioSource>().volume;
+        return GetComponents<AudioSource>()[1].volume;
+    }
+    // --------------------------------------------------------------------------------
 }

@@ -1,5 +1,15 @@
+local hasSpecialHurtMethod = (Encounter["PlayerHurt"] ~= nil)
+local fellize = (Encounter["fell"] ~= nil)
+function OnHit(bullet)
+    if hasSpecialHurtMethod then
+        Encounter.Call("PlayerHurt", 6)
+    else
+        Player.Hurt(6)
+    end
+end
 -- The chasing attack from the documentation example.
 chasingbullet = CreateProjectile('bullet', Arena.width/2, Arena.height/2)
+if fellize then chasingbullet.sprite.color = {1, 0, 0} end
 chasingbullet.SetVar('xspeed', 0)
 chasingbullet.SetVar('yspeed', 0)
 

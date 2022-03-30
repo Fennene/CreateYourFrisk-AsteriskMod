@@ -1,3 +1,13 @@
+local hasSpecialHurtMethod = (Encounter["PlayerHurt"] ~= nil)
+local fellize = (Encounter["fell"] ~= nil)
+function OnHit(bullet)
+    if hasSpecialHurtMethod then
+        Encounter.Call("PlayerHurt", 4)
+    else
+        Player.Hurt(4)
+    end
+end
+
 -- The bouncing bullets attack from the documentation example.
 spawntimer = 0
 bullets = {}
@@ -8,6 +18,7 @@ function Update()
         local posx = 30 - math.random(60)
         local posy = Arena.height/2
         local bullet = CreateProjectile('bullet', posx, posy)
+        if fellize then bullet.sprite.color = {1, 0, 0} end
         bullet.SetVar('velx', 1 - 2*math.random())
         bullet.SetVar('vely', 0)
         table.insert(bullets, bullet)

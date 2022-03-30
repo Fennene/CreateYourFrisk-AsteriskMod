@@ -1,8 +1,8 @@
+This is one of features of AsteriskMod; it is the <color=#ffff00>description</color>!
+
 This mod contains most features of AsteriskMod.
 
-If you wanna back to disclaimer screen, You should press <color=#ffff00>Escape Key</color>.
 
+これはAsteriskModの機能の一つ、<color=#ffff00>Modの説明文</color>です。
 
 このModはAsteriskModのほぼ全ての機能を含んできます。
-
-もしdisclaimer画面(タイトル画面)に戻りたいなら、<color=#ffff00>Escapeキー</color>を押してね。
