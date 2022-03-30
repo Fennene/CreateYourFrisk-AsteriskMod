@@ -95,6 +95,8 @@ public class UIStats : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    internal bool canModify { get { return initialized; } }
+
     private uint requests = 0;
     private const byte REQUEST_SET_HP_TEXT = 1;
     private string request_set_hp_text_value;

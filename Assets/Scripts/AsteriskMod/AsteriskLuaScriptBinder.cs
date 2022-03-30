@@ -51,8 +51,8 @@ namespace AsteriskMod
 
         public static void LateInitialize()
         {
-            PlayerUIManager.Instance.Request();
             UIStats.instance.Request();
+            PlayerUIManager.Instance.Request();
         }
     }
 }

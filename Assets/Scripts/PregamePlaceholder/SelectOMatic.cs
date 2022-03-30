@@ -510,8 +510,7 @@ public class SelectOMatic : MonoBehaviour {
                 btnExit.GetComponent<Button>().onClick.Invoke();
 
         // Encounter or Mod List controls:
-        }
-        else {
+        } else {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)) {
                 // Store previous value of selectedItem
                 int previousSelectedItem = selectedItem;

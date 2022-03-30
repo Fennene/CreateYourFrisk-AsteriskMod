@@ -20,6 +20,8 @@ namespace AsteriskMod
         internal string forceChangeHPString;
 
         private byte requests = 0;
+        private const byte REQUEST_SET_HPTEXT_COLOR = 16;
+        private Color request_set_hptext_color_value;
         private const byte REQUEST_SET_LV = 8;
         private string request_set_lv_value;
         private const byte REQUEST_SET_NAME_COLOR = 4;
@@ -215,6 +217,12 @@ namespace AsteriskMod
 
         public void SetHPTextColor(Color color)
         {
+            if (!UIStats.instance.canModify)
+            {
+                requests += REQUEST_SET_HPTEXT_COLOR;
+                request_set_hptext_color_value = color;
+                return;
+            }
             Transform HPLabel = HPManager.transform.Find("HPLabel");
             GameObject barManager = HPLabel.transform.Find("HPBar").gameObject;
             GameObject textMan = barManager.transform.Find("HPTextParent").gameObject;
@@ -232,6 +240,11 @@ namespace AsteriskMod
         public void Request()
         {
             if (requests == 0) return;
+            if (((double)requests / 16.0) >= 1.0)
+            {
+                SetHPTextColor(request_set_hptext_color_value);
+                requests -= REQUEST_SET_HPTEXT_COLOR;
+            }
             if (((double)requests / 8.0) >= 1.0)
             {
                 NameLVManager.GetComponent<TextManager>().SetText(new TextMessage(PlayerCharacter.instance.Name.ToUpper() + "  LV " + request_set_lv_value, false, true));

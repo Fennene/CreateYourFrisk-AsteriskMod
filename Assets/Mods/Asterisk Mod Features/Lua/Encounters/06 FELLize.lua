@@ -29,6 +29,11 @@ action = 0
 function EncounterStarting()
     Player.name = string.upper("Nil256")
 
+    PlayerUtil.SetNameColor(1, 0, 0)
+    PlayerUtil.SetLVColor(1, 0, 0)
+    PlayerUtil.SetHPLabelColor(1, 0, 0)
+    PlayerUtil.SetHPTextColor(1, 0, 0)
+
     ButtonUtil.FIGHT.SetColor(1, 0.5, 0)
     ButtonUtil.ACT.SetColor(1, 0, 0)
     ButtonUtil.ITEM.SetColor(1, 0, 0)
@@ -43,9 +48,6 @@ end
 
 -- This is for PlayerUtil. You can't use functions of PlayerUtil in EncounterStarting() because of technical issue.
 function FirstFrameUpdate()
-    PlayerUtil.SetNameColor(1, 0, 0)
-    PlayerUtil.SetLVColor(1, 0, 0)
-    PlayerUtil.SetHPLabelColor(1, 0, 0)
 end
 
 function SetButtonColor(index, r, g, b)
@@ -61,7 +63,9 @@ function SetButtonColor(index, r, g, b)
 end
 
 function Update()
-    PlayerUtil.SetHPTextColor(1, 0, 0)
+    if not AsteriskExperiment then
+        PlayerUtil.SetHPTextColor(1, 0, 0)
+    end
     if not isActionSelect then return end
     if Input.Right == 1 then
         SetButtonColor(action, 1, 0, 0)
@@ -73,6 +77,11 @@ function Update()
         action = (action - 1) % 4
         SetButtonColor(action, 1, 0.5, 0)
     end
+end
+
+function OnHPChanged() -- This is the one of Experimental Features added in v0.5.2.9.
+    PlayerUtil.SetHPTextColor(1, 0, 0)
+    -- This is better than calling it in Update() because that function is called when it needed only.
 end
 
 function EnteringState(newState, oldState)

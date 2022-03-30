@@ -226,11 +226,12 @@ end
                 from within this function will be run.
             </p>
             <p>
-                <br><span class="function"><span class="AsteriskExperiment"> </span>OnHPChanged()</span>
+                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> OnHPChanged()</span>
                 This function runs the moment the Player takes damage or heals (by any means, including bullet damage,
                 consume item, scripted damage, setting <span class="term">Player.hp</span>, and even
-                text commands), just after changing the text displaying HP.<br>
-                This is called even if 
+                text commands), just after changing the text displaying HP.
+                <br><br>
+                When <span class="term">Experimental Features</span> is disabled, this doesn't run.
             </p>
             <p>
                 <br><span class="function"><span class="CYF"> </span>BeforeDeath()</span>
@@ -243,7 +244,7 @@ end
                 Player's hp back to greater than 0, they will live and the Game Over sequence will be cancelled.
             </p>
             <p>
-                <br><span class="function"><span class="AsteriskExperiment"> </span>BeforeEncounterEnding()</span>
+                <br><span class="function"><span class="AsteriskExperiment"></span> BeforeEncounterEnding()</span>
                 This function runs when there is no active enemy (all enemies are spared, killed or <span class="term">SetActive(false)</span>).
                 <br>
                 If you return <span class="term">true</span> in this function, encounter will be not ended.
