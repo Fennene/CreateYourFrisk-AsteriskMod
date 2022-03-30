@@ -565,7 +565,6 @@ public class LuaTextManager : TextManager {
         return (int)UnitaleUtil.CalcTextHeight(this);
     }
 
-
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------

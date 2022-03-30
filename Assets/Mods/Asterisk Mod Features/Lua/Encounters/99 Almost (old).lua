@@ -4,7 +4,7 @@ wavetimer = 4.0
 arenasize = {155, 130}
 
 enemies = {
-"poseur"
+"poseur (old)"
 }
 
 enemypositions = {

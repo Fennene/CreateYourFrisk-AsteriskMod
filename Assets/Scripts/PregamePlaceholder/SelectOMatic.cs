@@ -289,6 +289,27 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        ModData info = ModData.GetCurrentModData();
+        if (!string.IsNullOrEmpty(info.subitle))
+        {
+            EncounterCountShadow.GetComponent<Text>().text = info.subitle;
+            EncounterCount.GetComponent<Text>().text = info.subitle;
+        }
+        ModDescShadow.GetComponent<Text>().alignment = info.descAnchor;
+        ModDesc.GetComponent<Text>().alignment = info.descAnchor;
+        ModDescShadow.GetComponent<Text>().text = Regex.Replace(info.description, "<[^>]*?>", "");
+        ModDesc.GetComponent<Text>().text = info.description;
+        bool hasDescription = info.description != "";
+        ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+        ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+        ExistDescInfoShadow.SetActive(hasDescription);
+        ExistDescInfo.SetActive(hasDescription);
+        Font font = Resources.Load<Font>("Fonts/" + ((info.font == ModDataFont.EightBit) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
+        ModTitleShadow.GetComponent<Text>().font = font;
+        ModTitle.GetComponent<Text>().font = font;
+        EncounterCountShadow.GetComponent<Text>().font = font;
+        EncounterCount.GetComponent<Text>().font = font;
+        /*
         ModDescShadow.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
         ModDesc.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
         ModDescShadow.GetComponent<Text>().text = "";
@@ -296,6 +317,11 @@ public class SelectOMatic : MonoBehaviour {
         if (Asterisk.experimentMode)
         {
             ModData data = ModData.GetCurrentModData();
+            if (!string.IsNullOrEmpty(data.subitle))
+            {
+                EncounterCountShadow.GetComponent<Text>().text = data.subitle;
+                EncounterCount.GetComponent<Text>().text = data.subitle;
+            }
             ModDescShadow.GetComponent<Text>().alignment = data.descAnchor;
             ModDesc.GetComponent<Text>().alignment = data.descAnchor;
             ModDescShadow.GetComponent<Text>().text = Regex.Replace(data.description, "<[^>]*?>", "");
@@ -323,6 +349,7 @@ public class SelectOMatic : MonoBehaviour {
             EncounterCountShadow.GetComponent<Text>().font = font;
             EncounterCount.GetComponent<Text>().font = font;
         }
+        */
         // --------------------------------------------------------------------------------
     }
 
@@ -472,7 +499,7 @@ public class SelectOMatic : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             // Show/Hide Description
-            if (Asterisk.experimentMode && Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 ModDesc.SetActive(!ModDesc.activeSelf);
                 ModDescShadow.SetActive(!ModDescShadow.activeSelf);

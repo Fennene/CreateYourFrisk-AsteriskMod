@@ -105,7 +105,7 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-setup">
-            <h2>Additional Setup</h2><br><br>
+            <h2><span class="Asterisk"></span> Additional Setup</h2><br><br>
 
             <p>Currently, Asterisk Mod adds scripts are set up like this:</p>
             <ul>
@@ -117,11 +117,15 @@ it's w3c valid, at least
 
             <br><hr>
 
-            <span class="AsteriskExperiment"></span> <h3>Your Mod's Information</h3><br><br>
+            <h3>Your Mod's Information</h3><br><br>
 
             <p>
                 Asterisk Mod adds the way to add a description of your own mod.<br><br>
                 <span class="asternew"></span> You can see the description by pressing V key.<br>
+            </p><br>
+
+            <p>
+                <span class="asternew"></span> <font color="#FFF">This feature is no longer Experimental Features!</font>
             </p><br>
 
             <p>
@@ -160,6 +164,7 @@ YOURMOD
             <div class="code-container">
 <pre class="brush: lua;">
 -- info.cyfmod:
+subtitle="by Nil256"
 font="8bitoperator"
 descfile="description.txt"
 align="MiddleCenter"
@@ -176,6 +181,9 @@ key="parameter"
                 </div>
                 There are available keys in info.cyfmod:<br><br>
                 <ul>
+                    <li>
+                        <span class="asternew"></span> <span class="term">subtitle</span> - replaces the text that is below mod's title text.
+                    </li>
                     <li>
                         <span class="asternew"></span> <span class="term">font</span> - sets the font of mod's title and sub-title(the number of encount).<br>
                         You can choose the paramter in the following:
@@ -202,265 +210,6 @@ key="parameter"
                             <li>LowerRight</li>
                         </ul>
                     </li><br>
-                </ul>
-            </p>
-
-
-
-
-
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-
-            <p>
-                Nil256 (AsteriskMod's developer) is not good at English.
-                There may be some mistakes of English in this documentation, Sorry.
-                <br><br>
-                <a href="https://youtube.com/playlist?list=PLLY7ni-lCe-JqbAU7wVEEfyMRNbZ6E8JN" target="_blank" rel="noopener noreferrer">https://youtube.com/playlist?list=PLLY7ni-lCe-JqbAU7wVEEfyMRNbZ6E8JN</a>
-                <br>This link is AsteriskMod's official movie how AsteriskMod's functions are worked.
-            </p><br><br>
-
-            <p>
-                Asterisk Mod adds and modifies below features to original CYF:
-                <ul>
-                    <li>
-                        <span class="term">PlayerUtil</span>: controls the UI of the player's status.
-                    </li><br>
-                    <li>
-                        <span class="term">ButtonUtil</span>: controls the Buttons.
-                    </li><br>
-                    <li>
-                        <span class="term">CustomState</span>: You can create your own state.
-                    </li><br>
-                    <li>
-                        <span class="term">Special Variables</span>: control the UI for example, text of MERCYMENU and 
-                        enemy's life bar.
-                    </li><br>
-                    <li>
-                        <span class="term">Game Events</span>: adds functions which run some the time point.
-                    </li><br>
-                    <li>
-                        <span class="term">The Misc Object</span>: reverses and rotates screen.
-                    </li><br>
-                </ul>
-                <br>
-                There are new 3 symbols in this documentaion and those means:<br>
-                <ul>
-                    <li>
-                        <span class="Asterisk"></span> are only usable in AsteriskMod.
-                    </li><br>
-                    <li>
-                        <span class="AsteriskExperiment"></span> are only usable in AsteriskMod 
-                        when "Experimental Features" is enabled.
-                    </li><br>
-                    <li>
-                        <span class="aster">Indicates content <u>new or changed CYF's content</u> in Asterisk Mod.</span>
-                    </li><br>
-                </ul>
-            </p><br>
-
-            <p>
-                Asterisk Mod also adds some options.<br>
-                You can see that info and options when you select <span class="term">Asterisk Mod Option</span>.
-                <br>
-                There are below options available:
-                <ul>
-                    <li>
-                        <span class="term">Experimental Features</span>: Allow experimental features.
-                        <br>Experiment features contains the contents which will be added future update and
-                        the contents that may occur some error or may be unstable.
-                    </li>
-                </ul>
-                <br>
-                I may be add <span class="term">Language</span> Option (Japanese) in future update...?
-            </p><br><br>
-
-            <p>
-                You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
-                That is codes which modified or added by *Mod.
-            </p><br>
-
-            <hr>
-            
-            <h3>Release Notes</h3><br><br>
-
-            <h4>v0.5.2.8 (beta/debug verison)</h4>
-            <p>
-                <ul>
-                    <li>
-                        Add the <span class="term">ArenaUtil</span> object.
-                    </li>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.
-                        <ul>
-                            <li>Add <span class="term">StateEditor.SetDialogFont()</span>.</li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.7</h4>
-            <p>
-                <ul>
-                    <li>
-                        <font color="#FF0">Fix the problem that Mac OS and Linux OS doesn't launch CYF.</font><br>
-                        <font color="#FFF">This problem is not reported by anyone but I have realized I can change window's title on only Windows OS.</font>
-                    </li>
-                    <li>
-                        Add <span class="term">PlayerUtil.GetSoulAlpha()</span>.<br>
-                    </li>
-                    <li>
-                        Add the function to modify button object's color.</span><br>
-                    </li>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the feature that you can add your mod's description. (Test)
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        Remove <span class="term">StringUtil</span>.<br>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.6 (beta/debug version)</h4>
-            <p>
-                <ul>
-                    <li>
-                        Fix the contents of <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Fix the problem that errors don't show correct in State Script.
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        Add <span class="term">StringUtil</span>.<br>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.5 (beta/debug version)</h4>
-            <p>
-                <ul>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add <span class="term">StateEditor.GetLineCompleteDialogText()</span>.
-                            </li>
-                            <li>
-                                Add <span class="term">StateEditor.SkipDialogText()</span>.
-                            </li>
-                            <li>
-                                Show warning text and error for safe if you call <span class="term">SetActive()</span> in 
-                                <span class="term">OnAction()</span> event.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.4 (beta/debug version)</h4>
-            <p>
-                <ul>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the new content <span class="term">CustomState</span>.
-                            </li>
-                            <li>
-                                Add the state <span class="term">CUSTOMSTATE</span>.
-                            </li>
-                            <li>
-                                Add <span class="term">State Scripts</span>.
-                            </li>
-                            <li>
-                                Add the variable <span class="term">customstatename</span> in Encounter Script.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2</h4>
-            <p>
-                <ul>
-                    <li>
-                        Fix the problem we can select inactive button by <span class="term">SetAction()</span>.
-                    </li>
-                    <li>
-                        Fix the problem soul select FIGHT Button even if FIGHT Button is inactive.
-                    </li>
-                    <li>
-                        Add the functions of reversing camera.
-                    </li>
-                    <li>
-                        Add the variable of rotating camera.
-                    </li>
-                    <li>
-                        Add the variables controling the UI of enemy's life bar in Enemy Script.
-                    </li>
-                    <li>
-                        Add the variables changing texts in MERCYMENU.
-                    </li>
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the option about experiment features.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">BeforeEncounterEnding()</span> 
-                                which run before ending encounter.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">OnActive()</span> 
-                                which run in called <span class="term">SetActive()</span>.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5</h4>
-            <p>
-                <ul>
-                    <li>
-                        Add special variables <span class="term">isModifiedCYF</span>,
-                        <span class="term">Asterisk</span> and <span class="term">AsteriskVersion</span>.
-                    </li>
-                    <li>
-                        Add the game event named <span class="term">FirstFrameUpdate()</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">The PlayerUtil Object</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">The ButtonUtil Object</span>.
-                    </li>
-                    <li>
-                        Add <span class="term">button Object</span>.
-                    </li>
                 </ul>
             </p>
         </div>

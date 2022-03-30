@@ -47,7 +47,7 @@ namespace AsteriskMod
             string description_file_path = "";
             foreach (string l in File.ReadAllLines(info_cyfmod_path))
             {
-                string line = l.Replace("\r", "").Replace("\t", "").Replace(" ", "");
+                string line = l.Replace("\r", "").Replace("\t", "");
                 if (line.StartsWith(";"))
                     continue;
                 if (!line.Contains("="))
