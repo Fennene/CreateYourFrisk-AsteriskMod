@@ -89,6 +89,7 @@ function EnteringState(newState, oldState)
 end
 
 function EnemyDialogueStarting()
+    SetButtonColor(action, 1, 0, 0)
 end
 
 function EnemyDialogueEnding()
@@ -96,6 +97,7 @@ function EnemyDialogueEnding()
 end
 
 function DefenseEnding()
+    SetButtonColor(action, 1, 0.5, 0)
     encountertext = "[color:ff0000]" .. RandomEncounterText()
 end
 

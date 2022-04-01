@@ -131,12 +131,12 @@ it's w3c valid, at least
                 Happens once when everything's done initializing but before any encounter actions start. You should do
                 things like stopping the music here, or using <span class="term">State()</span> if you want to start the fight off with some
                 dialogue.
-                <br><font color="#FFF">* Note: You shouldn't call methods of <span class="term">PlayerUtil</span>!</font>
             </p>
             <p>
                 <br><span class="function"><span class="Delete"></span> FirstFrameUpdate()</span>
-                Happens once when everything's done initializing <b><i>completely</i></b>. If you want to call methods of <span class="term">PlayerUtil</span>, should do in this.<br><br>
-                Nil256(Asterisk Mod's Dev) <u>plans</u> to delete this function and be what you can use <span class="term">PlayerUtil</span> in <span class="term">EncounterStarting</span>.
+                Happens once when everything's done initializing <b><i>completely</i></b>.<br>
+                <span class="asternew"></span> This function was for calling <span class="term">PlayerUtil</span> before AsteriskMod v0.5.2.9.<br>
+                Nil256(Asterisk Mod's Dev) <u>plans</u> to delete this function, maybe.
             </p>
             <p>
                 <br><span class="function">EnemyDialogueStarting()</span>
