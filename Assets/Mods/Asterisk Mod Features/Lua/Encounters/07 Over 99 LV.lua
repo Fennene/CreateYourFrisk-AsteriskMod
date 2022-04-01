@@ -5,7 +5,7 @@ if Asterisk == nil then
     )
 end
 
-encountertext = "Poseur strikes a pose!"
+encountertext = "You can press [Delete]\rto damage yourself."
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 4.0
 arenasize = {155, 130}
@@ -20,32 +20,43 @@ enemypositions = {
 
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
 
+LV = -4
+HP = 0
+MaxHP = 0
+
 function EncounterStarting()
     Player.name = string.upper("Nil256")
 
-    Audio.Stop()
-    State("PAUSE")
+    LV = math.random(1, 9) * 100 + math.random(1, 9) * 10 + math.random(1, 9)
+    MaxHP = LV * 4 + 16
+    HP = MaxHP
+    PlayerUtil.HPUIMoveTo(10, 0)
+    PlayerUtil.SetHPControlOverride(true)
+    PlayerUtil.SetLV(tostring(LV))
+    PlayerUtil.SetHPBarLength(MaxHP)
+    PlayerUtil.SetHP(HP, MaxHP, true)
+
+    Player.atk = LV * 2 + 8
 end
 
-function NewText(text, x, y, layer)
-    local t = CreateText(text, {x, y}, 65536, layer)
-    t.HideBubble()
-    t.progressmode = "none"
-    return t
+function PlayerHurt(amount, adjust)
+    if Player.ishurting then return end
+    if adjust == nil or adjust then
+        amount = amount * 6
+    end
+    HP = HP - amount
+    Player.Hurt(0, 1.7, true, true)
+    PlayerUtil.SetHP(HP, MaxHP, true)
 end
-
-local text1 = nil
-local text2 = nil
 
 function Update()
-    if textCreated == nil then
-        text1 = NewText("[font:uidialog][noskip]This text's volume of sound is 1.", 50, 180, "Top")
-        textCreated = true
+    if HP <= 0  then
+        Player.hp = 0
     end
-    if text1.lineComplete and text2 == nil then
-        text2 = NewText("[font:uidialog][noskip]This text's volume of sound is 0.5.", 50, 130, "Top")
-        text2.SetSoundVolume(0.5)
-    end
+    if Input.GetKey("Delete") ~= 1 then return end
+    HP = HP - math.floor(MaxHP / 10)
+    Player.Hurt(0, 0, true, true)
+    PlayerUtil.SetHP(HP, MaxHP, true)    
 end
 
 function EnemyDialogueStarting()

@@ -19,7 +19,28 @@ namespace AsteriskMod
         internal int forceChangeMaxHP;
         internal string forceChangeHPString;
 
+        private bool anyRequest = false;
+        private bool req_HPUIMove = false;
+        private float req_HPUIMove_x = 0f;
+        private float req_HPUIMove_y = 0f;
+        private bool req_ColorHPText = false;
+        private Color req_ColorHPText_c;
+        private bool req_SetLV = false;
+        private string req_SetLV_s;
+        private bool req_ColorName = false;
+        private Color req_ColorName_c;
+        private bool req_ColorLV = false;
+        private Color req_ColorLV_c;
+        private bool req_ColorNameLV = false;
+        private int req_ColorNameLV_start;
+        private int req_ColorNameLV_end;
+        private Color req_ColorNameLV_c;
+
+        /*
         private byte requests = 0;
+        private const byte REQUEST_HP_UI_MOVE = 32;
+        private float request_hp_ui_pos_x = 0f;
+        private float request_hp_ui_pos_y = 0f;
         private const byte REQUEST_SET_HPTEXT_COLOR = 16;
         private Color request_set_hptext_color_value;
         private const byte REQUEST_SET_LV = 8;
@@ -31,6 +52,7 @@ namespace AsteriskMod
         private const byte REQUEST_SET_NAMELV_COLOR = 1;
         private Color request_set_namelv_color_value;
         private int[] request_set_namelv_color_value2 = new int[2] { 0, 0 };
+        */
 
         public static PlayerUIManager Instance;
 
@@ -89,8 +111,9 @@ namespace AsteriskMod
         {
             if (NameLVManager.GetComponent<TextManager>() == null)
             {
-                requests += REQUEST_SET_LV;
-                request_set_lv_value = lvText;
+                anyRequest = true;
+                req_SetLV = true;
+                req_SetLV_s = lvText;
                 return;
             }
             NameLVManager.GetComponent<TextManager>().SetText(new TextMessage(PlayerCharacter.instance.Name.ToUpper() + "  LV " + lvText, false, true));
@@ -100,15 +123,16 @@ namespace AsteriskMod
         {
             if (NameLVManager.transform.childCount == 0)
             {
+                anyRequest = true;
                 if (name)
                 {
-                    requests += REQUEST_SET_NAME_COLOR;
-                    request_set_name_color_value = color;
+                    req_ColorName = true;
+                    req_ColorName_c = color;
                 }
                 else
                 {
-                    requests += REQUEST_SET_LV_COLOR;
-                    request_set_lv_color_value = color;
+                    req_ColorLV = true;
+                    req_ColorLV_c = color;
                 }
                 return;
             }
@@ -120,6 +144,7 @@ namespace AsteriskMod
             //Debug.Log("Children: " + NameLVManager.transform.childCount);
             for (var i = 0; i < NameLVManager.transform.childCount; i++)
             {
+                //Debug.Log("[" + i + "]: " + NameLVManager.transform.GetChild(i).GetComponent<MaskImage>().sprite.name);
                 //Debug.Log("Loop: " + i);
                 if ((name && i > length) || (!name && i <= length))
                 {
@@ -135,9 +160,11 @@ namespace AsteriskMod
         {
             if (NameLVManager.transform.childCount == 0)
             {
-                requests += REQUEST_SET_NAMELV_COLOR;
-                request_set_namelv_color_value = color;
-                request_set_namelv_color_value2 = new int[2] { start, end };
+                anyRequest = true;
+                req_ColorNameLV = true;
+                req_ColorNameLV_start = start;
+                req_ColorNameLV_end = end;
+                req_ColorNameLV_c = color;
                 return;
             }
             for (var i = start - 1; i <= end - 1; i++)
@@ -148,6 +175,14 @@ namespace AsteriskMod
 
         public void SetHPPosition(float x, float y)
         {
+            if (!UIStats.instance.initializeCompleted)
+            {
+                anyRequest = true;
+                req_HPUIMove = true;
+                req_HPUIMove_x = x;
+                req_HPUIMove_y = y;
+                return;
+            }
             Vector2 oldPosition = HPManager.GetComponent<RectTransform>().anchoredPosition;
             Vector2 originPosition = new Vector2(oldPosition.x - hpPosition.x, oldPosition.y - hpPosition.y);
             hpPosition = new Vector2(x, y);
@@ -156,6 +191,14 @@ namespace AsteriskMod
 
         public void MoveHPPosition(float x, float y)
         {
+            if (!UIStats.instance.initializeCompleted)
+            {
+                anyRequest = true;
+                req_HPUIMove = true;
+                req_HPUIMove_x += x;
+                req_HPUIMove_y += y;
+                return;
+            }
             SetHPPosition(hpPosition.x + x, hpPosition.y + y);
         }
 
@@ -219,8 +262,9 @@ namespace AsteriskMod
         {
             if (!UIStats.instance.canModify)
             {
-                requests += REQUEST_SET_HPTEXT_COLOR;
-                request_set_hptext_color_value = color;
+                anyRequest = true;
+                req_ColorHPText = true;
+                req_ColorHPText_c = color;
                 return;
             }
             Transform HPLabel = HPManager.transform.Find("HPLabel");
@@ -239,6 +283,20 @@ namespace AsteriskMod
         /// </summary>
         public void Request()
         {
+            if (!anyRequest) return;
+            if (req_HPUIMove)
+                SetHPPosition(req_HPUIMove_x, req_HPUIMove_y);
+            if (req_ColorHPText)
+                SetHPTextColor(req_ColorHPText_c);
+            if (req_SetLV)
+                SetLVText(req_SetLV_s);
+            if (req_ColorName)
+                SetNameLVColor(true, req_ColorName_c);
+            if (req_ColorLV)
+                SetNameLVColor(false, req_ColorLV_c);
+            if (req_ColorNameLV)
+                SetNameLVColorManually(req_ColorNameLV_start, req_ColorNameLV_end, req_ColorNameLV_c);
+            /*
             if (requests == 0) return;
             if (((double)requests / 16.0) >= 1.0)
             {
@@ -265,6 +323,7 @@ namespace AsteriskMod
                 SetNameLVColorManually(request_set_namelv_color_value2[0], request_set_namelv_color_value2[1], request_set_namelv_color_value);
                 requests -= REQUEST_SET_NAMELV_COLOR;
             }
+            */
         }
     }
 }

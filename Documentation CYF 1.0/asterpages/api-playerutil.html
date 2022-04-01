@@ -106,25 +106,50 @@ it's w3c valid, at least
                 You can get the alpha of the player's soul.
             </p><br>
 
-
-            <h4>
-                Note: You shouldn't call below methods in <span class="term">EncounterStarting()</span>.
-                <br>You should call them in <span class="term">FirstFrameUpdate()</span> instead of it.
-            </h4>
-
-            <p>
-                (See <span class="ref">Game events</span>.)
-            </p>
-
-            <p><font color="#F22" size="+1">
-                <br>Asterisk Mod v0.5.2.8 removes the functions of reset UIs' position!
-                <br>Instead of that, you should call the functions like ...MoveTo(0, 0).
+            <p><font color="#FFF">
+                <span class="asternew"></span> * You can call below functions in <span class="term">EncounterStarting()</span> since AsteriskMod v0.5.2.9!
             </font></p>
 
-            <br>
-
+            <p>
+                Before v0.5.2.9, You must call that in <span class="term">FirstFrameUpdate()</span>.
+            </p><br>
 
             <hr>
+
+            <h3>Technical Info</h3><br><br>
+
+            <p>
+                The cause you can't use PlayerUtil functions in EncounterStarting() before v0.5.2.9 is object's initalizing.<br>
+                EncounterStarting() is called in CYF's UIController.Start().
+                That's called before other Start()s, and almost Start()s is written object's initalizing.<br>
+                That means, object's initalizing are not completed when EncounterStarting() is called.<br>
+                In result, some PlayerUtil's functions occure NullReferenceException, other functions doesn't work correctly.
+                <br><br>
+                However, FirstFrameUpdate() is called in 1st frame of CYF's Update().
+                Update() is called after all object's initalizing.
+                <br><br>
+                Since v0.5.2.9, If parts of PlayerUtil's functions are called before object's initalizing, those are recorded in variables and stop calling.<br>
+                After that, when objects' initalizing are completed, those are called again.<br>
+                However, variables are not recorded the order when the functions were called. Moreover, in the same function, the function called later is recorded to it.
+                <br><br>
+                There are request's order:
+                <ol>
+                    <!-- UIStat.cs -->
+                    <li>PlayerUtil.SetHPBarLength()</li>
+                    <li>PlayerUtil.SetHP()</li>
+                    <li>PlayerUtil.SetHPText()</li>
+                    <!-- PlayerUIManager.cs -->
+                    <li>PlayerUtil.HPUIMove() / PlayerUtil.HPUIMoveTo()</li>
+                    <li>PlayerUtil.SetHPTextColor() / PlayerUtil.SetHPTextColor32()</li>
+                    <li>PlayerUtil.SetLV()</li>
+                    <li>PlayerUtil.SetNameColor() / PlayerUtil.SetNameColor32()</li>
+                    <li>PlayerUtil.SetLVColor() / PlayerUtil.SetLVColor32()</li>
+                    <li>[PlayerUtil.SetNameLVColorManually()] / [PlayerUtil.SetNameLVColor32Manually()]</li>
+                </ol>
+            </p><br>
+
+            <hr>
+
             <h3>The Player's All UI</h3>
             <p>
                 <span class="term">The Player's All UI</span> contains the player's name, LV, label of HP, bars of HP and text of HP.

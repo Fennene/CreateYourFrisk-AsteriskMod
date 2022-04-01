@@ -19,6 +19,7 @@ public class UIStats : MonoBehaviour {
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
     private bool encounterHasOnHPChanged;
+    internal bool initializeCompleted;
     // --------------------------------------------------------------------------------
 
     private void Awake() { instance = this; }
@@ -45,6 +46,7 @@ public class UIStats : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null;
+        initializeCompleted = true;
         // --------------------------------------------------------------------------------
     }
 
@@ -63,7 +65,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (PlayerUIManager.Instance.hpbarControlOverride) return;
+        if (PlayerUIManager.Instance.hpbarControlOverride && initializeCompleted) return;
         // --------------------------------------------------------------------------------
         float hpMax  = PlayerCharacter.instance.MaxHP,
               hpFrac = hpCurrent / hpMax;
@@ -76,7 +78,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (encounterHasOnHPChanged && Asterisk.experimentMode)
+        if (encounterHasOnHPChanged && initializeCompleted && Asterisk.experimentMode)
             UIController.instance.encounter.TryCall("OnHPChanged");
         // --------------------------------------------------------------------------------
     }
@@ -86,7 +88,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (PlayerUIManager.Instance.hpbarControlOverride) return;
+        if (PlayerUIManager.Instance.hpbarControlOverride && initializeCompleted) return;
         // --------------------------------------------------------------------------------
         lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), lifebarRt.sizeDelta.y);
         setHP(PlayerCharacter.instance.HP);
@@ -97,13 +99,27 @@ public class UIStats : MonoBehaviour {
     // --------------------------------------------------------------------------------
     internal bool canModify { get { return initialized; } }
 
-    private uint requests = 0;
-    private const byte REQUEST_SET_HP_TEXT = 1;
-    private string request_set_hp_text_value;
+    private bool anyRequest = false;
+    private bool req_SetMaxHP = false;
+    private int req_SetMaxHP_v;
+    private bool req_SetHP = false;
+    private float req_SetHP_hp;
+    private int req_SetHP_maxhp;
+    private bool req_SetHP_text;
+    private bool req_SetHPText;
+    private string req_SetHPText_v;
 
     internal void setHPOverride(float hp, int maxhp, bool updateHPText)
     {
-        if (!initialized) return;
+        if (!initialized)
+        {
+            anyRequest = true;
+            req_SetHP = true;
+            req_SetHP_hp = hp;
+            req_SetHP_maxhp = maxhp;
+            req_SetHP_text = updateHPText;
+            return;
+        }
         float hpMax = maxhp,
               hpFrac = hp / hpMax;
         lifebar.setInstantOverride(hpFrac, maxhp);
@@ -116,7 +132,13 @@ public class UIStats : MonoBehaviour {
 
     internal void setMaxHPOverride(int maxhp)
     {
-        if (!initialized) return;
+        if (!initialized)
+        {
+            anyRequest = true;
+            req_SetMaxHP = true;
+            req_SetMaxHP_v = maxhp;
+            return;
+        }
         lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, maxhp * 1.2f), lifebarRt.sizeDelta.y);
     }
 
@@ -124,8 +146,9 @@ public class UIStats : MonoBehaviour {
     {
         if (!initialized)
         {
-            requests += REQUEST_SET_HP_TEXT;
-            request_set_hp_text_value = hpText;
+            anyRequest = true;
+            req_SetHPText = true;
+            req_SetHPText_v = hpText;
             return;
         }
         hpTextMan.SetText(new TextMessage(hpText, false, true));
@@ -137,10 +160,14 @@ public class UIStats : MonoBehaviour {
     /// </summary>
     internal void Request()
     {
-        if (requests == 0) return;
-        if (requests % 2 == 1)
+        if (!anyRequest) return;
+        if (req_SetMaxHP)
+            setMaxHPOverride(req_SetMaxHP_v);
+        if (req_SetHP)
+            setHPOverride(req_SetHP_hp, req_SetHP_maxhp, req_SetHP_text);
+        if (req_SetHPText)
         {
-            hpTextMan.SetText(new TextMessage(request_set_hp_text_value, false, true));
+            hpTextMan.SetText(new TextMessage(req_SetHPText_v, false, true));
         }
     }
     // --------------------------------------------------------------------------------

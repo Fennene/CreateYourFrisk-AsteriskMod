@@ -23,6 +23,16 @@ possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_tou
 function EncounterStarting()
     Player.name = string.upper("Nil256")
 
+    -- Move all button to center
+    ButtonUtil.FIGHT.MoveTo(234, 0)
+    ButtonUtil.ACT.MoveTo(81, 0)
+    ButtonUtil.ITEM.MoveTo(-79, 0)
+    ButtonUtil.MERCY.MoveTo(-234, 0)
+
+    -- Move
+    ButtonUtil.FIGHT.Move(-187, 0)
+    ButtonUtil.ITEM.Move(187, 0)
+
     -- Inactivate MERCY button.
     ButtonUtil.MERCY.SetActive(false)
     -- This is same to call below function

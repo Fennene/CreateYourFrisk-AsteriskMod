@@ -476,6 +476,7 @@ public class SelectOMatic : MonoBehaviour {
         //           Down: Move down                               //
         /////////////////////////////////////////////////////////////
 
+
         // Main controls:
         if (!encounterBox.activeSelf) {
             if (animationDone) {
@@ -493,18 +494,18 @@ public class SelectOMatic : MonoBehaviour {
                 } else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
                     ModBackground.GetComponent<Button>().onClick.Invoke();
                 //content.transform.GetChild(selectedItem).GetComponent<MenuButton>().StartAnimation(1);
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                // Show/Hide Description
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    ModDesc.SetActive(!ModDesc.activeSelf);
+                    ModDescShadow.SetActive(!ModDescShadow.activeSelf);
+                }
+                // --------------------------------------------------------------------------------
             }
 
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            // Show/Hide Description
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                ModDesc.SetActive(!ModDesc.activeSelf);
-                ModDescShadow.SetActive(!ModDescShadow.activeSelf);
-            }
-            // --------------------------------------------------------------------------------
             // Return to the Disclaimer screen
             if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
                 btnExit.GetComponent<Button>().onClick.Invoke();

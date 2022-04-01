@@ -165,26 +165,17 @@ namespace AsteriskMod.Lua
 
         public static void SetHP(int newHP, int newMaxHP, bool updateHPText = false)
         {
-            if (UIStats.instance)
-            {
-                UIStats.instance.setHPOverride(newHP, newMaxHP, updateHPText);
-            }
+            UIStats.instance.setHPOverride(newHP, newMaxHP, updateHPText);
         }
 
         public static void SetHPBarLength(int newMaxHP)
         {
-            if (UIStats.instance)
-            {
-                UIStats.instance.setMaxHPOverride(newMaxHP);
-            }
+            UIStats.instance.setMaxHPOverride(newMaxHP);
         }
 
         public static void SetHPText(string hpText)
         {
-            if (UIStats.instance)
-            {
-                UIStats.instance.setHPTextOverride(hpText);
-            }
+            UIStats.instance.setHPTextOverride(hpText);
         }
 
         public static int GetSoulAlpha()
