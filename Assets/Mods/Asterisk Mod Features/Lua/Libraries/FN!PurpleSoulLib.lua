@@ -90,6 +90,9 @@ function PurpleSoul.CreateNet(netAmount, horizontal)
 	else
 		local y = 240 - 15
 		y = y - Arena.height / 2
+		if Asterisk ~= nil and AsteriskGMSUpdate ~= nil then
+			y = ArenaUtil.centerabsy
+		end
 		for i = 1, netAmount do
 			local x = 320 - Arena.width / 2
 			x = x + Arena.width * (i / (netAmount + 1))

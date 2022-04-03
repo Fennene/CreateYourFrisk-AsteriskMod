@@ -38,5 +38,21 @@ namespace AsteriskMod
         {
             return mainTextMan.GetComponent<AudioSource>().volume;
         }
+
+        public void SetTextMute(bool active)
+        {
+            mainTextMan.GetComponent<AudioSource>().enabled = !active;
+        }
+
+        public bool GetTextMute()
+        {
+            return !mainTextMan.GetComponent<AudioSource>().enabled;
+        }
+
+        public Vector3 GetCenter()
+        {
+            //return border.transform.localPosition;
+            return ArenaManager.arenaCenter;
+        }
     }
 }

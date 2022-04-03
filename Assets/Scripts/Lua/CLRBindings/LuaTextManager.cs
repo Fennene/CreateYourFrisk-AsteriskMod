@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using MoonSharp.Interpreter;
 
 public class LuaTextManager : TextManager {
@@ -568,6 +569,8 @@ public class LuaTextManager : TextManager {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    //private readonly Dictionary<string, DynValue> vars = new Dictionary<string, DynValue>();
+
     public void SetSoundVolume(float value)
     {
         if (value < 0) value = 0;
@@ -581,5 +584,38 @@ public class LuaTextManager : TextManager {
         //return GetComponent<AudioSource>().volume;
         return GetComponents<AudioSource>()[1].volume;
     }
+
+    public void SetSoundMute(bool mute)
+    {
+        GetComponents<AudioSource>()[1].enabled = !mute;
+    }
+
+    public bool GetSoundMute()
+    {
+        return !GetComponents<AudioSource>()[1].enabled;
+    }
+
+    /*
+    public void SetVar(string name, DynValue value)
+    {
+        if (name == null)
+            throw new CYFException("text.SetVar: The first argument (the index) is nil.\n\nSee the documentation for proper usage.");
+        vars[name] = value;
+    }
+
+    public DynValue GetVar(string name)
+    {
+        if (name == null)
+            throw new CYFException("text.GetVar: The first argument (the index) is nil.\n\nSee the documentation for proper usage.");
+        DynValue retval;
+        return vars.TryGetValue(name, out retval) ? retval : DynValue.NewNil();
+    }
+
+    public DynValue this[string key]
+    {
+        get { return GetVar(key); }
+        set { SetVar(key, value); }
+    }
+    */
     // --------------------------------------------------------------------------------
 }

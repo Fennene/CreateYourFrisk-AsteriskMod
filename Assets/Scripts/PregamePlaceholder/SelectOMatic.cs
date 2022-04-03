@@ -33,6 +33,8 @@ public class SelectOMatic : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    private static List<ModInfo> modInfos;
+
     public GameObject     ModDescShadow,     ModDesc, ExistDescInfoShadow, ExistDescInfo;
     public GameObject AnimModDescShadow, AnimModDesc;
     // --------------------------------------------------------------------------------
@@ -64,6 +66,16 @@ public class SelectOMatic : MonoBehaviour {
         }
 
         modDirs.Sort((a, b) => a.Name.CompareTo(b.Name));
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        modInfos = new List<ModInfo>();
+        for (var i = 0; i < modDirs.Count; i++)
+        {
+            modInfos.Add(ModInfo.LoadFile(modDirs[i].Name, "info.cyfmod"));
+        }
+        // --------------------------------------------------------------------------------
 
         // Bind button functions
         btnBack.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -289,67 +301,33 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        ModData info = ModData.GetCurrentModData();
-        if (!string.IsNullOrEmpty(info.subitle))
-        {
-            EncounterCountShadow.GetComponent<Text>().text = info.subitle;
-            EncounterCount.GetComponent<Text>().text = info.subitle;
-        }
-        ModDescShadow.GetComponent<Text>().alignment = info.descAnchor;
-        ModDesc.GetComponent<Text>().alignment = info.descAnchor;
-        ModDescShadow.GetComponent<Text>().text = Regex.Replace(info.description, "<[^>]*?>", "");
-        ModDesc.GetComponent<Text>().text = info.description;
-        bool hasDescription = info.description != "";
-        ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
-        ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
-        ExistDescInfoShadow.SetActive(hasDescription);
-        ExistDescInfo.SetActive(hasDescription);
-        Font font = Resources.Load<Font>("Fonts/" + ((info.font == ModDataFont.EightBit) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
+        ModInfo info = modInfos[id];
+        // Set Font
+        Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
         ModTitleShadow.GetComponent<Text>().font = font;
         ModTitle.GetComponent<Text>().font = font;
         EncounterCountShadow.GetComponent<Text>().font = font;
         EncounterCount.GetComponent<Text>().font = font;
-        /*
-        ModDescShadow.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
-        ModDesc.GetComponent<Text>().alignment = TextAnchor.UpperLeft;
-        ModDescShadow.GetComponent<Text>().text = "";
-        ModDesc.GetComponent<Text>().text = "";
-        if (Asterisk.experimentMode)
+        // Set Alt Text
+        if (info.subtitle != "")
         {
-            ModData data = ModData.GetCurrentModData();
-            if (!string.IsNullOrEmpty(data.subitle))
-            {
-                EncounterCountShadow.GetComponent<Text>().text = data.subitle;
-                EncounterCount.GetComponent<Text>().text = data.subitle;
-            }
-            ModDescShadow.GetComponent<Text>().alignment = data.descAnchor;
-            ModDesc.GetComponent<Text>().alignment = data.descAnchor;
-            ModDescShadow.GetComponent<Text>().text = Regex.Replace(data.description, "<[^>]*?>", "");
-            ModDesc.GetComponent<Text>().text = data.description;
-            bool hasDescription = data.description != "";
-            ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
-            ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
-            ExistDescInfoShadow.SetActive(hasDescription);
-            ExistDescInfo.SetActive(hasDescription);
-            Font font = Resources.Load<Font>("Fonts/" + ((data.font == ModDataFont.EightBit) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
-            ModTitleShadow.GetComponent<Text>().font = font;
-            ModTitle.GetComponent<Text>().font = font;
-            EncounterCountShadow.GetComponent<Text>().font = font;
-            EncounterCount.GetComponent<Text>().font = font;
+            EncounterCountShadow.GetComponent<Text>().text = info.subtitle;
+            EncounterCount.GetComponent<Text>().text = info.subtitle;
         }
-        else
-        {
-            ModDescShadow.SetActive(false);
-            ModDesc.SetActive(false);
-            ExistDescInfoShadow.SetActive(false);
-            ExistDescInfo.SetActive(false);
-            Font font = Resources.Load<Font>("Fonts/PixelOperator/PixelOperator-Bold");
-            ModTitleShadow.GetComponent<Text>().font = font;
-            ModTitle.GetComponent<Text>().font = font;
-            EncounterCountShadow.GetComponent<Text>().font = font;
-            EncounterCount.GetComponent<Text>().font = font;
-        }
-        */
+        // Set Description's Alignment
+        ModDescShadow.GetComponent<Text>().alignment = info.descAnchor;
+        ModDesc.GetComponent<Text>().alignment = info.descAnchor;
+        // Set Description's Active
+        bool hasDescription = info.description != "";
+        ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+        ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+        // Set Description
+        ModDescShadow.GetComponent<Text>().text = Regex.Replace(info.description, "<[^>]*?>", "");
+        ModDesc.GetComponent<Text>().text = info.description;
+        ExistDescInfoShadow.SetActive(hasDescription);
+        ExistDescInfo.SetActive(hasDescription);
+        // Set BG alpha
+        ModBackground.GetComponent<Image>().color = info.bgColor;
         // --------------------------------------------------------------------------------
     }
 

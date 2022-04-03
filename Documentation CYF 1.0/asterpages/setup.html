@@ -164,10 +164,13 @@ YOURMOD
             <div class="code-container">
 <pre class="brush: lua;">
 -- info.cyfmod:
-subtitle="by Nil256"
+target-version="v0.5.2.9" -- Currently, it doesn't work.
 font="8bitoperator"
-descfile="description.txt"
-align="MiddleCenter"
+title="Asterisk Mod Features" -- Currently, it doesn't work.
+subtitle="by Nil256"
+description-file="description.txt"
+description-align="MiddleCenter"
+bg-alpha32="64"
 </pre>
             </div>
             </p><br><br>
@@ -182,7 +185,8 @@ key="parameter"
                 There are available keys in info.cyfmod:<br><br>
                 <ul>
                     <li>
-                        <span class="asternew"></span> <span class="term">subtitle</span> - replaces the text that is below mod's title text.
+                        <span class="asternew"></span> <span class="term">target-version</span> - sets AsteriskMod's version that your mod supports.<br>
+                        This does nothing on its own, currently.
                     </li>
                     <li>
                         <span class="asternew"></span> <span class="term">font</span> - sets the font of mod's title and sub-title(the number of encount).<br>
@@ -193,10 +197,19 @@ key="parameter"
                         </ul>
                     </li>
                     <li>
-                        <span class="term">descfile</span> - sets the path of the file written the description.
+                        <span class="asternew"></span> <span class="term">title</span> - This does nothing on its own, currently.
                     </li>
                     <li>
-                        <span class="term">align</span> - sets alignment of the description. <span class="term">UpperLeft</span> by default.<br>
+                        <span class="asternew"></span> <span class="term">subtitle</span> - replaces the text that is below mod's title text.
+                    </li>
+                    <br><li>
+                        <span class="term">description</span> - sets your mod's description, without new-line.
+                    </li>
+                    <br><li>
+                        <span class="term">description-file</span> - sets the path of the file written the description.
+                    </li>
+                    <br><li>
+                        <span class="term">description-align</span> - sets alignment of the description. <span class="term">UpperLeft</span> by default.<br>
                         You can choose the paramter in the following:
                         <ul>
                             <li>UpperLeft</li>
@@ -209,6 +222,12 @@ key="parameter"
                             <li>LowerCenter</li>
                             <li>LowerRight</li>
                         </ul>
+                    </li>
+                    <li>
+                        <span class="asternew"></span> <span class="term">bg-alpha</span> - sets the background image's the alpha (transparency), as value from 0 to 1.
+                    </li>
+                    <li>
+                        <span class="asternew"></span> <span class="term">bg-alpha32</span> - sets the background image's the alpha (transparency), as integer value from 0 to 255.
                     </li><br>
                 </ul>
             </p>

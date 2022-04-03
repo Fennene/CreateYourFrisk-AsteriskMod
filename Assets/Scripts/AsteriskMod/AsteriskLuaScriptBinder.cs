@@ -25,12 +25,12 @@ namespace AsteriskMod
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
-            script.Globals["AsteriskCustomStateUpdate"] = false;
+            script.Globals["AsteriskGMSUpdate"] = false;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
 
             if (!UnitaleUtil.IsOverworld)
             {
-                script.Globals["ExistsLayer"] = (Func<string, bool>)ExistsLayer;
+                script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
             }
         }
 
@@ -44,7 +44,7 @@ namespace AsteriskMod
             script.Globals.Set("ArenaUtil", arenaUtil);
         }
 
-        public static bool ExistsLayer(string name)
+        public static bool LayerExists(string name)
         {
             return name != null && GameObject.Find((UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/") + name + "Layer") != null;
         }

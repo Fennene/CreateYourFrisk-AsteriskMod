@@ -19,6 +19,15 @@ namespace AsteriskMod
         public static bool alwaysShowDesc;
         public static bool showErrorDog;
 
+        public enum Versions
+        {
+            Unknwon,
+            InitialVersion, // v0.5 & v0.5.2
+            CustomStateUpdate, // v0.5.2.7
+            UtilUpdate, // v0.5.2.8
+            GMSUpdate // v0.5.3
+        }
+
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
@@ -64,6 +73,20 @@ namespace AsteriskMod
             {
                 showErrorDog = LuaScriptBinder.GetAlMighty(null, optionID).Boolean;
             }
+        }
+
+        public static Versions ConvertFromString(string versionName)
+        {
+            if (!versionName.StartsWith("v")) versionName = "v" + versionName;
+            if (versionName == "v0.5" || versionName == "v0.5.2")
+                return Versions.InitialVersion;
+            if (versionName == "v0.5.2.4" || versionName == "v0.5.2.5" || versionName == "v0.5.2.6" || versionName == "v0.5.2.7")
+                return Versions.CustomStateUpdate;
+            if (versionName == "v0.5.2.8")
+                return Versions.UtilUpdate;
+            if (versionName == "v0.5.2.9" || versionName == "v0.5.3")
+                return Versions.GMSUpdate;
+            return Versions.Unknwon;
         }
     }
 }

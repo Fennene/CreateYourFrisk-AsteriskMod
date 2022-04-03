@@ -106,10 +106,18 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-api-arenautil">
-            <h2><span class="asternew"></span> <span class="Asterisk"></span> The ArenaUtil object [E/M/W]</h2><br><br>
+            <h2><span class="Asterisk"></span> The ArenaUtil object [E/M/W]</h2><br><br>
             <p>
                 You can use this object to modify arena.<br>
                 You can use this in any scripts.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.centerabsx (Read-only)</span>
+                Returns horizontal position of arena relative to the bottom left corner of the screen.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.centerabsy (Read-only)</span>
+                Returns vertical position of arena relative to the bottom left corner of the screen.
             </p>
             <p>
                 <br><span class="function">ArenaUtil.SetBorderColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
@@ -129,6 +137,24 @@ it's w3c valid, at least
                 <br><span class="function">ArenaUtil.SetDialogTextPosition(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the text in dialog box to the position relative to normal position.<br>
                 <span class="term">ArenaUtil.SetDialogTextPosition(0, 0)</span> moves the text on its normal position.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetDialogTextVolume(<span class="number"></span> value)</span>
+                Sets the dialog text's volume of sound(voice). value should be between 0.0 (muted?) and 1.0 (full volume). This is 1.0 by default.<br>
+                You can't mute texts by using this. Use <span class="term">ArenaUtil.SetDialogTextMute()</span> instead of it.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.GetDialogTextVolume()</span>
+                Returns the dialog text's volume of sound(voice).
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetDialogTextMute(<span class="boolean"></span> mute)</span>
+                Mutes the dialog text of sound(voice) or not.<br>
+                You can mute by using <span class="ref">[novoice]</span>, but if you are lazy as Sans, you should probably use this.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="boolean"></span> ArenaUtil.GetDialogTextMute()</span>
+                Returns the dialog text is muted or not.
             </p>
         </div>
 
