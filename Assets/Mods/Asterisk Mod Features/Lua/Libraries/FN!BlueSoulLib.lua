@@ -16,6 +16,8 @@ BlueSoul.SetBlue(|bool|active, |bool?|changeColor = true, |bool?|controlOverride
 BlueSoul.SetGravity(|string?|direction = "down")
 	Changes direction of gravity
 	direction: nil/"down"/"up"/"left"/"right"
+|bool|BlueSoul.IsMoving()
+	Returns player is moving or not
 BlueSoul.SetControlOverride(|bool|controlOverride)
 	controlOverride: false/true
 BlueSoul.Update()
@@ -114,6 +116,17 @@ function BlueSoul.SetGravity(direction)
 		error_message = error_message .. "\".\ndirection should be \"down\", \"up\", \"left\" or \"right\""
 		error(error_message)
 	end
+end
+
+function BlueSoul.IsMoving()
+	if not blue then return Player.ismoving end
+	if Input.Up ~= 0 or Input.Down ~= 0 or Input.Left ~= 0 or Input.Right ~= 0 then
+		return true
+	end
+	if stay or fall then
+		return true
+	end
+	return false
 end
 
 function BlueSoul.SetControlOverride(controlOverride)

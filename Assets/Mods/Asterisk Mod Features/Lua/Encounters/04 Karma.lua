@@ -27,7 +27,7 @@ local Karma = 0
 local MAX_KARMA = 40
 local HurtDrain = 0
 local KarmaDrain = 0
-local KRLabel = CreateSprite("spr_krlabel_0", "BelowArena")
+local KRLabel = CreateSprite("spr_krlabel_1", "BelowArena")
 KRLabel.MoveToAbs(407, 70)
 local FakeHPBar = CreateSprite("px", "BelowArena")
 FakeHPBar.SetPivot(0, 0.5)

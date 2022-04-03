@@ -65,7 +65,7 @@ it's w3c valid, at least
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
-                    <li><span class="AsteriskExperiment"></span> CustomState:</li>
+                    <li>CustomState:</li>
                     <li class="li-indent active">&gt; Basis &lt;</li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
@@ -100,7 +100,7 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-customstate">
-            <h2><span class="AsteriskExperiment"></span> CustomState</h2><br><br>
+            <h2><span class="Asterisk"></span> CustomState</h2><br><br>
             <p>
                 CustomState is one of very strong feature in Asterisk Mod.<br>
                 Asterisk Mod adds new type of script, named <span class="term">State Script</span>.<br>
@@ -109,7 +109,9 @@ it's w3c valid, at least
                 This feature is <b><u>NOT</u></b> similarly to CustomState in CYF v0.6.6.
             </p><br>
 
-            <h4>Note that you should enable <span class="term">Experimental Features</span> in AsteriskMod's option.</h4>
+            <p>
+                <span class="asternew"></span> <font color="#FFF">CustomState is no longer Experimental Features!</font>
+            </p>
 
             <br>
             <hr>
@@ -124,18 +126,16 @@ it's w3c valid, at least
             <h3>How to enter to your CustomState</h3>
 
             <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> <span class="string"></span> customstatename [E]</span>
+                <br><span class="function"><span class="Asterisk"></span> <span class="string"></span> customstatename [E]</span>
                 A name of your CustomState.<br>
                 you want when you want to enter CustomState. You can modify this at any time, and it'll get read out before it enters any CustomState (when you call <span class="term">State("CUSTOMSTATE")</span>).
             </p>
 
             <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> State("CUSTOMSTATE") [E]</span>
+                <br><span class="function"><span class="Asterisk"></span> State("CUSTOMSTATE") [E/M/W/S]</span>
                 When starting this state, <span class="term">customstatename</span> is read out from the Encounter script and the script in the States folder with matching name will be CustomState.
                 <br><br>
-                I don't recommend call this function in the state script. (I think it may work but we need more debugs.)
-                <br><br>
-                Note that when <span class="term">Experimental Features</span> is disabled, an error will occur.
+                You can call this function in the state script, so you can go anothor CustomState from CustomState.
             </p><br>
 
             <p>

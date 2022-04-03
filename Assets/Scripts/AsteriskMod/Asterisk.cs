@@ -82,9 +82,9 @@ namespace AsteriskMod
                 return Versions.InitialVersion;
             if (versionName == "v0.5.2.4" || versionName == "v0.5.2.5" || versionName == "v0.5.2.6" || versionName == "v0.5.2.7")
                 return Versions.CustomStateUpdate;
-            if (versionName == "v0.5.2.8")
+            if (versionName == "v0.5.2.8" || versionName == "v0.5.2.9")
                 return Versions.UtilUpdate;
-            if (versionName == "v0.5.2.9" || versionName == "v0.5.3")
+            if (versionName == "v0.5.3")
                 return Versions.GMSUpdate;
             return Versions.Unknwon;
         }

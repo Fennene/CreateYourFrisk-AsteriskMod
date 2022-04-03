@@ -441,8 +441,8 @@ public class EnemyEncounter : MonoBehaviour {
         DynValue customStateName = script.GetVar("customstatename");
         if (customStateName.Type != DataType.String)
         {
-            string errorText = "customstatename is a " + customStateName.Type + ", but should be a string.";
-            if (customStateName.Type == DataType.Nil) errorText = "customstatename is not defined in your script.";
+            string errorText = "customstatename is a " + customStateName.Type + ", but should be a String.";
+            if (customStateName.Type == DataType.Nil) errorText = "customstatename shouldn't be nil.";
             UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, errorText);
             return;
         }
