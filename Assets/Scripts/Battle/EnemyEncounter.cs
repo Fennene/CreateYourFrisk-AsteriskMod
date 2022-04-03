@@ -438,11 +438,6 @@ public class EnemyEncounter : MonoBehaviour {
 
     public void StartCustomState(UIController.UIState oldState)
     {
-        if (!Asterisk.experimentMode)
-        {
-            UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "CustomState is experimental feature by v0.5.3. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-            return;
-        }
         DynValue customStateName = script.GetVar("customstatename");
         if (customStateName.Type != DataType.String)
         {
