@@ -30,12 +30,11 @@ function HandleAction()
 	else
 		Encounter["customstatename"] = "MENU"
 	end
-	Encounter["customstatename"] = "ROOM"
 	State("CUSTOMSTATE")
 end
 
 function StateEnding(newState)
-	--Audio.LoadFile("mus_menu")
+	Audio.LoadFile("mus_menu")
 	press.Remove()
 	example.Remove()
 	title.Remove()

@@ -18,6 +18,7 @@ local encount_framecounter = 0
 local encount_event = false
 local encount_event_battleID = ""
 local encount_velocity = {}
+local room_mask_remove = -1
 function NewSquare(x, y, w, h, color, hide, layer)
 	if color == nil then color = {1, 1, 1} end
 	if hide == nil then hide = true end
@@ -69,9 +70,9 @@ function StartDialog(eventID, texts, prefix)
 	PlayerSpriteUpdate(0, 0, 0, 0)
 	event = eventID
 end
-
 function Encount(targetBattleID, immediate, moveToFightButton)
 	if event ~= "" then return end
+	if room_mask_remove > -1 then return end
 	if immediate == nil then immediate = false end
 	if moveToFightButton == nil then moveToFightButton = true end
 	encount_bubble.MoveToAbs(Encounter["_player_position"][1], Encounter["_player_position"][2] + 43)
@@ -95,10 +96,25 @@ function Encount(targetBattleID, immediate, moveToFightButton)
 end
 
 
+
+function CheckEncount(left, right, up, down, canMoveLeft, canMoveRight, canMoveUp, canMoveDown)
+	-- gate
+	if Encounter["_player_position"][2] > 346 and up >= 1 and not canMoveUp then
+		StartDialog("Dark", {"It's very dark.", "You shouldn't go ahead."})
+	end
+	-- down & left
+	local flag1 = (Encounter["_player_position"][2] < 182 and down >= 1 and not canMoveDown)
+	local flag2 = (Encounter["_player_position"][1] < 91 and left >= 1 and not canMoveLeft)
+	if flag1 or flag2 then
+		StartDialog("OutOfWorld", {"You don't need to know\rabout out of world."})
+	end
+	-- Encount
+end
+
 function RoomUpdate()
 	if Input.GetKey("Tab") == 1 then
 		--StartDialog("TEST", {"This is the test dialog."})
-		Encount("TEST", true)
+		Encount("Poseur", true)
 	end
 end
 
@@ -117,12 +133,28 @@ function StateStarting(oldState)
 	encount_bubble = CreateSprite("room/players/spr_encount_1", "RoomEnc")
 	encount_bubble.alpha = 0
 	encount_mask = CreateSprite("px", "RoomEnc")
-	encount_mask.alpha = 0
+	if Encounter["__continue"] ~= nil then
+		encount_mask.alpha = 0
+		Encounter["__continue"] = nil
+	else
+		room_mask_remove = 0
+	end
 	encount_mask.color = {0, 0, 0}
 	encount_mask.Scale(640, 480)
 	encount_soul = CreateSprite("ut-heart", "RoomEncSoul")
 	encount_soul.alpha = 0
 	encount_soul.color = {1, 0, 0}
+	Player.name = GetAlMightyGlobal("*CYF-Example-OnActive-Name")
+end
+
+function RemoveMaskUpdate()
+	if room_mask_remove == -1 then return end
+	room_mask_remove = room_mask_remove + 1
+	encount_mask.alpha = 1 - (room_mask_remove / 16)
+	if room_mask_remove == 16 then
+		encount_mask.alpha = 0
+		room_mask_remove = -1
+	end
 end
 
 function PlayerSpriteUpdate(left, right, up, down)
@@ -156,10 +188,35 @@ end
 
 function PlayerPositionUpdate(left, right, up, down)
 	local now_position = Encounter["_player_position"]
-	local can_move_left = (now_position[1] > 100)
+	local can_move_left = (now_position[1] > 101)
 	local can_move_right = (now_position[1] < 580)
 	local can_move_up = (now_position[2] < 336)
 	local can_move_down = (now_position[2] > 192)
+	-- gate
+	if Encounter["_player_position"][1] >= 274 and Encounter["_player_position"][1] <= 284 then
+		can_move_up = (now_position[2] < 350)
+	end
+	if Encounter["_player_position"][2] > 336 then
+		can_move_left = (now_position[1] > 274)
+		can_move_right = (now_position[1] < 284)
+	end
+	-- down
+	if Encounter["_player_position"][1] >= 500 and Encounter["_player_position"][1] <= 539 then
+		can_move_down = (now_position[2] > 30)
+	end
+	if Encounter["_player_position"][2] < 192 then
+		can_move_left = (now_position[1] > 500)
+		can_move_right = (now_position[1] < 539)
+	end
+	-- left
+	if Encounter["_player_position"][2] >= 225 and Encounter["_player_position"][2] <= 297 then
+		can_move_left = (now_position[1] > 30)
+	end
+	if Encounter["_player_position"][1] < 101 then
+		can_move_up = (now_position[2] < 297)
+		can_move_down = (now_position[2] > 225)
+	end
+	--
 	if left >= 1 and can_move_left then
 		now_position[1] = now_position[1] - 3
 	end
@@ -174,7 +231,8 @@ function PlayerPositionUpdate(left, right, up, down)
 	end
 	player_sprite.MoveToAbs(now_position[1], now_position[2])
 	Encounter["_player_position"] = now_position
-	DEBUG(now_position[1] .. ", " .. now_position[2])
+	CheckEncount(left, right, up, down, can_move_left, can_move_right, can_move_up, can_move_down)
+	--DEBUG(now_position[1] .. ", " .. now_position[2])
 end
 
 function InputUpdate()
@@ -241,14 +299,12 @@ function EncountUpdate()
 		encount_soul.Move(encount_velocity[1], encount_velocity[2])
 	end
 	if encount_framecounter == 102 then
-		--[[
-		TODO
-		]]
-		DEBUG("Encount Event Completed")
+		Encounter.Call("PrepareBattle", encount_event_battleID)
 	end
 end
 
 function Update()
+	RemoveMaskUpdate()
 	InputUpdate()
 	RoomUpdate()
 	DialogUpdate()

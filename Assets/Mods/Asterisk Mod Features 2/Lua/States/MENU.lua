@@ -28,7 +28,7 @@ function StateStarting()
 	texts[1] = NewText(prefix..text, 128, 330)
 	texts[2] = NewText(prefix.."0:00", 456, 330)
 	menus[1] = NewText(prefix.."Continue", 170, 245)
-	menus[2] = NewText(prefix.."Change Name", 390, 245)
+	menus[2] = NewText(prefix.."Reset", 390, 245)
 	menus[3] = NewText(prefix.."Settings", 264, 204)
 	menus[3].color = {0.5, 0.5, 0.5}
 	if Encounter["__Menu_from_name"] ~= nil then
@@ -53,6 +53,8 @@ end
 
 function HandleAction()
 	if selecting == 1 then
+		Encounter["__continue"] = true
+		Encounter.Call("PrepareRoom")
 		return
 	elseif selecting == 2 then
 		Encounter["__Name_from_menu"] = true

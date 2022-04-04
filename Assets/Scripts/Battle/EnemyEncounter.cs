@@ -407,21 +407,21 @@ public class EnemyEncounter : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    private ScriptWrapper customStateScript;
+    internal ScriptWrapper CustomStateScript { get; private set; }
     private string currentCustomStateName;
     private bool customStateHasUpdate;
 
     private void TryCallStateStarting(UIController.UIState oldState)
     {
-        customStateHasUpdate = !(customStateScript.script.Globals["Update"] == null);
-        if (customStateScript.script.Globals["StateEnding"] == null)
+        customStateHasUpdate = !(CustomStateScript.script.Globals["Update"] == null);
+        if (CustomStateScript.script.Globals["StateEnding"] == null)
         {
             UnitaleUtil.DisplayLuaError(currentCustomStateName, "All the state scripts need an StateEnding() function!");
             return;
         }
         try
         {
-            customStateScript.script.Call(customStateScript.script.Globals["StateStarting"], DynValue.NewString(oldState.ToString()));
+            CustomStateScript.script.Call(CustomStateScript.script.Globals["StateStarting"], DynValue.NewString(oldState.ToString()));
         }
         catch (InterpreterException ex)
         {
@@ -429,7 +429,7 @@ public class EnemyEncounter : MonoBehaviour {
         }
         catch (Exception ex)
         {
-            if (customStateScript.script.Globals["StateStarting"] == null)
+            if (CustomStateScript.script.Globals["StateStarting"] == null)
                 UnitaleUtil.DisplayLuaError(currentCustomStateName, "All the state scripts need an StateStarting() function!");
             else
                 UnitaleUtil.DisplayLuaError(currentCustomStateName, "This error is a " + ex.GetType() + " error.\nPlease send this error to the main dev.\n\n" + ex.Message + "\n\n" + ex.StackTrace);
@@ -448,18 +448,18 @@ public class EnemyEncounter : MonoBehaviour {
         }
         try
         {
-            customStateScript = new ScriptWrapper() { scriptname = customStateName.String };
-            customStateScript.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
-            customStateScript.script.Globals["CreateProjectile"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectile;
-            customStateScript.script.Globals["CreateProjectileAbs"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectileAbs;
+            CustomStateScript = new ScriptWrapper() { scriptname = customStateName.String };
+            CustomStateScript.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
+            CustomStateScript.script.Globals["CreateProjectile"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectile;
+            CustomStateScript.script.Globals["CreateProjectileAbs"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectileAbs;
             DynValue CustomStateEditor = UserData.Create(new StateEditor());
-            customStateScript.script.Globals.Set("StateEditor", CustomStateEditor);
+            CustomStateScript.script.Globals.Set("StateEditor", CustomStateEditor);
             DynValue ArenaStatus = UserData.Create(ArenaManager.luaStatus);
-            customStateScript.script.Globals.Set("Arena", ArenaStatus);
+            CustomStateScript.script.Globals.Set("Arena", ArenaStatus);
             currentCustomStateName = customStateName.String;
             try
             {
-                customStateScript.DoString(ScriptRegistry.Get(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String));
+                CustomStateScript.DoString(ScriptRegistry.Get(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String));
             }
             catch (InterpreterException ex)
             {
@@ -474,7 +474,7 @@ public class EnemyEncounter : MonoBehaviour {
                     UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
             }
             TryCallStateStarting(oldState);
-            script.SetVar("CustomState", UserData.Create(customStateScript));
+            script.SetVar("CustomState", UserData.Create(CustomStateScript));
         }
         catch (InterpreterException ex)
         {
@@ -487,7 +487,7 @@ public class EnemyEncounter : MonoBehaviour {
         if (!customStateHasUpdate) return;
         try
         {
-            customStateScript.script.Call(customStateScript.script.Globals["Update"]);
+            CustomStateScript.script.Call(CustomStateScript.script.Globals["Update"]);
         }
         catch (InterpreterException ex)
         {
@@ -513,17 +513,17 @@ public class EnemyEncounter : MonoBehaviour {
             UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "You shouldn't override CustomState, now you get an error :P");
         }
         script.SetVar("CustomState", DynValue.NewNil());
-        customStateScript = null;
+        CustomStateScript = null;
         currentCustomStateName += " <Removed>";
         customStateHasUpdate = false;
     }
 
     private void CustomStateCallSafely(string functionName)
     {
-        if (customStateScript.script.Globals[functionName] == null) return;
+        if (CustomStateScript.script.Globals[functionName] == null) return;
         try
         {
-            customStateScript.script.Call(customStateScript.script.Globals[functionName]);
+            CustomStateScript.script.Call(CustomStateScript.script.Globals[functionName]);
         }
         catch (InterpreterException ex)
         {
@@ -542,10 +542,10 @@ public class EnemyEncounter : MonoBehaviour {
 
     public void CustomStateHandleArrows(bool left, bool right, bool up, bool down)
     {
-        if (customStateScript.script.Globals["HandleArrows"] == null) return;
+        if (CustomStateScript.script.Globals["HandleArrows"] == null) return;
         try
         {
-            customStateScript.script.Call(customStateScript.script.Globals["HandleArrows"], DynValue.NewBoolean(left), DynValue.NewBoolean(right), DynValue.NewBoolean(up), DynValue.NewBoolean(down));
+            CustomStateScript.script.Call(CustomStateScript.script.Globals["HandleArrows"], DynValue.NewBoolean(left), DynValue.NewBoolean(right), DynValue.NewBoolean(up), DynValue.NewBoolean(down));
         }
         catch (InterpreterException ex)
         {

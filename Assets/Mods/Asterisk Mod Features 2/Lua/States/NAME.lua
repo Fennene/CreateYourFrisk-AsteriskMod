@@ -108,6 +108,11 @@ function SwitchCheckScreen()
 		State("CUSTOMSTATE")
 		return
 	end
+	if name == "Nil256" then
+		check_screen_objects[2].SetText("[font:uidialog][instant]Huh?")
+	else
+		check_screen_objects[2].SetText("[font:uidialog][instant]Are you ready?")
+	end
 	check_screen_objects[3].SetText("[font:uidialog][instant][effect:none]"..name)
 	check_screen_objects[3].Scale(1, 1)
 	check_screen_objects[3].MoveToAbs(320 - check_screen_objects[3].GetTextWidth() / 2, 360)
@@ -320,6 +325,21 @@ end
 
 function Update()
 	UpdateNameText()
+	if not check_screen then
+		local name = GetName()
+		if name == "Nil" and (Input.GetKey("Alpha2") == 1 or Input.GetKey("Keypad2") == 1) then
+			now_name[4] = "2"
+			UpdateDisplayName()
+		end
+		if name == "Nil2" and (Input.GetKey("Alpha5") == 1 or Input.GetKey("Keypad5") == 1) then
+			now_name[5] = "5"
+			UpdateDisplayName()
+		end
+		if name == "Nil25" and (Input.GetKey("Alpha6") == 1 or Input.GetKey("Keypad6") == 1) then
+			now_name[6] = "6"
+			UpdateDisplayName()
+		end
+	end
 	if not go then
 		return
 	end
@@ -331,12 +351,9 @@ function Update()
 		white_mask.alpha = 1
 	end
 	if frame_counter == 368 then
-		--[[
 		SetAlMightyGlobal("*CYF-Example-OnActive-Name", GetName())
 		SetAlMightyGlobal("*CYF-Example-OnActive-fun", math.random(1, 100))
-		]]
-		DEBUG("A")
-		--Encounter.Call("GoToRoomState", 1)
+		Encounter.Call("PrepareRoom")
 	end
 end
 
