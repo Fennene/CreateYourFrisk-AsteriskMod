@@ -353,6 +353,7 @@ function Update()
 	if frame_counter == 368 then
 		SetAlMightyGlobal("*CYF-Example-OnActive-Name", GetName())
 		SetAlMightyGlobal("*CYF-Example-OnActive-fun", math.random(1, 100))
+		Encounter.Call("PrepareItemFunEvent")
 		Encounter.Call("PrepareRoom")
 	end
 end

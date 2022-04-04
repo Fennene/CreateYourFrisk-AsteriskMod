@@ -26,7 +26,7 @@ function StateStarting()
 	local exp = earned[1]
 	local gold = earned[2]
 	local new_lv = CalculateNextLove(exp)
-	local text = "YOU WON!\nYou earned " .. exp .. " EXP and " .. gold .. " gold."
+	local text = "[font:uidialog]YOU WON!\nYou earned " .. exp .. " EXP and " .. gold .. " gold."
 	if Player.lv < new_lv then
 		text = text .. "\n[func:LoveUp," .. new_lv .. "]Your LOVE increased."
 	end
@@ -36,6 +36,8 @@ end
 function LoveUp(lv)
 	Audio.PlaySound("levelup")
 	Player.lv = lv
+    PlayerUtil.SetHPBarLength(Player.maxhp)
+    PlayerUtil.SetHP(Encounter["_player_hp"], Player.maxhp, true)
 end
 
 function HandleAction()

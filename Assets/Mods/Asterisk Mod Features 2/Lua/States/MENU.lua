@@ -54,6 +54,7 @@ end
 function HandleAction()
 	if selecting == 1 then
 		Encounter["__continue"] = true
+		Encounter.Call("PrepareItemFunEvent")
 		Encounter.Call("PrepareRoom")
 		return
 	elseif selecting == 2 then

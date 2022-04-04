@@ -81,7 +81,7 @@ public static class LuaScriptBinder {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        AsteriskLuaScriptBinder.BoundScriptGlobal(ref script);
+        AsteriskLuaScriptBinder.BoundScriptVariables(ref script);
         // --------------------------------------------------------------------------------
         if (!UnitaleUtil.IsOverworld) {
             script.Globals["CreateSprite"] = (Func<string, string, int, DynValue>)SpriteUtil.MakeIngameSprite;
@@ -93,13 +93,33 @@ public static class LuaScriptBinder {
             script.Globals["AllowPlayerDef"] = (Action<bool>)AllowPlayerDef;
             script.Globals["CreateText"] = (Func<Script, DynValue, DynValue, int, string, int, LuaTextManager>)CreateText;
             script.Globals["GetCurrentState"] = (Func<string>)GetState;
-            script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
-            script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
+            //script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
 
+            AsteriskLuaScriptBinder.BoundScriptFunctions(ref script);
+
+            /*
             if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
                 EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
             else
                 script.Globals["Encounter"] = EnemyEncounter.script;
+            */
+            if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
+            {
+                script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
+                script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
+                EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
+            }
+            else
+            {
+                script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
+                script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
+                script.Globals["Encounter"] = EnemyEncounter.script;
+            }
+            // --------------------------------------------------------------------------------
 
             DynValue PlayerStatus = UserData.Create(PlayerController.luaStatus);
             script.Globals.Set("Player", PlayerStatus);
@@ -147,7 +167,7 @@ public static class LuaScriptBinder {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        AsteriskLuaScriptBinder.BoundScriptUserData(ref script);
+        AsteriskLuaScriptBinder.BoundScriptUserDatas(ref script);
         // --------------------------------------------------------------------------------
         scriptlist.Add(script);
         return script;

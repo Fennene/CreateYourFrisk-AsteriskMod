@@ -1,5 +1,5 @@
 comments = {"Smells like the work\rof an enemy stand.", "Poseur is posing like his\rlife depends on it.", "Poseur's limbs shouldn't be\rmoving in this way."}
-commands = {}
+commands = {"Test"}
 randomdialogue = {"Random\nDialogue\n1.", "Random\nDialogue\n2.", "Random\nDialogue\n3."}
 
 sprite = "poseur_empty"
@@ -17,6 +17,13 @@ KilledGold = 36
 SparedGold = 15
 
 function HandleCustomCommand(command)
+    if command == "TEST" then
+        BattleDialog("This is test.[func:Test]")
+    end
+end
+
+function Test()
+    DEBUG("This is test.")
 end
 
 -- Even if it is downed, you can fight it again.
@@ -29,7 +36,12 @@ _Spared = false
 function OnActive(active) -- You MUST NOT use SetActive() in this function.
     if not Encounter["_initialized"] then return end
     if active then
-        hp = 80
+        hp = 70 + (Player.lv * 10)
+        if Player.lv >= 5 then
+            hp = hp + math.random(-15, 120)
+        end
+        maxhp = hp
+        KilledEXP = 43 + (Player.lv * 4) + math.random(-5, 30)
         if Sprite ~= nil then
             Sprite.Remove()
         end

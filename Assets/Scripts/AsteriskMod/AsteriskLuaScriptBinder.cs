@@ -19,7 +19,7 @@ namespace AsteriskMod
             UserData.RegisterType<StateEditor>();
         }
 
-        public static void BoundScriptGlobal(ref Script script)
+        public static void BoundScriptVariables(ref Script script)
         {
             script.Globals["retroMode"] = GlobalControls.retroMode;
             script.Globals["isModifiedCYF"] = true;
@@ -27,14 +27,14 @@ namespace AsteriskMod
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             script.Globals["AsteriskGMSUpdate"] = false;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
-
-            if (!UnitaleUtil.IsOverworld)
-            {
-                script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
-            }
         }
 
-        public static void BoundScriptUserData(ref Script script)
+        public static void BoundScriptFunctions(ref Script script)
+        {
+            script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+        }
+
+        public static void BoundScriptUserDatas(ref Script script)
         {
             DynValue buttonUtil = UserData.Create(new LuaButtonController());
             script.Globals.Set("ButtonUtil", buttonUtil);

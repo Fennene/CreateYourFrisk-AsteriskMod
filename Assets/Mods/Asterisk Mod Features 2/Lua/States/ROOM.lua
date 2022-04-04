@@ -1,3 +1,15 @@
+--[[
+You wanna create overworld?
+
+um, You should not refer below code, because this overworld feature can be create only 640x480 sized room and can be not saved.
+
+Moreover, this code is a part of overworld tool's code that have more features than below code.
+It is "FN!OverworldCreator", but I have not released.
+Look forward!
+
+...wait. Let me take that back.
+I forgot to tell you that "FN!OverworldCreator" is supported only Japanese.
+]]
 local bg = nil
 local PLAYER_SPRITE_DIR = "room/players/frisk/"
 local player_sprite = nil
@@ -40,8 +52,7 @@ function NewText(text, x, y, hide, layer)
 	return text
 end
 
-
-
+-- funcs
 
 function StartDialog(eventID, texts, prefix)
 	if event ~= "" then return end
@@ -95,7 +106,17 @@ function Encount(targetBattleID, immediate, moveToFightButton)
 	event = "ENCOUNT"
 end
 
+-- Custom area
 
+local walk_frame_counter = 0
+local encount_frame = 360
+if not Encounter["first_encount"] then
+	encount_frame = 300
+end
+if Player.lv > 5 then
+	encount_frame = encount_frame + (Player.lv - 4) * 45
+end
+encount_frame = encount_frame + math.random(-50, 50)
 
 function CheckEncount(left, right, up, down, canMoveLeft, canMoveRight, canMoveUp, canMoveDown)
 	-- gate
@@ -109,6 +130,16 @@ function CheckEncount(left, right, up, down, canMoveLeft, canMoveRight, canMoveU
 		StartDialog("OutOfWorld", {"You don't need to know\rabout out of world."})
 	end
 	-- Encount
+	flag1 = (left ~= 0 and right == 0 and canMoveLeft)
+	flag2 = (right ~= 0 and left == 0 and canMoveRight)
+	local flag3 = (up ~= 0 and down == 0 and canMoveUp)
+	local flag4 = (down ~= 0 and up == 0 and canMoveDown)
+	if flag1 or flag2 or flag3 or flag4 then
+		walk_frame_counter = walk_frame_counter + 1
+	end
+	if event == "" and walk_frame_counter >= encount_frame then
+		Encount("Poseur")
+	end
 end
 
 function RoomUpdate()
@@ -118,11 +149,7 @@ function RoomUpdate()
 	end
 end
 
-
-
-
-
-
+-- SYSTEM
 
 function StateStarting(oldState)
 	bg = CreateSprite("room/rooms/spr_pre_st_2", "RoomBackground")
@@ -313,6 +340,7 @@ end
 
 function StateEnding(newState)
 	encount_bubble.Remove()
+	dialog_text.Remove()
 	for i = 1, 2 do
 		dialog_boxes[i].Remove()
 	end
@@ -321,4 +349,5 @@ function StateEnding(newState)
 	player_sprite.Remove()
 	encount_mask.Remove()
 	encount_soul.Remove()
+	StateEditor.SetCurrentAction("FIGHT", false)
 end

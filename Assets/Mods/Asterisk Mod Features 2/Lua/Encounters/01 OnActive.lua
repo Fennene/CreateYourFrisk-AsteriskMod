@@ -46,6 +46,21 @@ _player_direction = 0
 _player_hp = 20
 _player_exp = 0
 
+function PlayerHurt(amount, inv_time)
+    if Player.ishurting then return end
+    if amount < 0 then return end
+    if inv_time == nil then inv_time = 1.7 end
+    Audio.PlaySound("hurtsound")
+    Player.Hurt(0, inv_time, true, false)
+    _player_hp = math.max(0, _player_hp - amount)
+end
+
+function PlayerHeal(amount)
+    if amount < 0 then return end
+    Audio.PlaySound("healsound")
+    _player_hp = math.min(_player_hp + amount, Player.maxhp)
+end
+
 function EncounterStarting()
     Audio.Stop()
     Player.name = "You"
@@ -63,6 +78,8 @@ function EncounterStarting()
     CreateLayer("RoomTop", "RoomEncSoul", false)
     SetFrameBasedMovement(true)
     PlayerUtil.SetHPControlOverride(true)
+    Inventory.AddCustomItems({"[color:ff0000]Error!"}, {3})
+    Inventory.SetInventory({"[color:ff0000]Error!"})
     _initialized = true
     customstatename = "TITLE"
     State("CUSTOMSTATE")
@@ -97,10 +114,17 @@ end
 function _Update()
     _UpdateCYFMask()
     if _game_mode ~= GameModeID.Battle then return end
+    PlayerUtil.SetHP(_player_hp, Player.maxhp, true)
     for i = 2, #enemies do
         if enemies[i].GetVar("isactive") then
             enemies[i].Call("Update")
         end
+    end
+    if _player_hp == 0 then
+        _mask.alpha = 1
+        _game_mode = GameModeID.GameOver
+        customstatename = "FAKE_GAMEOVER"
+        State("CUSTOMSTATE")
     end
 end
 
@@ -112,10 +136,74 @@ function PrepareRoom()
 end
 
 BattleID = ""
+item_inventory = {"Hot Ice", "G.Apple", "G.Apple", "V.Candy", "V.Candy", "B.Pie", "Love"}
 _mercy_menu_index = 1
+_item_healvalue = {
+    ["Hot Ice"] = 16,
+    ["G.Apple"] = 28,
+    ["V.Candy"] = 48,
+    ["B.Pie"] = -1,
+    ["Love"] = -2,
+    ["W.D."] = -2,
+    ["W.Dog"] = -2
+}
 
-function HandleItem(ItemID)
-    --BattleDialog({"Selected item " .. ItemID .. "."})
+function HandleItem(itemName)
+    if itemName == "Love" then
+        if Player.lv == 1 then
+            BattleDialog("You cannot use yet.")
+        else
+            BattleDialog("[func:_UseLoveItem]Determination.")
+        end
+        return
+    end
+    if itemName == "W.D." or itemName == "W.Dog" then
+        for i = 1, 8 do
+            item_inventory[i] = "W.Dog"
+        end
+        BattleDialog({"[noskip]You use the White Dog.", "[noskip][sound:dogsecret]Your inventory is filled with\rWhite Dog!!!!", "[noskip]Your HP...[w:10][func:PlayerHeal,30]"})
+        return
+    end
+    local heal_amount = _item_healvalue[itemName]
+    local texts = {""}
+    if itemName == "Hot Ice" then
+        texts = {"You eat the Hot Ice.", "I didn't understand\rit is hot or cold."}
+    elseif itemName == "G.Apple" then
+        texts = {"You eat the Green Apple."}
+    elseif itemName == "V.Candy" then
+        texts = {"You eat the Void Candy.\nDark Darker...[w:5]"}
+    elseif itemName == "B.Pie" then
+        texts = {"You eat the B.Pie.", "It was just apple pie.\nWhy does it name \"B.Pie\"?"}
+    end
+    if heal_amount == -1 then
+        texts[1] = texts[1] .. "\n[func:PlayerHeal," .. Player.maxhp .. "]Your HP was maxed out."
+    elseif _player_hp + heal_amount >= Player.maxhp then
+        texts[1] = texts[1] .. "\n[func:PlayerHeal," .. heal_amount .. "]Your HP was maxed out."
+    else
+        texts[1] = texts[1] .. "\n[func:PlayerHeal," .. heal_amount .. "]You recovered " .. heal_amount .. " HP!"
+    end
+    BattleDialog(texts)
+end
+
+local totalEXP = {
+    0, 10, 30, 70, 120,
+    200, 300, 500, 800, 1200,
+    1700, 2500, 3500, 5000, 7000,
+    10000, 15000, 25000, 50000, 99999
+}
+
+function _UseLoveItem()
+    Audio.PlaySound("saved")
+    Player.lv = Player.lv - 1
+    _player_hp = Player.maxhp
+    _player_exp = totalEXP[Player.lv]
+end
+
+function PrepareItemFunEvent()
+    local fun = GetAlMightyGlobal("*CYF-Example-OnActive-fun")
+    if fun >= 60 and fun <= 69 then
+        item_inventory[8] = "W.D."
+    end
 end
 
 function _GetMercyMenuInfo()
@@ -200,10 +288,18 @@ function _CheckEarned()
 end
 
 function _EnteringState(newState, oldState)
+    if newState == "ACTIONSELECT" then
+        if #item_inventory == 0 then
+            Inventory.SetInventory({})
+        end
+    end
     if oldState == "ATTACKING" then
         _CheckVictory()
     end
     if newState == "ITEMMENU" then
+        customstatename = "FAKE_ITEMMENU"
+        State("CUSTOMSTATE")
+        return true
     end
     if newState == "MERCYMENU" then
         customstatename = "FAKE_MERCYMENU"
@@ -219,6 +315,7 @@ function PrepareBattle(battleID)
         enemies[i].Call("Deactivate")
     end
     Player.ResetStats()
+    PlayerUtil.SetHPBarLength(Player.maxhp)
     BattleID = battleID
     _game_mode = GameModeID.Battle
     BattleStarting()
@@ -227,11 +324,13 @@ function PrepareBattle(battleID)
     State("ACTIONSELECT")
 end
 
--- battles
+-- battles (custom)
+first_encount = false
 
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
 
 function BattleStarting()
+    first_encount = true
     if BattleID == "Poseur" then
         Audio.LoadFile("mus_battle1")
         encountertext = "Poseur strikes a pose!"
@@ -241,6 +340,8 @@ function BattleStarting()
         enemies[2].Call("SetActive", true)
         flee = true
         fleesuccess = nil
+        deathtext = nil
+        deathmusic = nil--"mus_gameover"
     end
 end
 
@@ -249,6 +350,9 @@ function Update()
     if _game_mode ~= GameModeID.Battle then return end -- don't delete
     if Input.GetKey("F6") == 1 then
         Player.atk = 999
+    end
+    if Input.GetKey("End") == 1 then
+        PlayerHurt(4, 0.5)
     end
 end
 
