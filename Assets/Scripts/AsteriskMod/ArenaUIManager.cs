@@ -10,6 +10,7 @@ namespace AsteriskMod
     {
         private GameObject border;
         private GameObject mainTextMan;
+        internal char asterisk_char = '*';
 
         public static ArenaUIManager Instance;
 

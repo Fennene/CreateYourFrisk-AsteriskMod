@@ -53,5 +53,10 @@ namespace AsteriskMod.Lua
         {
             return ArenaUIManager.Instance.GetTextMute();
         }
+
+        public static void SetStarChar(char asterisk)
+        {
+            ArenaUIManager.Instance.asterisk_char = asterisk;
+        }
     }
 }

@@ -13,8 +13,7 @@ encountertext = "Poseur strikes a pose!"
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 4.0
 arenasize = {155, 130}
-flee = false
-unescape = true
+playerskipdocommand = true
 
 enemies = {
     "Null", "poseur_01"
@@ -29,125 +28,37 @@ _mask = CreateSprite("px", "ScreenMask")
 _mask.color = {0, 0, 0}
 _mask.Scale(640, 480)
 
-function Audio_TryPlay(audioName, loop)
-    if not Misc.FileExists("Audio/" .. audioName .. ".ogg")
-       and audioName ~= "mus_battle1"
-       and audioName ~= "mus_battle1 fj7x"
-       and audioName ~= "mus_gameover" then
-        return false
-    end
-    if loop == nil then loop = true end
-    NewAudio.PlayMusic("src", audioName, loop)
-end
-
-_initialized = false
-_battles = {}
-_savedatas = {}
-_nowbattle = false
-
-function Load()
-    _savedatas = {}
-    for i = 1, #_battles do
-        _savedatas[i] = 0
-    end
-    if not Misc.FileExists("save") then return end
-    local filebytes = Misc.OpenFile("save", "r").ReadBytes()
-    for i = 1, math.min(#_savedatas, #filebytes) do
-        _savedatas[i] = filebytes
-    end
-end
-
-function Save()
-    Misc.OpenFile("save", "w").WriteBytes(_savedatas)
-end
-
-possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+_player_position = {320, 240}
+_player_direction = 0
 
 function EncounterStarting()
-    Player.name = string.upper("Nil256")
     Audio.Stop()
-    CreateLayer("Menu", "ScreenMask", false)
-
-    for i = 2, #enemies do
-        enemies[i].Call("SetActive", false)
-    end
-
-    _battles = Misc.ListDir("Sprites/Icons", true)
-    Load()
-
-    _initialized = true
+    Player.name = "You"
+    SetFrameBasedMovement(true)
+    CreateLayer("RoomBottom", "ScreenMask", false)
+    CreateLayer("RoomBackground", "RoomBottom", false)
+    CreateLayer("Room", "RoomBackground", false)
+    CreateLayer("RoomForeground", "Room", false)
+    CreateLayer("RoomDialog", "RoomForeground", false)
+    CreateLayer("RoomDialogText", "RoomDialog", false)
+    CreateLayer("RoomEnc", "RoomDialogText", false)
+    CreateLayer("RoomEncSoul", "RoomEnc", false)
+    CreateLayer("RoomTop", "RoomEncSoul", false)
     customstatename = "TITLE"
     State("CUSTOMSTATE")
 end
 
-turn = 0
-BattleData = {}
-hasUpdate = false
-
-function _LoadBattle(selection)
-    encountertext = "Poseur strikes a pose!"
-    nextwaves = {"bullettest_chaserorb"}
-    wavetimer = 4.0
-    arenasize = {155, 130}
-    turn = 0
-    BattleData = require("Battles/" .. _battles[selection])
-    hasUpdate = BattleData.Update ~= nil
-    if BattleData.TargetEnemy == 1 then
-        error("TargetEnemy shouldn't be 1")
-    end
-    enemies[BattleData.TargetEnemy].Call("SetActive", true)
-    enemies[1].Call("SetActive", false)
-    if BattleData.Audio ~= nil then
-        Audio_TryPlay(BattleData.Audio, true)
-    end
-    _mask.alpha = 0
-    _nowbattle = true
-    BattleData.EncounterStarting()
-end
-
-function _CloseBattle()
-    Audio.Stop()
-    _mask.alpha = 1
-    enemies[1].Call("SetActive", true)
-    enemies[BattleData.TargetEnemy].Call("SetActive", false)
-    _nowbattle = false
-    customstatename = "BATTLESELECT"
-    State("CUSTOMSTATE")
-end
-
-function Update()
-    if hasUpdate then
-        BattleData.Update()
-    end
-    if Input.GetKey("Escape") == 1 then
-        if _nowbattle then
-            _CloseBattle()
-        else
-            State("DONE")
-        end
-    end
-end
-
-function EnteringState(newState, oldState)
-    if oldState == "MERCYMENU" then
-        State("ACTIONSELECT")
-    elseif oldState == "DIALOGRESULT" then
-        State("ACTIONSELECT")
-    else
-        turn = turn + 1
-    end
-end
+possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
 
 function EnemyDialogueStarting()
-    BattleData.EnemyDialogueStarting()
 end
 
 function EnemyDialogueEnding()
-    BattleData.EnemyDialogueEnding()
+    nextwaves = { possible_attacks[math.random(#possible_attacks)] }
 end
 
 function DefenseEnding()
-    BattleData.DefenseEnding()
+    encountertext = RandomEncounterText()
 end
 
 function HandleSpare()

@@ -9,7 +9,7 @@ atk = 1
 def = 1
 check = "Check message goes here."
 dialogbubble = "right"
-canspare = false
+canspare = true
 cancheck = true
 
 function OnActive(active)

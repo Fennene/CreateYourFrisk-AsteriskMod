@@ -1,4 +1,5 @@
-﻿using MoonSharp.Interpreter;
+﻿using AsteriskMod;
+using MoonSharp.Interpreter;
 
 public class TextMessage {
     public TextMessage(string text, bool decorated, bool showImmediate, bool actualText = true, DynValue mugshot = null) {
@@ -75,10 +76,20 @@ public class TextMessage {
                 else                       textNew += lines[i] + '\n';
             }
         int nCount = 0;
-        string newText = linesCommands[nCount++] + "* ";
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //string newText = linesCommands[nCount++] + "* ";
+        string newText = linesCommands[nCount++] + ArenaUIManager.Instance.asterisk_char + " ";
+        // --------------------------------------------------------------------------------
         foreach (char c in textNew) {
             switch (c) {
-                case '\n': newText += "\n" + linesCommands[nCount ++] + "* "; break;
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //case '\n': newText += "\n" + linesCommands[nCount++] + "* "; break;
+                case '\n': newText += "\n" + linesCommands[nCount++] + ArenaUIManager.Instance.asterisk_char + " "; break;
+                // --------------------------------------------------------------------------------
                 case '\r': newText += "\n  ";                                 break;
                 default:   newText += c;                                      break;
             }

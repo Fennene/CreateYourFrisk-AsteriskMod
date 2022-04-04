@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
 using UnityEngine;
@@ -847,7 +848,12 @@ public class TextManager : MonoBehaviour {
 
             case "starcolor":
                 Color starColor = ParseUtil.GetColor(cmds[1]);
-                int indexOfStar = textQueue[currentLine].Text.IndexOf('*'); // HACK oh my god lol
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //int indexOfStar = textQueue[currentLine].Text.IndexOf('*'); // HACK oh my god lol
+                int indexOfStar = textQueue[currentLine].Text.IndexOf(ArenaUIManager.Instance.asterisk_char); // HACK oh my god lol
+                // --------------------------------------------------------------------------------
                 if (indexOfStar > -1)
                     letterReferences[indexOfStar].color = starColor;
                 break;

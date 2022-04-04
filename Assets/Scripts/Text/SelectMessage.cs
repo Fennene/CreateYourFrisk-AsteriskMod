@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 
 /// <summary>
 /// This class creates a text used in selection phases. It takes a string array and transforms it into a selection text.
@@ -9,7 +10,12 @@ public class SelectMessage : TextMessage {
         string finalMessage = "";          // String that will contain all our text when finished
         const string rowOneSpacing = "  "; // String that contains the needed shift for each normal line
         const string rowTwoSpacing = "\t"; // String that contains a tabulation character that puts the text to the right
-        string prefix = "* ";              // Prefix used for new lines
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //string prefix = "* ";              // Prefix used for new lines
+        string prefix = ArenaUIManager.Instance.asterisk_char + " ";              // Prefix used for new lines
+        // --------------------------------------------------------------------------------
 
         // If there is no option, there is an error somewhere : Let's create it then by throwing an ArgumentException
         if (options.Count == 0)
@@ -56,9 +62,19 @@ public class SelectMessage : TextMessage {
                 prefix = "";
             else if (i > 0)
                 if (options[i-1] == null || options[i-1] == "")
-                    prefix = "* ";
+                    // --------------------------------------------------------------------------------
+                    //                          Asterisk Mod Modification
+                    // --------------------------------------------------------------------------------
+                    //prefix = "* ";
+                    prefix = ArenaUIManager.Instance.asterisk_char + " ";
+                    // --------------------------------------------------------------------------------
             if (options[i] != null)
-                options[i] = options[i].TrimStart('*', ' ');
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //options[i] = options[i].TrimStart('*', ' ');
+                options[i] = options[i].TrimStart(ArenaUIManager.Instance.asterisk_char, ' ');
+                // --------------------------------------------------------------------------------
             // If this is a single list, we don't need text on the right side of the textbox
             if (singleList)       finalMessage += commands + rowOneSpacing + intermedPrefix + prefix + options[i] + intermedSuffix + "\n";
             // If the number of the option is an even number, it'll be at the left side of the textbox

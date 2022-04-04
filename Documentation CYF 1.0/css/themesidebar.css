@@ -48,6 +48,14 @@ span.string::before {
     color: #de7356;
 }
 
+span.char::before {
+    content: "\"char\"";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+    color: #deb332;
+}
+
 span.luatable::before {
     content: "{table of ";
     color: #158BD2;
