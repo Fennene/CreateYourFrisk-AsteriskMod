@@ -9,6 +9,7 @@ namespace AsteriskMod
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------
+        // *Mod-4
 
         public const string ModName = "Asterisk Mod";
         public const string ModVersion = "0.5.2.9";
@@ -49,9 +50,10 @@ namespace AsteriskMod
         internal const string OPTION_DOG = "*CYF-ErrorDog";
         internal const string OPTION_LANG = "*CYF-Language";
 
-        public static bool active;
+        public static bool active; // *Mod-4
+        internal const string OPTION_JOKE_ACTIVE = "*CYF-AprilFool-Joke-Active"; // *Mod-4
         /// <summary>A<br/>p<br/>r<br/>i<br/>l<br/><br/>f<br/>o<br/>o<br/>l<br/><br/><br/>[Insert description here]<br/>non-save</summary>
-        public static bool AprilFool;
+        public static bool AprilFool; // *Mod-4
 
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
@@ -97,6 +99,12 @@ namespace AsteriskMod
                         language = Languages.Japanese;
                         break;
                 }
+            }
+
+            // *Mod-4
+            if (LuaScriptBinder.GetAlMighty(null, OPTION_JOKE_ACTIVE) != null && LuaScriptBinder.GetAlMighty(null, OPTION_JOKE_ACTIVE).Type == DataType.Boolean)
+            {
+                active = LuaScriptBinder.GetAlMighty(null, OPTION_JOKE_ACTIVE).Boolean;
             }
         }
 

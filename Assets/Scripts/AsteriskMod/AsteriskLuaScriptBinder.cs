@@ -21,13 +21,15 @@ namespace AsteriskMod
         {
             script.Globals["retroMode"] = GlobalControls.retroMode;
             script.Globals["isModifiedCYF"] = true;
-            script.Globals["Asterisk"] = true;
+            //script.Globals["Asterisk"] = true;
+            script.Globals["Asterisk"] = Asterisk.active; // *Mod-4
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
         }
 
         public static void BoundScriptFunctions(ref Script script)
         {
+            script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
             script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
         }
@@ -40,6 +42,12 @@ namespace AsteriskMod
             script.Globals.Set("PlayerUtil", playerUtil);
             DynValue arenaUtil = UserData.Create(new ArenaUtil());
             script.Globals.Set("ArenaUtil", arenaUtil);
+        }
+
+        public static string GetCurrentAction()
+        {
+            try   { return UIController.instance.GetAction().ToString(); }
+            catch { return "NONE (error)"; }
         }
 
         public static bool LayerExists(string name)

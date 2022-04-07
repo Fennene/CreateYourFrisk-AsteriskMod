@@ -234,30 +234,6 @@ public class EnemyController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public int[] BackgroundMiniBarColor
-    {
-        get
-        {
-            DynValue bgBarColor = script.GetVar("minibgcolor");
-            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
-            {
-                return new int[3] { 255, 0, 0 };
-            }
-            int[] _ = new int[bgBarColor.Table.Length];
-            //for (int i = 0; i < bgBarColor.Table.Length; i++)
-            for (int i = 0; i < 3; i++)
-                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
-            return _;
-        }
-        set
-        {
-            DynValue[] values = new DynValue[value.Length];
-            for (int i = 0; i < value.Length; i++)
-                values[i] = DynValue.NewNumber(value[i]);
-            script.SetVar("minibgcolor", DynValue.NewTuple(values));
-        }
-    }
-
     public int[] BackgroundBarColor
     {
         get
@@ -303,6 +279,30 @@ public class EnemyController : MonoBehaviour {
             for (int i = 0; i < value.Length; i++)
                 values[i] = DynValue.NewNumber(value[i]);
             script.SetVar("fillcolor", DynValue.NewTuple(values));
+        }
+    }
+
+    public int[] BackgroundMiniBarColor
+    {
+        get
+        {
+            DynValue bgBarColor = script.GetVar("minibgcolor");
+            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
+            {
+                return new int[3] { 255, 0, 0 };
+            }
+            int[] _ = new int[bgBarColor.Table.Length];
+            //for (int i = 0; i < bgBarColor.Table.Length; i++)
+            for (int i = 0; i < 3; i++)
+                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
+            return _;
+        }
+        set
+        {
+            DynValue[] values = new DynValue[value.Length];
+            for (int i = 0; i < value.Length; i++)
+                values[i] = DynValue.NewNumber(value[i]);
+            script.SetVar("minibgcolor", DynValue.NewTuple(values));
         }
     }
     // --------------------------------------------------------------------------------
@@ -465,7 +465,7 @@ public class EnemyController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (Asterisk.RequireExperimentalFeature("OnActive"))
+        if (Asterisk.RequireExperimentalFeature("OnActive", false))
         {
             if (!canSetActive)
             {

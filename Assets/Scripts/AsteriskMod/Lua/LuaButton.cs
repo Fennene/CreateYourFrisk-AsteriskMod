@@ -39,9 +39,11 @@ namespace AsteriskMod.Lua
             return isActive;
         }
 
-        public void SetSprite(string inactiveTexturePath, string activeTexturePath)
+        public void SetSprite(string inactiveTexturePath, string activeTexturePath, string prefix = "")
         {
             Image image = button.GetComponent<Image>();
+            inactiveTexturePath = prefix + inactiveTexturePath;
+            activeTexturePath = prefix + activeTexturePath;
             SpriteUtil.SwapSpriteFromFile(image, inactiveTexturePath);
             Sprite activeTexture = SpriteRegistry.Get(activeTexturePath);
             switch (buttonID)

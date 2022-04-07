@@ -14,7 +14,7 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>*CYF Documentation - The ButtonUtil Object</title>
+    <title>*CYF Documentation - The ArenaUtil Object</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
@@ -67,8 +67,9 @@ it's w3c valid, at least
                     <li><a href="basis.html">About</a></li>
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li>Functions &amp; Objects:</li>
+                    <li class="li-indent"><a href="api-engine.html"><span class="Future"></span> The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
-                    <li class="li-indent active">&gt; The ButtonUtil Object &lt;</li>
+                    <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li><span class="AsteriskExperiment"></span> CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
@@ -104,105 +105,13 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-api-buttonutil">
-            <h2><span class="Asterisk"></span> The ButtonUtil object [E/M/W]</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-gms-main">
+            <h2><span class="Future"></span> The GameObject Object [E/M/W]</h2><br><br>
             <p>
-                You can use this object to modify buttons.
-            </p><br>
-
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.FIGHT</span>
-                This function returns property of FIGHT Button as Button object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ACT</span>
-                This function returns property of ACT Button as Button object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ITEM</span>
-                This function returns property of ITEM Button as Button object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.MERCY</span>
-                This function returns property of MERCY Button as Button object.
-            </p>
-            <p>
-                <br><span class="function">ButtonUtil.SetActives(<span class="boolean"></span> fight = true, <span class="boolean"></span> act = true, <span class="boolean"></span> item = true, <span class="boolean"></span> mercy = true)</span>
-                Sets the activates of all buttons at once.
-                <ul>
-                    <li><span class="term">fight</span>: active of FIGHT Button.</li>
-                    <li><span class="term">act</span>: active of ACT Button.</li>
-                    <li><span class="term">item</span>: active of ITEM Button.</li>
-                    <li><span class="term">mercy</span>: active of MERCY Button.</li>
-                </ul><br>
-                <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
-            </p>
-
-            <br><hr>
-            <h3>The Button object</h3><br><br>
-            <p>
-                You can modify position, activate and texture of buttons.
+                You can modify objects by below variables and functions.
             </p><br>
             <p>
-                <br><span class="function"><span class="number"></span> button.x</span>
-                Horizontal position of sprite relative to the normal positon.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> button.y</span>
-                Vertical position of sprite relative to the normal positon.
-            </p>
-            <p>
-                <br><span class="function">button.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Moves the sprite <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
-                <br><br>
-                See <span class="term">button.x</span> and <span class="term">button.y</span>.
-            </p>
-            <p>
-                <br><span class="function">button.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Same as setting x and y simultaneously.
-                <br><br>
-                See <span class="term">button.x</span> and <span class="term">button.y</span>.
-            </p>
-            <p>
-                <br><span class="function">button.ResetPosition()</span>
-                Sets the button's position to normal position.
-                <br>This is same as <span class="term">button.MoveTo(0, 0)</span>.
-            </p>
-            <p>
-                <br><span class="function">button.SetActive(<span class="boolean"></span> active)</span>
-                Either true or false. If false, the button disappear and the player can't select that.
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> button.GetActive()</span>
-                This function returns activate of the button.
-            </p>
-            <p>
-                <br><span class="function">button.SetSprite(<span class="string"></span> inactiveTexturePath, <span class="string"></span> activeTexturePath [, <span class="asternew"></span> <span class="string"></span> prefix = ""])</span>
-                Change the button's current texture.
-                <ul>
-                    <li><span class="term">inactiveTexturePath</span>: the image while the player doesn't select.</li>
-                    <li><span class="term">activeTexturePath</span>: the image when the player select.</li>
-                    <li><span class="asternew"></span> <span class="term">prefix</span>: adds at the beginning of the above two string</li>
-                </ul>
-            </p>
-            <p>
-                <br><span class="function">button.SetColor(<span class="number">r</span>, <span class="number">g</span>, <span class="number">b</span>, <span class="number">a</span> = 1.0)</span>
-                Sets the button's color, as 3 or 4 values from 0 to 1.
-                <br>For example, button.SetColor(1.0, 0.0, 0.0) makes the button red.
-                <br>Black areas are not affected by coloration.
-                <br>The 4th value is the alpha (transparency) value of the button.
-            </p>
-            <p>
-                <br><span class="function">button.SetColor32(<span class="number">r</span>, <span class="number">g</span>, <span class="number">b</span>, <span class="number">a</span> = 255)</span>
-                Sets the button's color, as 3 or 4 integer values from 0 to 255.
-                <br>For example, button.SetColor32(255, 0, 0) makes the button red.
-                <br>Black areas are not affected by coloration.
-                <br>The 4th value is the alpha (transparency) value of the button.
-            </p>
-            <p>
-                <br><span class="function">button.ResetColor()</span>
-                Resets the button's color.
-                <br>This is same as <span class="term">button.SetColor32(1, 1, 1, 1)</span> or <span class="term">button.SetColor32(255, 255, 255, 255)</span>.
+                GMS will be added in Asterisk Mod v0.5.3.
             </p>
         </div>
 

@@ -20,9 +20,9 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject AsteriskBG, Asterisk, Back, Experiment, Dog, DescVisible;
+    public GameObject AsteriskBG, AsteriskBT, Back, Experiment, Dog, DescVisible;
     public Text ModName, ModVersion;
-    public GameObject CaYF;
+    public GameObject Active, CaYF, NeedInfo; // *Mod-4
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -144,41 +144,60 @@ public class OptionsScript : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        Asterisk.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(true); });
-        ModName.text = AsteriskMod.Asterisk.ModName;
-        ModVersion.text = AsteriskMod.Asterisk.ModVersion;
+        AsteriskBT.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(true); });
+        ModName.text = Asterisk.ModName;
+        ModVersion.text = Asterisk.ModVersion;
         Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
         DescVisible.GetComponent<Button>().onClick.AddListener(() =>
         {
-            AsteriskMod.Asterisk.alwaysShowDesc = !AsteriskMod.Asterisk.alwaysShowDesc;
+            Asterisk.alwaysShowDesc = !Asterisk.alwaysShowDesc;
 
-            LuaScriptBinder.SetAlMighty(null, "*CYFDescVisibility", DynValue.NewBoolean(AsteriskMod.Asterisk.alwaysShowDesc), true);
+            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_DESC, DynValue.NewBoolean(Asterisk.alwaysShowDesc), true);
 
-            DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (AsteriskMod.Asterisk.alwaysShowDesc ? "On" : "Off");
+            DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (Asterisk.alwaysShowDesc ? "On" : "Off");
         });
-        DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (AsteriskMod.Asterisk.alwaysShowDesc ? "On" : "Off");
+        DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (Asterisk.alwaysShowDesc ? "On" : "Off");
         Dog.GetComponent<Button>().onClick.AddListener(() =>
         {
-            AsteriskMod.Asterisk.showErrorDog = !AsteriskMod.Asterisk.showErrorDog;
+            Asterisk.showErrorDog = !Asterisk.showErrorDog;
 
-            LuaScriptBinder.SetAlMighty(null, "*CYFErrorDog", DynValue.NewBoolean(AsteriskMod.Asterisk.showErrorDog), true);
+            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_DOG, DynValue.NewBoolean(Asterisk.showErrorDog), true);
 
-            Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (AsteriskMod.Asterisk.showErrorDog ? "On" : "Off");
+            Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (Asterisk.showErrorDog ? "On" : "Off");
         });
-        Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (AsteriskMod.Asterisk.showErrorDog ? "On" : "Off");
+        Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (Asterisk.showErrorDog ? "On" : "Off");
         Experiment.GetComponent<Button>().onClick.AddListener(() =>
         {
-            AsteriskMod.Asterisk.experimentMode = !AsteriskMod.Asterisk.experimentMode;
+            Asterisk.experimentMode = !Asterisk.experimentMode;
 
-            LuaScriptBinder.SetAlMighty(null, "*CYFExperiment", DynValue.NewBoolean(AsteriskMod.Asterisk.experimentMode), true);
+            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_EXPERIMENT, DynValue.NewBoolean(Asterisk.experimentMode), true);
 
-            Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (AsteriskMod.Asterisk.experimentMode ? "On" : "Off");
+            Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
         });
-        Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (AsteriskMod.Asterisk.experimentMode ? "On" : "Off");
-        if (GlobalControls.crate)
+        Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
+
+        // *Mod-4
+        Active.GetComponent<Button>().onClick.AddListener(() =>
         {
-            CaYF.SetActive(true);
-        }
+            Asterisk.active = !Asterisk.active;
+
+            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_JOKE_ACTIVE, DynValue.NewBoolean(Asterisk.active), true);
+
+            Active.GetComponentInChildren<Text>().text = "Active: " + (Asterisk.active ? "On" : "Off");
+        });
+        Active.GetComponentInChildren<Text>().text = "Active: " + (Asterisk.active ? "On" : "Off");
+        // *Mod-4
+        CaYF.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            GlobalControls.crate = !GlobalControls.crate;
+
+            LuaScriptBinder.SetAlMighty(null, "CrateYourFrisk", DynValue.NewBoolean(GlobalControls.crate), true);
+
+            CaYF.GetComponentInChildren<Text>().text = GlobalControls.crate ? "CRATE YOUR FRISK: ON!!!111!!1!" : "Crate Your Frisk: Off";
+            NeedInfo.GetComponent<Text>().enabled = !NeedInfo.GetComponent<Text>().enabled;
+        });
+        CaYF.GetComponentInChildren<Text>().text = GlobalControls.crate ? "CRATE YOUR FRISK: ON!!!111!!1!" : "Crate Your Frisk: Off";
+
         AsteriskBG.SetActive(false);
         // --------------------------------------------------------------------------------
 
@@ -311,7 +330,7 @@ public class OptionsScript : MonoBehaviour {
                     hoverItem = "Asterisk";
             }
 
-            Asterisk.SetActive(hoverItem != "Discord");
+            AsteriskBT.SetActive(hoverItem != "Discord");
             // --------------------------------------------------------------------------------
 
             Description.GetComponent<Text>().text = GetDescription(hoverItem);

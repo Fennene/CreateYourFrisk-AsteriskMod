@@ -1795,5 +1795,10 @@ public class UIController : MonoBehaviour {
         itemButton.overrideSprite = item ? itemButtonSprite : null;
         mercyButton.overrideSprite = mercy ? mercyButtonSprite : null;
     }
+
+    internal Actions GetAction()
+    {
+        return action;
+    }
     // --------------------------------------------------------------------------------
 }
