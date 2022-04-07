@@ -3,8 +3,10 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.Lua.GMS
 {
+    // ! => !
     public class GameObjectModifyingSystem
     {
+        // ! => nil
         public static UnityObject Find(string name)
         {
             GameObject obj = GameObject.Find(name);

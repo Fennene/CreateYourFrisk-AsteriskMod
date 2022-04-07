@@ -90,7 +90,7 @@ public class GlobalControls : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        Asterisk.LoadOption();
+        Asterisk.Load();
         // --------------------------------------------------------------------------------
 
         // Start Discord RPC (also checks for an AlMightyGlobal within)

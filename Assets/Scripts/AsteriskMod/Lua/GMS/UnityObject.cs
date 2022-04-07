@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.Lua.GMS
 {
+    // ! => $
     public class UnityObject
     {
         private GameObject _gameObject;

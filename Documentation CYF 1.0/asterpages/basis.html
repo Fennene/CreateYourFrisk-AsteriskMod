@@ -63,6 +63,7 @@ it's w3c valid, at least
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
                     <li>Functions &amp; Objects:</li>
+                    <li class="li-indent"><a href="api-engine.html"><span class="Future"></span> The Engine Object</a></li>
                     <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
@@ -71,6 +72,10 @@ it's w3c valid, at least
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
                     <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li><span class="Future"></span> Gameobject Modifying System:</li>
+                    <li class="li-indent"><a href="gms-basis.html">Basis</a></li>
+                    <li class="li-indent"><a href="gms-main.html">The GameObject Object</a></li>
+                    <li class="li-indent"><a href="gms-image.html">The ImageComponent Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> Shaders</li>
                     <li><a href="../pages/shaders.html">Introduction</a></li>
@@ -155,7 +160,7 @@ it's w3c valid, at least
                     </li><br>
                 </ul>
                 <br>
-                There are new 5 symbols in this documentaion and those means:<br>
+                There are new 6 symbols in this documentaion and those means:<br>
                 <ul>
                     <li>
                         <span class="Asterisk"></span> are only usable in AsteriskMod.
@@ -165,13 +170,16 @@ it's w3c valid, at least
                         when "Experimental Features" is enabled.
                     </li><br>
                     <li>
-                        <span class="Delete"></span>  means it may be deleted by Asterisk Mod v0.5.4.
+                        <span class="Delete"></span> means it may be deleted by Asterisk Mod v0.5.4.
+                    </li><br>
+                    <li>
+                        <span class="Future"></span> means it will be added in future update.
                     </li>
                     <li>
                         <span class="aster">Indicates <u>new or changed CYF's content</u> in Asterisk Mod.</span>
                     </li>
                     <li>
-                        <span class="asternew">Indicates <u>new or changed content</u> in Asterisk Mod v0.5.3(v0.5.2.9).</span>
+                        <span class="asternew">Indicates <u>new or changed content</u> in Asterisk Mod v0.5.2.9.</span>
                     </li><br>
                 </ul>
             </p><br>
@@ -185,27 +193,41 @@ it's w3c valid, at least
             
             <h3>Release Notes</h3><br><br>
 
-            <p>
-                Nil256 plans that Asterisk Mod v0.5.4 will be effectively Asterisk Mod v1.0.
-            </p><br>
+            <h4><span class="Future"></span> v0.5.4 [AsteriskMod]</h4>
+            <p>Nil256 plans that Asterisk Mod v0.5.4 will be effectively Asterisk Mod v1.0.</p>
+            <br>
 
-            <h4>v0.5.2.9 (beta/debug version)</h4>
+            <h4><span class="Future"></span> v0.5.3 [GameobjectModifyingSystemUpdate]</h4>
+            <p>Coming Soon... ?? ????? ??????</p>
+            <br>
+
+            <h4>v0.5.2.9 [QualityOfLifeUpdate]</h4>
             <p>
                 <ul class="rn">
                     <li class="fix">
                         Fix the problem that you cannot move to the mod when you click the description.
                     </li>
                     <li class="fix">
-                        <font color="#FFF">Mod's Desciption is no longer Experimental Features!</font>
+                        <font color="#FFF">Mod's Desciption is no longer Experimental Features!!</font>
                     </li>
                     <li class="fix">
-                        <font color="#FFF">CustomState is no longer Experimental Features!!</font>
+                        <font color="#FFF">You can call functions of <span class="term">PlayerUtil</span> 
+                        in <span class="term">EncounterStarting()</span>!!!!!</font>
+                    </li>
+                    <li class="fix">
+                        <font color="#FFF"><span class="term">CustomState</span> is no longer Experimental Features!!!!!!</font>
                     </li>
                     <li class="fix">
                         Fix behavior of <span class="term">[func:]</span> in State Script.<br>
                         Before, <span class="term">[func:]</span> didn't call a function of State Script when you used <span class="term">[func:]</span> in State Script.<br>
                         However now, you can call a function of State Script to use <span class="term">[func:]</span>.
                         <!--Fix the problem where "[func:]" in the text in a dialog box in CustomState does not call by a function in the State script.-->
+                    </li>
+                    <li class="modify">
+                        Change some variables/functions name in AsteriskMod's codes. &lt; INTERNAL &gt;
+                    </li>
+                    <li class="modify">
+                        Change option keyword. &lt; INTERNAL &gt;
                     </li>
                     <li class="modify">
                         FightUI's target bar can move 2 directions(left and right).
@@ -221,19 +243,19 @@ it's w3c valid, at least
                         Modify scroll sensibility in Mod Selection Screen.
                     </li>
                     <li class="modify">
-                        Modify <span class="term">Asterisk Mod Features</span> (Mods).
+                        Modify <span class="term">Asterisk Mod Features</span>. (Mods)
                     </li>
                     <li>
-                        Add the variable named <span class="term">AsteriskGMSUpdate</span>.
+                        Add summary tag and description in AsteriskMod's codes &lt; INTERNAL &gt;
+                    </li>
+                    <li>
+                        Add more example in <span class="term">Asterisk Mod Features</span>. (Mods)
                     </li>
                     <li>
                         Add the function named <span class="term">LayerExists()</span>.
                     </li>
                     <li>
-                        Add the function <span class="term">Text.SetSoundVolume/GetSoundVolume()</span>.
-                    </li>
-                    <li>
-                        Add the function <span class="term">Text.SetSoundMute/GetSoundMute()</span>.
+                        Add the function named <span class="term">IsEmptyLayer()</span>.
                     </li>
                     <li>
                         Add <span class="term">title</span> parameter in <span class="term">info.cyfmod</span>.
@@ -260,22 +282,23 @@ it's w3c valid, at least
                         Add the parameter <span class="term">ArenaUtil.centerabsy</span>.
                     </li>
                     <li>
-                        Add the function <span class="term">ArenaUtil.SetDialogTextVolume/GetDialogTextVolume()</span>.
-                    </li>
-                    <li>
-                        Add the function <span class="term">ArenaUtil.SetDialogTextMute/GetDialogTextMute()</span>.
-                    </li>
-                    <li>
                         Add the function <span class="term">ArenaUtil.SetStarChar()</span>.
                     </li>
                     <li>
                         Add <span class="term">Experimental Features</span>.
                         <ul>
                             <li>Add <span class="term">Misc.MessageBox()</span>.</li>
+                            <li>Add <span class="term">text.SetSoundVolume/GetSoundVolume()</span>.</li>
+                            <li>Add <span class="term">text.SetSoundMute/GetSoundMute()</span>.</li>
+                            <li>Add <span class="term">ArenaUtil.SetDialogTextVolume/GetDialogTextVolume()</span>.</li>
+                            <li>Add <span class="term">ArenaUtil.SetDialogTextMute/GetDialogTextMute()</span>.</li>
                         </ul>
                         <ul>
                             <li>Add GameEvent <span class="term">OnHPChanged()</span>.</li>
                         </ul>
+                    </li>
+                    <li>
+                        Add AprilFool
                     </li>
                 </ul>
             </p>

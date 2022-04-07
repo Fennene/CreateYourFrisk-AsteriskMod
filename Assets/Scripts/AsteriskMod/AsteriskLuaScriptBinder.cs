@@ -1,13 +1,11 @@
 ﻿using AsteriskMod.Lua;
 using System;
-using System.Collections.Generic;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Loaders;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace AsteriskMod
 {
+    /// <summary>Add AsteriskMod's variables, functions and UserDatas to <see cref="LuaScriptBinder"/></summary>
     public class AsteriskLuaScriptBinder
     {
         public static void Initialize()
@@ -25,13 +23,13 @@ namespace AsteriskMod
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
-            script.Globals["AsteriskGMSUpdate"] = false;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
         }
 
         public static void BoundScriptFunctions(ref Script script)
         {
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+            script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
@@ -49,6 +47,18 @@ namespace AsteriskMod
             return name != null && GameObject.Find((UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/") + name + "Layer") != null;
         }
 
+        public static bool? IsEmptyLayer(string name)
+        {
+            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
+            if (name == null || GameObject.Find(canvas + name + "Layer") == null)
+                return null;
+            return GameObject.Find(canvas + name + "Layer").transform.childCount == 0;
+        }
+
+        /// <summary>
+        /// Recall the functions that ware called before initialization.<br/>
+        /// for <see cref="PlayerUtil"/>
+        /// </summary>
         public static void LateInitialize()
         {
             UIStats.instance.Request();

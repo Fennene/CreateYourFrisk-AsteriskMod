@@ -135,6 +135,12 @@ span.Delete {
 span.Delete::before {
     content: " <MayBeDeleted>";
 }
+span.Future {
+    color: #00c010;
+}
+span.Future::before {
+    content: " <Future>";
+}
 
 span.unitale{
     color: #ffffff;

@@ -177,26 +177,6 @@ it's w3c valid, at least
                     For example, in AsteriskMod v0.5.3, this will be "0.5.3".</li>
                 </ul>
             </p>
-            <p>
-                <br><span class="function"><span class="asternew"></span> <span class="Asterisk"></span> <span class="nullable_boolean"></span> AsteriskGMSUpdate [E/M/W]</span>
-                Returns <span class="term">true</span> if AsteriskMod is v0.5.3.x, <span class="term">false</span> if AsteriskMod is v0.5.2.9, <span class="term">nil</span> if AsteriskMod is before v0.5.2.9.<br><br>
-                You don't need check to exists "v" if you use this.
-                <div class="code-container">
-<pre class="brush: lua;">if AsteriskGMSUpdate == nil then
-    if AsteriskVersion > "v0.5.2.7" then
-        -- body
-    end
-else
-    if not AsteriskGMSUpdate then -- <=> if AsteriskVersion == "0.5.2.9" then
-    else
-        if AsteriskVersion > "0.5.3.2" then
-            -- body
-        end
-    end
-end
-</pre>
-                </div>
-            </p><br>
 
             <hr>
             <h4>Encounter script variables</h4>

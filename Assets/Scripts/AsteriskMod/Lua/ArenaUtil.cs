@@ -36,21 +36,25 @@ namespace AsteriskMod.Lua
 
         public static void SetDialogTextVolume(float value)
         {
+            Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextVolume");
             ArenaUIManager.Instance.SetTextVolume(value);
         }
 
         public static float GetDialogTextVolume()
         {
+            Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextVolume");
             return ArenaUIManager.Instance.GetTextVolume();
         }
 
         public static void SetDialogTextMute(bool mute)
         {
+            Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextMute");
             ArenaUIManager.Instance.SetTextMute(mute);
         }
 
         public static bool GetDialogTextMute()
         {
+            Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextMute");
             return ArenaUIManager.Instance.GetTextMute();
         }
 

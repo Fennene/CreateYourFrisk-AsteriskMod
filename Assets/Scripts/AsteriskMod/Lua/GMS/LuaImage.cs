@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.Lua.GMS
 {
+    // ! => $
     public class LuaImage
     {
         private UnityObject unityObject;

@@ -1,24 +1,36 @@
-﻿using MoonSharp.Interpreter;
-using System;
+﻿using System;
 using System.IO;
 using UnityEngine;
 
 namespace AsteriskMod.Lua
 {
+    // ! => ?
     public class Engine
     {
+        // ! => nil
+        public static void SetTargetFrameRate(int value)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.SetTargetFrameRate");
+            Application.targetFrameRate = value;
+        }
+
+        // ? => nil
+        public static void SetBulletPoolSize(int newSize = 100)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.SetBulletPoolSize");
+            BulletPool.POOLSIZE = newSize;
+        }
+
+        // ! => false
         public static bool ModExists(string modFolderName)
         {
             return Directory.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + modFolderName));
         }
 
-        [MoonSharpHidden]
-        public static void SetScreenResolution(int width, int height, bool fullscreen)
+        // ! => nil
+        public static void SetScreenResolution(int width, int height, bool fullscreen = false)
         {
-            if (!Asterisk.experimentMode)
-            {
-                throw new CYFException("Engine.SetScreenResolution() is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-            }
+            Asterisk.RequireExperimentalFeature("Engine.SetScreenResolution");
             Screen.SetResolution(width, height, fullscreen);
         }
 
@@ -34,42 +46,34 @@ namespace AsteriskMod.Lua
             return (targetFilePath + "/" + path).Replace("\\", "/");
         }
 
-        [MoonSharpHidden]
+        // ! => false
         public static bool AppDataFileExists(string path)
         {
-            if (!Asterisk.experimentMode)
-            {
-                throw new CYFException("Engine.AppDataFileExists() is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-            }
+            Asterisk.RequireExperimentalFeature("Engine.AppDataFileExists");
             return File.Exists(GetLocalAppDataPath(path));
         }
 
-        [MoonSharpHidden]
+        // ! => false
         public static bool AppDataDirExists(string path)
         {
-            if (!Asterisk.experimentMode)
-            {
-                throw new CYFException("Engine.AppDataDirExists() is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-            }
+            Asterisk.RequireExperimentalFeature("Engine.AppDataDirExists");
             return Directory.Exists(GetLocalAppDataPath(path));
         }
 
-        [MoonSharpHidden]
+        // ! => false
         public static bool AppDataCreateDir(string path)
         {
-            if (!Asterisk.experimentMode)
-            {
-                throw new CYFException("Engine.AppDataCreateDir() is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-            }
+            Asterisk.RequireExperimentalFeature("Engine.AppDataCreateDir");
             path = GetLocalAppDataPath(path);
             if (!Directory.Exists(path)) return false;
             Directory.CreateDirectory(path);
             return true;
         }
 
-        [MoonSharpHidden]
+        // ! => nil
         public static LuaFile OpenAppDataFile(string path, string mode = "rw")
         {
+            Asterisk.RequireExperimentalFeature("Engine.AppDataCreateDir");
             if (!Asterisk.experimentMode)
             {
                 throw new CYFException("Engine.OpenAppDataFile() is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");

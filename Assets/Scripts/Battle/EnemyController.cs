@@ -465,13 +465,13 @@ public class EnemyController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (!canSetActive)
+        if (Asterisk.RequireExperimentalFeature("OnActive"))
         {
-            UnitaleUtil.DisplayLuaError(scriptName, "Do NOT call SetActive() in OnActive!");
-            return;
-        }
-        if (Asterisk.experimentMode)
-        {
+            if (!canSetActive)
+            {
+                UnitaleUtil.DisplayLuaError(scriptName, "Do NOT call SetActive() in OnActive!");
+                return;
+            }
             try
             {
                 if (script.GetVar("OnActive") != null)
