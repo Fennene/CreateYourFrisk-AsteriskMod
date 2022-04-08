@@ -107,17 +107,27 @@ public static class LuaScriptBinder {
             else
                 script.Globals["Encounter"] = EnemyEncounter.script;
             */
-            if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
+            if (Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
             {
-                script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
-                script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
-                EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
+                if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
+                {
+                    script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
+                    script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
+                    EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
+                }
+                else
+                {
+                    script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
+                    script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
+                    script.Globals["Encounter"] = EnemyEncounter.script;
+                }
             }
             else
             {
-                script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
-                script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
-                script.Globals["Encounter"] = EnemyEncounter.script;
+                if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
+                    EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
+                else
+                    script.Globals["Encounter"] = EnemyEncounter.script;
             }
             // --------------------------------------------------------------------------------
 

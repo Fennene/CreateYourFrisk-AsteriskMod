@@ -574,6 +574,7 @@ public class LuaTextManager : TextManager {
 
     public void SetSoundVolume(float value)
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("LuaTextManager", "SetSoundVolume");
         Asterisk.RequireExperimentalFeature("text.SetSoundVolume");
         if (value < 0) value = 0;
         else if (value > 1) value = 1;
@@ -583,6 +584,7 @@ public class LuaTextManager : TextManager {
 
     public float GetSoundVolume()
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("LuaTextManager", "GetSoundVolume");
         Asterisk.RequireExperimentalFeature("text.GetSoundVolume");
         //return GetComponent<AudioSource>().volume;
         return GetComponents<AudioSource>()[1].volume;
@@ -590,12 +592,14 @@ public class LuaTextManager : TextManager {
 
     public void SetSoundMute(bool mute)
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("LuaTextManager", "SetSoundMute");
         Asterisk.RequireExperimentalFeature("text.SetSoundMute");
         GetComponents<AudioSource>()[1].enabled = !mute;
     }
 
     public bool GetSoundMute()
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("LuaTextManager", "GetSoundMute");
         Asterisk.RequireExperimentalFeature("text.GetSoundMute");
         return !GetComponents<AudioSource>()[1].enabled;
     }

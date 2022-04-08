@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,6 +80,7 @@ public class FightUIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //targetRt.anchoredPosition = new Vector2(GetComponent<RectTransform>().rect.width / 2, 0);
         xDirection = Mathf.Pow(-1, Math.RandomRange(1, 3));
+        if (!Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false)) xDirection = 1;
         targetRt.anchoredPosition = new Vector2(GetComponent<RectTransform>().rect.width / 2 * -xDirection, 0);
         // --------------------------------------------------------------------------------
         for (int i = 0; i < targetNumber; i++) {

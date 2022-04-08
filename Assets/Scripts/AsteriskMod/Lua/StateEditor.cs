@@ -96,7 +96,7 @@ namespace AsteriskMod.Lua
             ArenaManager.instance.resetArena();
         }
 
-        public static void SetCurrentAction(string action, bool playerMoveAndUpdateButton)
+        public static void SetCurrentAction(string action, bool playerMoveAndUpdateButton = false)
         {
             try
             {

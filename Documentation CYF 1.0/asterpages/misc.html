@@ -234,10 +234,52 @@ it's w3c valid, at least
 
             <br><hr><br>
             <h3><font color="#000">AprilFool</font></h3><br><br>
-            <p><font color="#000"><ul>
-                <li>Add option "Active" that can be disabled AsteriskMod.</li>
-                <li>Add option "Crate Your Frisk" that can be control CRATE YOUR FRISK.</li>
-            </ul></font></p>
+            <p><font color="#000">
+                <ul>
+                    <li>Add option "Active" that can be disabled AsteriskMod.</li>
+                    <li>Add option "Crate Your Frisk" that can be control CRATE YOUR FRISK.</li>
+                    <li>Add the variable "null" that is null.</li>
+                    <li>Add the variable "None" that is null.</li>
+                    <li>Add the variable "UnsupportedVersion".</li>
+                    <li>Add the function "IsThisReallyCreateYourFriskAsteriskModAprilVersion()" that can be checked about whether users use v0.5.2.9.AprilFool.</li>
+                    <li>Add the function "GetMayBeTrue()" that returns maybe true.</li>
+                    <li>StringStartsWith(string, string) return boolean</li>
+                    <li>StringEndsWith(string, string) return boolean</li>
+                    <li>StringContains(string, string) return boolean</li>
+                    <li>StringSplit(string, string) return string[]</li>
+                </ul>
+                <br><br><br><br>
+                本来、AsteriskModはCYFのコード書き換えのみで使用できるMod、<br>
+                すなわち、"Create Your Frisk 0.6.5_Data/Managed/Assembly-CSharp.dll"の置き換えのみで
+                使用できるように目指していました。<br>
+                後に、CYFのライセンスから上記の方法を取るより、CYFエンジン自体(Unityプロジェクト)を変えて、
+                Githubにあげる方がより良い選択だと思い、この形で公開しています。
+                <br><br>
+                コードの書き換えのみ、つまり、Unityでオブジェクトを追加しないで作るつもりでした。<br>
+                現在のコードも、なるべくそのつもりで書いています(が、そのせいでスパゲッティコードになっていますね...)。<br>
+                ただ、これを言い換えれば、エイプリルフールとして追加した"Active"(AsteriskModの機能のON/OFF)がそこまで苦労せずに作れちゃいます。
+                <br><br>
+                AsteriskModで絶対に追加しようと思っている機能は、１つ、"CustomState"、そしてもう１つが"GameObject Modifying System (GMS)"です。
+                <br>
+                GMSはv0.5.3で追加しようと考えています。<br>
+                その前にコードを整理する必要がありそうですが...
+                <br><br>
+                それとも１つ、ちょっとしたものを追加しようかと思っているので<br>
+                これからもよろしくお願いします。<br>
+                <br><br>
+                にるにころ
+                <br><br><br><br><br><br><br><br>
+                あぁ、あと<br>
+                v0.5.2.9.AprilFoolを公開したら<br>
+                すぐさま通常版のv0.5.2.9に戻す作業をして、<br>
+                正式版のv0.5.2.9を公開する予定ですので、<br>
+                エイプリルフールネタが鬱陶しいと思う人はもう少し待ってください。
+                <br><br><br><br><br><br><br><br>
+                本当は"FutureImport"みたいな機能を追加しようと思ってたんだけど<br>
+                インターネット接続が必要だし、すごくめんどくさいからやめた。
+                <br><br><br><br><br><br><br><br>
+                エイプリルフールネタなんてもう二度とやらない。
+            </font></p>
         </div>
 
         <div class="tab-pane text-style" id="mercy">

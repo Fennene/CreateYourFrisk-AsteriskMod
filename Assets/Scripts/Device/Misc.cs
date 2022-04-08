@@ -102,24 +102,35 @@ public class Misc {
     // --------------------------------------------------------------------------------
     public static float cameraRotation
     {
-        get { return Camera.main.transform.eulerAngles.z; }
-        set { Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, Math.Mod(value, 360)); }
+        get
+        {
+            Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "cameraRotation");
+            return Camera.main.transform.eulerAngles.z;
+        }
+        set
+        {
+            Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "cameraRotation");
+            Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, Math.Mod(value, 360));
+        }
     }
 
     public static void CameraHorizontalReverse()
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "CameraHorizontalReverse");
         Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, 180, Camera.main.transform.eulerAngles.z);
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 500);
     }
 
     public static void CameraVerticalReverse()
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "CameraVerticalReverse");
         Camera.main.transform.eulerAngles = new Vector3(180, Camera.main.transform.eulerAngles.y, Camera.main.transform.eulerAngles.z);
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 500);
     }
 
     public static void ResetCameraReverse()
     {
+        Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "ResetCameraReverse");
         Camera.main.transform.eulerAngles = Vector3.zero;
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -10);
     }
@@ -334,11 +345,8 @@ public class Misc {
 
         public static int MessageBox(string text, string title = "", int iconType = 0, int buttonType = 0)
         {
-            if (!Asterisk.experimentMode)
-            {
-                UnitaleUtil.DisplayLuaError("Experimental Feature", "Misc.MessageBox is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-                return 0;
-            }
+            Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "MessageBox");
+            if (!Asterisk.RequireExperimentalFeature("Misc.MessageBox")) return 0;
             return MsgBox(window, text, title, ConvertIconType(iconType) + ConvertButtonType(buttonType));
         }
         // --------------------------------------------------------------------------------
@@ -385,6 +393,7 @@ public class Misc {
 
         public static int MessageBox(string text, string title = "", int iconType = 0, int buttonType = 0)
         {
+            Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "MessageBox");
             UnitaleUtil.DisplayLuaError("Windows-only function", "This feature is Windows-only! Sorry, but you can't use it here.");
             return 0;
         }

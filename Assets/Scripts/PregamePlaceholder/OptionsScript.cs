@@ -146,7 +146,8 @@ public class OptionsScript : MonoBehaviour {
         // --------------------------------------------------------------------------------
         AsteriskBT.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(true); });
         ModName.text = Asterisk.ModName;
-        ModVersion.text = Asterisk.ModVersion;
+        //ModVersion.text = Asterisk.ModVersion;
+        ModVersion.text = Asterisk.ModVersion + ".AprilFool"; // *Mod-4
         Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
         DescVisible.GetComponent<Button>().onClick.AddListener(() =>
         {

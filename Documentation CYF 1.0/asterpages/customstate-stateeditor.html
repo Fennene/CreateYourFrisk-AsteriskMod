@@ -156,7 +156,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">StateEditor.SetCurrentAction(<span class="string"></span> action, <span class="boolean"></span> playerMoveAndUpdateButton)</span>
+                <br><span class="function">StateEditor.SetCurrentAction(<span class="string"></span> action, <span class="boolean"></span> playerMoveAndUpdateButton = false)</span>
                 Sets current player's action forced.<br>
                 If you change action with it, the player will select action you change in ACTIONSELECT automatically.
                 <ul>
@@ -164,7 +164,8 @@ it's w3c valid, at least
                         <span class="term">action</span>: "FIGHT", "ACT", "ITEM" or "MERCY".
                     </li>
                     <li>
-                        <span class="term">playerMoveAndUpdateButton</span>: If true, changes button looks and moves the player's soul to selected button.
+                        <span class="term">playerMoveAndUpdateButton</span>: If true, changes button looks and moves the player's soul to selected button.<br>
+                        <span class="asternew"></span> If no value is specified, <span class="term">false</span> will be assigned.
                     </li>
                 </ul>
             </p>

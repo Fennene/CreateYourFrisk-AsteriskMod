@@ -71,7 +71,7 @@ it's w3c valid, at least
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
-                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li class="li-indent asternew"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
                     <li><span class="Future"></span> Gameobject Modifying System:</li>
                     <li class="li-indent"><a href="gms-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="gms-main.html">The GameObject Object</a></li>
@@ -202,39 +202,44 @@ it's w3c valid, at least
             <br>
 
             <h4>v0.5.2.9 [QualityOfLifeUpdate]</h4>
+            <h4>v0.5.2.9.AprilFool [NoMoreAprilFoolUpdate????]</h4>
             <p>
                 <ul class="rn">
                     <li class="fix">
-                        Fix the problem that you cannot move to the mod when you click the description.
-                    </li>
-                    <li class="fix">
-                        <font color="#FFF">Mod's Desciption is no longer Experimental Features!!</font>
+                        <font color="#FFF">Fix the problem that you cannot move to the mod when you click the description.</font>
                     </li>
                     <li class="fix">
                         <font color="#FFF">You can call functions of <span class="term">PlayerUtil</span> 
-                        in <span class="term">EncounterStarting()</span>!!!!!</font>
+                        in <span class="term">EncounterStarting()</span>!!</font>
                     </li>
                     <li class="fix">
-                        <font color="#FFF"><span class="term">CustomState</span> is no longer Experimental Features!!!!!!</font>
+                        <font color="#FFF">Mod's Desciption is no longer Experimental Features!!!!!</font>
                     </li>
                     <li class="fix">
-                        Fix behavior of <span class="term">[func:]</span> in State Script.<br>
-                        Before, <span class="term">[func:]</span> didn't call a function of State Script when you used <span class="term">[func:]</span> in State Script.<br>
-                        However now, you can call a function of State Script to use <span class="term">[func:]</span>.
-                        <!--Fix the problem where "[func:]" in the text in a dialog box in CustomState does not call by a function in the State script.-->
+                        <font color="#FF0"><span class="term">CustomState</span> is no longer Experimental Features!!!!!!</font>
                     </li>
+                    <li class="fix">
+                        <font color="#DDD">
+                            Fix behavior of <span class="term">[func:]</span> in State Script.<br>
+                            Before, <span class="term">[func:]</span> didn't call a function of State Script when you used <span class="term">[func:]</span> in State Script.<br>
+                            However now, you can call a function of State Script to use <span class="term">[func:]</span>.
+                            <!--Fix the problem where "[func:]" in the text in a dialog box in CustomState does not call by a function in the State script.-->
+                        </font>
+                    </li>
+                    <!--
                     <li class="modify">
                         Change some variables/functions name in AsteriskMod's codes. &lt; INTERNAL &gt;
                     </li>
                     <li class="modify">
                         Change option keyword. &lt; INTERNAL &gt;
                     </li>
+                     -->
                     <li class="modify">
                         FightUI's target bar can move 2 directions(left and right).
                     </li>
                     <li class="modify">
-                        You can press V Key to switch the visibility of mods' descriptions.<br>
-                        You can always go back to disclaimer screen by pressng X Key.
+                        <font color="#DDD">You can press V Key to switch the visibility of mods' descriptions.<br>
+                        You can always go back to disclaimer screen by pressng X Key.</font>
                     </li>
                     <li class="modify">
                         Modify disclaimer screen.
@@ -243,19 +248,30 @@ it's w3c valid, at least
                         Modify scroll sensibility in Mod Selection Screen.
                     </li>
                     <li class="modify">
-                        Modify <span class="term">Asterisk Mod Features</span>. (Mods)
+                        <font color="#DDD">Modify <span class="term">Asterisk Mod Features</span>. (Mods)</font>
+                    </li>
+                    <li class="modify">
+                        You don't have to assign the 2nd argument of <span class="term">StateEditor.SetCurrentAction()</span> certainly.
+                    </li>
+                    <!--
+                    <li>
+                        Add summary tag and description in AsteriskMod's codes. &lt; INTERNAL &gt;
                     </li>
                     <li>
-                        Add summary tag and description in AsteriskMod's codes &lt; INTERNAL &gt;
+                        Add GameObject "BwlowHPBar" and "AboveHPBar" in Canvas/Stats/HPRect/HPLabel in "Battle" Scene. &lt; INTERNAL &gt;
+                    </li>
+                    -->
+                    <li>
+                        <font color="#DDD">Add more example in <span class="term">Asterisk Mod Features</span>. (Mods)</font>
                     </li>
                     <li>
-                        Add more example in <span class="term">Asterisk Mod Features</span>. (Mods)
+                        Add the function <span class="term">GetCurrentAction()</span>.
                     </li>
                     <li>
-                        Add the function named <span class="term">LayerExists()</span>.
+                        Add the function <span class="term">LayerExists()</span>.
                     </li>
                     <li>
-                        Add the function named <span class="term">IsEmptyLayer()</span>.
+                        Add the function <span class="term">IsEmptyLayer()</span>.
                     </li>
                     <li>
                         Add <span class="term">title</span> parameter in <span class="term">info.cyfmod</span>.
@@ -288,6 +304,9 @@ it's w3c valid, at least
                         Add the function <span class="term">ArenaUtil.SetStarChar()</span>.
                     </li>
                     <li>
+                        Add the 3rd argument <span class="term">prefix</span> in <span class="term">button.SetSprite()</span>.
+                    </li>
+                    <li>
                         Add <span class="term">Experimental Features</span>.
                         <ul>
                             <li>Add <span class="term">Misc.MessageBox()</span>.</li>
@@ -304,10 +323,10 @@ it's w3c valid, at least
                         </ul>
                     </li>
                     <li class="del">
-                        Delete the function <span class="term">button.ResetPosition()</span>
+                        <font color="#FFF">Delete the function <span class="term">button.ResetPosition()</span>.</font>
                     </li>
                     <li>
-                        Add AprilFool
+                        <font color="#555">Add AprilFool</font>
                     </li>
                 </ul>
             </p>
@@ -327,16 +346,6 @@ it's w3c valid, at least
                             </li>
                         </ul>
                     </li>
-                    <!--
-                    <li class="fix">
-                        <font color="#ddd">
-                        Below features are no longer <span class="term">Experimental Features</span>!
-                        <ul>
-                            <li>?</li>
-                        </ul>
-                        </font>
-                    </li>
-                    -->
                     <li class="modify">
                         Modify the application's icon.
                     </li>

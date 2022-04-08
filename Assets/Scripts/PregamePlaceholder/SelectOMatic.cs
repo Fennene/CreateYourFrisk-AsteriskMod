@@ -301,7 +301,13 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (!Asterisk.active) return; // *Mod-4
+        // *Mod-4
+        if (!Asterisk.active)
+        {
+            ExistDescInfoShadow.SetActive(false);
+            ExistDescInfo.SetActive(false);
+            return;
+        }
 
         ModInfo info = modInfos[id];
         // Set Font

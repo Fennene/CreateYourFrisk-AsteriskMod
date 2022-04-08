@@ -50,10 +50,9 @@ namespace AsteriskMod
         internal const string OPTION_DOG = "*CYF-ErrorDog";
         internal const string OPTION_LANG = "*CYF-Language";
 
+        /// <summary>A<br/>p<br/>r<br/>i<br/>l<br/><br/>f<br/>o<br/>o<br/>l<br/><br/><br/>[Insert description here]</summary>
         public static bool active; // *Mod-4
         internal const string OPTION_JOKE_ACTIVE = "*CYF-AprilFool-Joke-Active"; // *Mod-4
-        /// <summary>A<br/>p<br/>r<br/>i<br/>l<br/><br/>f<br/>o<br/>o<br/>l<br/><br/><br/>[Insert description here]<br/>non-save</summary>
-        public static bool AprilFool; // *Mod-4
 
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
@@ -69,7 +68,6 @@ namespace AsteriskMod
             language = Languages.English;
 
             active = true;
-            AprilFool = false;
         }
 
         /// <summary>Load</summary>
@@ -133,6 +131,15 @@ namespace AsteriskMod
             if (experimentMode) return true;
             if (!showError)     return false;
             throw new CYFException(funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.");
+        }
+
+        public static bool AprilFooooooooooooooooooooooooooooooool_CheckActive(string className, string fieldName, bool showError = true/*, ScriptWrapper caller = null*/)
+        {
+            if (active) return true;
+            if (!showError) return false;
+            string mess = "cannot access field " + fieldName + " of userdata<" + className + ">";
+            //if (caller != null) UnitaleUtil.DisplayLuaError(caller.scriptname, mess);
+            throw new CYFException(mess);
         }
     }
 }

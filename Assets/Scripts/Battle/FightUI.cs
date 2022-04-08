@@ -1,4 +1,5 @@
-﻿using MoonSharp.Interpreter;
+﻿using AsteriskMod;
+using MoonSharp.Interpreter;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -61,10 +62,13 @@ public class FightUI : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        int[] bgBarColor32 = UIController.instance.encounter.EnabledEnemies[enemyIndex].BackgroundBarColor;
-        lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
-        int[] fillBarColor32 = UIController.instance.encounter.EnabledEnemies[enemyIndex].FillBarColor;
-        lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+        if (Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
+        {
+            int[] bgBarColor32 = UIController.instance.encounter.EnabledEnemies[enemyIndex].BackgroundBarColor;
+            lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
+            int[] fillBarColor32 = UIController.instance.encounter.EnabledEnemies[enemyIndex].FillBarColor;
+            lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+        }
         // --------------------------------------------------------------------------------
         damageText.transform.SetParent(enemy.transform);
         slice.img.transform.SetParent(enemy.transform);
