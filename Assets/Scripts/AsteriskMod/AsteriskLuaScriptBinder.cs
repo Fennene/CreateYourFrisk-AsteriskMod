@@ -19,6 +19,8 @@ namespace AsteriskMod
 
         public static void BoundScriptVariables(ref Script script)
         {
+            if (!Asterisk.active) return; // *Mod-4
+
             script.Globals["retroMode"] = GlobalControls.retroMode;
             script.Globals["isModifiedCYF"] = true;
             //script.Globals["Asterisk"] = true;
@@ -29,6 +31,8 @@ namespace AsteriskMod
 
         public static void BoundScriptFunctions(ref Script script)
         {
+            if (!Asterisk.active) return; // *Mod-4
+
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
             script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
@@ -36,6 +40,8 @@ namespace AsteriskMod
 
         public static void BoundScriptUserDatas(ref Script script)
         {
+            if (!Asterisk.active) return; // *Mod-4
+
             DynValue buttonUtil = UserData.Create(new LuaButtonController());
             script.Globals.Set("ButtonUtil", buttonUtil);
             DynValue playerUtil = UserData.Create(new PlayerUtil());
@@ -69,6 +75,8 @@ namespace AsteriskMod
         /// </summary>
         public static void LateInitialize()
         {
+            if (!Asterisk.active) return; // *Mod-4
+
             UIStats.instance.Request();
             PlayerUIManager.Instance.Request();
         }

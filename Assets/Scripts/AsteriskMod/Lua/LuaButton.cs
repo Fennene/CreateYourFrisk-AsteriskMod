@@ -1,10 +1,6 @@
-﻿//using System;
-//using System.Collections.Generic;
-using MoonSharp.Interpreter;
-//using MoonSharp.Interpreter.Loaders;
+﻿using MoonSharp.Interpreter;
 using UnityEngine;
 using UnityEngine.UI;
-//using Object = UnityEngine.Object;
 
 namespace AsteriskMod.Lua
 {
@@ -14,6 +10,7 @@ namespace AsteriskMod.Lua
         private bool isActive;
         private GameObject button;
         private Vector2 position;
+        private Vector2 initSize;
 
         [MoonSharpHidden]
         public LuaButton(int id, GameObject buttonObject)
@@ -22,6 +19,7 @@ namespace AsteriskMod.Lua
             isActive = true;
             button = buttonObject;
             position = Vector2.zero;
+            initSize = buttonObject.GetComponent<Image>().rectTransform.sizeDelta;
         }
 
         public void SetActive(bool active)
@@ -42,6 +40,7 @@ namespace AsteriskMod.Lua
         public void SetSprite(string inactiveTexturePath, string activeTexturePath, string prefix = "")
         {
             Image image = button.GetComponent<Image>();
+            if (!string.IsNullOrEmpty(prefix)) prefix += "/";
             inactiveTexturePath = prefix + inactiveTexturePath;
             activeTexturePath = prefix + activeTexturePath;
             SpriteUtil.SwapSpriteFromFile(image, inactiveTexturePath);
@@ -103,11 +102,6 @@ namespace AsteriskMod.Lua
             MoveTo(position.x + x, position.y + y);
         }
 
-        public void ResetPosition()
-        {
-            MoveTo(0, 0);
-        }
-
         [MoonSharpHidden]
         internal Vector2 GetRelativePosition()
         {
@@ -129,16 +123,22 @@ namespace AsteriskMod.Lua
             button.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
 
-        /*
-        public void Hide()
+        public void SetSize(int width, int height)
         {
-            button.GetComponent<Image>().enabled = false;
+            Asterisk.RequireExperimentalFeature("button.SetSize");
+            button.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(width, height);
         }
 
-        public void Show()
+        public void ResetSize()
         {
-            button.GetComponent<Image>().enabled = true;
+            Asterisk.RequireExperimentalFeature("button.SetSize");
+            button.GetComponent<Image>().rectTransform.sizeDelta = initSize;
         }
-        */
+
+        public void Scale(float xScale, float yScale)
+        {
+            Asterisk.RequireExperimentalFeature("button.Scale");
+            button.GetComponent<Image>().rectTransform.localScale = new Vector3(xScale, yScale, 1);
+        }
     }
 }

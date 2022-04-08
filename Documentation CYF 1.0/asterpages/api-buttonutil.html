@@ -107,7 +107,7 @@ it's w3c valid, at least
         <div class="tab-pane active text-style" id="asterisk-api-buttonutil">
             <h2><span class="Asterisk"></span> The ButtonUtil object [E/M/W]</h2><br><br>
             <p>
-                You can use this object to modify buttons.
+                You can use this object to modify buttons' parameters.
             </p><br>
 
             <p>
@@ -137,11 +137,44 @@ it's w3c valid, at least
                 </ul><br>
                 <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
             </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetSprites(<span class="string"></span> dirPath)</span>
+                Sets the sprites of all buttons at once by specifying directory.<br>
+                <span class="term">dirPath</span> need to contain below named png file:
+                <table>
+                    <tr>
+                        <th>Button Name</th>
+                        <th>Sprite of Inactive</th>
+                        <th>Sprite of Active</th>
+                    </tr>
+                    <tr>
+                        <td>FIGHT</td>
+                        <td>fightbt_0</td>
+                        <td>fightbt_1</td>
+                    </tr>
+                    <tr>
+                        <td>ACT</td>
+                        <td>actbt_0</td>
+                        <td>actbt_1</td>
+                    </tr>
+                    <tr>
+                        <td>ITEM</td>
+                        <td>itembt_0</td>
+                        <td>itembt_1</td>
+                    </tr>
+                    <tr>
+                        <td>MERCY</td>
+                        <td>mercybt_0</td>
+                        <td>mercybt_1</td>
+                    </tr>
+                </table>
+            </p>
 
             <br><hr>
             <h3>The Button object</h3><br><br>
             <p>
-                You can modify position, activate and texture of buttons.
+                You can modify position, activate and texture of buttons.<br>
+                <span class="asternew"><span class="term">button.ResetPosition()</span> is removed in AsteriskMod v0.5.2.9.</span>
             </p><br>
             <p>
                 <br><span class="function"><span class="number"></span> button.x</span>
@@ -164,11 +197,6 @@ it's w3c valid, at least
                 See <span class="term">button.x</span> and <span class="term">button.y</span>.
             </p>
             <p>
-                <br><span class="function">button.ResetPosition()</span>
-                Sets the button's position to normal position.
-                <br>This is same as <span class="term">button.MoveTo(0, 0)</span>.
-            </p>
-            <p>
                 <br><span class="function">button.SetActive(<span class="boolean"></span> active)</span>
                 Either true or false. If false, the button disappear and the player can't select that.
             </p>
@@ -177,7 +205,7 @@ it's w3c valid, at least
                 This function returns activate of the button.
             </p>
             <p>
-                <br><span class="function">button.SetSprite(<span class="string"></span> inactiveTexturePath, <span class="string"></span> activeTexturePath [, <span class="asternew"></span> <span class="string"></span> prefix = ""])</span>
+                <br><span class="function">button.SetSprite(<span class="string"></span> inactiveTexturePath, <span class="string"></span> activeTexturePath, <span class="asternew"></span> <span class="string"></span> prefix = "")</span>
                 Change the button's current texture.
                 <ul>
                     <li><span class="term">inactiveTexturePath</span>: the image while the player doesn't select.</li>
@@ -186,14 +214,14 @@ it's w3c valid, at least
                 </ul>
             </p>
             <p>
-                <br><span class="function">button.SetColor(<span class="number">r</span>, <span class="number">g</span>, <span class="number">b</span>, <span class="number">a</span> = 1.0)</span>
+                <br><span class="function">button.SetColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1.0)</span>
                 Sets the button's color, as 3 or 4 values from 0 to 1.
                 <br>For example, button.SetColor(1.0, 0.0, 0.0) makes the button red.
                 <br>Black areas are not affected by coloration.
                 <br>The 4th value is the alpha (transparency) value of the button.
             </p>
             <p>
-                <br><span class="function">button.SetColor32(<span class="number">r</span>, <span class="number">g</span>, <span class="number">b</span>, <span class="number">a</span> = 255)</span>
+                <br><span class="function">button.SetColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
                 Sets the button's color, as 3 or 4 integer values from 0 to 255.
                 <br>For example, button.SetColor32(255, 0, 0) makes the button red.
                 <br>Black areas are not affected by coloration.
@@ -202,7 +230,19 @@ it's w3c valid, at least
             <p>
                 <br><span class="function">button.ResetColor()</span>
                 Resets the button's color.
-                <br>This is same as <span class="term">button.SetColor32(1, 1, 1, 1)</span> or <span class="term">button.SetColor32(255, 255, 255, 255)</span>.
+                <br>This is same as <span class="term">button.SetColor(1, 1, 1, 1)</span> or <span class="term">button.SetColor32(255, 255, 255, 255)</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> button.SetSize(<span class="number"></span> width, <span class="number"></span> height)</span>
+                Sets the size of the button's texture.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> button.ResetSize()</span>
+                Resets the size of the button's texture. maybe (110, 42)
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> button.Scale(<span class="number"></span>  xScale, <span class="number"></span>  yScale)</span>
+                Sets the scale of the button's texture.
             </p>
         </div>
 
