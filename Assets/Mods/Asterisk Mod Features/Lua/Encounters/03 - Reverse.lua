@@ -21,6 +21,11 @@ enemypositions = {
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
 
 function EncounterStarting()
+    --[[
+    if Misc.FileExists("Audio/Reverse_Ideology.ogg") then
+        Audio.LoadFile("Reverse_Ideology")
+    end
+    ]]
     Player.name = "Nil256"
 
     local random = math.random(1, 3)
