@@ -127,9 +127,21 @@ it's w3c valid, at least
                 <span class="term">(0, 0)</span> is the starting position.</li><br>
                 <li><span class="term">Misc.ResetCamera()</span> - Resets the position of the camera. Same as calling <span class="term">MoveCameraTo(0, 0)</span> in battle - in the Overworld, this instead resets the camera to the Player's position.</li><br>
 
-                <li><span class="Asterisk"></span><span class="term">Misc.CameraHorizontalReverse()</span> - Reverses camera Horizontally.</li><br>
-                <li><span class="Asterisk"></span><span class="term">Misc.CameraVerticalReverse()</span> - Reverses camera Vertically</li><br>
-                <li><span class="Asterisk"></span><span class="term">Misc.ResetCameraReverse()</span> - Resets reversed camera.</li><br>
+                <li>
+                    <span class="Asterisk"></span><span class="term">Misc.CameraHorizontalReverse()</span> - Reverses camera Horizontally.<br>
+                    It keeps horizontal reverse even if this function is called multiple times. 
+                    It needs to call <span class="term">Misc.ResetCameraReverse()</span> to revert reverse of camera.<br>
+                    <span class="asternew"></span> You can't reverse camera vertically at the same time. If you wanna reverse camera horizontally and vertically at the same time, you should set <span class="term">Misc.cameraRotation</span> to <span class="term">180</span> instead of that.
+                </li><br>
+                <li>
+                    <span class="Asterisk"></span><span class="term">Misc.CameraVerticalReverse()</span> - Reverses camera Vertically.<br>
+                    It keeps vertical reverse even if this function is called multiple times. 
+                    It needs to call <span class="term">Misc.ResetCameraReverse()</span> to revert reverse of camera.<br>
+                    <span class="asternew"></span> You can't reverse camera horizontally at the same time. If you wanna reverse camera horizontally and vertically at the same time, you should set <span class="term">Misc.cameraRotation</span> to <span class="term">180</span> instead of that.
+                </li><br>
+                <li>
+                    <span class="Asterisk"></span><span class="term">Misc.ResetCameraReverse()</span> - Resets reversed camera.
+                </li><br>
 
                 <li><span class="number"></span> <span class="term">Misc.cameraX</span> - Gets or sets the current x position of the bottom-left corner of the camera.</li><br>
                 <li><span class="number"></span> <span class="term">Misc.cameraY</span> - Gets or sets the current y position of the bottom-left corner of the camera.</li><br>

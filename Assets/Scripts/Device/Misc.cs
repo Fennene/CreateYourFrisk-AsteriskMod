@@ -117,14 +117,14 @@ public class Misc {
     public static void CameraHorizontalReverse()
     {
         Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "CameraHorizontalReverse");
-        Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, 180, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.eulerAngles = new Vector3(0, 180, 0);
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 500);
     }
 
     public static void CameraVerticalReverse()
     {
         Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("Misc", "CameraVerticalReverse");
-        Camera.main.transform.eulerAngles = new Vector3(180, Camera.main.transform.eulerAngles.y, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.eulerAngles = new Vector3(180, 0, 0);
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 500);
     }
 
