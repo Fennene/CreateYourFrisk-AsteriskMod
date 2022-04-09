@@ -8,9 +8,9 @@ namespace AsteriskMod.Lua
         [MoonSharpHidden]
         public static Vector2 textPosition = Vector2.zero;
 
-        public static int centerabsx { get { return (int)ArenaUIManager.Instance.GetCenter().x; } }
+        public static float centerabsx { get { return ArenaManager.arenaCenter.x; } }
 
-        public static int centerabsy { get { return (int)ArenaUIManager.Instance.GetCenter().y; } }
+        public static float centerabsy { get { return ArenaManager.arenaCenter.y; } }
 
         public static void SetBorderColor(float r, float g, float b, float a = 1.0f)
         {
@@ -20,6 +20,16 @@ namespace AsteriskMod.Lua
         public static void SetBorderColor32(byte r, byte g, byte b, byte a = 255)
         {
             ArenaUIManager.Instance.SetBorderColor(new Color32(r, g, b, a));
+        }
+
+        public static void SetInnerColor(float r, float g, float b, float a = 1.0f)
+        {
+            ArenaUIManager.Instance.SetInnerColor(new Color(r, g, b, a));
+        }
+
+        public static void SetInnerColor32(byte r, byte g, byte b, byte a = 255)
+        {
+            ArenaUIManager.Instance.SetInnerColor(new Color32(r, g, b, a));
         }
 
         public static void SetDialogTextPosition(int x, int y)

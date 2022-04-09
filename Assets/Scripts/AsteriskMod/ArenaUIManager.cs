@@ -9,6 +9,7 @@ namespace AsteriskMod
     public class ArenaUIManager : MonoBehaviour
     {
         private GameObject border;
+        private GameObject arena;
         private GameObject mainTextMan;
         internal char asterisk_char = '*';
 
@@ -17,7 +18,7 @@ namespace AsteriskMod
         private void Start()
         {
             border = transform.Find("arena_border_outer").gameObject;
-            Transform arena = border.transform.Find("arena");
+            arena = border.transform.Find("arena").gameObject;
             mainTextMan = arena.transform.Find("TextManager").gameObject;
             Instance = this;
             ArenaUtil.textPosition = Vector2.zero;
@@ -26,6 +27,11 @@ namespace AsteriskMod
         public void SetBorderColor(Color color)
         {
             border.GetComponent<Image>().color = color;
+        }
+
+        public void SetInnerColor(Color color)
+        {
+            arena.GetComponent<Image>().color = color;
         }
 
         public void SetTextVolume(float value)
@@ -48,12 +54,6 @@ namespace AsteriskMod
         public bool GetTextMute()
         {
             return !mainTextMan.GetComponent<AudioSource>().enabled;
-        }
-
-        public Vector3 GetCenter()
-        {
-            //return border.transform.localPosition;
-            return ArenaManager.arenaCenter;
         }
     }
 }

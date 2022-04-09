@@ -142,6 +142,18 @@ span.Future::before {
     content: " <Future>";
 }
 
+span.Warning::before {
+    content: "* WARNING: ";
+}
+span.Warning {
+    color: #ff0000;
+    display: block;
+    unicode-bidi: embed;
+    font-size: 1.4em;
+    margin: .83em 0;
+    font-weight: bolder;
+}
+
 span.unitale{
     color: #ffffff;
     border-bottom: 1px solid #ffffff;

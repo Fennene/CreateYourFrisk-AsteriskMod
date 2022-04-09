@@ -605,6 +605,14 @@ public class LuaTextManager : TextManager {
     }
 
     /*
+    public void Move(int x, int y)
+    {
+        CheckExists();
+        container.transform.localPosition += new Vector3(x, y, 0);
+    }
+    */
+
+    /*
     public void SetVar(string name, DynValue value)
     {
         if (name == null)

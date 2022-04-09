@@ -71,7 +71,7 @@ it's w3c valid, at least
                     <li class="li-indent"><a href="api-engine.html"><span class="Future"></span> The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent asternew active">&gt; The ArenaUtil Object &lt;</li>
+                    <li class="li-indent asternew active" style="margin-left:5px;">&gt; The ArenaUtil Object &lt;</li>
                     <li>CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
@@ -139,6 +139,20 @@ it's w3c valid, at least
                 <br>The 4th value is the alpha (transparency) value of the border.
             </p>
             <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetInnerColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                Sets the inner color of arena, as 3 or 4 values from 0 to 1.
+                <br>For example, ArenaUtil.SetInnerColor(1.0, 0.0, 0.0) makes the text red.
+                <br>Black areas are not affected by coloration.
+                <br>The 4th value is the alpha (transparency) value of that.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetInnerColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                Sets the inner color of arena, as 3 or 4 integer values from 0 to 255.
+                <br>For example, ArenaUtil.SetInnerColor32(255, 0, 0) makes the text red.
+                <br>Black areas are not affected by coloration.
+                <br>The 4th value is the alpha (transparency) value of that.
+            </p>
+            <p>
                 <br><span class="function">ArenaUtil.SetDialogTextPosition(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the text in dialog box to the position relative to normal position.<br>
                 <span class="term">ArenaUtil.SetDialogTextPosition(0, 0)</span> moves the text on its normal position.
@@ -163,7 +177,7 @@ it's w3c valid, at least
                 You can mute by using <span class="ref">[novoice]</span>, but if you are lazy as Sans, you should probably use this.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="boolean"></span> <span class="AsteriskExperiment"></span> ArenaUtil.GetDialogTextMute()</span>
+                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> <span class="boolean"></span> ArenaUtil.GetDialogTextMute()</span>
                 Returns the dialog text is muted or not.
             </p>
         </div>
