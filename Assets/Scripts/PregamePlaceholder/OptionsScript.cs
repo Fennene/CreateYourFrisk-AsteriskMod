@@ -21,8 +21,7 @@ public class OptionsScript : MonoBehaviour {
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
     public GameObject AsteriskBG, AsteriskBT, Back, Experiment, Dog, DescVisible;
-    public Text ModName, ModVersion;
-    public GameObject Active, CaYF, NeedInfo; // *Mod-4
+    public Text ModName, ModVersion, ModAuthor;
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -146,8 +145,7 @@ public class OptionsScript : MonoBehaviour {
         // --------------------------------------------------------------------------------
         AsteriskBT.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(true); });
         ModName.text = Asterisk.ModName;
-        //ModVersion.text = Asterisk.ModVersion;
-        ModVersion.text = Asterisk.ModVersion + ".AprilFool"; // *Mod-4
+        ModVersion.text = Asterisk.ModVersion;
         Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
         DescVisible.GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -176,28 +174,6 @@ public class OptionsScript : MonoBehaviour {
             Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
         });
         Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
-
-        // *Mod-4
-        Active.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            Asterisk.active = !Asterisk.active;
-
-            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_JOKE_ACTIVE, DynValue.NewBoolean(Asterisk.active), true);
-
-            Active.GetComponentInChildren<Text>().text = "Active: " + (Asterisk.active ? "On" : "Off");
-        });
-        Active.GetComponentInChildren<Text>().text = "Active: " + (Asterisk.active ? "On" : "Off");
-        // *Mod-4
-        CaYF.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            GlobalControls.crate = !GlobalControls.crate;
-
-            LuaScriptBinder.SetAlMighty(null, "CrateYourFrisk", DynValue.NewBoolean(GlobalControls.crate), true);
-
-            CaYF.GetComponentInChildren<Text>().text = GlobalControls.crate ? "CRATE YOUR FRISK: ON!!!111!!1!" : "Crate Your Frisk: Off";
-            NeedInfo.GetComponent<Text>().enabled = !NeedInfo.GetComponent<Text>().enabled;
-        });
-        CaYF.GetComponentInChildren<Text>().text = GlobalControls.crate ? "CRATE YOUR FRISK: ON!!!111!!1!" : "Crate Your Frisk: Off";
 
         AsteriskBG.SetActive(false);
         // --------------------------------------------------------------------------------

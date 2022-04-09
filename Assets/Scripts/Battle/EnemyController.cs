@@ -465,7 +465,7 @@ public class EnemyController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (Asterisk.RequireExperimentalFeature("OnActive", false) && Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
+        if (Asterisk.RequireExperimentalFeature("OnActive", false))
         {
             if (!canSetActive)
             {

@@ -9,7 +9,6 @@ namespace AsteriskMod
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------
-        // *Mod-4
 
         public const string ModName = "Asterisk Mod";
         public const string ModVersion = "0.5.2.9";
@@ -30,7 +29,7 @@ namespace AsteriskMod
             UtilUpdate,
             /// <summary>v0.5.2.9<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.2.9"/></summary>
             QOLUpdate, // v0.5.2.9
-            /// <summary>v0.5.3</summary>
+            /// <summary>v0.5.3 ?</summary>
             GMSUpdate,
             /// <summary>v0.5.4</summary>
             AsteriskMod
@@ -50,10 +49,6 @@ namespace AsteriskMod
         internal const string OPTION_DOG = "*CYF-ErrorDog";
         internal const string OPTION_LANG = "*CYF-Language";
 
-        /// <summary>A<br/>p<br/>r<br/>i<br/>l<br/><br/>f<br/>o<br/>o<br/>l<br/><br/><br/>[Insert description here]</summary>
-        public static bool active; // *Mod-4
-        internal const string OPTION_JOKE_ACTIVE = "*CYF-AprilFool-Joke-Active"; // *Mod-4
-
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
 
@@ -66,8 +61,6 @@ namespace AsteriskMod
             alwaysShowDesc = true;
             showErrorDog = true;
             language = Languages.English;
-
-            active = true;
         }
 
         /// <summary>Load</summary>
@@ -98,12 +91,6 @@ namespace AsteriskMod
                         break;
                 }
             }
-
-            // *Mod-4
-            if (LuaScriptBinder.GetAlMighty(null, OPTION_JOKE_ACTIVE) != null && LuaScriptBinder.GetAlMighty(null, OPTION_JOKE_ACTIVE).Type == DataType.Boolean)
-            {
-                active = LuaScriptBinder.GetAlMighty(null, OPTION_JOKE_ACTIVE).Boolean;
-            }
         }
 
         public static Versions ConvertFromString(string versionName)
@@ -119,6 +106,8 @@ namespace AsteriskMod
                 return Versions.QOLUpdate;
             /*
             if (versionName == "v0.5.3")
+                return Versions.TakeNewStepUpdate;
+            if (versionName == "v0.5.3.5")
                 return Versions.GMSUpdate;
             if (versionName == "v0.5.4")
                 return Versions.AsteriskMod;
@@ -131,15 +120,6 @@ namespace AsteriskMod
             if (experimentMode) return true;
             if (!showError)     return false;
             throw new CYFException(funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.");
-        }
-
-        public static bool AprilFooooooooooooooooooooooooooooooool_CheckActive(string className, string fieldName, bool showError = true/*, ScriptWrapper caller = null*/)
-        {
-            if (active) return true;
-            if (!showError) return false;
-            string mess = "cannot access field " + fieldName + " of userdata<" + className + ">";
-            //if (caller != null) UnitaleUtil.DisplayLuaError(caller.scriptname, mess);
-            throw new CYFException(mess);
         }
     }
 }

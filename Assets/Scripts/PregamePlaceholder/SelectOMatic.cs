@@ -301,14 +301,6 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        // *Mod-4
-        if (!Asterisk.active)
-        {
-            ExistDescInfoShadow.SetActive(false);
-            ExistDescInfo.SetActive(false);
-            return;
-        }
-
         ModInfo info = modInfos[id];
         // Set Font
         Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));

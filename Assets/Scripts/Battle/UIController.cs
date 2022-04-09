@@ -453,7 +453,7 @@ public class UIController : MonoBehaviour {
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
                 DynValue spareText = EnemyEncounter.script.GetVar("sparetext");
-                if (spareText != null && spareText.Type == DataType.String && Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
+                if (spareText != null && spareText.Type == DataType.String)
                 {
                     mercyOptions[0] = spareText.String;
                 }
@@ -467,7 +467,7 @@ public class UIController : MonoBehaviour {
                     //                          Asterisk Mod Modification
                     // --------------------------------------------------------------------------------
                     DynValue fleeText = EnemyEncounter.script.GetVar("fleetext");
-                    if (fleeText != null && fleeText.Type == DataType.String && Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
+                    if (fleeText != null && fleeText.Type == DataType.String)
                     {
                         mercyOptions[1] = fleeText.String;
                     }
@@ -541,17 +541,10 @@ public class UIController : MonoBehaviour {
                         //                          Asterisk Mod Modification
                         // --------------------------------------------------------------------------------
                         //lifeBar.setFillColor(Color.green);
-                        if (Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
-                        {
-                            int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
-                            lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
-                            int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
-                            lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
-                        }
-                        else
-                        {
-                            lifeBar.setFillColor(Color.green);
-                        }
+                        int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
+                        lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
+                        int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
+                        lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
                         // --------------------------------------------------------------------------------
                         float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
                         if (encounter.EnabledEnemies[i].HP < 0) {
@@ -662,15 +655,6 @@ public class UIController : MonoBehaviour {
         if (state == null)
             throw new CYFException("State: Argument cannot be nil.");
         if (instance.encounter.gameOverStance) return;
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
-        // *Mod-4
-        if (!Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false) && state.ToUpper() == "CUSTOMSTATE")
-        {
-            throw new CYFException("The state \"" + state + "\" is not a valid state. Are you sure it exists?\n\nPlease double-check in the Misc. Functions section of the docs for a list of every valid state.");
-        }
-        // --------------------------------------------------------------------------------
         try
         {
             UIState newState = (UIState)Enum.Parse(typeof(UIState), state, true);
@@ -913,18 +897,10 @@ public class UIController : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             //lifeBar.setFillColor(Color.green);
-
-            if (Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
-            {
-                int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
-                lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
-                int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
-                lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
-            }
-            else
-            {
-                lifeBar.setFillColor(Color.green);
-            }
+            int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
+            lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
+            int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
+            lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
             // --------------------------------------------------------------------------------
             float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
             if (encounter.EnabledEnemies[i].HP < 0) {
@@ -1631,7 +1607,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (Asterisk.RequireExperimentalFeature("BeforeEncounterEnding", false) && Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
+        if (Asterisk.RequireExperimentalFeature("BeforeEncounterEnding", false))
         {
             if (EnemyEncounter.script.GetVar("BeforeEncounterEnding") != null)
             {
@@ -1705,8 +1681,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         if (firstFrameUpdate)
         {
-            if (Asterisk.AprilFooooooooooooooooooooooooooooooool_CheckActive("", "", false))
-                encounter.TryCall("FirstFrameUpdate");
+            encounter.TryCall("FirstFrameUpdate");
             AsteriskLuaScriptBinder.LateInitialize();
             firstFrameUpdate = false;
         }
