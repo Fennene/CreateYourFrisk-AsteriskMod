@@ -1,4 +1,5 @@
 ﻿using AsteriskMod;
+using AsteriskMod.Lua;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
@@ -78,6 +79,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        PlayerUIManager.Instance.SetHPTextColor(PlayerUtil.hpTextColor);
         if (encounterHasOnHPChanged && initializeCompleted && Asterisk.experimentMode)
             UIController.instance.encounter.TryCall("OnHPChanged");
         // --------------------------------------------------------------------------------
@@ -128,6 +130,7 @@ public class UIStats : MonoBehaviour {
         string sHpCurrent = hp < 10 ? "0" + hp.ToString("F" + count) : hp.ToString("F" + count);
         string sHpMax = hpMax < 10 ? "0" + hpMax : "" + hpMax;
         hpTextMan.SetText(new TextMessage(sHpCurrent + " / " + sHpMax, false, true));
+        PlayerUIManager.Instance.SetHPTextColor(PlayerUtil.hpTextColor);
     }
 
     internal void setMaxHPOverride(int maxhp)
@@ -152,6 +155,7 @@ public class UIStats : MonoBehaviour {
             return;
         }
         hpTextMan.SetText(new TextMessage(hpText, false, true));
+        PlayerUIManager.Instance.SetHPTextColor(PlayerUtil.hpTextColor);
     }
 
     /// <summary>
@@ -167,7 +171,7 @@ public class UIStats : MonoBehaviour {
             setHPOverride(req_SetHP_hp, req_SetHP_maxhp, req_SetHP_text);
         if (req_SetHPText)
         {
-            hpTextMan.SetText(new TextMessage(req_SetHPText_v, false, true));
+            setHPTextOverride(req_SetHPText_v);
         }
     }
     // --------------------------------------------------------------------------------

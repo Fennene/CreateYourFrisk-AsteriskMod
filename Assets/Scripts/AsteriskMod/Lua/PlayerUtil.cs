@@ -7,6 +7,13 @@ namespace AsteriskMod.Lua
 {
     public class PlayerUtil
     {
+        public static Color hpTextColor;
+
+        public static void Initialize()
+        {
+            hpTextColor = new Color(1, 1, 1, 1);
+        }
+
         public static void UIMove(float x, float y)
         {
             PlayerUIManager.Instance.MovePosition(x, y);
@@ -150,12 +157,14 @@ namespace AsteriskMod.Lua
 
         public static void SetHPTextColor(float r, float g, float b, float a = 1.0f)
         {
-            PlayerUIManager.Instance.SetHPTextColor(new Color(r, g, b, a));
+            hpTextColor = new Color(r, g, b, a);
+            PlayerUIManager.Instance.SetHPTextColor(hpTextColor);
         }
 
         public static void SetHPTextColor32(byte r, byte g, byte b, byte a = 255)
         {
-            PlayerUIManager.Instance.SetHPTextColor(new Color32(r, g, b, a));
+            hpTextColor = new Color32(r, g, b, a);
+            PlayerUIManager.Instance.SetHPTextColor(hpTextColor);
         }
 
         public static void SetHPControlOverride(bool active)
