@@ -7,13 +7,11 @@ namespace AsteriskMod.Lua
     {
         public static void SetDialogText(string text)
         {
-            UIController.instance.mainTextManager.SetCaller(UIController.instance.encounter.CustomStateScript);
             UIController.instance.mainTextManager.SetText(new RegularMessage(text));
         }
 
         public static void SetChoicesDialogText(string[] texts, bool singleList = true)
         {
-            UIController.instance.mainTextManager.SetCaller(UIController.instance.encounter.CustomStateScript);
             UIController.instance.mainTextManager.SetText(new SelectMessage(texts, singleList));
         }
 

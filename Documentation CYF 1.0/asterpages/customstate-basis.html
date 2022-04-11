@@ -19,6 +19,11 @@ it's w3c valid, at least
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
     <link href="../css/shThemeRDark.css" rel="stylesheet">
+
+    <!-- Syntax highlighting -->
+    <script type="text/javascript" src="../js/shCore.js"></script>
+    <script type="text/javascript" src="../js/shBrushLua.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 <body>
 <img src="../img/bg2.png" alt="Undertale background" class="backimg">
@@ -167,28 +172,155 @@ it's w3c valid, at least
                 See pages in <span>CustomState</span> scetion for more information.
             </p><br>
 
-            <h3>Coding guide</h3><br><br>
+            <hr><br>
 
-            <!--
-            <h4>Basic thinking of State Scripts</h4>
+            <h3>Tutorial</h3><br><br>
 
             <p>
-                CustomState is made as if you could add codes into CYF's engine.<br>
-                CYF's processing of each state is as shown below:<br>
-                <ul>
-                    <li>
-                        (<span class="term">State()</span> is called.)
-                    </li>
-                </ul>
+                CustomState is created as if you could add codes into CYF's engine.<br>
+                If you know and understand the engine's codes, you maybe know way to write the codes of State Scripts.<br>
+                However, not everyone download and know the source code , C# or Unity.<br>
+                I will some tips and tutorial in this page.<br>
+                Here we go.
             </p><br>
 
-                <h4>StateEditor object</h4>
+            <h4>Basis</h4>
 
-                <p>
-                    <span class="term">The StateEditor object</span> is made based on the engine's code.
-                    <br><br>
-                </p><br>
-            -->
+            <p>
+                In the first, there is the comparatively easy example. 
+                That is Fake Scene.<br>
+                ...
+                <br><br>
+                "What is the Fake Scene?"<br>
+                umm, that means for example, GameOver Screen, Revive Screen or Overworld.<br>
+                If you are not satisfied about that and wanna recreate that, CustomState helps you.<br>
+                ah... that can do by Wave Script, but you can separate real wave and fake scene by this.
+                <br><br>
+                Of course, CustomState is not only for creating that.<br>
+                Letterly, CustomState can be created your custom own state.<br>
+                For example, creating Japanese-styled ITMEMENU.
+                <br><br>
+                You can check the examples in <span class="term">Asterisk Mod Features 2</span> Mod.
+            </p><br>
+
+            <h4>Prepare</h4>
+
+            <p>
+                Actually let's try to use CustomState.<br>
+                First, you have to create <span class="term">States</span> folder in <span class="term">Lua</span> folder.<br>
+                Second, create lua file named state's name that you have thought and write below code:<br>
+<div class="code-container"><pre class="brush: lua"> -- State Script --
+function StateStarting(oldstate)
+end
+
+function StateEnding(newstate)
+end
+</pre></div>
+                These 2 functions (game event) is required in any State Scripts.<br><br>
+                There are some pattern of using CustomState, but let's try to create the state like <span class="term">DIALOGRESULT</span> as tutorial.
+            </p><br>
+
+            <h4>The StateEditor Object</h4>
+
+            <p>
+                In State Scripts, you can use variables and functions that is used in any other scripts (displayed [E/M/W]).
+                Additionally, you can also use <span class="term">The Arena Object</span> and <span class="ref">The StateEditor Object</span> can be used in only State Scripts.<br>
+                For example, <span class="term">The StateEditor Object</span> can be control the text object in the arena (dialog box).<br><br>
+                OK, Let's create the state like <span class="term">DIALOGRESULT</span>...<br>
+                Wait.<br>
+                Before create CustomState, you check the below:<br>
+                <ul>
+                    <li>Whether the text (in arena) will be shown or hiden?</li>
+                    <li>Whether the buttons' will be keepd active (yellow buttons) or be inactivate (orange buttons)?</li>
+                    <li>Whether the Player's soul will be shown or hiden?</li>
+                    <li>Will you modify the arena? ("modify" means resizing or moving)</li>
+                </ul><br>
+                If you don't know above status in <span class="term">DIALOGRESULT</span>, you should check that.<br><br>
+                OK? What we have to do is below:<br>
+                <ul>
+                    <li>show the text in arena</li>
+                    <li>keep active(color) of the buttons</li>
+                    <li>hide the Player's soul</li>
+                    <li>won't modify the arena</li>
+                </ul><br>
+                Any dialog text is up for anything. Let's write code that runs above.<br>
+<div class="code-container"><pre class="brush: lua"> -- State Script --
+function StateStarting(oldstate)
+    StateEditor.SetDialogText("Hello AsteriskMod!") -- set text
+    -- StateEditor.SetButtonActive() -- If you wanna inactiveate (color orange) all butoon, call it.
+    StateEditor.SetPlayerVisible(false) -- hide the soul
+end
+
+function StateEnding(newstate)
+    -- StateEditor.ResetArena() -- Call it in StateEnding() after modifying arena.
+end
+</pre></div>
+                <br>
+                Wrote? next, you need to write to move CustomState in Encounter Script.<br>
+                You should assgin your state name (file name without extension) to <span class="term">customstatename</span> and call <span class="term">State("CUSTOMSTATE")</span>.<br>
+<div class="code-container"><pre class="brush: lua">-- Encounter Script --
+function EncounterStarting()
+    customstatename = "Tutorial" -- If you create file naming "Tutorial" in States folder
+    State("CUSTOMSTATE")
+end
+</pre></div>
+                Let's run the mod!
+                <br><br>
+                ...the engine will not receive any your input, won't you?<br>
+                Yeah, that means code works correctly.
+            </p><br>
+
+
+            <h4>"Handle" Events</h4>
+
+            <p>
+                CustomState has 3 functions of handle.<br>
+<div class="code-container"><pre class="brush: lua"> -- State Script --
+function HandleAction()
+end
+
+function HandleArrows(left, right, up, down)
+end
+
+function HandleCancel()
+end
+</pre></div>
+                <span class="term">HandleAction()</span> is called on a first frame of pressing Confirm Key (<span class="term">Z</span> or <span class="term">Enter</span> key).<br>
+                <span class="term">HandleArrows()</span> is called on a first frame of pressing any arrow keys. Each arguments are <span class="boolean"></span>.<br>
+                <span class="term">HandleCancel()</span> is called on a first frame of pressing Cancel Key (<span class="term">X</span> or <span class="term">Shift</span> key).
+                <br><br>
+                We will complete to create <span class="term">DIALOGRESULT</span> by using those.<br>
+                We need to enable to skip dialog text.<br>
+<div class="code-container"><pre class="brush: lua"> -- State Script --
+function HandleCancel()
+    StateEditor.SkipDialogText()
+end
+</pre></div>
+                <br>
+                aaaaaaand last,<br>
+                We enable to go to <span class="term">ENEMYDIALOGUE</span> by pressing Confirm Key when text is shown completely.<br>
+<div class="code-container"><pre class="brush: lua"> -- State Script --
+function HandleAction()
+    if StateEditor.GetLineCompleteDialogText() then
+        State("ENEMYDIALOGUE")
+    end
+end
+</pre></div><br>
+                We're done!
+            </p><br>
+
+            <h4>Misc.</h4>
+
+            <p>
+                Of course, CustomState is not for only reprodcing DIALOGRESULT.<br>
+                You can create states like <span class="term">ACTMENU</span> or <span class="term">MERCYMENU</span> by using <span class="term">StateEditor.SetChoicesDialogText()</span> and <span class="term">StateEditor.SetPlayerOnSelection()</span>.<br><br>
+                Anyway, the best way of to know CustomState is to see examples.
+            </p><br>
+
+
+            <hr><br>
+
+            <h3>Coding tips</h3><br><br>
 
             <h4>The end of CustomState</h4>
 

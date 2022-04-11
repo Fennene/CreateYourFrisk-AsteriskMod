@@ -249,11 +249,11 @@ it's w3c valid, at least
                     <li class="fix">
                         <font color="#FF0"><span class="term">CustomState</span> is no longer Experimental Features!!!!!!</font>
                     </li>
-                    <!--<li class="fix">
+                    <li class="fix">
                         Fix behavior of <span class="term">[func:]</span> in State Script.<br>
                         Before, <span class="term">[func:]</span> didn't call a function of State Script when you used <span class="term">[func:]</span> in State Script.<br>
                         However now, you can call a function of State Script to use <span class="term">[func:]</span>.
-                    </li>-->
+                    </li>
                     <li class="fix">
                         <font color="#ddd">Fix the issue that NullReferenceException has occurred by calling <span class="term">State("")</span> in <span class="term">StateStarting()</span>.</font>
                     </li>
@@ -276,6 +276,15 @@ it's w3c valid, at least
                     </li>
                     <li class="modify">
                         <font color="#DDD">Modify <span class="term">Asterisk Mod Features</span>. (Mods)</font>
+                    </li>
+                    <li class="modify">
+                        <font color="#FFF">You can enter CustomState by <span class="term">State("*Your_Custom_State's_Name")</span>!</font>
+                    </li>
+                    <li class="modify">
+                        <font color="#DDD"><span class="term">EnteringState()</span>'s arguments, <span class="term">StateStarting()</span>'s argument, and <span class="term">StateEnding()</span>'s argument are assgined CustomState's names instead of "CUSTOMSTATE".</font>
+                    </li>
+                    <li class="modify">
+                        <font color="#DDD"><span class="term">GetCurrentState()</span> returns CustomState's names instead of "CUSTOMSTATE".</font>
                     </li>
                     <li class="modify">
                         You don't have to assign the 2nd argument of <span class="term">StateEditor.SetCurrentAction()</span> certainly.

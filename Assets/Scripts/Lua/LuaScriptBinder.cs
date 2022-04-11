@@ -93,34 +93,19 @@ public static class LuaScriptBinder {
             script.Globals["AllowPlayerDef"] = (Action<bool>)AllowPlayerDef;
             script.Globals["CreateText"] = (Func<Script, DynValue, DynValue, int, string, int, LuaTextManager>)CreateText;
             script.Globals["GetCurrentState"] = (Func<string>)GetState;
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
             script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
             script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
 
-            AsteriskLuaScriptBinder.BoundScriptFunctions(ref script);
-
-            if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
-                EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
-            else
-                script.Globals["Encounter"] = EnemyEncounter.script;
-
-            /*
-            if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
-            {
-                script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
-                script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.EncounterBattleDialog;
-                EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
-            }
-            else
-            {
-                script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
-                script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
-                script.Globals["Encounter"] = EnemyEncounter.script;
-            }
-            */
             // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            AsteriskLuaScriptBinder.BoundScriptFunctions(ref script);
+            // --------------------------------------------------------------------------------
+
+            if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
+                EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
+            else
+                script.Globals["Encounter"] = EnemyEncounter.script;
 
             DynValue PlayerStatus = UserData.Create(PlayerController.luaStatus);
             script.Globals.Set("Player", PlayerStatus);
@@ -178,7 +163,23 @@ public static class LuaScriptBinder {
     private delegate TResult Func<T1, T2, T3, T4, T5, T6, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg, T6 arg6);
 
     public static string GetState() {
-        try { return (UIController.instance.frozenState != UIController.UIState.PAUSE) ? UIController.instance.frozenState.ToString() : UIController.instance.state.ToString(); }
+        try
+        {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //return (UIController.instance.frozenState != UIController.UIState.PAUSE) ? UIController.instance.frozenState.ToString() : UIController.instance.state.ToString();
+            if (UIController.instance.frozenState != UIController.UIState.PAUSE) return UIController.instance.frozenState.ToString();
+            if (UIController.instance.state == UIController.UIState.CUSTOMSTATE)
+            {
+                string statename;
+                DataType _;
+                UIController.instance.encounter.TryGetTargetCustomStateName(out statename, out _);
+                return statename;
+            }
+            return UIController.instance.state.ToString();
+            // --------------------------------------------------------------------------------
+        }
         catch { return "NONE (error)"; }
     }
 
