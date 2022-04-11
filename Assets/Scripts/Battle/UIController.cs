@@ -206,11 +206,55 @@ public class UIController : MonoBehaviour {
             EndBattle();
             return;
         }
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        string oldCustomState;
+        string newCustomState;
+        if (state == UIState.CUSTOMSTATE)
+        {
+            oldCustomState = "*" + encounter.currentCustomStateName;
+        }
+        else
+        {
+            oldCustomState = "CUSTOMSTATE";
+        }
+        if (newState == UIState.CUSTOMSTATE)
+        {
+            DataType _;
+            if (encounter.TryGetTargetCustomStateName(out newCustomState, out _))
+            {
+                newCustomState = "*" + newCustomState;
+            }
+        }
+        else
+        {
+            newCustomState = "CUSTOMSTATE";
+        }
+        // --------------------------------------------------------------------------------
+
         if (parentStateCall) {
             parentStateCall = false;
             try {
-                EnemyEncounter.script.Call("EnteringState", new[] { DynValue.NewString(newState.ToString()), DynValue.NewString(state.ToString()) });
-            } catch (InterpreterException ex) {
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //EnemyEncounter.script.Call("EnteringState", new[] { DynValue.NewString(newState.ToString()), DynValue.NewString(state.ToString()) });
+                string newstatename;
+                string oldstatename;
+                if (newState == UIState.CUSTOMSTATE)
+                    newstatename = newCustomState;
+                else
+                    newstatename = newState.ToString();
+                if (state == UIState.CUSTOMSTATE)
+                    oldstatename = oldCustomState;
+                else
+                    oldstatename = state.ToString();
+                EnemyEncounter.script.Call("EnteringState", new[] { DynValue.NewString(newstatename), DynValue.NewString(oldstatename) });
+                // --------------------------------------------------------------------------------
+            }
+            catch (InterpreterException ex) {
                 UnitaleUtil.DisplayLuaError(EnemyEncounter.script.scriptname, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
             }
             parentStateCall = true;
@@ -330,7 +374,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         if (state == UIState.CUSTOMSTATE)
         {
-            encounter.EndCustomState(newState);
+            encounter.EndCustomState(newState, newCustomState);
         }
         // --------------------------------------------------------------------------------
 
@@ -639,7 +683,7 @@ public class UIController : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             case UIState.CUSTOMSTATE:
-                encounter.StartCustomState(oldState);
+                encounter.StartCustomState(oldState, oldCustomState);
                 break;
             // --------------------------------------------------------------------------------
 

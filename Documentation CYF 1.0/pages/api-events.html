@@ -73,7 +73,7 @@ it's w3c valid, at least
                     <li class="li-indent asternew"><a href="../asterpages/api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent asternew"><a href="../asterpages/api-arenautil.html">The ArenaUtil Object</a></li>
                     <li>CustomState:</li>
-                    <li class="li-indent"><a href="../asterpages/customstate-basis.html">Basis</a></li>
+                    <li class="li-indent asternew"><a href="../asterpages/customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="../asterpages/customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="../asterpages/customstate-event.html">Available Events</a></li>
                     <li class="li-indent asternew"><a href="../asterpages/customstate-stateeditor.html">The StateEditor Object</a></li>
@@ -210,8 +210,14 @@ end
                 (e.g. when using an item).
                 </li><br>
             </ul>
-            Note: There are three states not mentioned here - because they never occur naturally. You can find them in <span class="ref">Functions &amp;
-            objects</span>.
+            Note: There are four states not mentioned here - because they never occur naturally. You can find them in <span class="ref">Functions &amp;
+            objects</span> and <span class="ref">CustomState</span> section.
+
+            <br><br>
+            <span class="asternew"></span> If you enter or exit the CustomState, <span class="term">newstate</span> and <span class="term">oldstate</span> are assigned CustomState's name.<br>
+            Note that <span class="term">"*"</span> is at the beggining of CustomState's name.<br>
+            If CustomState's name is illegal, that's assigned "CUSTOMSTATE".
+
             <br><br>For a clearer example, here's a code snippet replicating the older events above.
             <div class="code-container">
 <pre class="brush:lua;">function EnteringState(newstate, oldstate)
@@ -221,6 +227,10 @@ end
         --same as EnemyDialogueEnding(). Alternatively, check for newstate == "DEFENDING"
     elseif newstate!= "DEFENDING" and oldstate == "DEFENDING" then
         --same as DefenseEnding()
+    elseif oldstate == "*ITEMMENUALT" then
+        -- oldstate is CustomState(States/ITEMMENUALT).
+    elseif newstate == "CUSTOMSTATE" then
+        -- If you assgin non-string to "customstatename". It's illegal.
     end
 end
 </pre>

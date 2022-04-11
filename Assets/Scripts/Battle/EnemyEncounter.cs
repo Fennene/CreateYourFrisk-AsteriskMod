@@ -433,10 +433,10 @@ public class EnemyEncounter : MonoBehaviour {
     }
 
     internal ScriptWrapper CustomStateScript { get; private set; }
-    private string currentCustomStateName;
+    internal string currentCustomStateName { get; private set; }
     private bool customStateHasUpdate;
 
-    private void TryCallStateStarting(UIController.UIState oldState)
+    private void TryCallStateStarting(UIController.UIState oldState, string oldCustomState)
     {
         customStateHasUpdate = !(CustomStateScript.script.Globals["Update"] == null);
         if (CustomStateScript.script.Globals["StateEnding"] == null)
@@ -446,7 +446,12 @@ public class EnemyEncounter : MonoBehaviour {
         }
         try
         {
-            CustomStateScript.script.Call(CustomStateScript.script.Globals["StateStarting"], DynValue.NewString(oldState.ToString()));
+            string oldstatename;
+            if (oldState == UIController.UIState.CUSTOMSTATE)
+                oldstatename = oldCustomState;
+            else
+                oldstatename = oldState.ToString();
+            CustomStateScript.script.Call(CustomStateScript.script.Globals["StateStarting"], DynValue.NewString(oldstatename));
         }
         catch (InterpreterException ex)
         {
@@ -461,19 +466,30 @@ public class EnemyEncounter : MonoBehaviour {
         }
     }
 
-    public void StartCustomState(UIController.UIState oldState)
+    internal bool TryGetTargetCustomStateName(out string customstatename, out DataType attemptedType)
     {
-        DynValue customStateName = script.GetVar("customstatename");
-        if (customStateName.Type != DataType.String)
+        customstatename = "CUSTOMSTATE";
+        DynValue name = script.GetVar("customstatename");
+        attemptedType = name.Type;
+        if (name.Type != DataType.String) return false;
+        customstatename = name.String;
+        return true;
+    }
+
+    public void StartCustomState(UIController.UIState oldState, string oldCustomState)
+    {
+        string customStateName;
+        DataType mistake;
+        if (!TryGetTargetCustomStateName(out customStateName, out mistake))
         {
-            string errorText = "customstatename is a " + customStateName.Type + ", but should be a String.";
-            if (customStateName.Type == DataType.Nil) errorText = "customstatename shouldn't be nil.";
+            string errorText = "customstatename is a " + mistake + ", but should be a String.";
+            if (mistake == DataType.Nil) errorText = "customstatename shouldn't be nil.";
             UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, errorText);
             return;
         }
         try
         {
-            CustomStateScript = new ScriptWrapper() { scriptname = customStateName.String };
+            CustomStateScript = new ScriptWrapper() { scriptname = customStateName };
             CustomStateScript.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
             CustomStateScript.script.Globals["CreateProjectile"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectile;
             CustomStateScript.script.Globals["CreateProjectileAbs"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectileAbs;
@@ -481,29 +497,29 @@ public class EnemyEncounter : MonoBehaviour {
             CustomStateScript.script.Globals.Set("StateEditor", CustomStateEditor);
             DynValue ArenaStatus = UserData.Create(ArenaManager.luaStatus);
             CustomStateScript.script.Globals.Set("Arena", ArenaStatus);
-            currentCustomStateName = customStateName.String;
+            currentCustomStateName = customStateName;
             try
             {
-                CustomStateScript.DoString(ScriptRegistry.Get(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String));
+                CustomStateScript.DoString(ScriptRegistry.Get(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName));
             }
             catch (InterpreterException ex)
             {
-                UnitaleUtil.DisplayLuaError(customStateName.String + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+                UnitaleUtil.DisplayLuaError(customStateName + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
             }
             catch (Exception ex)
             {
                 //if (!GlobalControls.retroMode && !ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
-                if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
-                    UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "The state \"" + customStateName.String + "\" doesn't exist.");
+                if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName))
+                    UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "The custom state \"" + customStateName + "\" doesn't exist.");
                 else
                     UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
             }
             script.SetVar("CustomState", UserData.Create(CustomStateScript));
-            TryCallStateStarting(oldState);
+            TryCallStateStarting(oldState, oldCustomState);
         }
         catch (InterpreterException ex)
         {
-            UnitaleUtil.DisplayLuaError(customStateName.String + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
+            UnitaleUtil.DisplayLuaError(customStateName + ".lua", UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message);
         }
     }
 
@@ -524,12 +540,17 @@ public class EnemyEncounter : MonoBehaviour {
         }
     }
 
-    public void EndCustomState(UIController.UIState newState)
+    public void EndCustomState(UIController.UIState newState, string newCustomState)
     {
         ScriptWrapper scr = (ScriptWrapper)script["CustomState"].UserData.Object;
         try
         {
-            scr.Call("StateEnding", DynValue.NewString(newState.ToString()));
+            string newstatename;
+            if (newState == UIController.UIState.CUSTOMSTATE)
+                newstatename = newCustomState;
+            else
+                newstatename = newState.ToString();
+            scr.Call("StateEnding", DynValue.NewString(newstatename));
             ScriptWrapper.instances.Remove(scr);
             LuaScriptBinder.scriptlist.Remove(scr.script);
         }

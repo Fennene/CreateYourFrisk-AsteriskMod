@@ -48,8 +48,6 @@ namespace AsteriskMod
             script.Globals.Set("Global", global);
         }
 
-        //public static DynValue Global[string key]{}
-
         public static void SetAlMightySafely(Script script, string key, DynValue value)
         {
             if (!Asterisk.optionProtecter)
