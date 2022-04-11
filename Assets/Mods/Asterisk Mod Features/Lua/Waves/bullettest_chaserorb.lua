@@ -2,9 +2,9 @@ local hasSpecialHurtMethod = (Encounter["PlayerHurt"] ~= nil)
 local fellize = (Encounter["fell"] ~= nil)
 function OnHit(bullet)
     if hasSpecialHurtMethod then
-        Encounter.Call("PlayerHurt", 6)
+        Encounter.Call("PlayerHurt", 10)
     else
-        Player.Hurt(6)
+        Player.Hurt(10)
     end
 end
 -- The chasing attack from the documentation example.

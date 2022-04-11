@@ -48,8 +48,6 @@ namespace AsteriskMod
         /// <summary>Whether show error or not if mods try to change system option by <c>SetAlMightyGlobal()</c></summary>
         public static bool reportProtecter;
 
-        public const bool betaTest = false;
-
         internal const string OPTION_EXPERIMENT = "*CYF-Experiment";
         internal const string OPTION_DESC = "*CYF-Description";
         internal const string OPTION_DOG = "*CYF-ErrorDog";

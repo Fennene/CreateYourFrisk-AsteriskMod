@@ -18,7 +18,10 @@ enemypositions = {
     {0, 0}
 }
 
-possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+possible_attacks = {
+    "bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou",
+    "bullettest_randomcircle", "bluesoultest_smalljump"
+}
 
 function EncounterStarting()
     Player.name = "Nil256"

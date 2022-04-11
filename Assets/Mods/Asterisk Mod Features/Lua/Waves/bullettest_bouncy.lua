@@ -2,9 +2,9 @@ local hasSpecialHurtMethod = (Encounter["PlayerHurt"] ~= nil)
 local fellize = (Encounter["fell"] ~= nil)
 function OnHit(bullet)
     if hasSpecialHurtMethod then
-        Encounter.Call("PlayerHurt", 4)
+        Encounter.Call("PlayerHurt", 6)
     else
-        Player.Hurt(4)
+        Player.Hurt(6)
     end
 end
 

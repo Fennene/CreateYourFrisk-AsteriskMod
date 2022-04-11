@@ -19,15 +19,19 @@ enemypositions = {
     {0, 0}
 }
 
-possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+possible_attacks = {
+    "bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou",
+    "bullettest_randomcircle", "bluesoultest_smalljump"
+}
+
 fell = true -- It's used this variables in wave scripts.
 
 function EncounterStarting()
     Player.name = "Nil256"
 
     -- Set the texts' color of player's status to Red
-    PlayerUtil.SetNameColor(1, 0, 0) -- ummm...
-    PlayerUtil.SetLVColor(1, 0, 0) --   ummm...
+    PlayerUtil.SetNameColor(1, 0, 0)
+    PlayerUtil.SetLVColor(1, 0, 0)
     PlayerUtil.SetHPLabelColor(1, 0, 0)
     PlayerUtil.SetHPTextColor(1, 0, 0)
 
@@ -55,8 +59,6 @@ function EncounterStarting()
 end
 
 function Update()
-    PlayerUtil.SetHPTextColor(1, 0, 0) -- need
-
     if GetCurrentState() == "ACTIONSELECT" then
         local button = GetCurrentAction()
         ButtonUtil.FIGHT.SetColor(1, 0, 0)

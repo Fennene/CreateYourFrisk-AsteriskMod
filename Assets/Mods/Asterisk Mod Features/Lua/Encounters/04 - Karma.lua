@@ -19,7 +19,10 @@ enemypositions = {
     {0, 0}
 }
 
-possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+possible_attacks = {
+    "bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou",
+    "bullettest_randomcircle", "bluesoultest_smalljump"
+}
 
 -- variables to process karma mode --
 -- Below code is NOT from Undertale. I don't know the actual code that handles Karma.
@@ -124,16 +127,13 @@ function Update()
                 current_hp = current_hp - 1 -- decrease HP and karma at the same time.
             end
         end
-    end
-    -- displaying
-    PlayerUtil.SetHP(current_hp, Player.maxhp, true)
-    fake_fill_bar.Scale(math.max(1, current_hp - karma) * 1.2, 20)
-    -- You should set color after setting hp
-    if karma > 0 then
         PlayerUtil.SetHPTextColor(1, 0, 1) -- sets the color of the text to purple
     else
         PlayerUtil.SetHPTextColor(1, 1, 1) -- reverts the color of the text
     end
+    -- displaying
+    PlayerUtil.SetHP(current_hp, Player.maxhp, true)
+    fake_fill_bar.Scale(math.max(1, current_hp - karma) * 1.2, 20)
 
     -- checks gameover
     if current_hp <= 0 then
