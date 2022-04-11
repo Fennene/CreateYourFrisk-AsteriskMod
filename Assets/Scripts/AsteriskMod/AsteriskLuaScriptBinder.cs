@@ -16,6 +16,8 @@ namespace AsteriskMod
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
             UserData.RegisterType<Global>();
+
+            UserData.RegisterType<LuaLifeBar>();
         }
 
         public static void BoundScriptVariables(ref Script script)

@@ -183,5 +183,13 @@ namespace AsteriskMod.Lua
             if (PlayerController.instance == null) return 1;
             return PlayerController.instance.selfImg.enabled ? 1 : 0;
         }
+
+
+        public static LuaLifeBar CreateLifeBar(bool below = false)
+        {
+            GameObject parent = below ? GameObject.Find("BelowHPBar"): GameObject.Find("AboveHPBar");
+            if (parent == null) return null;
+            return GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AsteriskMod/HPBar"), parent.transform).GetComponent<LuaLifeBar>();
+        }
     }
 }

@@ -368,6 +368,48 @@ it's w3c valid, at least
                 Gets the alpha (transparency) of the player's soul.
                 <br>When the player damaged, the soul will be blinking. This function can be get that blinking as number 0 or 1.
             </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="userdata">LifeBar</span> PlayerUtil.CreateLifeBar(<span class="boolean"></span> below = false)</span>
+                Creates Life Bar and Return The LifeBar Object.
+                <br>When the below is true, LifeBar is created in below original Player's HP Bar.
+            </p>
+
+            <br><hr>
+            <h3><span class="asternew"></span> The LifeBar Object</h3>
+            <p>
+                <br><span class="function"><span class="number"></span> bar.value</span>
+                Gets or Sets fill bar length.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> bar.length</span>
+                Gets or Sets background bar length.
+            </p>
+            <p>
+                <br><span class="function">bar.SetValue(<span class="number"></span> value)</span>
+                Sets fill bar length.
+            </p>
+            <p>
+                <br><span class="function">bar.SetLength(<span class="number"></span> length, <span class="boolean"></span> ignoreLimit = false)</span>
+                Sets background bar length. If ignoreLimit is true, you can extend the bar no limit.
+            </p>
+            <p>
+                <br><span class="function">bar.SetBackgroundColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                <span class="function">bar.SetBackgroundColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                Sets the color of background bar.
+            </p>
+            <p>
+                <br><span class="function">bar.SetFillColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                <span class="function">bar.SetFillColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                Sets the color of fill bar.
+            </p>
+            <p>
+                <br><span class="function">bar.SendToTop()</span>
+                Send to top.
+            </p>
+            <p>
+                <br><span class="function">bar.SendToBottom()</span>
+                Send to bottom.
+            </p>
         </div>
 
         <div class="tab-pane text-style" id="mercy">
