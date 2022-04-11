@@ -655,6 +655,15 @@ public class UIController : MonoBehaviour {
         if (state == null)
             throw new CYFException("State: Argument cannot be nil.");
         if (instance.encounter.gameOverStance) return;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (state.StartsWith("*"))
+        {
+            EnemyEncounter.script.SetVar("customstatename", DynValue.NewString(state.TrimStart('*')));
+            state = "CUSTOMSTATE";
+        }
+        // --------------------------------------------------------------------------------
         try
         {
             UIState newState = (UIState)Enum.Parse(typeof(UIState), state, true);

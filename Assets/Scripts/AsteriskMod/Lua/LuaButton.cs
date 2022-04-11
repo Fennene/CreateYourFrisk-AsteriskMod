@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.Lua
 {
+    // I know that below codes are very too awesome f stupid idea. I will fix it in v0.5.3.
     public class LuaButton
     {
         private int buttonID;
