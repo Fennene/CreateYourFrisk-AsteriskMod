@@ -498,8 +498,8 @@ public class EnemyEncounter : MonoBehaviour {
                 else
                     UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
             }
-            TryCallStateStarting(oldState);
             script.SetVar("CustomState", UserData.Create(CustomStateScript));
+            TryCallStateStarting(oldState);
         }
         catch (InterpreterException ex)
         {
