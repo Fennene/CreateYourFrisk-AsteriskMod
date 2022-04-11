@@ -99,7 +99,7 @@ public static class LuaScriptBinder {
             script.Globals["BattleDialog"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
             script.Globals["BattleDialogue"] = (Action<DynValue>)EnemyEncounter.BattleDialog;
 
-            //AsteriskLuaScriptBinder.BoundScriptFunctions(ref script);
+            AsteriskLuaScriptBinder.BoundScriptFunctions(ref script);
 
             if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
                 EnemyEncounter.doNotGivePreviousEncounterToSelf = false;

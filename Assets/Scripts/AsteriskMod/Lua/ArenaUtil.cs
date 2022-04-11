@@ -70,7 +70,7 @@ namespace AsteriskMod.Lua
 
         public static void SetStarChar(char asterisk)
         {
-            ArenaUIManager.Instance.asterisk_char = asterisk;
+            ArenaUIManager.asterisk_char = asterisk;
         }
     }
 }

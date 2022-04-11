@@ -70,5 +70,13 @@ namespace AsteriskMod.Lua
             ITEM.SetSprite("itembt_0", "itembt_1", dirPath);
             MERCY.SetSprite("mercybt_0", "mercybt_1", dirPath);
         }
+
+        public static void RevertAll()
+        {
+            FIGHT.Revert();
+            ACT.Revert();
+            ITEM.Revert();
+            MERCY.Revert();
+        }
     }
 }

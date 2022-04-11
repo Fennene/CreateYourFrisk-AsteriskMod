@@ -14,7 +14,7 @@ public class SelectMessage : TextMessage {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         //string prefix = "* ";              // Prefix used for new lines
-        string prefix = ArenaUIManager.Instance.asterisk_char + " ";              // Prefix used for new lines
+        string prefix = ArenaUIManager.asterisk_char + " ";              // Prefix used for new lines
         // --------------------------------------------------------------------------------
 
         // If there is no option, there is an error somewhere : Let's create it then by throwing an ArgumentException
@@ -66,14 +66,14 @@ public class SelectMessage : TextMessage {
                     //                          Asterisk Mod Modification
                     // --------------------------------------------------------------------------------
                     //prefix = "* ";
-                    prefix = ArenaUIManager.Instance.asterisk_char + " ";
+                    prefix = ArenaUIManager.asterisk_char + " ";
                     // --------------------------------------------------------------------------------
             if (options[i] != null)
                 // --------------------------------------------------------------------------------
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
                 //options[i] = options[i].TrimStart('*', ' ');
-                options[i] = options[i].TrimStart(ArenaUIManager.Instance.asterisk_char, ' ');
+                options[i] = options[i].TrimStart(ArenaUIManager.asterisk_char, ' ');
                 // --------------------------------------------------------------------------------
             // If this is a single list, we don't need text on the right side of the textbox
             if (singleList)       finalMessage += commands + rowOneSpacing + intermedPrefix + prefix + options[i] + intermedSuffix + "\n";

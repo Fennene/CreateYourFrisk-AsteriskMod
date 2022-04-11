@@ -1592,6 +1592,7 @@ public class UIController : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
+        ArenaUIManager.Initialize();
         // --------------------------------------------------------------------------------
 
         if (UnitaleUtil.firstErrorShown) return;

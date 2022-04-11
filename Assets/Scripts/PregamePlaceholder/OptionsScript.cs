@@ -20,7 +20,7 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject AsteriskBG, AsteriskBT, Back, Experiment, Dog, DescVisible;
+    public GameObject AsteriskBG, AsteriskBT, Back, Experiment, Dog, DescVisible, Protect;
     public Text ModName, ModVersion, ModAuthor;
     // --------------------------------------------------------------------------------
 
@@ -174,6 +174,16 @@ public class OptionsScript : MonoBehaviour {
             Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
         });
         Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
+        Protect.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            string text = Asterisk.GetProtecterStatus(true);
+
+            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_PROTECT, DynValue.NewBoolean(Asterisk.optionProtecter), true);
+            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_PROTECT_ERROR, DynValue.NewBoolean(Asterisk.reportProtecter), true);
+
+            Protect.GetComponentInChildren<Text>().text = "Allow change option from mod: " + text;
+        });
+        Protect.GetComponentInChildren<Text>().text = "Allow change option from mod: " + Asterisk.GetProtecterStatus(false);
 
         AsteriskBG.SetActive(false);
         // --------------------------------------------------------------------------------

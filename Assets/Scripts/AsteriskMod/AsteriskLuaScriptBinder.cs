@@ -15,6 +15,7 @@ namespace AsteriskMod
             UserData.RegisterType<PlayerUtil>();
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
+            UserData.RegisterType<Global>();
         }
 
         public static void BoundScriptVariables(ref Script script)
@@ -29,6 +30,7 @@ namespace AsteriskMod
 
         public static void BoundScriptFunctions(ref Script script)
         {
+            script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
             script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
@@ -42,6 +44,33 @@ namespace AsteriskMod
             script.Globals.Set("PlayerUtil", playerUtil);
             DynValue arenaUtil = UserData.Create(new ArenaUtil());
             script.Globals.Set("ArenaUtil", arenaUtil);
+            DynValue global = UserData.Create(new Global());
+            script.Globals.Set("Global", global);
+        }
+
+        //public static DynValue Global[string key]{}
+
+        public static void SetAlMightySafely(Script script, string key, DynValue value)
+        {
+            if (!Asterisk.optionProtecter)
+            {
+                LuaScriptBinder.SetAlMighty(script, key, value, true);
+                return;
+            }
+            if (key == null)
+                throw new CYFException("SetAlMightyGlobal: The first argument (the index) is nil.\n\nSee the documentation for proper usage.");
+            byte protect = 0;
+            if (key == "CYFSafeMode" || key == "CYFRetroMode" || key == "CYFPerfectFullscreen" || key == "CYFWindowScale" || key == "CYFDiscord") protect = 1;
+            if (key == Asterisk.OPTION_EXPERIMENT || key == Asterisk.OPTION_DESC || key == Asterisk.OPTION_DOG || key == Asterisk.OPTION_LANG) protect = 1;
+            if (key == Asterisk.OPTION_PROTECT || key == Asterisk.OPTION_PROTECT_ERROR) protect = 1;
+            if (key == "CrateYourFrisk" && (value == null || value.Type != DataType.Boolean || !value.Boolean)) protect = 2;
+            if (Asterisk.reportProtecter && protect > 0)
+            {
+                throw new CYFException("SetAlMightyGlobal: " + (protect == 1 ? "Attempted to change the option of system." :
+                                                               (GlobalControls.crate ? Temmify.Convert("Attempted to forget what you had done.") : "Hey... what are you trying to do?")));
+            }
+            if (protect > 0) return;
+            LuaScriptBinder.SetAlMighty(script, key, value, true);
         }
 
         public static string GetCurrentAction()

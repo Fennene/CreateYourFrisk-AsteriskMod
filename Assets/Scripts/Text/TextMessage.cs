@@ -80,7 +80,7 @@ public class TextMessage {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         //string newText = linesCommands[nCount++] + "* ";
-        string newText = linesCommands[nCount++] + ArenaUIManager.Instance.asterisk_char + " ";
+        string newText = linesCommands[nCount++] + ArenaUIManager.asterisk_char + " ";
         // --------------------------------------------------------------------------------
         foreach (char c in textNew) {
             switch (c) {
@@ -88,7 +88,7 @@ public class TextMessage {
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
                 //case '\n': newText += "\n" + linesCommands[nCount++] + "* "; break;
-                case '\n': newText += "\n" + linesCommands[nCount++] + ArenaUIManager.Instance.asterisk_char + " "; break;
+                case '\n': newText += "\n" + linesCommands[nCount++] + ArenaUIManager.asterisk_char + " "; break;
                 // --------------------------------------------------------------------------------
                 case '\r': newText += "\n  ";                                 break;
                 default:   newText += c;                                      break;

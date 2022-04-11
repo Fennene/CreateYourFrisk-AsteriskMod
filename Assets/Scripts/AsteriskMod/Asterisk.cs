@@ -43,11 +43,17 @@ namespace AsteriskMod
         public static bool showErrorDog;
         /// <summary>Engine's Target Language<br/>Currently always English</summary>
         public static Languages language;
+        /// <summary>Whether mods prevent to change system option by <c>SetAlMightyGlobal()</c> or not</summary>
+        public static bool optionProtecter;
+        /// <summary>Whether show error or not if mods try to change system option by <c>SetAlMightyGlobal()</c></summary>
+        public static bool reportProtecter;
 
         internal const string OPTION_EXPERIMENT = "*CYF-Experiment";
         internal const string OPTION_DESC = "*CYF-Description";
         internal const string OPTION_DOG = "*CYF-ErrorDog";
         internal const string OPTION_LANG = "*CYF-Language";
+        internal const string OPTION_PROTECT = "*CYF-ProtectOption";
+        internal const string OPTION_PROTECT_ERROR = "*CYF-ProtectReport";
 
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
@@ -61,6 +67,8 @@ namespace AsteriskMod
             alwaysShowDesc = true;
             showErrorDog = true;
             language = Languages.English;
+            optionProtecter = true;
+            reportProtecter = true;
         }
 
         /// <summary>Load</summary>
@@ -91,6 +99,14 @@ namespace AsteriskMod
                         break;
                 }
             }
+            if (LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT) != null && LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT).Type == DataType.Boolean)
+            {
+                optionProtecter = LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT).Boolean;
+            }
+            if (LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR) != null && LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR).Type == DataType.Boolean)
+            {
+                reportProtecter = LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR).Boolean;
+            }
         }
 
         public static Versions ConvertFromString(string versionName)
@@ -120,6 +136,30 @@ namespace AsteriskMod
             if (experimentMode) return true;
             if (!showError)     return false;
             throw new CYFException(funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.");
+        }
+
+        public static string GetProtecterStatus(bool change = true)
+        {
+            if (change)
+            {
+                if (!optionProtecter)
+                {
+                    optionProtecter = true;
+                    reportProtecter = false;
+                }
+                else if (!reportProtecter)
+                {
+                    optionProtecter = true;
+                    reportProtecter = true;
+                }
+                else
+                {
+                    optionProtecter = false;
+                    reportProtecter = false;
+                }
+            }
+            if (!optionProtecter) return "On";
+            return reportProtecter ? "Error" : "Ignore";
         }
     }
 }

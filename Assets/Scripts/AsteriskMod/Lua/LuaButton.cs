@@ -140,5 +140,32 @@ namespace AsteriskMod.Lua
             Asterisk.RequireExperimentalFeature("button.Scale");
             button.GetComponent<Image>().rectTransform.localScale = new Vector3(xScale, yScale, 1);
         }
+
+        public void Revert()
+        {
+            ResetColor();
+            string btname = "";
+            switch (buttonID)
+            {
+                case 0:
+                    btname = "fight";
+                    break;
+                case 1:
+                    btname = "act";
+                    break;
+                case 2:
+                    btname = "item";
+                    break;
+                case 3:
+                    btname = "mercy";
+                    break;
+            }
+            SetSprite(btname + "bt_0", btname + "bt_1", "UI/Buttons");
+            MoveTo(0, 0);
+            SetActive(true);
+            if (!Asterisk.RequireExperimentalFeature("button.Revert", false)) return;
+            Scale(1, 1);
+            ResetSize();
+        }
     }
 }

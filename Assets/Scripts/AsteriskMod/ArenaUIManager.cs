@@ -11,9 +11,14 @@ namespace AsteriskMod
         private GameObject border;
         private GameObject arena;
         private GameObject mainTextMan;
-        internal char asterisk_char = '*';
 
+        internal static char asterisk_char = '*';
         public static ArenaUIManager Instance;
+
+        public static void Initialize()
+        {
+            asterisk_char = '*';
+        }
 
         private void Start()
         {
