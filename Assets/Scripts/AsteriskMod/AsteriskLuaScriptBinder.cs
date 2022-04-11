@@ -17,14 +17,7 @@ namespace AsteriskMod
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
             UserData.RegisterType<Global>();
-
             UserData.RegisterType<LuaLifeBar>();
-
-            if (!Asterisk.betaTest) return;
-
-            UserData.RegisterType<Engine>();
-            UserData.RegisterType<UnityObject>();
-            UserData.RegisterType<LuaImage>();
         }
 
         public static void BoundScriptVariables(ref Script script)
@@ -55,13 +48,6 @@ namespace AsteriskMod
             script.Globals.Set("ArenaUtil", arenaUtil);
             DynValue global = UserData.Create(new Global());
             script.Globals.Set("Global", global);
-
-            if (!Asterisk.betaTest) return;
-
-            DynValue engine = UserData.Create(new Engine());
-            script.Globals.Set("Engine", engine);
-            DynValue gameobjectmodifyingsystem = UserData.Create(new GameObjectModifyingSystem());
-            script.Globals.Set("GMS", gameobjectmodifyingsystem);
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)

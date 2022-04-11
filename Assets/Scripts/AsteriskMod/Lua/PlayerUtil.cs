@@ -5,12 +5,17 @@ using UnityEngine;
 
 namespace AsteriskMod.Lua
 {
+    // I know that below codes are very too awesome f stupid idea. I will fix it in v0.5.3.
     public class PlayerUtil
     {
+        public static Color nameTextColor;
+        public static Color lvTextColor;
         public static Color hpTextColor;
 
         public static void Initialize()
         {
+            nameTextColor = new Color(1, 1, 1, 1);
+            lvTextColor = new Color(1, 1, 1, 1);
             hpTextColor = new Color(1, 1, 1, 1);
         }
 
@@ -59,22 +64,26 @@ namespace AsteriskMod.Lua
 
         public static void SetNameColor(float r, float g, float b, float a = 1.0f)
         {
-            PlayerUIManager.Instance.SetNameLVColor(true, new Color(r, g, b, a));
+            nameTextColor = new Color(r, g, b, a);
+            PlayerUIManager.Instance.SetNameLVColor(true, nameTextColor);
         }
 
         public static void SetNameColor32(byte r, byte g, byte b, byte a = 255)
         {
-            PlayerUIManager.Instance.SetNameLVColor(true, new Color32(r, g, b, a));
+            nameTextColor = new Color32(r, g, b, a);
+            PlayerUIManager.Instance.SetNameLVColor(true, nameTextColor);
         }
 
         public static void SetLVColor(float r, float g, float b, float a = 1.0f)
         {
-            PlayerUIManager.Instance.SetNameLVColor(false, new Color(r, g, b, a));
+            lvTextColor = new Color(r, g, b, a);
+            PlayerUIManager.Instance.SetNameLVColor(false, lvTextColor);
         }
 
         public static void SetLVColor32(byte r, byte g, byte b, byte a = 255)
         {
-            PlayerUIManager.Instance.SetNameLVColor(false, new Color32(r, g, b, a));
+            lvTextColor = new Color32(r, g, b, a);
+            PlayerUIManager.Instance.SetNameLVColor(false, lvTextColor);
         }
 
         public static void SetNameLVColorManually(int start, int end, float r, float g, float b, float a = 1.0f)
