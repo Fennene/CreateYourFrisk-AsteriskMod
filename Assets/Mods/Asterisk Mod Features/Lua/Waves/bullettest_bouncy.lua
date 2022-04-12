@@ -41,3 +41,9 @@ function Update()
         bullet.SetVar('vely', vely)
     end
 end
+
+function EndingWave()
+    for i = 1, #bullets do
+        bullets[i].Remove()
+    end
+end

@@ -2,9 +2,9 @@ local hasSpecialHurtMethod = (Encounter["PlayerHurt"] ~= nil)
 local fellize = (Encounter["fell"] ~= nil)
 function OnHit(bullet)
     if hasSpecialHurtMethod then
-        Encounter.Call("PlayerHurt", 5)
+        Encounter.Call("PlayerHurt", 3)
     else
-        Player.Hurt(5)
+        Player.Hurt(3)
     end
 end
 
@@ -48,11 +48,11 @@ function CreatePole()
 end
 
 function Initialize()
-	BlueSoul.SetActive(true)
 	box = CreateSprite("empty", "BelowBullet")
 	box.MoveToAbs(ArenaUtil.centerabsx, ArenaUtil.centerabsy)
 	box.Scale(Arena.width, Arena.height)
-	box.Mask("box")
+	box.Mask("BOX")
+	BlueSoul.SetActive(true)
 end
 
 function Update()
@@ -73,6 +73,14 @@ function Update()
 end
 
 function EndingWave()
+	-- Before removes parent object, you'd better to remove all projectile.
+	for i = 1, #toleft_bullets do
+		toleft_bullets[i].Remove()
+	end
+	for i = 1, #toright_bullets do
+		toright_bullets[i].Remove()
+	end
+	box.Remove()
 	BlueSoul.SetActive(false)
 	BlueSoul.Dispose()
 end

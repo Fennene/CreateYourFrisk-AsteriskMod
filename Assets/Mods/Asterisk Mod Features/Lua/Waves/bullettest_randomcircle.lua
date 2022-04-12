@@ -36,3 +36,10 @@ function Update()
 	end
 	frame_counter = frame_counter + 1
 end
+
+function EndingWave()
+	for i = 1, #bullets do
+		bullets[i].Remove()
+	end
+	main_bullet.Remove()
+end

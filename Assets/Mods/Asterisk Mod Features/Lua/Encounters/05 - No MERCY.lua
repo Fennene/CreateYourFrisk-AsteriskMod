@@ -20,7 +20,8 @@ enemypositions = {
 
 possible_attacks = {
     "bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou",
-    "bullettest_randomcircle", "bluesoultest_smalljump"
+    "bullettest_randomcircle", "bullettest_cyanorange",
+    "bluesoultest_smalljump", "bluesoultest_hittoplatform", "bluesoultest_movetoplatform"
 }
 
 function EncounterStarting()

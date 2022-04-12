@@ -1,8 +1,3 @@
-This mod contains most <color=#ffff00>Experimental Features</color> of AsteriskMod.
+This mod is tutorial of <color=#ffff00>CustomState</color>.
 
-You should enable Experimental Features in Asterisk Mod's option.
-
-
-このModはAsteriskModのほぼ全ての<color=#ffff00>実験的機能</color>を含んできます。
-
-AsteriskModのオプションの実験的機能を有効(On)にする必要があります。
+このModは<color=#ffff00>CustomState</color>のチュートリアルです。

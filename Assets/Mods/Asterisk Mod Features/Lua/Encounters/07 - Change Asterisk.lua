@@ -5,13 +5,13 @@ if Asterisk == nil then
     )
 end
 
-encountertext = "Check out MERCY Menu!"
+encountertext = "Poseur strikes a pose!"
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 4.0
 arenasize = {155, 130}
 
 enemies = {
-    "poseur02"
+    "poseur"
 }
 
 enemypositions = {
@@ -27,22 +27,8 @@ possible_attacks = {
 function EncounterStarting()
     Player.name = "Nil256"
 
-    flee = false
-    fleesuccess = true
-
-    -- changes texts of MERCY menu.
-    sparetext = "Skip Turn" -- Normally, "Spare"
-    fleetext = "[starcolor:ffff00][color:ffff00]Flee[starcolor:ffffff][color:ffffff]" -- Normally, "Flee"
-end
-
-function ToggleFlee()
-    flee = not flee
-    if flee then
-        sparetext = "Spare"
-    else
-        sparetext = "Skip Turn"
-    end
-    return flee
+    ArenaUtil.SetAsteriskChar('>') -- I don't recommend you call this function in other events.
+    encountertext = "Oh no!\nThere is not asterisk even though\rthis is Asterisk Mod!"
 end
 
 function EnemyDialogueStarting()

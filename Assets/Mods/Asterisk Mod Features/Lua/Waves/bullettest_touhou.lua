@@ -46,3 +46,9 @@ function Update()
         bullet.SetVar('lerp', lerp)
     end
 end
+
+function EndingWave()
+    for i = 1, #bullets do
+        bullets[i].Remove()
+    end
+end

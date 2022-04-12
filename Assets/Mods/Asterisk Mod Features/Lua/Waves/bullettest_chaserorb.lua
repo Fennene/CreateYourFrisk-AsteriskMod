@@ -22,3 +22,7 @@ function Update()
     chasingbullet.SetVar('xspeed', xspeed)
     chasingbullet.SetVar('yspeed', yspeed)
 end
+
+function EndingWave()
+    chasingbullet.Remove()
+end

@@ -103,8 +103,8 @@ local BlueSoul = {}
 
 --< Variables >--
 -- const --
-local SPRITE_PLATFORM = "BlueSoul-Platform"
-local SOUND_HIT_TO_SURFACE = "impact"
+local SPRITE_PLATFORM = "FN!SoulModeLib/BlueSoul-Platform"
+local SOUND_HIT_TO_SURFACE = "FN!SoulModeLib/impact"
 local PLAYER_SPRITE_HALF_SIZE = 8
 local PLAYER_COLLISION_HALF_SIZE = 4
 
