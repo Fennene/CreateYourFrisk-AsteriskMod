@@ -214,6 +214,19 @@ public static class LuaScriptBinder {
         return t;
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public static DynValue GetFunction(Script script, string key)
+    {
+        if (key == null) return null;
+        if (!battleDict.ContainsKey(key)) return null;
+        //if (battleDict[key].Type != DataType.Function && battleDict[key].Type != DataType.ClrFunction) return null;
+        if (battleDict[key].Type != DataType.Function) return null;
+        return battleDict[key];
+    }
+    // --------------------------------------------------------------------------------
+
     public static void SetBattle(Script script, string key, DynValue value) {
         if (key == null)
             throw new CYFException("SetGlobal: The first argument (the index) is nil.\n\nSee the documentation for proper usage.");
