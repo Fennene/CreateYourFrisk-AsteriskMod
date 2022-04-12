@@ -568,12 +568,14 @@ it's w3c valid, at least
             </p><br>
 
             <p>
-                <span class="function">sprite.Remove()</span></span>
+                <span class="function"><span class="asternew"></span> sprite.Remove(<span class="Asterisk"></span> removeChildProjectile = false)</span></span>
                 Removes a sprite object. Calling anything other than <span class="term">isactive</span> after this will give you an error.<br>
                 Removing a sprite object will also remove all <i>children</i> of the sprite object.
                 <br><br>
                 <font color="#fff" style="font-size: 15px;"><span class="CYF"></span> NOTE: Calling <span class="term">bullet.sprite.Remove</span> will
                 instead call <span class="term">bullet.Remove</span>, unless you are using retromode.</font>
+                <br><br>
+                <span class="asternew"></span> <span class="Asterisk"></span> If <span class="term">removeChildProjectile</span> is true, removes projectiles of the sprite's childern.
             </p><br>
 
             <p>

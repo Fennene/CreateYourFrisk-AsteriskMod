@@ -684,7 +684,12 @@ public class LuaSpriteController {
         _masked = masked;
     }
 
-    public void Remove() {
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //public void Remove() {
+    public void Remove(bool removeChildProjectile = false) {
+        // --------------------------------------------------------------------------------
         if (_img == null)
             return;
         if (!GlobalControls.retroMode && tag == "projectile") {
@@ -709,6 +714,14 @@ public class LuaSpriteController {
             for (int i = 1; i < pcs.Length; i++)
                 pcs[i].ctrl.Remove();
         }
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (removeChildProjectile)
+            foreach (LuaProjectile p in Object.FindObjectsOfType<LuaProjectile>())
+                if (!p.ctrl.isPersistent)
+                    p.ctrl.Remove();
+        // --------------------------------------------------------------------------------
         StopAnimation();
         Object.Destroy(GetTarget().gameObject);
         _img = null;
