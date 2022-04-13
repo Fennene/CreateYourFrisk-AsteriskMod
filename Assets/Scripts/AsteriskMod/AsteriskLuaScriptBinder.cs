@@ -16,7 +16,7 @@ namespace AsteriskMod
             UserData.RegisterType<PlayerUtil>();
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
-            UserData.RegisterType<Global>();
+            //UserData.RegisterType<Global>();
             UserData.RegisterType<LuaLifeBar>();
         }
 
@@ -46,8 +46,10 @@ namespace AsteriskMod
             script.Globals.Set("PlayerUtil", playerUtil);
             DynValue arenaUtil = UserData.Create(new ArenaUtil());
             script.Globals.Set("ArenaUtil", arenaUtil);
+            /*
             DynValue global = UserData.Create(new Global());
             script.Globals.Set("Global", global);
+            */
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)
