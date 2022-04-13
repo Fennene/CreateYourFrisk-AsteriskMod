@@ -541,6 +541,16 @@ public class LuaTextManager : TextManager {
         framesWait = time;
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public void Move(int x, int y)
+    {
+        CheckExists();
+        container.transform.localPosition = new Vector3(x + this.x, y + this.y, container.transform.localPosition.z);
+    }
+    // --------------------------------------------------------------------------------
+
     public void MoveTo(int newX, int newY) {
         CheckExists();
         container.transform.localPosition = new Vector3(newX, newY, container.transform.localPosition.z);
