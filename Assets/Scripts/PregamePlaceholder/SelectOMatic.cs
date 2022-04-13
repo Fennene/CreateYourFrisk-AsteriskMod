@@ -596,6 +596,11 @@ public class SelectOMatic : MonoBehaviour {
         FileInfo[] encounterFiles = di.GetFiles("*.lua");
 
         int count = 0;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        Font font = Resources.Load<Font>("Fonts/" + ((modInfos[CurrentSelectedMod].font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
+        // --------------------------------------------------------------------------------
         foreach (FileInfo encounter in encounterFiles) {
             count += 1;
 
@@ -619,6 +624,11 @@ public class SelectOMatic : MonoBehaviour {
             button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
             if (GlobalControls.crate)
                 button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(Path.GetFileNameWithoutExtension(encounter.Name), true);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            button.transform.Find("Text").GetComponent<Text>().font = font;
+            // --------------------------------------------------------------------------------
 
             //finally, set function!
             string filename = Path.GetFileNameWithoutExtension(encounter.Name);

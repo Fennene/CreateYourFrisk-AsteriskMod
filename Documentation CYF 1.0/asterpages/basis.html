@@ -125,7 +125,7 @@ it's w3c valid, at least
                 You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
                 That is codes which modified or added by Asterisk Mod.
                 <br><br>
-                Nil256 is not good at to read and write in English.
+                <font color="#FF0">Nil256 is not good at to read and write in English.</font> 
                 There may be some mistakes of English in this documentation, Sorry.
             </p>
 
@@ -324,6 +324,9 @@ it's w3c valid, at least
                         <font color="#DDD">Add more example in <span class="term">Asterisk Mod Features</span>. (Mods)</font>
                     </li>
                     <li>
+                        <font color="#DDD">Add more example in <span class="term">Asterisk Mod Features 2</span>. (Mods)</font>
+                    </li>
+                    <li>
                         Add the function <span class="term">GetCurrentAction()</span>.
                     </li>
                     <li>
@@ -485,72 +488,17 @@ it's w3c valid, at least
                         <font color="#FFF">This issue is not reported by anyone but I have realized I can change window's title on only Windows OS.</font>
                     </li>
                     <li>
-                        Add <span class="term">PlayerUtil.GetSoulAlpha()</span>.<br>
+                        Add the function <span class="term">PlayerUtil.GetSoulAlpha()</span>.<br>
                     </li>
                     <li>
-                        Add the function to modify button object's color.</span><br>
+                        Add the function <span class="term">button.SetColor()</span>.<br>
                     </li>
                     <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add the feature that you can add your mod's description. (Test)
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="del">
-                        Remove <span class="term">StringUtil</span>.<br>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.6 (beta/debug version)</h4>
-            <p>
-                <ul class="rn">
-                    <li class="fix">
-                        Fix the contents of <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Fix the issue that errors don't show correct in State Script.
-                            </li>
-                        </ul>
+                        Add the function <span class="term">button.SetColor32()</span>.<br>
                     </li>
                     <li>
-                        Add <span class="term">StringUtil</span>.<br>
+                        Add the function <span class="term">button.ResetColor()</span>.<br>
                     </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.5 (beta/debug version)</h4>
-            <p>
-                <ul class="rn">
-                    <li>
-                        Add <span class="term">Experimental Features</span>.<br>
-                        <ul>
-                            <li>
-                                Add <span class="term">StateEditor.GetLineCompleteDialogText()</span>.
-                            </li>
-                            <li>
-                                Add <span class="term">StateEditor.SkipDialogText()</span>.
-                            </li>
-                            <li>
-                                Show warning text and error for safe if you call <span class="term">SetActive()</span> in 
-                                <span class="term">OnAction()</span> event.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </p>
-
-            <br>
-
-            <h4>v0.5.2.4 (beta/debug version)</h4>
-            <p>
-                <ul class="rn">
                     <li>
                         Add <span class="term">Experimental Features</span>.<br>
                         <ul>
@@ -558,13 +506,23 @@ it's w3c valid, at least
                                 Add the new content <span class="term">CustomState</span>.
                             </li>
                             <li>
-                                Add the state <span class="term">CUSTOMSTATE</span>.
+                                Add the feature that you can add your mod's description. (Test)
                             </li>
                             <li>
                                 Add <span class="term">State Scripts</span>.
                             </li>
                             <li>
+                                Add the state <span class="term">CUSTOMSTATE</span>.
+                            </li>
+                            <li>
                                 Add the variable <span class="term">customstatename</span> in Encounter Script.
+                            </li>
+                            <li>
+                                Show warning text and error for safe if you call <span class="term">SetActive()</span> in 
+                                <span class="term">OnAction()</span> event.
+                            </li>
+                            <li>
+                                Add <span class="term">The StateEditor Object</span>.
                             </li>
                         </ul>
                     </li>
@@ -583,16 +541,34 @@ it's w3c valid, at least
                         Fix the issue soul select FIGHT Button even if FIGHT Button is inactive.
                     </li>
                     <li>
-                        Add the functions of reversing camera.
+                        Add the variable <span class="term">sparetext</span>.
                     </li>
                     <li>
-                        Add the variable of rotating camera.
+                        Add the variable <span class="term">fleetext</span>.
+                    </li>
+                    <li>
+                        Add the variable <span class="term">minibgcolor</span>.
+                    </li>
+                    <li>
+                        Add the variable <span class="term">bgcolor</span>.
+                    </li>
+                    <li>
+                        Add the variable <span class="term">fillcolor</span>.
+                    </li>
+                    <li>
+                        Add the function <span class="term">Misc.CameraHorizontalReverse()</span>.
+                    </li>
+                    <li>
+                        Add the function <span class="term">Misc.CameraVerticalReverse()</span>.
+                    </li>
+                    <li>
+                        Add the function <span class="term">Misc.ResetCameraReverse()</span>.
+                    </li>
+                    <li>
+                        Add the parameter <span class="term">Misc.cameraRotation</span>.
                     </li>
                     <li>
                         Add the variables controling the UI of enemy's life bar in Enemy Script.
-                    </li>
-                    <li>
-                        Add the variables changing texts in MERCYMENU.
                     </li>
                     <li>
                         Add <span class="term">Experimental Features</span>.<br>
