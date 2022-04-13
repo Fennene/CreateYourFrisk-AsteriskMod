@@ -62,7 +62,6 @@ end
 
 function EndingWave()
     -- Before removes parent object, you'd better to remove all projectile.
-    --[[
     for i = 1, #vertical_bullets do
         vertical_bullets[i].Remove()
     end
@@ -70,7 +69,4 @@ function EndingWave()
         horizontal_bullets[i].Remove()
     end
     box.Remove()
-    ]]
-    -- However, there is another solution.
-    box.Remove(true)
 end

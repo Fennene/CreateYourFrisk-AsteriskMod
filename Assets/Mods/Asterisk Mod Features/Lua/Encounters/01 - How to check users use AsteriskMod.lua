@@ -20,11 +20,7 @@ enemypositions = {
     {0, 0}
 }
 
-possible_attacks = {
-    "bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou",
-    "bullettest_randomcircle", "bullettest_cyanorange",
-    "bluesoultest_smalljump", "bluesoultest_hittoplatform", "bluesoultest_movetoplatform"
-}
+possible_attacks = { "bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou" }
 
 function EncounterStarting()
     DEBUG("isModifiedCYF = " .. tostring(isModifiedCYF))

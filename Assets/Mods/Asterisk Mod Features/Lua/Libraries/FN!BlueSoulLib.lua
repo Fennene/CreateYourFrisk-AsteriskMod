@@ -96,6 +96,8 @@ BlueSoul.Update()
 BlueSoul.Dispose()
 	Please call this function in Wave Scripts' EndingWave().
 	Waveスクリプト内のEndingWave()でこれを呼び出してください。
+-- Misc --
+BlueSoul.GetColor()
 ]]
 
 local BlueSoul = {}
@@ -202,6 +204,8 @@ end
 function BlueSoul.ResetSpecialEffects()
 	allow_slow_move = true
 	control_override = false
+	deactive_platform_alpha = 0.5
+	allow_keep_pressing = false
 end
 
 function BlueSoul.AllowSlowMove(active)
@@ -638,5 +642,10 @@ function BlueSoul.Dispose()
 	BlueSoul.RemoveAllPlatform()
 end
 
+
+-- Misc --
+function BlueSoul.GetColor()
+	return {0, 60, 255}
+end
 
 return BlueSoul
