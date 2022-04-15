@@ -29,7 +29,9 @@ namespace AsteriskMod
             UtilUpdate,
             /// <summary>v0.5.2.9<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.2.9"/></summary>
             QOLUpdate, // v0.5.2.9
-            /// <summary>v0.5.3 ?</summary>
+            /// <summary>v0.5.3<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3"/></summary>
+            TakeNewStepUpdate,
+            /// <summary>v0.5.3.5 ?</summary>
             GMSUpdate,
             /// <summary>v0.5.4</summary>
             AsteriskMod
@@ -120,9 +122,9 @@ namespace AsteriskMod
                 return Versions.UtilUpdate;
             if (versionName == "v0.5.2.9")
                 return Versions.QOLUpdate;
-            /*
             if (versionName == "v0.5.3")
                 return Versions.TakeNewStepUpdate;
+            /*
             if (versionName == "v0.5.3.5")
                 return Versions.GMSUpdate;
             if (versionName == "v0.5.4")

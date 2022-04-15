@@ -49,16 +49,5 @@ namespace AsteriskMod.Lua
             Directory.CreateDirectory(path);
             return true;
         }
-
-        // ! => nil
-        public static LuaFile OpenAppDataFile(string path, string mode = "rw")
-        {
-            Asterisk.RequireExperimentalFeature("Engine.AppDataCreateDir");
-            if (!Asterisk.experimentMode)
-            {
-                throw new CYFException("Engine.OpenAppDataFile() is experimental feature. You should enable \"Experimental Feature\" in AsteriskMod's option.");
-            }
-            return new LuaFile(GetLocalAppDataPath(path), mode, true);
-        }
     }
 }

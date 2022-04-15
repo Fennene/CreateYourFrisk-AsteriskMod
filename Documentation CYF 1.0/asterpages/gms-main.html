@@ -111,12 +111,41 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-gms-main">
-            <h2><span class="Future"></span> The GameObject Object [E/M/W]</h2><br><br>
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> The GameObject Object [E/M/W]</h2><br><br>
+            <p>You can modify GameObject by below variables and functions.</p>
             <p>
-                You can modify objects by below variables and functions.
-            </p><br>
+                <br><span class="function"><span class="boolean"></span> GameObject.isactive (read-only)</span>
+                Checks to exist the GameObject.<br>
+                You can not use functions after this if this returns false (the GameObject is not active).
+            </p>
             <p>
-                GMS will be added in Asterisk Mod v0.5.3.
+                <br><span class="function"><span class="userdata">ImageComponent</span> GameObject.Image (read-only)</span>
+                This is the same as <span class="term">gameObject.GetComponent&lt;Image&gt;()</span> in Unity.<br>
+                Gets ImageComponent object of the GameObject.<br>
+                You can get ImageComponent object even if the GameObject don't have Image Component.<br>
+                You can check that the GameObject have Image Component by using <span class="term">ImageComponent.isactive</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> GameObject.isusercreated (read-only)</span>
+                Checks that the GameObject was created by user(modder).<br>
+                Returning <span class="term">false</span> means you can not change name or remove the GameObject.
+            </p>
+            <p>
+                <br><span class="function">GameObject.Remove()</span>
+                This is the same as <span class="term">GameObject.Destroy(this.gameObject)</span> in Unity.<br>
+                Removes the GameObject.
+                <br><br>
+                <font color="#FFF">* Note: Any GameObject that is got by calling <span class="term">Find()</span> can not be removed.</font> 
+                You should check the GameObject by using <span class="term">GameObject.isusercreated</span> before useing this.
+            </p>
+            <p>
+                <br><span class="function"><span class="string"></span> GameObject.name</span>
+                This is the same as <span class="term">gameObject.name</span> in Unity.<br>
+                Gets or sets the name of GameObject.
+                <br><br>
+                <font color="#FFF">* Note: Any GameObject that is got by calling <span class="term">Find()</span> can not be set name.</font> 
+                You should check the GameObject by using <span class="term">GameObject.isusercreated</span> before useing this.<br>
+                you can just get the name even if <span class="term">GameObject.isusercreated</span> is <span class="term">false</span>.
             </p>
         </div>
 

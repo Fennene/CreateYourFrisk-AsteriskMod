@@ -68,19 +68,19 @@ it's w3c valid, at least
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
                     <li>Functions &amp; Objects:</li>
-                    <li class="li-indent"><a href="api-engine.html"><span class="Future"></span> The Engine Object</a></li>
+                    <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li>CustomState:</li>
-                    <li class="li-indent asternew"><a href="customstate-basis.html">Basis</a></li>
+                    <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
-                    <li class="li-indent asternew"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
-                    <li><span class="Future"></span> Gameobject Modifying System:</li>
-                    <li class="li-indent active" style="margin-left:5px;">&gt; Basis &lt;</li>
-                    <li class="li-indent"><a href="gms-main.html">The GameObject Object</a></li>
-                    <li class="li-indent"><a href="gms-image.html">The ImageComponent Object</a></li>
+                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li><span class="asternew"></span> Gameobject Modifying System:</li>
+                    <li class="li-indent active asternew" style="margin-left:5px;">&gt; Basis &lt;</li>
+                    <li class="li-indent asternew"><a href="gms-main.html">The GameObject Object</a></li>
+                    <li class="li-indent asternew"><a href="gms-image.html">The ImageComponent Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> Shaders</li>
                     <li><a href="../pages/shaders.html">Introduction</a></li>
@@ -111,7 +111,7 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-gms-basis">
-            <h2><span class="Future"></span> Gameobject Modifying System [E/M/W]</h2><br><br>
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> Gameobject Modifying System</h2><br><br>
             <p>
                 Before I tell you about this feature;
                 "GameObject Modifying System" is so long, so I usually call it <span class="term">GMS</span>.
@@ -123,9 +123,25 @@ it's w3c valid, at least
                 <br><br>
                 I recommend that you download official CYF, and look over its <span class="term">Battle</span> scene and codes.<br>
                 Download page of Create Your Frisk v0.6.5 is <a href="https://github.com/RhenaudTheLukark/CreateYourFrisk/releases/tag/v0.6.5">here</a>.
-            </p><br><br><br>
+            </p>
+
+            <br><hr>
+
+            <h3><span class="asternew"></span> <span class="Asterisk"></span> The GameObjectModfiyingSystem Object [E/M/W]</h3><br><br>
+            <p><font color="#FFF">You can use "<span class="term">GMS</span>" instead of "<span class="term">GameObjectModfiyingSystem</span>"!</font></p>
             <p>
-                GMS will be added in Asterisk Mod v0.5.3.
+                <br><span class="function"><span class="userdata">GameObject</span> GameObjectModfiyingSystem.Find(<span class="string"></span> name)</span>
+                This is the same as <span class="term">GameObject.Find()</span> in Unity.<br>
+                Finds the GameObject from name.<br>
+                If GameObject is not found, error will occur.
+                <br><br>
+                <font color="#FFF">* Note: Any GameObject that is got by calling <span class="term">Find()</span> can not be removed or changed name.</font>
+            </p>
+            <p>
+                <br><span class="function"><span class="userdata">GameObject</span> GameObjectModfiyingSystem.CreateObject(<span class="string"></span> name)</span>
+                This is the same as <span class="term">new GameObject()</span> in Unity.<br>
+                Creates GameObject with name.<br>
+                GameObject is created on <span class="term">Canvas</span>.
             </p>
         </div>
 

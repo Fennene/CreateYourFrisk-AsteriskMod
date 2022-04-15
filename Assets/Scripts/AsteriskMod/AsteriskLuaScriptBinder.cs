@@ -12,6 +12,7 @@ namespace AsteriskMod
             UserData.RegisterType<GameObjectModfiyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
+            UserData.RegisterType<CYFEngine>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -28,7 +29,7 @@ namespace AsteriskMod
 
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
-            script.Globals["AsteriskMod"] = false; //v0.5.2 -> nil  v0.5.3 -> false  v0.5.4 -> true
+            script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
             script.Globals["Language"] = Asterisk.language.ToString();
@@ -43,12 +44,19 @@ namespace AsteriskMod
 
         public static void BoundScriptUserDatas(ref Script script)
         {
-            DynValue buttonUtil = UserData.Create(new Lua.LuaButtonController());
-            script.Globals.Set("ButtonUtil", buttonUtil);
-            DynValue playerUtil = UserData.Create(new Lua.PlayerUtil());
-            script.Globals.Set("PlayerUtil", playerUtil);
-            DynValue arenaUtil = UserData.Create(new Lua.ArenaUtil());
-            script.Globals.Set("ArenaUtil", arenaUtil);
+            DynValue gms = UserData.Create(new GameObjectModfiyingSystem());
+            script.Globals.Set("GameObjectModfiyingSystem", gms);
+            script.Globals.Set("GMS", gms);
+            DynValue engine = UserData.Create(new CYFEngine());
+            script.Globals.Set("Engine", engine);
+
+            // Obsolete Classes
+            DynValue obs_buttonUtil = UserData.Create(new Lua.LuaButtonController());
+            script.Globals.Set("ButtonUtil", obs_buttonUtil);
+            DynValue obs_playerUtil = UserData.Create(new Lua.PlayerUtil());
+            script.Globals.Set("PlayerUtil", obs_playerUtil);
+            DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());
+            script.Globals.Set("ArenaUtil", obs_arenaUtil);
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)

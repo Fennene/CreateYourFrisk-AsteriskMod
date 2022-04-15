@@ -65,22 +65,22 @@ it's w3c valid, at least
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
                     <li><a href="basis.html">About</a></li>
-                    <li class="asternew"><a href="setup.html">Additional Setup</a></li>
+                    <li><a href="setup.html">Additional Setup</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
                     <li>Functions &amp; Objects:</li>
-                    <li class="li-indent active" style="margin-left:5px;"><span class="Future"></span>&gt; The Engine Object &lt;</li>
+                    <li class="li-indent active asternew" style="margin-left:5px;">&gt; The Engine Object &lt;</li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li>CustomState:</li>
-                    <li class="li-indent asternew"><a href="customstate-basis.html">Basis</a></li>
+                    <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
-                    <li class="li-indent asternew"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
-                    <li><span class="Future"></span> Gameobject Modifying System:</li>
-                    <li class="li-indent"><a href="gms-basis.html">Basis</a></li>
-                    <li class="li-indent"><a href="gms-main.html">The GameObject Object</a></li>
-                    <li class="li-indent"><a href="gms-image.html">The ImageComponent Object</a></li>
+                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li><span class="asternew"></span> Gameobject Modifying System:</li>
+                    <li class="li-indent asternew"><a href="gms-basis.html">Basis</a></li>
+                    <li class="li-indent asternew"><a href="gms-main.html">The GameObject Object</a></li>
+                    <li class="li-indent asternew"><a href="gms-image.html">The ImageComponent Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> Shaders</li>
                     <li><a href="../pages/shaders.html">Introduction</a></li>
@@ -111,9 +111,30 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-api-engine">
-            <h2><span class="Future"></span> The Engine object</h2><br><br>
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> The Engine object [E/M/W]</h2><br><br>
+            <p>The Engine Object provides functions to control CYF engine-self.</p><br>
+
             <p>
-                This features may be add in future update, but it has not been decided in which version it will be added.
+                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetTargetFrameRate(<span class="number"></span> frameRate = 60)</span>
+                Sets the frame rate of CYF.
+                The frame rate should be positive integer number.
+                <br><br>
+                You can reset the frame rate by calling this without any arguments.
+            </p>
+            <p>
+                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetBulletPoolSize(<span class="number"></span> newSize = 100)</span>
+                Sets the size of bullet pool.
+                The size should be positive integer number<br>
+                <span class="term">bullet pool</span> is one of CYF's system for <span class="term">the bullet object</span>.
+                The number of creating <span class="term">the bullet object</span> is limited, the number of that is 100.<br>
+                You can call this for more bullet.
+                <br><br>
+                You can reset the size of bullet pool by calling this without any arguments.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.ModExists(<span class="string"></span> modFolderName)</span>
+                Checks to exists that named mod.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.                
             </p>
         </div>
 

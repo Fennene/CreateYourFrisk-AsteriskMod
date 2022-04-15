@@ -111,14 +111,36 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-gms-image">
-            <h2><span class="Future"></span> The ImageComponent Object [E/M/W]</h2><br><br>
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> The ImageComponent Object [E/M/W]</h2><br><br>
             <p>
                 You can modify Image component of object by below variables and functions.<br>
-                You should check the object has Image component by using <span class="term">imageComponent.hasComponent</span>
+                You should check the object has Image component by using <span class="term">ImageComponent.isactive</span>
                 before you modify parameters.
-            </p><br>
+            </p>
+
             <p>
-                GMS will be added in Asterisk Mod v0.5.3.
+                <br><span class="function"><span class="boolean"></span> ImageComponent.isactive (read-only)</span>
+                Checks to exist the Image Component.<br>
+                You can not use functions after this if this returns false (the Image Component is not exist).
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> ImageComponent.isusercreated (read-only)</span>
+                Checks that the Image Component was added by user(modder).<br>
+                Returning <span class="term">false</span> means you can not remove the Image Component.
+            </p>
+            <p>
+                <br><span class="function">ImageComponent.AddComponent()</span>
+                This is the same as <span class="term">gameObject.AddComponent&lt;Image&gt;()</span> in Unity.<br>
+                Adds the Image Component.<br>
+                If the GameObject has Image Component already, error will occur.
+            </p>
+            <p>
+                <br><span class="function">ImageComponent.Remove()</span>
+                This is the same as <span class="term">GameObject.Destroy(this.gameObject.GetComponent&lt;Image&gt;())</span> in Unity.<br>
+                Removes the Image Component.
+                <br><br>
+                <font color="#FFF">* Note: You can remove the Image Component only that is created by you.</font> 
+                You should check by using <span class="term">ImageComponent.isusercreated</span> before useing this.
             </p>
         </div>
 
