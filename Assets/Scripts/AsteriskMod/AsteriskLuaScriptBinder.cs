@@ -1,6 +1,4 @@
-﻿using AsteriskMod.Lua;
-using AsteriskMod.Lua.GMS;
-using System;
+﻿using System;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
@@ -11,23 +9,29 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
-            UserData.RegisterType<LuaButton>();
-            UserData.RegisterType<LuaButtonController>();
-            UserData.RegisterType<PlayerUtil>();
-            UserData.RegisterType<ArenaUtil>();
-            UserData.RegisterType<StateEditor>();
-            //UserData.RegisterType<Global>();
-            UserData.RegisterType<LuaLifeBar>();
+            UserData.RegisterType<GameObjectModfiyingSystem>();
+            UserData.RegisterType<UnityObject>();
+            UserData.RegisterType<LuaImageComponent>();
+
+            // Obsolete Classes
+            UserData.RegisterType<Lua.LuaButton>();
+            UserData.RegisterType<Lua.LuaButtonController>();
+            UserData.RegisterType<Lua.PlayerUtil>();
+            UserData.RegisterType<Lua.ArenaUtil>();
+            UserData.RegisterType<Lua.StateEditor>();
+            UserData.RegisterType<Lua.LuaLifeBar>();
         }
 
         public static void BoundScriptVariables(ref Script script)
         {
-            script.Globals["isModifiedCYF"] = true;
             script.Globals["retroMode"] = GlobalControls.retroMode;
+
+            script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
-            //script.Globals["AsteriskMod"] = false; //v0.5.2 -> nil  v0.5.3 -> false  v0.5.4 -> true
+            script.Globals["AsteriskMod"] = false; //v0.5.2 -> nil  v0.5.3 -> false  v0.5.4 -> true
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
+            script.Globals["Language"] = Asterisk.language.ToString();
         }
 
         public static void BoundScriptFunctions(ref Script script)
@@ -39,16 +43,12 @@ namespace AsteriskMod
 
         public static void BoundScriptUserDatas(ref Script script)
         {
-            DynValue buttonUtil = UserData.Create(new LuaButtonController());
+            DynValue buttonUtil = UserData.Create(new Lua.LuaButtonController());
             script.Globals.Set("ButtonUtil", buttonUtil);
-            DynValue playerUtil = UserData.Create(new PlayerUtil());
+            DynValue playerUtil = UserData.Create(new Lua.PlayerUtil());
             script.Globals.Set("PlayerUtil", playerUtil);
-            DynValue arenaUtil = UserData.Create(new ArenaUtil());
+            DynValue arenaUtil = UserData.Create(new Lua.ArenaUtil());
             script.Globals.Set("ArenaUtil", arenaUtil);
-            /*
-            DynValue global = UserData.Create(new Global());
-            script.Globals.Set("Global", global);
-            */
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)
@@ -84,6 +84,16 @@ namespace AsteriskMod
         {
             return name != null && GameObject.Find((UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/") + name + "Layer") != null;
         }
+
+        /* v0.5.2.9
+        public static bool? IsEmptyLayer(string name)
+        {
+            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
+            if (name == null || GameObject.Find(canvas + name + "Layer") == null)
+                return null;
+            return GameObject.Find(canvas + name + "Layer").transform.childCount == 0;
+        }
+        */
 
         /// <summary>
         /// Recall the functions that ware called before initialization.<br/>
