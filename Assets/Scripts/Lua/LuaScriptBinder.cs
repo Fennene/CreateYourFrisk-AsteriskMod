@@ -174,7 +174,10 @@ public static class LuaScriptBinder {
             {
                 string statename;
                 DataType _;
-                UIController.instance.encounter.TryGetTargetCustomStateName(out statename, out _);
+                if (UIController.instance.encounter.TryGetTargetCustomStateName(out statename, out _))
+                {
+                    statename = "*" + statename;
+                }
                 return statename;
             }
             return UIController.instance.state.ToString();
