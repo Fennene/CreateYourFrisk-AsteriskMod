@@ -44,7 +44,9 @@ namespace AsteriskMod
 
         public static void BoundScriptUserDatas(ref Script script)
         {
-            DynValue gms = UserData.Create(new GameObjectModifyingSystem());
+            GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
+            if (goms == null) goms = new GameObjectModifyingSystem();
+            DynValue gms = UserData.Create(goms);
             script.Globals.Set("GameObjectModifyingSystem", gms);
             script.Globals.Set("GMS", gms);
             DynValue engine = UserData.Create(new CYFEngine());

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 namespace AsteriskMod
 {
     /// <summary>
+    /// Provides the method of modifying as GameObject in Lua Script.<br/>
     /// Be attached to <c>Canvas</c> in <c>Battle</c> Scene
     /// </summary>
     public class GameObjectModifyingSystem : MonoBehaviour
@@ -22,7 +23,7 @@ namespace AsteriskMod
             return new UnityObject(gameObject, false);
         }
 
-        private static GameObjectModifyingSystem Instance;
+        internal static GameObjectModifyingSystem Instance;
 
         private void Awake()
         {

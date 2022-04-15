@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    public static void TODO1() { DevelopHint.ToDo("Cooment out ...ButtonSprite & ...Button"); }
     //private static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;
     public static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
     // --------------------------------------------------------------------------------
@@ -722,6 +723,11 @@ public class UIController : MonoBehaviour {
     }
 
     private void Awake() {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        DevelopHint.ToDo("Comment out");
+        DevelopHint.ComementOutStart();
         if (GlobalControls.crate) {
             fightButtonSprite = SpriteRegistry.Get("UI/Buttons/gifhtbt_1");
             actButtonSprite = SpriteRegistry.Get("UI/Buttons/catbt_1");
@@ -733,6 +739,8 @@ public class UIController : MonoBehaviour {
             itemButtonSprite = SpriteRegistry.Get("UI/Buttons/itembt_1");
             mercyButtonSprite = SpriteRegistry.Get("UI/Buttons/mercybt_1");
         }
+        DevelopHint.ComementOutEnd();
+        // --------------------------------------------------------------------------------
 
         arenaParent = GameObject.Find("arena_border_outer");
         //canvasParent = GameObject.Find("Canvas");
