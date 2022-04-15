@@ -11,7 +11,7 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
 
         public const string ModName = "Asterisk Mod";
-        public const string ModVersion = "0.5.2.9";
+        public const string ModVersion = "0.5.3";
         public const string ModAuthor = "Nil256";
         public const string ModAuthorJP = "にるにころ";
         public const string ModAuthorAlt = "FenneneProject";

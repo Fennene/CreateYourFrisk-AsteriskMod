@@ -96,7 +96,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (PlayerUIManager.Instance.hpbarControlOverride && initializeCompleted) return;
+        if (initializeCompleted && PlayerUIManager.Instance.hpbarControlOverride) return;
         // --------------------------------------------------------------------------------
         lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), lifebarRt.sizeDelta.y);
         setHP(PlayerCharacter.instance.HP);

@@ -6,7 +6,7 @@ namespace AsteriskMod
     /// <summary>
     /// Be attached to <c>Canvas</c> in <c>Battle</c> Scene
     /// </summary>
-    public class GameObjectModfiyingSystem : MonoBehaviour
+    public class GameObjectModifyingSystem : MonoBehaviour
     {
         public static UnityObject Find(string name)
         {
@@ -22,7 +22,7 @@ namespace AsteriskMod
             return new UnityObject(gameObject, false);
         }
 
-        private static GameObjectModfiyingSystem Instance;
+        private static GameObjectModifyingSystem Instance;
 
         private void Awake()
         {

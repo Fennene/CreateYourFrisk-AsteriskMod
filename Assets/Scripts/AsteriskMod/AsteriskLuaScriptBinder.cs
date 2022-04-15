@@ -9,7 +9,7 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
-            UserData.RegisterType<GameObjectModfiyingSystem>();
+            UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
             UserData.RegisterType<CYFEngine>();
@@ -44,8 +44,8 @@ namespace AsteriskMod
 
         public static void BoundScriptUserDatas(ref Script script)
         {
-            DynValue gms = UserData.Create(new GameObjectModfiyingSystem());
-            script.Globals.Set("GameObjectModfiyingSystem", gms);
+            DynValue gms = UserData.Create(new GameObjectModifyingSystem());
+            script.Globals.Set("GameObjectModifyingSystem", gms);
             script.Globals.Set("GMS", gms);
             DynValue engine = UserData.Create(new CYFEngine());
             script.Globals.Set("Engine", engine);

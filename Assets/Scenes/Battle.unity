@@ -1325,7 +1325,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 930260304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0440f5252efdcf449a37b30ea759f315, type: 3}
+  m_Script: {fileID: 11500000, guid: d21408a70ad254f4fbfd7d5d63c40383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &944112582
@@ -2081,7 +2081,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1443796531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21837ee8c5fa0064ab73bfcab88a55b7, type: 3}
+  m_Script: {fileID: 11500000, guid: f67dfb97764a5044fa4471ff8c4c115b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1502133293
@@ -3323,7 +3323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2026747195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 408fcbbdb1abf7d47b1f94dc554e2097, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b514dfeb486b0d458d81615eee6075a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hpbarControlOverride: 0
