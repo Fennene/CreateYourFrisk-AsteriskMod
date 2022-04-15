@@ -35,7 +35,6 @@ namespace AsteriskMod
             script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
-            script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
@@ -84,14 +83,6 @@ namespace AsteriskMod
         public static bool LayerExists(string name)
         {
             return name != null && GameObject.Find((UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/") + name + "Layer") != null;
-        }
-
-        public static bool? IsEmptyLayer(string name)
-        {
-            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
-            if (name == null || GameObject.Find(canvas + name + "Layer") == null)
-                return null;
-            return GameObject.Find(canvas + name + "Layer").transform.childCount == 0;
         }
 
         /// <summary>
