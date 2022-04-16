@@ -29,10 +29,10 @@ public class UIController : MonoBehaviour {
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
     public static void TODO1() { DevelopHint.ToDo("Cooment out ...ButtonSprite & ...Button"); }
-    //private static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;
-    public static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
-    // --------------------------------------------------------------------------------
+    private static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
     private Image fightButton, actButton, itemButton, mercyButton;                                  // UI button objects in the scene
+    internal ButtonManager ActionButtonManager { get; private set; }
+    // --------------------------------------------------------------------------------
 
     private Actions action = Actions.FIGHT;     // Current action chosen when entering the state ENEMYSELECT
     public Actions forcedAction = Actions.NONE; // Action forced by the user previously for the next time we enter the state ENEMYSELECT
@@ -358,10 +358,17 @@ public class UIController : MonoBehaviour {
             mainTextManager.DestroyChars();
             PlayerController.instance.SetPosition(320, 160, true);
             PlayerController.instance.GetComponent<Image>().enabled = true;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            /*
             fightButton.overrideSprite = null;
             actButton.overrideSprite = null;
             itemButton.overrideSprite = null;
             mercyButton.overrideSprite = null;
+            */
+            ActionButtonManager.HideAllOverrideSprite();
+            // --------------------------------------------------------------------------------
             mainTextManager.SetPause(true);
         } else {
             if (!first &&!ArenaManager.instance.firstTurn)
@@ -726,8 +733,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        DevelopHint.ToDo("Comment out");
-        DevelopHint.ComementOutStart();
+        /*
         if (GlobalControls.crate) {
             fightButtonSprite = SpriteRegistry.Get("UI/Buttons/gifhtbt_1");
             actButtonSprite = SpriteRegistry.Get("UI/Buttons/catbt_1");
@@ -739,7 +745,9 @@ public class UIController : MonoBehaviour {
             itemButtonSprite = SpriteRegistry.Get("UI/Buttons/itembt_1");
             mercyButtonSprite = SpriteRegistry.Get("UI/Buttons/mercybt_1");
         }
-        DevelopHint.ComementOutEnd();
+        */
+        ActionButtonManager = new ButtonManager();
+        ActionButtonManager.Awake();
         // --------------------------------------------------------------------------------
 
         arenaParent = GameObject.Find("arena_border_outer");
@@ -1211,10 +1219,17 @@ public class UIController : MonoBehaviour {
                 if (!left &&!right)
                     break;
 
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                /*
                 fightButton.overrideSprite = null;
                 actButton.overrideSprite = null;
                 itemButton.overrideSprite = null;
                 mercyButton.overrideSprite = null;
+                */
+                ActionButtonManager.HideAllOverrideSprite();
+                // --------------------------------------------------------------------------------
 
                 int actionIndex = (int)action;
 
@@ -1442,31 +1457,35 @@ public class UIController : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             case Actions.FIGHT:
-                fightButton.overrideSprite = fightButtonSprite;
+                //fightButton.overrideSprite = fightButtonSprite;
+                ActionButtonManager.ShowOverrideSprite(0);
+                //PlayerController.instance.SetPosition(48, 25, true);
                 Vector2 fightPos = LuaButtonController.FIGHT.GetRelativePosition();
                 PlayerController.instance.SetPosition(48 + fightPos.x, 25 + fightPos.y, true);
-                //PlayerController.instance.SetPosition(48, 25, true);
                 break;
 
             case Actions.ACT:
-                actButton.overrideSprite = actButtonSprite;
+                //actButton.overrideSprite = actButtonSprite;
+                ActionButtonManager.ShowOverrideSprite(1);
+                //PlayerController.instance.SetPosition(202, 25, true);
                 Vector2 actPos = LuaButtonController.ACT.GetRelativePosition();
                 PlayerController.instance.SetPosition(202 + actPos.x, 25 + actPos.y, true);
-                //PlayerController.instance.SetPosition(202, 25, true);
                 break;
 
             case Actions.ITEM:
-                itemButton.overrideSprite = itemButtonSprite;
+                //itemButton.overrideSprite = itemButtonSprite;
+                ActionButtonManager.ShowOverrideSprite(2);
+                //PlayerController.instance.SetPosition(361, 25, true);
                 Vector2 itemPos = LuaButtonController.ITEM.GetRelativePosition();
                 PlayerController.instance.SetPosition(361 + itemPos.x, 25 + itemPos.y, true);
-                //PlayerController.instance.SetPosition(361, 25, true);
                 break;
 
             case Actions.MERCY:
-                mercyButton.overrideSprite = mercyButtonSprite;
+                //mercyButton.overrideSprite = mercyButtonSprite;
+                ActionButtonManager.ShowOverrideSprite(3);
+                //PlayerController.instance.SetPosition(515, 25, true);
                 Vector2 mercyPos = LuaButtonController.MERCY.GetRelativePosition();
                 PlayerController.instance.SetPosition(515 + mercyPos.x, 25 + mercyPos.y, true);
-                //PlayerController.instance.SetPosition(515, 25, true);
                 break;
             // --------------------------------------------------------------------------------
         }
@@ -1491,10 +1510,17 @@ public class UIController : MonoBehaviour {
         if (!updateButton) return;
         // --------------------------------------------------------------------------------
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        /*
         fightButton.overrideSprite = null;
         actButton.overrideSprite = null;
         itemButton.overrideSprite = null;
         mercyButton.overrideSprite = null;
+        */
+        ActionButtonManager.HideAllOverrideSprite();
+        // --------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
@@ -1531,6 +1557,10 @@ public class UIController : MonoBehaviour {
         mainTextManager.SetCaller(EnemyEncounter.script);
         encounter = FindObjectOfType<EnemyEncounter>();
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        /*
         fightButton = GameObject.Find("FightBt").GetComponent<Image>();
         actButton = GameObject.Find("ActBt").GetComponent<Image>();
         itemButton = GameObject.Find("ItemBt").GetComponent<Image>();
@@ -1545,6 +1575,9 @@ public class UIController : MonoBehaviour {
             mercyButton.sprite = SpriteRegistry.Get("UI/Buttons/mecrybt_0");
             mercyButton.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = "UI/Buttons/mecrybt_0";
         }
+        */
+        ActionButtonManager.Start();
+        // --------------------------------------------------------------------------------
 
         ArenaManager.instance.ResizeImmediate(ArenaManager.UIWidth, ArenaManager.UIHeight);
         //ArenaManager.instance.MoveToImmediate(0, -160, false);
@@ -1652,8 +1685,9 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        DevelopHint.ToDo("Delete");
         PlayerUtil.Initialize();
-        LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
+        //LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
         ArenaUIManager.Initialize();
         // --------------------------------------------------------------------------------
 
@@ -1854,10 +1888,13 @@ public class UIController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     public void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
     {
+        DevelopHint.ToDo("Delete");
+        /*
         fightButton.overrideSprite = fight ? fightButtonSprite : null;
         actButton.overrideSprite = act ? actButtonSprite : null;
         itemButton.overrideSprite = item ? itemButtonSprite : null;
         mercyButton.overrideSprite = mercy ? mercyButtonSprite : null;
+        */
     }
 
     internal Actions GetAction()
