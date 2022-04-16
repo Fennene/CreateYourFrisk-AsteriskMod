@@ -47,25 +47,39 @@ namespace AsteriskMod
         public static void BoundScriptUserDatas(ref Script script)
         {
             if (UnitaleUtil.IsOverworld) return;
-            DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
-            script.Globals.Set("ButtonUtil", buttonUtil);
 
-            GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
-            //if (goms == null) goms = new GameObjectModifyingSystem();
-            DynValue gms = UserData.Create(goms);
-            script.Globals.Set("GameObjectModifyingSystem", gms);
-            script.Globals.Set("GMS", gms);
-            DynValue engine = UserData.Create(new CYFEngine());
-            script.Globals.Set("Engine", engine);
+            if (EngineResetter.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
+            {
+                DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
+                script.Globals.Set("ButtonUtil", buttonUtil);
 
-            // Obsolete Classes
-            //Lua.LuaButtonController.Initialize();
-            //DynValue oldButtonUtil = UserData.Create(new Lua.LuaButtonController());
-            //script.Globals.Set("ButtonUtil", oldButtonUtil);
-            DynValue obs_playerUtil = UserData.Create(new Lua.PlayerUtil());
-            script.Globals.Set("PlayerUtil", obs_playerUtil);
-            DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());
-            script.Globals.Set("ArenaUtil", obs_arenaUtil);
+                DynValue playerUtil = UserData.Create(new Lua.PlayerUtil());
+                script.Globals.Set("PlayerUtil", playerUtil);
+
+                DynValue arenaUtil = UserData.Create(new Lua.ArenaUtil());
+                script.Globals.Set("ArenaUtil", arenaUtil);
+
+                GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
+                //if (goms == null) goms = new GameObjectModifyingSystem();
+                DynValue gms = UserData.Create(goms);
+                script.Globals.Set("GameObjectModifyingSystem", gms);
+                script.Globals.Set("GMS", gms);
+                DynValue engine = UserData.Create(new CYFEngine());
+                script.Globals.Set("Engine", engine);
+            }
+            else
+            {
+                // Obsolete Classes
+                Lua.LuaButtonController.Initialize();
+                DynValue oldButtonUtil = UserData.Create(new Lua.LuaButtonController());
+                script.Globals.Set("ButtonUtil", oldButtonUtil);
+
+                DynValue obs_playerUtil = UserData.Create(new Lua.PlayerUtil());
+                script.Globals.Set("PlayerUtil", obs_playerUtil);
+                DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());
+                script.Globals.Set("ArenaUtil", obs_arenaUtil);
+            }
+
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)

@@ -2,7 +2,10 @@
 
 namespace AsteriskMod
 {
-    /// <summary>Manager class of each buttons in Battle Scene<br/>Use in UIController</summary>
+    /// <summary>
+    /// Manager class of each buttons in Battle Scene<br/>
+    /// Use in UIController
+    /// </summary>
     public class ButtonManager
     {
         [MoonSharpHidden]
@@ -61,6 +64,16 @@ namespace AsteriskMod
         internal void ShowOverrideSprite(int buttonID)
         {
             ActionButtons[buttonID].ShowOverrideSprite();
+        }
+
+        [MoonSharpHidden]
+        internal void SetVisibleOverrideSprite(bool[] visible)
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                if (visible[i]) ActionButtons[i].ShowOverrideSprite();
+                else            ActionButtons[i].HideOverrideSprite();
+            }
         }
 
         // --------------------------------------------------------------------------------

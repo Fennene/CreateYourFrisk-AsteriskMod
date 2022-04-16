@@ -29,6 +29,7 @@ namespace AsteriskMod
             descAnchor = TextAnchor.UpperLeft;
             font = DisplayFont.PixelOperator;
             bgColor = new Color32(255, 255, 255, 64);
+            targetVersion = Asterisk.Versions.Unknwon;
         }
 
         private static bool IgnoreFile(string fullpath)

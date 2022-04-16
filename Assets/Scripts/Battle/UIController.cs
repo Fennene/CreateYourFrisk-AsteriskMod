@@ -1880,17 +1880,6 @@ public class UIController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
-    {
-        DevelopHint.ToDo("Delete");
-        /*
-        fightButton.overrideSprite = fight ? fightButtonSprite : null;
-        actButton.overrideSprite = act ? actButtonSprite : null;
-        itemButton.overrideSprite = item ? itemButtonSprite : null;
-        mercyButton.overrideSprite = mercy ? mercyButtonSprite : null;
-        */
-    }
-
     internal Actions GetAction()
     {
         return action;

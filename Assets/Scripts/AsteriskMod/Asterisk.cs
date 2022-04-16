@@ -19,8 +19,6 @@ namespace AsteriskMod
         /// <summary>Asterisk Mod's Versions</summary>
         public enum Versions
         {
-            /// <summary>Unknown, Debug or Beta Version</summary>
-            Unknwon,
             /// <summary>v0.5: <see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5"/><br/>v0.5.2: <see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.2"/></summary>
             InitialVersion,
             /// <summary>v0.5.2.7<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.2.7"/></summary>
@@ -31,10 +29,12 @@ namespace AsteriskMod
             QOLUpdate, // v0.5.2.9
             /// <summary>v0.5.3<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3"/></summary>
             TakeNewStepUpdate,
-            /// <summary>v0.5.3.5 ?</summary>
-            GMSUpdate,
-            /// <summary>v0.5.4</summary>
-            AsteriskMod
+            /// <summary>Unknown Version<br/>This version is regarded to latest version.</summary>
+            Unknwon
+            // <summary>v0.5.3.5 ?</summary>
+            //GMSUpdate,
+            // <summary>v0.5.4</summary>
+            //AsteriskMod
         }
 
         /// <summary>Whether "Experimental Features" is enabled or not</summary>
@@ -131,6 +131,19 @@ namespace AsteriskMod
                 return Versions.AsteriskMod;
             */
             return Versions.Unknwon;
+        }
+
+        public static string ConvertToString(Versions version)
+        {
+            switch (version)
+            {
+                case Versions.InitialVersion:    return "v0.5";
+                case Versions.CustomStateUpdate: return "v0.5.2.7";
+                case Versions.UtilUpdate:        return "v0.5.2.8";
+                case Versions.QOLUpdate:         return "v0.5.2.9";
+                case Versions.TakeNewStepUpdate: return "v0.5.3";
+                default: return "Unknwon";
+            }
         }
 
         public static bool RequireExperimentalFeature(string funcName, bool showError = true)

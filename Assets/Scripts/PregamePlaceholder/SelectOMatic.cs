@@ -208,6 +208,11 @@ public class SelectOMatic : MonoBehaviour {
             Debug.Log("Loading " + StaticInits.ENCOUNTER);
             GlobalControls.isInFight = true;
             DiscordControls.StartBattle(modDirs[CurrentSelectedMod].Name, StaticInits.ENCOUNTER);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            EngineResetter.SetTargetAsteriskVersion(modInfos[CurrentSelectedMod].targetVersion);
+            // --------------------------------------------------------------------------------
             SceneManager.LoadScene("Battle");
         } catch (Exception e) {
             ModBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.25f);

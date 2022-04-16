@@ -76,7 +76,7 @@ namespace AsteriskMod.Lua
 
         public static void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
         {
-            UIController.instance.SetButtonActive(fight, act, item, mercy);
+            UIController.ActionButtonManager.SetVisibleOverrideSprite(new[] { fight, act, item, mercy });
         }
 
         public static void SetPlayerOnSelection(int selection, bool singleList = true)
