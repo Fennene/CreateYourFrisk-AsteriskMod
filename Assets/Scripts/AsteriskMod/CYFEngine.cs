@@ -1,14 +1,22 @@
-﻿using System.IO;
+﻿using MoonSharp.Interpreter;
+using System.IO;
 using UnityEngine;
 
 namespace AsteriskMod
 {
     public class CYFEngine
     {
+        [MoonSharpHidden]
         internal static void Initialize()
         {
             Application.targetFrameRate = 60;
             BulletPool.POOLSIZE = 100;
+        }
+
+        [MoonSharpHidden]
+        internal static void Reset()
+        {
+            Application.targetFrameRate = 60;
         }
 
         public static void SetTargetFrameRate(int frameRate = 60)

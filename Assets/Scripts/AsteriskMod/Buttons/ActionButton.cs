@@ -70,7 +70,7 @@ namespace AsteriskMod
         internal void Initialize()
         {
             isactive = true;
-            relativePosition = Vector2.zero;
+            RelativePosition = Vector2.zero;
             xScale = 1;
             yScale = 1;
         }
@@ -105,17 +105,17 @@ namespace AsteriskMod
             }
         }
 
-        private Vector2 relativePosition;
+        internal Vector2 RelativePosition { get; private set; }
 
         public int x
         {
-            get { return Mathf.FloorToInt(relativePosition.x); }
+            get { return Mathf.FloorToInt(RelativePosition.x); }
             set { MoveTo(value, y); }
         }
 
         public int y
         {
-            get { return Mathf.FloorToInt(relativePosition.y); }
+            get { return Mathf.FloorToInt(RelativePosition.y); }
             set { MoveTo(x, value); }
         }
 
@@ -138,16 +138,16 @@ namespace AsteriskMod
 
         public void MoveTo(int newX, int newY)
         {
-            Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - relativePosition;
-            relativePosition = new Vector2(newX, newY);
-            _button.GetComponent<RectTransform>().anchoredPosition = initPos + relativePosition;
+            Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - RelativePosition;
+            RelativePosition = new Vector2(newX, newY);
+            _button.GetComponent<RectTransform>().anchoredPosition = initPos + RelativePosition;
         }
 
         public void MoveToAbs(int newX, int newY)
         {
-            Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - relativePosition;
+            Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - RelativePosition;
             _gameObject.transform.position = new Vector3(newX, newY, _gameObject.transform.position.z);
-            relativePosition = _button.GetComponent<RectTransform>().anchoredPosition - initPos;
+            RelativePosition = _button.GetComponent<RectTransform>().anchoredPosition - initPos;
         }
 
         public float[] color
@@ -253,8 +253,8 @@ namespace AsteriskMod
             // Revert Position
             if (revertPosition)
             {
-                _button.GetComponent<RectTransform>().anchoredPosition -= relativePosition;
-                relativePosition = Vector2.zero;
+                _button.GetComponent<RectTransform>().anchoredPosition -= RelativePosition;
+                RelativePosition = Vector2.zero;
             }
         }
     }

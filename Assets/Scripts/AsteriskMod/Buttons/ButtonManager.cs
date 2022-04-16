@@ -1,10 +1,4 @@
 ﻿using MoonSharp.Interpreter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace AsteriskMod
 {
@@ -51,6 +45,7 @@ namespace AsteriskMod
             {
                 ActionButtons[i].Start(ButtonObjectNames[i], GetTexturePath(TexturePathesCrate[i], false));
             }
+            initialized = true;
         }
 
         [MoonSharpHidden]
@@ -71,6 +66,8 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
         //                            Asterisk Mod Features
         // --------------------------------------------------------------------------------
+        private bool initialized = false;
+
         [MoonSharpHidden]
         internal void CheckInactivate(int buttonID)
         {
@@ -83,21 +80,55 @@ namespace AsteriskMod
             throw new CYFException("button.SetActive(): Attempt to inactivate all button.");
         }
 
-        public ActionButton FIGHT { get { return ActionButtons[0]; } }
-        public ActionButton ACT { get { return ActionButtons[1]; } }
-        public ActionButton ITEM { get { return ActionButtons[2]; } }
-        public ActionButton MERCY { get { return ActionButtons[3]; } }
-        public ActionButton this[int buttonID]
+        private void CheckInitialized()
+        {
+            if (!initialized) throw new CYFException("The ButtonUtil object has not been initialized yet.\n\nPlease wait until at least EncounterStarting() to run this code.");
+        }
+
+        public ActionButton FIGHT {
+            get
+            {
+                CheckInitialized();
+                return ActionButtons[0];
+            }
+        }
+        public ActionButton ACT
         {
             get
             {
-                if (buttonID < 1 || buttonID > 4) throw new CYFException("ButtonUtil[int buttonID]: button's ID should be between 1 and 4. (specifed ID: " + buttonID + ")");
-                return ActionButtons[buttonID - 1];
+                CheckInitialized();
+                return ActionButtons[1];
+            }
+        }
+        public ActionButton ITEM
+        {
+            get
+            {
+                CheckInitialized();
+                return ActionButtons[2];
+            }
+        }
+        public ActionButton MERCY
+        {
+            get
+            {
+                CheckInitialized();
+                return ActionButtons[3];
+            }
+        }
+        public ActionButton this[int luaButtonID]
+        {
+            get
+            {
+                CheckInitialized();
+                if (luaButtonID < 1 || luaButtonID > 4) throw new CYFException("ButtonUtil[int buttonID]: button's ID should be between 1 and 4. (specifed ID: " + luaButtonID + ")");
+                return ActionButtons[luaButtonID - 1];
             }
         }
 
         public void SetActives(bool fight = true, bool act = true, bool item = true, bool mercy = true)
         {
+            CheckInitialized();
             if (!(fight || act || item || mercy)) throw new CYFException("ButtonUtil.SetActives(): Attempt to inactivate all button.");
             ActionButtons[0].SetActive(fight);
             ActionButtons[1].SetActive(act);
@@ -107,6 +138,7 @@ namespace AsteriskMod
 
         public void SetSprites(string buttonSpritePathRoot, bool autoResize = false)
         {
+            CheckInitialized();
             if (GlobalControls.crate) return;
             for (var i = 0; i < 4; i++)
             {
@@ -116,6 +148,7 @@ namespace AsteriskMod
 
         public void SetColors(float r, float g, float b, float a = 1)
         {
+            CheckInitialized();
             float[] color = new[] { r, g, b, a };
             for (var i = 0; i < 4; i++)
             {
@@ -125,6 +158,7 @@ namespace AsteriskMod
 
         public void SetColor32s(byte r, byte g, byte b, byte a = 255)
         {
+            CheckInitialized();
             byte[] color32 = new[] { r, g, b, a };
             for (var i = 0; i < 4; i++)
             {
@@ -134,6 +168,7 @@ namespace AsteriskMod
 
         public void RevertAll(bool revertPosition = true)
         {
+            CheckInitialized();
             for (var i = 0; i < 4; i++)
             {
                 ActionButtons[i].Revert(revertPosition);

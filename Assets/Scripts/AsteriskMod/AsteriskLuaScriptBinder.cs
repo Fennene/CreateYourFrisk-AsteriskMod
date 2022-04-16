@@ -9,6 +9,8 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
+            UserData.RegisterType<ActionButton>();
+            UserData.RegisterType<ButtonManager>();
             UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
@@ -44,8 +46,12 @@ namespace AsteriskMod
 
         public static void BoundScriptUserDatas(ref Script script)
         {
+            if (UnitaleUtil.IsOverworld) return;
+            DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
+            script.Globals.Set("ButtonUtil", buttonUtil);
+
             GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
-            if (goms == null) goms = new GameObjectModifyingSystem();
+            //if (goms == null) goms = new GameObjectModifyingSystem();
             DynValue gms = UserData.Create(goms);
             script.Globals.Set("GameObjectModifyingSystem", gms);
             script.Globals.Set("GMS", gms);
@@ -53,8 +59,9 @@ namespace AsteriskMod
             script.Globals.Set("Engine", engine);
 
             // Obsolete Classes
-            DynValue obs_buttonUtil = UserData.Create(new Lua.LuaButtonController());
-            script.Globals.Set("ButtonUtil", obs_buttonUtil);
+            //Lua.LuaButtonController.Initialize();
+            //DynValue oldButtonUtil = UserData.Create(new Lua.LuaButtonController());
+            //script.Globals.Set("ButtonUtil", oldButtonUtil);
             DynValue obs_playerUtil = UserData.Create(new Lua.PlayerUtil());
             script.Globals.Set("PlayerUtil", obs_playerUtil);
             DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());

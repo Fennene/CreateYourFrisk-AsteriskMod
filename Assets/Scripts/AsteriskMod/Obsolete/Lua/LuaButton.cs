@@ -1,6 +1,6 @@
 ﻿using MoonSharp.Interpreter;
-using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine;
+//using UnityEngine.UI;
 
 namespace AsteriskMod.Lua
 {
@@ -8,38 +8,47 @@ namespace AsteriskMod.Lua
     public class LuaButton
     {
         private int buttonID;
+        /*
         private bool isActive;
         private GameObject button;
         private Vector2 position;
         private Vector2 initSize;
+        */
 
         [MoonSharpHidden]
-        public LuaButton(int id, GameObject buttonObject)
+        public LuaButton(int id/*, GameObject buttonObject*/)
         {
             buttonID = id;
+            /*
             isActive = true;
             button = buttonObject;
             position = Vector2.zero;
             initSize = buttonObject.GetComponent<Image>().rectTransform.sizeDelta;
+            */
         }
 
         public void SetActive(bool active)
         {
+            UIController.ActionButtonManager[buttonID + 1].SetActive(active);
+            /*
             isActive = active;
             button.GetComponent<Image>().color = new Color(1f, 1f, 1f, (isActive ? 1f : 0f));
             if (!isActive && !LuaButtonController.CanInactiveButton(buttonID))
             {
                 throw new CYFException("All button should not be inactivated.");
             }
+            */
         }
 
         public bool GetActive()
         {
-            return isActive;
+            return UIController.ActionButtonManager[buttonID + 1].isactive;
         }
 
         public void SetSprite(string inactiveTexturePath, string activeTexturePath, string prefix = "")
         {
+            UIController.ActionButtonManager[buttonID + 1].SetSprite(inactiveTexturePath, activeTexturePath, prefix, true);
+            /*
             Image image = button.GetComponent<Image>();
             if (!string.IsNullOrEmpty(prefix)) prefix += "/";
             inactiveTexturePath = prefix + inactiveTexturePath;
@@ -77,53 +86,56 @@ namespace AsteriskMod.Lua
                     UIController.mercyButtonSprite = activeTexture;
                     break;
             }
+            */
         }
 
         public float x
         {
-            get { return position.x; }
-            set { MoveTo(value, position.y); }
+            get { /*return position.x;*/ return UIController.ActionButtonManager[buttonID + 1].x; }
+            set { /*MoveTo(value, position.y);*/ UIController.ActionButtonManager[buttonID + 1].x = (int)value; }
         }
 
         public float y
         {
-            get { return position.y; }
-            set { MoveTo(position.x, value); }
+            get { /*return position.y;*/ return UIController.ActionButtonManager[buttonID + 1].y; }
+            set { /*MoveTo(position.x, value);*/ UIController.ActionButtonManager[buttonID + 1].y = (int)value; }
         }
 
         public void MoveTo(float x, float y)
         {
+            UIController.ActionButtonManager[buttonID + 1].MoveTo((int)x, (int)y);
+            /*
             button.GetComponent<RectTransform>().anchoredPosition = new Vector2(button.GetComponent<RectTransform>().anchoredPosition.x - position.x, button.GetComponent<RectTransform>().anchoredPosition.y - position.y);
             position = new Vector2(x, y);
             button.GetComponent<RectTransform>().anchoredPosition = new Vector2(button.GetComponent<RectTransform>().anchoredPosition.x + x, button.GetComponent<RectTransform>().anchoredPosition.y + y);
+            */
         }
 
         public void Move(float x, float y)
         {
-            MoveTo(position.x + x, position.y + y);
-        }
-
-        [MoonSharpHidden]
-        internal Vector2 GetRelativePosition()
-        {
-            return position;
+            UIController.ActionButtonManager[buttonID + 1].Move((int)x, (int)y);
+            // MoveTo(position.x + x, position.y + y);
         }
 
         public void SetColor(float r, float g, float b, float a = 1.0f)
         {
-            button.GetComponent<Image>().color = new Color(r, g, b, a);
+            UIController.ActionButtonManager[buttonID + 1].color = new[] { r, g, b, a };
+            //button.GetComponent<Image>().color = new Color(r, g, b, a);
         }
 
         public void SetColor32(byte r, byte g, byte b, byte a = 255)
         {
-            button.GetComponent<Image>().color = new Color32(r, g, b, a);
+            UIController.ActionButtonManager[buttonID + 1].color32 = new[] { r, g, b, a };
+            //button.GetComponent<Image>().color = new Color32(r, g, b, a);
         }
 
         public void ResetColor()
         {
-            button.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            UIController.ActionButtonManager[buttonID + 1].color = new float[4] { 1, 1, 1, 1 };
+            //button.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
 
+        /*
         public void SetSize(int width, int height)
         {
             Asterisk.RequireExperimentalFeature("button.SetSize");
@@ -135,15 +147,19 @@ namespace AsteriskMod.Lua
             Asterisk.RequireExperimentalFeature("button.SetSize");
             button.GetComponent<Image>().rectTransform.sizeDelta = initSize;
         }
+        */
 
         public void Scale(float xScale, float yScale)
         {
             Asterisk.RequireExperimentalFeature("button.Scale");
-            button.GetComponent<Image>().rectTransform.localScale = new Vector3(xScale, yScale, 1);
+            UIController.ActionButtonManager[buttonID + 1].Scale(xScale, yScale);
+            //button.GetComponent<Image>().rectTransform.localScale = new Vector3(xScale, yScale, 1);
         }
 
         public void Revert()
         {
+            UIController.ActionButtonManager[buttonID + 1].Revert(true);
+            /*
             ResetColor();
             string btname = "";
             switch (buttonID)
@@ -167,6 +183,7 @@ namespace AsteriskMod.Lua
             if (!Asterisk.RequireExperimentalFeature("button.Revert", false)) return;
             Scale(1, 1);
             ResetSize();
+            */
         }
     }
 }

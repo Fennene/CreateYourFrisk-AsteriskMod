@@ -1,9 +1,8 @@
 ﻿using MoonSharp.Interpreter;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 namespace AsteriskMod.Lua
 {
-    // I know that below codes are very too awesome f stupid idea. I will fix it in v0.5.3.
     public class LuaButtonController
     {
         public static LuaButton FIGHT
@@ -31,29 +30,18 @@ namespace AsteriskMod.Lua
         }
 
         [MoonSharpHidden]
-        public static void Initialize(Image[] buttons)
+        public static void Initialize(/*Image[] buttons*/)
         {
-            FIGHT = new LuaButton(0, buttons[0].gameObject);
-            ACT = new LuaButton(1, buttons[1].gameObject);
-            ITEM = new LuaButton(2, buttons[2].gameObject);
-            MERCY = new LuaButton(3, buttons[3].gameObject);
-        }
-
-        [MoonSharpHidden]
-        public static bool CanInactiveButton(int buttonID)
-        {
-            bool[] actives = new bool[4] {
-                FIGHT.GetActive(),
-                ACT.GetActive(),
-                ITEM.GetActive(),
-                MERCY.GetActive()
-            };
-            actives[buttonID] = false;
-            return actives[0] || actives[1] || actives[2] || actives[3];
+            FIGHT = new LuaButton(0);
+            ACT = new LuaButton(1);
+            ITEM = new LuaButton(2);
+            MERCY = new LuaButton(3);
         }
 
         public static void SetActives(bool fight = true, bool act = true, bool item = true, bool mercy = true)
         {
+            UIController.ActionButtonManager.SetActives(fight, act, item, mercy);
+            /*
             if (!(fight || act || item || mercy))
             {
                 throw new CYFException("ButtonUtil.SetActives(): attempted to inactivate all button.");
@@ -62,22 +50,29 @@ namespace AsteriskMod.Lua
             ACT.SetActive(act);
             ITEM.SetActive(item);
             MERCY.SetActive(mercy);
+            */
         }
 
         public static void SetSprites(string dirPath)
         {
+            UIController.ActionButtonManager.SetSprites(dirPath, true);
+            /*
             FIGHT.SetSprite("fightbt_0", "fightbt_1", dirPath);
             ACT.SetSprite("actbt_0", "actbt_1", dirPath);
             ITEM.SetSprite("itembt_0", "itembt_1", dirPath);
             MERCY.SetSprite("mercybt_0", "mercybt_1", dirPath);
+            */
         }
 
         public static void RevertAll()
         {
+            UIController.ActionButtonManager.RevertAll(true);
+            /*
             FIGHT.Revert();
             ACT.Revert();
             ITEM.Revert();
             MERCY.Revert();
+            */
         }
     }
 }

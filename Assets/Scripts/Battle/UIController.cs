@@ -28,10 +28,11 @@ public class UIController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public static void TODO1() { DevelopHint.ToDo("Cooment out ...ButtonSprite & ...Button"); }
+    /*
     private static Sprite fightButtonSprite, actButtonSprite, itemButtonSprite, mercyButtonSprite;  // UI button sprites when the soul is selecting them
     private Image fightButton, actButton, itemButton, mercyButton;                                  // UI button objects in the scene
-    internal ButtonManager ActionButtonManager { get; private set; }
+    */
+    internal static ButtonManager ActionButtonManager { get; private set; }
     // --------------------------------------------------------------------------------
 
     private Actions action = Actions.FIGHT;     // Current action chosen when entering the state ENEMYSELECT
@@ -115,6 +116,11 @@ public class UIController : MonoBehaviour {
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
     private bool firstFrameUpdate = true;
+
+    internal static void InitalizeButtonManager()
+    {
+        ActionButtonManager = new ButtonManager();
+    }
     // --------------------------------------------------------------------------------
 
     public void ActionDialogResult(TextMessage msg, UIState afterDialogState, ScriptWrapper caller = null) {
@@ -194,6 +200,12 @@ public class UIController : MonoBehaviour {
             ScreenResolution.SetFullScreen(true, 0);
         }
         ScreenResolution.wideFullscreen = false;
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        EngineResetter.Revert();
+        // --------------------------------------------------------------------------------
     }
 
     public void SwitchState(UIState newState, bool first = false) {
@@ -429,14 +441,8 @@ public class UIController : MonoBehaviour {
                 // --------------------------------------------------------------------------------
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
-                bool[] buttonActive = new bool[4] {
-                    LuaButtonController.FIGHT.GetActive(),
-                    LuaButtonController.ACT.GetActive(),
-                    LuaButtonController.ITEM.GetActive(),
-                    LuaButtonController.MERCY.GetActive()
-                };
                 int actionIndex = (int)action;
-                while (!buttonActive[actionIndex])
+                while (!ActionButtonManager[actionIndex + 1].isactive)
                 {
                     actionIndex = Math.Mod(actionIndex + 1, 4);
                 }
@@ -746,7 +752,6 @@ public class UIController : MonoBehaviour {
             mercyButtonSprite = SpriteRegistry.Get("UI/Buttons/mercybt_1");
         }
         */
-        ActionButtonManager = new ButtonManager();
         ActionButtonManager.Awake();
         // --------------------------------------------------------------------------------
 
@@ -1239,16 +1244,11 @@ public class UIController : MonoBehaviour {
                 //if (left) actionIndex--;
                 //if (right) actionIndex++;
                 //actionIndex = Math.Mod(actionIndex, 4);
-                bool[] buttonActive = new bool[4] {
-                    LuaButtonController.FIGHT.GetActive(),
-                    LuaButtonController.ACT.GetActive(),
-                    LuaButtonController.ITEM.GetActive(),
-                    LuaButtonController.MERCY.GetActive()
-                };
+                int oldActionIndex = actionIndex;
                 if (left)
                 {
                     actionIndex = Math.Mod(actionIndex - 1, 4);
-                    while (!buttonActive[actionIndex])
+                    while (!ActionButtonManager[actionIndex + 1].isactive)
                     {
                         actionIndex = Math.Mod(actionIndex - 1, 4);
                     }
@@ -1256,7 +1256,7 @@ public class UIController : MonoBehaviour {
                 if (right)
                 {
                     actionIndex = Math.Mod(actionIndex + 1, 4);
-                    while (!buttonActive[actionIndex])
+                    while (!ActionButtonManager[actionIndex + 1].isactive)
                     {
                         actionIndex = Math.Mod(actionIndex + 1, 4);
                     }
@@ -1264,7 +1264,15 @@ public class UIController : MonoBehaviour {
                 // --------------------------------------------------------------------------------
                 action = (Actions)actionIndex;
                 SetPlayerOnAction(action);
-                PlaySound(AudioClipRegistry.GetSound("menumove"));
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //PlaySound(AudioClipRegistry.GetSound("menumove"));
+                if (actionIndex != oldActionIndex)
+                {
+                    PlaySound(AudioClipRegistry.GetSound("menumove"));
+                }
+                // --------------------------------------------------------------------------------
                 break;
 
             case UIState.ENEMYSELECT:
@@ -1460,7 +1468,7 @@ public class UIController : MonoBehaviour {
                 //fightButton.overrideSprite = fightButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(0);
                 //PlayerController.instance.SetPosition(48, 25, true);
-                Vector2 fightPos = LuaButtonController.FIGHT.GetRelativePosition();
+                Vector2 fightPos = ActionButtonManager.FIGHT.RelativePosition;
                 PlayerController.instance.SetPosition(48 + fightPos.x, 25 + fightPos.y, true);
                 break;
 
@@ -1468,7 +1476,7 @@ public class UIController : MonoBehaviour {
                 //actButton.overrideSprite = actButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(1);
                 //PlayerController.instance.SetPosition(202, 25, true);
-                Vector2 actPos = LuaButtonController.ACT.GetRelativePosition();
+                Vector2 actPos = ActionButtonManager.ACT.RelativePosition;
                 PlayerController.instance.SetPosition(202 + actPos.x, 25 + actPos.y, true);
                 break;
 
@@ -1476,7 +1484,7 @@ public class UIController : MonoBehaviour {
                 //itemButton.overrideSprite = itemButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(2);
                 //PlayerController.instance.SetPosition(361, 25, true);
-                Vector2 itemPos = LuaButtonController.ITEM.GetRelativePosition();
+                Vector2 itemPos = ActionButtonManager.ITEM.RelativePosition;
                 PlayerController.instance.SetPosition(361 + itemPos.x, 25 + itemPos.y, true);
                 break;
 
@@ -1484,7 +1492,7 @@ public class UIController : MonoBehaviour {
                 //mercyButton.overrideSprite = mercyButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(3);
                 //PlayerController.instance.SetPosition(515, 25, true);
-                Vector2 mercyPos = LuaButtonController.MERCY.GetRelativePosition();
+                Vector2 mercyPos = ActionButtonManager.MERCY.RelativePosition;
                 PlayerController.instance.SetPosition(515 + mercyPos.x, 25 + mercyPos.y, true);
                 break;
             // --------------------------------------------------------------------------------
@@ -1495,24 +1503,14 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        bool[] buttonActive = new bool[4] {
-            LuaButtonController.FIGHT.GetActive(),
-            LuaButtonController.ACT.GetActive(),
-            LuaButtonController.ITEM.GetActive(),
-            LuaButtonController.MERCY.GetActive()
-        };
         int targetAction = (int)act;
-        if (!buttonActive[targetAction])
+        if (!ActionButtonManager[targetAction + 1].isactive)
             return;
 
         action = act;
 
         if (!updateButton) return;
-        // --------------------------------------------------------------------------------
 
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
         /*
         fightButton.overrideSprite = null;
         actButton.overrideSprite = null;
@@ -1520,11 +1518,7 @@ public class UIController : MonoBehaviour {
         mercyButton.overrideSprite = null;
         */
         ActionButtonManager.HideAllOverrideSprite();
-        // --------------------------------------------------------------------------------
 
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
         // action = act;
         // --------------------------------------------------------------------------------
         SetPlayerOnAction(action);
