@@ -135,22 +135,31 @@ namespace AsteriskMod.Lua
             //button.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
 
-        /*
         public void SetSize(int width, int height)
         {
+            DevelopHint.ToDo("Only v0.5.2.9 Mode");
+            Asterisk.RequireExperimentalFeature("button.SetSize");
+            UIController.ActionButtonManager[buttonID + 1].SetSize(width, height);
+            /*
             Asterisk.RequireExperimentalFeature("button.SetSize");
             button.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(width, height);
+            */
         }
 
         public void ResetSize()
         {
+            DevelopHint.ToDo("Only v0.5.2.9 Mode");
+            Asterisk.RequireExperimentalFeature("button.ResetSize");
+            UIController.ActionButtonManager[buttonID + 1].SetSize(110, 42);
+            /*
             Asterisk.RequireExperimentalFeature("button.SetSize");
             button.GetComponent<Image>().rectTransform.sizeDelta = initSize;
+            */
         }
-        */
 
         public void Scale(float xScale, float yScale)
         {
+            DevelopHint.ToDo("Only v0.5.2.9 Mode");
             Asterisk.RequireExperimentalFeature("button.Scale");
             UIController.ActionButtonManager[buttonID + 1].Scale(xScale, yScale);
             //button.GetComponent<Image>().rectTransform.localScale = new Vector3(xScale, yScale, 1);
@@ -158,6 +167,7 @@ namespace AsteriskMod.Lua
 
         public void Revert()
         {
+            DevelopHint.ToDo("Only v0.5.2.9 Mode");
             UIController.ActionButtonManager[buttonID + 1].Revert(true);
             /*
             ResetColor();

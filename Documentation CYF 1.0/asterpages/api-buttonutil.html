@@ -112,25 +112,37 @@ it's w3c valid, at least
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-api-buttonutil">
             <h2><span class="Asterisk"></span> The ButtonUtil object [E/M/W]</h2><br><br>
+            <p>This is for accessing to each buttons or for changing parameters of buttons at the same time.</p>
+
             <p>
-                You can use this object to modify buttons' parameters.
+                &lt; Technical info &gt;<br>
+                The codes relating the buttons are moved to other new file and cleaned up in v0.5.2.3.<br>
+                namespace is changed <span class="term">AsteriskMod.Lua</span> to <span class="term">AsteriskMod</span>.<br>
+                (However, namespace will be not changed for compatibility if the Mod will be launched as before v0.5.3.)<br>
+                <span class="term">UIController.cs</span> have not contained functions of controlling each buttons. 
+                Instead of that, <span class="term">AsteriskMod.ButtonManager.cs</span> controls all button and <span class="term">AsteriskMod.ActionButton.cs</span> controls each buttons finely.
             </p><br>
 
             <p>
                 <br><span class="function"><span class="userdata">Button</span> ButtonUtil.FIGHT</span>
-                This function returns property of FIGHT Button as Button object.
+                Returns property of FIGHT Button as Button object.
             </p>
             <p>
                 <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ACT</span>
-                This function returns property of ACT Button as Button object.
+                Returns property of ACT Button as Button object.
             </p>
             <p>
                 <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ITEM</span>
-                This function returns property of ITEM Button as Button object.
+                Returns property of ITEM Button as Button object.
             </p>
             <p>
                 <br><span class="function"><span class="userdata">Button</span> ButtonUtil.MERCY</span>
-                This function returns property of MERCY Button as Button object.
+                Returns property of MERCY Button as Button object.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="userdata">Button</span> ButtonUtil[<span class="number"></span> buttonID]</span>
+                Returns Button object from specified button.<br>
+                <span class="term">buttonID</span> should be between <span class="term">1</span>(FIGHT) and <span class="term">4</span>(MERCY).
             </p>
             <p>
                 <br><span class="function">ButtonUtil.SetActives(<span class="boolean"></span> fight = true, <span class="boolean"></span> act = true, <span class="boolean"></span> item = true, <span class="boolean"></span> mercy = true)</span>
@@ -144,9 +156,9 @@ it's w3c valid, at least
                 <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetSprites(<span class="string"></span> dirPath)</span>
+                <br><span class="function">ButtonUtil.SetSprites(<span class="string"></span> buttonSpritePathRoot, <span class="asternew"></span> <span class="boolean"></span> autoResize = false)</span>
                 Sets the sprites of all buttons at once by specifying directory.<br>
-                <span class="term">dirPath</span> need to contain below named png file:
+                <span class="term">buttonSpritePathRoot</span> need to contain below named png file:
                 <table>
                     <tr>
                         <th>Button Name</th>
@@ -174,25 +186,139 @@ it's w3c valid, at least
                         <td>mercybt_1</td>
                     </tr>
                 </table>
+                <span class="asternew"></span> <span class="term">autoResize</span>: Whether button's size will be changed based on sprite's size or not.
+                <br><br>
+                <span class="Asterisk052x"></span> <span class="term">autoResize</span> is always <span class="term">true</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.RevertAll()</span>
-                Revert the parameters of all button.
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColors(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                Sets colors of all button at the same time.<br>
+                Sets the button's color, as 3 or 4 values from 0 to 1.<br>
+                For example, ButtonUtil.SetColors(1.0, 0.0, 0.0) makes the button red.<br>
+                Black areas are not affected by coloration.<br>
+                The 4th value is the alpha (transparency) value of the button.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor32s(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                Sets colors of all button at the same time.<br>
+                Sets the button's color, as 3 or 4 integer values from 0 to 255.<br>
+                For example, ButtonUtil.SetColor32s(255, 0, 0) makes the button red.<br>
+                Black areas are not affected by coloration.<br>
+                The 4th value is the alpha (transparency) value of the button.
+            </p>
+            <p>
+                <br><span class="function">ButtonUtil.RevertAll(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true)</span>
+                Revert the parameters of all button.<br>
+                <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">false</span>, 
+                positions of buttons will not be reverted.
+                <br><br>
+                <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.
             </p>
 
             <br><hr>
+
             <h3>The Button object</h3><br><br>
-            <p>
-                You can modify position, activate and texture of buttons.<br>
-                <span class="asternew"><span class="term">button.ResetPosition()</span> is removed in AsteriskMod v0.5.2.9.</span>
-            </p><br>
+            <p>This is for controlling each buttons for example moves, recolors, and changes sprites.</p><br>
+
             <p>
                 <br><span class="function"><span class="number"></span> button.x</span>
-                Horizontal position of sprite relative to the normal positon.
+                Horizontal position of sprite relative to the initial position.
+                <br><br>
+                Note that each buttons have different anchor of the position.<br>
+                The anchor of <span class="term">FIGHT</span> and <span class="term">ACT</span> is bottom left anchor.<br>
+                The anchor of <span class="term">ITEM</span> and <span class="term">MERCY</span> is bottom right anchor.<br>
             </p>
             <p>
                 <br><span class="function"><span class="number"></span> button.y</span>
-                Vertical position of sprite relative to the normal positon.
+                Vertical position of sprite relative to the initial positon.
+                <br><br>
+                Note that each buttons have different anchor of the position.<br>
+                The anchor of <span class="term">FIGHT</span> and <span class="term">ACT</span> is bottom left anchor.<br>
+                The anchor of <span class="term">ITEM</span> and <span class="term">MERCY</span> is bottom right anchor.<br>
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.absx</span>
+                Horizontal position of sprite relative to the bottom left corner of the screen.
+                <br><br>
+                The anchor of a button's absolute position is always the center of the texture as like sprite object.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.absy</span>
+                Vertical position of sprite relative to the bottom left corner of the screen.
+                <br><br>
+                The anchor of a button's absolute position is always the center of the texture as like sprite object.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.xscale</span>
+                Horizontal scaling of sprite (<span class="term">1.0</span> by default). 
+                <span class="term">2.0</span> is twice as large, <span class="term">0.5</span> is half as large.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.yscale</span>
+                Vertical scaling of sprite (<span class="term">1.0</span> by default). 
+                <span class="term">2.0</span> is twice as large, <span class="term">0.5</span> is half as large.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="boolean"></span> button.isactive (read-only)</span>
+                Returns whether the button is active or inactive.
+                <br><br>
+                <span class="Asterisk052x"></span> checks the active by using <span class="term">button.GetActive()</span> instead of this.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> button.color</span>
+                Gets or sets the coloration of a button, as a table of 3 or 4 values from 0 to 1.
+                <br><br>
+                For example, <span class="term">button.color = {1.0, 0.0, 0.0}</span> colors the button red. This actually overlays the button's original color, so if you want full control over the color, make sure your button is white. <i>Black areas are not affected by coloration.</i>
+                <br><br>
+                You can provide a 4th value, which sets the alpha (transparency) of the button.
+                <br><br>
+                <span class="Asterisk052x"></span> changes color by using <span class="term">button.SetColor()</span> instead of this. There is no method of getting color.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> button.color32</span>
+                Gets or sets the coloration of a button, as a table of 3 or 4 integer values from 0 to 255.
+                <br><br>
+                For example, <span class="term">button.color32 = {255, 0, 0}</span> colors the button red. This actually overlays the button's original color, so if you want full control over the color, make sure your button is white. <i>Black areas are not affected by coloration.</i>
+                <br><br>
+                You can provide a 4th value, which sets the alpha (transparency) of the button.
+                <br><br>
+                <span class="Asterisk052x"></span> changes color by using <span class="term">button.SetColor32()</span> instead of this. There is no method of getting color.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.alpha</span>
+                Gets or sets a button's transparency, as a value from 0 to 1.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.alpha32</span>
+                Gets or sets a button's transparency, as a integer value from 0 to 255.
+            </p>
+            <p>
+                <br><span class="function">button.SetActive(<span class="boolean"></span> active)</span>
+                Either true or false. If false, a button disappear and the player can not select it.<br>
+                <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
+                <br><br>
+                You should use <span class="term">button.alpha</span> just if you just wanna hide a button.
+            </p>
+            <p>
+                <br><span class="function">button.SetSprite(<span class="string"></span> normalSpritePath, <span class="string"></span> overrideSpritePath, <span class="string"></span> prefix = <span class="asternew"></span>"UI/Buttons", <span class="asternew"></span> <span class="boolean"></span> autoResize = false)</span>
+                Change a button's current image. It retains its scaling.
+                <ul>
+                    <li>
+                        <span class="term">normalSpritePath</span>: the image while the player doesn't select.
+                    </li>
+                    <li>
+                        <span class="term">overrideSpritePath</span>: the image when the player select.
+                    </li>
+                    <li>
+                        <span class="term">prefix</span>: adds at the beginning of the above two string.<br>
+                        <span class="asternew"></span> <span class="term">prefix</span> is assgined <span class="term">"UI/Buttons"</span> if you do not assgin.
+                        <br><span class="Asterisk052x"></span> <span class="term">prefix</span> is assgined empty string if you do not assgin.
+                    </li>
+                    <li>
+                        <span class="asternew"></span> <span class="term">autoResize</span>: Whether the size of a button's object will be resized based on the size of a image or not.
+                        <br><span class="Asterisk052x"></span> <span class="term">autoResize</span> is always <span class="term">true</span>.
+                    </li>
+                </ul>
             </p>
             <p>
                 <br><span class="function">button.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
@@ -207,56 +333,42 @@ it's w3c valid, at least
                 See <span class="term">button.x</span> and <span class="term">button.y</span>.
             </p>
             <p>
-                <br><span class="function">button.SetActive(<span class="boolean"></span> active)</span>
-                Either true or false. If false, the button disappear and the player can't select that.
+                <br><span class="function"><span class="asternew"></span> button.MoveToAbs(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Same as setting absx and absy simultaneously. Moves a sprite to an absolute screen position.
+                <br><br>
+                See <span class="term">button.absx</span> and <span class="term">button.absy</span>.
             </p>
             <p>
-                <br><span class="function"><span class="boolean"></span> button.GetActive()</span>
-                This function returns activate of the button.
+                <br><span class="function"><span class="asternew"></span> button.Scale(<span class="number"></span> xScale, <span class="number"></span> yScale)</span>
+                Same as setting xscale and yscale simultaneously.
+                <br><br>
+                See <span class="term">button.xscale</span> and <span class="term">button.yscale</span>.
+                <br><br>
+                <span class="Asterisk052x"></span> This function is <span class="AsteriskExperiment"></span>.
             </p>
             <p>
-                <br><span class="function">button.SetSprite(<span class="string"></span> inactiveTexturePath, <span class="string"></span> activeTexturePath, <span class="asternew"></span> <span class="string"></span> prefix = "")</span>
-                Change the button's current texture.
-                <ul>
-                    <li><span class="term">inactiveTexturePath</span>: the image while the player doesn't select.</li>
-                    <li><span class="term">activeTexturePath</span>: the image when the player select.</li>
-                    <li><span class="asternew"></span> <span class="term">prefix</span>: adds at the beginning of the above two string</li>
-                </ul>
+                <br><span class="function">button.Revert(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true)</span>
+                Revert the all parameter of a button.<br>
+                <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">false</span>, 
+                positions of buttons will not be reverted.
+                <br><br>
+                <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.
             </p>
+
+            <br>
+
             <p>
-                <br><span class="function">button.SetColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1.0)</span>
-                Sets the button's color, as 3 or 4 values from 0 to 1.
-                <br>For example, button.SetColor(1.0, 0.0, 0.0) makes the button red.
-                <br>Black areas are not affected by coloration.
-                <br>The 4th value is the alpha (transparency) value of the button.
-            </p>
-            <p>
-                <br><span class="function">button.SetColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
-                Sets the button's color, as 3 or 4 integer values from 0 to 255.
-                <br>For example, button.SetColor32(255, 0, 0) makes the button red.
-                <br>Black areas are not affected by coloration.
-                <br>The 4th value is the alpha (transparency) value of the button.
-            </p>
-            <p>
-                <br><span class="function">button.ResetColor()</span>
+                <br><span class="function"><span class="Asterisk052x"></span> button.ResetColor()</span>
                 Resets the button's color.
                 <br>This is same as <span class="term">button.SetColor(1, 1, 1, 1)</span> or <span class="term">button.SetColor32(255, 255, 255, 255)</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> button.SetSize(<span class="number"></span> width, <span class="number"></span> height)</span>
+                <br><span class="function"><span class="Asterisk052x"></span> <span class="AsteriskExperiment"></span> button.SetSize(<span class="number"></span> width, <span class="number"></span> height)</span>
                 Sets the size of the button's texture.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> button.ResetSize()</span>
+                <br><span class="function"><span class="Asterisk052x"></span> <span class="AsteriskExperiment"></span> button.ResetSize()</span>
                 Resets the size of the button's texture. maybe (110, 42)
-            </p>
-            <p>
-                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> button.Scale(<span class="number"></span>  xScale, <span class="number"></span>  yScale)</span>
-                Sets the scale of the button's texture.
-            </p>
-            <p>
-                <br><span class="function"><span class="asternew"></span> button.Revert()</span>
-                Revert the parameters of the button.
             </p>
         </div>
 

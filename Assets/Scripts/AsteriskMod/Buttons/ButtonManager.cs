@@ -40,6 +40,10 @@ namespace AsteriskMod
 
         private static readonly string[] ButtonObjectNames = new string[4] { "FightBt", "ActBt", "ItemBt", "MercyBt" };
 
+        private static readonly float[] AbsAdjX = new float[4] { 0, 0, 0, 0 };
+        private static readonly float[] AbsAdjY = new float[4] { 0, 0, 0, 0 };
+
+
         [MoonSharpHidden]
         /// <summary>Call in UIController.Start()</summary>
         internal void Start()

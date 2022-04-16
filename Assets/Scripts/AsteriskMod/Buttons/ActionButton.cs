@@ -65,9 +65,8 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
         private string _normalSpritePath, _overrideSpritePath;
 
-        [MoonSharpHidden]
         /// <summary>Initialize parameters for customize button</summary>
-        internal void Initialize()
+        private void Initialize()
         {
             isactive = true;
             RelativePosition = Vector2.zero;
@@ -119,15 +118,30 @@ namespace AsteriskMod
             set { MoveTo(x, value); }
         }
 
+        private float GetAbsX() // I don't like this method, but I could not found better others.
+        {
+            if (_buttonID <= 1) // FIGHT & ACT
+            {
+                return _gameObject.transform.position.x + _button.GetComponent<RectTransform>().sizeDelta.x / 2;
+            }
+            // ITEM & MERCY
+            return _gameObject.transform.position.x - _button.GetComponent<RectTransform>().sizeDelta.x / 2;
+        }
+
+        private float GetAbsY()
+        {
+            return _gameObject.transform.position.y + _button.GetComponent<RectTransform>().sizeDelta.y / 2;
+        }
+
         public int absx
         {
-            get { return Mathf.FloorToInt(_gameObject.transform.position.x); }
+            get{ return Mathf.FloorToInt(GetAbsX()); }
             set { MoveToAbs(value, absy); }
         }
 
         public int absy
         {
-            get { return Mathf.FloorToInt(_gameObject.transform.position.y); }
+            get { return Mathf.FloorToInt(GetAbsY()); }
             set { MoveToAbs(absx, value); }
         }
 
@@ -143,10 +157,25 @@ namespace AsteriskMod
             _button.GetComponent<RectTransform>().anchoredPosition = initPos + RelativePosition;
         }
 
+        private float ConvertToAbsX(float x) // I don't like this method, but I could not found better others.
+        {
+            if (_buttonID <= 1) // FIGHT & ACT
+            {
+                return x - _button.GetComponent<RectTransform>().sizeDelta.x / 2;
+            }
+            // ITEM & MERCY
+            return x + _button.GetComponent<RectTransform>().sizeDelta.x / 2;
+        }
+
+        private float ConvertToAbsY(float y) // I don't like this method, but I could not found better others.
+        {
+            return y - _button.GetComponent<RectTransform>().sizeDelta.y / 2;
+        }
+
         public void MoveToAbs(int newX, int newY)
         {
             Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - RelativePosition;
-            _gameObject.transform.position = new Vector3(newX, newY, _gameObject.transform.position.z);
+            _gameObject.transform.position = new Vector3(ConvertToAbsX(newX), ConvertToAbsY(newY), _gameObject.transform.position.z);
             RelativePosition = _button.GetComponent<RectTransform>().anchoredPosition - initPos;
         }
 
@@ -256,6 +285,12 @@ namespace AsteriskMod
                 _button.GetComponent<RectTransform>().anchoredPosition -= RelativePosition;
                 RelativePosition = Vector2.zero;
             }
+        }
+
+        [MoonSharpHidden]
+        internal void SetSize(int width, int height)
+        {
+            _button.rectTransform.sizeDelta = new Vector2(width, height);
         }
     }
 }
