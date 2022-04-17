@@ -22,7 +22,6 @@ namespace AsteriskMod
         [MoonSharpHidden] public int _textMaxWidth;
         private int currentCharacter;
         public int currentReferenceCharacter;
-        private bool currentSkippable = true;
         private bool decoratedTextOffset;
         [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated; //const wasStated = false
         private RectTransform self;
@@ -194,8 +193,6 @@ namespace AsteriskMod
             currentReferenceCharacter = 0;
         }
 
-        [MoonSharpHidden] public bool CanSkip() { return currentSkippable; }
-
         [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
         [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
         [MoonSharpHidden] public bool CanAutoSkipAll() { return autoSkipAll; }
@@ -256,7 +253,6 @@ namespace AsteriskMod
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
-            currentSkippable = true;
             autoSkipThis = false;
             autoSkip = false;
             autoSkipAll = false;
@@ -814,10 +810,6 @@ namespace AsteriskMod
                         InUpdateControlCommand(DynValue.NewString(command));
                     break;
 
-                case "noskip":
-                    if (args.Length == 0) currentSkippable = false;
-                    break;
-
                 case "font":
                     UnderFont uf = SpriteFontRegistry.Get(cmds[1]);
                     if (uf == null)
@@ -848,11 +840,6 @@ namespace AsteriskMod
             //print("Frame " + GlobalControls.frame + ": Command " + cmds[0].ToLower() + " found for " + gameObject.name);
             switch (cmds[0].ToLower())
             {
-                case "noskip":
-                    if (args.Length == 0) currentSkippable = false;
-                    else if (args[0] == "off") currentSkippable = true;
-                    break;
-
                 case "next": autoSkipAll = true; break;
                 case "finished": autoSkipThis = true; break;
                 case "nextthisnow": autoSkip = true; break;
@@ -931,37 +918,6 @@ namespace AsteriskMod
                     currentReferenceCharacter = pos;
                     break;
             }
-        }
-
-        private float CreateNumber(string str)
-        {
-            float number = 0, dot = -1;
-            int index = 0;
-            bool negative = false;
-            foreach (char c in str)
-            {
-                switch (c)
-                {
-                    case '-': negative = true; continue;
-                    case ' ':
-                        {
-                            if (dot != -1)
-                                dot++;
-                            continue;
-                        }
-                    case '.':
-                        dot = index;
-                        index++;
-                        continue;
-                }
-
-                if (dot == -1) number = number * 10 + c - 48;
-                else number += ((float)c - 48) / Mathf.Pow(10, -(dot - index));
-                index++;
-            }
-            if (negative)
-                return -number;
-            return number;
         }
     }
 }

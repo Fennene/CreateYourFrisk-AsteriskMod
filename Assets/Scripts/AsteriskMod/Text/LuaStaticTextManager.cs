@@ -54,7 +54,7 @@ namespace AsteriskMod
             if (!isactive) return;
             if (CanAutoSkipAll() || CanAutoSkipThis())
                 Advance();
-            if (CanSkip() && !LineComplete() && GlobalControls.input.Cancel == UndertaleInput.ButtonState.PRESSED)
+            if (/*![noskip] && */!LineComplete() && GlobalControls.input.Cancel == UndertaleInput.ButtonState.PRESSED)
                 DoSkipFromPlayer();
         }
 
