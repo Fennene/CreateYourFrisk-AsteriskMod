@@ -16,8 +16,7 @@ namespace AsteriskMod
         internal Vector2[] letterPositions;
 
         protected UnderFont default_charset;
-        public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "instant", "font", "noskip",
-                                                        "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters" };
+        public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "instant", "font" };
         public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
         private int currentCharacter;
@@ -62,7 +61,6 @@ namespace AsteriskMod
         [MoonSharpHidden] public TextMessage[] textQueue;
         [MoonSharpHidden] public InstantTextMessage text;
         //public bool overworld;
-        [MoonSharpHidden] public bool blockSkip;
         [MoonSharpHidden] public bool skipNowIfBlocked = false;
         internal bool noSkip1stFrame = true;
 
@@ -81,7 +79,7 @@ namespace AsteriskMod
             colorSet = false;
             letterTimer = 0.0f;
             textQueue = null;
-            blockSkip = false;
+            text = null;
         }
 
         [MoonSharpHidden] public void SetCaller(ScriptWrapper s) { caller = s; }
@@ -136,24 +134,10 @@ namespace AsteriskMod
             // SetText(new TextMessage(new string[] { "Check", "Compliment", "Ignore", "Steal", "trow temy", "Jerry" }, false));
         }
 
-        [MoonSharpHidden]
-        public bool IsFinished()
+        public void SetText(InstantTextMessage instantText)
         {
-            if (letterReferences == null)
-                return false;
-            return currentCharacter >= letterReferences.Length;
-        }
-
-        public void SetText(TextMessage text) { SetTextQueue(new[] { text }); }
-
-        [MoonSharpHidden]
-        public void SetTextQueue(TextMessage[] newTextQueue)
-        {
-            if (UnitaleUtil.IsOverworld && (gameObject.name == "TextManager OW"))
-                PlayerOverworld.AutoSetUIPos();
-
             ResetFont();
-            textQueue = newTextQueue;
+            text = instantText;
             currentLine = 0;
             ShowLine(0);
         }
@@ -249,46 +233,6 @@ namespace AsteriskMod
             SpawnText(forceNoAutoLineBreak);
             //if (!overworld)
             //    UIController.instance.encounter.CallOnSelfOrChildren("AfterText");
-            if (UnitaleUtil.IsOverworld && textframe != null && this == PlayerOverworld.instance.textmgr)
-            {
-                if (textQueue[line].ActualText)
-                {
-                    if (textframe.GetComponent<Image>().color.a == 0)
-                        SetTextFrameAlpha(1);
-                    blockSkip = false;
-                }
-                else
-                {
-                    if ((textframe.GetComponent<Image>().color.a == 1))
-                        SetTextFrameAlpha(0);
-                    blockSkip = true;
-                    DestroyChars();
-                }
-            }
-
-            // Move the text up a little if there are more than 3 lines so they can possibly fit in the arena
-            if (!GlobalControls.retroMode && !UnitaleUtil.IsOverworld && UIController.instance && this == UIController.instance.mainTextManager)
-            {
-                int lines = (textQueue[line].Text.Split('\n').Length > 3 && (UIController.instance.state == UIController.UIState.ACTIONSELECT || UIController.instance.state == UIController.UIState.DIALOGRESULT)) ? 4 : 3;
-                Vector3 pos = self.localPosition;
-
-                // remove the offset
-                self.localPosition = new Vector3(pos.x, pos.y - (decoratedTextOffset ? 9 : 0), pos.z);
-                pos = self.localPosition;
-                decoratedTextOffset = false;
-
-                // add the offset if necessary
-                if (lines != 4) return;
-                decoratedTextOffset = true;
-                self.localPosition = new Vector3(pos.x, pos.y + (decoratedTextOffset ? 9 : 0), pos.z);
-            }
-            else if (gameObject.name == "TextManager OW")
-            {
-                int lines = textQueue[line].Text.Split('\n').Length;
-                lines = lines >= 4 ? 4 : 3;
-                Vector3 pos = gameObject.GetComponent<RectTransform>().localPosition;
-                gameObject.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, 22 + ((lines - 1) * Charset.LineSpacing / 2), pos.z);
-            }
         }
 
         [MoonSharpHidden]
@@ -768,18 +712,6 @@ namespace AsteriskMod
             //print("Frame " + GlobalControls.frame + ": Command " + cmds[0].ToLower() + " found for " + gameObject.name);
             switch (cmds[0].ToLower())
             {
-                case "noskipatall": blockSkip = true; break;
-                //case "speed":       letterSpeed = Int32.Parse(args[0]);                            break;
-                case "speed":
-                    //you can only set text speed to a number >= 0
-                    float newSpeedValue = float.Parse(args[0]);
-                    // protect against divide-by-zero errors
-                    if (newSpeedValue > 0f)
-                        timePerLetter = singleFrameTiming / newSpeedValue;
-                    else if (newSpeedValue == 0f)
-                        timePerLetter = 0f;
-                    break;
-
                 case "instant":
                     if (args.Length != 0 && (args.Length > 1 || args[0] != "allowcommand"))
                         break;

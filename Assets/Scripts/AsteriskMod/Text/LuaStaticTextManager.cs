@@ -371,16 +371,10 @@ namespace AsteriskMod
             // disable late start if SetText is used on the same frame the text is created
             lateStartWaiting = false;
 
-            if (text == null || text.Type != DataType.Table && text.Type != DataType.String)
-                throw new CYFException("Text.SetText: the text argument must be a non-empty array of strings or a simple string.");
+            if (text == null || text.Type != DataType.String)
+                throw new CYFException("StaticText.SetText: the text argument must be a non-empty array of strings or a simple string.");
 
-            // Converts the text argument into a table if it's a simple string
-            text = text.Type == DataType.String ? DynValue.NewTable(null, text) : text;
-
-            TextMessage[] msgs = new TextMessage[text.Table.Length];
-            for (int i = 0; i < text.Table.Length; i++)
-                msgs[i] = new TextMessage(text.Table.Get(i + 1).String, false, false);
-            try { SetTextQueue(msgs); }
+            try { base.SetText(new InstantTextMessage(text.String)); }
             catch { /* ignored */ }
         }
 
