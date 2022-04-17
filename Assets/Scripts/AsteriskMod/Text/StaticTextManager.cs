@@ -853,11 +853,6 @@ namespace AsteriskMod
                     else if (args[0] == "off") currentSkippable = true;
                     break;
 
-                case "waitfor":
-                    try { waitingChar = (KeyCode)Enum.Parse(typeof(KeyCode), cmds[1]); }
-                    catch { throw new CYFException("The key \"" + cmds[1] + "\" isn't a valid key."); }
-                    break;
-
                 case "next": autoSkipAll = true; break;
                 case "finished": autoSkipThis = true; break;
                 case "nextthisnow": autoSkip = true; break;
