@@ -41,7 +41,6 @@ namespace AsteriskMod
         private bool instantActive; // Will be true if "[instant]" or "[instant:allowcommand]" have been activated
         private bool instantCommand; // Will be true only if "[instant:allowcommand]" has been activated
 
-        private bool autoSkip;
         private bool skipFromPlayer;
         private bool firstChar;
         internal float hSpacing = 3;
@@ -78,7 +77,6 @@ namespace AsteriskMod
             decoratedTextOffset = false;
             instantActive = false;
             instantCommand = false;
-            autoSkip = false;
             skipFromPlayer = false;
             firstChar = false;
             vSpacing = 0;
@@ -177,8 +175,6 @@ namespace AsteriskMod
             currentReferenceCharacter = 0;
         }
 
-        [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
-
         [Obsolete]
         public int LineCount()
         {
@@ -235,7 +231,6 @@ namespace AsteriskMod
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
-            autoSkip = false;
             instantCommand = false;
             skipFromPlayer = false;
             firstChar = false;
@@ -782,7 +777,6 @@ namespace AsteriskMod
             //print("Frame " + GlobalControls.frame + ": Command " + cmds[0].ToLower() + " found for " + gameObject.name);
             switch (cmds[0].ToLower())
             {
-                case "nextthisnow": autoSkip = true; break;
                 case "noskipatall": blockSkip = true; break;
                 //case "speed":       letterSpeed = Int32.Parse(args[0]);                            break;
                 case "speed":
