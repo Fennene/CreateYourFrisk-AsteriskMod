@@ -52,7 +52,7 @@ namespace AsteriskMod
 
             //Next line/EOF check
             if (!isactive) return;
-            if (CanAutoSkipAll() || CanAutoSkipThis())
+            if (/*[next] ||*/ CanAutoSkipThis())
                 Advance();
             if (/*![noskip] && */!LineComplete() && GlobalControls.input.Cancel == UndertaleInput.ButtonState.PRESSED)
                 DoSkipFromPlayer();

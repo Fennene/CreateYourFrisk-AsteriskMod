@@ -42,9 +42,7 @@ namespace AsteriskMod
         private bool instantCommand; // Will be true only if "[instant:allowcommand]" has been activated
 
         private bool paused;
-        private bool muted;
         private bool autoSkipThis;
-        private bool autoSkipAll;
         private bool autoSkip;
         private bool skipFromPlayer;
         private bool firstChar;
@@ -84,7 +82,6 @@ namespace AsteriskMod
             decoratedTextOffset = false;
             instantActive = false;
             instantCommand = false;
-            autoSkipAll = false;
             autoSkip = false;
             skipFromPlayer = false;
             firstChar = false;
@@ -160,8 +157,6 @@ namespace AsteriskMod
             return currentCharacter >= letterReferences.Length;
         }
 
-        [MoonSharpHidden] public void SetMute(bool newMuted) { muted = newMuted; }
-
         public void SetText(TextMessage text) { SetTextQueue(new[] { text }); }
 
         [MoonSharpHidden]
@@ -193,7 +188,6 @@ namespace AsteriskMod
 
         [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
         [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
-        [MoonSharpHidden] public bool CanAutoSkipAll() { return autoSkipAll; }
 
         [Obsolete]
         public int LineCount()
@@ -253,7 +247,6 @@ namespace AsteriskMod
             colorSet = false;
             autoSkipThis = false;
             autoSkip = false;
-            autoSkipAll = false;
             instantCommand = false;
             skipFromPlayer = false;
             firstChar = false;
@@ -819,7 +812,6 @@ namespace AsteriskMod
             //print("Frame " + GlobalControls.frame + ": Command " + cmds[0].ToLower() + " found for " + gameObject.name);
             switch (cmds[0].ToLower())
             {
-                case "next": autoSkipAll = true; break;
                 case "finished": autoSkipThis = true; break;
                 case "nextthisnow": autoSkip = true; break;
                 case "noskipatall": blockSkip = true; break;
