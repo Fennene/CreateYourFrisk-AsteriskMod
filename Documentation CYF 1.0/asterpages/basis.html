@@ -38,7 +38,7 @@ it's w3c valid, at least
                     <li><a href="../pages/terms.html">Terminology</a></li>
                 <li class="li-header">API</li>
                     <li><a href="../pages/api-text.html">Text commands</a></li>
-                    <li class="aster"><a href="../pages/api-events.html">Game events</a></li>
+                    <li class="asternew"><a href="../pages/api-events.html">Game events</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                     <li class="li-indent">Functions &amp; Objects:</li>
                         <li class="li-indent aster"><a href="../pages/api-functions-main.html">Misc. Functions</a></li>
@@ -55,12 +55,13 @@ it's w3c valid, at least
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                     <li><a href="../pages/api-projectile.html">Projectile management</a></li>
                     <li><a href="../pages/cyf-ppcollision.html"><span class="CYF"></span> The Pixel-Perfect Collision System</a></li>
-                    <li class="aster"><a href="../pages/api-animation.html">Sprites &amp; Animation</a></li>
-                    <li class="aster"><a href="../pages/cyf-text.html"><span class="CYF"></span> The Text Object</a></li>
+                    <li class="asternew"><a href="../pages/api-animation.html">Sprites &amp; Animation</a></li>
+                    <li class="asternew"><a href="../pages/cyf-text.html"><span class="CYF"></span> The Text Object</a></li>
                     <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
                 <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
-                    <li class="active" style="margin-left:5px;">&gt; About &lt;</a></li>
+                    <li class="active" style="margin-left:5px;">&gt; About &lt;</li>
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
+                    <li class="asternew"><a href="update-guide.html">Update Migration Guide</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
@@ -110,7 +111,7 @@ it's w3c valid, at least
 
             <font color="#FFF">
             <p>* Create Your Frisk - Asterisk Mod</p>
-            <p>* v0.5.2.9 &nbsp;[QualityOfLifeUpdate]</p>
+            <p>* v0.5.3 &nbsp;[TakeNewStepUpdate]</p>
             <p>* by Nil256</p>
             </font>
 
@@ -197,7 +198,7 @@ it's w3c valid, at least
             <h3>Symbols in this document</h3><br><br>
 
             <p>
-                There are new 6 symbols in this documentaion and those means:<br>
+                There are new 7 symbols in this documentaion and those means:<br>
                 <ul>
                     <li>
                         <span class="Asterisk"></span> are only usable in AsteriskMod.
@@ -210,13 +211,17 @@ it's w3c valid, at least
                         <span class="Delete"></span> means it may be deleted by Asterisk Mod v0.5.4.
                     </li><br>
                     <li>
+                        <span class="Asterisk052x"></span> means it was deleted by Asterisk Mod v0.5.3.<br>
+                        This is different from <span class="Delete"></span>, the content was really DELETED and you can NOT use that in v0.5.3.
+                    </li><br>
+                    <li>
                         <span class="Future"></span> means it will be added in future update.
                     </li>
                     <li>
                         <span class="aster">Indicates <u>new or changed CYF's content</u> in Asterisk Mod.</span>
                     </li>
                     <li>
-                        <span class="asternew">Indicates <u>new or changed content</u> in Asterisk Mod v0.5.2.9.</span>
+                        <span class="asternew">Indicates <u>new or changed content</u> in Asterisk Mod v0.5.3.</span>
                     </li>
                 </ul>
             </p><br>
@@ -262,7 +267,7 @@ it's w3c valid, at least
             <p>
                 <ul class="rn">
                     <li class="modify">
-                        Renew <span class="term">The ButtonUtil Object</span>.<br>
+                        Renew <span class="term"><a href="api-buttonutil.html#ButtonUtil">The ButtonUtil Object</a></span>.<br>
                         <ul>
                             <li>
                                 Add the second argument <span class="term">autoResize</span> in <span class="term">ButtonUtil.SetSprites()</span>
@@ -282,7 +287,7 @@ it's w3c valid, at least
                         </ul>
                     </li>
                     <li class="modify">
-                        Renew <span class="term">The Button Object</span>.<br>
+                        Renew <span class="term"><a href="api-buttonutil.html#Button">The Button Object</a></span>.<br>
                         <ul>
                             <li>
                                 Add the read-only parameter <span class="term">button.isactive</span> instead of <span class="term">button.GetActive()</span>
@@ -329,7 +334,18 @@ it's w3c valid, at least
                         </ul>
                     </li>
                     <li>
-                        Add <span class="term">The Engine Object</span>.
+                        Add <span class="term">The Engine Object</span>.<br>
+                        <ul>
+                            <li>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetTargetFrameRate()</span>.
+                            </li>
+                            <li>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>
+                            </li>
+                            <li>
+                                Add the funtion <span class="term">Engine.ModExists()</span>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <font color="#FFF">Add the new content <span class="term">GameObject Modifying System</span>.</font>
