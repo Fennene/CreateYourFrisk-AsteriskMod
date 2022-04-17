@@ -50,7 +50,6 @@ namespace AsteriskMod
         internal float vSpacing;
         private GameObject textframe;
         // private int letterSpeed = 1;
-        private int letterOnceValue;
         private KeyCode waitingChar = KeyCode.None;
 
         protected Color currentColor = Color.white;
@@ -66,7 +65,7 @@ namespace AsteriskMod
 
         [MoonSharpHidden] public UnderFont Charset { get; protected set; }
         [MoonSharpHidden] public TextMessage[] textQueue;
-        //public string[] mugshotsPath;
+        [MoonSharpHidden] public InstantTextMessage text;
         //public bool overworld;
         [MoonSharpHidden] public bool blockSkip;
         [MoonSharpHidden] public bool skipNowIfBlocked = false;
@@ -86,7 +85,6 @@ namespace AsteriskMod
             skipFromPlayer = false;
             firstChar = false;
             vSpacing = 0;
-            letterOnceValue = 0;
             colorSet = false;
             letterTimer = 0.0f;
             textQueue = null;
@@ -696,7 +694,6 @@ namespace AsteriskMod
                 {
                     if (!HandleShowLetter(ref lastLetter))
                     {
-                        HandleShowLettersOnce(ref lastLetter);
                         return;
                     }
 
@@ -713,24 +710,14 @@ namespace AsteriskMod
             noSkip1stFrame = false;
         }
 
-        private void HandleShowLettersOnce(ref int lastLetter)
-        {
-            while (letterOnceValue != 0 && !instantCommand)
-            {
-                if (!HandleShowLetter(ref lastLetter)) return;
-                letterOnceValue--;
-            }
-        }
-
         private bool HandleShowLetter(ref int lastLetter)
         {
             if (lastLetter != currentCharacter && ((!GlobalControls.retroMode && (!instantActive || instantCommand)) || GlobalControls.retroMode))
             {
                 float oldLetterTimer = letterTimer;
-                int oldLetterOnceValue = letterOnceValue;
                 lastLetter = currentCharacter;
                 while (CheckCommand())
-                    if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || waitingChar != KeyCode.None || letterOnceValue != oldLetterOnceValue || paused)
+                    if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || waitingChar != KeyCode.None || paused)
                         return false;
                 if (currentCharacter >= letterReferences.Length)
                     return false;
@@ -824,10 +811,6 @@ namespace AsteriskMod
                         timePerLetter = singleFrameTiming / newSpeedValue;
                     else if (newSpeedValue == 0f)
                         timePerLetter = 0f;
-                    break;
-
-                case "letters":
-                    letterOnceValue = int.Parse(args[0]);
                     break;
 
                 case "instant":
