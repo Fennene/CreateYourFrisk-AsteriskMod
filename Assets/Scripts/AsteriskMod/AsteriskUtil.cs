@@ -15,19 +15,18 @@ namespace AsteriskMod
         {
             float totalWidth = 0, totalWidthSpaceTest = 0, totalMaxWidth = 0, hSpacing = txtmgr.Charset.CharSpacing;
             if (fromLetter == -1) fromLetter = 0;
-            if (txtmgr.textQueue == null) return 0;
-            if (txtmgr.textQueue[txtmgr.currentLine] == null) return 0;
-            if (toLetter == -1) toLetter = txtmgr.textQueue[txtmgr.currentLine].Text.Length - 1;
-            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.textQueue[txtmgr.currentLine].Text.Length) return -1;
+            if (txtmgr.text == null) return 0;
+            if (toLetter == -1) toLetter = txtmgr.text.Text.Length - 1;
+            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.text.Text.Length) return -1;
 
             for (int i = fromLetter; i <= toLetter; i++)
             {
-                switch (txtmgr.textQueue[txtmgr.currentLine].Text[i])
+                switch (txtmgr.text.Text[i])
                 {
                     case '[':
 
-                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.textQueue[txtmgr.currentLine].Text[i]))
-                            totalWidth += txtmgr.Charset.Letters[txtmgr.textQueue[txtmgr.currentLine].Text[i]].textureRect.size.x + hSpacing;
+                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.text.Text[i]))
+                            totalWidth += txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.x + hSpacing;
                         break;
                     case '\r':
                     case '\n':
@@ -37,11 +36,11 @@ namespace AsteriskMod
                         totalWidthSpaceTest = 0;
                         break;
                     default:
-                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.textQueue[txtmgr.currentLine].Text[i]))
+                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.text.Text[i]))
                         {
-                            totalWidth += txtmgr.Charset.Letters[txtmgr.textQueue[txtmgr.currentLine].Text[i]].textureRect.size.x + hSpacing;
+                            totalWidth += txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.x + hSpacing;
                             // Do not count end of line spaces
-                            if (txtmgr.textQueue[txtmgr.currentLine].Text[i] != ' ' || countEOLSpace)
+                            if (txtmgr.text.Text[i] != ' ' || countEOLSpace)
                                 totalWidthSpaceTest = totalWidth;
                         }
                         break;
@@ -56,16 +55,16 @@ namespace AsteriskMod
         {
             float maxY = -999, minY = 999;
             if (fromLetter == -1) fromLetter = 0;
-            if (toLetter == -1) toLetter = txtmgr.textQueue[txtmgr.currentLine].Text.Length;
-            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.textQueue[txtmgr.currentLine].Text.Length) return -1;
+            if (toLetter == -1) toLetter = txtmgr.text.Text.Length;
+            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.text.Text.Length) return -1;
             if (fromLetter == toLetter) return 0;
             for (int i = fromLetter; i < toLetter; i++)
             {
-                if (!txtmgr.Charset.Letters.ContainsKey(txtmgr.textQueue[txtmgr.currentLine].Text[i])) continue;
+                if (!txtmgr.Charset.Letters.ContainsKey(txtmgr.text.Text[i])) continue;
                 if (txtmgr.letterPositions[i].y < minY)
                     minY = txtmgr.letterPositions[i].y;
-                if (txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.textQueue[txtmgr.currentLine].Text[i]].textureRect.size.y > maxY)
-                    maxY = txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.textQueue[txtmgr.currentLine].Text[i]].textureRect.size.y;
+                if (txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.y > maxY)
+                    maxY = txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.y;
             }
             return maxY - minY;
         }

@@ -21,7 +21,6 @@ namespace AsteriskMod
         [MoonSharpHidden] public int _textMaxWidth;
         private int currentCharacter;
         public int currentReferenceCharacter;
-        private bool decoratedTextOffset;
         private RectTransform self;
         [MoonSharpHidden] public Vector2 offset;
         private bool offsetSet;
@@ -58,7 +57,6 @@ namespace AsteriskMod
         [MoonSharpHidden] public ScriptWrapper caller;
 
         [MoonSharpHidden] public UnderFont Charset { get; protected set; }
-        [MoonSharpHidden] public TextMessage[] textQueue;
         [MoonSharpHidden] public InstantTextMessage text;
         //public bool overworld;
         [MoonSharpHidden] public bool skipNowIfBlocked = false;
@@ -71,14 +69,12 @@ namespace AsteriskMod
             _textMaxWidth = 0;
             currentCharacter = 0;
             currentReferenceCharacter = 0;
-            decoratedTextOffset = false;
-            instantActive = false;
+            instantActive = true;
             instantCommand = false;
             skipFromPlayer = false;
             vSpacing = 0;
             colorSet = false;
             letterTimer = 0.0f;
-            textQueue = null;
             text = null;
         }
 
@@ -157,14 +153,6 @@ namespace AsteriskMod
             currentReferenceCharacter = 0;
         }
 
-        [Obsolete]
-        public int LineCount()
-        {
-            if (textQueue == null)
-                return 0;
-            return textQueue.Length;
-        }
-
         [MoonSharpHidden]
         public void SetOffset(float xOff, float yOff)
         {
@@ -183,7 +171,7 @@ namespace AsteriskMod
         [MoonSharpHidden, Obsolete]
         public bool AllLinesComplete()
         {
-            return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
+            return text == null || currentLine == 0 && LineComplete();
         }
 
         protected void ShowLine(int line, bool forceNoAutoLineBreak = false)
@@ -203,9 +191,13 @@ namespace AsteriskMod
                         self.localPosition = new Vector3(-150, self.localPosition.y, self.localPosition.z);
                     }
             }*/
+
+            if (text == null)
+            /*
             if (textQueue == null) return;
             if (line >= textQueue.Length) return;
             if (textQueue[line] == null) return;
+            */
 
             if (!offsetSet)
                 SetOffset(0, 0);
@@ -229,7 +221,7 @@ namespace AsteriskMod
                             print("currentY from ShowLine (" + textQueue[currentLine].Text + ") = " + self.position.y + " + " + offset.y + " - " + Charset.LineSpacing + " = " + currentY);*/
             currentCharacter = 0;
             currentReferenceCharacter = 0;
-            instantActive = textQueue[line].ShowImmediate;
+            instantActive = true;
             SpawnText(forceNoAutoLineBreak);
             //if (!overworld)
             //    UIController.instance.encounter.CallOnSelfOrChildren("AfterText");
@@ -260,8 +252,6 @@ namespace AsteriskMod
                 img.color = new Color(img.color.r, img.color.g, img.color.b, a);
         }
 
-        [MoonSharpHidden] public bool HasNext() { return currentLine + 1 < LineCount(); }
-
         [MoonSharpHidden] public void NextLineText() { ShowLine(++currentLine); }
 
         [MoonSharpHidden]
@@ -270,7 +260,8 @@ namespace AsteriskMod
             if (noSkip1stFrame) return;
             while (currentCharacter < letterReferences.Length)
             {
-                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
+                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(text.Text[currentCharacter]))
+                //if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
                 {
                     letterReferences[currentCharacter].enabled = true;
                     currentReferenceCharacter++;
@@ -300,12 +291,14 @@ namespace AsteriskMod
             if (noSkip1stFrame) return;
             while (currentCharacter < letterReferences.Length)
             {
-                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
+                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(text.Text[currentCharacter]))
+                //if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
                 {
                     letterReferences[currentCharacter].enabled = true;
                     letterReferences[currentCharacter].GetComponent<Letter>().effect = null;
                     currentReferenceCharacter++;
-                    switch (textQueue[currentLine].Text[currentCharacter])
+                    switch (text.Text[currentCharacter])
+                    //switch (textQueue[currentLine].Text[currentCharacter])
                     {
                         case '\t':
                             {
@@ -336,8 +329,8 @@ namespace AsteriskMod
         private void SpawnTextSpaceTest(int i, string currentText, out string currentText2)
         {
             currentText2 = currentText;
-            bool decorated = textQueue[currentLine].Decorated;
-            float decorationLength = decorated ? AsteriskUtil.CalcTextWidth(this, 0, 1, true, true) : 0;
+            //bool decorated = textQueue[currentLine].Decorated;
+            //float decorationLength = decorated ? AsteriskUtil.CalcTextWidth(this, 0, 1, true, true) : 0;
 
             // Gets the first character of the line and the last character after the current space
             int finalIndex = i + 1, beginIndex = i;
@@ -356,26 +349,31 @@ namespace AsteriskMod
             {
                 // If the line's too long, do something!
                 int wordBeginIndex = currentText2[i] == ' ' ? i + 1 : i;
-                if (AsteriskUtil.CalcTextWidth(this, wordBeginIndex, finalIndex) > _textMaxWidth - decorationLength)
+                if (AsteriskUtil.CalcTextWidth(this, wordBeginIndex, finalIndex) > _textMaxWidth)// - decorationLength)
                 {
                     // Word is taking the entire line
                     for (int currentIndex = wordBeginIndex; currentIndex <= finalIndex; currentIndex++)
                     {
                         if (!(AsteriskUtil.CalcTextWidth(this, beginIndex, currentIndex) > _textMaxWidth)) continue;
-                        currentText2 = currentText2.Substring(0, currentIndex) + "\n" + (decorated ? "  " : "") + currentText2.Substring(currentIndex, currentText2.Length - currentIndex);
-                        textQueue[currentLine].Text = currentText2;
-                        finalIndex += decorated ? 3 : 1;
+                        currentText2 = currentText2.Substring(0, currentIndex) + "\n" + currentText2.Substring(currentIndex, currentText2.Length - currentIndex);
+                        //currentText2 = currentText2.Substring(0, currentIndex) + "\n" + (decorated ? "  " : "") + currentText2.Substring(currentIndex, currentText2.Length - currentIndex);
+                        text.Text = currentText2;
+                        //textQueue[currentLine].Text = currentText2;
+                        finalIndex += 1;
+                        //finalIndex += decorated ? 3 : 1;
                         beginIndex = currentIndex;
                     }
                 }
                 else
                     // Line is too long
-                    currentText2 = currentText2.Substring(0, wordBeginIndex - 1) + "\n" + (decorated ? "  " : "") + currentText2.Substring(wordBeginIndex, currentText.Length - wordBeginIndex);
+                    currentText2 = currentText2.Substring(0, wordBeginIndex - 1) + "\n" + currentText2.Substring(wordBeginIndex, currentText.Length - wordBeginIndex);
+                    //currentText2 = currentText2.Substring(0, wordBeginIndex - 1) + "\n" + (decorated ? "  " : "") + currentText2.Substring(wordBeginIndex, currentText.Length - wordBeginIndex);
 
                 Array.Resize(ref letterReferences, currentText2.Length);
                 Array.Resize(ref letterPositions, currentText2.Length);
             }
-            textQueue[currentLine].Text = currentText2;
+            text.Text = currentText2;
+            //textQueue[currentLine].Text = currentText2;
         }
 
         private void CreateLetter(string currentText, int index, bool insert = false)
@@ -416,7 +414,8 @@ namespace AsteriskMod
             }
             else ltrImg.color = currentColor;
             ltrImg.GetComponent<Letter>().colorFromText = currentColor;
-            ltrImg.enabled = textQueue[currentLine].ShowImmediate || (GlobalControls.retroMode && instantActive);
+            ltrImg.enabled = true;
+            //ltrImg.enabled = textQueue[currentLine].ShowImmediate || (GlobalControls.retroMode && instantActive);
         }
 
         private void MoveLetter(string currentText, int index, RectTransform ltrRect)
@@ -437,7 +436,8 @@ namespace AsteriskMod
         private void SpawnText(bool forceNoAutoLineBreak = false)
         {
             noSkip1stFrame = true;
-            string currentText = textQueue[currentLine].Text;
+            string currentText = text.Text;
+            //string currentText = textQueue[currentLine].Text;
             letterReferences = new Image[currentText.Length];
             letterPositions = new Vector2[currentText.Length];
             if (currentText.Length > 1 && !forceNoAutoLineBreak)
@@ -545,12 +545,16 @@ namespace AsteriskMod
 
         private bool CheckCommand()
         {
-            if (currentLine >= textQueue.Length)
+            if (currentLine == 0)
+            //if (currentLine >= textQueue.Length)
                 return false;
-            if (currentCharacter >= textQueue[currentLine].Text.Length) return false;
-            if (textQueue[currentLine].Text[currentCharacter] != '[') return false;
+            if (currentCharacter >= text.Text.Length) return false;
+            //if (currentCharacter >= textQueue[currentLine].Text.Length) return false;
+            if (text.Text[currentCharacter] != '[') return false;
+            //if (textQueue[currentLine].Text[currentCharacter] != '[') return false;
             int currentChar = currentCharacter;
-            string command = UnitaleUtil.ParseCommandInline(textQueue[currentLine].Text, ref currentCharacter);
+            string command = UnitaleUtil.ParseCommandInline(text.Text, ref currentCharacter);
+            //string command = UnitaleUtil.ParseCommandInline(textQueue[currentLine].Text, ref currentCharacter);
             if (command != null)
             {
                 currentCharacter++; // we're not in a continuable loop so move to the character after the ] manually
@@ -574,7 +578,8 @@ namespace AsteriskMod
         [Obsolete]
         protected virtual void Update()
         {
-            if (textQueue == null || textQueue.Length == 0 || lateStartWaiting)
+            if (text == null || lateStartWaiting)
+            //if (textQueue == null || textQueue.Length == 0 || lateStartWaiting)
                 return;
             /*if (currentLine >= lineCount() && overworld) {
                 endTextEvent();
@@ -722,7 +727,8 @@ namespace AsteriskMod
                         instantCommand = true;
 
                     // First:  Find the active line of text
-                    string currentText = textQueue[currentLine].Text;
+                    string currentText = text.Text;
+                    //string currentText = textQueue[currentLine].Text;
 
                     // Second: Find the position to "end" at
                     // This will either be: [instant:stop], [instant:stopall] or the end of the string
