@@ -16,7 +16,7 @@ namespace AsteriskMod
         internal Vector2[] letterPositions;
 
         protected UnderFont default_charset;
-        public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "instant", "font", "noskip", "w", "waitall",
+        public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "instant", "font", "noskip",
                                                         "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters" };
         public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
@@ -858,11 +858,6 @@ namespace AsteriskMod
                     catch { throw new CYFException("The key \"" + cmds[1] + "\" isn't a valid key."); }
                     break;
 
-                case "w":
-                    letterTimer = timePerLetter - (singleFrameTiming * ParseUtil.GetInt(cmds[1]));
-                    break;
-
-                case "waitall": timePerLetter = singleFrameTiming * ParseUtil.GetInt(cmds[1]); break;
                 case "next": autoSkipAll = true; break;
                 case "finished": autoSkipThis = true; break;
                 case "nextthisnow": autoSkip = true; break;
@@ -941,27 +936,6 @@ namespace AsteriskMod
                     currentReferenceCharacter = pos;
                     break;
             }
-        }
-
-        private DynValue ComputeArgument(string arg)
-        {
-            arg = arg.Trim();
-            Type type = UnitaleUtil.CheckRealType(arg);
-            DynValue dyn;
-            //Boolean
-            if (type == typeof(bool))
-                dyn = DynValue.NewBoolean(arg.Replace(" ", "") == "true");
-            //Number
-            else if (type == typeof(float))
-            {
-                arg = arg.Replace(" ", "");
-                float number = CreateNumber(arg);
-                dyn = DynValue.NewNumber(number);
-            }
-            //String
-            else
-                dyn = DynValue.NewString(arg);
-            return dyn;
         }
 
         private float CreateNumber(string str)
