@@ -42,7 +42,6 @@ namespace AsteriskMod
         private bool instantCommand; // Will be true only if "[instant:allowcommand]" has been activated
 
         private bool skipFromPlayer;
-        private bool firstChar;
         internal float hSpacing = 3;
         internal float vSpacing;
         private GameObject textframe;
@@ -78,7 +77,6 @@ namespace AsteriskMod
             instantActive = false;
             instantCommand = false;
             skipFromPlayer = false;
-            firstChar = false;
             vSpacing = 0;
             colorSet = false;
             letterTimer = 0.0f;
@@ -233,7 +231,6 @@ namespace AsteriskMod
             colorSet = false;
             instantCommand = false;
             skipFromPlayer = false;
-            firstChar = false;
 
             timePerLetter = singleFrameTiming;
             letterTimer = 0.0f;
@@ -662,7 +659,7 @@ namespace AsteriskMod
             */
 
             letterTimer += Time.deltaTime;
-            if ((letterTimer >= timePerLetter || firstChar) && !LineComplete())
+            if ((letterTimer >= timePerLetter) && !LineComplete())
             {
                 int repeats = timePerLetter == 0f ? 1 : (int)Mathf.Floor(letterTimer / timePerLetter);
 
@@ -675,13 +672,7 @@ namespace AsteriskMod
                         return;
                     }
 
-                    if (!firstChar)
-                        letterTimer -= timePerLetter;
-                    else
-                    {
-                        firstChar = false;
-                        return;
-                    }
+                    letterTimer -= timePerLetter;
                 }
             }
 
