@@ -41,8 +41,6 @@ namespace AsteriskMod
         private bool instantActive; // Will be true if "[instant]" or "[instant:allowcommand]" have been activated
         private bool instantCommand; // Will be true only if "[instant:allowcommand]" has been activated
 
-        private bool paused;
-        private bool autoSkipThis;
         private bool autoSkip;
         private bool skipFromPlayer;
         private bool firstChar;
@@ -142,10 +140,6 @@ namespace AsteriskMod
             // SetText(new TextMessage(new string[] { "Check", "Compliment", "Ignore", "Steal", "trow temy", "Jerry" }, false));
         }
 
-        public void SetPause(bool pause) { paused = pause; }
-
-        public bool IsPaused() { return paused; }
-
         [MoonSharpHidden]
         public bool IsFinished()
         {
@@ -184,7 +178,6 @@ namespace AsteriskMod
         }
 
         [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
-        [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
 
         [Obsolete]
         public int LineCount()
@@ -242,7 +235,6 @@ namespace AsteriskMod
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
-            autoSkipThis = false;
             autoSkip = false;
             instantCommand = false;
             skipFromPlayer = false;
@@ -646,7 +638,7 @@ namespace AsteriskMod
         [Obsolete]
         protected virtual void Update()
         {
-            if (textQueue == null || textQueue.Length == 0 || paused || lateStartWaiting)
+            if (textQueue == null || textQueue.Length == 0 || lateStartWaiting)
                 return;
             /*if (currentLine >= lineCount() && overworld) {
                 endTextEvent();
@@ -708,7 +700,7 @@ namespace AsteriskMod
                 float oldLetterTimer = letterTimer;
                 lastLetter = currentCharacter;
                 while (CheckCommand())
-                    if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || paused)
+                    if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer)
                         return false;
                 if (currentCharacter >= letterReferences.Length)
                     return false;
@@ -790,7 +782,6 @@ namespace AsteriskMod
             //print("Frame " + GlobalControls.frame + ": Command " + cmds[0].ToLower() + " found for " + gameObject.name);
             switch (cmds[0].ToLower())
             {
-                case "finished": autoSkipThis = true; break;
                 case "nextthisnow": autoSkip = true; break;
                 case "noskipatall": blockSkip = true; break;
                 //case "speed":       letterSpeed = Int32.Parse(args[0]);                            break;
