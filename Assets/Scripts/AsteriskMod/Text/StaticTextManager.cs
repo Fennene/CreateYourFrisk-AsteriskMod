@@ -50,7 +50,6 @@ namespace AsteriskMod
         internal float vSpacing;
         private GameObject textframe;
         // private int letterSpeed = 1;
-        private KeyCode waitingChar = KeyCode.None;
 
         protected Color currentColor = Color.white;
         private bool colorSet;
@@ -657,14 +656,6 @@ namespace AsteriskMod
             if (GlobalControls.retroMode && instantActive || currentCharacter >= letterReferences.Length)
                 return;
 
-            if (waitingChar != KeyCode.None)
-            {
-                if (Input.GetKeyDown(waitingChar))
-                    waitingChar = KeyCode.None;
-                else
-                    return;
-            }
-
             /*
             letterTimer += Time.deltaTime;
             if ((letterTimer > timePerLetter || firstChar) && !LineComplete()) {
@@ -717,7 +708,7 @@ namespace AsteriskMod
                 float oldLetterTimer = letterTimer;
                 lastLetter = currentCharacter;
                 while (CheckCommand())
-                    if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || waitingChar != KeyCode.None || paused)
+                    if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || paused)
                         return false;
                 if (currentCharacter >= letterReferences.Length)
                     return false;
