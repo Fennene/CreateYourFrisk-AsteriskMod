@@ -16,15 +16,15 @@ namespace AsteriskMod
         internal Vector2[] letterPositions;
 
         protected UnderFont default_charset;
-        public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "starcolor", "instant", "font", "noskip", "w", "waitall",
-                                                        "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters", "func" };
+        public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "instant", "font", "noskip", "w", "waitall",
+                                                        "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters" };
         public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
         private int currentCharacter;
         public int currentReferenceCharacter;
         private bool currentSkippable = true;
         private bool decoratedTextOffset;
-        [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated;
+        [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated; //const wasStated = false
         private RectTransform self;
         [MoonSharpHidden] public Vector2 offset;
         private bool offsetSet;
@@ -807,13 +807,6 @@ namespace AsteriskMod
                         SetVerticalSpacing(ParseUtil.GetFloat(cmds[1]));
                     break;
 
-                case "starcolor":
-                    Color starColor = ParseUtil.GetColor(cmds[1]);
-                    int indexOfStar = textQueue[currentLine].Text.IndexOf(ArenaUIManager.asterisk_char); // HACK oh my god lol
-                    if (indexOfStar > -1)
-                        letterReferences[indexOfStar].color = starColor;
-                    break;
-
                 case "instant":
                     if (GlobalControls.retroMode)
                         instantActive = true;
@@ -946,40 +939,6 @@ namespace AsteriskMod
 
                     currentCharacter = pos;
                     currentReferenceCharacter = pos;
-                    break;
-
-                case "func":
-                    try
-                    {
-                        if (caller == null)
-                            UnitaleUtil.DisplayLuaError("???", "Func called but no script to reference. This is the engine's fault, not yours.");
-                        if (args.Length > 1)
-                        {
-                            //Check array as argument
-                            if (args.Length == 2)
-                            {
-                                args[1] = args[1].Trim();
-                                if (args[1][0] == '{' && args[1][args[1].Length - 1] == '}')
-                                {
-                                    args[1] = args[1].Substring(1, args[1].Length - 2);
-                                    string[] newArgs = UnitaleUtil.SpecialSplit(',', args[1], true);
-                                    Array.Resize(ref args, 1 + newArgs.Length);
-                                    Array.Copy(newArgs, 0, args, 1, newArgs.Length);
-                                }
-                            }
-
-                            DynValue[] argsbis = new DynValue[args.Length - 1];
-                            for (int i = 1; i < args.Length; i++)
-                                argsbis[i - 1] = ComputeArgument(args[i]);
-                            if (caller != null) caller.Call(args[0], argsbis, true); //ADD TRY
-                                                                                     //caller.Call(args[0], DynValue.NewString(args[1]));
-                        }
-                        else if (caller != null) caller.Call(cmds[1], null, true);
-
-                        if (cmds[1] == "State")
-                            wasStated = true;
-                    }
-                    catch (InterpreterException ex) { UnitaleUtil.DisplayLuaError(caller.scriptname, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message); }
                     break;
             }
         }
