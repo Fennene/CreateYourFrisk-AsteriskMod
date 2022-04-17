@@ -23,7 +23,6 @@ namespace AsteriskMod
         private int currentCharacter;
         public int currentReferenceCharacter;
         private bool decoratedTextOffset;
-        [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated; //const wasStated = false
         private RectTransform self;
         [MoonSharpHidden] public Vector2 offset;
         private bool offsetSet;
@@ -83,7 +82,6 @@ namespace AsteriskMod
             currentCharacter = 0;
             currentReferenceCharacter = 0;
             decoratedTextOffset = false;
-            wasStated = false;
             instantActive = false;
             instantCommand = false;
             autoSkipAll = false;
@@ -642,8 +640,6 @@ namespace AsteriskMod
                 //float lastLetterTimer = letterTimer; // kind of a dirty hack so we can at least release 0.2.0 sigh
                 //float lastTimePerLetter = timePerLetter; // i am so sorry
 
-                wasStated = false;
-
                 DynValue commandDV = DynValue.NewString(command);
                 InUpdateControlCommand(commandDV, currentCharacter);
 
@@ -660,23 +656,6 @@ namespace AsteriskMod
         [Obsolete]
         protected virtual void Update()
         {
-            if (!UnitaleUtil.IsOverworld && nextMonsterDialogueOnce)
-            {
-                bool test = true;
-                foreach (TextManager mgr in UIController.instance.monsterDialogues)
-                {
-                    if (!mgr.IsFinished())
-                        test = false;
-                }
-                if (test)
-                {
-                    if (!wasStated)
-                        UIController.instance.DoNextMonsterDialogue(true);
-                    wasStated = false;
-                    nextMonsterDialogueOnce = false;
-                }
-            }
-
             if (textQueue == null || textQueue.Length == 0 || paused || lateStartWaiting)
                 return;
             /*if (currentLine >= lineCount() && overworld) {
