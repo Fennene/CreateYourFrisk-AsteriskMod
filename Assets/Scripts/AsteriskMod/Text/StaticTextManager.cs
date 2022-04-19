@@ -23,10 +23,8 @@ namespace AsteriskMod
         internal Vector2[] letterPositions;
 
         protected UnderFont default_charset;
-        /// <summary>めっちゃいらない。</summary>
-        protected AudioClip default_voice;
-        /// <summary>めっちゃいらない。</summary>
-        [MoonSharpHidden] public AudioSource letterSound;
+        //* protected AudioClip default_voice;
+        //* [MoonSharpHidden] public AudioSource letterSound;
         //* protected TextEffect textEffect;
         //* private string letterEffect = "none";
         /// <summary>いらない。</summary>
@@ -118,7 +116,7 @@ namespace AsteriskMod
 
         public StaticTextManager()
         {
-            default_voice = null;
+            //* default_voice = null;
             //* textEffect = null;
             //* letterIntensity = 0.0f;
             currentLine = 0;
@@ -150,6 +148,7 @@ namespace AsteriskMod
             Charset = font;
             if (default_charset == null)
                 default_charset = font;
+            /**
             if (firstTime)
             {
                 if (letterSound.clip == default_voice && font.Sound != null)
@@ -157,6 +156,7 @@ namespace AsteriskMod
             }
             else if (font.Sound != null)
                 letterSound.clip = font.Sound;
+            */
 
             vSpacing = 0;
             hSpacing = font.CharSpacing;
@@ -186,20 +186,20 @@ namespace AsteriskMod
                     SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_DEFAULT_NAME), true);
             Charset = default_charset;
             Debug.Assert(default_charset != null, "default_charset != null");
-            letterSound.clip = default_voice ?? default_charset.Sound;
+            //* letterSound.clip = default_voice ?? default_charset.Sound;
             defaultColor = default_charset.DefaultColor;
 
             // Default voice in the overworld
-            if (gameObject.name == "TextManager OW")
-                default_voice = AudioClipRegistry.GetVoice("monsterfont");
+            //* if (gameObject.name == "TextManager OW")
+                //* default_voice = AudioClipRegistry.GetVoice("monsterfont");
         }
 
         /// <summary>オブジェクト取得</summary>
         protected virtual void Awake()
         {
             self = gameObject.GetComponent<RectTransform>();
-            letterSound = gameObject.AddComponent<AudioSource>();
-            letterSound.playOnAwake = false;
+            //* letterSound = gameObject.AddComponent<AudioSource>();
+            //* letterSound.playOnAwake = false;
             // SetFont(SpriteFontRegistry.F_UI_DIALOGFONT);
             timePerLetter = singleFrameTiming;
 
@@ -1009,12 +1009,14 @@ namespace AsteriskMod
                     default: letterReferences[currentCharacter].GetComponent<Letter>().effect = null; break;
                 }
                 */
+                /**
                 if (letterSound != null && !muted && !soundPlayed && (GlobalControls.retroMode || textQueue[currentLine].Text[currentCharacter] != ' '))
                 {
                     soundPlayed = true;
                     if (letterSound.isPlaying) UnitaleUtil.PlaySound("BubbleSound", letterSound.clip.name);
                     else letterSound.Play();
                 }
+                */
             }
             currentReferenceCharacter++;
             currentCharacter++;

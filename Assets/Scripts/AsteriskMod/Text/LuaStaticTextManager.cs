@@ -452,7 +452,7 @@ namespace AsteriskMod
             if (!isactive)
                 yield break;
 
-            letterSound.clip = default_voice ?? default_charset.Sound;
+            //* letterSound.clip = default_voice ?? default_charset.Sound;
 
             // only allow inline text commands and letter sounds on the second frame
             lateStartWaiting = false;
@@ -486,7 +486,8 @@ namespace AsteriskMod
             AddToTextQueue(msgs);
         }
 
-        /// <summary>めっちゃいらない。</summary>
+        // SetVoice()
+        /**
         public void SetVoice(string voiceName)
         {
             if (voiceName == null)
@@ -494,6 +495,7 @@ namespace AsteriskMod
             CheckExists();
             default_voice = voiceName == "none" ? null : AudioClipRegistry.GetVoice(voiceName);
         }
+        */
 
         public void SetFont(string fontName, bool firstTime = false)
         {
@@ -518,7 +520,7 @@ namespace AsteriskMod
         }
 
         // SetEffect()
-        /*
+        /**
         public void SetEffect(string effect, float intensity = -1)
         {
             if (effect == null)
