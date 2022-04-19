@@ -11,7 +11,8 @@ namespace AsteriskMod
             textMan = GetComponent<StaticTextManager>();
             //textMan.enabled = true;
             textMan.SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_DEFAULT_NAME));
-            textMan.SetText(new InstantTextMessage("This is test text."));
+            //textMan.SetTextTest(new InstantTextMessage("This is test text."));
+            textMan.SetTextTest("This is test text.");
         }
     }
 }

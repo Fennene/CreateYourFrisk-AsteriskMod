@@ -10,15 +10,24 @@ namespace AsteriskMod
     public class LuaStaticTextManager : StaticTextManager
     {
         private GameObject container;
+        /// <summary>めっちゃいらない。</summary>
         private GameObject containerBubble;
+        /// <summary>めっちゃいらない。</summary>
         private RectTransform speechThing;
+        /// <summary>めっちゃいらない。</summary>
         private RectTransform speechThingShadow;
+        /// <summary>めっちゃいらない。</summary>
         private DynValue bubbleLastVar = DynValue.NewNil();
+        /// <summary>めっちゃいらない。</summary>
         private bool bubble = true;
+        /// <summary>いらない。</summary>
         private int framesWait = 60;
         private int countFrames;
+        /// <summary>めっちゃいらない。</summary>
         private int _bubbleHeight = -1;
+        /// <summary>めっちゃいらない。</summary>
         private BubbleSide bubbleSide = BubbleSide.NONE;
+        /// <summary>めっちゃいらない。</summary>
         private ProgressMode progress = ProgressMode.AUTO;
         private Color textColor;
         private float xScale = 1;
@@ -33,7 +42,9 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>めっちゃいらない。</summary>
         private enum BubbleSide { LEFT = 0, DOWN = 90, RIGHT = 180, UP = 270, NONE = -1 }
+        /// <summary>めっちゃいらない。</summary>
         private enum ProgressMode { AUTO, MANUAL, NONE }
 
         protected override void Awake()
@@ -80,7 +91,7 @@ namespace AsteriskMod
                 DoSkipFromPlayer();
         }
 
-        // Used to test if a text object still exists.
+        // テキストオブジェクトが存在しているか調べる用
         private void CheckExists()
         {
             if (!isactive)
@@ -95,9 +106,10 @@ namespace AsteriskMod
             GameObject.Destroy(this.transform.parent.gameObject);
         }
 
-        // Shortcut to `DestroyText()`
+        // DestroyText()呼び出しの省略形
         public void Remove() { DestroyText(); }
 
+        /// <summary>めっちゃいらない。</summary>
         private void ResizeBubble()
         {
             float effectiveBubbleHeight = bubbleHeight != -1 ? bubbleHeight < 16 ? 40 : bubbleHeight + 24 : AsteriskUtil.CalcTextHeight(this) < 16 ? 40 : AsteriskUtil.CalcTextHeight(this) + 24;
@@ -109,6 +121,7 @@ namespace AsteriskMod
             SetSpeechThingPositionAndSide(bubbleSide.ToString(), bubbleLastVar);
         }
 
+        /// <summary>めっちゃいらない。</summary>
         public string progressmode
         {
             get
@@ -185,6 +198,7 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>めっちゃいらない。</summary>
         public int bubbleHeight
         {
             get
@@ -371,6 +385,7 @@ namespace AsteriskMod
             return DynValue.NewTable(table);
         }
 
+        /// <summary>いらない。</summary>
         public bool lineComplete
         {
             get
@@ -380,6 +395,7 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>めっちゃいらない。</summary>
         public bool allLinesComplete
         {
             get { return AllLinesComplete(); }
@@ -447,6 +463,7 @@ namespace AsteriskMod
                 ResizeBubble();
         }
 
+        /// <summary>いらない。</summary>
         public void AddText(DynValue text)
         {
             CheckExists();
@@ -469,6 +486,7 @@ namespace AsteriskMod
             AddToTextQueue(msgs);
         }
 
+        /// <summary>めっちゃいらない。</summary>
         public void SetVoice(string voiceName)
         {
             if (voiceName == null)
@@ -491,14 +509,16 @@ namespace AsteriskMod
             UpdateBubble();
         }
 
-        [MoonSharpHidden]
-        public void UpdateBubble()
+        /// <summary>めっちゃいらない。</summary>
+        [MoonSharpHidden]public void UpdateBubble()
         {
             containerBubble.GetComponent<RectTransform>().localPosition = new Vector2(-12, 24);
             // GetComponent<RectTransform>().localPosition = new Vector2(0, 16);
             GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
         }
 
+        // SetEffect
+        /*
         public void SetEffect(string effect, float intensity = -1)
         {
             if (effect == null)
@@ -515,7 +535,9 @@ namespace AsteriskMod
                     throw new CYFException("The effect \"" + effect + "\" doesn't exist.\nYou can only choose between \"none\", \"twitch\", \"shake\" and \"rotate\".");
             }
         }
+        */
 
+        /// <summary>めっちゃいらない。</summary>
         public void ShowBubble(string side = null, DynValue position = null)
         {
             bubble = true;
@@ -523,9 +545,11 @@ namespace AsteriskMod
             SetSpeechThingPositionAndSide(side, position);
         }
 
+        /// <summary>めっちゃいらない。</summary>
         // Shortcut to `SetSpeechThingPositionAndSide`
         public void SetTail(string side, DynValue position) { SetSpeechThingPositionAndSide(side, position); }
 
+        /// <summary>めっちゃいらない。</summary>
         public void SetSpeechThingPositionAndSide(string side, DynValue position)
         {
             CheckExists();
@@ -585,6 +609,7 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>いらない。</summary>
         public void HideBubble()
         {
             CheckExists();
@@ -592,6 +617,7 @@ namespace AsteriskMod
             containerBubble.SetActive(false);
         }
 
+        /// <summary>いらない。</summary>
         public override void SkipLine()
         {
             if (noSkip1stFrame) return;
@@ -611,6 +637,7 @@ namespace AsteriskMod
             catch (ScriptRuntimeException ex) { UnitaleUtil.DisplayLuaError(caller.scriptname, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message, ex.DoNotDecorateMessage); }
         }
 
+        /// <summary>めっちゃいらない。</summary>
         public void NextLine()
         {
             CheckExists();
@@ -629,9 +656,11 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>めっちゃいらない。</summary>
         // Shortcut to `SetAutoWaitTimeBetweenTexts`
         public void SetWaitTime(int time) { SetAutoWaitTimeBetweenTexts(time); }
 
+        /// <summary>めっちゃいらない。</summary>
         public void SetAutoWaitTimeBetweenTexts(int time)
         {
             CheckExists();

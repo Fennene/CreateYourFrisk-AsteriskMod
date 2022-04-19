@@ -8,20 +8,34 @@ using Debug = System.Diagnostics.Debug;
 
 namespace AsteriskMod
 {
-    /// <summary>This is the alternative class for the text that is not needed any effect, bubble and command and is instant 1 line text (not table of string).</summary>
+    /// <summary>
+    /// This is the alternative class for the text that is not needed any effect, bubble and command and is instant 1 line text (not table of string).<br/>
+    /// テキストエフェクト([effect:x])や吹き出し、コマンドを必要としない１ライン(string[]ではない)でUpdate()無しのテキストの代替クラス。
+    /// </summary>
     public class StaticTextManager : MonoBehaviour
     {
+        /*
+            < 開発メモ >
+            TextManager.SetText()を呼び出した時点で、各文字のスプライト自体は用意される。
+            Update()で制御されるのは、生成部分ではなく、テキストのエフェクトと表示のみ。
+        */
         internal Image[] letterReferences;
         internal Vector2[] letterPositions;
 
         protected UnderFont default_charset;
+        /// <summary>めっちゃいらない。</summary>
         protected AudioClip default_voice;
+        /// <summary>めっちゃいらない。</summary>
         [MoonSharpHidden] public AudioSource letterSound;
+        /// <summary>めっちゃいらない。</summary>
         protected TextEffect textEffect;
+        /// <summary>めっちゃいらない。</summary>
         private string letterEffect = "none";
+        /// <summary>いらない。</summary>
         public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "starcolor", "instant", "font", "effect", "noskip", "w", "waitall", "novoice",
                                                         "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters", "voice", "func", "mugshot",
                                                         "music", "sound", "health", "lettereffect"};
+        /// <summary>多分いらない。</summary>
         private float letterIntensity;
         public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
@@ -38,32 +52,45 @@ namespace AsteriskMod
         private float currentY; /* {
         get { return _currentY; }
         set {
-            if (GetType() == typeof(LuaTextManager))
+            if (GetType() == typeof(LuaStaticTextManager))
                 print("Change currentY value: " + _currentY + " => " + value);
             _currentY = value;
         }
     }*/
 
-        // Variables that have to do with "[instant]"
-        private bool instantActive; // Will be true if "[instant]" or "[instant:allowcommand]" have been activated
-        private bool instantCommand; // Will be true only if "[instant:allowcommand]" has been activated
+        // "[instant]"に関連する変数
+        /// <summary>[instant] または [instant:allowcommand] のコマンドが呼び出された時に true になる。</summary>
+        private bool instantActive;
+        /// <summary>[instant:allowcommand] のコマンドが呼び出された時のみ true になる。</summary>
+        private bool instantCommand;
 
+        /// <summary>いらない。</summary>
         private bool paused;
+        /// <summary>いらない。</summary>
         private bool muted;
+        /// <summary>いらない。</summary>
         private bool autoSkipThis;
+        /// <summary>いらない。</summary>
         private bool autoSkipAll;
+        /// <summary>いらない。</summary>
         private bool autoSkip;
+        /// <summary>いらない。</summary>
         private bool skipFromPlayer;
         private bool firstChar;
         internal float hSpacing = 3;
         internal float vSpacing;
         private GameObject textframe;
+        /// <summary>めっちゃいらない。</summary>
         private LuaSpriteController mugshot;
+        /// <summary>めっちゃいらない。</summary>
         private string[] mugshotList;
+        /// <summary>めっちゃいらない。</summary>
         private string finalMugshot;
+        /// <summary>めっちゃいらない。</summary>
         private float mugshotTimer;
         // private int letterSpeed = 1;
         private int letterOnceValue;
+        /// <summary>めっちゃいらない。</summary>
         private KeyCode waitingChar = KeyCode.None;
 
         protected Color currentColor = Color.white;
@@ -71,8 +98,11 @@ namespace AsteriskMod
         protected Color defaultColor = Color.white;
         //private Color defaultColor = Color.white;
 
+        /// <summary>いらない。</summary>
         private float letterTimer;
+        /// <summary>いらない。</summary>
         private float timePerLetter;
+        /// <summary>めっちゃいらない。</summary>
         private const float singleFrameTiming = 1.0f / 20;
 
         [MoonSharpHidden] public ScriptWrapper caller;
@@ -86,6 +116,7 @@ namespace AsteriskMod
         [MoonSharpHidden] public bool skipNowIfBlocked = false;
         internal bool noSkip1stFrame = true;
 
+        /// <summary>Luaテキスト(<see cref="LuaStaticTextManager"/>)は Late Start の模様... (何それ...)</summary>
         [MoonSharpHidden] public bool lateStartWaiting = false; // Lua text objects will use a late start
 
         public StaticTextManager()
@@ -144,6 +175,10 @@ namespace AsteriskMod
         [MoonSharpHidden] public void SetHorizontalSpacing(float spacing = 3) { hSpacing = spacing; }
         [MoonSharpHidden] public void SetVerticalSpacing(float spacing = 0) { vSpacing = spacing; }
 
+        /// <summary>
+        /// デフォルトのフォント設定。フォントが指定されていない場合のエラー回避にも使用する。<br/>
+        /// フォントの読み込みは少なくとも早くてAwake()後Start()前。TextManagerのStart()前後どちらかは確定しない。
+        /// </summary>
         [MoonSharpHidden]
         public void ResetFont()
         {
@@ -162,6 +197,7 @@ namespace AsteriskMod
                 default_voice = AudioClipRegistry.GetVoice("monsterfont");
         }
 
+        /// <summary>オブジェクト取得</summary>
         protected virtual void Awake()
         {
             self = gameObject.GetComponent<RectTransform>();
@@ -175,6 +211,7 @@ namespace AsteriskMod
             mugshot = new LuaSpriteController(GameObject.Find("Mugshot").GetComponent<Image>());
         }
 
+        /// <summary>特に何もしない。</summary>
         private void Start()
         {
             // ResetFont();
@@ -183,10 +220,13 @@ namespace AsteriskMod
             // SetText(new TextMessage(new string[] { "Check", "Compliment", "Ignore", "Steal", "trow temy", "Jerry" }, false));
         }
 
+        /// <summary>いらない。</summary>
         public void SetPause(bool pause) { paused = pause; }
 
+        /// <summary>いらない。</summary>
         public bool IsPaused() { return paused; }
 
+        /// <summary>いらない。</summary>
         [MoonSharpHidden]
         public bool IsFinished()
         {
@@ -195,6 +235,7 @@ namespace AsteriskMod
             return currentCharacter >= letterReferences.Length;
         }
 
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public void SetMute(bool newMuted) { muted = newMuted; }
 
         public void SetText(TextMessage text) { SetTextQueue(new[] { text }); }
@@ -209,6 +250,18 @@ namespace AsteriskMod
             textQueue = newTextQueue;
             currentLine = 0;
             ShowLine(0);
+        }
+
+        public void SetTextTest(InstantTextMessage instantText)
+        {
+            text = instantText;
+            SetText(instantText.Convert());
+        }
+
+        public void SetTextTest(string text)
+        {
+            this.text = new InstantTextMessage(text);
+            SetText(new TextMessage(text, false, false));
         }
 
         [MoonSharpHidden]
@@ -226,10 +279,11 @@ namespace AsteriskMod
             currentReferenceCharacter = 0;
         }
 
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public void AddToTextQueue(TextMessage text) { AddToTextQueue(new[] { text }); }
 
-        [MoonSharpHidden]
-        public void AddToTextQueue(TextMessage[] textQueueToAdd)
+        /// <summary>いらない。</summary>
+        [MoonSharpHidden] public void AddToTextQueue(TextMessage[] textQueueToAdd)
         {
             if (AllLinesComplete())
                 SetTextQueue(textQueueToAdd);
@@ -243,12 +297,17 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool CanSkip() { return currentSkippable; }
 
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool CanAutoSkipAll() { return autoSkipAll; }
 
+        /// <summary>いらない。</summary>
         public int LineCount()
         {
             if (textQueue == null)
@@ -263,6 +322,7 @@ namespace AsteriskMod
             offsetSet = true;
         }
 
+        /// <summary>いらない。</summary>
         public bool LineComplete()
         {
             if (letterReferences == null)
@@ -270,12 +330,13 @@ namespace AsteriskMod
             return (instantActive || currentCharacter == letterReferences.Length);
         }
 
-        [MoonSharpHidden]
-        public bool AllLinesComplete()
+        /// <summary>いらない。</summary>
+        [MoonSharpHidden] public bool AllLinesComplete()
         {
             return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
         }
 
+        /// <summary>めっちゃいらない。</summary>
         private void SetMugshot(DynValue text)
         {
             List<string> mugshots = new List<string>();
@@ -349,6 +410,7 @@ namespace AsteriskMod
             _textMaxWidth = mugshotSet ? 417 : 534;
         }
 
+        /// <summary>テキスト生成全般。初期化処理含む。</summary>
         protected void ShowLine(int line, bool forceNoAutoLineBreak = false)
         {
             /*if (overworld) {
@@ -474,12 +536,14 @@ namespace AsteriskMod
                 img.color = new Color(img.color.r, img.color.g, img.color.b, a);
         }
 
+        /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool HasNext() { return currentLine + 1 < LineCount(); }
 
+        /// <summary>めっちゃいらない。</summary>
         [MoonSharpHidden] public void NextLineText() { ShowLine(++currentLine); }
 
-        [MoonSharpHidden]
-        public void SkipText()
+        /// <summary>めっちゃいらない。</summary>
+        [MoonSharpHidden] public void SkipText()
         {
             if (noSkip1stFrame) return;
             while (currentCharacter < letterReferences.Length)
@@ -494,8 +558,8 @@ namespace AsteriskMod
             }
         }
 
-        [MoonSharpHidden]
-        public void DoSkipFromPlayer()
+        /// <summary>めっちゃいらない。</summary>
+        [MoonSharpHidden] public void DoSkipFromPlayer()
         {
             skipFromPlayer = true;
 
@@ -508,6 +572,7 @@ namespace AsteriskMod
                 SkipText();
         }
 
+        /// <summary>めっちゃいらない。</summary>
         public virtual void SkipLine()
         {
             if (noSkip1stFrame) return;
@@ -545,8 +610,10 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>いらない。</summary>
         public void SetEffect(TextEffect effect) { textEffect = effect; }
 
+        /// <summary>各文字のオブジェクト破壊。</summary>
         [MoonSharpHidden]
         public void DestroyChars()
         {
@@ -662,7 +729,7 @@ namespace AsteriskMod
             letterReferences = new Image[currentText.Length];
             letterPositions = new Vector2[currentText.Length];
             if (currentText.Length > 1 && !forceNoAutoLineBreak)
-                if (!GlobalControls.isInFight || EnemyEncounter.script.GetVar("autolinebreak").Boolean || GetType() == typeof(LuaTextManager))
+                if (!GlobalControls.isInFight || EnemyEncounter.script.GetVar("autolinebreak").Boolean || GetType() == typeof(LuaStaticTextManager))
                     SpawnTextSpaceTest(0, currentText, out currentText);
 
             // Work-around for [instant] and [instant:allowcommand] at the beginning of a line of text
@@ -771,6 +838,7 @@ namespace AsteriskMod
                 Update();
         }
 
+        /// <summary>いらない。</summary>
         private bool CheckCommand()
         {
             if (currentLine >= textQueue.Length)
@@ -943,6 +1011,7 @@ namespace AsteriskMod
             return true;
         }
 
+        /// <summary>いらない。</summary>
         private void PreCreateControlCommand(string command)
         {
             string[] cmds = UnitaleUtil.SpecialSplit(':', command);
@@ -975,12 +1044,7 @@ namespace AsteriskMod
 
                 case "starcolor":
                     Color starColor = ParseUtil.GetColor(cmds[1]);
-                    // --------------------------------------------------------------------------------
-                    //                          Asterisk Mod Modification
-                    // --------------------------------------------------------------------------------
-                    //int indexOfStar = textQueue[currentLine].Text.IndexOf('*'); // HACK oh my god lol
-                    int indexOfStar = textQueue[currentLine].Text.IndexOf(ArenaUIManager.asterisk_char); // HACK oh my god lol
-                    // --------------------------------------------------------------------------------
+                    int indexOfStar = textQueue[currentLine].Text.IndexOf(ArenaUIManager.asterisk_char);
                     if (indexOfStar > -1)
                         letterReferences[indexOfStar].color = starColor;
                     break;
@@ -1006,6 +1070,7 @@ namespace AsteriskMod
                     break;
 
                 case "effect":
+                    /*
                     switch (cmds[1].ToUpper())
                     {
                         case "NONE": textEffect = null; break;
@@ -1013,10 +1078,12 @@ namespace AsteriskMod
                         case "SHAKE": textEffect = new ShakeEffect(this, args.Length > 1 ? ParseUtil.GetFloat(args[1]) : 1); break;
                         case "ROTATE": textEffect = new RotatingEffect(this, args.Length > 1 ? ParseUtil.GetFloat(args[1]) : 1.5f); break;
                     }
+                    */
                     break;
             }
         }
 
+        /// <summary>いらない。</summary>
         private void InUpdateControlCommand(DynValue command, int index = 0)
         {
             string[] cmds = UnitaleUtil.SpecialSplit(':', command.String);
@@ -1316,6 +1383,7 @@ namespace AsteriskMod
                 UIStats.instance.setHP(HP);
         }
 
+        /// <summary>めっちゃいらない。</summary>
         private float CreateNumber(string str)
         {
             float number = 0, dot = -1;
