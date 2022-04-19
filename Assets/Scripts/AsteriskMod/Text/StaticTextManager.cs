@@ -100,7 +100,7 @@ namespace AsteriskMod
 
         [MoonSharpHidden] public UnderFont Charset { get; protected set; }
         [MoonSharpHidden] public TextMessage[] textQueue;
-        [MoonSharpHidden] public InstantTextMessage text;
+        [MoonSharpHidden] public InstantTextMessage instantText;
         //public string[] mugshotsPath;
         //public bool overworld;
         [MoonSharpHidden] public bool blockSkip;
@@ -133,7 +133,7 @@ namespace AsteriskMod
             colorSet = false;
             letterTimer = 0.0f;
             textQueue = null;
-            text = null;
+            instantText = null;
             blockSkip = false;
         }
 
@@ -245,25 +245,27 @@ namespace AsteriskMod
             ShowLine(0);
         }
 
-        public void SetTextTest(InstantTextMessage instantText)
+        public void SetTextTest(InstantTextMessage text)
         {
-            text = instantText;
+            instantText = text;
             SetText(instantText.Convert());
         }
 
         public void SetTextTest(string text)
         {
-            this.text = new InstantTextMessage(text);
+            instantText = new InstantTextMessage(text);
             SetText(new TextMessage(text, false, false));
         }
 
-        [MoonSharpHidden]
-        public void SetTextQueueAfterValue(int BeginText)
+        // SetTextQueueAfterValue()
+        /**
+        [MoonSharpHidden] public void SetTextQueueAfterValue(int BeginText)
         {
             ResetFont();
             currentLine = BeginText;
             ShowLine(BeginText);
         }
+        */
 
         [MoonSharpHidden]
         public void ResetCurrentCharacter()
@@ -272,10 +274,11 @@ namespace AsteriskMod
             currentReferenceCharacter = 0;
         }
 
-        /// <summary>いらない。</summary>
+        // AddToTextQueue()
+        /**
         [MoonSharpHidden] public void AddToTextQueue(TextMessage text) { AddToTextQueue(new[] { text }); }
-
-        /// <summary>いらない。</summary>
+        */
+        /**
         [MoonSharpHidden] public void AddToTextQueue(TextMessage[] textQueueToAdd)
         {
             if (AllLinesComplete())
@@ -289,6 +292,7 @@ namespace AsteriskMod
                 textQueue = newTextQueue;
             }
         }
+        */
 
         /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool CanSkip() { return currentSkippable; }

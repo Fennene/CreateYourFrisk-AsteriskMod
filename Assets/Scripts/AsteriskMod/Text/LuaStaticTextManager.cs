@@ -463,7 +463,8 @@ namespace AsteriskMod
                 ResizeBubble();
         }
 
-        /// <summary>いらない。</summary>
+        // AddText()
+        /**
         public void AddText(DynValue text)
         {
             CheckExists();
@@ -485,6 +486,7 @@ namespace AsteriskMod
                 msgs[i] = new MonsterMessage(text.Table.Get(i + 1).String);
             AddToTextQueue(msgs);
         }
+        */
 
         // SetVoice()
         /**
