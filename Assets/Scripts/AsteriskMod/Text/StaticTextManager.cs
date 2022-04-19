@@ -75,14 +75,10 @@ namespace AsteriskMod
         internal float hSpacing = 3;
         internal float vSpacing;
         private GameObject textframe;
-        /// <summary>めっちゃいらない。</summary>
-        private LuaSpriteController mugshot;
-        /// <summary>めっちゃいらない。</summary>
-        private string[] mugshotList;
-        /// <summary>めっちゃいらない。</summary>
-        private string finalMugshot;
-        /// <summary>めっちゃいらない。</summary>
-        private float mugshotTimer;
+        //* private LuaSpriteController mugshot;
+        //* private string[] mugshotList;
+        //* private string finalMugshot;
+        //* private float mugshotTimer;
         // private int letterSpeed = 1;
         private int letterOnceValue;
         /// <summary>めっちゃいらない。</summary>
@@ -132,7 +128,7 @@ namespace AsteriskMod
             skipFromPlayer = false;
             firstChar = false;
             vSpacing = 0;
-            mugshotList = null;
+            //* mugshotList = null;
             letterOnceValue = 0;
             colorSet = false;
             letterTimer = 0.0f;
@@ -205,7 +201,7 @@ namespace AsteriskMod
 
             if (!UnitaleUtil.IsOverworld || !GameObject.Find("textframe_border_outer")) return;
             textframe = GameObject.Find("textframe_border_outer");
-            mugshot = new LuaSpriteController(GameObject.Find("Mugshot").GetComponent<Image>());
+            //* mugshot = new LuaSpriteController(GameObject.Find("Mugshot").GetComponent<Image>());
         }
 
         /// <summary>特に何もしない。</summary>
@@ -333,7 +329,8 @@ namespace AsteriskMod
             return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
         }
 
-        /// <summary>めっちゃいらない。</summary>
+        // SetMugshot()
+        /**
         private void SetMugshot(DynValue text)
         {
             List<string> mugshots = new List<string>();
@@ -406,6 +403,7 @@ namespace AsteriskMod
             }
             _textMaxWidth = mugshotSet ? 417 : 534;
         }
+        */
 
         /// <summary>テキスト生成全般。初期化処理含む。</summary>
         protected void ShowLine(int line, bool forceNoAutoLineBreak = false)
@@ -428,8 +426,10 @@ namespace AsteriskMod
             if (textQueue == null) return;
             if (line >= textQueue.Length) return;
             if (textQueue[line] == null) return;
+            /**
             if ((UnitaleUtil.IsOverworld || GlobalControls.isInFight) && ((UIController.instance && this == UIController.instance.mainTextManager) || gameObject.name == "TextManager OW"))
                 SetMugshot(textQueue[line].Mugshot);
+            */
 
             if (!offsetSet)
                 SetOffset(0, 0);
@@ -738,7 +738,7 @@ namespace AsteriskMod
             {
                 switch (currentText[i])
                 {
-                    /*
+                    /**
                     case '[':
                         int currentChar = i;
                         string command = UnitaleUtil.ParseCommandInline(currentText, ref i);
@@ -824,19 +824,21 @@ namespace AsteriskMod
             }
 
             // Work-around for [instant] and [instant:allowcommand] at the beginning of a line of text
-            /*
+            /**
             if (skipImmediate)
                 InUpdateControlCommand(DynValue.NewString(skipCommand));
             */
 
+            /**
             if (UnitaleUtil.IsOverworld && SceneManager.GetActiveScene().name != "TitleScreen" && SceneManager.GetActiveScene().name != "EnterName" && !GlobalControls.isInShop)
                 try
                 {
                     if (mugshot.alpha == 0)
                         mugshot.color = new float[] { 1, 1, 1 };
                 }
-                catch { /* ignored */ }
-            /*
+                catch { /* ignored / }
+            */
+            /**
             if (!instantActive)
                 Update();
             */
@@ -893,6 +895,8 @@ namespace AsteriskMod
                     nextMonsterDialogueOnce = false;
                 }
             }
+
+            /**
             else if (mugshot != null && mugshotList != null)
                 if (UnitaleUtil.IsOverworld && mugshot.alpha != 0 && mugshotList.Length > 1)
                 {
@@ -904,6 +908,7 @@ namespace AsteriskMod
                     else if (mugshot.animcomplete && !(letterTimer < 0 || LineComplete()))
                         mugshot.SetAnimation(mugshotList, mugshotTimer);
                 }
+            */
 
             if (textQueue == null || textQueue.Length == 0 || paused || lateStartWaiting)
                 return;
