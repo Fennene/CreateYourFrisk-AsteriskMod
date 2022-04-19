@@ -38,7 +38,7 @@ namespace AsteriskMod
         public int currentReferenceCharacter;
         private bool currentSkippable = true;
         private bool decoratedTextOffset;
-        [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated;
+        //* [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated; // 結局 nmd2 が１番謎。
         private RectTransform self;
         [MoonSharpHidden] public Vector2 offset;
         private bool offsetSet;
@@ -120,7 +120,7 @@ namespace AsteriskMod
             currentCharacter = 0;
             currentReferenceCharacter = 0;
             decoratedTextOffset = false;
-            wasStated = false;
+            //* wasStated = false;
             instantActive = false;
             instantCommand = false;
             autoSkipAll = false;
@@ -177,9 +177,9 @@ namespace AsteriskMod
         {
             if (Charset == null || default_charset == null)
                 if (GetType() == typeof(LuaStaticTextManager))
-                    ((LuaStaticTextManager)this).SetFont(SpriteFontRegistry.UI_MONSTERTEXT_NAME);
+                    ((LuaStaticTextManager)this).SetFont(SpriteFontRegistry.UI_DEFAULT_NAME);
                 else
-                    SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_DEFAULT_NAME), true);
+                    SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME), true);
             Charset = default_charset;
             Debug.Assert(default_charset != null, "default_charset != null");
             //* letterSound.clip = default_voice ?? default_charset.Sound;
@@ -405,7 +405,7 @@ namespace AsteriskMod
         }
         */
 
-        /// <summary>テキスト生成全般。初期化処理含む。</summary>
+        /// <summary>テキスト生成前の初期化処理。</summary>
         protected void ShowLine(int line, bool forceNoAutoLineBreak = false)
         {
             /*if (overworld) {
@@ -433,7 +433,7 @@ namespace AsteriskMod
 
             if (!offsetSet)
                 SetOffset(0, 0);
-            if (GetType() != typeof(LuaTextManager))
+            if (GetType() != typeof(LuaStaticTextManager))
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
@@ -619,6 +619,7 @@ namespace AsteriskMod
                 Destroy(child.gameObject);
         }
 
+        /// <summary>おそらく空白(Space)(や改行(???))生成処理と思われる。</summary>
         private void SpawnTextSpaceTest(int i, string currentText, out string currentText2)
         {
             currentText2 = currentText;
@@ -664,6 +665,7 @@ namespace AsteriskMod
             textQueue[currentLine].Text = currentText2;
         }
 
+        /// <summary>関数名通り、文字に対応する実際のオブジェクトの生成の処理</summary>
         private void CreateLetter(string currentText, int index, bool insert = false)
         {
             if (insert)
@@ -720,6 +722,7 @@ namespace AsteriskMod
             letterPositions[index] = ltrRect.anchoredPosition;
         }
 
+        /// <summary>テキスト(各文字)生成処理。</summary>
         private void SpawnText(bool forceNoAutoLineBreak = false)
         {
             noSkip1stFrame = true;
@@ -804,7 +807,7 @@ namespace AsteriskMod
                     case ' ':
                         if (i + 1 == currentText.Length || currentText[i + 1] == ' ' || forceNoAutoLineBreak)
                             break;
-                        if (!GlobalControls.isInFight || EnemyEncounter.script.GetVar("autolinebreak").Boolean || GetType() == typeof(LuaTextManager))
+                        if (!GlobalControls.isInFight || EnemyEncounter.script.GetVar("autolinebreak").Boolean || GetType() == typeof(LuaStaticTextManager))
                         {
                             SpawnTextSpaceTest(i, currentText, out currentText);
                             if (currentText[i] != ' ')
@@ -844,7 +847,8 @@ namespace AsteriskMod
             */
         }
 
-        /// <summary>いらない。</summary>
+        // CheckCommand() // always return false
+        /**
         private bool CheckCommand()
         {
             if (currentLine >= textQueue.Length)
@@ -853,7 +857,7 @@ namespace AsteriskMod
             if (textQueue[currentLine].Text[currentCharacter] != '[') return false;
             int currentChar = currentCharacter;
             string command = UnitaleUtil.ParseCommandInline(textQueue[currentLine].Text, ref currentCharacter);
-            /*
+            /**
             if (command != null)
             {
                 currentCharacter++; // we're not in a continuable loop so move to the character after the ] manually
@@ -872,17 +876,19 @@ namespace AsteriskMod
 
                 return true;
             }
-            */
+            /
             currentCharacter = currentChar;
             return false;
         }
+        */
 
         protected virtual void Update()
         {
+            /**
             if (!UnitaleUtil.IsOverworld && nextMonsterDialogueOnce)
             {
                 bool test = true;
-                foreach (TextManager mgr in UIController.instance.monsterDialogues)
+                foreach (TextManager mgr in UIController.instance.monsterDialogues) // StaticTextManagerにできない(Monster用テキストらしい)ので不要。
                 {
                     if (!mgr.IsFinished())
                         test = false;
@@ -895,6 +901,7 @@ namespace AsteriskMod
                     nextMonsterDialogueOnce = false;
                 }
             }
+            */
 
             /**
             else if (mugshot != null && mugshotList != null)
@@ -996,9 +1003,11 @@ namespace AsteriskMod
                 float oldLetterTimer = letterTimer;
                 int oldLetterOnceValue = letterOnceValue;
                 lastLetter = currentCharacter;
+                /**
                 while (CheckCommand())
                     if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || waitingChar != KeyCode.None || letterOnceValue != oldLetterOnceValue || paused)
                         return false;
+                */
                 if (currentCharacter >= letterReferences.Length)
                     return false;
             }
