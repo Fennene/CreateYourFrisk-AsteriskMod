@@ -27,16 +27,13 @@ namespace AsteriskMod
         protected AudioClip default_voice;
         /// <summary>めっちゃいらない。</summary>
         [MoonSharpHidden] public AudioSource letterSound;
-        /// <summary>めっちゃいらない。</summary>
-        protected TextEffect textEffect;
-        /// <summary>めっちゃいらない。</summary>
-        private string letterEffect = "none";
+        //* protected TextEffect textEffect;
+        //* private string letterEffect = "none";
         /// <summary>いらない。</summary>
         public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "starcolor", "instant", "font", "effect", "noskip", "w", "waitall", "novoice",
                                                         "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters", "voice", "func", "mugshot",
                                                         "music", "sound", "health", "lettereffect"};
-        /// <summary>多分いらない。</summary>
-        private float letterIntensity;
+        //* private float letterIntensity;
         public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
         private int currentCharacter;
@@ -122,8 +119,8 @@ namespace AsteriskMod
         public StaticTextManager()
         {
             default_voice = null;
-            textEffect = null;
-            letterIntensity = 0.0f;
+            //* textEffect = null;
+            //* letterIntensity = 0.0f;
             currentLine = 0;
             _textMaxWidth = 0;
             currentCharacter = 0;
@@ -461,7 +458,7 @@ namespace AsteriskMod
                             print("currentY from ShowLine (" + textQueue[currentLine].Text + ") = " + self.position.y + " + " + offset.y + " - " + Charset.LineSpacing + " = " + currentY);*/
             currentCharacter = 0;
             currentReferenceCharacter = 0;
-            letterEffect = "none";
+            //* letterEffect = "none";
             /*textEffect = null;
                         letterIntensity = 0;*/
             // letterSpeed = 1;
@@ -581,6 +578,7 @@ namespace AsteriskMod
                 if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
                 {
                     letterReferences[currentCharacter].enabled = true;
+                    /**
                     switch (letterEffect.ToLower())
                     {
                         case "twitch": letterReferences[currentCharacter].GetComponent<Letter>().effect = new TwitchEffectLetter(letterReferences[currentCharacter].GetComponent<Letter>(), letterIntensity); break;
@@ -588,6 +586,7 @@ namespace AsteriskMod
                         case "shake": letterReferences[currentCharacter].GetComponent<Letter>().effect = new ShakeEffectLetter(letterReferences[currentCharacter].GetComponent<Letter>(), letterIntensity); break;
                         default: letterReferences[currentCharacter].GetComponent<Letter>().effect = null; break;
                     }
+                    */
                     currentReferenceCharacter++;
                     switch (textQueue[currentLine].Text[currentCharacter])
                     {
@@ -913,8 +912,10 @@ namespace AsteriskMod
                 return;
             }*/
 
+            /**
             if (textEffect != null)
                 textEffect.UpdateEffects();
+            */
 
             if (GlobalControls.retroMode && instantActive || currentCharacter >= letterReferences.Length)
                 return;
@@ -999,6 +1000,7 @@ namespace AsteriskMod
             if (letterReferences[currentCharacter] != null)
             {
                 letterReferences[currentCharacter].enabled = true;
+                /**
                 switch (letterEffect.ToLower())
                 {
                     case "twitch": letterReferences[currentCharacter].GetComponent<Letter>().effect = new TwitchEffectLetter(letterReferences[currentCharacter].GetComponent<Letter>(), letterIntensity); break;
@@ -1006,6 +1008,7 @@ namespace AsteriskMod
                     case "shake": letterReferences[currentCharacter].GetComponent<Letter>().effect = new ShakeEffectLetter(letterReferences[currentCharacter].GetComponent<Letter>(), letterIntensity); break;
                     default: letterReferences[currentCharacter].GetComponent<Letter>().effect = null; break;
                 }
+                */
                 if (letterSound != null && !muted && !soundPlayed && (GlobalControls.retroMode || textQueue[currentLine].Text[currentCharacter] != ' '))
                 {
                     soundPlayed = true;
@@ -1019,7 +1022,7 @@ namespace AsteriskMod
         }
 
         // PreCreateControlCommand()
-        /*
+        /**
         private void PreCreateControlCommand(string command)
         {
             string[] cmds = UnitaleUtil.SpecialSplit(':', command);
@@ -1091,7 +1094,7 @@ namespace AsteriskMod
         */
 
         // InUpdateControlCommand()
-        /*
+        /**
         private void InUpdateControlCommand(DynValue command, int index = 0)
         {
             string[] cmds = UnitaleUtil.SpecialSplit(':', command.String);
@@ -1327,7 +1330,7 @@ namespace AsteriskMod
         */
 
         // ComputeArgument()
-        /*
+        /**
         private DynValue ComputeArgument(string arg)
         {
             arg = arg.Trim();
@@ -1351,7 +1354,7 @@ namespace AsteriskMod
         */
 
         // SetHP()
-        /*
+        /**
         private void SetHP(float newhp)
         {
             float HP;
@@ -1399,7 +1402,7 @@ namespace AsteriskMod
         */
 
         // CreateNumber()
-        /*
+        /**
         private float CreateNumber(string str)
         {
             float number = 0, dot = -1;

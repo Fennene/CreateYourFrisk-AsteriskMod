@@ -517,7 +517,7 @@ namespace AsteriskMod
             GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
         }
 
-        // SetEffect
+        // SetEffect()
         /*
         public void SetEffect(string effect, float intensity = -1)
         {
