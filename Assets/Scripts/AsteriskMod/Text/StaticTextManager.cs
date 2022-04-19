@@ -566,9 +566,9 @@ namespace AsteriskMod
             if ((GlobalControls.isInFight && EnemyEncounter.script.GetVar("playerskipdocommand").Boolean) || !GlobalControls.isInFight)
                 instantCommand = true;
 
-            if (!GlobalControls.retroMode)
-                InUpdateControlCommand(DynValue.NewString("instant"), currentCharacter);
-            else
+            //if (!GlobalControls.retroMode)
+                //InUpdateControlCommand(DynValue.NewString("instant"), currentCharacter);
+            //else
                 SkipText();
         }
 
@@ -610,8 +610,7 @@ namespace AsteriskMod
             }
         }
 
-        /// <summary>いらない。</summary>
-        public void SetEffect(TextEffect effect) { textEffect = effect; }
+        //public void SetEffect(TextEffect effect) { textEffect = effect; }
 
         /// <summary>各文字のオブジェクト破壊。</summary>
         [MoonSharpHidden]
@@ -733,13 +732,14 @@ namespace AsteriskMod
                     SpawnTextSpaceTest(0, currentText, out currentText);
 
             // Work-around for [instant] and [instant:allowcommand] at the beginning of a line of text
-            bool skipImmediate = false;
-            string skipCommand = "";
+            //*  bool skipImmediate = false;
+            //* string skipCommand = "";
 
             for (int i = 0; i < currentText.Length; i++)
             {
                 switch (currentText[i])
                 {
+                    /*
                     case '[':
                         int currentChar = i;
                         string command = UnitaleUtil.ParseCommandInline(currentText, ref i);
@@ -794,6 +794,7 @@ namespace AsteriskMod
                             continue;
                         }
                         break;
+                    */
                     case '\n':
                         currentX = self.position.x + offset.x;
                         currentY = currentY - vSpacing - Charset.LineSpacing;
@@ -824,8 +825,10 @@ namespace AsteriskMod
             }
 
             // Work-around for [instant] and [instant:allowcommand] at the beginning of a line of text
+            /*
             if (skipImmediate)
                 InUpdateControlCommand(DynValue.NewString(skipCommand));
+            */
 
             if (UnitaleUtil.IsOverworld && SceneManager.GetActiveScene().name != "TitleScreen" && SceneManager.GetActiveScene().name != "EnterName" && !GlobalControls.isInShop)
                 try
@@ -834,8 +837,10 @@ namespace AsteriskMod
                         mugshot.color = new float[] { 1, 1, 1 };
                 }
                 catch { /* ignored */ }
+            /*
             if (!instantActive)
                 Update();
+            */
         }
 
         /// <summary>いらない。</summary>
@@ -847,6 +852,7 @@ namespace AsteriskMod
             if (textQueue[currentLine].Text[currentCharacter] != '[') return false;
             int currentChar = currentCharacter;
             string command = UnitaleUtil.ParseCommandInline(textQueue[currentLine].Text, ref currentCharacter);
+            /*
             if (command != null)
             {
                 currentCharacter++; // we're not in a continuable loop so move to the character after the ] manually
@@ -865,6 +871,7 @@ namespace AsteriskMod
 
                 return true;
             }
+            */
             currentCharacter = currentChar;
             return false;
         }
@@ -1011,7 +1018,8 @@ namespace AsteriskMod
             return true;
         }
 
-        /// <summary>いらない。</summary>
+        // PreCreateControlCommand()
+        /*
         private void PreCreateControlCommand(string command)
         {
             string[] cmds = UnitaleUtil.SpecialSplit(':', command);
@@ -1070,7 +1078,6 @@ namespace AsteriskMod
                     break;
 
                 case "effect":
-                    /*
                     switch (cmds[1].ToUpper())
                     {
                         case "NONE": textEffect = null; break;
@@ -1078,12 +1085,13 @@ namespace AsteriskMod
                         case "SHAKE": textEffect = new ShakeEffect(this, args.Length > 1 ? ParseUtil.GetFloat(args[1]) : 1); break;
                         case "ROTATE": textEffect = new RotatingEffect(this, args.Length > 1 ? ParseUtil.GetFloat(args[1]) : 1.5f); break;
                     }
-                    */
                     break;
             }
         }
+        */
 
-        /// <summary>いらない。</summary>
+        // InUpdateControlCommand()
+        /*
         private void InUpdateControlCommand(DynValue command, int index = 0)
         {
             string[] cmds = UnitaleUtil.SpecialSplit(':', command.String);
@@ -1316,7 +1324,10 @@ namespace AsteriskMod
                     break;
             }
         }
+        */
 
+        // ComputeArgument()
+        /*
         private DynValue ComputeArgument(string arg)
         {
             arg = arg.Trim();
@@ -1337,7 +1348,10 @@ namespace AsteriskMod
                 dyn = DynValue.NewString(arg);
             return dyn;
         }
+        */
 
+        // SetHP()
+        /*
         private void SetHP(float newhp)
         {
             float HP;
@@ -1382,8 +1396,10 @@ namespace AsteriskMod
             if (!UnitaleUtil.IsOverworld)
                 UIStats.instance.setHP(HP);
         }
+        */
 
-        /// <summary>めっちゃいらない。</summary>
+        // CreateNumber()
+        /*
         private float CreateNumber(string str)
         {
             float number = 0, dot = -1;
@@ -1414,5 +1430,6 @@ namespace AsteriskMod
                 return -number;
             return number;
         }
+        */
     }
 }
