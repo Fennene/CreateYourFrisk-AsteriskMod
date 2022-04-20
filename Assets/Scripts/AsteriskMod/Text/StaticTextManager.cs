@@ -69,6 +69,7 @@ namespace AsteriskMod
         //* private bool firstChar;
         internal float hSpacing = 3;
         internal float vSpacing;
+        /// <summary>おそらく不必要</summary>
         private GameObject textframe;
         //* private LuaSpriteController mugshot;
         //* private string[] mugshotList;
@@ -91,9 +92,11 @@ namespace AsteriskMod
 
         [MoonSharpHidden] public UnderFont Charset { get; protected set; }
         //* [MoonSharpHidden] public TextMessage[] textQueue;
+        /// <summary>正直stringで事足りるが、AcutualTextの意味が分からないので。</summary>
         [MoonSharpHidden] public InstantTextMessage instantText;
         //public string[] mugshotsPath;
         //public bool overworld;
+        /// <summary>おそらく不必要</summary>
         [MoonSharpHidden] public bool blockSkip;
         //* [MoonSharpHidden] public bool skipNowIfBlocked = false;
         //* internal bool noSkip1stFrame = true;
@@ -161,7 +164,8 @@ namespace AsteriskMod
 
         /// <summary>
         /// デフォルトのフォント設定。フォントが指定されていない場合のエラー回避にも使用する。<br/>
-        /// フォントの読み込みは少なくとも早くてAwake()後Start()前。TextManagerのStart()前後どちらかは確定しない。
+        /// フォントの読み込みは少なくとも早くてAwake()後Start()前。TextManagerのStart()前後どちらかは確定しない...かもしれない。<br/>
+        /// StaticInit自体Battleシーンに行く前に初期化されるが、結構いくつもの場所で初期化されているので果たしてこのクラスのAwake()/Start()で読み込むことができるかは不明。
         /// </summary>
         [MoonSharpHidden]
         public void ResetFont()
@@ -866,6 +870,47 @@ namespace AsteriskMod
             if (!instantActive)
                 Update();
             */
+        }
+
+        /// <summary>[color]コマンドと同効果</summary>
+        [MoonSharpHidden]
+        internal void SetColor(float r, float g, float b)
+        {
+            float oldAlpha = currentColor.a;
+            currentColor = new Color(r, g, b, oldAlpha);
+            colorSet = true;
+        }
+        [MoonSharpHidden]
+        internal void SetColor32(byte r, byte g, byte b)
+        {
+            byte oldAlpha = ((Color32)currentColor).a;
+            currentColor = new Color32(r, g, b, oldAlpha);
+            colorSet = true;
+        }
+
+        /// <summary>[alpha]コマンドと同効果</summary>
+        [MoonSharpHidden]
+        internal void SetAlpha(float a)
+        {
+            currentColor = new Color(currentColor.r, currentColor.g, currentColor.b, a);
+        }
+        [MoonSharpHidden]
+        internal void SetAlpha32(byte a)
+        {
+            currentColor = new Color32(((Color32)currentColor).r, ((Color32)currentColor).g, ((Color32)currentColor).b, a);
+        }
+
+        /// <summary>[charspacing]コマンドと同効果</summary>
+        public void SetCharSpacing(float? space = null)
+        {
+            if (!space.HasValue) SetHorizontalSpacing(Charset.CharSpacing);
+            else SetHorizontalSpacing(space.Value);
+        }
+
+        /// <summary>[linespacing]コマンドと同効果</summary>
+        public void SetLineSpacing(float space = 0)
+        {
+            SetVerticalSpacing(space);
         }
 
         // CheckCommand() // always return false
