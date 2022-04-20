@@ -1465,7 +1465,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 157740, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
+      propertyPath: m_Name
+      value: '*HPBar'
+      objectReference: {fileID: 0}
+    - target: {fileID: 145618, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
+      propertyPath: m_Name
+      value: '*HPBarFill'
+      objectReference: {fileID: 0}
+    - target: {fileID: 171708, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
+      propertyPath: m_Name
+      value: '*HPBarBG'
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11414768, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
   m_IsPrefabAsset: 0
 --- !u!224 &851140165 stripped
@@ -1473,6 +1486,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 22471536, guid: 395d68b8bb1fcdb48a7c47668f565115,
     type: 2}
   m_PrefabInternal: {fileID: 851140164}
+--- !u!1 &851140166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 157740, guid: 395d68b8bb1fcdb48a7c47668f565115,
+    type: 2}
+  m_PrefabInternal: {fileID: 851140164}
+--- !u!114 &851140167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851140166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1db0fdd72f7da49b04fca5cf80322a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillColor: {r: 1, g: 1, b: 0, a: 1}
+  backgroundColor: {r: 1, g: 0, b: 0, a: 1}
+  fill: {fileID: 851140168}
+  background: {fileID: 851140169}
+--- !u!114 &851140168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11400118, guid: 395d68b8bb1fcdb48a7c47668f565115,
+    type: 2}
+  m_PrefabInternal: {fileID: 851140164}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &851140169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11447768, guid: 395d68b8bb1fcdb48a7c47668f565115,
+    type: 2}
+  m_PrefabInternal: {fileID: 851140164}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &930260304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,7 +2371,7 @@ GameObject:
   - component: {fileID: 1401963668}
   - component: {fileID: 1401963667}
   m_Layer: 5
-  m_Name: HPLabel
+  m_Name: '*HPLabel'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3703,7 +3748,7 @@ GameObject:
   - component: {fileID: 1918476089}
   - component: {fileID: 1918476088}
   m_Layer: 5
-  m_Name: HPLabelCrate
+  m_Name: '*HPLabelCrate'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
