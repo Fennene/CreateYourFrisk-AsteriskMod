@@ -18,6 +18,11 @@ namespace AsteriskMod
             < 開発メモ >
             TextManager.SetText()を呼び出した時点で、各文字のスプライト自体は用意される。
             Update()で制御されるのは、生成部分ではなく、テキストのエフェクトと表示のみ。
+
+            コメントアウトで対処しているのは、後にバグやエラーが発生した場合に対応するため。
+            元からあるコメントアウトと区別するために
+            1行コメントは //* 、複数行(の先頭)は /**
+            とアスタリスクが過剰についている。
         */
         internal Image[] letterReferences;
         internal Vector2[] letterPositions;
@@ -316,7 +321,8 @@ namespace AsteriskMod
             offsetSet = true;
         }
 
-        /// <summary>いらない。</summary>
+        // LineComplete()
+        /**
         public bool LineComplete()
         {
             if (letterReferences == null)
@@ -324,14 +330,17 @@ namespace AsteriskMod
             //* return (instantActive || currentCharacter == letterReferences.Length);
             return true;
         }
+        */
 
-        /// <summary>いらない。</summary>
+        // AllLinesComplete()
+        /**
         [MoonSharpHidden] public bool AllLinesComplete()
         {
             //* return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
             //* return instantText == null || currentLine == 0 && LineComplete();
             return instantText == null || LineComplete();
         }
+        */
 
         // SetMugshot()
         /**
@@ -519,6 +528,7 @@ namespace AsteriskMod
             }
         }
 
+        /// <summary>おそらく不必要</summary>
         [MoonSharpHidden]
         public void SetTextFrameAlpha(float a)
         {

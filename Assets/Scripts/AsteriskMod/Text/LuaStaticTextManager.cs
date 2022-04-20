@@ -26,8 +26,7 @@ namespace AsteriskMod
         private int _bubbleHeight = -1;
         /// <summary>めっちゃいらない。</summary>
         private BubbleSide bubbleSide = BubbleSide.NONE;
-        /// <summary>めっちゃいらない。</summary>
-        private ProgressMode progress = ProgressMode.AUTO;
+        //* private ProgressMode progress = ProgressMode.AUTO;
         private Color textColor;
         private float xScale = 1;
         private float yScale = 1;
@@ -111,7 +110,8 @@ namespace AsteriskMod
         // DestroyText()呼び出しの省略形
         public void Remove() { DestroyText(); }
 
-        /// <summary>めっちゃいらない。</summary>
+        //ResizeBubble()
+        /**
         private void ResizeBubble()
         {
             float effectiveBubbleHeight = bubbleHeight != -1 ? bubbleHeight < 16 ? 40 : bubbleHeight + 24 : AsteriskUtil.CalcTextHeight(this) < 16 ? 40 : AsteriskUtil.CalcTextHeight(this) + 24;
@@ -122,8 +122,10 @@ namespace AsteriskMod
             UnitaleUtil.GetChildPerName(containerBubble.transform, "CenterVert").GetComponent<RectTransform>().sizeDelta = new Vector2(textMaxWidth - 16, effectiveBubbleHeight - 4);       //CenterVert
             SetSpeechThingPositionAndSide(bubbleSide.ToString(), bubbleLastVar);
         }
+        */
 
-        /// <summary>めっちゃいらない。</summary>
+        // progressmode
+        /**
         public string progressmode
         {
             get
@@ -145,6 +147,7 @@ namespace AsteriskMod
                 }
             }
         }
+        */
 
         public int x
         {
@@ -387,7 +390,8 @@ namespace AsteriskMod
             return DynValue.NewTable(table);
         }
 
-        /// <summary>いらない。</summary>
+        // lineComplete
+        /**
         public bool lineComplete
         {
             get
@@ -396,12 +400,15 @@ namespace AsteriskMod
                 return LineComplete();
             }
         }
+        */
 
-        /// <summary>めっちゃいらない。</summary>
+        // allLinesComplete
+        /**
         public bool allLinesComplete
         {
             get { return AllLinesComplete(); }
         }
+        */
 
         public void SetParent(LuaSpriteController parent)
         {
