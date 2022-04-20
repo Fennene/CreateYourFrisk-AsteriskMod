@@ -14,6 +14,7 @@ namespace AsteriskMod
             UserData.RegisterType<ButtonManager>();
             UserData.RegisterType<PlayerUtil>();
 
+            UserData.RegisterType<PlayerLifeBar>();
             UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();

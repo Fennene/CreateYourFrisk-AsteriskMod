@@ -523,3 +523,35 @@ ul.rn li.del li::before {
     background: #000;
     content: "";
 }
+
+ul.fakenav .li-header-fake {
+    font-size: 13px;
+    line-height:13px;
+    height: auto !important;
+    padding-bottom: 3 !important;
+    padding-top: 0 !important;
+    margin-bottom: 5px;
+    left: -10px;
+    width: 180px;
+}
+
+.li-header-fake{
+    color:#999;
+}
+
+ul.fakenav li, ul.fakenav .li-header-fake {
+    font-size: 13px;
+    line-height:13px;
+    height: auto !important;
+    padding-bottom: 3 !important;
+    padding-top: 0 !important;
+    margin-bottom: 5px;
+    left: -10px;
+    width: 180px;
+}
+
+ul.fakenav li {
+    border-top: 8px solid rgba(0,0,0,0);
+    /*background-color: #222 !important;*/
+    color: #777;
+}
