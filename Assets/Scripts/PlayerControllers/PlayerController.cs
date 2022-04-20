@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using UnityEngine.UI;
 using MoonSharp.Interpreter;
 
@@ -223,8 +224,13 @@ public class PlayerController : MonoBehaviour {
         if (HP > ControlPanel.instance.HPLimit)
             HP = ControlPanel.instance.HPLimit;
         deathEscape = true;
-        if (UIStats.instance)
-            UIStats.instance.setHP(HP);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //if (UIStats.instance)
+        //    UIStats.instance.setHP(HP);
+        UIStatsRelay.UpdateHP(HP, true);
+        // --------------------------------------------------------------------------------
     }
 
     public void SetMaxHPShift(int shift, float invulnerabilitySeconds = 1.7f, bool set = false, bool canHeal = false, bool sound = true) {
@@ -281,8 +287,13 @@ public class PlayerController : MonoBehaviour {
         }
         if (PlayerCharacter.instance.HP > PlayerCharacter.instance.MaxHP)
             SetHP(PlayerCharacter.instance.MaxHP);
-        if (UIStats.instance)
-            UIStats.instance.setMaxHP();
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //if (UIStats.instance)
+        //    UIStats.instance.setMaxHP();
+        UIStatsRelay.UpdateMaxHP(true);
+        // --------------------------------------------------------------------------------
     }
 
     public bool isHurting() { return invulTimer > 0; }

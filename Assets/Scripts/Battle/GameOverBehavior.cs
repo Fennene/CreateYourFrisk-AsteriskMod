@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 using System.Linq;
 using MoonSharp.Interpreter;
 using UnityEngine;
@@ -186,7 +187,12 @@ public class GameOverBehavior : MonoBehaviour {
             gameObject.transform.GetComponent<SpriteRenderer>().enabled = false;// gameObject.transform.parent.SetParent(GameObject.Find("Canvas GameOver").transform);
         else {
             gameObject.transform.SetParent(GameObject.Find("Canvas GameOver").transform);
-            UIStats.instance.setHP(PlayerCharacter.instance.MaxHP);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //UIStats.instance.setHP(PlayerCharacter.instance.MaxHP);
+            UIStatsRelay.UpdateHP(PlayerCharacter.instance.MaxHP);
+            // --------------------------------------------------------------------------------
         }
         brokenHeartPrefab = Resources.Load<GameObject>("Prefabs/heart_broken");
         if (SpriteRegistry.GENERIC_SPRITE_PREFAB == null)

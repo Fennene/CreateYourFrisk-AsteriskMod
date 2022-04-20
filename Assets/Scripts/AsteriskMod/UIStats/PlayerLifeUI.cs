@@ -22,6 +22,7 @@ namespace AsteriskMod
             hpRect = gameObject;
 
             lifebar = gameObject.GetComponentInChildren<PlayerLifeBar>();
+            lifebar.Initialize(true);
             //* lifebarRt = lifebar.GetComponent<RectTransform>();
 
             lifeTextMan = lifebar.gameObject.GetComponentInChildren<LimitedLuaStaticTextManager>();
@@ -61,7 +62,8 @@ namespace AsteriskMod
         {
             //* lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), lifebarRt.sizeDelta.y);
             //* SetHP(PlayerCharacter.instance.HP);
-            lifebar.setMaxHP();
+            lifebar.setMaxHP(true);
+            SetHP(PlayerCharacter.instance.HP);
         }
     }
 }

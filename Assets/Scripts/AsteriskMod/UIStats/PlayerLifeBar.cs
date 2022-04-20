@@ -149,7 +149,7 @@ namespace AsteriskMod
         }
 
         [MoonSharpHidden]
-        internal void setMaxHP()
+        internal void setMaxHP(bool maxhpOnly = false)
         {
             if (_controlOverride) return;
             //* self.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), self.sizeDelta.y);
@@ -157,6 +157,7 @@ namespace AsteriskMod
             float realMaxLength = PlayerCharacter.instance.MaxHP;
             if (_limited) realMaxLength = Mathf.Min(100, realMaxLength);
             self.sizeDelta = new Vector2(realMaxLength * 1.2f, self.sizeDelta.y);
+            if (maxhpOnly) return;
             setHP(PlayerCharacter.instance.HP);
         }
 

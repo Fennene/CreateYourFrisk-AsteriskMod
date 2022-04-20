@@ -162,11 +162,11 @@ public class LuaPlayerStatus {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            DevelopHint.ToDo("Use Relay to MaxHP");
             if (UIStats.instance) {
                 //UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+                //UIStats.instance.setMaxHP();
                 UIStatsRelay.UpdatePlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
-                UIStats.instance.setMaxHP();
+                UIStatsRelay.UpdateMaxHP();
             }
             // --------------------------------------------------------------------------------
         }
@@ -281,8 +281,13 @@ public class LuaPlayerStatus {
     public void ResetStats(bool resetMHP = true, bool resetATK = true, bool resetDEF = true) {
         if (resetMHP) {
             PlayerCharacter.instance.MaxHPShift = 0;
-            if (UIStats.instance)
-                UIStats.instance.setMaxHP();
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //if (UIStats.instance)
+            //    UIStats.instance.setMaxHP();
+            UIStatsRelay.UpdateMaxHP(true);
+            // --------------------------------------------------------------------------------
         }
         if (resetATK)
             atk = 8 + (2 * lv);

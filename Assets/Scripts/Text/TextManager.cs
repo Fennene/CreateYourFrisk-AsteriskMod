@@ -1151,7 +1151,12 @@ public class TextManager : MonoBehaviour {
         if (HP > ControlPanel.instance.HPLimit)                                                 HP = ControlPanel.instance.HPLimit;
         PlayerCharacter.instance.HP = HP;
         if (!UnitaleUtil.IsOverworld)
-            UIStats.instance.setHP(HP);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //UIStats.instance.setHP(HP);
+            UIStatsRelay.UpdateHP(HP);
+            // --------------------------------------------------------------------------------
     }
 
     private float CreateNumber(string str) {
