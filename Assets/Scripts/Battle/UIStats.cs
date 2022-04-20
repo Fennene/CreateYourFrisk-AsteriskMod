@@ -1,5 +1,4 @@
 ﻿using AsteriskMod;
-using AsteriskMod.Lua;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
@@ -59,8 +58,8 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        PlayerUIManager.Instance.SetNameLVColor(true, PlayerUtil.nameTextColor);
-        PlayerUIManager.Instance.SetNameLVColor(false, PlayerUtil.lvTextColor);
+        PlayerUIManager.Instance.SetNameLVColor(true, AsteriskMod.Lua.PlayerUtil.nameTextColor);
+        PlayerUIManager.Instance.SetNameLVColor(false, AsteriskMod.Lua.PlayerUtil.lvTextColor);
         // --------------------------------------------------------------------------------
         hpRect.transform.position = new Vector3(hpRect.transform.parent.position.x + (PlayerCharacter.instance.Name.Length > 6 ? 286.1f : 215.1f), hpRect.transform.position.y, hpRect.transform.position.z);
 
@@ -85,7 +84,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        PlayerUIManager.Instance.SetHPTextColor(PlayerUtil.hpTextColor);
+        PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
         if (encounterHasOnHPChanged && initializeCompleted && Asterisk.experimentMode)
             UIController.instance.encounter.TryCall("OnHPChanged");
         // --------------------------------------------------------------------------------
@@ -136,7 +135,7 @@ public class UIStats : MonoBehaviour {
         string sHpCurrent = hp < 10 ? "0" + hp.ToString("F" + count) : hp.ToString("F" + count);
         string sHpMax = hpMax < 10 ? "0" + hpMax : "" + hpMax;
         hpTextMan.SetText(new TextMessage(sHpCurrent + " / " + sHpMax, false, true));
-        PlayerUIManager.Instance.SetHPTextColor(PlayerUtil.hpTextColor);
+        PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
     }
 
     internal void setMaxHPOverride(int maxhp)
@@ -161,7 +160,7 @@ public class UIStats : MonoBehaviour {
             return;
         }
         hpTextMan.SetText(new TextMessage(hpText, false, true));
-        PlayerUIManager.Instance.SetHPTextColor(PlayerUtil.hpTextColor);
+        PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
     }
 
     /// <summary>

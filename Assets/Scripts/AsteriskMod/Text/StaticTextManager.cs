@@ -14,8 +14,7 @@ namespace AsteriskMod
     /// </summary>
     public class StaticTextManager : MonoBehaviour
     {
-        /*
-            < 開発メモ >
+        /*  < 開発メモ >
             TextManager.SetText()を呼び出した時点で、各文字のスプライト自体は用意される。
             Update()で制御されるのは、生成部分ではなく、テキストのエフェクトと表示のみ。
 
@@ -109,6 +108,11 @@ namespace AsteriskMod
         // <summary>Luaテキスト(<see cref="LuaStaticTextManager"/>)は Late Start の模様... (何それ...)</summary>
         //* [MoonSharpHidden] public bool lateStartWaiting = false; // Lua text objects will use a late start -> disabled
 
+        private float newhSpacing = 3;
+        private bool newhSpacingSet;
+        private float newvSpacing;
+        private bool newvSpacingSet;
+
         public StaticTextManager()
         {
             //* default_voice = null;
@@ -161,6 +165,11 @@ namespace AsteriskMod
             {
                 if (((LuaStaticTextManager)this).hasColorBeenSet) defaultColor = ((LuaStaticTextManager)this)._color;
                 if (((LuaStaticTextManager)this).hasAlphaBeenSet) defaultColor.a = ((LuaStaticTextManager)this).alpha;
+            }
+            if (GetType() == typeof(LimitedLuaStaticTextManager))
+            {
+                if (((LimitedLuaStaticTextManager)this).hasColorBeenSet) defaultColor = ((LimitedLuaStaticTextManager)this)._color;
+                if (((LimitedLuaStaticTextManager)this).hasAlphaBeenSet) defaultColor.a = ((LimitedLuaStaticTextManager)this).alpha;
             }
             currentColor = defaultColor;
         }
@@ -738,6 +747,17 @@ namespace AsteriskMod
                 }
                 else ltrImg.color = currentColor;
             }
+            else if (GetType() == typeof(LimitedLuaStaticTextManager))
+            {
+                LimitedLuaStaticTextManager lluaThis = (LimitedLuaStaticTextManager)this;
+                Color lluaColor = lluaThis._color;
+                if (!colorSet)
+                {
+                    ltrImg.color = lluaThis.hasColorBeenSet ? lluaColor : currentColor;
+                    if (lluaThis.hasAlphaBeenSet) ltrImg.color = new Color(ltrImg.color.r, ltrImg.color.g, ltrImg.color.b, lluaColor.a);
+                }
+                else ltrImg.color = currentColor;
+            }
             else ltrImg.color = currentColor;
             ltrImg.GetComponent<Letter>().colorFromText = currentColor;
             //* ltrImg.enabled = textQueue[currentLine].ShowImmediate || (GlobalControls.retroMode && instantActive);
@@ -885,45 +905,20 @@ namespace AsteriskMod
             */
         }
 
-        /// <summary>[color]コマンドと同効果</summary>
+        /// <summary>必ず<see cref="SetFont(UnderFont, bool)"/>または<see cref="ResetFont"/>後に呼び出すこと</summary>
         [MoonSharpHidden]
-        internal void SetColor(float r, float g, float b)
+        internal void SetCharSpacing(float? space = null)
         {
-            float oldAlpha = currentColor.a;
-            currentColor = new Color(r, g, b, oldAlpha);
-            colorSet = true;
-        }
-        [MoonSharpHidden]
-        internal void SetColor32(byte r, byte g, byte b)
-        {
-            byte oldAlpha = ((Color32)currentColor).a;
-            currentColor = new Color32(r, g, b, oldAlpha);
-            colorSet = true;
+            if (!space.HasValue) newhSpacing = Charset.CharSpacing;
+            else newhSpacing = space.Value;
+            newhSpacingSet = true;
         }
 
-        /// <summary>[alpha]コマンドと同効果</summary>
         [MoonSharpHidden]
-        internal void SetAlpha(float a)
+        internal void SetLineSpacing(float space = 0)
         {
-            currentColor = new Color(currentColor.r, currentColor.g, currentColor.b, a);
-        }
-        [MoonSharpHidden]
-        internal void SetAlpha32(byte a)
-        {
-            currentColor = new Color32(((Color32)currentColor).r, ((Color32)currentColor).g, ((Color32)currentColor).b, a);
-        }
-
-        /// <summary>[charspacing]コマンドと同効果</summary>
-        public void SetCharSpacing(float? space = null)
-        {
-            if (!space.HasValue) SetHorizontalSpacing(Charset.CharSpacing);
-            else SetHorizontalSpacing(space.Value);
-        }
-
-        /// <summary>[linespacing]コマンドと同効果</summary>
-        public void SetLineSpacing(float space = 0)
-        {
-            SetVerticalSpacing(space);
+            newvSpacing = space;
+            newvSpacingSet = true;
         }
 
         // CheckCommand() // always return false

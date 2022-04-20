@@ -12,10 +12,14 @@ namespace AsteriskMod
         {
             UserData.RegisterType<ActionButton>();
             UserData.RegisterType<ButtonManager>();
+            UserData.RegisterType<PlayerUtil>();
+
             UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
             UserData.RegisterType<CYFEngine>();
+            UserData.RegisterType<LuaStaticTextManager>();
+            UserData.RegisterType<LimitedLuaStaticTextManager>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -38,11 +42,16 @@ namespace AsteriskMod
             script.Globals["Language"] = Asterisk.language.ToString();
         }
 
+        private delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8);
+
         public static void BoundScriptFunctions(ref Script script)
         {
             script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+
+            script.Globals["CreateStaticText"] = (Func<Script, DynValue, DynValue, int, string, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+            script.Globals["CreateSTText"] = (Func<Script, DynValue, DynValue, int, string, string, float?, float, LuaStaticTextManager>)CreateStaticText;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
@@ -53,9 +62,11 @@ namespace AsteriskMod
             {
                 DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
                 script.Globals.Set("ButtonUtil", buttonUtil);
+                DynValue playerUtil = UserData.Create(new PlayerUtil());
+                script.Globals.Set("NewPlayerUtil", playerUtil);
 
-                DynValue playerUtil = UserData.Create(new Lua.PlayerUtil());
-                script.Globals.Set("PlayerUtil", playerUtil);
+                DynValue playerUtil_old = UserData.Create(new Lua.PlayerUtil());
+                script.Globals.Set("PlayerUtil", playerUtil_old);
 
                 DynValue arenaUtil = UserData.Create(new Lua.ArenaUtil());
                 script.Globals.Set("ArenaUtil", arenaUtil);
@@ -127,14 +138,14 @@ namespace AsteriskMod
         }
         */
 
-        public static LuaStaticTextManager CreateStaticText(Script scr, DynValue text, DynValue position, int textWidth, string layer = "BelowPlayer")
+        public static LuaStaticTextManager CreateStaticText(Script scr, DynValue text, DynValue position, int textWidth, string layer = "BelowPlayer", string font = null, float? charspacing = null, float linespacing = 0)
         {
             if (text == null || text.Type != DataType.String)
                 throw new CYFException("CreateStaticText: The text argument must be a non-empty table of strings or a simple string.");
             if (position == null || position.Type != DataType.Table || position.Table.Get(1).Type != DataType.Number || position.Table.Get(2).Type != DataType.Number)
                 throw new CYFException("CreateStaticText: The position argument must be a non-empty table of two numbers.");
 
-            GameObject go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/CstmTxtContainer"));
+            GameObject go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/AsteriskMod/StTxtContainer"));
             LuaStaticTextManager luatm = go.GetComponentInChildren<LuaStaticTextManager>();
             go.GetComponent<RectTransform>().position = new Vector2((float)position.Table.Get(1).Number, (float)position.Table.Get(2).Number);
 
@@ -247,6 +258,12 @@ namespace AsteriskMod
 
             //* if (enableLateStart)
                 //* luatm.lateStartWaiting = true;
+            if (string.IsNullOrEmpty(font))
+                luatm.SetFont(font, true);
+            else
+                luatm.ResetFont();
+            luatm.SetCharSpacing(charspacing);
+            luatm.SetLineSpacing(linespacing);
             luatm.SetText(text);
             /**
             if (!enableLateStart) return luatm;

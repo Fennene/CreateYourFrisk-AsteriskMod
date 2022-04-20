@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod
 {
-    public class PlayerHPText
+    public class PlayerLifeUI
     {
     }
 }

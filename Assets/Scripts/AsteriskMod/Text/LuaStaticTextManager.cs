@@ -1,31 +1,26 @@
-﻿using UnityEngine;
+﻿using MoonSharp.Interpreter;
+//* using System;
+//* using System.Collections;
+//* using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using MoonSharp.Interpreter;
 
 namespace AsteriskMod
 {
     public class LuaStaticTextManager : StaticTextManager
     {
         private GameObject container;
-        /// <summary>めっちゃいらない。</summary>
-        private GameObject containerBubble;
-        /// <summary>めっちゃいらない。</summary>
-        private RectTransform speechThing;
-        /// <summary>めっちゃいらない。</summary>
-        private RectTransform speechThingShadow;
-        /// <summary>めっちゃいらない。</summary>
-        private DynValue bubbleLastVar = DynValue.NewNil();
-        /// <summary>めっちゃいらない。</summary>
-        private bool bubble = true;
+        //* private GameObject containerBubble;
+        //* private RectTransform speechThing;
+        //* private RectTransform speechThingShadow;
+        //* private DynValue bubbleLastVar = DynValue.NewNil();
+        //* private bool bubble = true; //* false
         //* private int framesWait = 60;
         //* private int countFrames;
         /// <summary>めっちゃいらない。</summary>
-        private int _bubbleHeight = -1;
+        //* private int _bubbleHeight = -1;
         /// <summary>めっちゃいらない。</summary>
-        private BubbleSide bubbleSide = BubbleSide.NONE;
+        //* private BubbleSide bubbleSide = BubbleSide.NONE;
         //* private ProgressMode progress = ProgressMode.AUTO;
         private Color textColor;
         private float xScale = 1;
@@ -36,24 +31,25 @@ namespace AsteriskMod
         {
             get
             {
-                return container != null && containerBubble != null && speechThing != null && speechThingShadow != null && !autoDestroyed;
+                //* return container != null && containerBubble != null && speechThing != null && speechThingShadow != null && !autoDestroyed;
+                return container != null && !autoDestroyed;
             }
         }
 
-        /// <summary>めっちゃいらない。</summary>
-        private enum BubbleSide { LEFT = 0, DOWN = 90, RIGHT = 180, UP = 270, NONE = -1 }
-        /// <summary>めっちゃいらない。</summary>
-        private enum ProgressMode { AUTO, MANUAL, NONE }
+        //* private enum BubbleSide { LEFT = 0, DOWN = 90, RIGHT = 180, UP = 270, NONE = -1 }
+        //* private enum ProgressMode { AUTO, MANUAL, NONE }
 
         protected override void Awake()
         {
             base.Awake();
             if (!UnitaleUtil.IsOverworld)
-                transform.parent.SetParent(GameObject.Find("TopLayer").transform);
-            container = transform.parent.gameObject;
-            containerBubble = UnitaleUtil.GetChildPerName(container.transform, "BubbleContainer").gameObject;
-            speechThing = UnitaleUtil.GetChildPerName(containerBubble.transform, "SpeechThing", false, true).GetComponent<RectTransform>();
-            speechThingShadow = UnitaleUtil.GetChildPerName(containerBubble.transform, "SpeechThingShadow", false, true).GetComponent<RectTransform>();
+                //* transform.parent.SetParent(GameObject.Find("TopLayer").transform);
+                transform.SetParent(GameObject.Find("TopLayer").transform);
+            //* container = transform.parent.gameObject;
+            container = gameObject;
+            //* containerBubble = UnitaleUtil.GetChildPerName(container.transform, "BubbleContainer").gameObject;
+            //* speechThing = UnitaleUtil.GetChildPerName(containerBubble.transform, "SpeechThing", false, true).GetComponent<RectTransform>();
+            //* speechThingShadow = UnitaleUtil.GetChildPerName(containerBubble.transform, "SpeechThingShadow", false, true).GetComponent<RectTransform>();
         }
 
         // Update()
@@ -96,7 +92,7 @@ namespace AsteriskMod
         private void CheckExists()
         {
             if (!isactive)
-                throw new CYFException("Attempt to perform action on removed text object.");
+                throw new CYFException("Attempt to perform action on removed static text object.");
         }
 
         public void DestroyText()
@@ -203,7 +199,8 @@ namespace AsteriskMod
             }
         }
 
-        /// <summary>めっちゃいらない。</summary>
+        // bubbleHeight
+        /**
         public int bubbleHeight
         {
             get
@@ -217,6 +214,7 @@ namespace AsteriskMod
                 _bubbleHeight = value == -1 ? -1 : value < 40 ? 40 : value;
             }
         }
+        */
 
         public float xscale
         {
@@ -276,24 +274,24 @@ namespace AsteriskMod
         public void MoveBelow(LuaTextManager otherText)
         {
             CheckExists();
-            if (otherText == null || !otherText.isactive) throw new CYFException("The text object passed as an argument is nil or inactive.");
-            if (transform.parent.parent != otherText.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two text objects without the same parent.");
+            if (otherText == null || !otherText.isactive) throw new CYFException("The static text object passed as an argument is nil or inactive.");
+            if (transform.parent.parent != otherText.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two static text objects without the same parent.");
             else
             {
                 try { transform.parent.SetSiblingIndex(otherText.transform.parent.GetSiblingIndex()); }
-                catch { throw new CYFException("Error while calling text.MoveBelow."); }
+                catch { throw new CYFException("Error while calling staticText.MoveBelow."); }
             }
         }
 
         public void MoveAbove(LuaTextManager otherText)
         {
             CheckExists();
-            if (otherText == null || !otherText.isactive) throw new CYFException("The text object passed as an argument is nil or inactive.");
-            if (transform.parent.parent != otherText.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two text objects without the same parent.");
+            if (otherText == null || !otherText.isactive) throw new CYFException("The static text object passed as an argument is nil or inactive.");
+            if (transform.parent.parent != otherText.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two static text objects without the same parent.");
             else
             {
                 try { transform.parent.SetSiblingIndex(otherText.transform.parent.GetSiblingIndex() + 1); }
-                catch { throw new CYFException("Error while calling text.MoveAbove."); }
+                catch { throw new CYFException("Error while calling staticText.MoveAbove."); }
             }
         }
 
@@ -308,14 +306,14 @@ namespace AsteriskMod
             {
                 CheckExists();
                 if (value == null)
-                    throw new CYFException("text.color can not be set to a nil value.");
+                    throw new CYFException("staticText.color can not be set to a nil value.");
                 switch (value.Length)
                 {
                     // If we don't have three or four floats, we throw an error
                     case 3: _color = new Color(value[0], value[1], value[2], alpha); break;
                     case 4: _color = new Color(value[0], value[1], value[2], value[3]); break;
                     default:
-                        throw new CYFException("You need 3 or 4 numeric values when setting a text's color.");
+                        throw new CYFException("You need 3 or 4 numeric values when setting a static text's color.");
                 }
 
                 hasColorBeenSet = true;
@@ -341,14 +339,14 @@ namespace AsteriskMod
             {
                 CheckExists();
                 if (value == null)
-                    throw new CYFException("text.color32 can not be set to a nil value.");
+                    throw new CYFException("staticText.color32 can not be set to a nil value.");
                 switch (value.Length)
                 {
                     // If we don't have three or four floats, we throw an error
                     case 3: color = new[] { value[0] / 255, value[1] / 255, value[2] / 255, alpha }; break;
                     case 4: color = new[] { value[0] / 255, value[1] / 255, value[2] / 255, value[3] / 255 }; break;
                     default:
-                        throw new CYFException("You need 3 or 4 numeric values when setting a text's color.");
+                        throw new CYFException("You need 3 or 4 numeric values when setting a static text's color.");
                 }
             }
         }
@@ -414,10 +412,10 @@ namespace AsteriskMod
         {
             CheckExists();
             if (parent != null && parent.img.transform != null && parent.img.transform.parent.name == "SpritePivot")
-                throw new CYFException("text.SetParent(): Can not use SetParent with an Overworld Event's sprite.");
+                throw new CYFException("staticText.SetParent(): Can not use SetParent with an Overworld Event's sprite.");
             try
             {
-                if (parent == null) throw new CYFException("text.SetParent(): Can't set a sprite's parent as nil.");
+                if (parent == null) throw new CYFException("staticText.SetParent(): Can't set a sprite's parent as nil.");
                 container.transform.SetParent(parent.img.transform);
                 foreach (Transform child in container.transform)
                 {
@@ -426,7 +424,7 @@ namespace AsteriskMod
                         childmask.inverted = parent._masked == LuaSpriteController.MaskMode.INVERTEDSPRITE || parent._masked == LuaSpriteController.MaskMode.INVERTEDSTENCIL;
                 }
             }
-            catch { throw new CYFException("You tried to set a removed sprite/nil sprite as this text object's parent."); }
+            catch { throw new CYFException("You tried to set a removed sprite/nil sprite as this static text object's parent."); }
         }
 
         /** 
@@ -520,10 +518,11 @@ namespace AsteriskMod
         }
         */
 
+        [MoonSharpHidden]
         public void SetFont(string fontName, bool firstTime = false)
         {
             if (fontName == null)
-                throw new CYFException("Text.SetFont: The first argument (the font name) is nil.\n\nSee the documentation for proper usage.");
+                throw new CYFException("StaticText.SetFont: The first argument (the font name) is nil.\n\nSee the documentation for proper usage.");
             CheckExists();
             UnderFont uf = SpriteFontRegistry.Get(fontName);
             if (uf == null)
@@ -531,16 +530,18 @@ namespace AsteriskMod
             SetFont(uf, firstTime);
             if (!firstTime)
                 default_charset = uf;
-            UpdateBubble();
+            //* UpdateBubble();
         }
 
-        /// <summary>めっちゃいらない。</summary>
+        // UpdateBubble()
+        /**
         [MoonSharpHidden]public void UpdateBubble()
         {
             containerBubble.GetComponent<RectTransform>().localPosition = new Vector2(-12, 24);
             // GetComponent<RectTransform>().localPosition = new Vector2(0, 16);
             GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
         }
+        */
 
         // SetEffect()
         /**
@@ -562,19 +563,21 @@ namespace AsteriskMod
         }
         */
 
-        /// <summary>めっちゃいらない。</summary>
+        // ShowBubble()
+        /**
         public void ShowBubble(string side = null, DynValue position = null)
         {
             bubble = true;
             containerBubble.SetActive(true);
             SetSpeechThingPositionAndSide(side, position);
         }
+        */
 
-        /// <summary>めっちゃいらない。</summary>
         // Shortcut to `SetSpeechThingPositionAndSide`
-        public void SetTail(string side, DynValue position) { SetSpeechThingPositionAndSide(side, position); }
+        //* public void SetTail(string side, DynValue position) { SetSpeechThingPositionAndSide(side, position); }
 
-        /// <summary>めっちゃいらない。</summary>
+        // SetSpeechThingPositionAndSide()
+        /**
         public void SetSpeechThingPositionAndSide(string side, DynValue position)
         {
             CheckExists();
@@ -633,14 +636,17 @@ namespace AsteriskMod
                 speechThingShadow.gameObject.SetActive(false);
             }
         }
+        */
 
-        /// <summary>いらない。</summary>
+        // HideBubble()
+        /**
         public void HideBubble()
         {
             CheckExists();
             bubble = false;
             containerBubble.SetActive(false);
         }
+        */
 
         // SkipLine()
         /**
