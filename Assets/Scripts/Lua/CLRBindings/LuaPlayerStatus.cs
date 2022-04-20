@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using AsteriskMod;
+using UnityEngine.UI;
 /// <summary>
 /// Lua binding to set and retrieve information for the on-screen player.
 /// </summary>
@@ -137,8 +138,13 @@ public class LuaPlayerStatus {
                 throw new CYFException("Player.name: Attempt to set the player's name to a nil value.\n\nPlease double-check your code.");
 
             PlayerCharacter.instance.Name = value;
-            if (UIStats.instance)
-                UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //if (UIStats.instance)
+            //    UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+            UIStatsRelay.UpdatePlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+            // --------------------------------------------------------------------------------
         }
     }
 
@@ -152,10 +158,17 @@ public class LuaPlayerStatus {
             if (PlayerCharacter.instance.HP > PlayerCharacter.instance.MaxHP * 1.5 && PlayerCharacter.instance.LV > value)
                 player.SetHP((int)(PlayerCharacter.instance.MaxHP * 1.5));
             PlayerCharacter.instance.SetLevel(value);
+
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            DevelopHint.ToDo("Use Relay to MaxHP");
             if (UIStats.instance) {
-                UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+                //UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+                UIStatsRelay.UpdatePlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
                 UIStats.instance.setMaxHP();
             }
+            // --------------------------------------------------------------------------------
         }
     }
 

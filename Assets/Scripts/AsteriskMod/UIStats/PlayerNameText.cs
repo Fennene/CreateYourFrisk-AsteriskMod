@@ -12,9 +12,9 @@ namespace AsteriskMod
 
         private void Awake()
         {
-            instance = this;
             NameTextMan = GetComponent<LimitedLuaStaticTextManager>();
             NameTextMan._BanControlOverride = true;
+            instance = this;
         }
 
         private void Start()
@@ -29,6 +29,7 @@ namespace AsteriskMod
             nowText = newName;
             NameTextMan.SetText(new InstantTextMessage(nowText.ToUpper()));
             NameTextMan.enabled = true;
+            PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth());
         }
     }
 }

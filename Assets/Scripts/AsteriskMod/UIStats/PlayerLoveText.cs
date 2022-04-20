@@ -1,10 +1,4 @@
-﻿using MoonSharp.Interpreter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace AsteriskMod
 {
@@ -17,9 +11,9 @@ namespace AsteriskMod
 
         private void Awake()
         {
-            instance = this;
             LoveTextMan = GetComponent<LimitedLuaStaticTextManager>();
             LoveTextMan._SetText = SetText;
+            instance = this;
         }
 
         private void Start()
@@ -44,8 +38,12 @@ namespace AsteriskMod
             LoveTextMan.enabled = true;
         }
 
-        internal void SetPosition(string newName)
+        internal void SetPosition(int textLength)
         {
+            if (LoveTextMan._controlOverride) return;
+            Vector2 pos = GetComponent<RectTransform>().anchoredPosition;
+            pos.x = textLength + 30;
+            GetComponent<RectTransform>().anchoredPosition = pos;
         }
     }
 }

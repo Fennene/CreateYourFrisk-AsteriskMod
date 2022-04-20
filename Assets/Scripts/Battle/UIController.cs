@@ -1712,7 +1712,13 @@ public class UIController : MonoBehaviour {
         Inventory.RemoveAddedItems();
         MusicManager.SetSoundDictionary("RESETDICTIONARY", "");
         if (levelUp && exp != 0) {
-            UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            DevelopHint.ToDo("Use UIStatsRelay");
+            //UIStats.instance.setPlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+            UIStatsRelay.UpdatePlayerInfo(PlayerCharacter.instance.Name, PlayerCharacter.instance.LV);
+            // --------------------------------------------------------------------------------
             UIStats.instance.setMaxHP();
             UIStats.instance.setHP(PlayerCharacter.instance.HP);
             ActionDialogResult(new RegularMessage("[sound:levelup]YOU WON!\nYou earned "+ exp +" XP and "+ gold +" gold.\nYour LOVE increased."), UIState.DONE);

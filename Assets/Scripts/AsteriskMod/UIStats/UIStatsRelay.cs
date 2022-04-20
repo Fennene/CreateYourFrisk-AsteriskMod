@@ -12,15 +12,24 @@ namespace AsteriskMod
             get { return UnitaleUtil.IsOverworld; }
         }
 
-        public static void UpdatePlayerInfo(string newName, int newLv)
+        public static void UpdatePlayerInfo(string newName, int newLv, bool instanceCheck = false)
         {
             if (UseOriginalUIStats)
             {
-                UIStats.instance.setPlayerInfo(newName, newLv);
+                if (!instanceCheck || UIStats.instance)
+                {
+                    UIStats.instance.setPlayerInfo(newName, newLv);
+                }
                 return;
             }
-            PlayerNameText.instance.SetName(newName);
-            PlayerLoveText.instance.SetLove(newLv);
+            if (!instanceCheck || PlayerNameText.instance)
+            {
+                PlayerNameText.instance.SetName(newName);
+            }
+            if (!instanceCheck || PlayerLoveText.instance)
+            {
+                PlayerLoveText.instance.SetLove(newLv);
+            }
         }
 
         public static void UpdateHP(float hpCurrent)
