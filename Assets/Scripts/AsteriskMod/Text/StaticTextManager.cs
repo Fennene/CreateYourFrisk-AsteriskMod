@@ -27,16 +27,17 @@ namespace AsteriskMod
         //* [MoonSharpHidden] public AudioSource letterSound;
         //* protected TextEffect textEffect;
         //* private string letterEffect = "none";
-        /// <summary>いらない。</summary>
+        /**
         public static string[] commandList = new string[] { "color", "alpha", "charspacing", "linespacing", "starcolor", "instant", "font", "effect", "noskip", "w", "waitall", "novoice",
                                                         "next", "finished", "nextthisnow", "noskipatall", "waitfor", "speed", "letters", "voice", "func", "mugshot",
                                                         "music", "sound", "health", "lettereffect"};
+        */
         //* private float letterIntensity;
         public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
         private int currentCharacter;
         public int currentReferenceCharacter;
-        private bool currentSkippable = true;
+        //* private bool currentSkippable = true;
         private bool decoratedTextOffset;
         //* [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated; // 結局 nmd2 が１番謎。
         private RectTransform self;
@@ -54,23 +55,18 @@ namespace AsteriskMod
     }*/
 
         // "[instant]"に関連する変数
-        /// <summary>[instant] または [instant:allowcommand] のコマンドが呼び出された時に true になる。</summary>
-        private bool instantActive;
-        /// <summary>[instant:allowcommand] のコマンドが呼び出された時のみ true になる。</summary>
-        private bool instantCommand;
+        // <summary>[instant] または [instant:allowcommand] のコマンドが呼び出された時に true になる。</summary>
+        //* private bool instantActive;
+        // <summary>[instant:allowcommand] のコマンドが呼び出された時のみ true になる。</summary>
+        //* private bool instantCommand;
 
-        /// <summary>いらない。</summary>
-        private bool paused;
+        //* private bool paused;
         //* private bool muted;
-        /// <summary>いらない。</summary>
-        private bool autoSkipThis;
-        /// <summary>いらない。</summary>
-        private bool autoSkipAll;
-        /// <summary>いらない。</summary>
-        private bool autoSkip;
-        /// <summary>いらない。</summary>
-        private bool skipFromPlayer;
-        private bool firstChar;
+        //* private bool autoSkipThis;
+        //* private bool autoSkipAll;
+        //* private bool autoSkip;
+        //* private bool skipFromPlayer;
+        //* private bool firstChar;
         internal float hSpacing = 3;
         internal float vSpacing;
         private GameObject textframe;
@@ -94,16 +90,16 @@ namespace AsteriskMod
         [MoonSharpHidden] public ScriptWrapper caller;
 
         [MoonSharpHidden] public UnderFont Charset { get; protected set; }
-        [MoonSharpHidden] public TextMessage[] textQueue;
+        //* [MoonSharpHidden] public TextMessage[] textQueue;
         [MoonSharpHidden] public InstantTextMessage instantText;
         //public string[] mugshotsPath;
         //public bool overworld;
         [MoonSharpHidden] public bool blockSkip;
-        [MoonSharpHidden] public bool skipNowIfBlocked = false;
+        //* [MoonSharpHidden] public bool skipNowIfBlocked = false;
         internal bool noSkip1stFrame = true;
 
-        /// <summary>Luaテキスト(<see cref="LuaStaticTextManager"/>)は Late Start の模様... (何それ...)</summary>
-        [MoonSharpHidden] public bool lateStartWaiting = false; // Lua text objects will use a late start
+        // <summary>Luaテキスト(<see cref="LuaStaticTextManager"/>)は Late Start の模様... (何それ...)</summary>
+        //* [MoonSharpHidden] public bool lateStartWaiting = false; // Lua text objects will use a late start -> disabled
 
         public StaticTextManager()
         {
@@ -116,12 +112,12 @@ namespace AsteriskMod
             currentReferenceCharacter = 0;
             decoratedTextOffset = false;
             //* wasStated = false;
-            instantActive = false;
-            instantCommand = false;
-            autoSkipAll = false;
-            autoSkip = false;
-            skipFromPlayer = false;
-            firstChar = false;
+            //* instantActive = false;
+            //* instantCommand = false;
+            //* autoSkipAll = false;
+            //* autoSkip = false;
+            //* skipFromPlayer = false;
+            //* firstChar = false;
             vSpacing = 0;
             //* mugshotList = null;
             //* letterOnceValue = 0;
@@ -208,11 +204,9 @@ namespace AsteriskMod
             // SetText(new TextMessage(new string[] { "Check", "Compliment", "Ignore", "Steal", "trow temy", "Jerry" }, false));
         }
 
-        /// <summary>いらない。</summary>
-        public void SetPause(bool pause) { paused = pause; }
+        //* public void SetPause(bool pause) { paused = pause; }
 
-        /// <summary>いらない。</summary>
-        public bool IsPaused() { return paused; }
+        //* public bool IsPaused() { return paused; }
 
         /// <summary>いらない。</summary>
         [MoonSharpHidden]
@@ -240,7 +234,7 @@ namespace AsteriskMod
         }
         */
 
-        public void SetText(InstantTextMessage text)
+        [MoonSharpHidden] public void SetText(InstantTextMessage text)
         {
             if (UnitaleUtil.IsOverworld && (gameObject.name == "TextManager OW"))
                 PlayerOverworld.AutoSetUIPos();
@@ -288,15 +282,11 @@ namespace AsteriskMod
         }
         */
 
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden] public bool CanSkip() { return currentSkippable; }
+        //* [MoonSharpHidden] public bool CanSkip() { return currentSkippable; }
 
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden] public bool CanAutoSkipAll() { return autoSkipAll; }
+        //* [MoonSharpHidden] public bool CanAutoSkip() { return autoSkip; }
+        //* [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
+        //* [MoonSharpHidden] public bool CanAutoSkipAll() { return autoSkipAll; }
 
         /// <summary>いらない。</summary>
         public int LineCount()
@@ -442,13 +432,13 @@ namespace AsteriskMod
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
-            currentSkippable = true;
-            autoSkipThis = false;
-            autoSkip = false;
-            autoSkipAll = false;
-            instantCommand = false;
-            skipFromPlayer = false;
-            firstChar = false;
+            //* currentSkippable = true;
+            //* autoSkipThis = false;
+            //* autoSkip = false;
+            //* autoSkipAll = false;
+            //* instantCommand = false;
+            //* skipFromPlayer = false;
+            //* firstChar = false;
 
             //* timePerLetter = singleFrameTiming;
             //* letterTimer = 0.0f;
@@ -468,7 +458,7 @@ namespace AsteriskMod
                         letterIntensity = 0;*/
             // letterSpeed = 1;
             //* instantActive = textQueue[line].ShowImmediate;
-            instantActive = true;
+            //* instantActive = true;
             SpawnText(forceNoAutoLineBreak);
             //if (!overworld)
             //    UIController.instance.encounter.CallOnSelfOrChildren("AfterText");
@@ -565,19 +555,21 @@ namespace AsteriskMod
             }
         }
 
-        /// <summary>めっちゃいらない。</summary>
+        // DoSkipFromPlayer()
+        /**
         [MoonSharpHidden] public void DoSkipFromPlayer()
         {
-            skipFromPlayer = true;
+            //* skipFromPlayer = true;
 
-            if ((GlobalControls.isInFight && EnemyEncounter.script.GetVar("playerskipdocommand").Boolean) || !GlobalControls.isInFight)
-                instantCommand = true;
+            //* if ((GlobalControls.isInFight && EnemyEncounter.script.GetVar("playerskipdocommand").Boolean) || !GlobalControls.isInFight)
+                //* instantCommand = true;
 
             //if (!GlobalControls.retroMode)
                 //InUpdateControlCommand(DynValue.NewString("instant"), currentCharacter);
             //else
                 SkipText();
         }
+        */
 
         /// <summary>めっちゃいらない。</summary>
         public virtual void SkipLine()

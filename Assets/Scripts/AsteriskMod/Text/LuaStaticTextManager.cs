@@ -446,7 +446,16 @@ namespace AsteriskMod
                 ResizeBubble();
         }
         */
+        public void SetText(DynValue text)
+        {
+            if (text == null || text.Type != DataType.String)
+                throw new CYFException("StaticText.SetText: the text argument must be a non-empty array of strings or a simple string.");
+            try { SetText(new InstantTextMessage(text.String)); }
+            catch { /* ignored */ }
+        }
 
+        // LateStart()s
+        /**
         [MoonSharpHidden] public void LateStart() { StartCoroutine(LateStartSetText()); }
 
         private IEnumerator LateStartSetText()
@@ -459,13 +468,14 @@ namespace AsteriskMod
             //* letterSound.clip = default_voice ?? default_charset.Sound;
 
             // only allow inline text commands and letter sounds on the second frame
-            lateStartWaiting = false;
+            //* lateStartWaiting = false;
 
             currentLine = -1;
             Advance();
             if (bubble)
                 ResizeBubble();
         }
+        */
 
         // AddText()
         /**
@@ -632,7 +642,8 @@ namespace AsteriskMod
             if (GlobalControls.isInFight && EnemyEncounter.script.GetVar("playerskipdocommand").Boolean
              || UnitaleUtil.IsOverworld && (EventManager.instance.script != null && EventManager.instance.script.GetVar("playerskipdocommand").Boolean
              || GlobalControls.isInShop && GameObject.Find("Canvas").GetComponent<ShopScript>().script.GetVar("playerskipdocommand").Boolean))
-                DoSkipFromPlayer();
+                return;
+                //* DoSkipFromPlayer();
             else
                 base.SkipLine();
         }
