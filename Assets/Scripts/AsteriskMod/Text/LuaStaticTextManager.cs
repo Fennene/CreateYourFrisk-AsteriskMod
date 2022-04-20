@@ -662,7 +662,8 @@ namespace AsteriskMod
         }
         */
 
-        /// <summary>めっちゃいらない。</summary>
+        // NextLine()
+        /**
         public void NextLine()
         {
             CheckExists();
@@ -680,6 +681,7 @@ namespace AsteriskMod
                     ResizeBubble();
             }
         }
+        */
 
         // Shortcut to `SetAutoWaitTimeBetweenTexts`
         //* public void SetWaitTime(int time) { SetAutoWaitTimeBetweenTexts(time); }

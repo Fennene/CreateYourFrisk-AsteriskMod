@@ -33,10 +33,10 @@ namespace AsteriskMod
                                                         "music", "sound", "health", "lettereffect"};
         */
         //* private float letterIntensity;
-        public int currentLine;
+        //* public int currentLine;
         [MoonSharpHidden] public int _textMaxWidth;
-        private int currentCharacter;
-        public int currentReferenceCharacter;
+        //* private int currentCharacter;
+        //* public int currentReferenceCharacter;
         //* private bool currentSkippable = true;
         private bool decoratedTextOffset;
         //* [MoonSharpHidden] public bool nextMonsterDialogueOnce, nmd2, wasStated; // 結局 nmd2 が１番謎。
@@ -109,10 +109,10 @@ namespace AsteriskMod
             //* default_voice = null;
             //* textEffect = null;
             //* letterIntensity = 0.0f;
-            currentLine = 0;
+            //* currentLine = 0;
             _textMaxWidth = 0;
-            currentCharacter = 0;
-            currentReferenceCharacter = 0;
+            //* currentCharacter = 0;
+            //* currentReferenceCharacter = 0;
             decoratedTextOffset = false;
             //* wasStated = false;
             //* instantActive = false;
@@ -133,6 +133,7 @@ namespace AsteriskMod
 
         [MoonSharpHidden] public void SetCaller(ScriptWrapper s) { caller = s; }
 
+        [MoonSharpHidden]
         public void SetFont(UnderFont font, bool firstTime = false)
         {
             Charset = font;
@@ -247,8 +248,8 @@ namespace AsteriskMod
 
             ResetFont();
             instantText = text;
-            currentLine = 0;
-            ShowLine(0);
+            //* currentLine = 0;
+            ShowLine(/**0*/);
         }
 
         // SetTextQueueAfterValue()
@@ -260,14 +261,15 @@ namespace AsteriskMod
             ShowLine(BeginText);
         }
         */
-        
-        /// <summary>不必要かも</summary>
-        [MoonSharpHidden]
-        public void ResetCurrentCharacter()
+
+        // ResetCurrentCharacter()
+        /**
+        [MoonSharpHidden] public void ResetCurrentCharacter()
         {
-            currentCharacter = 0;
-            currentReferenceCharacter = 0;
+            //* currentCharacter = 0;
+            //* currentReferenceCharacter = 0;
         }
+        */
 
         // AddToTextQueue()
         /**
@@ -327,7 +329,8 @@ namespace AsteriskMod
         [MoonSharpHidden] public bool AllLinesComplete()
         {
             //* return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
-            return instantText == null || currentLine == 0 && LineComplete();
+            //* return instantText == null || currentLine == 0 && LineComplete();
+            return instantText == null || LineComplete();
         }
 
         // SetMugshot()
@@ -407,7 +410,7 @@ namespace AsteriskMod
         */
 
         /// <summary>テキスト生成前の初期化処理。</summary>
-        protected void ShowLine(int line, bool forceNoAutoLineBreak = false)
+        protected void ShowLine(/**int line, */bool forceNoAutoLineBreak = false)
         {
             /*if (overworld) {
                 if (mugshotsPath != null)
@@ -426,9 +429,9 @@ namespace AsteriskMod
             }*/
             if (instantText == null) return;
             //* if (textQueue == null) return;
-            if (line >= 1) return;
+            //* if (line >= 1) return;
             //* if (line >= textQueue.Length) return;
-            if (instantText == null) return;
+            //* if (instantText == null) return;
             //* if (textQueue[line] == null) return;
             /**
             if ((UnitaleUtil.IsOverworld || GlobalControls.isInFight) && ((UIController.instance && this == UIController.instance.mainTextManager) || gameObject.name == "TextManager OW"))
@@ -452,7 +455,7 @@ namespace AsteriskMod
             //* timePerLetter = singleFrameTiming;
             //* letterTimer = 0.0f;
             DestroyChars();
-            currentLine = line;
+            //* currentLine = line;
             currentX = self.position.x + offset.x;
             currentY = self.position.y + offset.y;
             // allow Game Over fonts to enjoy the fixed text positioning, too!
@@ -460,8 +463,8 @@ namespace AsteriskMod
                 currentY -= Charset.LineSpacing;
             /*if (GetType() == typeof(LuaTextManager))
                             print("currentY from ShowLine (" + textQueue[currentLine].Text + ") = " + self.position.y + " + " + offset.y + " - " + Charset.LineSpacing + " = " + currentY);*/
-            currentCharacter = 0;
-            currentReferenceCharacter = 0;
+            //* currentCharacter = 0;
+            //* currentReferenceCharacter = 0;
             //* letterEffect = "none";
             /*textEffect = null;
                         letterIntensity = 0;*/
