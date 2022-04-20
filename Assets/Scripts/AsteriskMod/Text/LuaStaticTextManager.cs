@@ -635,10 +635,12 @@ namespace AsteriskMod
             containerBubble.SetActive(false);
         }
 
-        /// <summary>いらない。</summary>
+        // SkipLine()
+        /**
         public override void SkipLine()
         {
-            if (noSkip1stFrame) return;
+            //* if (noSkip1stFrame) return;
+            if (true) return;
             if (GlobalControls.isInFight && EnemyEncounter.script.GetVar("playerskipdocommand").Boolean
              || UnitaleUtil.IsOverworld && (EventManager.instance.script != null && EventManager.instance.script.GetVar("playerskipdocommand").Boolean
              || GlobalControls.isInShop && GameObject.Find("Canvas").GetComponent<ShopScript>().script.GetVar("playerskipdocommand").Boolean))
@@ -647,7 +649,10 @@ namespace AsteriskMod
             else
                 base.SkipLine();
         }
+        */
 
+        // Advance()
+        /**
         private void Advance()
         {
             NextLine();
@@ -655,6 +660,7 @@ namespace AsteriskMod
             try { caller.script.Call(caller.script.Globals["OnTextAdvance"], this, autoDestroyed); }
             catch (ScriptRuntimeException ex) { UnitaleUtil.DisplayLuaError(caller.scriptname, UnitaleUtil.FormatErrorSource(ex.DecoratedMessage, ex.Message) + ex.Message, ex.DoNotDecorateMessage); }
         }
+        */
 
         /// <summary>めっちゃいらない。</summary>
         public void NextLine()

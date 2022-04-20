@@ -96,7 +96,7 @@ namespace AsteriskMod
         //public bool overworld;
         [MoonSharpHidden] public bool blockSkip;
         //* [MoonSharpHidden] public bool skipNowIfBlocked = false;
-        internal bool noSkip1stFrame = true;
+        //* internal bool noSkip1stFrame = true;
 
         // <summary>Luaテキスト(<see cref="LuaStaticTextManager"/>)は Late Start の模様... (何それ...)</summary>
         //* [MoonSharpHidden] public bool lateStartWaiting = false; // Lua text objects will use a late start -> disabled
@@ -208,14 +208,15 @@ namespace AsteriskMod
 
         //* public bool IsPaused() { return paused; }
 
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden]
-        public bool IsFinished()
+        // IsFinished()
+        /**
+        [MoonSharpHidden] public bool IsFinished()
         {
             if (letterReferences == null)
                 return false;
             return currentCharacter >= letterReferences.Length;
         }
+        */
 
         //* [MoonSharpHidden] public void SetMute(bool newMuted) { muted = newMuted; }
 
@@ -234,7 +235,8 @@ namespace AsteriskMod
         }
         */
 
-        [MoonSharpHidden] public void SetText(InstantTextMessage text)
+        [MoonSharpHidden]
+        public void SetText(InstantTextMessage text)
         {
             if (UnitaleUtil.IsOverworld && (gameObject.name == "TextManager OW"))
                 PlayerOverworld.AutoSetUIPos();
@@ -254,7 +256,8 @@ namespace AsteriskMod
             ShowLine(BeginText);
         }
         */
-
+        
+        /// <summary>不必要かも</summary>
         [MoonSharpHidden]
         public void ResetCurrentCharacter()
         {
@@ -288,7 +291,8 @@ namespace AsteriskMod
         //* [MoonSharpHidden] public bool CanAutoSkipThis() { return autoSkipThis; }
         //* [MoonSharpHidden] public bool CanAutoSkipAll() { return autoSkipAll; }
 
-        /// <summary>いらない。</summary>
+        // LineCount()
+        /**
         public int LineCount()
         {
             //* if (textQueue == null)
@@ -297,6 +301,7 @@ namespace AsteriskMod
             //* return textQueue.Length;
             return 1;
         }
+        */
 
         [MoonSharpHidden]
         public void SetOffset(float xOff, float yOff)
@@ -532,16 +537,16 @@ namespace AsteriskMod
                 img.color = new Color(img.color.r, img.color.g, img.color.b, a);
         }
 
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden] public bool HasNext() { return false; /** return currentLine + 1 < LineCount()*/; }
+        //* [MoonSharpHidden] public bool HasNext() { return false; /** return currentLine + 1 < LineCount()/; } */
 
-        /// <summary>めっちゃいらない。</summary>
-        [MoonSharpHidden] public void NextLineText() { ShowLine(++currentLine); }
+        //* [MoonSharpHidden] public void NextLineText() { ShowLine(++currentLine); }
 
-        /// <summary>めっちゃいらない。</summary>
+        // SkipText()
+        /**
         [MoonSharpHidden] public void SkipText()
         {
-            if (noSkip1stFrame) return;
+            //* if (noSkip1stFrame) return;
+            if (true) return;
             while (currentCharacter < letterReferences.Length)
             {
                 //* if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
@@ -554,6 +559,7 @@ namespace AsteriskMod
                 currentCharacter++;
             }
         }
+        */
 
         // DoSkipFromPlayer()
         /**
@@ -571,10 +577,12 @@ namespace AsteriskMod
         }
         */
 
-        /// <summary>めっちゃいらない。</summary>
+        // SkipLine()
+        /**
         public virtual void SkipLine()
         {
-            if (noSkip1stFrame) return;
+            //* if (noSkip1stFrame) return;
+            if (true) return;
             while (currentCharacter < letterReferences.Length)
             {
                 //* if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
@@ -589,7 +597,7 @@ namespace AsteriskMod
                         case "shake": letterReferences[currentCharacter].GetComponent<Letter>().effect = new ShakeEffectLetter(letterReferences[currentCharacter].GetComponent<Letter>(), letterIntensity); break;
                         default: letterReferences[currentCharacter].GetComponent<Letter>().effect = null; break;
                     }
-                    */
+                    /
                     currentReferenceCharacter++;
                     //* switch (textQueue[currentLine].Text[currentCharacter])
                     switch (instantText.Text[currentCharacter])
@@ -612,6 +620,7 @@ namespace AsteriskMod
                 currentCharacter++;
             }
         }
+        */
 
         //public void SetEffect(TextEffect effect) { textEffect = effect; }
 
@@ -736,7 +745,7 @@ namespace AsteriskMod
         /// <summary>テキスト(各文字)生成処理。</summary>
         private void SpawnText(bool forceNoAutoLineBreak = false)
         {
-            noSkip1stFrame = true;
+            //* noSkip1stFrame = true;
             //* string currentText = textQueue[currentLine].Text;
             string currentText = instantText.Text;
             letterReferences = new Image[currentText.Length];

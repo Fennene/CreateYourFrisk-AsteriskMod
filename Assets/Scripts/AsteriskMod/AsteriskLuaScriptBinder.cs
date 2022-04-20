@@ -171,7 +171,7 @@ namespace AsteriskMod
 
             // テキストの最初の行(table[1])(無いが)の最初の通常の文字の前に"[instant]"がある場合、Late Startが無効になる -> 実質そうなのでLateStartは無視。
             //* bool enableLateStart = true;
-            bool enableLateStart = false;
+            //* bool enableLateStart = false;
 
             /**
             // if we've made it this far, then the text is valid.
@@ -245,8 +245,8 @@ namespace AsteriskMod
             }
             else */ luatm.ResetFont();
 
-            if (enableLateStart)
-                luatm.lateStartWaiting = true;
+            //* if (enableLateStart)
+                //* luatm.lateStartWaiting = true;
             luatm.SetText(text);
             /**
             if (!enableLateStart) return luatm;
