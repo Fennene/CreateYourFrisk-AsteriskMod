@@ -20,9 +20,8 @@ namespace AsteriskMod
         private DynValue bubbleLastVar = DynValue.NewNil();
         /// <summary>めっちゃいらない。</summary>
         private bool bubble = true;
-        /// <summary>いらない。</summary>
-        private int framesWait = 60;
-        private int countFrames;
+        //* private int framesWait = 60;
+        //* private int countFrames;
         /// <summary>めっちゃいらない。</summary>
         private int _bubbleHeight = -1;
         /// <summary>めっちゃいらない。</summary>
@@ -58,6 +57,8 @@ namespace AsteriskMod
             speechThingShadow = UnitaleUtil.GetChildPerName(containerBubble.transform, "SpeechThingShadow", false, true).GetComponent<RectTransform>();
         }
 
+        // Update()
+        /**
         protected override void Update()
         {
             base.Update();
@@ -90,6 +91,7 @@ namespace AsteriskMod
             if (CanSkip() && !LineComplete() && GlobalControls.input.Cancel == UndertaleInput.ButtonState.PRESSED)
                 DoSkipFromPlayer();
         }
+        */
 
         // テキストオブジェクトが存在しているか調べる用
         private void CheckExists()
@@ -420,6 +422,7 @@ namespace AsteriskMod
             catch { throw new CYFException("You tried to set a removed sprite/nil sprite as this text object's parent."); }
         }
 
+        /** 
         public void SetText(DynValue text)
         {
             // disable late start if SetText is used on the same frame the text is created
@@ -437,11 +440,12 @@ namespace AsteriskMod
             if (bubble)
                 containerBubble.SetActive(true);
             try { SetTextQueue(msgs); }
-            catch { /* ignored */ }
+            catch { /* ignored / }
 
             if (text.Table.Length != 0 && bubble)
                 ResizeBubble();
         }
+        */
 
         [MoonSharpHidden] public void LateStart() { StartCoroutine(LateStartSetText()); }
 
@@ -660,16 +664,17 @@ namespace AsteriskMod
             }
         }
 
-        /// <summary>めっちゃいらない。</summary>
         // Shortcut to `SetAutoWaitTimeBetweenTexts`
-        public void SetWaitTime(int time) { SetAutoWaitTimeBetweenTexts(time); }
+        //* public void SetWaitTime(int time) { SetAutoWaitTimeBetweenTexts(time); }
 
-        /// <summary>めっちゃいらない。</summary>
+        // SetAutoWaitTimeBetweenTexts()
+        /**
         public void SetAutoWaitTimeBetweenTexts(int time)
         {
             CheckExists();
             framesWait = time;
         }
+        */
 
         public void Move(int x, int y)
         {

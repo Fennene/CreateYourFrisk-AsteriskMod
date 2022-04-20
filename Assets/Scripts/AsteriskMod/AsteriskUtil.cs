@@ -15,19 +15,21 @@ namespace AsteriskMod
         {
             float totalWidth = 0, totalWidthSpaceTest = 0, totalMaxWidth = 0, hSpacing = txtmgr.Charset.CharSpacing;
             if (fromLetter == -1) fromLetter = 0;
-            if (txtmgr.text == null) return 0;
-            if (toLetter == -1) toLetter = txtmgr.text.Text.Length - 1;
-            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.text.Text.Length) return -1;
+            if (txtmgr.instantText == null) return 0;
+            if (toLetter == -1) toLetter = txtmgr.instantText.Text.Length - 1;
+            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.instantText.Text.Length) return -1;
 
             for (int i = fromLetter; i <= toLetter; i++)
             {
-                switch (txtmgr.text.Text[i])
+                switch (txtmgr.instantText.Text[i])
                 {
+                    /**
                     case '[':
 
-                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.text.Text[i]))
-                            totalWidth += txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.x + hSpacing;
+                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.instantText.Text[i]))
+                            totalWidth += txtmgr.Charset.Letters[txtmgr.instantText.Text[i]].textureRect.size.x + hSpacing;
                         break;
+                    */
                     case '\r':
                     case '\n':
                         if (totalMaxWidth < totalWidthSpaceTest - hSpacing)
@@ -36,11 +38,11 @@ namespace AsteriskMod
                         totalWidthSpaceTest = 0;
                         break;
                     default:
-                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.text.Text[i]))
+                        if (txtmgr.Charset.Letters.ContainsKey(txtmgr.instantText.Text[i]))
                         {
-                            totalWidth += txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.x + hSpacing;
+                            totalWidth += txtmgr.Charset.Letters[txtmgr.instantText.Text[i]].textureRect.size.x + hSpacing;
                             // Do not count end of line spaces
-                            if (txtmgr.text.Text[i] != ' ' || countEOLSpace)
+                            if (txtmgr.instantText.Text[i] != ' ' || countEOLSpace)
                                 totalWidthSpaceTest = totalWidth;
                         }
                         break;
@@ -55,16 +57,16 @@ namespace AsteriskMod
         {
             float maxY = -999, minY = 999;
             if (fromLetter == -1) fromLetter = 0;
-            if (toLetter == -1) toLetter = txtmgr.text.Text.Length;
-            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.text.Text.Length) return -1;
+            if (toLetter == -1) toLetter = txtmgr.instantText.Text.Length;
+            if (fromLetter > toLetter || fromLetter < 0 || toLetter > txtmgr.instantText.Text.Length) return -1;
             if (fromLetter == toLetter) return 0;
             for (int i = fromLetter; i < toLetter; i++)
             {
-                if (!txtmgr.Charset.Letters.ContainsKey(txtmgr.text.Text[i])) continue;
+                if (!txtmgr.Charset.Letters.ContainsKey(txtmgr.instantText.Text[i])) continue;
                 if (txtmgr.letterPositions[i].y < minY)
                     minY = txtmgr.letterPositions[i].y;
-                if (txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.y > maxY)
-                    maxY = txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.text.Text[i]].textureRect.size.y;
+                if (txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.instantText.Text[i]].textureRect.size.y > maxY)
+                    maxY = txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.instantText.Text[i]].textureRect.size.y;
             }
             return maxY - minY;
         }

@@ -61,8 +61,7 @@ namespace AsteriskMod
 
         /// <summary>いらない。</summary>
         private bool paused;
-        /// <summary>いらない。</summary>
-        private bool muted;
+        //* private bool muted;
         /// <summary>いらない。</summary>
         private bool autoSkipThis;
         /// <summary>いらない。</summary>
@@ -80,21 +79,17 @@ namespace AsteriskMod
         //* private string finalMugshot;
         //* private float mugshotTimer;
         // private int letterSpeed = 1;
-        private int letterOnceValue;
-        /// <summary>めっちゃいらない。</summary>
-        private KeyCode waitingChar = KeyCode.None;
+        //* private int letterOnceValue;
+        //* private KeyCode waitingChar = KeyCode.None;
 
         protected Color currentColor = Color.white;
         private bool colorSet;
         protected Color defaultColor = Color.white;
         //private Color defaultColor = Color.white;
 
-        /// <summary>いらない。</summary>
-        private float letterTimer;
-        /// <summary>いらない。</summary>
-        private float timePerLetter;
-        /// <summary>めっちゃいらない。</summary>
-        private const float singleFrameTiming = 1.0f / 20;
+        //* private float letterTimer;
+        //* private float timePerLetter;
+        //* private const float singleFrameTiming = 1.0f / 20;
 
         [MoonSharpHidden] public ScriptWrapper caller;
 
@@ -129,10 +124,10 @@ namespace AsteriskMod
             firstChar = false;
             vSpacing = 0;
             //* mugshotList = null;
-            letterOnceValue = 0;
+            //* letterOnceValue = 0;
             colorSet = false;
-            letterTimer = 0.0f;
-            textQueue = null;
+            //* letterTimer = 0.0f;
+            //* textQueue = null;
             instantText = null;
             blockSkip = false;
         }
@@ -197,7 +192,7 @@ namespace AsteriskMod
             //* letterSound = gameObject.AddComponent<AudioSource>();
             //* letterSound.playOnAwake = false;
             // SetFont(SpriteFontRegistry.F_UI_DIALOGFONT);
-            timePerLetter = singleFrameTiming;
+            //* timePerLetter = singleFrameTiming;
 
             if (!UnitaleUtil.IsOverworld || !GameObject.Find("textframe_border_outer")) return;
             textframe = GameObject.Find("textframe_border_outer");
@@ -228,13 +223,12 @@ namespace AsteriskMod
             return currentCharacter >= letterReferences.Length;
         }
 
-        /// <summary>いらない。</summary>
-        [MoonSharpHidden] public void SetMute(bool newMuted) { muted = newMuted; }
+        //* [MoonSharpHidden] public void SetMute(bool newMuted) { muted = newMuted; }
 
-        public void SetText(TextMessage text) { SetTextQueue(new[] { text }); }
-
-        [MoonSharpHidden]
-        public void SetTextQueue(TextMessage[] newTextQueue)
+        // public void SetText(TextMessage text) { SetTextQueue(new[] { text }); }
+        // SetTextQueue()
+        /**
+        [MoonSharpHidden] public void SetTextQueue(TextMessage[] newTextQueue)
         {
             if (UnitaleUtil.IsOverworld && (gameObject.name == "TextManager OW"))
                 PlayerOverworld.AutoSetUIPos();
@@ -244,17 +238,17 @@ namespace AsteriskMod
             currentLine = 0;
             ShowLine(0);
         }
+        */
 
-        public void SetTextTest(InstantTextMessage text)
+        public void SetText(InstantTextMessage text)
         {
+            if (UnitaleUtil.IsOverworld && (gameObject.name == "TextManager OW"))
+                PlayerOverworld.AutoSetUIPos();
+
+            ResetFont();
             instantText = text;
-            SetText(instantText.Convert());
-        }
-
-        public void SetTextTest(string text)
-        {
-            instantText = new InstantTextMessage(text);
-            SetText(new TextMessage(text, false, false));
+            currentLine = 0;
+            ShowLine(0);
         }
 
         // SetTextQueueAfterValue()
@@ -307,9 +301,11 @@ namespace AsteriskMod
         /// <summary>いらない。</summary>
         public int LineCount()
         {
-            if (textQueue == null)
+            //* if (textQueue == null)
+            if (instantText == null)
                 return 0;
-            return textQueue.Length;
+            //* return textQueue.Length;
+            return 1;
         }
 
         [MoonSharpHidden]
@@ -324,13 +320,15 @@ namespace AsteriskMod
         {
             if (letterReferences == null)
                 return false;
-            return (instantActive || currentCharacter == letterReferences.Length);
+            //* return (instantActive || currentCharacter == letterReferences.Length);
+            return true;
         }
 
         /// <summary>いらない。</summary>
         [MoonSharpHidden] public bool AllLinesComplete()
         {
-            return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
+            //* return textQueue == null || currentLine == textQueue.Length - 1 && LineComplete();
+            return instantText == null || currentLine == 0 && LineComplete();
         }
 
         // SetMugshot()
@@ -427,9 +425,12 @@ namespace AsteriskMod
                         self.localPosition = new Vector3(-150, self.localPosition.y, self.localPosition.z);
                     }
             }*/
-            if (textQueue == null) return;
-            if (line >= textQueue.Length) return;
-            if (textQueue[line] == null) return;
+            if (instantText == null) return;
+            //* if (textQueue == null) return;
+            if (line >= 1) return;
+            //* if (line >= textQueue.Length) return;
+            if (instantText == null) return;
+            //* if (textQueue[line] == null) return;
             /**
             if ((UnitaleUtil.IsOverworld || GlobalControls.isInFight) && ((UIController.instance && this == UIController.instance.mainTextManager) || gameObject.name == "TextManager OW"))
                 SetMugshot(textQueue[line].Mugshot);
@@ -449,8 +450,8 @@ namespace AsteriskMod
             skipFromPlayer = false;
             firstChar = false;
 
-            timePerLetter = singleFrameTiming;
-            letterTimer = 0.0f;
+            //* timePerLetter = singleFrameTiming;
+            //* letterTimer = 0.0f;
             DestroyChars();
             currentLine = line;
             currentX = self.position.x + offset.x;
@@ -466,13 +467,15 @@ namespace AsteriskMod
             /*textEffect = null;
                         letterIntensity = 0;*/
             // letterSpeed = 1;
-            instantActive = textQueue[line].ShowImmediate;
+            //* instantActive = textQueue[line].ShowImmediate;
+            instantActive = true;
             SpawnText(forceNoAutoLineBreak);
             //if (!overworld)
             //    UIController.instance.encounter.CallOnSelfOrChildren("AfterText");
             if (UnitaleUtil.IsOverworld && textframe != null && this == PlayerOverworld.instance.textmgr)
             {
-                if (textQueue[line].ActualText)
+                //* if (textQueue[line].ActualText)
+                if (instantText.ActualText)
                 {
                     if (textframe.GetComponent<Image>().color.a == 0)
                         SetTextFrameAlpha(1);
@@ -490,7 +493,8 @@ namespace AsteriskMod
             // Move the text up a little if there are more than 3 lines so they can possibly fit in the arena
             if (!GlobalControls.retroMode && !UnitaleUtil.IsOverworld && UIController.instance && this == UIController.instance.mainTextManager)
             {
-                int lines = (textQueue[line].Text.Split('\n').Length > 3 && (UIController.instance.state == UIController.UIState.ACTIONSELECT || UIController.instance.state == UIController.UIState.DIALOGRESULT)) ? 4 : 3;
+                //* int lines = (textQueue[line].Text.Split('\n').Length > 3 && (UIController.instance.state == UIController.UIState.ACTIONSELECT || UIController.instance.state == UIController.UIState.DIALOGRESULT)) ? 4 : 3;
+                int lines = (instantText.Text.Split('\n').Length > 3 && (UIController.instance.state == UIController.UIState.ACTIONSELECT || UIController.instance.state == UIController.UIState.DIALOGRESULT)) ? 4 : 3;
                 Vector3 pos = self.localPosition;
 
                 // remove the offset
@@ -505,7 +509,8 @@ namespace AsteriskMod
             }
             else if (gameObject.name == "TextManager OW")
             {
-                int lines = textQueue[line].Text.Split('\n').Length;
+                //* int lines = textQueue[line].Text.Split('\n').Length;
+                int lines = instantText.Text.Split('\n').Length;
                 lines = lines >= 4 ? 4 : 3;
                 Vector3 pos = gameObject.GetComponent<RectTransform>().localPosition;
                 gameObject.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, 22 + ((lines - 1) * Charset.LineSpacing / 2), pos.z);
@@ -538,7 +543,7 @@ namespace AsteriskMod
         }
 
         /// <summary>いらない。</summary>
-        [MoonSharpHidden] public bool HasNext() { return currentLine + 1 < LineCount(); }
+        [MoonSharpHidden] public bool HasNext() { return false; /** return currentLine + 1 < LineCount()*/; }
 
         /// <summary>めっちゃいらない。</summary>
         [MoonSharpHidden] public void NextLineText() { ShowLine(++currentLine); }
@@ -549,7 +554,8 @@ namespace AsteriskMod
             if (noSkip1stFrame) return;
             while (currentCharacter < letterReferences.Length)
             {
-                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
+                //* if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
+                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(instantText.Text[currentCharacter]))
                 {
                     letterReferences[currentCharacter].enabled = true;
                     currentReferenceCharacter++;
@@ -579,7 +585,8 @@ namespace AsteriskMod
             if (noSkip1stFrame) return;
             while (currentCharacter < letterReferences.Length)
             {
-                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
+                //* if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(textQueue[currentLine].Text[currentCharacter]))
+                if (letterReferences[currentCharacter] != null && Charset.Letters.ContainsKey(instantText.Text[currentCharacter]))
                 {
                     letterReferences[currentCharacter].enabled = true;
                     /**
@@ -592,7 +599,8 @@ namespace AsteriskMod
                     }
                     */
                     currentReferenceCharacter++;
-                    switch (textQueue[currentLine].Text[currentCharacter])
+                    //* switch (textQueue[currentLine].Text[currentCharacter])
+                    switch (instantText.Text[currentCharacter])
                     {
                         case '\t':
                             {
@@ -627,8 +635,10 @@ namespace AsteriskMod
         private void SpawnTextSpaceTest(int i, string currentText, out string currentText2)
         {
             currentText2 = currentText;
-            bool decorated = textQueue[currentLine].Decorated;
-            float decorationLength = decorated ? AsteriskUtil.CalcTextWidth(this, 0, 1, true, true) : 0;
+            //* bool decorated = textQueue[currentLine].Decorated;
+            //* bool decorated = false;
+            //* float decorationLength = decorated ? AsteriskUtil.CalcTextWidth(this, 0, 1, true, true) : 0;
+            //* float decorationLength = 0;
 
             // Gets the first character of the line and the last character after the current space
             int finalIndex = i + 1, beginIndex = i;
@@ -647,26 +657,30 @@ namespace AsteriskMod
             {
                 // If the line's too long, do something!
                 int wordBeginIndex = currentText2[i] == ' ' ? i + 1 : i;
-                if (AsteriskUtil.CalcTextWidth(this, wordBeginIndex, finalIndex) > _textMaxWidth - decorationLength)
+                if (AsteriskUtil.CalcTextWidth(this, wordBeginIndex, finalIndex) > _textMaxWidth) //* - decorationLength)
                 {
                     // Word is taking the entire line
                     for (int currentIndex = wordBeginIndex; currentIndex <= finalIndex; currentIndex++)
                     {
                         if (!(AsteriskUtil.CalcTextWidth(this, beginIndex, currentIndex) > _textMaxWidth)) continue;
-                        currentText2 = currentText2.Substring(0, currentIndex) + "\n" + (decorated ? "  " : "") + currentText2.Substring(currentIndex, currentText2.Length - currentIndex);
-                        textQueue[currentLine].Text = currentText2;
-                        finalIndex += decorated ? 3 : 1;
+                        //* currentText2 = currentText2.Substring(0, currentIndex) + "\n" + (decorated ? "  " : "") + currentText2.Substring(currentIndex, currentText2.Length - currentIndex);
+                        currentText2 = currentText2.Substring(0, currentIndex) + "\n" + currentText2.Substring(currentIndex, currentText2.Length - currentIndex);
+                        //* textQueue[currentLine].Text = currentText2;
+                        instantText.Text = currentText2;
+                        //* finalIndex += decorated ? 3 : 1;
+                        finalIndex += 1;
                         beginIndex = currentIndex;
                     }
                 }
                 else
                     // Line is too long
-                    currentText2 = currentText2.Substring(0, wordBeginIndex - 1) + "\n" + (decorated ? "  " : "") + currentText2.Substring(wordBeginIndex, currentText.Length - wordBeginIndex);
+                    currentText2 = currentText2.Substring(0, wordBeginIndex - 1) + "\n" + currentText2.Substring(wordBeginIndex, currentText.Length - wordBeginIndex);
 
                 Array.Resize(ref letterReferences, currentText2.Length);
                 Array.Resize(ref letterPositions, currentText2.Length);
             }
-            textQueue[currentLine].Text = currentText2;
+            //* textQueue[currentLine].Text = currentText2;
+            instantText.Text = currentText2;
         }
 
         /// <summary>関数名通り、文字に対応する実際のオブジェクトの生成の処理</summary>
@@ -708,7 +722,8 @@ namespace AsteriskMod
             }
             else ltrImg.color = currentColor;
             ltrImg.GetComponent<Letter>().colorFromText = currentColor;
-            ltrImg.enabled = textQueue[currentLine].ShowImmediate || (GlobalControls.retroMode && instantActive);
+            //* ltrImg.enabled = textQueue[currentLine].ShowImmediate || (GlobalControls.retroMode && instantActive);
+            ltrImg.enabled = true;
         }
 
         private void MoveLetter(string currentText, int index, RectTransform ltrRect)
@@ -730,7 +745,8 @@ namespace AsteriskMod
         private void SpawnText(bool forceNoAutoLineBreak = false)
         {
             noSkip1stFrame = true;
-            string currentText = textQueue[currentLine].Text;
+            //* string currentText = textQueue[currentLine].Text;
+            string currentText = instantText.Text;
             letterReferences = new Image[currentText.Length];
             letterPositions = new Vector2[currentText.Length];
             if (currentText.Length > 1 && !forceNoAutoLineBreak)
@@ -886,6 +902,8 @@ namespace AsteriskMod
         }
         */
 
+        // Update()
+        /**
         protected virtual void Update()
         {
             /**
@@ -905,7 +923,7 @@ namespace AsteriskMod
                     nextMonsterDialogueOnce = false;
                 }
             }
-            */
+            /
 
             /**
             else if (mugshot != null && mugshotList != null)
@@ -919,19 +937,19 @@ namespace AsteriskMod
                     else if (mugshot.animcomplete && !(letterTimer < 0 || LineComplete()))
                         mugshot.SetAnimation(mugshotList, mugshotTimer);
                 }
-            */
+            /
 
             if (textQueue == null || textQueue.Length == 0 || paused || lateStartWaiting)
                 return;
             /*if (currentLine >= lineCount() && overworld) {
                 endTextEvent();
                 return;
-            }*/
+            }/
 
             /**
             if (textEffect != null)
                 textEffect.UpdateEffects();
-            */
+            /
 
             if (GlobalControls.retroMode && instantActive || currentCharacter >= letterReferences.Length)
                 return;
@@ -960,7 +978,7 @@ namespace AsteriskMod
                             return;
                         }
             }
-            */
+            /
 
             letterTimer += Time.deltaTime;
             if ((letterTimer >= timePerLetter || firstChar) && !LineComplete())
@@ -990,7 +1008,10 @@ namespace AsteriskMod
 
             noSkip1stFrame = false;
         }
+        */
 
+        // HandleShowLettersOnce()
+        /**
         private void HandleShowLettersOnce(ref bool soundPlayed, ref int lastLetter)
         {
             while (letterOnceValue != 0 && !instantCommand)
@@ -999,7 +1020,10 @@ namespace AsteriskMod
                 letterOnceValue--;
             }
         }
+        */
 
+        // HandleShowLetter()
+        /**
         private bool HandleShowLetter(ref bool soundPlayed, ref int lastLetter)
         {
             if (lastLetter != currentCharacter && ((!GlobalControls.retroMode && (!instantActive || instantCommand)) || GlobalControls.retroMode))
@@ -1011,7 +1035,7 @@ namespace AsteriskMod
                 while (CheckCommand())
                     if ((GlobalControls.retroMode && instantActive) || letterTimer != oldLetterTimer || waitingChar != KeyCode.None || letterOnceValue != oldLetterOnceValue || paused)
                         return false;
-                */
+                /
                 if (currentCharacter >= letterReferences.Length)
                     return false;
             }
@@ -1026,7 +1050,7 @@ namespace AsteriskMod
                     case "shake": letterReferences[currentCharacter].GetComponent<Letter>().effect = new ShakeEffectLetter(letterReferences[currentCharacter].GetComponent<Letter>(), letterIntensity); break;
                     default: letterReferences[currentCharacter].GetComponent<Letter>().effect = null; break;
                 }
-                */
+                /
                 /**
                 if (letterSound != null && !muted && !soundPlayed && (GlobalControls.retroMode || textQueue[currentLine].Text[currentCharacter] != ' '))
                 {
@@ -1034,12 +1058,13 @@ namespace AsteriskMod
                     if (letterSound.isPlaying) UnitaleUtil.PlaySound("BubbleSound", letterSound.clip.name);
                     else letterSound.Play();
                 }
-                */
+                /
             }
             currentReferenceCharacter++;
             currentCharacter++;
             return true;
         }
+        */
 
         // PreCreateControlCommand()
         /**
