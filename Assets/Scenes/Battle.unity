@@ -1485,6 +1485,10 @@ Prefab:
       propertyPath: m_CullTransparentMesh
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 157740, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11414768, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 395d68b8bb1fcdb48a7c47668f565115, type: 2}

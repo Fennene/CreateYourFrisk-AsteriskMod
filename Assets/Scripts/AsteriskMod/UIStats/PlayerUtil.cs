@@ -17,6 +17,18 @@ namespace AsteriskMod
             Instance = this;
         }
 
+        public static int x
+        {
+            get { return Mathf.RoundToInt(relativePosition.x); }
+            set { MoveTo(value, y); }
+        }
+
+        public static int y
+        {
+            get { return Mathf.RoundToInt(relativePosition.y); }
+            set { MoveTo(x, value); }
+        }
+
         public static void Move(int x, int y)
         {
             Vector2 add = new Vector2(x, y);
@@ -79,9 +91,24 @@ namespace AsteriskMod
             PlayerLifeUI.instance.SetHPTextFromNumber(hp, maxhp);
         }
 
+        public static int GetSoulAlpha()
+        {
+            if (PlayerController.instance == null) return 0;
+            return PlayerController.instance.selfImg.enabled ? 1 : 0;
+        }
+
         public static PlayerLifeBar CreateLifeBar(bool below = false)
         {
-            return null;
+            string findName = below ? "*BelowHPBar" : "*AboveHPBar";
+            GameObject parent = GameObject.Find(findName);
+            if (parent == null)
+            {
+                Debug.LogWarning("GameObject\"" + findName + "\" is not found.");
+                return null;
+            }
+            PlayerLifeBar lifeBar = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AsteriskMod/LifeBar"), parent.transform).GetComponent<PlayerLifeBar>();
+            lifeBar.Initialize(false);
+            return lifeBar;
         }
     }
 }

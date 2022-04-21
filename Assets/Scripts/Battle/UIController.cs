@@ -1684,7 +1684,7 @@ public class UIController : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         DevelopHint.ToDo("Delete");
-        AsteriskMod.Lua.PlayerUtil.Initialize();
+        //AsteriskMod.Lua.PlayerUtil.Initialize();
         //LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
         ArenaUIManager.Initialize();
         // --------------------------------------------------------------------------------
