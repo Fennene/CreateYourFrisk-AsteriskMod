@@ -11,6 +11,9 @@ namespace AsteriskMod
     {
         private GameObject hpRect; // self
         //* private RectTransform lifebarRt;
+
+        private Image hpLabel;
+
         public PlayerLifeBar LifeBar { get; private set; }
         private GameObject lifeTextCore;
         public LimitedLuaStaticTextManager LifeTextMan { get; private set; }
@@ -45,6 +48,11 @@ namespace AsteriskMod
             // In Undertale, the position of HP's object is fixed. UndertaleではHPを表示するオブジェクトの位置は固定されている。
             //hpRect.transform.position = new Vector3(hpRect.transform.parent.position.x + (PlayerCharacter.instance.Name.Length > 6 ? 286.1f : 215.1f), hpRect.transform.position.y, hpRect.transform.position.z);
 
+            Image hpl = transform.Find("*HPLabel").GetComponent<Image>();
+            Image phl = transform.Find("*HPLabelCrate").GetComponent<Image>();
+            hpl.enabled = !GlobalControls.crate;
+            phl.enabled = GlobalControls.crate;
+            hpLabel = GlobalControls.crate ? phl : hpl;
         }
 
         internal void SetHP(float hpCurrent)

@@ -37,6 +37,11 @@ namespace AsteriskMod
             totalwidth = fill.rectTransform.rect.width;
             background.color = backgroundColor;
             fill.color = fillColor;
+            // --------------------------------------------------------------------------------
+            //                            Asterisk Mod Addition
+            // --------------------------------------------------------------------------------
+            if (isOriginal) return;
+            // --------------------------------------------------------------------------------
             // プレハブ(Prefab)用 順番を正しく入れ替える。
             background.transform.SetAsLastSibling();
             fill.transform.SetAsLastSibling();
@@ -57,8 +62,9 @@ namespace AsteriskMod
             //* else if (whenDamage) fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * whenDamageValue, fill.rectTransform.offsetMin.y);
             //* else
             //* {
-                if (fillvalue > 1)
-                    fillvalue = 1;
+                //*if (fillvalue > 1)
+                //*    fillvalue = 1;
+                if (_limited && fillvalue > 1) fillvalue = 1;
                 //fill.rectTransform.offsetMax = new Vector2(-(Mathf.Min(PlayerCharacter.instance.MaxHP, 100) * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
                 fill.rectTransform.offsetMax = new Vector2(-(realMaxLength * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
             //* }
@@ -227,8 +233,8 @@ namespace AsteriskMod
 
         public void SetHP(float newHP, float newMaxHP)
         {
-            float realMaxHP = _maxhp;
-            if (_limited) realMaxHP = Mathf.Min(_maxhp, 100);
+            float realMaxHP = newMaxHP;
+            if (_limited) realMaxHP = Mathf.Min(newMaxHP, 100);
 
             // Set Max HP
             if (_maxhp != newMaxHP)
@@ -244,8 +250,7 @@ namespace AsteriskMod
                   hpFrac = newHP / hpMax;
             currentFill = hpFrac;
             desiredFill = hpFrac;
-            if (hpFrac > 1)
-                hpFrac = 1;
+            if (_limited && hpFrac > 1) hpFrac = 1;
             fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * 1.2f, fill.rectTransform.offsetMin.y);
         }
 

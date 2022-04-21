@@ -107,11 +107,10 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-api-playerutil">
-            <h2><span class="Asterisk"></span> The PlayerUtil object [E/M/W]</h2><br><br>
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> The PlayerUtil object [E/M/W]</h2><br><br>
             <p>
-                You can use this object to modify the player's UI.
-                <!--You can get the alpha of the player's soul.-->
-                <br>[Insert a text]
+                This is for modifying all UI that displays the Player's status at the same time. 
+                You can also modify each UIs by using the variables.
             </p><br>
 
             <p><font color="#FFF">
@@ -147,21 +146,54 @@ it's w3c valid, at least
 
             <hr>
 
+            <p>
+                <br><span class="function">PlayerUtil.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Moves the all UI showing the player's status <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
+            </p>
+            <p>
+                <br><span class="function">PlayerUtil.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Moves the all UI showing the player's status to a new position, relative to the initial position
+            </p>
+            <p>
+                <br><span class="function">PlayerUtil.MoveToAbs(<span class="number"></span> absx, <span class="number"></span> absy)</span>
+                Moves the all UI showing the player's status to a new position, relative to the bottom left corner of the window.
+                <br><br>
+                <font color="#FFF">
+                    Note: This function is not 100% accurate. 
+                    Please use <span class="term">PlayerUtil.MoveTo()</span> as possible.
+                </font>
+            </p>
+            <p>
+                <br><span class="function">PlayerUtil.MoveTo()</span>
+                You can move the all UI showing the player's status to the initial position 
+                if you do not provide any argument.
+            </p>
+
+            <br>
 
             <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Name</span>
+                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Name (Read-only)</span>
             </p>
 
             <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Love</span>
+                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Love (Read-only)</span>
             </p>
 
             <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar</span>
+                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)</span>
             </p>
 
             <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.HPText</span>
+                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.HPText (Read-only)</span>
+            </p>
+
+            <br>
+
+            <p>
+                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
+                Either true or false. If true, bars and texts showing the Player's status do <b>NOT</b> update anymore.<br>
+                You should call this if you modify objects displaying the Player's status.<br>
+                This is same to <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
             </p>
 
             <p>

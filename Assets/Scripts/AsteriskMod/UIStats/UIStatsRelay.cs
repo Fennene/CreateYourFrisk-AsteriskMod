@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace AsteriskMod
 {
@@ -78,6 +75,13 @@ namespace AsteriskMod
             {
                 PlayerLifeUI.instance.SetMaxHP();
             }
+        }
+
+        public static void ChangeHPLabel()
+        {
+            if (!UseOriginalUIStats) return;
+            GameObject.Find("HPLabelCrate").GetComponent<Image>().enabled = true;
+            GameObject.Find("HPLabel").GetComponent<Image>().enabled = false;
         }
     }
 }

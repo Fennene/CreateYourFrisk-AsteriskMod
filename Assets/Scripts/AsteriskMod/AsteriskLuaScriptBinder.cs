@@ -63,7 +63,7 @@ namespace AsteriskMod
             {
                 DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
                 script.Globals.Set("ButtonUtil", buttonUtil);
-                DynValue playerUtil = UserData.Create(new PlayerUtil());
+                DynValue playerUtil = UserData.Create(PlayerUtil.Instance);
                 script.Globals.Set("NewPlayerUtil", playerUtil);
 
                 DynValue playerUtil_old = UserData.Create(new Lua.PlayerUtil());

@@ -1662,8 +1662,13 @@ public class UIController : MonoBehaviour {
 
         if (GlobalControls.crate) {
             UserDebugger.instance.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "DEGUBBER (F9 OT TOGLGE, DEBUG(STIRNG) TO PRNIT)";
-            GameObject.Find("HPLabelCrate").GetComponent<Image>().enabled = true;
-            GameObject.Find("HPLabel").GetComponent<Image>().enabled = false;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //GameObject.Find("HPLabelCrate").GetComponent<Image>().enabled = true;
+            //GameObject.Find("HPLabel").GetComponent<Image>().enabled = false;
+            UIStatsRelay.ChangeHPLabel();
+            // --------------------------------------------------------------------------------
         }
 
         // PlayerController.instance.Awake();

@@ -17,6 +17,11 @@ public class DisclaimerScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
 
     private void Start() {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        int _ = Random.Range(0, 1000);
+        // --------------------------------------------------------------------------------
         if (GlobalControls.crate) {
             Logo.GetComponent<Image>().enabled = false;
             LogoCrate.GetComponent<Image>().enabled = true;
@@ -35,11 +40,25 @@ public class DisclaimerScript : MonoBehaviour {
             DescA5.GetComponent<Text>().text = "NO RELESLING HERE!!! IT'S RFEE!!! OR TUBY FEX WILL BE ANGER!!! U'LL HVAE A BED TMIE!!!";
             // --------------------------------------------------------------------------------
         }
-        else if (Random.Range(0, 1000) == 021) {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //else if (Random.Range(0, 1000) == 021) {
+        else if (_ == 021) {
+        // --------------------------------------------------------------------------------
             Logo.GetComponent<Image>().enabled              = false;
             Version.GetComponent<Transform>().localPosition = new Vector3(0f, 160f, 0f);
             Version.GetComponent<Text>().color              = new Color(1f, 1f, 1f, 1f);
             Version.GetComponent<Text>().text               = "Not Unitale v0.2.1a";
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        } else if (_ == 256) {
+            Logo.GetComponent<Image>().enabled              = false;
+            Version.GetComponent<Transform>().localPosition = new Vector3(0f, 160f, 0f);
+            Version.GetComponent<Text>().color              = new Color(1f, 1f, 1f, 1f);
+            Version.GetComponent<Text>().text               = "Not Official CYF";
+        // --------------------------------------------------------------------------------
         } else {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
@@ -85,8 +104,8 @@ public class DisclaimerScript : MonoBehaviour {
         if (GlobalControls.crate)
         {
             Desc5.GetComponent<Text>().text = GlobalControls.crate ? "LAODING MODS!!!!!" : "Loading mods...";
-            DescA1.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(Random.Range(200, 600), Random.Range(8, 30));
-            DescA2.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(Random.Range(200, 600), Random.Range(8, 30));
+            DescA1.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(Random.Range(200, 620), Random.Range(4, 40) + Random.Range(0, 20) + Random.Range(-10, 10));
+            DescA2.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(Random.Range(200, 620), Random.Range(4, 40) + Random.Range(0, 20) + Random.Range(-10, 10));
         }
         else
         {
