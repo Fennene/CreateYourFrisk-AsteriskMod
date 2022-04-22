@@ -130,16 +130,62 @@ it's w3c valid, at least
                 The source code of <span class="term">The LimitedStaticText Object</span> is <span class="term">LimitedLuaStaticTextManager.cs</span> in <span class="term">Assets/Scripts/AsteriskMod/UIStats</span>.
             </p><br>
 
-            <hr>
+            <hr><br>
+
+            <p>
+                <span class="function"><span class="Asterisk"></span> CreateStaticText(<span class="string"></span> font = "uidialog", <span class="string"></span> text, <span class="luatable"><span class="number"></span>, <span class="number"></span></span> position, <span class="number"></span> textWidth, <span class="string"></span> layer = "BelowPlayer", <span class="nullable_number"></span> charspacing = nil, <span class="number"></span> linespacing = 0) returns <span class="userdata">StaticText</span> [E/M/W]</span>
+                This function creates a Text Object and returns it. 
+                However, as you can see, a lot of parameters are needed.
+                Here is what you need to set:<br>
+                <ul>
+                    <li>
+                        <span class="term">font</span> - The font of text. 
+                        It's the same as <span class="term">text.SetFont()</span>.<br>
+                        Returns an error if the font doesn't exist.
+                    </li><br>
+                    <li>
+                        <span class="term">text</span> - The text to display. 
+                        Should just be a single string, you can not assign table of string.
+                    </li><br>
+                    <li>
+                        <span class="term">position</span> - Two numbers: The x and y positions of the center of the object. Sorry if it may be hard to place it, but you'll be able to use MoveTo to adjust it afterwards.
+                        You only need two numbers, like this: {320, 240}
+                    </li><br>
+                    <li>
+                        <span class="term">textMaxWidth</span> - You'll always need this!<br>
+                        Example: 150
+                    </li><br>
+                    <li>
+                        <span class="term">layer</span> - The sprite layer of the StaticText Object. If it doesn't exist, it returns an error. This argument is optional. If it's not provided, the StaticText Object will be in the layer <span class="term">BelowPlayer</span> (or Default in the Overworld).<br>
+                        Example: "BelowPlayer"
+                    </li><br>
+                    <li>
+                        <span class="term">charspacing</span> - <span class="term">nil</span> or <span class="number"></span>.<br>
+                        This is same as the text command <span class="term">[charspacing]</span>.
+                    </li><br>
+                    <li>
+                        <span class="term">linespacing</span> - 
+                        This is same as the text command <span class="term">[linespacing]</span>.
+                    </li>
+                </ul><br>
+                There is NOT a one-frame delay in the StaticText Object.
+            </p><br>
+
+            <hr><br>
 
             <h3>Common Functions</h3><br><br>
             <p>These functions can use in <span class="term">The StaticText Object</span> and <span class="term">The LimitedStaticText Object</span></p>
 
 
 
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br>
 
-            <br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
 
             <p>
                 <br><span class="function"><span class="number"></span> PlayerUtil.x</span>

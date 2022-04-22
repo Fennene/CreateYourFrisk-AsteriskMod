@@ -92,6 +92,13 @@ span.nullable_boolean::before {
     font-weight: bold;
     /* font-size: 12px; */
 }
+span.nullable_number::before {
+    color: #28996C;
+    content: "number?";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
 
 span.userdata {
     /* display: contents !important; */

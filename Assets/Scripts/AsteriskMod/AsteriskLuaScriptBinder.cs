@@ -51,8 +51,11 @@ namespace AsteriskMod
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
 
-            script.Globals["CreateStaticText"] = (Func<Script, DynValue, DynValue, int, string, string, float?, float, LuaStaticTextManager>)CreateStaticText;
-            script.Globals["CreateSTText"] = (Func<Script, DynValue, DynValue, int, string, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+            script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+            script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+
+            script.Globals["SetJapaneseMode"] = (Action<bool>)EngineResetter.SetJapaneseMode;
+            script.Globals["SetJPMode"] = (Action<bool>)EngineResetter.SetJapaneseMode;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
@@ -139,10 +142,10 @@ namespace AsteriskMod
         }
         */
 
-        public static LuaStaticTextManager CreateStaticText(Script scr, DynValue text, DynValue position, int textWidth, string layer = "BelowPlayer", string font = null, float? charspacing = null, float linespacing = 0)
+        public static LuaStaticTextManager CreateStaticText(Script scr, string font, string text, DynValue position, int textWidth, string layer = "BelowPlayer", float? charspacing = null, float linespacing = 0)
         {
-            if (text == null || text.Type != DataType.String)
-                throw new CYFException("CreateStaticText: The text argument must be a non-empty table of strings or a simple string.");
+            if (text == null)
+                throw new CYFException("CreateStaticText: The text argument must be a simple string.");
             if (position == null || position.Type != DataType.Table || position.Table.Get(1).Type != DataType.Number || position.Table.Get(2).Type != DataType.Number)
                 throw new CYFException("CreateStaticText: The position argument must be a non-empty table of two numbers.");
 
@@ -259,8 +262,8 @@ namespace AsteriskMod
 
             //* if (enableLateStart)
                 //* luatm.lateStartWaiting = true;
-            if (string.IsNullOrEmpty(font))
-                luatm.SetFont(font, true);
+            if (!string.IsNullOrEmpty(font))
+                luatm.SetFont(font);
             else
                 luatm.ResetFont();
             luatm.SetCharSpacing(charspacing);

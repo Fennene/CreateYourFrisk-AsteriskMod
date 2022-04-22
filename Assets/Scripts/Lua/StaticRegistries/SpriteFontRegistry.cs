@@ -9,6 +9,16 @@ public static class SpriteFontRegistry {
     public const string UI_MONSTERTEXT_NAME = "monster";
     public const string UI_SMALLTEXT_NAME = "uibattlesmall";
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public const string UI_JP_DEFAULT_NAME = "jp";
+    public const string UI_JP_MONSTERTEXT_NAME = "jp2";
+    public const string UI_JP_NAME_NAME = "jpname";
+
+    public const string DEBUG_FONT_NAME = "debug";
+    // --------------------------------------------------------------------------------
+
     public static GameObject LETTER_OBJECT;
     public static GameObject BUBBLE_OBJECT;
     private static readonly Dictionary<string, FileInfo> dictDefault = new Dictionary<string, FileInfo>();

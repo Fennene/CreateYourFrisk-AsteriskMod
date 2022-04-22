@@ -146,7 +146,7 @@ namespace AsteriskMod
         public void SetFont(UnderFont font, bool firstTime = false)
         {
             Charset = font;
-            if (default_charset == null)
+            //* if (default_charset == null)
                 default_charset = font;
             /**
             if (firstTime)
@@ -462,6 +462,10 @@ namespace AsteriskMod
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
+            if(newvSpacingSet) vSpacing= newvSpacing;
+            if(newhSpacingSet) hSpacing = newhSpacing;
+            newvSpacingSet = false;
+            newhSpacingSet = false;
             //* currentSkippable = true;
             //* autoSkipThis = false;
             //* autoSkip = false;
@@ -906,16 +910,14 @@ namespace AsteriskMod
         }
 
         /// <summary>必ず<see cref="SetFont(UnderFont, bool)"/>または<see cref="ResetFont"/>後に呼び出すこと</summary>
-        [MoonSharpHidden]
-        internal void SetCharSpacing(float? space = null)
+        public void SetCharSpacing(float? space = null)
         {
             if (!space.HasValue) newhSpacing = Charset.CharSpacing;
             else newhSpacing = space.Value;
             newhSpacingSet = true;
         }
 
-        [MoonSharpHidden]
-        internal void SetLineSpacing(float space = 0)
+        public void SetLineSpacing(float space = 0)
         {
             newvSpacing = space;
             newvSpacingSet = true;

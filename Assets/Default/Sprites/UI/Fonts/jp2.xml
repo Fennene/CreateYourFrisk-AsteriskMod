@@ -1,0 +1,860 @@
+﻿<?xml version="1.0" encoding="iso-8859-1"?>
+<font>
+<voice>monsterfont</voice>
+<color>000000</color>
+<charspacing>0</charspacing>
+<linespacing>20</linespacing>
+<spritesheet>
+    <sprite name="space">
+        <rect x="5" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="!">
+        <rect x="22" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="doublequote">
+        <rect x="39" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="#">
+        <rect x="56" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="$">
+        <rect x="73" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="%">
+        <rect x="90" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="ampersand">
+        <rect x="107" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="'">
+        <rect x="124" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="(">
+        <rect x="141" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name=")">
+        <rect x="158" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="asterisk">
+        <rect x="175" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="+">
+        <rect x="192" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name=",">
+        <rect x="209" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="-">
+        <rect x="226" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="dot">
+        <rect x="243" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="slash">
+        <rect x="260" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="0">
+        <rect x="277" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="1">
+        <rect x="294" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="2">
+        <rect x="311" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="3">
+        <rect x="328" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="4">
+        <rect x="345" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="5">
+        <rect x="362" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="6">
+        <rect x="379" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="7">
+        <rect x="396" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="8">
+        <rect x="413" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="9">
+        <rect x="430" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="colon">
+        <rect x="447" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name=";">
+        <rect x="464" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="rt">
+        <rect x="481" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="=">
+        <rect x="498" y="239" w="8" h="16"/>
+    </sprite>
+    <sprite name="lt">
+        <rect x="5" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="questionmark">
+        <rect x="22" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="@">
+        <rect x="39" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="A">
+        <rect x="56" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="B">
+        <rect x="73" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="C">
+        <rect x="90" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="D">
+        <rect x="107" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="E">
+        <rect x="124" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="F">
+        <rect x="141" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="G">
+        <rect x="158" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="H">
+        <rect x="175" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="I">
+        <rect x="192" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="J">
+        <rect x="209" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="K">
+        <rect x="226" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="L">
+        <rect x="243" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="M">
+        <rect x="260" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="N">
+        <rect x="277" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="O">
+        <rect x="294" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="P">
+        <rect x="311" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="Q">
+        <rect x="328" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="R">
+        <rect x="345" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="S">
+        <rect x="362" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="T">
+        <rect x="379" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="U">
+        <rect x="396" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="V">
+        <rect x="413" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="W">
+        <rect x="430" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="X">
+        <rect x="447" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="Y">
+        <rect x="464" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="Z">
+        <rect x="481" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="[">
+        <rect x="498" y="222" w="8" h="16"/>
+    </sprite>
+    <sprite name="backslash">
+        <rect x="5" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="]">
+        <rect x="22" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="^">
+        <rect x="39" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="_">
+        <rect x="56" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="‵">
+        <rect x="73" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="a">
+        <rect x="90" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="b">
+        <rect x="107" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="c">
+        <rect x="124" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="d">
+        <rect x="141" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="e">
+        <rect x="158" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="f">
+        <rect x="175" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="g">
+        <rect x="192" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="h">
+        <rect x="209" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="i">
+        <rect x="226" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="j">
+        <rect x="243" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="k">
+        <rect x="260" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="l">
+        <rect x="277" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="m">
+        <rect x="294" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="n">
+        <rect x="311" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="o">
+        <rect x="328" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="p">
+        <rect x="345" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="q">
+        <rect x="362" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="r">
+        <rect x="379" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="s">
+        <rect x="396" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="t">
+        <rect x="413" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="u">
+        <rect x="430" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="v">
+        <rect x="447" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="w">
+        <rect x="464" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="x">
+        <rect x="481" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="y">
+        <rect x="498" y="205" w="8" h="16"/>
+    </sprite>
+    <sprite name="z">
+        <rect x="5" y="188" w="8" h="16"/>
+    </sprite>
+    <sprite name="{">
+        <rect x="22" y="188" w="8" h="16"/>
+    </sprite>
+    <sprite name="pipe">
+        <rect x="39" y="188" w="8" h="16"/>
+    </sprite>
+    <sprite name="}">
+        <rect x="56" y="188" w="8" h="16"/>
+    </sprite>
+    <sprite name="~">
+        <rect x="73" y="188" w="8" h="16"/>
+    </sprite>
+    <sprite name="ぁ">
+        <rect x="86" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="あ">
+        <rect x="103" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぃ">
+        <rect x="120" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="い">
+        <rect x="137" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぅ">
+        <rect x="154" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="う">
+        <rect x="171" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぇ">
+        <rect x="188" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="え">
+        <rect x="205" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぉ">
+        <rect x="222" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="お">
+        <rect x="239" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="か">
+        <rect x="256" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="が">
+        <rect x="273" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="き">
+        <rect x="290" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぎ">
+        <rect x="307" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="く">
+        <rect x="324" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぐ">
+        <rect x="341" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="け">
+        <rect x="358" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="げ">
+        <rect x="375" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="こ">
+        <rect x="392" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ご">
+        <rect x="409" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="さ">
+        <rect x="426" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ざ">
+        <rect x="443" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="し">
+        <rect x="460" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="じ">
+        <rect x="477" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="す">
+        <rect x="494" y="188" w="16" h="16"/>
+    </sprite>
+    <sprite name="ず">
+        <rect x="1" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="せ">
+        <rect x="18" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぜ">
+        <rect x="35" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="そ">
+        <rect x="52" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぞ">
+        <rect x="69" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="た">
+        <rect x="86" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="だ">
+        <rect x="103" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ち">
+        <rect x="120" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぢ">
+        <rect x="137" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="っ">
+        <rect x="154" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="つ">
+        <rect x="171" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="づ">
+        <rect x="188" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="て">
+        <rect x="205" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="で">
+        <rect x="222" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="と">
+        <rect x="239" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ど">
+        <rect x="256" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="な">
+        <rect x="273" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="に">
+        <rect x="290" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぬ">
+        <rect x="307" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ね">
+        <rect x="324" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="の">
+        <rect x="341" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="は">
+        <rect x="358" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ば">
+        <rect x="375" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぱ">
+        <rect x="392" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ひ">
+        <rect x="409" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="び">
+        <rect x="426" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぴ">
+        <rect x="443" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ふ">
+        <rect x="460" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぶ">
+        <rect x="477" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぷ">
+        <rect x="494" y="171" w="16" h="16"/>
+    </sprite>
+    <sprite name="へ">
+        <rect x="1" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="べ">
+        <rect x="18" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぺ">
+        <rect x="35" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ほ">
+        <rect x="52" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぼ">
+        <rect x="69" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ぽ">
+        <rect x="86" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ま">
+        <rect x="103" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="み">
+        <rect x="120" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="む">
+        <rect x="137" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="め">
+        <rect x="154" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="も">
+        <rect x="171" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゃ">
+        <rect x="188" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="や">
+        <rect x="205" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゅ">
+        <rect x="222" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゆ">
+        <rect x="239" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ょ">
+        <rect x="256" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="よ">
+        <rect x="273" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ら">
+        <rect x="290" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="り">
+        <rect x="307" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="る">
+        <rect x="324" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="れ">
+        <rect x="341" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ろ">
+        <rect x="358" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゎ">
+        <rect x="375" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="わ">
+        <rect x="392" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゐ">
+        <rect x="409" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゑ">
+        <rect x="426" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="を">
+        <rect x="443" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="ん">
+        <rect x="460" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="、">
+        <rect x="477" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="。">
+        <rect x="494" y="154" w="16" h="16"/>
+    </sprite>
+    <sprite name="「">
+        <rect x="1" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="」">
+        <rect x="18" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ー">
+        <rect x="35" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="～">
+        <rect x="52" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ァ">
+        <rect x="69" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ア">
+        <rect x="86" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ィ">
+        <rect x="103" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="イ">
+        <rect x="120" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゥ">
+        <rect x="137" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ウ">
+        <rect x="154" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ェ">
+        <rect x="171" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="エ">
+        <rect x="188" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ォ">
+        <rect x="205" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="オ">
+        <rect x="222" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="カ">
+        <rect x="239" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ガ">
+        <rect x="256" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="キ">
+        <rect x="273" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ギ">
+        <rect x="290" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ク">
+        <rect x="307" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="グ">
+        <rect x="324" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ケ">
+        <rect x="341" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゲ">
+        <rect x="358" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="コ">
+        <rect x="375" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゴ">
+        <rect x="392" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="サ">
+        <rect x="409" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ザ">
+        <rect x="426" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="シ">
+        <rect x="443" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ジ">
+        <rect x="460" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ス">
+        <rect x="477" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="ズ">
+        <rect x="494" y="137" w="16" h="16"/>
+    </sprite>
+    <sprite name="セ">
+        <rect x="1" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゼ">
+        <rect x="18" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ソ">
+        <rect x="35" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ゾ">
+        <rect x="52" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="タ">
+        <rect x="69" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ダ">
+        <rect x="86" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="チ">
+        <rect x="103" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヂ">
+        <rect x="120" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ッ">
+        <rect x="137" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ツ">
+        <rect x="154" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヅ">
+        <rect x="171" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="テ">
+        <rect x="188" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="デ">
+        <rect x="205" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ト">
+        <rect x="222" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ド">
+        <rect x="239" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ナ">
+        <rect x="256" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ニ">
+        <rect x="273" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヌ">
+        <rect x="290" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ネ">
+        <rect x="307" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ノ">
+        <rect x="324" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ハ">
+        <rect x="341" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="バ">
+        <rect x="358" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="パ">
+        <rect x="375" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヒ">
+        <rect x="392" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ビ">
+        <rect x="409" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ピ">
+        <rect x="426" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="フ">
+        <rect x="443" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ブ">
+        <rect x="460" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="プ">
+        <rect x="477" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヘ">
+        <rect x="494" y="120" w="16" h="16"/>
+    </sprite>
+    <sprite name="ベ">
+        <rect x="1" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ペ">
+        <rect x="18" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ホ">
+        <rect x="35" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ボ">
+        <rect x="52" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ポ">
+        <rect x="69" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="マ">
+        <rect x="86" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ミ">
+        <rect x="103" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ム">
+        <rect x="120" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="メ">
+        <rect x="137" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="モ">
+        <rect x="154" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ャ">
+        <rect x="171" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヤ">
+        <rect x="188" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ュ">
+        <rect x="205" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ユ">
+        <rect x="222" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ョ">
+        <rect x="239" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヨ">
+        <rect x="256" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ラ">
+        <rect x="273" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="リ">
+        <rect x="290" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ル">
+        <rect x="307" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="レ">
+        <rect x="324" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ロ">
+        <rect x="341" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヮ">
+        <rect x="358" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ワ">
+        <rect x="375" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヰ">
+        <rect x="392" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヱ">
+        <rect x="409" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヲ">
+        <rect x="426" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ン">
+        <rect x="443" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヴ">
+        <rect x="460" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヵ">
+        <rect x="477" y="103" w="16" h="16"/>
+    </sprite>
+    <sprite name="ヶ">
+        <rect x="494" y="103" w="16" h="16"/>
+    </sprite>
+
+    <sprite name="決">
+        <rect x="1" y="86" w="16" h="16"/>
+    </sprite>
+    <sprite name="意">
+        <rect x="18" y="86" w="16" h="16"/>
+    </sprite>
+
+<!--
+        <rect x="1" y="239" w="16" h="16"/>
+        <rect x="18" y="239" w="16" h="16"/>
+        <rect x="35" y="239" w="16" h="16"/>
+        <rect x="52" y="239" w="16" h="16"/>
+        <rect x="69" y="239" w="16" h="16"/>
+        <rect x="86" y="239" w="16" h="16"/>
+        <rect x="103" y="239" w="16" h="16"/>
+        <rect x="120" y="239" w="16" h="16"/>
+        <rect x="137" y="239" w="16" h="16"/>
+        <rect x="154" y="239" w="16" h="16"/>
+        <rect x="171" y="239" w="16" h="16"/>
+        <rect x="188" y="239" w="16" h="16"/>
+        <rect x="205" y="239" w="16" h="16"/>
+        <rect x="222" y="239" w="16" h="16"/>
+        <rect x="239" y="239" w="16" h="16"/>
+        <rect x="256" y="239" w="16" h="16"/>
+        <rect x="273" y="239" w="16" h="16"/>
+        <rect x="290" y="239" w="16" h="16"/>
+        <rect x="307" y="239" w="16" h="16"/>
+        <rect x="324" y="239" w="16" h="16"/>
+        <rect x="341" y="239" w="16" h="16"/>
+        <rect x="358" y="239" w="16" h="16"/>
+        <rect x="375" y="239" w="16" h="16"/>
+        <rect x="392" y="239" w="16" h="16"/>
+        <rect x="409" y="239" w="16" h="16"/>
+        <rect x="426" y="239" w="16" h="16"/>
+        <rect x="443" y="239" w="16" h="16"/>
+        <rect x="460" y="239" w="16" h="16"/>
+        <rect x="477" y="239" w="16" h="16"/>
+        <rect x="494" y="239" w="16" h="16"/>
+-->
+
+</spritesheet>
+</font>

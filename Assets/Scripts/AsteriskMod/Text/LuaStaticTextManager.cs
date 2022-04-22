@@ -451,11 +451,11 @@ namespace AsteriskMod
                 ResizeBubble();
         }
         */
-        public void SetText(DynValue text)
+        public void SetText(string text)
         {
-            if (text == null || text.Type != DataType.String)
-                throw new CYFException("StaticText.SetText: the text argument must be a non-empty array of strings or a simple string.");
-            try { SetText(new InstantTextMessage(text.String)); }
+            if (text == null)
+                throw new CYFException("StaticText.SetText: the text argument must be a simple string.");
+            try { SetText(new InstantTextMessage(text)); }
             catch { /* ignored */ }
         }
 
@@ -518,7 +518,6 @@ namespace AsteriskMod
         }
         */
 
-        [MoonSharpHidden]
         public void SetFont(string fontName, bool firstTime = false)
         {
             if (fontName == null)
