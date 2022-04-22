@@ -130,6 +130,12 @@ public class SelectOMatic : MonoBehaviour {
             ListShadow.gameObject.GetComponent<Text>().text = "MDO LITS";
         }
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        SelectOMaticOptionManager.StartAlt(this);
+        // --------------------------------------------------------------------------------
+
         // This check will be true if we just exited out of an encounter
         // If that's the case, we want to open the encounter list so the user only has to click once to re enter
         modFolderSelection();

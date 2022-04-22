@@ -72,7 +72,7 @@ it's w3c valid, at least
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
-                    <li class="li-indent asternew active" style="margin-left:5px;">&gt; The ButtonUtil Object &lt;</li>
+                    <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li>CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
@@ -80,7 +80,7 @@ it's w3c valid, at least
                     <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
                     <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
                     <li><span class="asternew"></span>Japanese Localization<br>(日本語対応):</li>
-                    <li class="li-indent asternew"><a href="jp-basis.html">基本</a></li>
+                    <li class="li-indent asternew active" style="margin-left:5px;">&gt; 基本 &lt;</li>
                     <li><span class="asternew"></span> Gameobject Modifying System:</li>
                     <li class="li-indent asternew"><a href="gms-basis.html">Basis</a></li>
                     <li class="li-indent asternew"><a href="gms-main.html">The GameObject Object</a></li>
@@ -114,23 +114,23 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-api-buttonutil">
-            <h2 id="ButtonUtil"><span class="Asterisk"></span> The ButtonUtil object [E/M/W]</h2><br><br>
-            <p>This is for accessing to each buttons or for changing parameters of buttons at the same time.</p>
+        <div class="tab-pane active text-style" id="asterisk-jp-basis">
+            <h2 id="JP"><span class="Asterisk"></span> 日本語化 (Japanalize)</h2><br><br>
+            <p>AsteriskModには日本語化するための機能がいくつか追加されています。</p>
 
             <p>
-                &lt; Technical info &gt;<br>
-                The codes relating the buttons are moved to other new file and cleaned up in v0.5.3.<br>
-                namespace is changed <span class="term">AsteriskMod.Lua</span> to <span class="term">AsteriskMod</span>.<br>
-                (However, namespace will be not changed for compatibility if the Mod will be launched as before v0.5.3.)<br>
-                <span class="term">UIController.cs</span> have not contained functions of controlling each buttons. 
-                Instead of that, <span class="term">AsteriskMod.ButtonManager.cs</span> controls all button and <span class="term">AsteriskMod.ActionButton.cs</span> controls each buttons finely.
+                エンジン
             </p><br>
 
             <p>
-                <br><span class="function"><span class="userdata">Button</span> ButtonUtil.FIGHT (Read-only)</span>
-                Returns property of FIGHT Button as Button object.
+                <br><span class="function">SetJapaneseMode(<span class="boolean"></span> active) [E/M/W]<br></span>もしくは
+                <span class="function">SetJPMode(<span class="boolean"></span> active) [E/M/W]</span>
             </p>
+
+
+            <br><br><br><br><br><br><br><br>
+
+
             <p>
                 <br><span class="function"><span class="userdata">Button</span> ButtonUtil.ACT (Read-only)</span>
                 Returns property of ACT Button as Button object.
