@@ -1783,8 +1783,11 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         if (firstFrameUpdate)
         {
-            encounter.TryCall("FirstFrameUpdate");
-            AsteriskLuaScriptBinder.LateInitialize();
+            if (EngineResetter.ModTarget_AsteriskVersion < Asterisk.Versions.TakeNewStepUpdate)
+            {
+                encounter.TryCall("FirstFrameUpdate");
+            }
+            //AsteriskLuaScriptBinder.LateInitialize();
             firstFrameUpdate = false;
         }
         // --------------------------------------------------------------------------------

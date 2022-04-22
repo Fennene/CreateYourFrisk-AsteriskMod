@@ -63,10 +63,10 @@ it's w3c valid, at least
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li class="asternew"><a href="update-guide.html">Update Migration Guide</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
-                    <li class="asternew"><a href="api-statictext.html">The StaticText Object /<br>The LimitedStaticText Object</a></li>
+                    <li class="asternew active" style="margin-left:5px;">&gt; The StaticText Object /<br>The LimitedStaticText Object &lt;</li>
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
-                    <li class="li-indent asternew active" style="margin-left:5px;">&gt; The PlayerUtil Object &lt;</li>
+                    <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li>CustomState:</li>
@@ -107,45 +107,39 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-api-playerutil">
-            <h2><span class="asternew"></span> <span class="Asterisk"></span> The PlayerUtil object [E/M/W]</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-api-statictext">
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> The StaticText object [E/M/W]</h2><br><br>
             <p>
-                This is for modifying all UI that displays the Player's status at the same time. 
-                You can also modify each UIs by using the variables.
+                This is derivation of The Text Object, it is made for running CYF faster.<br>
+                This object is used to texts that does not need to update.<br>
+                "does not need to update" means that the text does not need letter effect, text command, voice, multiline and bubble.
             </p><br>
 
-            <p><font color="#FFF">
-                * For v0.5.3 Update, Asterisk Mod has changed Player's UI drastically.<br>
-                * As a consequence of that, the most variables and functions of PlayerUtil is very changed and those name<br>
-                &nbsp;&nbsp;&nbsp;is also changed.<br>
-                * It's too changed, so I divided the pages on old version (v0.5.2.x = before v0.5.3) and new version.<br>
-                * PlayerUtil of old version is <a href="api-playerutil-old.html">here</a>.
-            </font></p><br>
+            <p>
+                The StaticText Object have also derivated class, it is The <span class="userdata">LimitedStaticText</span> Object.<br>
+                <span class="term">LimitedStaticText</span> object is used to The StaticText Object that the engine prepared, 
+                it is letterly limited (means some functions are not allowed).
+            </p><br>
 
             <hr>
 
             <p>
                 &lt; Technical info &gt;<br>
-                In AsteriskMod v0.5.3, It does NOT use original CYF's object to display the Player's status.<br>
-                CYF uses text as <span class="term">TextManager</span> class, but AsteriskMod adds new class <span class="term">LimitedLuaStaticTextManager</span> class and uses to display the status.
-                (See also <span class="ref">The StaticText Object</span>.)<br>
-                The Player's LifeBar uses other added class <span class="term">PlayerLifeBar</span>.
-                (See also <span class="ref">The LifeBar Object</span> there is below this page.)
-                <br><br>
-                The GameObject "<span class="term">*Name</span>" and "<span class="term">*Love</span>" is used instead of The GameObject "<span class="term">NameLv</span>"; that is the parent of, the letters of the Player's Name and Love.<br>
-                The GameObject "<span class="term">*HPRect</span>" is used instead of The GameObject "<span class="term">HPRect</span>" that conrols displaying of the Player's HP.
-                <br><br>
-                "<span class="term">UIStats</span>" class that controls Displaying of the player's status has divided to "<span class="term">PlayerNameText</span>", "<span class="term">PlayerLoveText</span>" and "<span class="term">PlayerLifeUI</span>".<br>
-                There are each classes relating the Player's UI in <span class="term">Assets/Scripts/AsteriskMod/UIStats folder</span>.
-                <br><br>
-                namespace of <span class="term">PlayerUtil</span> is changed <span class="term">AsteriskMod.Lua</span> to <span class="term">AsteriskMod</span>.<br>
-                (However, namespace will be not changed for compatibility if the Mod will be launched as before v0.5.3.)
-                <br><br>
-                Note that this feature can NOT be used in Overworld because of some reasons.<br>
-                That's why UIStats class and that objects is not deleted completely.
+                namespace of <span class="term">The StaticText Object</span> and <span class="term">The LimitedStaticText Object</span> is <span class="term">AsteriskMod</span>.<br>
+                The source code of <span class="term">The StaticText Object</span> is <span class="term">LuaStaticTextManager.cs</span> in <span class="term">Assets/Scripts/AsteriskMod/Text</span>.<br>
+                The source code of <span class="term">The LimitedStaticText Object</span> is <span class="term">LimitedLuaStaticTextManager.cs</span> in <span class="term">Assets/Scripts/AsteriskMod/UIStats</span>.
             </p><br>
 
             <hr>
+
+            <h3>Common Functions</h3><br><br>
+            <p>These functions can use in <span class="term">The StaticText Object</span> and <span class="term">The LimitedStaticText Object</span></p>
+
+
+
+
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br>
 
             <p>
                 <br><span class="function"><span class="number"></span> PlayerUtil.x</span>

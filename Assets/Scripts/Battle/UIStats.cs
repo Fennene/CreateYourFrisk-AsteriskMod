@@ -19,7 +19,7 @@ public class UIStats : MonoBehaviour {
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
     private bool encounterHasOnHPChanged;
-    internal bool initializeCompleted;
+    //internal bool initializeCompleted;
     // --------------------------------------------------------------------------------
 
     private void Awake() { instance = this; }
@@ -45,8 +45,8 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null;
-        initializeCompleted = true;
+        //encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null;
+        //initializeCompleted = true;
         // --------------------------------------------------------------------------------
     }
 
@@ -58,8 +58,8 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        PlayerUIManager.Instance.SetNameLVColor(true, AsteriskMod.Lua.PlayerUtil.nameTextColor);
-        PlayerUIManager.Instance.SetNameLVColor(false, AsteriskMod.Lua.PlayerUtil.lvTextColor);
+        //PlayerUIManager.Instance.SetNameLVColor(true, AsteriskMod.Lua.PlayerUtil.nameTextColor);
+        //PlayerUIManager.Instance.SetNameLVColor(false, AsteriskMod.Lua.PlayerUtil.lvTextColor);
         // --------------------------------------------------------------------------------
         hpRect.transform.position = new Vector3(hpRect.transform.parent.position.x + (PlayerCharacter.instance.Name.Length > 6 ? 286.1f : 215.1f), hpRect.transform.position.y, hpRect.transform.position.z);
 
@@ -71,7 +71,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (PlayerUIManager.Instance.hpbarControlOverride && initializeCompleted) return;
+        //if (PlayerUIManager.Instance.hpbarControlOverride && initializeCompleted) return;
         // --------------------------------------------------------------------------------
         float hpMax  = PlayerCharacter.instance.MaxHP,
               hpFrac = hpCurrent / hpMax;
@@ -84,9 +84,9 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
-        if (encounterHasOnHPChanged && initializeCompleted && Asterisk.experimentMode)
-            UIController.instance.encounter.TryCall("OnHPChanged");
+        //PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
+        //if (encounterHasOnHPChanged && initializeCompleted && Asterisk.experimentMode)
+        //    UIController.instance.encounter.TryCall("OnHPChanged");
         // --------------------------------------------------------------------------------
     }
 
@@ -95,7 +95,7 @@ public class UIStats : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (initializeCompleted && PlayerUIManager.Instance.hpbarControlOverride) return;
+        //if (initializeCompleted && PlayerUIManager.Instance.hpbarControlOverride) return;
         // --------------------------------------------------------------------------------
         lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), lifebarRt.sizeDelta.y);
         setHP(PlayerCharacter.instance.HP);
@@ -104,8 +104,10 @@ public class UIStats : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    internal bool canModify { get { return initialized; } }
+    
+    //internal bool canModify { get { return initialized; } }
 
+    /*
     private bool anyRequest = false;
     private bool req_SetMaxHP = false;
     private int req_SetMaxHP_v;
@@ -115,7 +117,9 @@ public class UIStats : MonoBehaviour {
     private bool req_SetHP_text;
     private bool req_SetHPText;
     private string req_SetHPText_v;
+    */
 
+    /*
     internal void setHPOverride(float hp, int maxhp, bool updateHPText)
     {
         if (!initialized)
@@ -137,7 +141,9 @@ public class UIStats : MonoBehaviour {
         hpTextMan.SetText(new TextMessage(sHpCurrent + " / " + sHpMax, false, true));
         PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
     }
+    */
 
+    /*
     internal void setMaxHPOverride(int maxhp)
     {
         if (!initialized)
@@ -149,7 +155,9 @@ public class UIStats : MonoBehaviour {
         }
         lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, maxhp * 1.2f), lifebarRt.sizeDelta.y);
     }
+    */
 
+    /*
     internal void setHPTextOverride(string hpText)
     {
         if (!initialized)
@@ -162,11 +170,13 @@ public class UIStats : MonoBehaviour {
         hpTextMan.SetText(new TextMessage(hpText, false, true));
         PlayerUIManager.Instance.SetHPTextColor(AsteriskMod.Lua.PlayerUtil.hpTextColor);
     }
+    */
 
-    /// <summary>
-    /// Call methods called before initialize objects again.<br />
-    /// 初期化前に呼ばれた関数を再度呼び出します。
-    /// </summary>
+    // <summary>
+    // Call methods called before initialize objects again.<br />
+    // 初期化前に呼ばれた関数を再度呼び出します。
+    // </summary>
+    /*
     internal void Request()
     {
         if (!anyRequest) return;
@@ -179,5 +189,6 @@ public class UIStats : MonoBehaviour {
             setHPTextOverride(req_SetHPText_v);
         }
     }
+    */
     // --------------------------------------------------------------------------------
 }

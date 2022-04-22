@@ -20,6 +20,8 @@ namespace AsteriskMod
 
         internal static PlayerLifeUI instance;
 
+        private bool encounterHasOnHPChanged; // 互換性
+
         private void Awake()
         {
             hpRect = gameObject;
@@ -53,6 +55,8 @@ namespace AsteriskMod
             hpl.enabled = !GlobalControls.crate;
             phl.enabled = GlobalControls.crate;
             hpLabel = GlobalControls.crate ? phl : hpl;
+
+            encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null; // 互換性
         }
 
         internal void SetHP(float hpCurrent)
@@ -70,6 +74,13 @@ namespace AsteriskMod
             //* lifeTextMan.SetText(new InstantTextMessage(sHpCurrent + " / " + sHpMax));
             // In Undertale, it displays Max HP as it is even if Max HP is less than 10. Undertaleでは最大HPは10未満であろうとそのまま表示する。(先頭に0がつかない)
             LifeTextMan.SetText(new InstantTextMessage(sHpCurrent + " / " + PlayerCharacter.instance.MaxHP));
+
+            // 互換性
+            DevelopHint.ToDo("Only v0.5.2.9");
+            if (EngineResetter.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate) return;
+            if (!Asterisk.RequireExperimentalFeature("OnHPChanged", false)) return;
+            if (!encounterHasOnHPChanged) return;
+            UIController.instance.encounter.TryCall("OnHPChanged");
         }
 
         internal void SetMaxHP()

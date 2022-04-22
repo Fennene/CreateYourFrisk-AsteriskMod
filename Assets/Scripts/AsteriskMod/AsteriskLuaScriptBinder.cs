@@ -274,14 +274,16 @@ namespace AsteriskMod
             return luatm;
         }
 
-        /// <summary>
-        /// Recall the functions that ware called before initialization.<br/>
-        /// for <see cref="PlayerUtil"/>
-        /// </summary>
+        // <summary>
+        // Recall the functions that ware called before initialization.<br/>
+        // for <see cref="PlayerUtil"/>
+        // </summary>
+        /*
         public static void LateInitialize()
         {
-            UIStats.instance.Request();
-            PlayerUIManager.Instance.Request();
+            //UIStats.instance.Request();
+            //PlayerUIManager.Instance.Request();
         }
+        */
     }
 }

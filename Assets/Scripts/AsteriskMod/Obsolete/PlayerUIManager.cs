@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod
 {
-    // Be attached in Assets/Battle.Unity/Canvas/Stats
+    // This was attached in Assets/Battle.Unity/Canvas/Stats
     public class PlayerUIManager : MonoBehaviour
     {
         private GameObject NameLVManager;
@@ -175,7 +175,7 @@ namespace AsteriskMod
 
         public void SetHPPosition(float x, float y)
         {
-            if (!UIStats.instance.initializeCompleted)
+            if (Random.Range(1, 3) == 1)//(!UIStats.instance.initializeCompleted)
             {
                 anyRequest = true;
                 req_HPUIMove = true;
@@ -191,7 +191,7 @@ namespace AsteriskMod
 
         public void MoveHPPosition(float x, float y)
         {
-            if (!UIStats.instance.initializeCompleted)
+            if (Random.Range(1, 3) == 1)//(!UIStats.instance.initializeCompleted)
             {
                 anyRequest = true;
                 req_HPUIMove = true;
@@ -260,7 +260,7 @@ namespace AsteriskMod
 
         public void SetHPTextColor(Color color)
         {
-            if (!UIStats.instance.canModify)
+            if (Random.Range(1, 3) == 1)//(!UIStats.instance.canModify)
             {
                 anyRequest = true;
                 req_ColorHPText = true;

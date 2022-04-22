@@ -139,11 +139,12 @@ it's w3c valid, at least
                 dialogue.
             </p>
             <p>
-                <br><span class="function"><span class="Delete"></span> FirstFrameUpdate()</span>
+                <br><span class="function"><span class="Asterisk052x"></span> FirstFrameUpdate()</span>
                 This is trash, since v0.5.2.9.<br>
                 Happens once when everything's done initializing <b><i>completely</i></b>.<br>
-                <span class="asternew"></span> This function was for calling <span class="term">PlayerUtil</span> before AsteriskMod v0.5.2.9.<br>
-                Nil256(Asterisk Mod's Dev) <u>plans</u> to delete this function, maybe.
+                This function was for calling <span class="term">PlayerUtil</span> before AsteriskMod v0.5.2.9.<br>
+                <span class="asternew"></span> This remains for compatibility of v0.5.2.x. 
+                This function does not run if you use v0.5.3.
             </p>
             <p>
                 <br><span class="function">EnemyDialogueStarting()</span>
@@ -243,12 +244,14 @@ end
                 from within this function will be run.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> OnHPChanged()</span>
+                <br><span class="function"><span class="Asterisk052x"></span> <span class="AsteriskExperiment"></span> OnHPChanged()</span>
                 This function runs the moment the Player takes damage or heals (by any means, including bullet damage,
                 consume item, scripted damage, setting <span class="term">Player.hp</span>, and even
                 text commands), just after changing the text displaying HP.
                 <br><br>
-                When <span class="term">Experimental Features</span> is disabled, this doesn't run.
+                When <span class="term">Experimental Features</span> is disabled, this doesn't run.<br>
+                <span class="asternew"></span> This remains for compatibility of v0.5.2.9. 
+                This function does not run if you use v0.5.3.
             </p>
             <p>
                 <br><span class="function"><span class="CYF"> </span>BeforeDeath()</span>
