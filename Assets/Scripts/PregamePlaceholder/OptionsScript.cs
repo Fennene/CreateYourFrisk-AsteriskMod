@@ -1,9 +1,10 @@
 ﻿using AsteriskMod;
+using MoonSharp.Interpreter;
+using System.Diagnostics;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.IO;
-using MoonSharp.Interpreter;
 
 public class OptionsScript : MonoBehaviour {
     // used to prevent the player from erasing real/almighty globals or their save by accident
@@ -20,8 +21,7 @@ public class OptionsScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject AsteriskBG, AsteriskBT, Back, Experiment, Dog, DescVisible, Protect;
-    public Text ModName, ModVersion, ModAuthor;
+    public GameObject Git;
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -143,49 +143,7 @@ public class OptionsScript : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        AsteriskBT.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(true); });
-        ModName.text = Asterisk.ModName;
-        ModVersion.text = Asterisk.ModVersion;
-        Back.GetComponent<Button>().onClick.AddListener(() => { AsteriskBG.SetActive(false); });
-        DescVisible.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            Asterisk.alwaysShowDesc = !Asterisk.alwaysShowDesc;
-
-            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_DESC, DynValue.NewBoolean(Asterisk.alwaysShowDesc), true);
-
-            DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (Asterisk.alwaysShowDesc ? "On" : "Off");
-        });
-        DescVisible.GetComponentInChildren<Text>().text = "Show Always The Description: " + (Asterisk.alwaysShowDesc ? "On" : "Off");
-        Dog.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            Asterisk.showErrorDog = !Asterisk.showErrorDog;
-
-            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_DOG, DynValue.NewBoolean(Asterisk.showErrorDog), true);
-
-            Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (Asterisk.showErrorDog ? "On" : "Off");
-        });
-        Dog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (Asterisk.showErrorDog ? "On" : "Off");
-        Experiment.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            Asterisk.experimentMode = !Asterisk.experimentMode;
-
-            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_EXPERIMENT, DynValue.NewBoolean(Asterisk.experimentMode), true);
-
-            Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
-        });
-        Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
-        Protect.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            string text = Asterisk.GetProtecterStatus(true);
-
-            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_PROTECT, DynValue.NewBoolean(Asterisk.optionProtecter), true);
-            LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_PROTECT_ERROR, DynValue.NewBoolean(Asterisk.reportProtecter), true);
-
-            Protect.GetComponentInChildren<Text>().text = "Allow change option from mod: " + text;
-        });
-        Protect.GetComponentInChildren<Text>().text = "Allow change option from mod: " + Asterisk.GetProtecterStatus(false);
-
-        AsteriskBG.SetActive(false);
+        Git.GetComponent<Button>().onClick.AddListener(() => { try { Process.Start("https://github.com/RhenaudTheLukark/CreateYourFrisk"); } catch { /* ignore */ } });
         // --------------------------------------------------------------------------------
 
         // Crate Your Frisk
@@ -257,9 +215,9 @@ public class OptionsScript : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            case "Asterisk":
-                response = "Show Asterisk Mod's information.";
-                return !GlobalControls.crate ? response : Temmify.Convert(response);
+            case "Git":
+                response = "Goes to official CYF's GitHub page.";
+                return response; //!GlobalControls.crate ? response : Temmify.Convert(response);
             // --------------------------------------------------------------------------------
             default:
                 return !GlobalControls.crate ? "Hover over an option and its description will appear here!" : "HOVR OVR DA TING N GET TEXT HEAR!!";
@@ -314,10 +272,10 @@ public class OptionsScript : MonoBehaviour {
             if (mousePosX >= 350 && mousePosX <= 600)
             {
                 if (mousePosY <= 60 && mousePosY > 20)
-                    hoverItem = "Asterisk";
+                    hoverItem = "Git";
             }
 
-            AsteriskBT.SetActive(hoverItem != "Discord");
+            Git.SetActive(hoverItem != "Discord");
             // --------------------------------------------------------------------------------
 
             Description.GetComponent<Text>().text = GetDescription(hoverItem);

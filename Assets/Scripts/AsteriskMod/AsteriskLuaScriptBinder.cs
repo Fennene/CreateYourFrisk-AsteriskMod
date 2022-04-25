@@ -54,15 +54,15 @@ namespace AsteriskMod
             script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
             script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
 
-            script.Globals["SetJapaneseMode"] = (Action<bool>)EngineResetter.SetJapaneseMode;
-            script.Globals["SetJPMode"] = (Action<bool>)EngineResetter.SetJapaneseMode;
+            script.Globals["SetJapaneseMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+            script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
         {
             if (UnitaleUtil.IsOverworld) return;
 
-            if (EngineResetter.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
                 DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
                 script.Globals.Set("ButtonUtil", buttonUtil);

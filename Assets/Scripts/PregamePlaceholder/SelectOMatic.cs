@@ -130,12 +130,6 @@ public class SelectOMatic : MonoBehaviour {
             ListShadow.gameObject.GetComponent<Text>().text = "MDO LITS";
         }
 
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
-        SelectOMaticOptionManager.StartAlt(this);
-        // --------------------------------------------------------------------------------
-
         // This check will be true if we just exited out of an encounter
         // If that's the case, we want to open the encounter list so the user only has to click once to re enter
         modFolderSelection();
@@ -179,6 +173,12 @@ public class SelectOMatic : MonoBehaviour {
             modListScroll       = 0.0f;
             encounterListScroll = 0.0f;
         }
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        SelectOMaticOptionManager.instance.StartAlt(this);
+        // --------------------------------------------------------------------------------
     }
 
     // A special function used specifically for error handling
@@ -217,7 +217,7 @@ public class SelectOMatic : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            EngineResetter.SetTargetAsteriskVersion(modInfos[CurrentSelectedMod].targetVersion);
+            AsteriskEngine.SetTargetAsteriskVersion(modInfos[CurrentSelectedMod].targetVersion);
             // --------------------------------------------------------------------------------
             SceneManager.LoadScene("Battle");
         } catch (Exception e) {

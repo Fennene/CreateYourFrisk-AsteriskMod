@@ -203,7 +203,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        EngineResetter.Revert();
+        AsteriskEngine.Revert();
         // --------------------------------------------------------------------------------
     }
 
@@ -1783,7 +1783,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         if (firstFrameUpdate)
         {
-            if (EngineResetter.ModTarget_AsteriskVersion < Asterisk.Versions.TakeNewStepUpdate)
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.TakeNewStepUpdate)
             {
                 encounter.TryCall("FirstFrameUpdate");
             }

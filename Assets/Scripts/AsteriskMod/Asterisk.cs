@@ -41,7 +41,7 @@ namespace AsteriskMod
         public static bool experimentMode;
         /// <summary>In Mod Selection, whether always show mods' description or not</summary>
         public static bool alwaysShowDesc;
-        /// <summary>Remove annoying dog</summary>
+        /// <summary>Shows annoying dog</summary>
         public static bool showErrorDog;
         /// <summary>Engine's Target Language<br/>Currently always English</summary>
         public static Languages language;
@@ -91,15 +91,7 @@ namespace AsteriskMod
             if (LuaScriptBinder.GetAlMighty(null, OPTION_LANG) != null && LuaScriptBinder.GetAlMighty(null, OPTION_LANG).Type == DataType.String)
             {
                 string lang = LuaScriptBinder.GetAlMighty(null, OPTION_LANG).String;
-                switch (lang)
-                {
-                    case "en":
-                        language = Languages.English;
-                        break;
-                    case "jp":
-                        language = Languages.Japanese;
-                        break;
-                }
+                language = AsteriskUtil.ConvertToLanguage(lang);
             }
             if (LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT) != null && LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT).Type == DataType.Boolean)
             {
@@ -109,41 +101,7 @@ namespace AsteriskMod
             {
                 reportProtecter = LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR).Boolean;
             }
-        }
-
-        public static Versions ConvertFromString(string versionName)
-        {
-            if (!versionName.StartsWith("v")) versionName = "v" + versionName;
-            if (versionName == "v0.5" || versionName == "v0.5.2")
-                return Versions.InitialVersion;
-            if (versionName == "v0.5.2.4" || versionName == "v0.5.2.5" || versionName == "v0.5.2.6" || versionName == "v0.5.2.7")
-                return Versions.CustomStateUpdate;
-            if (versionName == "v0.5.2.8")
-                return Versions.UtilUpdate;
-            if (versionName == "v0.5.2.9")
-                return Versions.QOLUpdate;
-            if (versionName == "v0.5.3")
-                return Versions.TakeNewStepUpdate;
-            /*
-            if (versionName == "v0.5.3.5")
-                return Versions.GMSUpdate;
-            if (versionName == "v0.5.4")
-                return Versions.AsteriskMod;
-            */
-            return Versions.Unknwon;
-        }
-
-        public static string ConvertToString(Versions version)
-        {
-            switch (version)
-            {
-                case Versions.InitialVersion:    return "v0.5";
-                case Versions.CustomStateUpdate: return "v0.5.2.7";
-                case Versions.UtilUpdate:        return "v0.5.2.8";
-                case Versions.QOLUpdate:         return "v0.5.2.9";
-                case Versions.TakeNewStepUpdate: return "v0.5.3";
-                default: return "Unknwon";
-            }
+            Lang.Initialize();
         }
 
         public static bool RequireExperimentalFeature(string funcName, bool showError = true)
@@ -153,28 +111,41 @@ namespace AsteriskMod
             throw new CYFException(funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.");
         }
 
-        public static string GetProtecterStatus(bool change = true)
+        public static Versions ConvertToModVersion(string versionName)
         {
-            if (change)
+            versionName = versionName.ToLower();
+            if (versionName.Contains(".") && !versionName.StartsWith("v")) versionName = "v" + versionName;
+            switch (versionName)
             {
-                if (!optionProtecter)
-                {
-                    optionProtecter = true;
-                    reportProtecter = false;
-                }
-                else if (!reportProtecter)
-                {
-                    optionProtecter = true;
-                    reportProtecter = true;
-                }
-                else
-                {
-                    optionProtecter = false;
-                    reportProtecter = false;
-                }
+                case "v0.5":
+                case "v0.5.2":
+                    return Versions.InitialVersion;
+                case "v0.5.2.4":
+                case "v0.5.2.5":
+                case "v0.5.2.6":
+                case "v0.5.2.7":
+                    return Versions.CustomStateUpdate;
+                case "v0.5.2.8":
+                    return Versions.UtilUpdate;
+                case "v0.5.2.9":
+                    return Versions.QOLUpdate;
+                case "v0.5.3":
+                    return Versions.TakeNewStepUpdate;
             }
-            if (!optionProtecter) return "On";
-            return reportProtecter ? "Error" : "Ignore";
+            return Versions.Unknwon;
+        }
+
+        public static string ConvertFromModVersion(Versions version)
+        {
+            switch (version)
+            {
+                case Versions.InitialVersion:    return "v0.5";
+                case Versions.CustomStateUpdate: return "v0.5.2.7";
+                case Versions.UtilUpdate:        return "v0.5.2.8";
+                case Versions.QOLUpdate:         return "v0.5.2.9";
+                case Versions.TakeNewStepUpdate: return "v0.5.3";
+            }
+            return "Unknwon";
         }
     }
 }

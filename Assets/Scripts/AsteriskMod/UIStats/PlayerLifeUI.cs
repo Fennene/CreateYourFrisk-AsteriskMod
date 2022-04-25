@@ -77,7 +77,7 @@ namespace AsteriskMod
 
             // 互換性
             DevelopHint.ToDo("Only v0.5.2.9");
-            if (EngineResetter.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate) return;
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate) return;
             if (!Asterisk.RequireExperimentalFeature("OnHPChanged", false)) return;
             if (!encounterHasOnHPChanged) return;
             UIController.instance.encounter.TryCall("OnHPChanged");

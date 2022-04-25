@@ -11,6 +11,70 @@ namespace AsteriskMod
 {
     public static class AsteriskUtil
     {
+        public static Languages ConvertToLanguage(string languageName)
+        {
+            languageName = languageName.ToLower();
+            switch (languageName)
+            {
+                case "jp":
+                case "ja":
+                case "japan":
+                case "japanese":
+                    return Languages.Japanese;
+                case "en":
+                //case "en-US":
+                //case "en-GB":
+                //case "en-CA":
+                //case "en-AU":
+                case "english":
+                    return Languages.English;
+            }
+            return Languages.English;
+        }
+
+        public static string ConvertFromLanguage(Languages language, bool shortName = true)
+        {
+            switch (language)
+            {
+                case Languages.Japanese:
+                    return shortName ? "ja" : "Japanese";
+                case Languages.English:
+                    return shortName ? "en" : "English";
+            }
+            return "???";
+        }
+
+        public static Languages SwitchLanguage()
+        {
+            if (Asterisk.language == Languages.English) Asterisk.language = Languages.Japanese;
+            else                                        Asterisk.language = Languages.English;
+            return Asterisk.language;
+        }
+
+        public static string GetSafeSetAlMightyGlobalStatus()
+        {
+            if (!Asterisk.optionProtecter) return "Allow";
+            return Asterisk.reportProtecter ? "Error" : "Ignore";
+        }
+
+        public static string SwitchSafeSetAlMightyGlobalStatus()
+        {
+            if (!Asterisk.optionProtecter) // Allow -> Error
+            {
+                Asterisk.optionProtecter = true;
+                Asterisk.reportProtecter = true;
+            }
+            else if (Asterisk.reportProtecter) // Error -> Ignore
+            {
+                Asterisk.reportProtecter = false;
+            }
+            else // Ignore -> Allow
+            {
+                Asterisk.optionProtecter = false;
+            }
+            return GetSafeSetAlMightyGlobalStatus();
+        }
+
         public static float CalcTextWidth(StaticTextManager txtmgr, int fromLetter = -1, int toLetter = -1, bool countEOLSpace = false, bool getLastSpace = false)
         {
             float totalWidth = 0, totalWidthSpaceTest = 0, totalMaxWidth = 0, hSpacing = txtmgr.Charset.CharSpacing;

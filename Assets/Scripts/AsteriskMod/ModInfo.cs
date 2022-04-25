@@ -105,7 +105,7 @@ namespace AsteriskMod
                             break;
                         case "target-version":
                         case "target":
-                            info.targetVersion = Asterisk.ConvertFromString(parameter);
+                            info.targetVersion = Asterisk.ConvertToModVersion(parameter);
                             break;
                     }
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -25,18 +26,26 @@ namespace AsteriskMod
 
         public static bool opened;
 
-        public static void StartAlt(SelectOMatic selectOMatic)
+        public void StartAlt(SelectOMatic selectOMatic)
         {
             if (!GlobalControls.modDev) return;
-            instance._selectOMatic = selectOMatic;
-            instance._selectOMatic.btnOptions.GetComponent<Button>().onClick.RemoveAllListeners();
-            instance._selectOMatic.btnOptions.GetComponent<Button>().onClick.AddListener(() => instance.ToogleOptionSelectWindow());
-            //instance.optionButton.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Options"); });
-            opened = false;
-            instance.optionSelectWindow.SetActive(false);
+            newMod.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("NewMod"); });
+            openDocument.GetComponent<Button>().onClick.AddListener(() => { OpenDocument(); });
+            cyfOption.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Options"); });
+            asteriskOption.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("AsteriskOptions"); });
+            _selectOMatic = selectOMatic;
+            _selectOMatic.btnExit.GetComponent<Button>().onClick.AddListener(() => { opened = false; });
+            _selectOMatic.btnOptions.GetComponent<Button>().onClick.RemoveAllListeners();
+            _selectOMatic.btnOptions.GetComponent<Button>().onClick.AddListener(() => { ToggleOptionSelectWindow(); });
+            optionSelectWindow.SetActive(false);
+            if (opened)
+            {
+                opened = false;
+                ToggleOptionSelectWindow();
+            }
         }
 
-        public void ToogleOptionSelectWindow()
+        private void ToggleOptionSelectWindow()
         {
             if (!GlobalControls.modDev) return;
             opened = !opened;
@@ -47,7 +56,7 @@ namespace AsteriskMod
             {
                 events = _selectOMatic.ModBackground.GetComponent<Button>().onClick;
                 _selectOMatic.ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
-                _selectOMatic.ModBackground.GetComponent<Button>().onClick.AddListener(() => instance.ToogleOptionSelectWindow());
+                _selectOMatic.ModBackground.GetComponent<Button>().onClick.AddListener(() => ToggleOptionSelectWindow());
                 _selectOMatic.OptionsText.text = GlobalControls.crate ? "CLOES →" : "Close →";
             }
             else
@@ -59,6 +68,69 @@ namespace AsteriskMod
             }
             _selectOMatic.OptionsShadow.text = _selectOMatic.OptionsText.text;
             optionSelectWindow.SetActive(opened);
+        }
+
+        private void OpenDocument()
+        {
+            string documentPath = FileLoader.DataRoot;
+#if UNITY_EDITOR
+            documentPath = Path.Combine(documentPath, "..");
+            documentPath = Path.Combine(documentPath, "Documentation CYF 1.0");
+#else
+            documentPath = Path.Combine(documentPath, "Documentation CYF 0.6.5 Asterisk " + Asterisk.ModVersion);
+#endif
+            documentPath = Path.Combine(documentPath, "documentation.html");
+            try { Process.Start(documentPath); }
+            catch { /* ignore */ }
+        }
+
+        private void Update()
+        {
+            if (!opened) return;
+            int mousePosX = (int)((ScreenResolution.mousePosition.x / ScreenResolution.displayedSize.x) * 640);
+            int mousePosY = (int)((Input.mousePosition.y / ScreenResolution.displayedSize.y) * 480);
+            string descriptionTitle = "Option";
+            string description = "Hover over an option and its description will appear here!";
+            if (90 <= mousePosX && mousePosX <= 310)
+            {
+                if (335 < mousePosY && mousePosY <= 375)
+                {
+                    descriptionTitle = "Create New Mod";
+                    description = "Creates your new mod.\n\nGenerates skeleton of a mod\nin this option.";
+                }
+                else if (295 < mousePosY && mousePosY <= 335)
+                {
+                    descriptionTitle = "Open Documentation";
+                    description = "Opens the documentation of Create Your Frisk.";
+                }
+                else if (255 < mousePosY && mousePosY <= 295)
+                {
+                    descriptionTitle = "CYF Option";
+                    description = "Goes to the normal option.";
+                }
+                else if (215 < mousePosY && mousePosY <= 255)
+                {
+                    descriptionTitle = "Asterisk Mod Option";
+                    description = "Goes to the option that AsteriskMod adds.";
+                }
+            }
+            if (GlobalControls.crate)
+            {
+                if (descriptionTitle.StartsWith("Create"))
+                {
+                    descriptionTitle = descriptionTitle.Replace("Create", "");
+                    description = description.Replace("Creates", "");
+                    descriptionTitle = "CRATE" + Temmify.Convert(descriptionTitle);
+                    description = "CRATES" + Temmify.Convert(description);
+                }
+                else
+                {
+                    descriptionTitle = Temmify.Convert(descriptionTitle);
+                    description = Temmify.Convert(description);
+                }
+            }
+            descName.GetComponent<Text>().text = descriptionTitle;
+            descDesc.GetComponent<Text>().text = description;
         }
     }
 }

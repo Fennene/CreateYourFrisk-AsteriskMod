@@ -18,7 +18,7 @@ namespace AsteriskMod
 
         private void Start()
         {
-            if (EngineResetter.Japanese)
+            if (AsteriskEngine.Japanese)
             {
                 SetJP(true);
                 return;
@@ -31,7 +31,7 @@ namespace AsteriskMod
         {
             if (nowText == newName && !force) return;
             nowText = newName;
-            NameTextMan.SetText(new InstantTextMessage(EngineResetter.Japanese ? nowText : nowText.ToUpper()));
+            NameTextMan.SetText(new InstantTextMessage(AsteriskEngine.Japanese ? nowText : nowText.ToUpper()));
             NameTextMan.enabled = true;
             PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth());
         }
@@ -39,7 +39,7 @@ namespace AsteriskMod
         internal void SetJP(bool active)
         {
             NameTextMan.SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_JP_NAME_NAME));
-            NameTextMan.Move(0, 6 * (EngineResetter.Japanese ? 1 : -1));
+            NameTextMan.Move(0, 6 * (AsteriskEngine.Japanese ? 1 : -1));
             SetName(nowText, true);
         }
     }

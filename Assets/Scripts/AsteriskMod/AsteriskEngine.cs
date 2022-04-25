@@ -2,7 +2,7 @@
 
 namespace AsteriskMod
 {
-    public class EngineResetter
+    public class AsteriskEngine
     {
         public static Asterisk.Versions ModTarget_AsteriskVersion { get; private set; }
 
@@ -10,7 +10,7 @@ namespace AsteriskMod
 
         public static void SetTargetAsteriskVersion(Asterisk.Versions version)
         {
-            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertToString(version));
+            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(version));
             ModTarget_AsteriskVersion = version;
         }
 

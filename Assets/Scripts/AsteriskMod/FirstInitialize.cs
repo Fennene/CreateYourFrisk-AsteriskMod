@@ -12,7 +12,7 @@ namespace AsteriskMod
     {
         private void Awake()
         {
-            EngineResetter.Initialize();
+            AsteriskEngine.Initialize();
         }
     }
 }
