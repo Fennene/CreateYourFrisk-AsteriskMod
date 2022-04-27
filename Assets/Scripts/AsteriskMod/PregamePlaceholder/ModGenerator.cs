@@ -24,7 +24,7 @@ namespace AsteriskMod
 
         private void Awake()
         {
-            page = 0;
+            page = 1;
             ChangePage(true, true);
         }
 
