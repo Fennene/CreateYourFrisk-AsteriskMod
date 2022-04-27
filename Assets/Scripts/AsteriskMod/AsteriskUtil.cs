@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Object = UnityEngine.Object;
@@ -73,6 +74,131 @@ namespace AsteriskMod
                 Asterisk.optionProtecter = false;
             }
             return GetSafeSetAlMightyGlobalStatus();
+        }
+
+        public static string GetModsFolder()
+        {
+            return Path.Combine(FileLoader.DataRoot, "Mods");
+        }
+
+        private static readonly string[] TempDirNames = new[]
+        {
+            "T", "Tem", "Tempo", "Tempora", "Temporary",
+            "P", "Ph", "Place", "Placehold", "Placeholder",
+            "WD", "Gaster", "WD_Gaster", "Wingdings",
+            "Null", "NullReferenceException", "Nil",
+            "Void", "try", "Test", "ForTest",
+            "CYF", "Unitale", "Asterisk", "AsteriskMod",
+            "Dog", "TestDog", "Bark",
+            "Nil256"
+        };
+
+        internal static string CreateTemporaryDirectory()
+        {
+            string modDir = Path.Combine(FileLoader.DataRoot, "Mods");
+            string path = Path.Combine(modDir, "@Temp");
+            int index = 0;
+            while (Directory.Exists(path))
+            {
+                path = Path.Combine(modDir, "@" + TempDirNames[index]);
+                index++;
+                if (index >= TempDirNames.Length)
+                {
+                    throw new IOException("The engine can not prepare temporary folder\n" +
+                                          "All options of temporary directory names are created by someone already!!\n" +
+                                          "WHY.");
+                }
+            }
+            Directory.CreateDirectory(path);
+            return path;
+        }
+
+        public static readonly string[] SpecialInvalidPathNames = new[]
+        {
+            "CON", "PRN", "AUX", "NUL",
+            "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+            "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+        };
+
+        private static bool ContainsInvalidCharOrName(string path, out string message)
+        {
+            message = "";
+            // Empty
+            if (string.IsNullOrEmpty(path))
+            {
+                message = "The path should not be empty string.";
+                return true;
+            }
+            // Check Invalid
+            if (path.StartsWith("."))
+            {
+                message = "The path can not start with \".\".";
+                return true;
+            }
+            if (path.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                message = "The path contains invalid characters.";
+                return true;
+            }
+            for (var i = 0; i < SpecialInvalidPathNames.Length; i++)
+            {
+                if (Path.GetFileNameWithoutExtension(path) == SpecialInvalidPathNames[i])
+                {
+                    message = SpecialInvalidPathNames[i] + " can not use to name of the path.";
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsInvalidPath(string path, bool isFile, out string message)
+        {
+            message = "";
+            if (ContainsInvalidCharOrName(path, out message)) return true;
+            // Check Exist
+            if ((isFile && File.Exists(Path.Combine(GetModsFolder(), path))) || (!isFile && Directory.Exists(Path.Combine(GetModsFolder(), path))))
+            {
+                message = "That mod exists already.";
+                return true;
+            }
+            // Actually, tries to create file/directory
+            if (isFile)
+            {
+                string tempDir = CreateTemporaryDirectory();
+                string tryPath = Path.Combine(tempDir, path);
+                try { File.WriteAllText(tryPath, ""); }
+                catch (ArgumentException)     { message = "The path contains invalid characters."; }
+                catch (PathTooLongException)  { message = "The path is too long."; } // Check Length
+                catch (NotSupportedException) { message = "The path contains \":\"."; }
+                catch (IOException)           { message = "< UNKNWON IO EXCEPTION >"; }
+                catch (Exception)             { message = "< UNKNWON EXCEPTION >"; }
+                if (File.Exists(tryPath))
+                {
+                    try { File.Delete(tryPath); }
+                    catch { /* ignore */ }
+                }
+                if (Directory.Exists(tempDir))
+                {
+                    try { Directory.Delete(tempDir, true); }
+                    catch { /* ignore */ }
+                }
+            }
+            else
+            {
+                string tryPath = Path.Combine(GetModsFolder(), path);
+                try { Directory.CreateDirectory(tryPath); }
+                catch (ArgumentException)     { message = "The path contains invalid characters."; }
+                catch (PathTooLongException)  { message = "The path is too long."; } // Check Length
+                catch (NotSupportedException) { message = "The path contains \":\"."; }
+                catch (IOException)           { message = "< UNKNWON IO EXCEPTION >"; }
+                catch (Exception)             { message = "< UNKNWON EXCEPTION >"; }
+                if (Directory.Exists(tryPath))
+                {
+                    try { Directory.Delete(tryPath); }
+                    catch { /* ignore */ }
+                }
+            }
+            return (message != "");
         }
 
         public static float CalcTextWidth(StaticTextManager txtmgr, int fromLetter = -1, int toLetter = -1, bool countEOLSpace = false, bool getLastSpace = false)

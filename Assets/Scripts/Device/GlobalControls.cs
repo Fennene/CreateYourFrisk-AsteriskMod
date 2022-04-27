@@ -30,7 +30,12 @@ public class GlobalControls : MonoBehaviour {
     public static bool asteriskExperiment; // Asterisk Mod Modification: Asterisk Mod Option
     private bool screenShaking;         // True if a screenshake is occuring, false otherwise
 
-    public static string[] nonOWScenes = { "Battle", "Error", "ModSelect", "Options", "TitleScreen", "Disclaimer", "EnterName", "TransitionOverworld", "Intro" };   // Scenes in which you're not considered to be in the overworld
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //public static string[] nonOWScenes = { "Battle", "Error", "ModSelect", "Options", "TitleScreen", "Disclaimer", "EnterName", "TransitionOverworld", "Intro" };   // Scenes in which you're not considered to be in the overworld
+    public static string[] nonOWScenes = { "Battle", "Error", "ModSelect", "Options", "TitleScreen", "Disclaimer", "EnterName", "TransitionOverworld", "Intro", "NewMod", "AsteriskOptions" };   // Scenes in which you're not considered to be in the overworld
+    // --------------------------------------------------------------------------------
     public static string[] canTransOW = { "Battle", "Error" };  // Scenes from which you can enter the overworld
 
     public static Dictionary<string, GameState.MapData> GameMapData = new Dictionary<string, GameState.MapData>();              // Main save data on each map the Player has visited before
