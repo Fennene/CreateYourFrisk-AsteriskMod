@@ -147,9 +147,6 @@ namespace AsteriskMod
                 else       E_wavetimer_huge.Disable();
             });
 
-            E_VarFuncPreset.onValueChanged.AddListener((value) => SetEncounterVarFuncPreset(value));
-            E_VarFuncPreset.value = 0;
-
             E_music.onValueChangedFromUser.AddListener((value) => { E_VarFuncPreset.value = 4; });
             E_encountertext.onValueChangedFromUser.AddListener((value) => { E_VarFuncPreset.value = 4; });
             E_nextwaves.onValueChangedFromUser.AddListener((value) => { E_VarFuncPreset.value = 4; });
@@ -178,6 +175,9 @@ namespace AsteriskMod
             E_EnteringState.onValueChangedFromUser.AddListener((value) => { E_VarFuncPreset.value = 4; });
             E_Update.onValueChangedFromUser.AddListener((value) => { E_VarFuncPreset.value = 4; });
             E_BeforeDeath.onValueChangedFromUser.AddListener((value) => { E_VarFuncPreset.value = 4; });
+
+            E_VarFuncPreset.onValueChanged.AddListener((value) => SetEncounterVarFuncPreset(value));
+            E_VarFuncPreset.value = 0;
 
             initialized[1] = true;
         }

@@ -55,7 +55,7 @@ namespace AsteriskMod
             if (opened)
             {
                 events = _selectOMatic.ModBackground.GetComponent<Button>().onClick;
-                _selectOMatic.ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
+                _selectOMatic.ModBackground.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
                 _selectOMatic.ModBackground.GetComponent<Button>().onClick.AddListener(() => ToggleOptionSelectWindow());
                 _selectOMatic.OptionsText.text = GlobalControls.crate ? "CLOES →" : "Close →";
             }

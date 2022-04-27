@@ -53,6 +53,7 @@ namespace AsteriskMod
             get { return isEnabled && toggle.isOn; }
             set
             {
+                if (toggle.isOn == value) return;
                 fromScript = true;
                 toggle.isOn = value;
             }
