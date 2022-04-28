@@ -65,7 +65,7 @@ namespace AsteriskMod
         public InputField uiModName;
         public Text uiModNameDesc;
         public Dropdown uiTargetVersion;
-        public Toggle uiAudio, uiSounds, uiVoices;
+        public CheckBox uiAudio, uiSounds, uiVoices, uiLibraries, uiStates;
 
         [Header("Page 2")]
         public GameObject Page2;
@@ -121,9 +121,12 @@ namespace AsteriskMod
             uiModName.onValueChanged.AddListener(_ => CheckInvalidModName(true));
             CheckInvalidModName(true);
             uiTargetVersion.value = 0;
-            uiAudio.isOn = true;
-            uiSounds.isOn = true;
-            uiVoices.isOn = false;
+            uiAudio.Checked = true;
+            uiSounds.Checked = true;
+            uiVoices.Checked = false;
+            uiSounds.AddChildCheckBox(uiVoices, true);
+            uiLibraries.Checked = true;
+            uiStates.Checked = true;
             Page1.SetActive(false);
         }
 
