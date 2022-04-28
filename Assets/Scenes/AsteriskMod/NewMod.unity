@@ -10281,8 +10281,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Empty
       m_Image: {fileID: 0}
-    - m_Text: Minimum Requisite
-      m_Image: {fileID: 0}
     - m_Text: Recommend (by Nil256)
       m_Image: {fileID: 0}
     - m_Text: All
@@ -30983,51 +30981,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e3a3c3966361149a2be2355e36bbd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commentout: 0
-  addWaveExamples: 0
+  encounterGen: {fileID: 1968659049}
   Title: {fileID: 142379023}
   Page: {fileID: 353619603}
   prevButton: {fileID: 107375589}
   nextButton: {fileID: 883776313}
   Page1: {fileID: 1993460076}
-  ModName: {fileID: 1882708263}
-  ModNameDesc: {fileID: 1199373620}
-  TargetVersion: {fileID: 881319169}
-  Audio: {fileID: 1924684438}
-  Sounds: {fileID: 1931215659}
-  Voices: {fileID: 131452249}
+  uiModName: {fileID: 1882708263}
+  uiModNameDesc: {fileID: 1199373620}
+  uiTargetVersion: {fileID: 881319169}
+  uiAudio: {fileID: 1924684438}
+  uiSounds: {fileID: 1931215659}
+  uiVoices: {fileID: 131452249}
   Page2: {fileID: 1968659047}
-  EncounterFiles: {fileID: 323062731}
-  EncounterFilesDesc: {fileID: 6141186}
-  E_VarFuncPreset: {fileID: 640479626}
-  E_music: {fileID: 104344778}
-  E_encountertext: {fileID: 1019350405}
-  E_nextwaves: {fileID: 989273431}
-  E_wavetimer: {fileID: 243039467}
-  E_wavetimer_huge: {fileID: 108398035}
-  E_arenasize: {fileID: 699225549}
-  E_enemies: {fileID: 1641442897}
-  E_enwmypositions: {fileID: 189104933}
-  E_autolinebreak: {fileID: 769129796}
-  E_playerskipcommand: {fileID: 675050573}
-  E_unescape: {fileID: 1612091963}
-  E_sparetext: {fileID: 635176801}
-  E_flee: {fileID: 242966430}
-  E_fleetext: {fileID: 1466477841}
-  E_fleesuccess: {fileID: 78434714}
-  E_fleetexts: {fileID: 1660589153}
-  E_revive: {fileID: 1105529110}
-  E_deathtext: {fileID: 997512149}
-  E_deathmusic: {fileID: 417301222}
-  E_EncounterStarting: {fileID: 329469635}
-  E_EnemyDialogueStarting: {fileID: 712703231}
-  E_EnemyDialogueEnding: {fileID: 1636403980}
-  E_DefenceEnding: {fileID: 2119401226}
-  E_HandleSpare: {fileID: 1935354859}
-  E_HandleItem: {fileID: 1348670913}
-  E_EnteringState: {fileID: 1854755732}
-  E_Update: {fileID: 234228521}
-  E_BeforeDeath: {fileID: 1890617135}
+  uiEncounterNames: {fileID: 323062731}
+  uiEncounterNamesDesc: {fileID: 6141186}
 --- !u!1 &1928853303
 GameObject:
   m_ObjectHideFlags: 0
@@ -31545,6 +31513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1968659048}
+  - component: {fileID: 1968659049}
   m_Layer: 5
   m_Name: Page2
   m_TagString: Untagged
@@ -31574,6 +31543,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 640, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1968659049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1968659047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c90ad1f7f8eada74ea533ef154437854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiGeneratePreset: {fileID: 640479626}
+  uiMusic: {fileID: 104344778}
+  uiEncountertext: {fileID: 1019350405}
+  uiEncountertextEmpty: {fileID: 1519212236}
+  uiNextwaves: {fileID: 989273431}
+  uiWavetimer: {fileID: 243039467}
+  uiWavetimerInf: {fileID: 108398035}
+  uiArenasize: {fileID: 699225549}
+  uiEnemies: {fileID: 1641442897}
+  uiEnemypositions: {fileID: 189104933}
+  uiAutolinebreak: {fileID: 769129796}
+  uiPlayerskipdocommand: {fileID: 675050573}
+  uiPlayerskipdocommandValue: {fileID: 1135489633}
+  uiUnescape: {fileID: 1612091963}
+  uiSparetext: {fileID: 635176801}
+  uiFlee: {fileID: 242966430}
+  uiFleeValue: {fileID: 1761921612}
+  uiFleetext: {fileID: 1466477841}
+  uiFleesuccess: {fileID: 78434714}
+  uiFleetexts: {fileID: 1660589153}
+  uiRevive: {fileID: 1105529110}
+  uiDeathtext: {fileID: 997512149}
+  uiDeathmusic: {fileID: 417301222}
+  uiEncounterStarting: {fileID: 329469635}
+  uiEnemyDialogueStarting: {fileID: 712703231}
+  uiEnemyDialogueEnding: {fileID: 1636403980}
+  uiEnemyDialogueEndingExample: {fileID: 622848557}
+  uiDefenceEnding: {fileID: 2119401226}
+  uiDefenceEndingExample: {fileID: 797766438}
+  uiHandleSpare: {fileID: 1935354859}
+  uiHandleItem: {fileID: 1348670913}
+  uiEnteringState: {fileID: 1854755732}
+  uiUpdate: {fileID: 234228521}
+  uiBeforeDeath: {fileID: 1890617135}
 --- !u!1 &1973037285
 GameObject:
   m_ObjectHideFlags: 0
@@ -31940,7 +31954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1993460077
 RectTransform:
   m_ObjectHideFlags: 0

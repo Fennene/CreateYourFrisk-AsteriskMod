@@ -142,7 +142,7 @@ namespace AsteriskMod
             }
             for (var i = 0; i < SpecialInvalidPathNames.Length; i++)
             {
-                if (Path.GetFileNameWithoutExtension(path) == SpecialInvalidPathNames[i])
+                if (Path.GetFileNameWithoutExtension(path).ToUpper() == SpecialInvalidPathNames[i])
                 {
                     message = SpecialInvalidPathNames[i] + " can not use to name of the path.";
                     return true;
@@ -156,7 +156,7 @@ namespace AsteriskMod
             message = "";
             if (ContainsInvalidCharOrName(path, out message)) return true;
             // Check Exist
-            if ((isFile && File.Exists(Path.Combine(GetModsFolder(), path))) || (!isFile && Directory.Exists(Path.Combine(GetModsFolder(), path))))
+            if (/*(isFile && File.Exists(Path.Combine(GetModsFolder(), path))) || */(!isFile && Directory.Exists(Path.Combine(GetModsFolder(), path))))
             {
                 message = "That mod exists already.";
                 return true;

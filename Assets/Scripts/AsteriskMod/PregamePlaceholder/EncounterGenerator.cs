@@ -36,7 +36,7 @@ namespace AsteriskMod
         private string Update = "";
         private string BeforeDeath = "";
 
-        private ModGenerator mainGenerator;
+        private ModGenerator mainGen;
 
         public Dropdown uiGeneratePreset;
         public CheckBox uiMusic, uiEncountertext, uiEncountertextEmpty, uiNextwaves, uiWavetimer, uiWavetimerInf, uiArenasize, uiEnemies, uiEnemypositions,
@@ -45,28 +45,23 @@ namespace AsteriskMod
         public CheckBox uiEncounterStarting, uiEnemyDialogueStarting, uiEnemyDialogueEnding, uiEnemyDialogueEndingExample, uiDefenceEnding, uiDefenceEndingExample,
                         uiHandleSpare, uiHandleItem, uiEnteringState, uiUpdate, uiBeforeDeath;
 
-        public void StartAlt(ModGenerator main)
-        {
-            mainGenerator = main;
-            Initialize();
-        }
-
         private void InitializeCheckBox(CheckBox self, CheckBox child, bool linkActivate)
         {
             self.onValueChanged.RemoveAllListeners();
             self.onValueChangedFromUser.RemoveAllListeners();
             //self.onValueChangedFromScript.RemoveAllListeners();
-            self.onValueChangedFromUser.AddListener(_ => { uiGeneratePreset.value = 4; });
+            self.onValueChangedFromUser.AddListener(_ => { uiGeneratePreset.value = ModGenerator.PRESET_CUSTOM; });
             if (child == null) return;
             child.onValueChanged.RemoveAllListeners();
             child.onValueChangedFromUser.RemoveAllListeners();
-            child.onValueChangedFromUser.AddListener(_ => { uiGeneratePreset.value = 4; });
+            child.onValueChangedFromUser.AddListener(_ => { uiGeneratePreset.value = ModGenerator.PRESET_CUSTOM; });
             self.AddChildCheckBox(child, linkActivate);
         }
         private void InitializeCheckBox(CheckBox self, CheckBox child = null) { InitializeCheckBox(self, child, true); }
 
-        private void Initialize()
+        public void Initialize(ModGenerator main)
         {
+            mainGen = main;
             uiGeneratePreset.onValueChanged.RemoveAllListeners();
             uiGeneratePreset.onValueChanged.AddListener(newValue => Preset(newValue));
             uiGeneratePreset.value = ModGenerator.PRESET_ENCOUNTER_SKELETON;
@@ -175,42 +170,6 @@ namespace AsteriskMod
                     uiUpdate.Checked = false;
                     uiBeforeDeath.Checked = false;
                     break;
-                case ModGenerator.PRESET_ALL:
-                    uiMusic.Checked = true;
-                    uiEncountertext.Checked = true;
-                        uiEncountertextEmpty.Checked = true;
-                    uiNextwaves.Checked = true;
-                    uiWavetimer.Checked = true;
-                        uiWavetimerInf.Checked = true;
-                    uiArenasize.Checked = true;
-                    uiEnemies.Checked = true;
-                    uiEnemypositions.Checked = true;
-                    uiAutolinebreak.Checked = false;
-                    uiPlayerskipdocommand.Checked = true;
-                        uiPlayerskipdocommandValue.Checked = true;
-                    uiUnescape.Checked = true;
-                    uiSparetext.Checked = true;
-                    uiFlee.Checked = true;
-                        uiFleeValue.Checked = true;
-                    uiFleetext.Checked = true;
-                    uiFleesuccess.Checked = true;
-                    uiFleetexts.Checked = true;
-                    uiRevive.Checked = true;
-                    uiDeathtext.Checked = true;
-                    uiDeathmusic.Checked = true;
-
-                    uiEncounterStarting.Checked = true;
-                    uiEnemyDialogueStarting.Checked = true;
-                    uiEnemyDialogueEnding.Checked = true;
-                        uiEnemyDialogueEndingExample.Checked = true;
-                    uiDefenceEnding.Checked = true;
-                        uiDefenceEndingExample.Checked = true;
-                    uiHandleSpare.Checked = true;
-                    uiHandleItem.Checked = true;
-                    uiEnteringState.Checked = true;
-                    uiUpdate.Checked = true;
-                    uiBeforeDeath.Checked = true;
-                    break;
                 case ModGenerator.PRESET_NIL256:
                     uiMusic.Checked = true;
                     uiEncountertext.Checked = true;
@@ -247,11 +206,47 @@ namespace AsteriskMod
                     uiUpdate.Checked = true;
                     uiBeforeDeath.Checked = true;
                     break;
+                case ModGenerator.PRESET_ALL:
+                    uiMusic.Checked = true;
+                    uiEncountertext.Checked = true;
+                        //uiEncountertextEmpty.Checked = true;
+                    uiNextwaves.Checked = true;
+                    uiWavetimer.Checked = true;
+                        //uiWavetimerInf.Checked = true;
+                    uiArenasize.Checked = true;
+                    uiEnemies.Checked = true;
+                    uiEnemypositions.Checked = true;
+                    uiAutolinebreak.Checked = true;
+                    uiPlayerskipdocommand.Checked = true;
+                        //uiPlayerskipdocommandValue.Checked = true;
+                    uiUnescape.Checked = true;
+                    uiSparetext.Checked = true;
+                    uiFlee.Checked = true;
+                        //uiFleeValue.Checked = true;
+                    uiFleetext.Checked = true;
+                    uiFleesuccess.Checked = true;
+                    uiFleetexts.Checked = true;
+                    uiRevive.Checked = true;
+                    uiDeathtext.Checked = true;
+                    uiDeathmusic.Checked = true;
+
+                    uiEncounterStarting.Checked = true;
+                    uiEnemyDialogueStarting.Checked = true;
+                    uiEnemyDialogueEnding.Checked = true;
+                        uiEnemyDialogueEndingExample.Checked = true;
+                    uiDefenceEnding.Checked = true;
+                        uiDefenceEndingExample.Checked = true;
+                    uiHandleSpare.Checked = true;
+                    uiHandleItem.Checked = true;
+                    uiEnteringState.Checked = true;
+                    uiUpdate.Checked = true;
+                    uiBeforeDeath.Checked = true;
+                    break;
             }
         }
 
 
-        private string CommentOut(string comment) { return mainGenerator.commentout ? comment : ""; }
+        private string CommentOut(string comment) { return mainGen.commentout ? comment : ""; }
         public void Generate()
         {
             // file-prefix comment
@@ -261,7 +256,7 @@ namespace AsteriskMod
             // encountertext
             if (uiEncountertext.Checked) encountertext = "encountertext = \"" + (uiEncountertextEmpty.Checked ? "" : "Poseur strikes a pose!") + "\"" + CommentOut(" --Modify as necessary. It will only be read out in the action select screen.") + "\n";
             // nextwaves
-            if (uiNextwaves.Checked) nextwaves = "nextwaves = {\"" + (mainGenerator.addWaveExamples ? "bullettest_chaserorb" : "") + "\"}\n";
+            if (uiNextwaves.Checked) nextwaves = "nextwaves = {\"" + (mainGen.generateExampleWaveScripts ? "bullettest_chaserorb" : "") + "\"}\n";
             // wavetimer
             if (uiWavetimer.Checked) wavetimer = "wavetimer = " + (uiWavetimerInf.Checked ? "math.huge" : "4.0") + "\n";
             // arenasize
