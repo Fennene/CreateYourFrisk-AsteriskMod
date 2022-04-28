@@ -18,6 +18,8 @@ namespace AsteriskMod
         private Toggle.ToggleEvent scriptEvent;
         private bool fromScript;
 
+        private Toggle.ToggleEvent onActiveEvent;
+
         private List<CheckBox> children;
         private List<bool> reverse;
 
@@ -33,6 +35,8 @@ namespace AsteriskMod
             scriptEvent = new Toggle.ToggleEvent();
             toggle.onValueChanged.RemoveAllListeners();
             toggle.onValueChanged.AddListener((value) => OnValueChanged(value));
+
+            onActiveEvent = new Toggle.ToggleEvent();
 
             children = new List<CheckBox>();
             reverse = new List<bool>();
@@ -86,6 +90,7 @@ namespace AsteriskMod
         public void SetActive(bool active)
         {
             toggle.enabled = active;
+            onActive.Invoke(active);
             if (!hasDisabledMask) return;
             bgMask.enabled = textMask.enabled = !active;
         }
@@ -125,6 +130,11 @@ namespace AsteriskMod
         {
             children.Add(child);
             reverse.Add(!linkActivate);
+        }
+
+        public Toggle.ToggleEvent onActive
+        {
+            get { return onActiveEvent; }
         }
     }
 }
