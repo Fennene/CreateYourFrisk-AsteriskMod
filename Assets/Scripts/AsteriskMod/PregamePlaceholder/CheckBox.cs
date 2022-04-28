@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace AsteriskMod
@@ -8,13 +9,17 @@ namespace AsteriskMod
         private Toggle toggle;
         private Image background;
         private Text text;
+        private bool hasDisabledMask;
+        private Image bgMask;
+        private Image textMask;
+
         private Toggle.ToggleEvent commonEvent;
         private Toggle.ToggleEvent userEvent;
         private Toggle.ToggleEvent scriptEvent;
         private bool fromScript;
-        private bool hasDisabledMask;
-        private Image bgMask;
-        private Image textMask;
+
+        private List<CheckBox> children;
+        private List<bool> reverse;
 
         private void Awake()
         {
@@ -22,11 +27,16 @@ namespace AsteriskMod
             toggle.enabled = true;
             background = transform.GetChild(0).GetComponent<Image>();
             text = transform.GetChild(1).GetComponent<Text>();
+
             commonEvent = new Toggle.ToggleEvent();
             userEvent = new Toggle.ToggleEvent();
             scriptEvent = new Toggle.ToggleEvent();
             toggle.onValueChanged.RemoveAllListeners();
             toggle.onValueChanged.AddListener((value) => OnValueChanged(value));
+
+            children = new List<CheckBox>();
+            reverse = new List<bool>();
+
             hasDisabledMask = (text.transform.Find("DisabledMask") != null);
             if (!hasDisabledMask) return;
             bgMask = background.transform.Find("DisabledMask").GetComponent<Image>();
@@ -38,6 +48,14 @@ namespace AsteriskMod
         {
             if (!isEnabled) return;
             commonEvent.Invoke(value);
+            for (var i = 0; i < children.Count; i++)
+            {
+                /*
+                if (reverse[i]) children[i].SetActive(!value);
+                else            children[i].SetActive(value);
+                */
+                children[i].SetActive(value ^ reverse[i]);
+            }
             if (fromScript) scriptEvent.Invoke(value);
             else              userEvent.Invoke(value);
             fromScript = false;
@@ -65,6 +83,14 @@ namespace AsteriskMod
             set { text.text = value; }
         }
 
+        public void SetActive(bool active)
+        {
+            toggle.enabled = active;
+            if (!hasDisabledMask) return;
+            bgMask.enabled = textMask.enabled = !active;
+        }
+
+        [System.Obsolete]
         public void Enable()
         {
             toggle.enabled = true;
@@ -72,6 +98,7 @@ namespace AsteriskMod
             bgMask.enabled = textMask.enabled = false;
         }
 
+        [System.Obsolete]
         public void Disable()
         {
             toggle.enabled = false;
@@ -92,6 +119,12 @@ namespace AsteriskMod
         public Toggle.ToggleEvent onValueChangedFromScript
         {
             get { return scriptEvent; }
+        }
+
+        public void AddChildCheckBox(CheckBox child, bool linkActivate = true)
+        {
+            children.Add(child);
+            reverse.Add(!linkActivate);
         }
     }
 }

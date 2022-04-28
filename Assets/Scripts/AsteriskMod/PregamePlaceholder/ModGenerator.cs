@@ -11,6 +11,27 @@ namespace AsteriskMod
 {
     public class ModGenerator : MonoBehaviour
     {
+        /// <summary>プリセット - Encounter Skeleton</summary>
+        public const int PRESET_ENCOUNTER_SKELETON = 0;
+        /// <summary>プリセット - 空ファイル</summary>
+        public const int PRESET_EMPTY = 1;
+        /// <summary>プリセット - 必要最小限</summary>
+        public const int PRESET_MIN = 2;
+        /// <summary>プリセット - おすすめ</summary>
+        public const int PRESET_NIL256 = 3;
+        /// <summary>プリセット - 全てのオプション</summary>
+        public const int PRESET_ALL = 4;
+        /// <summary>プリセット - ユーザーカスタム</summary>
+        public const int PRESET_CUSTOM = 5;
+
+        /// <summary>(EncounterSkeletonにあるような)コメントを追加するかどうか</summary>
+        public bool commentout;
+        /// <summary>EncounterSkeletonのWaveスクリプト例を追加するかどうか</summary>
+        public bool addWaveExamples;
+
+
+
+
         private int page;
         private static readonly string[] titles = new string[4] { "Craete New Mod", "Encounter Option", "Monster Option", "Sprite Option" };
         private static bool[] initialized;
