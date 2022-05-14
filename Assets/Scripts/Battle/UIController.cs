@@ -1901,6 +1901,7 @@ public class UIController : MonoBehaviour {
 
     internal void UpdatePlayerPositionOnAction()
     {
+        if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.TakeNewStepUpdate) return;
         if (state != UIState.ACTIONSELECT) return;
         switch (action)
         {
