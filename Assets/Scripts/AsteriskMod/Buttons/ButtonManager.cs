@@ -177,6 +177,22 @@ namespace AsteriskMod
             }
         }
 
+        public void Move(int x, int y)
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                ActionButtons[i].Move(x, y);
+            }
+        }
+
+        public void MoveTo(int newX, int newY)
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                ActionButtons[i].MoveTo(newX, newY);
+            }
+        }
+
         public void SetColors(float r, float g, float b, float a = 1)
         {
             CheckInitialized();
