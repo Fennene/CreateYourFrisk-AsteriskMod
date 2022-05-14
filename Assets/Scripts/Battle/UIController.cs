@@ -1467,32 +1467,32 @@ public class UIController : MonoBehaviour {
                 //fightButton.overrideSprite = fightButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(0);
                 //PlayerController.instance.SetPosition(48, 25, true);
-                Vector2 fightPos = ActionButtonManager.FIGHT.RelativePosition;
-                PlayerController.instance.SetPosition(48 + fightPos.x, 25 + fightPos.y, true);
+                Vector2 fightPos = ActionButtonManager.GetPlayerPosition(0);
+                PlayerController.instance.SetPosition(fightPos.x, fightPos.y, true);
                 break;
 
             case Actions.ACT:
                 //actButton.overrideSprite = actButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(1);
                 //PlayerController.instance.SetPosition(202, 25, true);
-                Vector2 actPos = ActionButtonManager.ACT.RelativePosition;
-                PlayerController.instance.SetPosition(202 + actPos.x, 25 + actPos.y, true);
+                Vector2 actPos = ActionButtonManager.GetPlayerPosition(1);
+                PlayerController.instance.SetPosition(actPos.x, actPos.y, true);
                 break;
 
             case Actions.ITEM:
                 //itemButton.overrideSprite = itemButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(2);
                 //PlayerController.instance.SetPosition(361, 25, true);
-                Vector2 itemPos = ActionButtonManager.ITEM.RelativePosition;
-                PlayerController.instance.SetPosition(361 + itemPos.x, 25 + itemPos.y, true);
+                Vector2 itemPos = ActionButtonManager.GetPlayerPosition(2);
+                PlayerController.instance.SetPosition(itemPos.x, itemPos.y, true);
                 break;
 
             case Actions.MERCY:
                 //mercyButton.overrideSprite = mercyButtonSprite;
                 ActionButtonManager.ShowOverrideSprite(3);
                 //PlayerController.instance.SetPosition(515, 25, true);
-                Vector2 mercyPos = ActionButtonManager.MERCY.RelativePosition;
-                PlayerController.instance.SetPosition(515 + mercyPos.x, 25 + mercyPos.y, true);
+                Vector2 mercyPos = ActionButtonManager.GetPlayerPosition(3);
+                PlayerController.instance.SetPosition(mercyPos.x, mercyPos.y, true);
                 break;
             // --------------------------------------------------------------------------------
         }
@@ -1897,6 +1897,33 @@ public class UIController : MonoBehaviour {
     internal Actions GetAction()
     {
         return action;
+    }
+
+    internal void UpdatePlayerPositionOnAction()
+    {
+        if (state != UIState.ACTIONSELECT) return;
+        switch (action)
+        {
+            case Actions.FIGHT:
+                Vector2 fightPos = ActionButtonManager.GetPlayerPosition(0);
+                PlayerController.instance.SetPosition(fightPos.x, fightPos.y, true);
+                break;
+
+            case Actions.ACT:
+                Vector2 actPos = ActionButtonManager.GetPlayerPosition(1);
+                PlayerController.instance.SetPosition(actPos.x, actPos.y, true);
+                break;
+
+            case Actions.ITEM:
+                Vector2 itemPos = ActionButtonManager.GetPlayerPosition(2);
+                PlayerController.instance.SetPosition(itemPos.x, itemPos.y, true);
+                break;
+
+            case Actions.MERCY:
+                Vector2 mercyPos = ActionButtonManager.GetPlayerPosition(3);
+                PlayerController.instance.SetPosition(mercyPos.x, mercyPos.y, true);
+                break;
+        }
     }
     // --------------------------------------------------------------------------------
 }

@@ -64,12 +64,17 @@ namespace AsteriskMod
         //                            Asterisk Mod Features
         // --------------------------------------------------------------------------------
         private string _normalSpritePath, _overrideSpritePath;
+        private Vector2 _relativePosition;
+        private Vector2 _relativePlayerPosition;
+        private bool _playerPositionOverride;
 
         /// <summary>Initialize parameters for customize button</summary>
         private void Initialize()
         {
             isactive = true;
-            RelativePosition = Vector2.zero;
+            _relativePosition = Vector2.zero;
+            _relativePlayerPosition = Vector2.zero;
+            _playerPositionOverride = false;
             xScale = 1;
             yScale = 1;
         }
@@ -104,7 +109,15 @@ namespace AsteriskMod
             }
         }
 
-        internal Vector2 RelativePosition { get; private set; }
+        internal Vector2 RelativePosition
+        {
+            get { return _relativePosition; }
+            set
+            {
+                _relativePosition = value;
+                UIController.instance.UpdatePlayerPositionOnAction();
+            }
+        }
 
         public int x
         {
@@ -177,6 +190,38 @@ namespace AsteriskMod
             Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - RelativePosition;
             _gameObject.transform.position = new Vector3(ConvertToAbsX(newX), ConvertToAbsY(newY), _gameObject.transform.position.z);
             RelativePosition = _button.GetComponent<RectTransform>().anchoredPosition - initPos;
+        }
+
+        internal Vector2 RelativePlayerPosition
+        {
+            get { return _relativePlayerPosition; }
+            set
+            {
+                _relativePlayerPosition = value;
+                UIController.instance.UpdatePlayerPositionOnAction();
+            }
+        }
+
+        public int playerx
+        {
+            get { return Mathf.FloorToInt(RelativePlayerPosition.x); }
+            set { RelativePlayerPosition = new Vector2(value, RelativePlayerPosition.y); }
+        }
+
+        public int playery
+        {
+            get { return Mathf.FloorToInt(RelativePlayerPosition.y); }
+            set { RelativePlayerPosition = new Vector2(RelativePlayerPosition.x, value); }
+        }
+
+        public bool playerabs
+        {
+            get { return _playerPositionOverride; }
+            set
+            {
+                _playerPositionOverride = value;
+                UIController.instance.UpdatePlayerPositionOnAction();
+            }
         }
 
         public float[] color
@@ -284,6 +329,8 @@ namespace AsteriskMod
             {
                 _button.GetComponent<RectTransform>().anchoredPosition -= RelativePosition;
                 RelativePosition = Vector2.zero;
+                RelativePlayerPosition = Vector2.zero;
+                playerabs = false;
             }
         }
 

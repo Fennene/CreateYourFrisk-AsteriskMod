@@ -1,4 +1,5 @@
 ﻿using MoonSharp.Interpreter;
+using UnityEngine;
 
 namespace AsteriskMod
 {
@@ -78,6 +79,19 @@ namespace AsteriskMod
                 if (visible[i]) ActionButtons[i].ShowOverrideSprite();
                 else            ActionButtons[i].HideOverrideSprite();
             }
+        }
+
+        private static readonly float[] DefaultPlayerPosX = new float[4] { 48, 202, 361, 515 };
+        private const float DefaultPlayerPosY = 25;
+
+        [MoonSharpHidden]
+        internal Vector2 GetPlayerPosition(int buttonID)
+        {
+            if (ActionButtons[buttonID].playerabs) return ActionButtons[buttonID].RelativePlayerPosition;
+            Vector2 vector = ActionButtons[buttonID].RelativePosition + ActionButtons[buttonID].RelativePlayerPosition;
+            vector.x += DefaultPlayerPosX[buttonID];
+            vector.y += DefaultPlayerPosY;
+            return vector;
         }
 
         // --------------------------------------------------------------------------------
