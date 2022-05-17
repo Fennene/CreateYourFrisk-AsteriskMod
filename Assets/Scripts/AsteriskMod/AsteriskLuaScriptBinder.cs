@@ -23,6 +23,7 @@ namespace AsteriskMod
             UserData.RegisterType<LuaStaticTextManager>();
             UserData.RegisterType<LimitedLuaStaticTextManager>();
             UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
+            UserData.RegisterType<LuaUtil>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -57,8 +58,9 @@ namespace AsteriskMod
             script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
 
             script.Globals["SetJapaneseMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+            script.Globals["SetJapaneseStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
             script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-            script.Globals["SetJP"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+            script.Globals["SetJPStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
@@ -68,11 +70,11 @@ namespace AsteriskMod
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
                 DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
-                script.Globals.Set("ButtonUtil", buttonUtil);
+                script.Globals.Set(AsteriskEngine.LuaCodeStyle.buttonUtilName, buttonUtil);
                 DynValue playerUtil = UserData.Create(PlayerUtil.Instance);
-                script.Globals.Set("PlayerUtil", playerUtil);
+                script.Globals.Set(AsteriskEngine.LuaCodeStyle.playerUtilName, playerUtil);
                 DynValue arenaUtil = UserData.Create(new ArenaUtil());
-                script.Globals.Set("ArenaUtil", arenaUtil);
+                script.Globals.Set(AsteriskEngine.LuaCodeStyle.arenaUtilName, arenaUtil);
 
                 DynValue playerUtil_old = UserData.Create(new Lua.PlayerUtil());
                 script.Globals.Set("OldPlayerUtil", playerUtil_old);
@@ -88,6 +90,13 @@ namespace AsteriskMod
                 script.Globals.Set("Engine", engine);
                 DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
                 script.Globals.Set("JPStyle", jpstyle);
+
+                Debug.Log(AsteriskEngine.LuaCodeStyle.useGeneralUtil);
+                if (AsteriskEngine.LuaCodeStyle.useGeneralUtil)
+                {
+                    DynValue util = UserData.Create(new LuaUtil());
+                    script.Globals.Set("CYFUtil", util);
+                }
             }
             else
             {

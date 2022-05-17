@@ -12,6 +12,13 @@ namespace AsteriskMod
             ModTarget_AsteriskVersion = version;
         }
 
+        public static CodeStyle LuaCodeStyle { get; private set; }
+
+        public static void LoadCodeStyle()
+        {
+            LuaCodeStyle = CodeStyle.Load();
+        }
+
         public static char AsteriskChar { get; set; }
 
         public class JapaneseStyleOption

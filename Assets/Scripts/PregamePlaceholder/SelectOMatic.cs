@@ -218,6 +218,7 @@ public class SelectOMatic : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             AsteriskEngine.SetTargetAsteriskVersion(modInfos[CurrentSelectedMod].targetVersion);
+            AsteriskEngine.LoadCodeStyle();
             // --------------------------------------------------------------------------------
             SceneManager.LoadScene("Battle");
         } catch (Exception e) {
