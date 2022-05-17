@@ -852,7 +852,7 @@ public class TextManager : MonoBehaviour {
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
                 //int indexOfStar = textQueue[currentLine].Text.IndexOf('*'); // HACK oh my god lol
-                int indexOfStar = textQueue[currentLine].Text.IndexOf(ArenaUIManager.asterisk_char); // HACK oh my god lol
+                int indexOfStar = textQueue[currentLine].Text.IndexOf(AsteriskEngine.AsteriskChar); // HACK oh my god lol
                 // --------------------------------------------------------------------------------
                 if (indexOfStar > -1)
                     letterReferences[indexOfStar].color = starColor;

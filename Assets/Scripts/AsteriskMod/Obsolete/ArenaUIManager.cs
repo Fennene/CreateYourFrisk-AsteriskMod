@@ -26,7 +26,7 @@ namespace AsteriskMod
             arena = border.transform.Find("arena").gameObject;
             mainTextMan = arena.transform.Find("TextManager").gameObject;
             Instance = this;
-            ArenaUtil.textPosition = Vector2.zero;
+            //AsteriskMod.Lua.ArenaUtil.textPosition = Vector2.zero;
         }
 
         public void SetBorderColor(Color color)

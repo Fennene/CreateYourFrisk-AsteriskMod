@@ -388,9 +388,17 @@ public class EnemyEncounter : MonoBehaviour {
                 } catch { UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "You shouldn't override Wave, now you get an error :P"); }
             }
         if (!GlobalControls.retroMode)
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            /*
             foreach (LuaProjectile p in FindObjectsOfType<LuaProjectile>())
                 if (!p.ctrl.isPersistent)
                     p.ctrl.Remove();
+            */
+            if (AsteriskEngine.AutoRemoveProjectiles)
+                RemoveAllProjectiles();
+            // --------------------------------------------------------------------------------
         if (!death)
             CallOnSelfOrChildren("DefenseEnding");
         if (GlobalControls.retroMode)
@@ -407,6 +415,13 @@ public class EnemyEncounter : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    internal void RemoveAllProjectiles()
+    {
+        foreach (LuaProjectile p in FindObjectsOfType<LuaProjectile>())
+            if (!p.ctrl.isPersistent)
+                p.ctrl.Remove();
+    }
+
     internal ScriptWrapper CustomStateScript { get; private set; }
     internal string currentCustomStateName { get; private set; }
     private bool customStateHasUpdate;

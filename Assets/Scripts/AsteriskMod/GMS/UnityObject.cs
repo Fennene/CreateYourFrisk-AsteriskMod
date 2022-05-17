@@ -50,7 +50,10 @@ namespace AsteriskMod
             if (!isactive) throw new CYFException("Attempt to create GameObject on a removed GameObject object.");
             GameObject child = new GameObject(name);
             child.transform.parent = _gameObject.transform;
-            child.transform.localPosition = new Vector3(0, 0, child.transform.localPosition.z);
+            child.AddComponent<RectTransform>();
+            child.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+            child.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+            //child.transform.localPosition = new Vector3(0, 0, child.transform.localPosition.z);
             return new UnityObject(child, false);
         }
 
@@ -71,7 +74,8 @@ namespace AsteriskMod
         {
             get {
                 if (!isactive) throw new CYFException("Attempt to get parameter from a removed GameObject object.");
-                return Mathf.RoundToInt(_gameObject.transform.localPosition.x);
+                //return Mathf.RoundToInt(_gameObject.transform.localPosition.x);
+                return Mathf.RoundToInt(_gameObject.GetComponent<RectTransform>().anchoredPosition.x);
             }
             set {
                 if (!isactive) throw new CYFException("Attempt to move a removed GameObject object.");
@@ -83,7 +87,8 @@ namespace AsteriskMod
         {
             get {
                 if (!isactive) throw new CYFException("Attempt to get parameter from a removed GameObject object.");
-                return Mathf.RoundToInt(_gameObject.transform.localPosition.y);
+                //return Mathf.RoundToInt(_gameObject.transform.localPosition.y);
+                return Mathf.RoundToInt(_gameObject.GetComponent<RectTransform>().anchoredPosition.x);
             }
             set {
                 if (!isactive) throw new CYFException("Attempt to move a removed GameObject object.");
@@ -117,14 +122,16 @@ namespace AsteriskMod
 
         public void Move(int x, int y)
         {
-            if (!isactive) throw new CYFException("Attempt to move a removed GameObject object.");
-            _gameObject.transform.localPosition = new Vector3(x + this.x, y + this.y, _gameObject.transform.localPosition.z);
+            //if (!isactive) throw new CYFException("Attempt to move a removed GameObject object.");
+            //_gameObject.transform.localPosition = new Vector3(x + this.x, y + this.y, _gameObject.transform.localPosition.z);
+            MoveTo(x + this.x, y + this.y);
         }
 
         public void MoveTo(int newX, int newY)
         {
             if (!isactive) throw new CYFException("Attempt to move a removed GameObject object.");
-            _gameObject.transform.localPosition = new Vector3(newX, newY, _gameObject.transform.localPosition.z);
+            //_gameObject.transform.localPosition = new Vector3(newX, newY, _gameObject.transform.localPosition.z);
+            _gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(newX, newY);
         }
 
         public void MoveToAbs(int newX, int newY)

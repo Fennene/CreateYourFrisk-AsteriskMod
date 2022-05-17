@@ -18,28 +18,29 @@ namespace AsteriskMod
 
         private void Start()
         {
-            if (AsteriskEngine.Japanese)
+            if (AsteriskEngine.JapaneseStyleOption.JPName)
             {
-                SetJP(true);
+                SetJP();
                 return;
             }
             NameTextMan.SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
             SetName(PlayerCharacter.instance.Name);
+            //SetJP();
         }
 
         internal void SetName(string newName, bool force = false)
         {
             if (nowText == newName && !force) return;
             nowText = newName;
-            NameTextMan.SetText(new InstantTextMessage(AsteriskEngine.Japanese ? nowText : nowText.ToUpper()));
+            NameTextMan.SetText(new InstantTextMessage(AsteriskEngine.JapaneseStyleOption.JPName ? nowText : nowText.ToUpper()));
             NameTextMan.enabled = true;
             PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth());
         }
 
-        internal void SetJP(bool active)
+        internal void SetJP()
         {
-            NameTextMan.SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_JP_NAME_NAME));
-            NameTextMan.Move(0, 6 * (AsteriskEngine.Japanese ? 1 : -1));
+            NameTextMan.SetFont(SpriteFontRegistry.Get(AsteriskEngine.JapaneseStyleOption.JPName ? SpriteFontRegistry.UI_JP_NAME_NAME : SpriteFontRegistry.UI_SMALLTEXT_NAME));
+            NameTextMan.Move(0, 6 * (AsteriskEngine.JapaneseStyleOption.JPName ? 1 : -1));
             SetName(nowText, true);
         }
     }

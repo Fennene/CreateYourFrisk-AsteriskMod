@@ -13,6 +13,7 @@ namespace AsteriskMod
             UserData.RegisterType<ActionButton>();
             UserData.RegisterType<ButtonManager>();
             UserData.RegisterType<PlayerUtil>();
+            UserData.RegisterType<ArenaUtil>();
 
             UserData.RegisterType<PlayerLifeBar>();
             UserData.RegisterType<GameObjectModifyingSystem>();
@@ -21,6 +22,7 @@ namespace AsteriskMod
             UserData.RegisterType<CYFEngine>();
             UserData.RegisterType<LuaStaticTextManager>();
             UserData.RegisterType<LimitedLuaStaticTextManager>();
+            UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -56,6 +58,7 @@ namespace AsteriskMod
 
             script.Globals["SetJapaneseMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
             script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+            script.Globals["SetJP"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
         }
 
         public static void BoundScriptUserDatas(ref Script script)
@@ -67,13 +70,14 @@ namespace AsteriskMod
                 DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
                 script.Globals.Set("ButtonUtil", buttonUtil);
                 DynValue playerUtil = UserData.Create(PlayerUtil.Instance);
-                script.Globals.Set("NewPlayerUtil", playerUtil);
+                script.Globals.Set("PlayerUtil", playerUtil);
+                DynValue arenaUtil = UserData.Create(new ArenaUtil());
+                script.Globals.Set("ArenaUtil", arenaUtil);
 
                 DynValue playerUtil_old = UserData.Create(new Lua.PlayerUtil());
-                script.Globals.Set("PlayerUtil", playerUtil_old);
-
-                DynValue arenaUtil = UserData.Create(new Lua.ArenaUtil());
-                script.Globals.Set("ArenaUtil", arenaUtil);
+                script.Globals.Set("OldPlayerUtil", playerUtil_old);
+                DynValue arenaUtil_old = UserData.Create(new Lua.ArenaUtil());
+                script.Globals.Set("OldArenaUtil", arenaUtil_old);
 
                 GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
                 //if (goms == null) goms = new GameObjectModifyingSystem();
@@ -82,6 +86,8 @@ namespace AsteriskMod
                 script.Globals.Set("GMS", gms);
                 DynValue engine = UserData.Create(new CYFEngine());
                 script.Globals.Set("Engine", engine);
+                DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
+                script.Globals.Set("JPStyle", jpstyle);
             }
             else
             {

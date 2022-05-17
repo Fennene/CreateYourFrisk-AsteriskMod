@@ -39,5 +39,17 @@ namespace AsteriskMod
             if (modFolderName.Contains("..")) throw new CYFException("You cannot check file or directory outside of a mod folder. The use of \"..\" is forbidden.");
             return Directory.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + modFolderName));
         }
+
+        public static void SetProjectilesAutoRemovingActive(bool active = true)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.SetProjectilesAutoRemovingActive");
+            AsteriskEngine.AutoRemoveProjectiles = active;
+        }
+
+        public static void RemoveAllProjectiles()
+        {
+            UIController.instance.encounter.RemoveAllProjectiles();
+        }
+        public static void RemoveAllBullets() { RemoveAllProjectiles(); }
     }
 }

@@ -80,7 +80,7 @@ public class TextMessage {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         //string newText = linesCommands[nCount++] + "* ";
-        string newText = linesCommands[nCount++] + ArenaUIManager.asterisk_char + " ";
+        string newText = linesCommands[nCount++] + AsteriskEngine.AsteriskChar + " ";
         // --------------------------------------------------------------------------------
         foreach (char c in textNew) {
             switch (c) {
@@ -88,9 +88,16 @@ public class TextMessage {
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
                 //case '\n': newText += "\n" + linesCommands[nCount++] + "* "; break;
-                case '\n': newText += "\n" + linesCommands[nCount++] + ArenaUIManager.asterisk_char + " "; break;
+                case '\n': newText += "\n" + linesCommands[nCount++] + AsteriskEngine.AsteriskChar + " "; break;
+
+                //case '\r': newText += "\n  ";                                 break;
+                case '\r':
+                    if (AsteriskEngine.JapaneseStyleOption.AutoJPFont)
+                        newText += "\n   ";
+                    else
+                        newText += "\n  ";
+                    break;
                 // --------------------------------------------------------------------------------
-                case '\r': newText += "\n  ";                                 break;
                 default:   newText += c;                                      break;
             }
         }

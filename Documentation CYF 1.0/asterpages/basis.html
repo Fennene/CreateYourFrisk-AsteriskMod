@@ -68,7 +68,7 @@ it's w3c valid, at least
                     <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li>CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
@@ -269,6 +269,9 @@ it's w3c valid, at least
             <h4>v0.5.3 [TakeNewStepUpdate]</h4>
             <p>
                 <ul class="rn">
+                    <li class="fix">
+                        Fix the issue that characters is garbled in window's title bar.
+                    </li>
                     <li class="modify">
                         More UNDERTALE-ish.
                     </li>
@@ -354,6 +357,42 @@ it's w3c valid, at least
                             </li>
                         </ul>
                     </li>
+                    <li class="modify">
+                        Renew <span class="term"><a href="api-arenautil.html#ArenaUtil">The ArenaUtil Object</a></span>.<br>
+                        <ul>
+                            <li>
+                                Add the function <span class="term">ArenaUtil.DialogTextMoveTo()</span> instead of <span class="term">ArenaUtil.SetDialogTextPosition()</span>
+                            </li>
+                            <li>
+                                Add the parameter <span class="term">ArenaUtil.AsteriskChar</span> instead of <span class="term">ArenaUtil.SetAsteriskChar()</span>
+                            </li>
+                            <li>
+                                Resets the color of arena's border by calling <span class="term">ArenaUtil.SetBorderColor()</span> without any arguments.
+                            </li>
+                            <li>
+                                Resets the color of arena's inner by calling <span class="term">ArenaUtil.SetInnerColor()</span> without any arguments.
+                            </li>
+                            <li class="add">
+                                Add the parameter <span class="term">ArenaUtil.dialogtextx</span>
+                            </li>
+                            <li class="add">
+                                Add the parameter <span class="term">ArenaUtil.dialogtexty</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">ArenaUtil.DialogTextMove()</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">ArenaUtil.DialogTextMoveTo()</span>
+                            </li>
+                            <li class="add">
+                                Add the parameter <span class="term">ArenaUtil.AsteriskChar</span>
+                            </li>
+                            <li class="del">
+                                Delete the function <span class="term">ArenaUtil.SetStarChar()</span><br>
+                                (Please use <span class="term">ArenaUtil.AsteriskChar</span> instead of that.)
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         Add <span class="term">The Engine Object</span>.<br>
                         <ul>
@@ -366,10 +405,16 @@ it's w3c valid, at least
                             <li>
                                 Add the funtion <span class="term">Engine.ModExists()</span>
                             </li>
+                            <li>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>
+                            </li>
+                            <li>
+                                Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span>
+                            </li>
                         </ul>
                     </li>
                     <li>
-                        <font color="#FFF">Add the new content <span class="term">GameObject Modifying System</span>.</font>
+                        Add the new content <span class="term">GameObject Modifying System</span>.
                         <ul>
                             <li>Add <span class="term">The GameObjectModifyingSystem(GMS) Object</span>.</li>
                             <li>Add <span class="term">The GameObject Object</span>.</li>

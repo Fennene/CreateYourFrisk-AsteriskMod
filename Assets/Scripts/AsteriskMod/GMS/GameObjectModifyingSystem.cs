@@ -20,6 +20,7 @@ namespace AsteriskMod
         {
             GameObject gameObject = new GameObject(name);
             gameObject.transform.parent = Instance.transform;
+            gameObject.AddComponent<RectTransform>();
             return new UnityObject(gameObject, false);
         }
 
