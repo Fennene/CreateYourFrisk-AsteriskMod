@@ -49,7 +49,7 @@ namespace AsteriskMod
         public static bool optionProtecter;
         /// <summary>Whether show error or not if mods try to change system option by <c>SetAlMightyGlobal()</c></summary>
         public static bool reportProtecter;
-        /// <summary>Whether shows mod's name set from modders</summary>
+        /// <summary>Whether replaces mod's name set from modders</summary>
         public static bool displayModInfo;
 
         internal const string OPTION_EXPERIMENT = "*CYF-Experiment";

@@ -17,7 +17,7 @@ namespace AsteriskMod
         private int DescriptionTimer;
 
         // game objects
-        public GameObject Language, DescVisible, ErrorDog, Protect, Experiment, Exit, Git;
+        public GameObject Language, ReplaceTitle, DescVisible, ErrorDog, Protect, Experiment, Exit, Git;
         public Text Description;
 
         // Use this for initialization
@@ -35,6 +35,17 @@ namespace AsteriskMod
                 Language.GetComponentInChildren<Text>().text = "Language: " + AsteriskUtil.ConvertFromLanguage(Asterisk.language, false);
             });
             Language.GetComponentInChildren<Text>().text = "Language: " + AsteriskUtil.ConvertFromLanguage(Asterisk.language, false);
+
+            // replace modders mod title
+            ReplaceTitle.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                Asterisk.displayModInfo = !Asterisk.displayModInfo;
+
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODINFO, DynValue.NewBoolean(Asterisk.displayModInfo), true);
+
+                ReplaceTitle.GetComponentInChildren<Text>().text = "Replace Prepared Mods' Name: " + (Asterisk.displayModInfo ? "On" : "Off");
+            });
+            ReplaceTitle.GetComponentInChildren<Text>().text = "Replace Prepared Mods' Name: " + (Asterisk.displayModInfo ? "On" : "Off");
 
             // show always desc
             DescVisible.GetComponent<Button>().onClick.AddListener(() =>
@@ -110,6 +121,11 @@ namespace AsteriskMod
                     response = "Display Language\n\n"
                              + "Switches display language\nto English or Japanese.";
                     return !GlobalControls.crate ? response : Temmify.Convert(response);
+                case "Title":
+                    response = "Replace Prepared Mods' Title\n\n"
+                             + "Whether replace mods' title and subtitle to prepared from modders.\n\n"
+                             + "Default by On";
+                    return !GlobalControls.crate ? response : Temmify.Convert(response);
                 case "Desc":
                     response = "Always Description Visible\n\n"
                              + "Whether mods' descriptions are always shown or not.\n\n"
@@ -173,21 +189,22 @@ namespace AsteriskMod
                     // Language
                     if (mousePosY <= 420 && mousePosY > 380)
                         hoverItem = "Lang";
-                    // ShowAlwaysDesc
+                    // ReplaceTitle
                     else if (mousePosY <= 380 && mousePosY > 340)
+                        hoverItem = "Title";
+                    // ShowAlwaysDesc
+                    else if (mousePosY <= 340 && mousePosY > 300)
                         hoverItem = "Desc";
                     // ErrorDog
-                    else if (mousePosY <= 340 && mousePosY > 300)
+                    else if (mousePosY <= 300 && mousePosY > 260)
                         hoverItem = "Dog";
                     // SafeAlMightyGlobal
-                    else if (mousePosY <= 300 && mousePosY > 260)
+                    else if (mousePosY <= 260 && mousePosY > 220)
                         hoverItem = "SafeSetAlMightGlobal";
                     // Experiment
-                    else if (mousePosY <= 260 && mousePosY > 220)
+                    else if (mousePosY <= 220 && mousePosY > 180)
                         hoverItem = "Experiment";
                     /*
-                    else if (mousePosY <= 220 && mousePosY > 180)
-                        hoverItem = "";
                     else if (mousePosY <= 180 && mousePosY > 140)
                         hoverItem = "";
                     else if (mousePosY <= 140 && mousePosY > 100)
