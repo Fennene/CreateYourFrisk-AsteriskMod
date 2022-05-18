@@ -49,6 +49,8 @@ namespace AsteriskMod
         public static bool optionProtecter;
         /// <summary>Whether show error or not if mods try to change system option by <c>SetAlMightyGlobal()</c></summary>
         public static bool reportProtecter;
+        /// <summary>Whether shows mod's name set from modders</summary>
+        public static bool displayModInfo;
 
         internal const string OPTION_EXPERIMENT = "*CYF-Experiment";
         internal const string OPTION_DESC = "*CYF-Description";
@@ -56,6 +58,7 @@ namespace AsteriskMod
         internal const string OPTION_LANG = "*CYF-Language";
         internal const string OPTION_PROTECT = "*CYF-ProtectOption";
         internal const string OPTION_PROTECT_ERROR = "*CYF-ProtectReport";
+        internal const string OPTION_MODINFO = "*CYF-ModInfo";
 
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
@@ -71,6 +74,7 @@ namespace AsteriskMod
             language = Languages.English;
             optionProtecter = true;
             reportProtecter = true;
+            displayModInfo = true;
         }
 
         /// <summary>Load</summary>
@@ -100,6 +104,10 @@ namespace AsteriskMod
             if (LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR) != null && LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR).Type == DataType.Boolean)
             {
                 reportProtecter = LuaScriptBinder.GetAlMighty(null, OPTION_PROTECT_ERROR).Boolean;
+            }
+            if (LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO) != null && LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO).Type == DataType.Boolean)
+            {
+                displayModInfo = LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO).Boolean;
             }
             Lang.Initialize();
         }

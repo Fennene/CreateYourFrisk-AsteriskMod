@@ -313,6 +313,7 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        if (!Asterisk.displayModInfo) return;
         ModInfo info = modInfos[id];
         // Set Font
         Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
@@ -325,6 +326,11 @@ public class SelectOMatic : MonoBehaviour {
         {
             EncounterCountShadow.GetComponent<Text>().text = info.subtitle;
             EncounterCount.GetComponent<Text>().text = info.subtitle;
+        }
+        if (info.title != "")
+        {
+            ModTitleShadow.GetComponent<Text>().text = info.title;
+            ModTitle.GetComponent<Text>().text = info.title;
         }
         // Set Description's Alignment
         ModDescShadow.GetComponent<Text>().alignment = info.descAnchor;

@@ -3,7 +3,7 @@
 <voice>uifont</voice>
 <color>ffffff</color>
 <charspacing>0</charspacing>
-<linespacing>38</linespacing>
+<linespacing>32</linespacing>
 <spritesheet>
     <sprite name="space">
         <rect x="2" y="994" w="14" h="28"/>
