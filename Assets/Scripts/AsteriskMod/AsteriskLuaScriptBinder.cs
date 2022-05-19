@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using MoonSharp.Interpreter;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -23,7 +24,9 @@ namespace AsteriskMod
             UserData.RegisterType<LuaStaticTextManager>();
             UserData.RegisterType<LimitedLuaStaticTextManager>();
             UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
-            UserData.RegisterType<LuaUtil>();
+
+            UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();
+            UserData.RegisterType<ExtendedUtil.LuaStringUtil>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -91,11 +94,12 @@ namespace AsteriskMod
                 DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
                 script.Globals.Set("JPStyle", jpstyle);
 
-                Debug.Log(AsteriskEngine.LuaCodeStyle.useGeneralUtil);
-                if (AsteriskEngine.LuaCodeStyle.useGeneralUtil)
+                if (AsteriskEngine.LuaCodeStyle.moreUtil)
                 {
-                    DynValue util = UserData.Create(new LuaUtil());
-                    script.Globals.Set("CYFUtil", util);
+                    DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
+                    script.Globals.Set("CYFUtil", cyfutil);
+                    DynValue stringutil = UserData.Create(new ExtendedUtil.LuaStringUtil());
+                    script.Globals.Set("StringUtil", stringutil);
                 }
             }
             else

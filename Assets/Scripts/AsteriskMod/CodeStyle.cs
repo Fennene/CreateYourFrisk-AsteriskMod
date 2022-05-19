@@ -5,17 +5,17 @@ namespace AsteriskMod
 {
     public class CodeStyle
     {
-        public bool useGeneralUtil;
         public string buttonUtilName;
         public string playerUtilName;
         public string arenaUtilName;
+        public bool moreUtil;
 
         public CodeStyle()
         {
-            useGeneralUtil = false;
             buttonUtilName = "ButtonUtil";
             playerUtilName = "PlayerUtil";
             arenaUtilName = "ArenaUtil";
+            moreUtil = false;
         }
 
         private static bool IgnoreFile(string fullpath)
@@ -34,21 +34,13 @@ namespace AsteriskMod
                 foreach (string l in File.ReadAllLines(path))
                 {
                     string line = l.Replace("\r", "").Replace("\n", "");
-                    //Debug.Log("Line: \"" + line + "\"");
                     if (line.StartsWith(";")) continue;
                     if (!line.Contains("=")) continue;
-                    //Debug.Log("Line: \"" + line + "\"");
                     string[] _ = line.Split(new char[1] { '=' }, 2);
                     string key = _[0].Replace("_", "-").Trim();
                     string parameter = _[1].Replace("\"", "").Trim();
-                    //Debug.Log("Key: \"" + key+ "\", parameter: \"" + parameter + "\"");
                     switch (key)
                     {
-                        case "CYFUtil":
-                            //Debug.Log("CYFUtil is found. parameter: \"" + parameter + "\"");
-                            if (parameter.ToLower() == "true")
-                                codeStyle.useGeneralUtil = true;
-                            break;
                         case "ButtonUtil":
                             codeStyle.buttonUtilName = parameter;
                             break;
@@ -57,6 +49,10 @@ namespace AsteriskMod
                             break;
                         case "ArenaUtil":
                             codeStyle.arenaUtilName = parameter;
+                            break;
+                        case "MoreUtil":
+                            if (parameter.ToLower() == "true")
+                                codeStyle.moreUtil = true;
                             break;
                     }
                 }
