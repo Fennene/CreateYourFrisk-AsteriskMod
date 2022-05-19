@@ -4,20 +4,20 @@ namespace AsteriskMod
 {
     public class PlayerNameText : MonoBehaviour
     {
-        public LimitedLuaStaticTextManager NameTextMan { get; private set; }
+        public UIStaticTextManager NameTextMan { get; private set; }
         private string nowText = null;
 
         internal static PlayerNameText instance;
 
         private void Awake()
         {
-            NameTextMan = GetComponent<LimitedLuaStaticTextManager>();
-            NameTextMan._BanControlOverride = true;
+            NameTextMan = GetComponent<UIStaticTextManager>();
             instance = this;
         }
 
         private void Start()
         {
+            NameTextMan._SetText = (_ => { PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth()); });
             if (AsteriskEngine.JapaneseStyleOption.JPName)
             {
                 SetJP();

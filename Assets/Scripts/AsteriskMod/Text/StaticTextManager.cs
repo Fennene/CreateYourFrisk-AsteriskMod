@@ -166,10 +166,10 @@ namespace AsteriskMod
                 if (((LuaStaticTextManager)this).hasColorBeenSet) defaultColor = ((LuaStaticTextManager)this)._color;
                 if (((LuaStaticTextManager)this).hasAlphaBeenSet) defaultColor.a = ((LuaStaticTextManager)this).alpha;
             }
-            if (GetType() == typeof(LimitedLuaStaticTextManager))
+            if (GetType() == typeof(UIStaticTextManager))
             {
-                if (((LimitedLuaStaticTextManager)this).hasColorBeenSet) defaultColor = ((LimitedLuaStaticTextManager)this)._color;
-                if (((LimitedLuaStaticTextManager)this).hasAlphaBeenSet) defaultColor.a = ((LimitedLuaStaticTextManager)this).alpha;
+                if (((UIStaticTextManager)this).hasColorBeenSet) defaultColor = ((UIStaticTextManager)this)._color;
+                if (((UIStaticTextManager)this).hasAlphaBeenSet) defaultColor.a = ((UIStaticTextManager)this).alpha;
             }
             currentColor = defaultColor;
         }
@@ -751,9 +751,9 @@ namespace AsteriskMod
                 }
                 else ltrImg.color = currentColor;
             }
-            else if (GetType() == typeof(LimitedLuaStaticTextManager))
+            else if (GetType() == typeof(UIStaticTextManager))
             {
-                LimitedLuaStaticTextManager lluaThis = (LimitedLuaStaticTextManager)this;
+                UIStaticTextManager lluaThis = (UIStaticTextManager)this;
                 Color lluaColor = lluaThis._color;
                 if (!colorSet)
                 {

@@ -129,7 +129,7 @@ it's w3c valid, at least
             <p>
                 &lt; Technical info &gt;<br>
                 In AsteriskMod v0.5.3, It does NOT use original CYF's object to display the Player's status.<br>
-                CYF uses text as <span class="term">TextManager</span> class, but AsteriskMod adds new class <span class="term">LimitedLuaStaticTextManager</span> class and uses to display the status.
+                CYF uses text as <span class="term">TextManager</span> class, but AsteriskMod adds new class <span class="term">UIStaticTextManager</span> class and uses to display the status.
                 (See also <span class="ref">The StaticText Object</span>.)<br>
                 The Player's LifeBar uses other added class <span class="term">PlayerLifeBar</span>.
                 (See also <span class="ref">The LifeBar Object</span> there is below this page.)
@@ -143,8 +143,10 @@ it's w3c valid, at least
                 namespace of <span class="term">PlayerUtil</span> is changed <span class="term">AsteriskMod.Lua</span> to <span class="term">AsteriskMod</span>.<br>
                 (However, namespace will be not changed for compatibility if the Mod will be launched as before v0.5.3.)
                 <br><br>
-                Note that this feature can NOT be used in Overworld because of some reasons.<br>
-                That's why UIStats class and that objects is not deleted completely.
+                <font color="#FFF">
+                    Note that this feature can NOT be used in Overworld because of some reasons.
+                </font><br>
+                That's why original UIStats class and that objects is not deleted completely.
             </p><br>
 
             <hr>
@@ -176,37 +178,49 @@ it's w3c valid, at least
                     Please use <span class="term">PlayerUtil.MoveTo()</span> as possible.
                 </font>
             </p>
-            <p>
-                <br><span class="function">PlayerUtil.MoveTo()</span>
-                Moves the all UI showing the player's status to the initial position 
-                by calling this without any arguments.
-            </p>
 
             <br>
 
             <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Name (Read-only)</span>
-                Returns propety of the text showing the Player's name, as a LimitedStaticText object.
-                <br><br>
-                <font color="#FFF">
-                    You can not use <span class="term">SetControlOverride()</span> and 
-                    <span class="term">SetText()</span> in this object.
-                </font><br>
-                (That's beacuse you can change text by changing <span class="term">Player.name</span>)
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Name (Read-only)</span>
+                Returns propety of the text showing the Player's name, as a StaticText object.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.Name.Remove()</span> and 
+                    <span class="term">PlayerUtil.Name.DestroyText()</span> in this object.
+                </font>
             </p>
 
             <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Love (Read-only)</span>
-                Returns propety of the text showing the Player's love, as a LimitedStaticText object.
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Love (Read-only)</span>
+                Returns propety of the text showing the Player's love, as a StaticText object.
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.Love.Remove()</span> and 
+                    <span class="term">PlayerUtil.Love.DestroyText()</span> in this object.
+                </font>
             </p>
 
+            <p>
+                <br><span class="function"><span class="userdata">sprite</span> PlayerUtil.HPLabel (Read-only)</span>
+                Returns propety of the objects written "HP", as a sprite object.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.HPLabel.Remove()</span> in this object.
+                </font>
+                <br><br>
+                <font color="#FFF">
+                    * Note that when HPLabel is moved, other HP's UIs is moved with this.
+                </font>
+            </p>
             <p>
                 <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)</span>
                 Returns propety of the bar objects showing the Player's HP, as a LifeBar object.
             </p>
             <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.HPText (Read-only)</span>
-                Returns propety of the text showing the Player's HP, as a LimitedStaticText object.
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)</span>
+                Returns propety of the text showing the Player's HP, as a StaticText object.
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.HPText.Remove()</span> and 
+                    <span class="term">PlayerUtil.HPText.DestroyText()</span> in this object.
+                </font>
             </p>
 
             <br>
@@ -287,7 +301,7 @@ it's w3c valid, at least
                 Simply put, BGBar is the bar showing the Player's MaxHP and 
                 FillBar is the bar showing current the Player's HP.<br>
                 This is not only used in <span class="term">PlayerUtil.HPBar</span>, 
-                but you can create LifeBar and also use by calling <span class="term">PlayerUtil.CreateLifeBar()</span>.
+                but also you can create LifeBar by calling <span class="term">PlayerUtil.CreateLifeBar()</span> and use that.
             </p><br>
 
             <p>
@@ -330,6 +344,12 @@ it's w3c valid, at least
                 Same as setting <span class="term">lifeBar.hp</span> and <span class="term">lifeBar.maxhp</span> simultaneously.
                 <br><br>
                 See <span class="term">lifeBar.hp</span> and <span class="term">lifeBar.maxhp</span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="number"></span> lifeBar.height</span>
+                Gets or sets a height of the bar.<br>
+                Default by <span class="term">20</span>.
             </p>
 
             <p>
@@ -380,6 +400,49 @@ it's w3c valid, at least
             <p>
                 <br><span class="function"><span class="number"></span> lifeBar.bgalpha32</span></span>
                 Gets or sets a BGBar's transparency, as a value from 0 to 255.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="boolean"></span> lifeBar.isactive</span></span>
+                Tells you if a LifeBar object is active.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.Remove()</span></span>
+                This function destroys a LifeBar object, similar to <span class="term">.Remove()</span> for bullets and sprites.
+
+                Trying to get, set or call almost anything besides <span class="term">LifeBar.isactive</span> on a destroyed LifeBar object will error.
+            </p>
+
+            <br><br>
+            <hr><br>
+
+            <p>
+                Below function is about the position of the LifeBar objects.<br>
+                <font color="#DDD">
+                    Note that the anchor(alignment) of the LifeBar object's position is <span class="term">MiddleRight</span>.
+                </font>
+                (Maybe)
+            </p>
+
+            <p>
+                <br><span class="function"><span class="number"></span> lifeBar.x</span></span>
+                Horizontal position of lifeBar relative to the initial position.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> lifeBar.y</span></span>
+                Vertical position of lifeBar relative to the initial position.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.Move(<span class="number"></span>x, <span class="number"></span> y)</span></span>
+                Moves the lifeBar <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
+                <br><br>
+                See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.MoveTo(<span class="number"></span>x, <span class="number"></span> y)</span></span>
+                Same as setting x and y simultaneously.
+                <br><br>
+                See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.
             </p>
         </div>
 

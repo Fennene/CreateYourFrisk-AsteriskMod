@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace AsteriskMod
@@ -13,10 +9,12 @@ namespace AsteriskMod
         //* private RectTransform lifebarRt;
 
         private Image hpLabel;
+        private Image phLabel;
+        public LuaSpriteController HPLabel { get; private set; }
 
         public PlayerLifeBar LifeBar { get; private set; }
         private GameObject lifeTextCore;
-        public LimitedLuaStaticTextManager LifeTextMan { get; private set; }
+        public UIStaticTextManager LifeTextMan { get; private set; }
 
         internal static PlayerLifeUI instance;
 
@@ -26,18 +24,20 @@ namespace AsteriskMod
         {
             hpRect = gameObject;
 
+            hpLabel = transform.Find("*HPLabel").GetComponent<Image>();
+            phLabel = transform.Find("*HPLabelCrate").GetComponent<Image>();
+
             LifeBar = gameObject.GetComponentInChildren<PlayerLifeBar>();
             LifeBar.Initialize(true);
             //* lifebarRt = lifebar.GetComponent<RectTransform>();
 
-            LifeTextMan = LifeBar.gameObject.GetComponentInChildren<LimitedLuaStaticTextManager>();
-            LifeTextMan._SetText = ((text) => { LifeTextMan.SetText(new InstantTextMessage(text)); });
+            //* LifeTextMan = LifeBar.gameObject.GetComponentInChildren<UIStaticTextManager>();
 
-            //* lifeTextCore = GameObject.Find("*LifeTextParent");
-            lifeTextCore = LifeTextMan.gameObject;
+            lifeTextCore = GameObject.Find("*LifeTextParent");
+            //* lifeTextCore = LifeTextMan.gameObject;
             lifeTextCore.transform.position = new Vector3(lifeTextCore.transform.position.x, lifeTextCore.transform.position.y - 1, lifeTextCore.transform.position.z);
 
-            //* lifeTextMan = lifeTextCore.GetComponent<LimitedLuaStaticTextManager>();
+            LifeTextMan = lifeTextCore.GetComponent<UIStaticTextManager>();
 
             instance = this;
         }
@@ -50,13 +50,22 @@ namespace AsteriskMod
             // In Undertale, the position of HP's object is fixed. UndertaleではHPを表示するオブジェクトの位置は固定されている。
             //hpRect.transform.position = new Vector3(hpRect.transform.parent.position.x + (PlayerCharacter.instance.Name.Length > 6 ? 286.1f : 215.1f), hpRect.transform.position.y, hpRect.transform.position.z);
 
+            /**
             Image hpl = transform.Find("*HPLabel").GetComponent<Image>();
             Image phl = transform.Find("*HPLabelCrate").GetComponent<Image>();
             hpl.enabled = !GlobalControls.crate;
             phl.enabled = GlobalControls.crate;
             hpLabel = GlobalControls.crate ? phl : hpl;
+            */
+            HPLabel = new LuaSpriteController(GlobalControls.crate ? phLabel : hpLabel) { tag = "ui", ignoreSet = GlobalControls.crate };
 
             encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null; // 互換性
+        }
+
+        internal void ChangeHPLabel()
+        {
+            hpLabel.enabled = !GlobalControls.crate;
+            phLabel.enabled = GlobalControls.crate;
         }
 
         internal void SetHP(float hpCurrent)

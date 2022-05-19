@@ -77,11 +77,18 @@ namespace AsteriskMod
             }
         }
 
-        public static void ChangeHPLabel()
+        public static void ChangeHPLabel(bool instanceCheck = false)
         {
-            if (!UseOriginalUIStats) return;
-            GameObject.Find("HPLabelCrate").GetComponent<Image>().enabled = true;
-            GameObject.Find("HPLabel").GetComponent<Image>().enabled = false;
+            if (UseOriginalUIStats)
+            {
+                GameObject.Find("HPLabelCrate").GetComponent<Image>().enabled = true;
+                GameObject.Find("HPLabel").GetComponent<Image>().enabled = false;
+                return;
+            }
+            if (!instanceCheck || PlayerLifeUI.instance)
+            {
+                PlayerLifeUI.instance.ChangeHPLabel();
+            }
         }
     }
 }

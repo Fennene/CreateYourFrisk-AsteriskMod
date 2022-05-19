@@ -1,5 +1,4 @@
-﻿using AsteriskMod;
-using System;
+﻿using System;
 using MoonSharp.Interpreter;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -22,7 +21,7 @@ namespace AsteriskMod
             UserData.RegisterType<LuaImageComponent>();
             UserData.RegisterType<CYFEngine>();
             UserData.RegisterType<LuaStaticTextManager>();
-            UserData.RegisterType<LimitedLuaStaticTextManager>();
+            UserData.RegisterType<UIStaticTextManager>();
             UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
 
             UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();

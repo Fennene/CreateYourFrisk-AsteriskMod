@@ -1,6 +1,4 @@
 ﻿using MoonSharp.Interpreter;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,6 +58,14 @@ namespace AsteriskMod
             _button.overrideSprite = null;
         }
 
+#if UNITY_EDITOR
+        [MoonSharpHidden]
+        internal bool Test()
+        {
+            return _button.overrideSprite != null;
+        }
+#endif
+
         // --------------------------------------------------------------------------------
         //                            Asterisk Mod Features
         // --------------------------------------------------------------------------------
@@ -102,22 +108,28 @@ namespace AsteriskMod
             {
                 SpriteUtil.SwapSpriteFromFile(_button, normalSpritePath);
             }
+            /*
             _sprite = SpriteRegistry.Get(overrideSpritePath);
             if (_button.overrideSprite != null)
             {
                 _button.overrideSprite = _sprite;
             }
+            else
+            {
+                _button.overrideSprite = null;
+            }
+            */
+            Sprite newOverrideSprite = SpriteRegistry.Get(overrideSpritePath);
+            if (_button.overrideSprite == _sprite)
+            {
+                _button.overrideSprite = newOverrideSprite;
+            }
+            _sprite = newOverrideSprite;
         }
 
-        public void Show()
-        {
-            _button.enabled = true;
-        }
+        public void Show() { _button.enabled = true; }
 
-        public void Hide()
-        {
-            _button.enabled = false;
-        }
+        public void Hide() { _button.enabled = false; }
 
         internal Vector2 RelativePosition
         {
@@ -179,13 +191,6 @@ namespace AsteriskMod
             RelativePosition = new Vector2(newX, newY);
             _button.GetComponent<RectTransform>().anchoredPosition = initPos + RelativePosition;
         }
-        /*
-        public void MoveTo()
-        {
-            _button.GetComponent<RectTransform>().anchoredPosition -= RelativePosition;
-            RelativePosition = Vector2.zero;
-        }
-        */
 
         private float ConvertToAbsX(float x) // I don't like this method, but I could not found better others.
         {

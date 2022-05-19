@@ -1,8 +1,4 @@
 ﻿using MoonSharp.Interpreter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -172,12 +168,14 @@ namespace AsteriskMod
         private bool _controlOverride;
         private float _hp;
         private float _maxhp;
+        private Vector2 relativePosition;
 
         [MoonSharpHidden]
         internal void Initialize(bool isOriginalUI)
         {
             isOriginal = isOriginalUI;
             _controlOverride = !isOriginal;
+            relativePosition = Vector2.zero;
             if (isOriginal)
             {
                 _hp = PlayerCharacter.instance.HP;
@@ -204,9 +202,14 @@ namespace AsteriskMod
 
         public bool limited
         {
-            get { return _limited; }
+            get
+            {
+                CheckExists(true);
+                return _limited;
+            }
             set
             {
+                CheckExists(false);
                 _limited = value;
                 if (_controlOverride)
                 {
@@ -221,18 +224,34 @@ namespace AsteriskMod
 
         public float hp
         {
-            get { return _hp; }
-            set { SetHP(value, _maxhp); }
+            get
+            {
+                CheckExists(true);
+                return _hp;
+            }
+            set
+            {
+                SetHP(value, _maxhp);
+            }
         }
 
         public float maxhp
         {
-            get { return _maxhp; }
-            set { SetHP(_hp, value); }
+            get
+            {
+                CheckExists(true);
+                return _maxhp;
+            }
+            set
+            {
+                SetHP(_hp, value);
+            }
         }
 
         public void SetHP(float newHP, float newMaxHP)
         {
+            CheckExists(false);
+
             float realMaxHP = newMaxHP;
             if (_limited) realMaxHP = Mathf.Min(newMaxHP, 100);
 
@@ -256,9 +275,14 @@ namespace AsteriskMod
 
         public float[] fillcolor
         {
-            get { return new[] { fillColor.r, fillColor.g, fillColor.b }; }
+            get
+            {
+                CheckExists(true);
+                return new[] { fillColor.r, fillColor.g, fillColor.b };
+            }
             set
             {
+                CheckExists(false);
                 if (value == null)
                     throw new CYFException("lifeBar.fillcolor can not be set to a nil value.");
                 Color c;
@@ -274,9 +298,14 @@ namespace AsteriskMod
         }
         public float[] fillcolor32
         {
-            get { return new float[] { ((Color32)fillColor).r, ((Color32)fillColor).g, ((Color32)fillColor).b }; }
+            get
+            {
+                CheckExists(true);
+                return new float[] { ((Color32)fillColor).r, ((Color32)fillColor).g, ((Color32)fillColor).b };
+            }
             set
             {
+                CheckExists(false);
                 if (value == null)
                     throw new CYFException("lifeBar.fillcolor32 can not be set to a nil value.");
                 switch (value.Length)
@@ -290,20 +319,39 @@ namespace AsteriskMod
         }
         public float fillalpha
         {
-            get { return fillColor.a; }
-            set { fillcolor = new[] { fillColor.r, fillColor.g, fillColor.b, Mathf.Clamp01(value) }; }
+            get
+            {
+                CheckExists(true);
+                return fillColor.a;
+            }
+            set
+            {
+                fillcolor = new[] { fillColor.r, fillColor.g, fillColor.b, Mathf.Clamp01(value) };
+            }
         }
         public float fillalpha32
         {
-            get { return ((Color32)fillColor).a; }
-            set { fillalpha = value / 255; }
+            get
+            {
+                CheckExists(true);
+                return ((Color32)fillColor).a;
+            }
+            set
+            {
+                fillalpha = value / 255;
+            }
         }
 
         public float[] bgcolor
         {
-            get { return new[] { backgroundColor.r, backgroundColor.g, backgroundColor.b }; }
+            get
+            {
+                CheckExists(true);
+                return new[] { backgroundColor.r, backgroundColor.g, backgroundColor.b };
+            }
             set
             {
+                CheckExists(false);
                 if (value == null)
                     throw new CYFException("lifeBar.bgcolor can not be set to a nil value.");
                 Color c;
@@ -319,9 +367,14 @@ namespace AsteriskMod
         }
         public float[] bgcolor32
         {
-            get { return new float[] { ((Color32)backgroundColor).r, ((Color32)backgroundColor).g, ((Color32)backgroundColor).b }; }
+            get
+            {
+                CheckExists(true);
+                return new float[] { ((Color32)backgroundColor).r, ((Color32)backgroundColor).g, ((Color32)backgroundColor).b };
+            }
             set
             {
+                CheckExists(false);
                 if (value == null)
                     throw new CYFException("lifeBar.bgcolor32 can not be set to a nil value.");
                 switch (value.Length)
@@ -335,13 +388,98 @@ namespace AsteriskMod
         }
         public float bgalpha
         {
-            get { return backgroundColor.a; }
-            set { bgcolor = new[] { backgroundColor.r, backgroundColor.g, backgroundColor.b, Mathf.Clamp01(value) }; }
+            get
+            {
+                CheckExists(true);
+                return backgroundColor.a;
+            }
+            set
+            {
+                bgcolor = new[] { backgroundColor.r, backgroundColor.g, backgroundColor.b, Mathf.Clamp01(value) };
+            }
         }
         public float bgalpha32
         {
-            get { return ((Color32)backgroundColor).a; }
-            set { bgalpha = value / 255; }
+            get
+            {
+                CheckExists(true);
+                return ((Color32)backgroundColor).a;
+            }
+            set
+            {
+                bgalpha = value / 255;
+            }
+        }
+
+        private void CheckExists(bool getting = false, bool move = false)
+        {
+            if (isactive) return;
+            if (move) throw new CYFException("Attempt to move a removed LifeBar object.");
+            throw new CYFException(getting ? "Attempt to get a parameter from a removed LifeBar object." : "Attempt to set a parameter to a removed LifeBar object.");
+        }
+
+        public bool isactive { get { return self != null; } }
+
+        public void Remove()
+        {
+            if (self == null) return;
+            if (isOriginal) throw new CYFException("Attempt to remove UI object.");
+            Object.Destroy(self.gameObject);
+            self = null;
+        }
+
+        public int x
+        {
+            get
+            {
+                CheckExists(true);
+                return Mathf.RoundToInt(relativePosition.x);
+            }
+            set
+            {
+                MoveTo(value, y);
+            }
+        }
+
+        public int y
+        {
+            get
+            {
+                CheckExists(true);
+                return Mathf.RoundToInt(relativePosition.y);
+            }
+            set
+            { 
+                MoveTo(x, value);
+            }
+        }
+
+        public int height
+        {
+            get
+            {
+                CheckExists(true);
+                return Mathf.RoundToInt(self.sizeDelta.y);
+            }
+            set
+            {
+                self.sizeDelta = new Vector2(self.sizeDelta.x, value);
+            }
+        }
+
+        public void Move(int x, int y)
+        {
+            CheckExists(false, true);
+            relativePosition += new Vector2(x, y);
+            self.anchoredPosition += new Vector2(x, y);
+        }
+
+        public void MoveTo(int newX, int newY)
+        {
+            CheckExists(false, true);
+            Vector2 initPos = self.anchoredPosition - relativePosition;
+            relativePosition = new Vector2(newX, newY);
+            self.anchoredPosition = initPos + relativePosition;
         }
         // --------------------------------------------------------------------------------
     }

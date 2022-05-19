@@ -4,15 +4,14 @@ namespace AsteriskMod
 {
     public class PlayerLoveText : MonoBehaviour
     {
-        public LimitedLuaStaticTextManager LoveTextMan { get; private set; }
+        public UIStaticTextManager LoveTextMan { get; private set; }
         private int nowLove;
 
         internal static PlayerLoveText instance;
 
         private void Awake()
         {
-            LoveTextMan = GetComponent<LimitedLuaStaticTextManager>();
-            LoveTextMan._SetText = SetText;
+            LoveTextMan = GetComponent<UIStaticTextManager>();
             instance = this;
         }
 

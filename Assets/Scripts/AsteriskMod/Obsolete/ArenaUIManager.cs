@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod
 {
-    // Be attached in Assets/Battle.Unity/Canvas/arena_container
+    // This was attached in Assets/Battle.Unity/Canvas/arena_container
     public class ArenaUIManager : MonoBehaviour
     {
         private GameObject border;

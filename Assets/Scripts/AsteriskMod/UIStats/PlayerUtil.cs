@@ -36,18 +36,19 @@ namespace AsteriskMod
             Stats.GetComponent<RectTransform>().anchoredPosition += add;
         }
 
-        public static void MoveTo()
-        {
-            Stats.GetComponent<RectTransform>().anchoredPosition -= relativePosition;
-            relativePosition = Vector2.zero;
-        }
-
         public static void MoveTo(int newX, int newY)
         {
             Vector2 initPos = Stats.GetComponent<RectTransform>().anchoredPosition - relativePosition;
             relativePosition = new Vector2(newX, newY);
             Stats.GetComponent<RectTransform>().anchoredPosition = initPos + relativePosition;
         }
+        /*
+        public static void MoveTo()
+        {
+            Stats.GetComponent<RectTransform>().anchoredPosition -= relativePosition;
+            relativePosition = Vector2.zero;
+        }
+        */
 
         public static void MoveToAbs(int newX, int newY)
         {
@@ -56,13 +57,15 @@ namespace AsteriskMod
             relativePosition = Stats.GetComponent<RectTransform>().anchoredPosition - initPos;
         }
 
-        public static LimitedLuaStaticTextManager Name { get { return PlayerNameText.instance.NameTextMan; } }
+        public static UIStaticTextManager Name { get { return PlayerNameText.instance.NameTextMan; } }
 
-        public static LimitedLuaStaticTextManager Love { get { return PlayerLoveText.instance.LoveTextMan; } }
+        public static UIStaticTextManager Love { get { return PlayerLoveText.instance.LoveTextMan; } }
+
+        public static LuaSpriteController HPLabel { get { return PlayerLifeUI.instance.HPLabel; } }
 
         public static PlayerLifeBar HPBar { get { return PlayerLifeUI.instance.LifeBar; } }
 
-        public static LimitedLuaStaticTextManager HPText { get { return PlayerLifeUI.instance.LifeTextMan; } }
+        public static UIStaticTextManager HPText { get { return PlayerLifeUI.instance.LifeTextMan; } }
 
         public static void SetControlOverride(bool active)
         {

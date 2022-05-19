@@ -17,9 +17,7 @@ namespace AsteriskMod
         //* private bool bubble = true; //* false
         //* private int framesWait = 60;
         //* private int countFrames;
-        /// <summary>めっちゃいらない。</summary>
         //* private int _bubbleHeight = -1;
-        /// <summary>めっちゃいらない。</summary>
         //* private BubbleSide bubbleSide = BubbleSide.NONE;
         //* private ProgressMode progress = ProgressMode.AUTO;
         private Color textColor;
@@ -42,7 +40,7 @@ namespace AsteriskMod
         protected override void Awake()
         {
             base.Awake();
-            if (!UnitaleUtil.IsOverworld)
+            if (!UnitaleUtil.IsOverworld && GetType() != typeof(UIStaticTextManager))
                 //* transform.parent.SetParent(GameObject.Find("TopLayer").transform);
                 transform.SetParent(GameObject.Find("TopLayer").transform);
             //* container = transform.parent.gameObject;
@@ -95,10 +93,10 @@ namespace AsteriskMod
                 throw new CYFException("Attempt to perform action on removed static text object.");
         }
 
-        public void DestroyText()
+        public virtual void DestroyText()
         {
             if (!isactive)
-                throw new CYFException("Attempt to remove a removed text object.");
+                throw new CYFException("Attempt to remove a removed static text object.");
             autoDestroyed = true;
             GameObject.Destroy(this.transform.parent.gameObject);
         }
@@ -451,7 +449,7 @@ namespace AsteriskMod
                 ResizeBubble();
         }
         */
-        public void SetText(string text)
+        public virtual void SetText(string text)
         {
             if (text == null)
                 throw new CYFException("StaticText.SetText: the text argument must be a simple string.");
@@ -744,6 +742,11 @@ namespace AsteriskMod
             return (int)AsteriskUtil.CalcTextHeight(this);
         }
 
+        public string text
+        {
+            get { return instantText.Text; }
+        }
+
         /*
         private readonly Dictionary<string, DynValue> vars = new Dictionary<string, DynValue>();
 
@@ -768,6 +771,5 @@ namespace AsteriskMod
             set { SetVar(key, value); }
         }
         */
-        // --------------------------------------------------------------------------------    }
     }
 }

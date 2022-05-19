@@ -1680,14 +1680,9 @@ public class UIController : MonoBehaviour {
         fightUI = GameObject.Find("FightUI").GetComponent<FightUIController>();
         fightUI.gameObject.SetActive(false);
 
-        // --------------------------------------------------------------------------------
-        //                          Asterisk Mod Modification
-        // --------------------------------------------------------------------------------
-        DevelopHint.ToDo("Delete");
-        //AsteriskMod.Lua.PlayerUtil.Initialize();
-        //LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
-        ArenaUIManager.Initialize();
-        // --------------------------------------------------------------------------------
+        //* AsteriskMod.Lua.PlayerUtil.Initialize();
+        //* LuaButtonController.Initialize(new Image[4] { fightButton, actButton, itemButton, mercyButton });
+        //* ArenaUIManager.Initialize();
 
         if (UnitaleUtil.firstErrorShown) return;
         encounter.CallOnSelfOrChildren("EncounterStarting");
@@ -1773,6 +1768,8 @@ public class UIController : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
+        ActionButtonManager.Test();
+
         //frameDebug++;
         stateSwitched = false;
         if (encounter.gameOverStance)

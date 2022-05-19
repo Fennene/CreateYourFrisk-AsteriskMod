@@ -24,9 +24,24 @@ public class LuaSpriteController {
     private float yScale = 1;                         // The Y scale of the sprite
     private Sprite originalSprite;                    // The original sprite
     [MoonSharpHidden] public KeyframeCollection keyframes;              // This variable is used to store an animation
-    [MoonSharpHidden] public string tag;                                // The tag of the sprite : "projectile", "enemy", "bubble", "letter" or "other"
+    [MoonSharpHidden] public string tag;                                // The tag of the sprite : "projectile", "enemy", "bubble", "letter", "ui"(Asterisk Mod Modification) or "other"
     private KeyframeCollection.LoopMode loop = KeyframeCollection.LoopMode.LOOP;
     [MoonSharpHidden] public static MoonSharp.Interpreter.Interop.IUserDataDescriptor data = UserData.GetDescriptorForType<LuaSpriteController>(true);
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private const string TAG_PROJECTILE = "projectile";
+    private const string TAG_ENEMY = "enemy";
+    private const string TAG_BUBBLE = "bubble";
+    private const string TAG_LETTER = "letter";
+    private const string TAG_OTHER = "other";
+    private const string TAG_UI = "ui";
+
+    private const string TAG_EVENT = "event";
+
+    [MoonSharpHidden] internal bool ignoreSet = false;
+    // --------------------------------------------------------------------------------
 
     //The name of the sprite
     public string spritename {
@@ -129,7 +144,12 @@ public class LuaSpriteController {
     // The original width of the sprite
     public float width {
         get {
-            if (tag == "letter")           return img.GetComponent<Image>().sprite.rect.width;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //if (tag == "letter")           return img.GetComponent<Image>().sprite.rect.width;
+            if (tag == TAG_LETTER)           return img.GetComponent<Image>().sprite.rect.width;
+            // --------------------------------------------------------------------------------
             if (img.GetComponent<Image>()) return img.GetComponent<Image>().mainTexture.width;
             return img.GetComponent<SpriteRenderer>().sprite.texture.width;
         }
@@ -138,7 +158,12 @@ public class LuaSpriteController {
     // The original height of the sprite
     public float height {
         get {
-            if (tag == "letter")           return img.GetComponent<Image>().sprite.rect.height;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //if (tag == "letter")           return img.GetComponent<Image>().sprite.rect.height;
+            if (tag == TAG_LETTER)           return img.GetComponent<Image>().sprite.rect.height;
+            // --------------------------------------------------------------------------------
             if (img.GetComponent<Image>()) return img.GetComponent<Image>().mainTexture.height;
             return img.GetComponent<SpriteRenderer>().sprite.texture.height;
         }
@@ -312,15 +337,35 @@ public class LuaSpriteController {
         // You can't get or set the layer on an enemy sprite
         get {
             Transform target = GetTarget();
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            /**
             if (tag == "bubble" || tag == "event" || tag == "letter")         return "none";
             if (tag == "projectile" && !target.parent.name.Contains("Layer")) return "BulletPool";
             if (tag == "enemy" && !target.parent.name.Contains("Layer"))      return "specialEnemyLayer";
+            */
+            if (tag == TAG_BUBBLE || tag == TAG_EVENT || tag == TAG_LETTER) return "none";
+            if (tag == TAG_PROJECTILE && !target.parent.name.Contains("Layer")) return "BulletPool";
+            if (tag == TAG_ENEMY && !target.parent.name.Contains("Layer")) return "specialEnemyLayer";
+            if (tag == TAG_UI && !target.parent.name.Contains("Layer")) return "specialStatsLayer";
+            // --------------------------------------------------------------------------------
             return target.parent.name.Substring(0, target.parent.name.Length - 5);
         } set {
             switch (tag) {
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                /*
                 case "event":  throw new CYFException("sprite.layer: Overworld events' layers can't be changed.");
                 case "bubble": throw new CYFException("sprite.layer: Bubbles' layers can't be changed.");
                 case "letter": throw new CYFException("sprite.layer: Letters' layers can't be changed.");
+                */
+                case TAG_EVENT:  throw new CYFException("sprite.layer: Overworld events' layers can't be changed.");
+                case TAG_BUBBLE: throw new CYFException("sprite.layer: Bubbles' layers can't be changed.");
+                case TAG_LETTER: throw new CYFException("sprite.layer: Letters' layers can't be changed.");
+                case TAG_UI: throw new CYFException("sprite.layer: UI' layers can't be changed.");
+                // --------------------------------------------------------------------------------
             }
 
             Transform target = GetTarget();
@@ -347,11 +392,23 @@ public class LuaSpriteController {
         img = i.gameObject;
         originalSprite = i.sprite;
         nativeSizeDelta = new Vector2(100, 100);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        /*
         if (img.GetComponent<Projectile>())                            tag = "projectile";
         else if (img.GetComponent<EnemyController>())                  tag = "enemy";
         else if (i.transform.parent != null)
             if (i.transform.parent.GetComponent<EnemyController>())    tag = "bubble";
             else                                                       tag = "other";
+        */
+        if (img.GetComponent<Projectile>())                            tag = TAG_PROJECTILE;
+        else if (img.GetComponent<EnemyController>())                  tag = TAG_ENEMY;
+        else if (i.transform.parent != null)
+            if (i.transform.parent.GetComponent<EnemyController>())    tag = TAG_BUBBLE;
+            else                                                       tag = TAG_OTHER;
+        if (img.name == "*HPLabel" || img.name == "*HPLabelCrate")     tag = TAG_UI;
+        // --------------------------------------------------------------------------------
         shader = new LuaSpriteShader("sprite", img);
     }
 
@@ -359,12 +416,22 @@ public class LuaSpriteController {
         img = i.gameObject;
         originalSprite = i.sprite;
         nativeSizeDelta = new Vector2(100, 100);
-        tag = "event";
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* tag = "event";
+        tag = TAG_EVENT;
+        // --------------------------------------------------------------------------------
         shader = new LuaSpriteShader("event", img);
     }
 
     // Changes the sprite of this instance
     public void Set(string name) {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (tag == TAG_UI && ignoreSet) return;
+        // --------------------------------------------------------------------------------
         // Change the sprite
         if (name == null)
             throw new CYFException("You can't set a sprite as nil!");
@@ -380,16 +447,32 @@ public class LuaSpriteController {
             nativeSizeDelta = new Vector2(imgtemp.sprite.texture.width, imgtemp.sprite.texture.height);
         }
         Scale(xScale, yScale);
-        if (tag == "projectile")
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //if (tag == "projectile")
+        if (tag == TAG_PROJECTILE)
+        // --------------------------------------------------------------------------------
             img.GetComponent<Projectile>().needUpdateTex = true;
     }
 
     // Sets the parent of a sprite.
     public void SetParent(LuaSpriteController parent) {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        /**
         if (parent == null)                                               throw new CYFException("sprite.SetParent() can't set null as the sprite's parent.");
         if (tag == "bubble")                                              throw new CYFException("sprite.SetParent() can not be used with bubbles.");
         if (tag == "event" || parent != null && parent.tag == "event")    throw new CYFException("sprite.SetParent() can not be used with an Overworld Event's sprite.");
         if (tag == "letter" ^ (parent != null && parent.tag == "letter")) throw new CYFException("sprite.SetParent() can not be used between letter sprites and other sprites.");
+        */
+        if (parent == null)                                                   throw new CYFException("sprite.SetParent() can't set null as the sprite's parent.");
+        if (tag == TAG_BUBBLE)                                                throw new CYFException("sprite.SetParent() can not be used with bubbles.");
+        if (tag == TAG_EVENT || parent != null && parent.tag == TAG_EVENT)    throw new CYFException("sprite.SetParent() can not be used with an Overworld Event's sprite.");
+        if (tag == TAG_LETTER ^ (parent != null && parent.tag == TAG_LETTER)) throw new CYFException("sprite.SetParent() can not be used between letter sprites and other sprites.");
+        if (tag == TAG_UI)                                                    throw new CYFException("sprite.SetParent() can not be used with UI.");
+        // --------------------------------------------------------------------------------
         try {
             GetTarget().SetParent(parent.img.transform);
             if (img.GetComponent<MaskImage>())
@@ -434,7 +517,12 @@ public class LuaSpriteController {
             img.GetComponent<Projectile>().needSizeRefresh = true;
         xScale = xs;
         yScale = ys;
-        if (tag == "letter") {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* if (tag == "letter") {
+        if (tag == TAG_LETTER) {
+        // --------------------------------------------------------------------------------
             nativeSizeDelta = new Vector2(img.GetComponent<Image>().sprite.rect.width, img.GetComponent<Image>().sprite.rect.height);
             img.GetComponent<RectTransform>().sizeDelta = new Vector2(nativeSizeDelta.x * Mathf.Abs(xScale), nativeSizeDelta.y * Mathf.Abs(yScale));
         } else if (img.GetComponent<Image>()) { // In battle
@@ -636,8 +724,14 @@ public class LuaSpriteController {
     [MoonSharpHidden] public MaskMode _masked;
     public void Mask(string mode) {
         switch (tag) {
-            case "event":  throw new CYFException("sprite.Mask: Can not be applied to Overworld Event sprites.");
-            case "letter": throw new CYFException("sprite.Mask: Can not be applied to Letter sprites.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //* case "event":  throw new CYFException("sprite.Mask: Can not be applied to Overworld Event sprites.");
+            //* case "letter": throw new CYFException("sprite.Mask: Can not be applied to Letter sprites.");
+            case TAG_EVENT:  throw new CYFException("sprite.Mask: Can not be applied to Overworld Event sprites.");
+            case TAG_LETTER: throw new CYFException("sprite.Mask: Can not be applied to Letter sprites.");
+            // --------------------------------------------------------------------------------
             default:       if (mode == null) throw new CYFException("sprite.Mask: No argument provided."); break;
 
         }
@@ -687,16 +781,31 @@ public class LuaSpriteController {
     public void Remove() {
         if (_img == null)
             return;
-        if (!GlobalControls.retroMode && tag == "projectile") {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* if (!GlobalControls.retroMode && tag == "projectile") {
+        if (!GlobalControls.retroMode && tag == TAG_PROJECTILE) {
+        // --------------------------------------------------------------------------------
             img.GetComponent<Projectile>().ctrl.Remove();
             return;
         }
 
         bool throwError = false;
-        if ((!GlobalControls.retroMode && img.gameObject.name == "player") || (!GlobalControls.retroMode && tag == "projectile") || tag == "enemy" || tag == "bubble") {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* if ((!GlobalControls.retroMode && img.gameObject.name == "player") || (!GlobalControls.retroMode && tag == "projectile") || tag == "enemy" || tag == "bubble") {
+        if ((!GlobalControls.retroMode && img.gameObject.name == "player") || (!GlobalControls.retroMode && tag == "projectile") || tag == TAG_ENEMY || tag == TAG_BUBBLE || tag == TAG_UI) {
+        // --------------------------------------------------------------------------------
             if (img.gameObject.name == "player")
                 throw new CYFException("sprite.Remove(): You can't remove the Player's sprite!");
-            if (tag == "projectile") {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //* if (tag == "projectile") {
+            if (tag == TAG_PROJECTILE) {
+            // --------------------------------------------------------------------------------
                 if (img.GetComponent<Projectile>().ctrl != null)
                     if (img.GetComponent<Projectile>().ctrl.isactive) throwError = true;
             } else                                                    throwError = true;
@@ -704,7 +813,12 @@ public class LuaSpriteController {
         if (throwError)
             throw new CYFException("sprite.Remove(): You can't remove a " + tag + "'s sprite!");
 
-        if (tag == "projectile") {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* if (tag == "projectile") {
+        if (tag == TAG_PROJECTILE) {
+        // --------------------------------------------------------------------------------
             Projectile[] pcs = img.GetComponentsInChildren<Projectile>();
             for (int i = 1; i < pcs.Length; i++)
                 pcs[i].ctrl.Remove();
@@ -715,7 +829,12 @@ public class LuaSpriteController {
     }
 
     public void Dust(bool playDust = true, bool removeObject = false) {
-        if (tag == "enemy" || tag == "bubble")
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* if (tag == "enemy" || tag == "bubble")
+        if (tag == TAG_ENEMY || tag == TAG_BUBBLE || tag == TAG_UI)
+        // --------------------------------------------------------------------------------
             throw new CYFException("sprite.Dust(): You can't dust a " + tag + "'s sprite!");
 
         GameObject go = Object.Instantiate(Resources.Load<GameObject>("Prefabs/MonsterDuster"));
@@ -754,7 +873,12 @@ public class LuaSpriteController {
                 nativeSizeDelta = new Vector2(imgtemp.sprite.texture.width, imgtemp.sprite.texture.height);
                 shader.UpdateTexture(imgtemp.sprite.texture);
                 Scale(xScale, yScale);
-                if (tag == "projectile")
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //* if (tag == "projectile")
+                if (tag == TAG_PROJECTILE)
+                // --------------------------------------------------------------------------------
                     img.GetComponent<Projectile>().needUpdateTex = true;
                 img.transform.rotation = rot;
             }
