@@ -8,11 +8,6 @@ namespace AsteriskMod
 
         public static float centerabsy { get { return ArenaManager.arenaCenter.y; } }
 
-        public static void SetBorderColor()
-        {
-            ArenaUI.SetBorderColor(new Color32(255, 255, 255, 255));
-        }
-
         public static void SetBorderColor(float r, float g, float b, float a = 1.0f)
         {
             ArenaUI.SetBorderColor(new Color(r, g, b, a));
@@ -23,10 +18,12 @@ namespace AsteriskMod
             ArenaUI.SetBorderColor(new Color32(r, g, b, a));
         }
 
-        public static void SetInnerColor()
+        /*
+        public static void SetBorderColor()
         {
-            ArenaUI.SetInnerColor(new Color32(0, 0, 0, 255));
+            ArenaUI.SetBorderColor(new Color32(255, 255, 255, 255));
         }
+        */
 
         public static void SetInnerColor(float r, float g, float b, float a = 1.0f)
         {
@@ -37,6 +34,14 @@ namespace AsteriskMod
         {
             ArenaUI.SetInnerColor(new Color32(r, g, b, a));
         }
+
+        /*
+        public static void SetInnerColor()
+        {
+            ArenaUI.SetInnerColor(new Color32(0, 0, 0, 255));
+        }
+        */
+
 
         public static int dialogtextx
         {
@@ -58,16 +63,17 @@ namespace AsteriskMod
             ArenaUI.SetMainTextPosition(newX, newY);
         }
 
+        public static void DialogTextMoveTo(int newX, int newY)
+        {
+            ArenaUI.SetMainTextPosition(newX, newY);
+        }
+        /*
         public static void DialogTextMoveTo()
         {
             ArenaUI.SetMainTextPosition(0, 0);
         }
         public static void SetDialogTextPosition() { DialogTextMoveTo(); }
-
-        public static void DialogTextMoveTo(int newX, int newY)
-        {
-            ArenaUI.SetMainTextPosition(newX, newY);
-        }
+        */
 
         public static char AsteriskChar
         {

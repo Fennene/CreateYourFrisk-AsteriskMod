@@ -212,7 +212,7 @@ it's w3c valid, at least
                 See <span class="term">button.MoveTo()</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColors(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
                 Sets colors of all button at the same time.<br>
                 Sets the button's color, as 3 or 4 values from 0 to 1.<br>
                 For example, ButtonUtil.SetColors(1.0, 0.0, 0.0) makes the button red.<br>
@@ -220,7 +220,7 @@ it's w3c valid, at least
                 The 4th value is the alpha (transparency) value of the button.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor32s(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
                 Sets colors of all button at the same time.<br>
                 Sets the button's color, as 3 or 4 integer values from 0 to 255.<br>
                 For example, ButtonUtil.SetColor32s(255, 0, 0) makes the button red.<br>
@@ -228,12 +228,24 @@ it's w3c valid, at least
                 The 4th value is the alpha (transparency) value of the button.
             </p>
             <p>
-                <br><span class="function">ButtonUtil.RevertAll(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.Show()</span>
+                Shows all button at the same time.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.Hide()</span>
+                Hides all button at the same time.
+            </p>
+            <p>
+                <br><span class="function">ButtonUtil.RevertAll(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true, <span class="asternew"></span> <span class="boolean"></span> revertActive = true)</span>
                 Revert the parameters of all button.<br>
-                <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">false</span>, 
-                positions of buttons will not be reverted.
+
+                <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">true</span>, 
+                positions of buttons will be reverted.<br>
+                <span class="asternew"></span> If <span class="term">revertActive</span> is <span class="term">true</span>, 
+                actives of buttons will be reverted.
                 <br><br>
-                <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.
+                <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.<br>
+                <span class="Asterisk052x"></span> <span class="term">revertActive</span> is always <span class="term">false</span>.
             </p>
 
             <br><hr>
@@ -296,7 +308,8 @@ it's w3c valid, at least
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="boolean"></span> button.isactive (read-only)</span>
-                Returns whether the button is active or inactive.
+                Returns whether the button is active or inactive.<br>
+                See also <span class="term">button.SetActive()</span>.
                 <br><br>
                 <span class="Asterisk052x"></span> checks the active by using <span class="term">button.GetActive()</span> instead of this.
             </p>
@@ -329,11 +342,18 @@ it's w3c valid, at least
                 Gets or sets a button's transparency, as a integer value from 0 to 255.
             </p>
             <p>
-                <br><span class="function">button.SetActive(<span class="boolean"></span> active)</span>
+                <br><span class="function">button.SetActive(<span class="boolean"></span> active, <span class="asternew"></span><span class="boolean"></span> changeVisibility = true)</span>
                 Either true or false. If false, a button disappear and the player can not select it.<br>
+                <font color="#DDD">The button's inactivating does NOT mean button's sprite and working will be removed.</font><br>
+                This means only whether the player can select or not.
+                <br><br>
                 <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
                 <br><br>
-                You should use <span class="term">button.alpha</span> just if you just wanna hide a button.
+                <span class="asternew"></span>If <span class="term">changeVisibility</span> is false, 
+                a button's sprite(texture) will not be appeared or disappeared with changing the active.
+                <br><br>
+                <span class="Asterisk052x"></span> <span class="term">changeVisibility</span> is always <span class="term">true</span>.
+                <!--You should use <span class="term">button.alpha</span> just if you just wanna hide a button.-->
             </p>
             <p>
                 <br><span class="function">button.SetSprite(<span class="string"></span> normalSpritePath, <span class="string"></span> overrideSpritePath, <span class="string"></span> prefix = <span class="asternew"></span>"UI/Buttons", <span class="asternew"></span> <span class="boolean"></span> autoResize = false)</span>
@@ -383,12 +403,23 @@ it's w3c valid, at least
                 <span class="Asterisk052x"></span> This function is <span class="AsteriskExperiment"></span>.
             </p>
             <p>
-                <br><span class="function">button.Revert(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true)</span>
+                <br><span class="function"><span class="asternew"></span> button.Show()</span>
+                Shows a button.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> button.Hide()</span>
+                Hides a button.
+            </p>
+            <p>
+                <br><span class="function">button.Revert(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true, <span class="asternew"></span><span class="boolean"></span> revertActive = true)</span>
                 Revert the all parameter of a button.<br>
-                <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">false</span>, 
-                positions of buttons will not be reverted.
+                <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">true</span>, 
+                the position of a button will be reverted.<br>
+                <span class="asternew"></span> If <span class="term">revertActive</span> is <span class="term">true</span>, 
+                the active of a button will be reverted.
                 <br><br>
-                <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.
+                <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.<br>
+                <span class="Asterisk052x"></span> <span class="term">revertActive</span> is always <span class="term">false</span>.
             </p>
 
             <br>

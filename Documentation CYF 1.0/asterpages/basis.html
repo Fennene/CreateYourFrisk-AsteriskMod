@@ -294,10 +294,16 @@ it's w3c valid, at least
                                 Add the function <span class="term">ButtonUtil.MoveTo()</span>
                             </li>
                             <li class="add">
-                                Add the function <span class="term">ButtonUtil.SetColors()</span>
+                                Add the function <span class="term">ButtonUtil.SetColor()</span>
                             </li>
                             <li class="add">
-                                Add the function <span class="term">ButtonUtil.SetColor32s()</span>
+                                Add the function <span class="term">ButtonUtil.SetColor32()</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">ButtonUtil.Show()</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">ButtonUtil.Hide()</span>
                             </li>
                         </ul>
                     </li>
@@ -317,10 +323,13 @@ it's w3c valid, at least
                                 The third argument <span class="term">prefix</span> in <span class="term">button.SetSprite()</span> is assgined <span class="term">"UI/Buttons"</span>.
                             </li>
                             <li>
+                                Add the second argument <span class="term">changeVisibility</span> in <span class="term">button.SetActive()</span>
+                            </li>
+                            <li>
                                 Add the fourth argument <span class="term">autoResize</span> in <span class="term">button.SetSprite()</span>
                             </li>
                             <li>
-                                Add the argument <span class="term">revertPosition</span> in <span class="term">button.Revert()</span>
+                                Add the argument <span class="term">revertPosition</span> and <span class="term">revertActive</span> in <span class="term">button.Revert()</span>
                             </li>
                             <li class="add">
                                 Add the parameter <span class="term">button.absx</span>.
@@ -355,6 +364,12 @@ it's w3c valid, at least
                             <li class="add">
                                 Add the function <span class="term">button.Scale()</span>.
                             </li>
+                            <li class="add">
+                                Add the function <span class="term">button.Show()</span>.
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">button.Hide()</span>.
+                            </li>
                         </ul>
                     </li>
                     <li class="modify">
@@ -366,12 +381,6 @@ it's w3c valid, at least
                             <li>
                                 Add the parameter <span class="term">ArenaUtil.AsteriskChar</span> instead of <span class="term">ArenaUtil.SetAsteriskChar()</span>
                             </li>
-                            <li>
-                                Resets the color of arena's border by calling <span class="term">ArenaUtil.SetBorderColor()</span> without any arguments.
-                            </li>
-                            <li>
-                                Resets the color of arena's inner by calling <span class="term">ArenaUtil.SetInnerColor()</span> without any arguments.
-                            </li>
                             <li class="add">
                                 Add the parameter <span class="term">ArenaUtil.dialogtextx</span>
                             </li>
@@ -381,12 +390,6 @@ it's w3c valid, at least
                             <li class="add">
                                 Add the function <span class="term">ArenaUtil.DialogTextMove()</span>
                             </li>
-                            <li class="add">
-                                Add the function <span class="term">ArenaUtil.DialogTextMoveTo()</span>
-                            </li>
-                            <li class="add">
-                                Add the parameter <span class="term">ArenaUtil.AsteriskChar</span>
-                            </li>
                             <li class="del">
                                 Delete the function <span class="term">ArenaUtil.SetStarChar()</span><br>
                                 (Please use <span class="term">ArenaUtil.AsteriskChar</span> instead of that.)
@@ -394,7 +397,7 @@ it's w3c valid, at least
                         </ul>
                     </li>
                     <li>
-                        Add <span class="term">The Engine Object</span>.<br>
+                        Add <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
                         <ul>
                             <li>
                                 Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetTargetFrameRate()</span>.
@@ -414,7 +417,7 @@ it's w3c valid, at least
                         </ul>
                     </li>
                     <li>
-                        Add the new content <span class="term">GameObject Modifying System</span>.
+                        Add the new content <span class="term"><a href="gms-basis.html">GameObject Modifying System</a></span>.
                         <ul>
                             <li>Add <span class="term">The GameObjectModifyingSystem(GMS) Object</span>.</li>
                             <li>Add <span class="term">The GameObject Object</span>.</li>

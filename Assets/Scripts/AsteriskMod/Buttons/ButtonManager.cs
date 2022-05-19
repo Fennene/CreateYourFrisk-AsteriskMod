@@ -193,7 +193,7 @@ namespace AsteriskMod
             }
         }
 
-        public void SetColors(float r, float g, float b, float a = 1)
+        public void SetColor(float r, float g, float b, float a = 1)
         {
             CheckInitialized();
             float[] color = new[] { r, g, b, a };
@@ -203,7 +203,7 @@ namespace AsteriskMod
             }
         }
 
-        public void SetColor32s(byte r, byte g, byte b, byte a = 255)
+        public void SetColor32(byte r, byte g, byte b, byte a = 255)
         {
             CheckInitialized();
             byte[] color32 = new[] { r, g, b, a };
@@ -213,12 +213,28 @@ namespace AsteriskMod
             }
         }
 
-        public void RevertAll(bool revertPosition = true)
+        public void Show()
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                ActionButtons[i].Show();
+            }
+        }
+
+        public void Hide()
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                ActionButtons[i].Hide();
+            }
+        }
+
+        public void RevertAll(bool revertPosition = true, bool revertActive = true)
         {
             CheckInitialized();
             for (var i = 0; i < 4; i++)
             {
-                ActionButtons[i].Revert(revertPosition);
+                ActionButtons[i].Revert(revertPosition, revertActive);
             }
         }
     }

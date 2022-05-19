@@ -81,11 +81,11 @@ namespace AsteriskMod
 
         public bool isactive { get; private set; }
 
-        public void SetActive(bool active)
+        public void SetActive(bool active, bool changeVisibility = true)
         {
             if (!active) _buttonManager.CheckInactivate(_buttonID);
             isactive = active;
-            _button.enabled = active;
+            if (changeVisibility) _button.enabled = active;
         }
 
         public void SetSprite(string normalSpritePath, string overrideSpritePath, string prefix = "UI/Buttons", bool autoResize = false)
@@ -107,6 +107,16 @@ namespace AsteriskMod
             {
                 _button.overrideSprite = _sprite;
             }
+        }
+
+        public void Show()
+        {
+            _button.enabled = true;
+        }
+
+        public void Hide()
+        {
+            _button.enabled = false;
         }
 
         internal Vector2 RelativePosition
@@ -169,6 +179,13 @@ namespace AsteriskMod
             RelativePosition = new Vector2(newX, newY);
             _button.GetComponent<RectTransform>().anchoredPosition = initPos + RelativePosition;
         }
+        /*
+        public void MoveTo()
+        {
+            _button.GetComponent<RectTransform>().anchoredPosition -= RelativePosition;
+            RelativePosition = Vector2.zero;
+        }
+        */
 
         private float ConvertToAbsX(float x) // I don't like this method, but I could not found better others.
         {
@@ -314,7 +331,7 @@ namespace AsteriskMod
             _gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(nativeSizeDelta.x * Mathf.Abs(xScale), nativeSizeDelta.y * Mathf.Abs(yScale));
         }
 
-        public void Revert(bool revertPosition = true)
+        public void Revert(bool revertPosition = true, bool revertActive = true)
         {
             // Revert Sprite
             SpriteUtil.SwapSpriteFromFile(_button, _normalSpritePath);
@@ -331,6 +348,12 @@ namespace AsteriskMod
                 RelativePosition = Vector2.zero;
                 RelativePlayerPosition = Vector2.zero;
                 playerabs = false;
+            }
+            // RevertActive
+            if (revertActive)
+            {
+                isactive = true;
+                _button.enabled = true;
             }
         }
 
