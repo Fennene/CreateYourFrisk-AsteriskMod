@@ -139,6 +139,8 @@ namespace AsteriskMod
                 return ActionButtons[0];
             }
         }
+        public ActionButton fight { get { return FIGHT; } }
+
         public ActionButton ACT
         {
             get
@@ -147,6 +149,8 @@ namespace AsteriskMod
                 return ActionButtons[1];
             }
         }
+        public ActionButton act { get { return ACT; } }
+
         public ActionButton ITEM
         {
             get
@@ -155,6 +159,8 @@ namespace AsteriskMod
                 return ActionButtons[2];
             }
         }
+        public ActionButton item { get { return ITEM; } }
+        
         public ActionButton MERCY
         {
             get
@@ -163,6 +169,8 @@ namespace AsteriskMod
                 return ActionButtons[3];
             }
         }
+        public ActionButton mercy { get { return MERCY; } }
+
         public ActionButton this[int luaButtonID]
         {
             get
