@@ -1536,7 +1536,13 @@ public class UIController : MonoBehaviour {
         int xMv = selection % 2; // remainder safe again, selection is never negative
         int yMv = selection / 2;
         // HACK: remove hardcoding of this sometime, ever... probably not happening lmao
-        PlayerController.instance.SetPosition(upperLeft.x + xMv * 256, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing, true);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //PlayerController.instance.SetPosition(upperLeft.x + xMv * 256, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing, true);
+        int xDistance = UnitaleUtil.IsOverworld ? 256 : 266;
+        PlayerController.instance.SetPosition(upperLeft.x + xMv * xDistance, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing, true);
+        // --------------------------------------------------------------------------------
     }
 
     private void Start() {

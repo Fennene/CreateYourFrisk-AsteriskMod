@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MoonSharp.Interpreter;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace AsteriskMod
@@ -44,6 +45,22 @@ namespace AsteriskMod
         public static Vector2 GetMainTextPosition()
         {
             return mainTextManPos;
+        }
+
+        public static Table GetMainTextLetters()
+        {
+            Table table = new Table(null);
+            int key = 0;
+            foreach (Image i in UIController.instance.mainTextManager.letterReferences)
+            {
+                if (i != null)
+                {
+                    key++;
+                    LuaSpriteController letter = new LuaSpriteController(i) { tag = "letter" };
+                    table.Set(key, UserData.Create(letter, LuaSpriteController.data));
+                }
+            }
+            return table;
         }
 
         public static void SetTextVolume(float value)

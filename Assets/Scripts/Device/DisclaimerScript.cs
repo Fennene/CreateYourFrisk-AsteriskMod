@@ -67,6 +67,11 @@ public class DisclaimerScript : MonoBehaviour {
             Version.GetComponent<Text>().text = "v" + GlobalControls.CYFversion + " *v" + Asterisk.ModVersion;
             // --------------------------------------------------------------------------------
         }
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        AsteriskEngine.SafeInitialize();
+        // --------------------------------------------------------------------------------
     }
 
     /// <summary>

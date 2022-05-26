@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MoonSharp.Interpreter;
+using UnityEngine;
 
 namespace AsteriskMod
 {
@@ -74,6 +75,11 @@ namespace AsteriskMod
         }
         public static void SetDialogTextPosition() { DialogTextMoveTo(); }
         */
+
+        public static DynValue GetDialogTextLetters()
+        {
+            return DynValue.NewTable(ArenaUI.GetMainTextLetters());
+        }
 
         public static char AsteriskChar
         {

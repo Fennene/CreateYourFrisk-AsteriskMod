@@ -81,6 +81,15 @@ namespace AsteriskMod
 
         public static bool AutoRemoveProjectiles { get; set; }
 
+        internal static void SafeInitialize()
+        {
+            ModTarget_AsteriskVersion = Asterisk.Versions.Unknwon;
+            LuaCodeStyle = new CodeStyle();
+            JapaneseStyleOption.Reset();
+            AsteriskChar = '*';
+            AutoRemoveProjectiles = true;
+        }
+
         public static void Initialize()
         {
             CYFEngine.Initialize();
