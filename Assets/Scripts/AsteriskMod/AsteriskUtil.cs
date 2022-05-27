@@ -12,6 +12,9 @@ namespace AsteriskMod
 {
     public static class AsteriskUtil
     {
+        public static bool IsCYFOverworld { get { return !GlobalControls.modDev; } }
+
+
         public static Languages ConvertToLanguage(string languageName, bool ignoreUnknown = true)
         {
             languageName = languageName.ToLower();
@@ -44,6 +47,20 @@ namespace AsteriskMod
             }
             return "???";
         }
+
+        public static string ConvertFromModVersionForLua(Asterisk.Versions version)
+        {
+            switch (version)
+            {
+                case Asterisk.Versions.InitialVersion:    return "v0.5";
+                case Asterisk.Versions.CustomStateUpdate: return "v0.5.2.7";
+                case Asterisk.Versions.UtilUpdate:        return "v0.5.2.8";
+                case Asterisk.Versions.QOLUpdate:         return  "0.5.2.9";
+                case Asterisk.Versions.TakeNewStepUpdate: return  "0.5.3";
+            }
+            return Asterisk.ModVersion;
+        }
+
 
         public static Languages SwitchLanguage()
         {

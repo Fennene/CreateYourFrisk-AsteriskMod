@@ -81,7 +81,7 @@ public static class LuaScriptBinder {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        AsteriskLuaScriptBinder.BoundScriptVariables(ref script);
+        AsteriskLuaScriptBinder.BoundScriptVariables(script);
         // --------------------------------------------------------------------------------
         if (!UnitaleUtil.IsOverworld) {
             script.Globals["CreateSprite"] = (Func<string, string, int, DynValue>)SpriteUtil.MakeIngameSprite;
@@ -99,7 +99,7 @@ public static class LuaScriptBinder {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            AsteriskLuaScriptBinder.BoundScriptFunctions(ref script);
+            AsteriskLuaScriptBinder.BoundScriptFunctions(script);
             // --------------------------------------------------------------------------------
 
             if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
@@ -153,7 +153,7 @@ public static class LuaScriptBinder {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        AsteriskLuaScriptBinder.BoundScriptUserDatas(ref script);
+        AsteriskLuaScriptBinder.BoundScriptUserDatas(script);
         // --------------------------------------------------------------------------------
         scriptlist.Add(script);
         return script;
@@ -172,6 +172,7 @@ public static class LuaScriptBinder {
             if (UIController.instance.frozenState != UIController.UIState.PAUSE) return UIController.instance.frozenState.ToString();
             if (UIController.instance.state == UIController.UIState.CUSTOMSTATE)
             {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) return UIController.instance.state.ToString();
                 string statename;
                 DataType _;
                 if (UIController.instance.encounter.TryGetTargetCustomStateName(out statename, out _))

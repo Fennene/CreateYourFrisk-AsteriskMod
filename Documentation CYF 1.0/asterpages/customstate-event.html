@@ -120,16 +120,20 @@ it's w3c valid, at least
 
             <p>
                 <br><span class="function">StateStarting(<span class="string"></span> oldState)</span>
-                Required.<br>
                 Happens once when entered CustomState. You should do createing sprites/projectiles/etc,
                 displaying text in dialog box or changing the player's visible if you want to that.
+                <br><br>
+                <span class="asternew"></span> This function is optional.<br>
+                <span class="Asterisk052x"></span> This function is required until AsteriskMod v0.5.2.9.
             </p>
 
             <p>
                 <br><span class="function">StateEnding(<span class="string"></span> newState)</span>
-                Required.<br>
                 Happens once when entered other state. You should remove sprites/projectiles 
                 if there are create sprites/projectiles/Arena/etc in <span class="term">StateStarting()</span>.
+                <br><br>
+                <span class="asternew"></span> This function is optional.<br>
+                <span class="Asterisk052x"></span> This function is required until AsteriskMod v0.5.2.9.
             </p>
 
             <p>

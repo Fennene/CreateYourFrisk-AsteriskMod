@@ -182,7 +182,8 @@ it's w3c valid, at least
             <br>
 
             <p>
-                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Name (Read-only)</span>
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Name (Read-only)<br></span>
+                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.nametext (Read-only)</span>
                 Returns propety of the text showing the Player's name, as a StaticText object.<br>
                 <font color="#DDD">
                     You can not use <span class="term">PlayerUtil.Name.Remove()</span> and 
@@ -191,7 +192,8 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Love (Read-only)</span>
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Love (Read-only)<br></span>
+                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.lovetext (Read-only)<br></span>
                 Returns propety of the text showing the Player's love, as a StaticText object.
                 <font color="#DDD">
                     You can not use <span class="term">PlayerUtil.Love.Remove()</span> and 
@@ -200,7 +202,8 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="userdata">sprite</span> PlayerUtil.HPLabel (Read-only)</span>
+                <br><span class="function"><span class="userdata">sprite</span> PlayerUtil.HPLabel (Read-only)<br></span>
+                or<span class="function"><span class="userdata">sprite</span> PlayerUtil.hplabel (Read-only)<br></span>
                 Returns propety of the objects written "HP", as a sprite object.<br>
                 <font color="#DDD">
                     You can not use <span class="term">PlayerUtil.HPLabel.Remove()</span> in this object.
@@ -211,11 +214,13 @@ it's w3c valid, at least
                 </font>
             </p>
             <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)</span>
+                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)<br></span>
+                or<span class="function"><span class="userdata">LifeBar</span> PlayerUtil.hpbar (Read-only)<br></span>
                 Returns propety of the bar objects showing the Player's HP, as a LifeBar object.
             </p>
             <p>
-                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)</span>
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)<br></span>
+                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.hptext (Read-only)<br></span>
                 Returns propety of the text showing the Player's HP, as a StaticText object.
                 <font color="#DDD">
                     You can not use <span class="term">PlayerUtil.HPText.Remove()</span> and 
@@ -353,7 +358,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.fillcolor</span></span>
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.fillcolor</span>
                 Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 1.
                 <br><br>
                 For example, <span class="term">lifeBar.fillcolor = {1.0, 1.0, 0.0}</span> colors the FillBar yellow.
@@ -361,7 +366,7 @@ it's w3c valid, at least
                 You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
             </p>
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.fillcolor32</span></span>
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.fillcolor32</span>
                 Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 255.
                 <br><br>
                 For example, <span class="term">lifeBar.fillcolor32 = {255, 255, 0}</span> colors the FillBar yellow.
@@ -369,16 +374,16 @@ it's w3c valid, at least
                 You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha</span></span>
+                <br><span class="function"><span class="number"></span> lifeBar.fillalpha</span>
                 Gets or sets a FillBar's transparency, as a value from 0 to 1.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha32</span></span>
+                <br><span class="function"><span class="number"></span> lifeBar.fillalpha32</span>
                 Gets or sets a FillBar's transparency, as a value from 0 to 255.
             </p>
 
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.bgcolor</span></span>
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.bgcolor</span>
                 Gets or sets the coloration of a BGBar, as a table of 3 or 4 values from 0 to 1.
                 <br><br>
                 For example, <span class="term">lifeBar.bgcolor = {1.0, 0.0, 0.0}</span> colors the BGBar red.
@@ -386,7 +391,7 @@ it's w3c valid, at least
                 You can provide a 4th value, which sets the alpha (transparency) of the BGBar.
             </p>
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.bgcolor32</span></span>
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.bgcolor32</span>
                 Gets or sets the coloration of a BGBar, as a table of 3 or 4 values from 0 to 255.
                 <br><br>
                 For example, <span class="term">lifeBar.bgcolor32 = {255, 0, 0}</span> colors the BGBar red.
@@ -394,23 +399,32 @@ it's w3c valid, at least
                 You can provide a 4th value, which sets the alpha (transparency) of the BGBar.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.bgalpha</span></span>
+                <br><span class="function"><span class="number"></span> lifeBar.bgalpha</span>
                 Gets or sets a BGBar's transparency, as a value from 0 to 1.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.bgalpha32</span></span>
+                <br><span class="function"><span class="number"></span> lifeBar.bgalpha32</span>
                 Gets or sets a BGBar's transparency, as a value from 0 to 255.
             </p>
 
             <p>
-                <br><span class="function"><span class="boolean"></span> lifeBar.isactive</span></span>
+                <br><span class="function"><span class="boolean"></span> lifeBar.isactive</span>
                 Tells you if a LifeBar object is active.
             </p>
             <p>
-                <br><span class="function">lifeBar.Remove()</span></span>
+                <br><span class="function">lifeBar.Remove()</span>
                 This function destroys a LifeBar object, similar to <span class="term">.Remove()</span> for bullets and sprites.
 
                 Trying to get, set or call almost anything besides <span class="term">LifeBar.isactive</span> on a destroyed LifeBar object will error.
+            </p>
+
+            <p>
+                <br><span class="function">lifeBar.SendToTop()</span>
+                Sends this bar to the top of its bar's hierarchy. This is same to <span class="term">sprite.SendToTop()</span>.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.SendToBottom()</span>
+                Sends this bar to the bottom of its bar's hierarchy. Similar rules apply as with <span class="term">SendToTop()</span>.
             </p>
 
             <br><br>
@@ -425,21 +439,21 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.x</span></span>
+                <br><span class="function"><span class="number"></span> lifeBar.x</span>
                 Horizontal position of lifeBar relative to the initial position.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.y</span></span>
+                <br><span class="function"><span class="number"></span> lifeBar.y</span>
                 Vertical position of lifeBar relative to the initial position.
             </p>
             <p>
-                <br><span class="function">lifeBar.Move(<span class="number"></span>x, <span class="number"></span> y)</span></span>
+                <br><span class="function">lifeBar.Move(<span class="number"></span>x, <span class="number"></span> y)</span>
                 Moves the lifeBar <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.
             </p>
             <p>
-                <br><span class="function">lifeBar.MoveTo(<span class="number"></span>x, <span class="number"></span> y)</span></span>
+                <br><span class="function">lifeBar.MoveTo(<span class="number"></span>x, <span class="number"></span> y)</span>
                 Same as setting x and y simultaneously.
                 <br><br>
                 See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.

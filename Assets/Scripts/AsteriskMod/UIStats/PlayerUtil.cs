@@ -58,14 +58,19 @@ namespace AsteriskMod
         }
 
         public static UIStaticTextManager Name { get { return PlayerNameText.instance.NameTextMan; } }
+        public static UIStaticTextManager nametext { get { return Name; } } // Could't name "name".
 
         public static UIStaticTextManager Love { get { return PlayerLoveText.instance.LoveTextMan; } }
+        public static UIStaticTextManager lovetext { get { return Love; } }
 
         public static LuaSpriteController HPLabel { get { return PlayerLifeUI.instance.HPLabel; } }
+        public static LuaSpriteController hplabel { get { return HPLabel; } }
 
         public static PlayerLifeBar HPBar { get { return PlayerLifeUI.instance.LifeBar; } }
+        public static PlayerLifeBar hpbar { get { return HPBar; } }
 
         public static UIStaticTextManager HPText { get { return PlayerLifeUI.instance.LifeTextMan; } }
+        public static UIStaticTextManager hptext { get { return HPText; } }
 
         public static void SetControlOverride(bool active)
         {

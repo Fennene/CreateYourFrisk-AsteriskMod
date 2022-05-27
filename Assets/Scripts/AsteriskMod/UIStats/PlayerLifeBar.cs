@@ -428,6 +428,18 @@ namespace AsteriskMod
             self = null;
         }
 
+        public void SendToTop()
+        {
+            CheckExists(false, true);
+            self.SetAsLastSibling();
+        }
+
+        public void SendToBottom()
+        {
+            CheckExists(false, true);
+            self.SetAsFirstSibling();
+        }
+
         public int x
         {
             get

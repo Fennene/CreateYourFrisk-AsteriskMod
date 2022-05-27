@@ -224,7 +224,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         string oldCustomState;
         string newCustomState;
-        if (state == UIState.CUSTOMSTATE)
+        if (state == UIState.CUSTOMSTATE && AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
         {
             oldCustomState = "*" + encounter.currentCustomStateName;
         }
@@ -232,7 +232,7 @@ public class UIController : MonoBehaviour {
         {
             oldCustomState = "CUSTOMSTATE";
         }
-        if (newState == UIState.CUSTOMSTATE)
+        if (newState == UIState.CUSTOMSTATE && AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
         {
             DataType _;
             if (encounter.TryGetTargetCustomStateName(out newCustomState, out _))
@@ -715,7 +715,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (state.StartsWith("*"))
+        if (state.StartsWith("*") && AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
         {
             EnemyEncounter.script.SetVar("customstatename", DynValue.NewString(state.TrimStart('*')));
             state = "CUSTOMSTATE";
@@ -1788,7 +1788,6 @@ public class UIController : MonoBehaviour {
             {
                 encounter.TryCall("FirstFrameUpdate");
             }
-            //AsteriskLuaScriptBinder.LateInitialize();
             firstFrameUpdate = false;
         }
         // --------------------------------------------------------------------------------

@@ -108,7 +108,7 @@ namespace AsteriskMod
                 if (i == buttonID) continue;
                 if (ActionButtons[i].isactive) return;
             }
-            throw new CYFException("button.SetActive(): Attempt to inactivate all button.");
+            throw new CYFException("button.SetActive(): Attempt to inactivate all buttons.");
         }
 
         private void CheckInitialized()
@@ -168,7 +168,7 @@ namespace AsteriskMod
         public void SetActives(bool fight = true, bool act = true, bool item = true, bool mercy = true)
         {
             CheckInitialized();
-            if (!(fight || act || item || mercy)) throw new CYFException("ButtonUtil.SetActives(): Attempt to inactivate all button.");
+            if (!(fight || act || item || mercy)) throw new CYFException("ButtonUtil.SetActives(): Attempt to inactivate all buttons.");
             ActionButtons[0].SetActive(fight);
             ActionButtons[1].SetActive(act);
             ActionButtons[2].SetActive(item);
@@ -187,6 +187,7 @@ namespace AsteriskMod
 
         public void Move(int x, int y)
         {
+            CheckInitialized();
             for (var i = 0; i < 4; i++)
             {
                 ActionButtons[i].Move(x, y);
@@ -195,6 +196,7 @@ namespace AsteriskMod
 
         public void MoveTo(int newX, int newY)
         {
+            CheckInitialized();
             for (var i = 0; i < 4; i++)
             {
                 ActionButtons[i].MoveTo(newX, newY);
@@ -223,6 +225,7 @@ namespace AsteriskMod
 
         public void Show()
         {
+            CheckInitialized();
             for (var i = 0; i < 4; i++)
             {
                 ActionButtons[i].Show();
@@ -231,6 +234,7 @@ namespace AsteriskMod
 
         public void Hide()
         {
+            CheckInitialized();
             for (var i = 0; i < 4; i++)
             {
                 ActionButtons[i].Hide();

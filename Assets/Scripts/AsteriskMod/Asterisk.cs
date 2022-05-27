@@ -63,7 +63,10 @@ namespace AsteriskMod
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
 
-        /// <summary>Initialize AsteriskMod's variables and Modify CYF's global variables</summary>
+        /// <summary>
+        /// Initialize AsteriskMod's variables and Modify CYF's global variables<br/>
+        /// AsteriskModの変数を初期化し、一部のCYFの変数の値を変更します。
+        /// </summary>
         public static void Initialize()
         {
             ControlPanel.instance.WindowBasisName = WindowBasisName;
@@ -75,9 +78,10 @@ namespace AsteriskMod
             optionProtecter = true;
             reportProtecter = true;
             displayModInfo = true;
+            AsteriskEngine.SafeInitialize();
         }
 
-        /// <summary>Load</summary>
+        /// <summary>AsteriskModのオプションを読み込みます。</summary>
         public static void Load()
         {
             if (LuaScriptBinder.GetAlMighty(null, OPTION_EXPERIMENT) != null && LuaScriptBinder.GetAlMighty(null, OPTION_EXPERIMENT).Type == DataType.Boolean)
@@ -112,6 +116,10 @@ namespace AsteriskMod
             Lang.Initialize();
         }
 
+        /// <summary>"Experimental Features"オプションが有効になっているかどうか調べます。<br/>有効になっていない場合はエラーを発生させます。</summary>
+        /// <param name="funcName">関数名 ()は不要。</param>
+        /// <param name="showError"><c>false</c>の場合エラーが発生しません。</param>
+        /// <returns>"Experiment Features"オプションが有効になっているかどうかを返します。</returns>
         public static bool RequireExperimentalFeature(string funcName, bool showError = true)
         {
             if (experimentMode) return true;

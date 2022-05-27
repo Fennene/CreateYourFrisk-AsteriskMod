@@ -63,7 +63,7 @@ it's w3c valid, at least
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li class="asternew"><a href="update-guide.html">Update Migration Guide</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
-                    <li class="asternew"><a href="api-statictext.html">The StaticText Object /<br>The LimitedStaticText Object</a></li>
+                    <li class="asternew"><a href="api-statictext.html">The StaticText Object</a></li>
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
@@ -72,8 +72,8 @@ it's w3c valid, at least
                     <li>CustomState:</li>
                     <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
-                    <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
-                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <li class="li-indent asternew"><a href="customstate-event.html">Available Events</a></li>
+                    <li class="li-indent asternew"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
                     <li><span class="asternew"></span>Japanese Localization<br>(日本語対応):</li>
                     <li class="li-indent asternew"><a href="jp-basis.html">基本</a></li>
                     <li><span class="asternew"></span>Gameobject Modifying System:</li>
@@ -201,7 +201,7 @@ it's w3c valid, at least
             <h3>Symbols in this document</h3><br><br>
 
             <p>
-                There are new 7 symbols in this documentaion and those means:<br>
+                There are new 5 symbols in this documentaion and those means:<br>
                 <ul>
                     <li>
                         <span class="Asterisk"></span> are only usable in AsteriskMod.
@@ -210,6 +210,7 @@ it's w3c valid, at least
                         <span class="AsteriskExperiment"></span> are only usable in AsteriskMod 
                         when "Experimental Features" is enabled.
                     </li><br>
+                    <!--
                     <li>
                         <span class="Delete"></span> means it may be deleted by Asterisk Mod v0.5.4.
                     </li><br>
@@ -219,6 +220,11 @@ it's w3c valid, at least
                     </li><br>
                     <li>
                         <span class="Future"></span> means it will be added in future update.
+                    </li>
+                    -->
+                    <li>
+                        <span class="Asterisk052x"></span> means it was deleted by Asterisk Mod v0.5.3.<br>
+                        That content was deleted and you can not use that in v0.5.3.
                     </li>
                     <li>
                         <span class="aster">Indicates <u>new or changed CYF's content</u> in Asterisk Mod.</span>
@@ -231,27 +237,40 @@ it's w3c valid, at least
 
             <hr>
 
-            <h3>About v0.5.3.x Update</h3>
+            <h3>About v0.5.3.x and Compatibility with previous version</h3>
 
             <p>
-                umm, if you see the GitHub page of this, you think that is very too f codes, don't you?<br>
-                Yeah, I THINK SO TOO.<br>
-                <br>
-                Actually; Initially, I was going to make Asterisk Mod as letterly the mod.<br>
-                That means I was gonna modify CYF's code by changing dll file.<br>
-                I have been trying to write Asterisk Mod's code to relate to original code as little as possible.<br>
-                However, that makes the codes complex and unreadable.<br>
-                <br>
-                Currently, I develop this mod with Unity not only source codes. I don't have to stick that method.<br>
-                Therefore I will clean up Asterisk Mod's code before I'll add v0.5.3's unique features.<br>
-                <br>
-                Accordingly to that, <font color="#FFF">I'll change the name of PlayerUtil's functions.</font><br>
-                That means v0.5.2.x is not compatible with v0.5.3.x.<br>
-                <br>
-                Wait.<br>
-                <br>
-                Think that why "<span class="term">target-version</span>" is added in this version.<br>
-                Yes! <font color="#FFF">If you set "target-version" correctly, I'll probably support it works in v0.5.3.x.</font>
+                The main purpose of v0.5.3 update is code-cleanup of AsteriskMod and more useful and concise from v0.5.2.x.<br>
+                In addition, there are Japanese-ization and Gameobject modifying system.
+                <br><br>
+                Due to the update, some CYF's original objects are changed new objects and 
+                some CYF's codes are removed and replaced to AsteriskMod's codes.
+                <br><br>
+                I upgraded the codes with considering prev version as possible.<br>
+                If you set <span class="term">target-version</span> in <span class="term">info.cyfmod</span> correctly, mods are probably worked as prev version.<br>
+                However I can't promiss to reenact prev version 100%.<br>
+                Actually, before v0.5.2.9 versions are NOT distinguish.
+                <br><br>
+                These compatibility mode is depended on mods, that is not like CYF's Retrocompatibility Mode. 
+                (This means that the players do not need to set some option.)
+                <br><br>
+                <font color="#FFF">If there's hardly mods made with before v0.5.3.x and I check that, I probably delete this compatibility.</font>
+                <br><br><br>
+                Well, I'll introduce some modification and addition of this update.<br>
+                (Concrete content of this update, see bottom of this page.)
+                <br><br>
+                <span class="term">The PlayerUtil Object</span> is almost changed. 
+                There's variable of UI instead of function's names.<br>
+                Moreover, We can change text's color of the player's name correctly. 
+                (Finnaly, I could not understand why issue has occurred.)<br>
+                <span class="term">The ButtonUtil object</span> and <span class="term">The button Object</span> is also added variables instead of removing functions and I added more useful variables and functions.<br>
+                Further, I add Japanese support!!
+                <br><br>
+                um, actually, there are more more updating content, but I can't write all in this page.
+                <br><br>
+                In the end, what I wanna say is
+                <br><br><br>
+                I'm glad if you enjoy.
             </p><br>
 
             <hr>
@@ -717,55 +736,46 @@ it's w3c valid, at least
             <p>
                 <ul class="rn">
                     <li class="fix">
-                        Fix the issue we can select inactive button by <span class="term">SetAction()</span>.
+                        Fix the issue that we can select inactive button by <span class="term">SetAction()</span>.
                     </li>
                     <li class="fix">
-                        Fix the issue soul select FIGHT Button even if FIGHT Button is inactive.
+                        Fix the issue that soul select FIGHT Button even if FIGHT Button is inactive.
                     </li>
                     <li>
-                        Add the variable <span class="term">sparetext</span>.
+                        Add the options.
+                        <ul>
+                            <li>Add the option <span class="term">Experiment Features</span>.</li>                            
+                        </ul>
                     </li>
                     <li>
-                        Add the variable <span class="term">fleetext</span>.
+                        Add the special variables.
+                        <ul>
+                            <li>Add the encounter variable <span class="term">sparetext</span>.</li>
+                            <li>Add the encounter variable <span class="term">fleetext</span>.</li>
+                            <li>Add the monster variable <span class="term">minibgcolor</span>.</li>
+                            <li>Add the monster variable <span class="term">bgcolor</span>.</li>
+                            <li>Add the monster variable <span class="term">fillcolor</span>.</li>
+                        </ul>
                     </li>
                     <li>
-                        Add the variable <span class="term">minibgcolor</span>.
+                        Add the game events.
+                        <ul>
+                            <li>Add the <span class="AsteriskExperiment"></span> game event <span class="term">BeforeEncounterEnding()</span>.</li>
+                            <li>Add the <span class="AsteriskExperiment"></span> game event <span class="term">OnActive()</span>.</li>                            
+                        </ul>
                     </li>
                     <li>
-                        Add the variable <span class="term">bgcolor</span>.
-                    </li>
-                    <li>
-                        Add the variable <span class="term">fillcolor</span>.
-                    </li>
-                    <li>
-                        Add the function <span class="term">Misc.CameraHorizontalReverse()</span>.
-                    </li>
-                    <li>
-                        Add the function <span class="term">Misc.CameraVerticalReverse()</span>.
-                    </li>
-                    <li>
-                        Add the function <span class="term">Misc.ResetCameraReverse()</span>.
-                    </li>
-                    <li>
-                        Add the parameter <span class="term">Misc.cameraRotation</span>.
-                    </li>
-                    <li>
-                        Add the variables controling the UI of enemy's life bar in Enemy Script.
+                        Add to <span class="term">The Misc Object</span>:
+                        <ul>
+                            <li>Add the parameter <span class="term">Misc.cameraRotation</span>.</li>
+                            <li>Add the function <span class="term">Misc.CameraHorizontalReverse()</span>.</li>
+                            <li>Add the function <span class="term">Misc.CameraVerticalReverse()</span>.</li>
+                            <li>Add the function <span class="term">Misc.ResetCameraReverse()</span>.</li>
+                        </ul>
                     </li>
                     <li>
                         Add <span class="term">Experimental Features</span>.<br>
                         <ul>
-                            <li>
-                                Add the option about experiment features.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">BeforeEncounterEnding()</span> 
-                                which run before ending encounter.
-                            </li>
-                            <li>
-                                Add the game event named <span class="term">OnActive()</span> 
-                                which run in called <span class="term">SetActive()</span>.
-                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -777,8 +787,15 @@ it's w3c valid, at least
             <p>
                 <ul class="rn">
                     <li>
-                        Add special variables <span class="term">isModifiedCYF</span>,
-                        <span class="term">Asterisk</span> and <span class="term">AsteriskVersion</span>.
+                        Starts Asterisk Mod.
+                    </li>
+                    <li>
+                        Add the special variables.
+                        <ul>
+                            <li>Add the variable <span class="term">isModifiedCYF</span>.</li>
+                            <li>Add the variable <span class="term">Asterisk</span>.</li>
+                            <li>Add the variable <span class="term">AsteriskVersion</span>.</li>
+                        </ul>
                     </li>
                     <li>
                         Add the game event named <span class="term">FirstFrameUpdate()</span>.

@@ -5,29 +5,24 @@ namespace AsteriskMod
 {
     public class UIStatsRelay : MonoBehaviour
     {
-        public static bool UseOriginalUIStats
-        {
-            get { return UnitaleUtil.IsOverworld; }
-        }
-
         private readonly string[] originalUINames = new[] { "NameLv", "HPRect" };
         private readonly string[] modifiedUINames = new[] { "*Name", "*Love", "*HPRect" };
 
         private void Awake()
         {
-            string[] disableTarget = UseOriginalUIStats ? modifiedUINames : originalUINames;
+            string[] disableTarget = AsteriskUtil.IsCYFOverworld ? modifiedUINames : originalUINames;
             foreach (string objName in disableTarget)
             {
                 Transform target = transform.Find(objName);
                 if (target == null) Debug.LogWarning("GameObject \"" + objName + "\" is not found.");
                 else target.gameObject.SetActive(false);
             }
-            GetComponent<UIStats>().enabled = UseOriginalUIStats;
+            GetComponent<UIStats>().enabled = AsteriskUtil.IsCYFOverworld;
         }
 
         public static void UpdatePlayerInfo(string newName, int newLv, bool instanceCheck = false)
         {
-            if (UseOriginalUIStats)
+            if (AsteriskUtil.IsCYFOverworld)
             {
                 if (!instanceCheck || UIStats.instance)
                 {
@@ -47,7 +42,7 @@ namespace AsteriskMod
 
         public static void UpdateHP(float hpCurrent, bool instanceCheck = false)
         {
-            if (UseOriginalUIStats)
+            if (AsteriskUtil.IsCYFOverworld)
             {
                 if (!instanceCheck || UIStats.instance)
                 {
@@ -63,7 +58,7 @@ namespace AsteriskMod
 
         public static void UpdateMaxHP(bool instanceCheck = false)
         {
-            if (UseOriginalUIStats)
+            if (AsteriskUtil.IsCYFOverworld)
             {
                 if (!instanceCheck || UIStats.instance)
                 {
@@ -79,7 +74,7 @@ namespace AsteriskMod
 
         public static void ChangeHPLabel(bool instanceCheck = false)
         {
-            if (UseOriginalUIStats)
+            if (AsteriskUtil.IsCYFOverworld)
             {
                 GameObject.Find("HPLabelCrate").GetComponent<Image>().enabled = true;
                 GameObject.Find("HPLabel").GetComponent<Image>().enabled = false;

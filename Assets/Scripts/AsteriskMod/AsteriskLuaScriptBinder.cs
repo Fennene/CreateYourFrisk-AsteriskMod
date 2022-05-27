@@ -36,22 +36,40 @@ namespace AsteriskMod
             UserData.RegisterType<Lua.LuaLifeBar>();
         }
 
-        public static void BoundScriptVariables(ref Script script)
+        public static void BoundScriptVariables(Script script)
         {
+            if (AsteriskUtil.IsCYFOverworld) return;
+
             script.Globals["retroMode"] = GlobalControls.retroMode;
 
+            /*
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
             script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
             script.Globals["Language"] = Asterisk.language.ToString();
+            */
+
+            script.Globals["isModifiedCYF"] = true;
+            script.Globals["Asterisk"] = true;
+            script.Globals["AsteriskVersion"] = AsteriskUtil.ConvertFromModVersionForLua(AsteriskEngine.ModTarget_AsteriskVersion);
+            script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
+
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
+            {
+                script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
+                script.Globals["Language"] = Asterisk.language.ToString();
+            }
         }
 
         private delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8);
 
-        public static void BoundScriptFunctions(ref Script script)
+        public static void BoundScriptFunctions(Script script)
         {
+            if (AsteriskUtil.IsCYFOverworld) return;
+
+            /*
             script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
             script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
@@ -63,11 +81,34 @@ namespace AsteriskMod
             script.Globals["SetJapaneseStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
             script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
             script.Globals["SetJPStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+            */
+
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
+            {
+                script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
+                script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
+                script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+            }
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
+            {
+                script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+                script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+
+                script.Globals["SetJapaneseMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+                script.Globals["SetJapaneseStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+                script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+                script.Globals["SetJPStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
+            }
+
+            if (AsteriskEngine.ModTarget_AsteriskVersion == Asterisk.Versions.QOLUpdate)
+            {
+                script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
+            }
         }
 
-        public static void BoundScriptUserDatas(ref Script script)
+        public static void BoundScriptUserDatas(Script script)
         {
-            if (UnitaleUtil.IsOverworld) return;
+            if (AsteriskUtil.IsCYFOverworld) return;
 
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
@@ -149,16 +190,6 @@ namespace AsteriskMod
         {
             return name != null && GameObject.Find((UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/") + name + "Layer") != null;
         }
-
-        /* v0.5.2.9
-        public static bool? IsEmptyLayer(string name)
-        {
-            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
-            if (name == null || GameObject.Find(canvas + name + "Layer") == null)
-                return null;
-            return GameObject.Find(canvas + name + "Layer").transform.childCount == 0;
-        }
-        */
 
         public static LuaStaticTextManager CreateStaticText(Script scr, string font, string text, DynValue position, int textWidth, string layer = "BelowPlayer", float? charspacing = null, float linespacing = 0)
         {
@@ -306,5 +337,18 @@ namespace AsteriskMod
             //PlayerUIManager.Instance.Request();
         }
         */
+
+
+        /// <summary>
+        /// //* Only v0.5.2.9
+        /// </summary>
+        public static bool? IsEmptyLayer(string name)
+        {
+            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
+            if (name == null || GameObject.Find(canvas + name + "Layer") == null)
+                return null;
+            return GameObject.Find(canvas + name + "Layer").transform.childCount == 0;
+        }
+
     }
 }

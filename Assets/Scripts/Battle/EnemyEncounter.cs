@@ -437,7 +437,7 @@ public class EnemyEncounter : MonoBehaviour {
         try
         {
             string oldstatename;
-            if (oldState == UIController.UIState.CUSTOMSTATE)
+            if (oldState == UIController.UIState.CUSTOMSTATE && AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
                 oldstatename = oldCustomState;
             else
                 oldstatename = oldState.ToString();
@@ -537,7 +537,7 @@ public class EnemyEncounter : MonoBehaviour {
         try
         {
             string newstatename;
-            if (newState == UIController.UIState.CUSTOMSTATE)
+            if (newState == UIController.UIState.CUSTOMSTATE && AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
                 newstatename = newCustomState;
             else
                 newstatename = newState.ToString();
