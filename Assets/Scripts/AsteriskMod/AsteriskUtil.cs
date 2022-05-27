@@ -12,7 +12,7 @@ namespace AsteriskMod
 {
     public static class AsteriskUtil
     {
-        public static Languages ConvertToLanguage(string languageName)
+        public static Languages ConvertToLanguage(string languageName, bool ignoreUnknown = true)
         {
             languageName = languageName.ToLower();
             switch (languageName)
@@ -30,7 +30,7 @@ namespace AsteriskMod
                 case "english":
                     return Languages.English;
             }
-            return Languages.English;
+            return ignoreUnknown ? Languages.English : Languages.Unknown;
         }
 
         public static string ConvertFromLanguage(Languages language, bool shortName = true)

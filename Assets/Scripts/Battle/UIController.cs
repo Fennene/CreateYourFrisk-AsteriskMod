@@ -1774,8 +1774,6 @@ public class UIController : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
-        ActionButtonManager.Test();
-
         //frameDebug++;
         stateSwitched = false;
         if (encounter.gameOverStance)

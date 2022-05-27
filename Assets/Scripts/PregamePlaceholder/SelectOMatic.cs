@@ -37,6 +37,7 @@ public class SelectOMatic : MonoBehaviour {
 
     public GameObject     ModDescShadow,     ModDesc, ExistDescInfoShadow, ExistDescInfo;
     public GameObject AnimModDescShadow, AnimModDesc;
+    public GameObject ENLabelShadow, ENLabel, JPLabelShadow, JPLabel, RetroWarningTextShadow, RetroWarningText;
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -73,7 +74,7 @@ public class SelectOMatic : MonoBehaviour {
         modInfos = new List<ModInfo>();
         for (var i = 0; i < modDirs.Count; i++)
         {
-            modInfos.Add(ModInfo.LoadFile(modDirs[i].Name, "info.cyfmod"));
+            modInfos.Add(ModInfo.Get(modDirs[i].Name));
         }
         // --------------------------------------------------------------------------------
 
@@ -314,6 +315,69 @@ public class SelectOMatic : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         ModInfo info = modInfos[id];
+        // Languages
+        if (info.supportedLanguages[0]) // English
+        {
+            ENLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
+            ENLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
+        }
+        else
+        {
+            ENLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
+            ENLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
+        }
+        if (info.supportedLanguages[1]) // Japanese
+        {
+            JPLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
+            JPLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
+        }
+        else
+        {
+            JPLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
+            JPLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
+        }
+        // Change encounter count
+        if (encounters.Count > 1 && (!Asterisk.displayModInfo || info.subtitle == ""))
+        {
+            int count = encounters.Count;
+            //List<string> showEncounters = new List<string>();
+            if (info.showEncounters.Length > 0)
+            {
+                count = 0;
+                foreach (string encounterFileName in encounters)
+                {
+                    if (info.showEncounters.Contains(encounterFileName)) count++;
+                }
+            }
+            else if (info.hideEncounters.Length > 0)
+            {
+                foreach (string encounterFileName in encounters)
+                {
+                    if (info.hideEncounters.Contains(encounterFileName)) count--;
+                }
+            }
+            if (count > 0)
+            {
+                EncounterCount.GetComponent<Text>().text = "Has " + count + " encounter" + (count > 1 ? "s" : "");
+                if (GlobalControls.crate)
+                    EncounterCount.GetComponent<Text>().text = "HSA " + count + " ENCUOTNER" + (count > 1 ? "S" : "");
+            }
+        }
+        // RetroModeCheck
+        /**
+        if (info.retroMode.HasValue)
+        {
+            RetroWarningTextShadow.GetComponent<Text>().enabled = (info.retroMode.Value ^ GlobalControls.retroMode);
+            RetroWarningText      .GetComponent<Text>().enabled = (info.retroMode.Value ^ GlobalControls.retroMode);
+            RetroWarningTextShadow.GetComponent<Text>().text = "! You should " + (info.retroMode.Value ? "enable" : "disable") + " Retrocompatibility Mode in CYF option !";
+            RetroWarningText      .GetComponent<Text>().text = "! You should " + (info.retroMode.Value ? "enable" : "disable") + " Retrocompatibility Mode in CYF option !";
+        }
+        else
+        {
+            RetroWarningTextShadow.GetComponent<Text>().enabled = false;
+            RetroWarningText      .GetComponent<Text>().enabled = false;
+        }
+        */
         // Set Font
         Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
         ModTitleShadow.GetComponent<Text>().font = font;
@@ -460,6 +524,12 @@ public class SelectOMatic : MonoBehaviour {
                 OptionsShadow.color = new Color(0f, 0f, 0f, OptionsButtonAlpha);
             }
         }
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (SelectOMaticOptionManager.opened) return;
+        // --------------------------------------------------------------------------------
 
         // Controls:
 
@@ -622,9 +692,49 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        Font font = Resources.Load<Font>("Fonts/" + ((modInfos[CurrentSelectedMod].font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
+        //int actualCount = 0;
+        ModInfo info = modInfos[CurrentSelectedMod];
+        Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
+        bool needCheck = (info.showEncounters.Length > 0 || info.hideEncounters.Length > 0);
+        if (needCheck)
+        {
+            int safeCheckCounter = encounterFiles.Length;
+            if (info.showEncounters.Length > 0)
+            {
+                safeCheckCounter = 0;
+                foreach (FileInfo encounterFileName in encounterFiles)
+                {
+                    if (info.showEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter++;
+                }
+            }
+            else if (info.hideEncounters.Length > 0)
+            {
+                foreach (FileInfo encounterFileName in encounterFiles)
+                {
+                    if (info.hideEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter--;
+                }
+            }
+            needCheck = (safeCheckCounter > 0);
+        }
         // --------------------------------------------------------------------------------
         foreach (FileInfo encounter in encounterFiles) {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //actualCount++;
+            if (needCheck)
+            {
+                string encounterName = Path.GetFileNameWithoutExtension(encounter.Name);
+                if (info.showEncounters.Length > 0)
+                {
+                    if (!info.showEncounters.Contains(encounterName)) continue;
+                }
+                else if (info.hideEncounters.Length > 0)
+                {
+                    if (info.hideEncounters.Contains(encounterName)) continue;
+                }
+            }
+            // --------------------------------------------------------------------------------
             count += 1;
 
             //create a button for each encounter file
@@ -656,7 +766,12 @@ public class SelectOMatic : MonoBehaviour {
             //finally, set function!
             string filename = Path.GetFileNameWithoutExtension(encounter.Name);
 
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
             int tempCount = count;
+            //int tempCount = actualCount;
+            // --------------------------------------------------------------------------------
 
             button.GetComponent<Button>().onClick.RemoveAllListeners();
             button.GetComponent<Button>().onClick.AddListener(() => {

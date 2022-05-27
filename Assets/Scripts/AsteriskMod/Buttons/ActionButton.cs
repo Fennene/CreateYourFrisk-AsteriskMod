@@ -58,14 +58,6 @@ namespace AsteriskMod
             _button.overrideSprite = null;
         }
 
-#if UNITY_EDITOR
-        [MoonSharpHidden]
-        internal bool Test()
-        {
-            return _button.overrideSprite != null;
-        }
-#endif
-
         // --------------------------------------------------------------------------------
         //                            Asterisk Mod Features
         // --------------------------------------------------------------------------------

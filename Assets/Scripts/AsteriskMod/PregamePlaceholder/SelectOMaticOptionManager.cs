@@ -56,6 +56,7 @@ namespace AsteriskMod
             {
                 events = _selectOMatic.ModBackground.GetComponent<Button>().onClick;
                 _selectOMatic.ModBackground.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
+                _selectOMatic.ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
                 _selectOMatic.ModBackground.GetComponent<Button>().onClick.AddListener(() => ToggleOptionSelectWindow());
                 _selectOMatic.OptionsText.text = GlobalControls.crate ? "CLOES →" : "Close →";
             }
@@ -131,6 +132,9 @@ namespace AsteriskMod
             }
             descName.GetComponent<Text>().text = descriptionTitle;
             descDesc.GetComponent<Text>().text = description;
+
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+                ToggleOptionSelectWindow();
         }
     }
 }

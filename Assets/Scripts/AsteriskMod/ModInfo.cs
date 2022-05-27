@@ -13,23 +13,42 @@ namespace AsteriskMod
 
     public class ModInfo
     {
+        public Asterisk.Versions targetVersion;
+        public bool[] supportedLanguages;
+        public string[] showEncounters;
+        public string[] hideEncounters;
+        public bool? retroMode;
+        public string[] environmentPathes;
+
         public string title;
         public string subtitle;
         public string description;
         public TextAnchor descAnchor;
         public DisplayFont font;
         public Color bgColor;
-        public Asterisk.Versions targetVersion;
+
+        public const string MODINFO_FILE_NAME = "info.cyfmod";
 
         public ModInfo()
         {
+            targetVersion = Asterisk.Versions.Unknwon;
+            supportedLanguages = new bool[2] { false, false };
+            showEncounters = new string[0];
+            hideEncounters = new string[0];
+            retroMode = null;
+            environmentPathes = new string[0];
+
             title = "";
             subtitle = "";
             description = "";
             descAnchor = TextAnchor.UpperLeft;
             font = DisplayFont.PixelOperator;
             bgColor = new Color32(255, 255, 255, 64);
-            targetVersion = Asterisk.Versions.Unknwon;
+        }
+
+        public static ModInfo Get(string modDirName)
+        {
+            return Load(modDirName, MODINFO_FILE_NAME);
         }
 
         private static bool IgnoreFile(string fullpath)
@@ -37,31 +56,99 @@ namespace AsteriskMod
             return !File.Exists(fullpath) || new FileInfo(fullpath).Length > 1024 * 1024; // 1MB
         }
 
-        public static ModInfo LoadFile(string modName, string path)
+        private static string[] ConvertToArray(string text)
+        {
+            if (!text.StartsWith("{")) return new string[0];
+            if (!text.EndsWith("}"))   return new string[0];
+            string[] ret = text.TrimStart('{').TrimEnd('}').Split(',');
+            for (var i = 0; i < ret.Length; i++)
+            {
+                ret[i] = ret[i].Trim().Replace("\"", "");
+            }
+            return ret;
+        }
+
+        private static bool? ConvertToNullableBoolean(string text)
+        {
+            text = text.ToLower();
+            if (text == "true") return true;
+            if (text == "false") return false;
+            return null;
+        }
+
+        private static ModInfo Load(string modDirName, string filePath)
         {
             ModInfo info = new ModInfo();
-            path = Path.Combine(FileLoader.DataRoot, "Mods/" + modName + "/" + path);
+            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + filePath);
             if (IgnoreFile(path)) return info;
-            string descFilePath = "";
+            string descriptionFilePath = "";
             try
             {
                 foreach (string l in File.ReadAllLines(path))
                 {
                     string line = l.Replace("\r", "").Replace("\n", "");
                     if (line.StartsWith(";")) continue;
-                    if (!line.Contains("=")) continue;
+                    if (!line.Contains("=")) continue; // throw new Exception("Illegal info.cyfmod");
                     string[] _ = line.Split(new char[1] { '=' }, 2);
                     string key = _[0].ToLower().Replace("_", "-").Trim();
                     string parameter = _[1].Replace("\"", "").Trim();
                     switch (key)
                     {
+                        case "target-version":
+                        case "target":
+                            info.targetVersion = Asterisk.ConvertToModVersion(parameter);
+                            break;
+                        case "supported-languages":
+                        //case "supported-language":
+                        case "languages":
+                        //case "language":
+                        case "localization":
+                            foreach (string langText in ConvertToArray(parameter))
+                            {
+                                Languages lang = AsteriskUtil.ConvertToLanguage(langText, false);
+                                if (lang == Languages.Unknown) continue;
+                                if (lang == Languages.English)  info.supportedLanguages[0] = true;
+                                if (lang == Languages.Japanese) info.supportedLanguages[1] = true;
+                            }
+                            break;
+                        case "show":
+                        case "show-encounters":
+                            //case "show-encounter":
+                            if (info.hideEncounters.Length > 0) info.hideEncounters = new string[0];
+                            info.showEncounters = ConvertToArray(parameter);
+                            break;
+                        case "hide":
+                        case "hide-encounters":
+                        //case "hide-encounter":
+                            if (info.showEncounters.Length > 0) continue; // Showキーの優先
+                            info.hideEncounters = ConvertToArray(parameter);
+                            break;
+                        case "retro-mode":
+                        case "retro":
+                            info.retroMode = ConvertToNullableBoolean(parameter);
+                            break;
+                        case "env-path":
+                        case "env-pathes":
+                        //case "environment-path":
+                        case "environment-pathes":
+                        case "lib-path":
+                        case "lib-pathes":
+                        //case "library-path":
+                        case "library-pathes":
+                            info.environmentPathes = ConvertToArray(parameter);
+                            break;
+
                         case "title":
                         case "name":
+                        case "mod-name":
                             info.title = parameter;
                             break;
                         case "subtitle":
                         case "sub-title":
                             info.subtitle = parameter;
+                            break;
+                        case "author":
+                            info.subtitle = (parameter.StartsWith("by ") ? "" : "by ") + parameter;
                             break;
                         case "description":
                         case "desc":
@@ -70,7 +157,7 @@ namespace AsteriskMod
                         case "description-file":
                         case "desc-file":
                         case "descfile":
-                            descFilePath = parameter;
+                            descriptionFilePath = parameter;
                             break;
                         case "description-align":
                         case "align":
@@ -103,20 +190,16 @@ namespace AsteriskMod
                             if (byte.TryParse(parameter, out alpha32))
                                 info.bgColor = new Color32(255, 255, 255, alpha32);
                             break;
-                        case "target-version":
-                        case "target":
-                            info.targetVersion = Asterisk.ConvertToModVersion(parameter);
-                            break;
                     }
                 }
             }
             catch { /* ignore */ }
-            if (descFilePath == "" || descFilePath.Contains("..")) return info;
-            descFilePath = Path.Combine(FileLoader.DataRoot, "Mods/" + modName + "/" + descFilePath);
-            if (IgnoreFile(descFilePath)) return info;
+            if (descriptionFilePath == "" || descriptionFilePath.Contains("..")) return info;
+            descriptionFilePath = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + descriptionFilePath);
+            if (IgnoreFile(descriptionFilePath)) return info;
             try
             {
-                info.description = File.ReadAllText(descFilePath);
+                info.description = File.ReadAllText(descriptionFilePath);
             }
             catch { /* ignore */ }
             return info;

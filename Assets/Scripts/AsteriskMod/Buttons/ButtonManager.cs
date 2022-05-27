@@ -94,22 +94,6 @@ namespace AsteriskMod
             return vector;
         }
 
-#if UNITY_EDITOR
-        [MoonSharpHidden]
-        internal void Test()
-        {
-            string[] names = new[] { "FIGHT", "ACT", "ITEM", "MERCY" };
-            string log = "";
-            for (var i = 0; i < 4; i++)
-            {
-                log += names[i] + "'s active: ";
-                log += ActionButtons[i].Test();
-                log += "  ";
-            }
-            Debug.Log(log);
-        }
-#endif
-
         // --------------------------------------------------------------------------------
         //                            Asterisk Mod Features
         // --------------------------------------------------------------------------------

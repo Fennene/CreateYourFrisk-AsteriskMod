@@ -3,6 +3,7 @@
     public enum Languages
     {
         English,
-        Japanese
+        Japanese,
+        Unknown
     }
 }
