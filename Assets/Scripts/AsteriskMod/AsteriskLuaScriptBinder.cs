@@ -10,19 +10,20 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
+            UserData.RegisterType<CYFEngine>();
             UserData.RegisterType<ActionButton>();
             UserData.RegisterType<ButtonManager>();
             UserData.RegisterType<PlayerUtil>();
-            UserData.RegisterType<ArenaUtil>();
-
             UserData.RegisterType<PlayerLifeBar>();
+            UserData.RegisterType<LuaStaticTextManager>();
+            UserData.RegisterType<UIStaticTextManager>();
+            UserData.RegisterType<ArenaUtil>();
+            UserData.RegisterType<StateEditor>();
+            UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
+
             UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
-            UserData.RegisterType<CYFEngine>();
-            UserData.RegisterType<LuaStaticTextManager>();
-            UserData.RegisterType<UIStaticTextManager>();
-            UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
 
             UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();
             UserData.RegisterType<ExtendedUtil.LuaStringUtil>();
@@ -53,12 +54,12 @@ namespace AsteriskMod
 
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
+            script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
             script.Globals["AsteriskVersion"] = AsteriskUtil.ConvertFromModVersionForLua(AsteriskEngine.ModTarget_AsteriskVersion);
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
 
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
-                script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
                 script.Globals["Language"] = Asterisk.language.ToString();
             }
         }
@@ -113,26 +114,22 @@ namespace AsteriskMod
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
                 DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
-                script.Globals.Set(AsteriskEngine.LuaCodeStyle.buttonUtilName, buttonUtil);
+                script.Globals.Set("ButtonUtil", buttonUtil);
                 DynValue playerUtil = UserData.Create(PlayerUtil.Instance);
-                script.Globals.Set(AsteriskEngine.LuaCodeStyle.playerUtilName, playerUtil);
+                script.Globals.Set("PlayerUtil", playerUtil);
                 DynValue arenaUtil = UserData.Create(new ArenaUtil());
-                script.Globals.Set(AsteriskEngine.LuaCodeStyle.arenaUtilName, arenaUtil);
+                script.Globals.Set("ArenaUtil", arenaUtil);
 
-                DynValue playerUtil_old = UserData.Create(new Lua.PlayerUtil());
-                script.Globals.Set("OldPlayerUtil", playerUtil_old);
-                DynValue arenaUtil_old = UserData.Create(new Lua.ArenaUtil());
-                script.Globals.Set("OldArenaUtil", arenaUtil_old);
+                DynValue engine = UserData.Create(new CYFEngine());
+                script.Globals.Set("Engine", engine);
+                DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
+                script.Globals.Set("JPStyle", jpstyle);
 
                 GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
                 //if (goms == null) goms = new GameObjectModifyingSystem();
                 DynValue gms = UserData.Create(goms);
                 script.Globals.Set("GameObjectModifyingSystem", gms);
                 script.Globals.Set("GMS", gms);
-                DynValue engine = UserData.Create(new CYFEngine());
-                script.Globals.Set("Engine", engine);
-                DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
-                script.Globals.Set("JPStyle", jpstyle);
 
                 if (AsteriskEngine.LuaCodeStyle.moreUtil)
                 {
@@ -148,7 +145,6 @@ namespace AsteriskMod
                 Lua.LuaButtonController.Initialize();
                 DynValue oldButtonUtil = UserData.Create(new Lua.LuaButtonController());
                 script.Globals.Set("ButtonUtil", oldButtonUtil);
-
                 DynValue obs_playerUtil = UserData.Create(new Lua.PlayerUtil());
                 script.Globals.Set("PlayerUtil", obs_playerUtil);
                 DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());
@@ -339,9 +335,7 @@ namespace AsteriskMod
         */
 
 
-        /// <summary>
-        /// //* Only v0.5.2.9
-        /// </summary>
+        [ToDo("for only v0.5.2.9  I wanna delete.")]
         public static bool? IsEmptyLayer(string name)
         {
             string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";

@@ -291,6 +291,21 @@ namespace AsteriskMod
             fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * 1.2f, fill.rectTransform.offsetMin.y);
         }
 
+        [MoonSharpHidden]
+        internal void LegacySetHP(float newHP, float newMaxHP)
+        {
+            float maxHP = Mathf.Min(newMaxHP, 100);
+
+            // Set Current HP
+            _hp = newHP;
+            float hpMax = maxHP,
+                  hpFrac = newHP / hpMax;
+            currentFill = hpFrac;
+            desiredFill = hpFrac;
+            if (hpFrac > 1) hpFrac = 1;
+            fill.rectTransform.offsetMax = new Vector2(-(maxHP * (1 - hpFrac)) * 1.2f, fill.rectTransform.offsetMin.y);
+        }
+
         public float[] fillcolor
         {
             get

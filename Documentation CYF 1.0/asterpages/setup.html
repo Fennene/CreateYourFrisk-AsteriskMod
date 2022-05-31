@@ -123,46 +123,56 @@ it's w3c valid, at least
 
             <br><hr>
 
-            <h3>Your Mod's Information</h3><br><br>
+            <h3>Mod's Information</h3><br><br>
 
             <p>
-                Asterisk Mod adds the way to add a description of your own mod.<br><br>
-                span> You can see the description by pressing V key.<br>
+                <span class="asternew"></span> This setup is important for the compatibility with prev AsteriskMod's version.<br>
+                Furthermore, you can add a description and change mod's title by using this.<br>
+                This is not required feature, but I recommend to setup this.
             </p><br>
 
+            <!--
             <p>
-                If you add the description of your mod, you should do that:<br>
-                <ol>
-                    <li>
-                        prepare a text file written the description.
-                    </li>
-                    <li>
-                        Put it somewhere in your own mod.
-                    </li>
-                    <li>
-                        Create a file named <span class="term">info.cyfmod</span> directly under the directory of your mod.
-                    </li>
-                    <li>
-                        Write <span class="term">descfile="[the path of the text file]"</span> to info.cyfmod
-                    </li>
-                </ol><br>
-                Note that the engine will NOT read the files (<span class="term">info.cyfmod</span> and specified files in it) are over 1MB.
+                You can see the description by pressing V key.<br>
             </p><br>
+            -->
 
             <p>
+                Basically what you should do is make a file and write parameters in it.
+                <br><br>
+                At first, create a file named "<span class="term">info.cyfmod</span>" in your mod's root folder.<br>
                 For example:<br>
             <div class="code-container">
 <pre class="brush: lua;">
--- files:
+-- directory:
 YOURMOD
 ├─ Audio
 ├─ Lua
 ├─ Sounds
 ├─ Sprites
-├─ description.txt -- <= 1MB
-└─ info.cyfmod -- <= 1MB
+└─ info.cyfmod -- this
 </pre>
-            </div>
+            </div><br>
+
+                <span class="term">.cyfmod</span> file's format is similar to <span class="term">.ini</span> file's that.<br>
+                The difference of <span class="term">.ini</span> file is section does not exist and set(table/array) exists.
+                <br><br>
+                There is <span class="term">.cyfmod</span> file's format:
+            <div class="code-container">
+<pre class="brush: lua;">
+;this is comment out.
+;Norma
+key="parameter"
+
+</pre>
+            </p><br>
+
+
+
+
+
+
+            <p>
             <div class="code-container">
 <pre class="brush: lua;">
 -- info.cyfmod:
@@ -192,8 +202,10 @@ key="parameter"
                         There are supported versions below:<br>
                         <ul>
                             <li><span class="term">v0.5.3</span></li>
+                            <li><span class="term">v0.5.2.9</span></li>
+                            <li><span class="term">v0.5.2.8</span></li>
                         </ul>
-                    </li>
+                    </li><br>
                     <li>
                         <span class="term">font</span> - sets the font of mod's title and sub-title(the number of encount).<br>
                         You can choose the paramter in the following:
@@ -230,10 +242,10 @@ key="parameter"
                         </ul>
                     </li>
                     <li>
-                        <span class="asternew"></span> <span class="term">bg-alpha</span> - sets the background image's the alpha (transparency), as value from 0 to 1.
+                        <span class="term">bg-alpha</span> - sets the background image's the alpha (transparency), as value from 0 to 1.
                     </li>
                     <li>
-                        <span class="asternew"></span> <span class="term">bg-alpha32</span> - sets the background image's the alpha (transparency), as integer value from 0 to 255.
+                        <span class="term">bg-alpha32</span> - sets the background image's the alpha (transparency), as integer value from 0 to 255.
                     </li><br>
                 </ul>
             </p>

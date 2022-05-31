@@ -225,7 +225,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="Asterisk"></span> GetCurrentAction() returns <span class="string"></span> [E/M/W]</span>
+                <br><span class="function"><span class="Asterisk"></span> GetCurrentAction() returns <span class="string"></span> [E/M/W]</span>
                 Returns the name of the current action.
             </p>
 
@@ -298,6 +298,8 @@ end
                     script and all scripts in the Waves folder with matching names will be part of this defense step. <span class="term">wavetimer</span>
                     is also read from the Encounter script at this time.
                 </li><br>
+                <li><span class="Asterisk"></span> <span class="term">CUSTOMSTATE</span> - Enters to your custom state you make with state scripts. <span class="term">customstatename</span> variable needs to be assgined before entering to this or, make the beginning of your custom state's name to be <span class="term">*(Asterisk)</span> and assgin that to <span class="term">State()</span>. (See <span class="ref">CustomState</span> section.)
+                </li><br>
             </ul>
 
             <p>
@@ -358,7 +360,7 @@ end
                 <br><span class="function"><span class="CYF"></span> GetCurrentState() returns <span class="string"></span> [E/M/W]</span>
                 Returns the name of the current state (see above for all states).
                 <br><br>
-                <span class="asternew"></span> <span class="Asterisk"></span> When state is <span class="term">CUSTOMSTATE</span>, returns not <span class="term">"CUSTOMSTATE"</span> but CustomState's name with "*" (beginning of the string).
+                <span class="Asterisk"></span> When state is <span class="term">CUSTOMSTATE</span>, returns not <span class="term">"CUSTOMSTATE"</span> but CustomState's name with "*" (beginning of the string).
             </p>
 
             <hr>

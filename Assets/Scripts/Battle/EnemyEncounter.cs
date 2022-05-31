@@ -1,5 +1,4 @@
 ﻿using AsteriskMod;
-using AsteriskMod.Lua;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -484,6 +483,11 @@ public class EnemyEncounter : MonoBehaviour {
             CustomStateScript.script.Globals["CreateProjectile"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectile;
             CustomStateScript.script.Globals["CreateProjectileAbs"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectileAbs;
             DynValue CustomStateEditor = UserData.Create(new StateEditor());
+            DevelopHint.ToDo("for v0.5.2.x");
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.TakeNewStepUpdate)
+            {
+                CustomStateEditor = UserData.Create(new AsteriskMod.Lua.StateEditor());
+            }
             CustomStateScript.script.Globals.Set("StateEditor", CustomStateEditor);
             DynValue ArenaStatus = UserData.Create(ArenaManager.luaStatus);
             CustomStateScript.script.Globals.Set("Arena", ArenaStatus);

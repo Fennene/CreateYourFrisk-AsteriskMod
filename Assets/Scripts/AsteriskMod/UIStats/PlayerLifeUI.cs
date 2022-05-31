@@ -85,8 +85,8 @@ namespace AsteriskMod
             LifeTextMan.SetText(new InstantTextMessage(sHpCurrent + " / " + PlayerCharacter.instance.MaxHP));
 
             // 互換性
-            DevelopHint.ToDo("Only v0.5.2.9");
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate) return;
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) return;
             if (!Asterisk.RequireExperimentalFeature("OnHPChanged", false)) return;
             if (!encounterHasOnHPChanged) return;
             UIController.instance.encounter.TryCall("OnHPChanged");
@@ -120,6 +120,13 @@ namespace AsteriskMod
             count = UnitaleUtil.DecimalCount(maxhp);
             text += " / " + maxhp.ToString("F" + count);
             LifeTextMan.SetText(text);
+        }
+
+        internal void LegacySetHPOverride(float hp, float maxhp, bool updateText)
+        {
+            LifeBar.LegacySetHP(hp, maxhp);
+            if (!updateText) return;
+            SetHPTextFromNumber(hp, maxhp);
         }
     }
 }
