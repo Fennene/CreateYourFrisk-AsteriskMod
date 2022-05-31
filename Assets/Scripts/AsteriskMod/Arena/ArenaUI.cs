@@ -73,15 +73,39 @@ namespace AsteriskMod
 
         public static void SetTextVolume(float value)
         {
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null)
+            {
+                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
+            }
             if (value < 0) value = 0;
             else if (value > 1) value = 1;
             //mainTextMan.GetComponent<AudioSource>().volume = value;
-            mainTextMan.GetComponent<TextManager>().letterSound.volume = value;
+            UIController.instance.mainTextManager.GetComponent<TextManager>().letterSound.volume = value;
         }
 
         public static float GetTextVolume()
         {
-            return mainTextMan.GetComponent<TextManager>().letterSound.volume;
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null)
+            {
+                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
+            }
+            return UIController.instance.mainTextManager.GetComponent<TextManager>().letterSound.volume;
+        }
+
+        public static void SetTextFont(string fontName, bool firstTime = false)
+        {
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null)
+            {
+                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
+            }
+            if (fontName == null)
+                throw new CYFException("ArenaUtil.SetDialogTextFont: The first argument (the font name) is nil.\n\nSee the documentation for proper usage.");
+            UnderFont uf = SpriteFontRegistry.Get(fontName);
+            if (uf == null)
+                throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
+            UIController.instance.mainTextManager.GetComponent<TextManager>().SetFont(uf, firstTime);
+            //if (!firstTime)
+            //    UIController.instance.mainTextManager.GetComponent<TextManager>().default_charset = uf; // impossible.
         }
     }
 }

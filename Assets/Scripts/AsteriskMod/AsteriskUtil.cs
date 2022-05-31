@@ -1,12 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using MoonSharp.Interpreter;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Object = UnityEngine.Object;
 
 namespace AsteriskMod
 {
@@ -276,6 +269,11 @@ namespace AsteriskMod
                     maxY = txtmgr.letterPositions[i].y + txtmgr.Charset.Letters[txtmgr.instantText.Text[i]].textureRect.size.y;
             }
             return maxY - minY;
+        }
+
+        public static void ThrowFakeNonexistentFunctionError(string className, string functionName)
+        {
+            throw new CYFException("cannot access field " + functionName + " of userdata<AsteriskMod.Lua." + className + ">");
         }
     }
 }

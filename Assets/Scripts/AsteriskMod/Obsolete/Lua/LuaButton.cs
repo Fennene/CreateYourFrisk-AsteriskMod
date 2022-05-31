@@ -137,7 +137,7 @@ namespace AsteriskMod.Lua
 
         public void SetSize(int width, int height)
         {
-            DevelopHint.ToDo("Only v0.5.2.9 Mode");
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) AsteriskUtil.ThrowFakeNonexistentFunctionError("LuaButton", "SetSize");
             Asterisk.RequireExperimentalFeature("button.SetSize");
             UIController.ActionButtonManager[buttonID + 1].SetSize(width, height);
             /*
@@ -148,7 +148,7 @@ namespace AsteriskMod.Lua
 
         public void ResetSize()
         {
-            DevelopHint.ToDo("Only v0.5.2.9 Mode");
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) AsteriskUtil.ThrowFakeNonexistentFunctionError("LuaButton", "ResetSize");
             Asterisk.RequireExperimentalFeature("button.ResetSize");
             UIController.ActionButtonManager[buttonID + 1].SetSize(110, 42);
             /*
@@ -159,7 +159,7 @@ namespace AsteriskMod.Lua
 
         public void Scale(float xScale, float yScale)
         {
-            DevelopHint.ToDo("Only v0.5.2.9 Mode");
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) AsteriskUtil.ThrowFakeNonexistentFunctionError("LuaButton", "Scale");
             Asterisk.RequireExperimentalFeature("button.Scale");
             UIController.ActionButtonManager[buttonID + 1].Scale(xScale, yScale);
             //button.GetComponent<Image>().rectTransform.localScale = new Vector3(xScale, yScale, 1);
@@ -167,7 +167,7 @@ namespace AsteriskMod.Lua
 
         public void Revert()
         {
-            DevelopHint.ToDo("Only v0.5.2.9 Mode");
+            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) AsteriskUtil.ThrowFakeNonexistentFunctionError("LuaButton", "Revert");
             UIController.ActionButtonManager[buttonID + 1].Revert(true);
             /*
             ResetColor();

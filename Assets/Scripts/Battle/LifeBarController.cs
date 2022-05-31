@@ -54,6 +54,7 @@ public class LifeBarController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
+    [ToDo("for only v0.5.2.x  I wanna delete.")]
     internal void setInstantOverride(float fillvalue, int maxhp)
     {
         currentFill = fillvalue;

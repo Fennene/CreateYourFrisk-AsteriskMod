@@ -1,7 +1,8 @@
-﻿using AsteriskMod;
+﻿//using AsteriskMod;
 using MoonSharp.Interpreter;
 using UnityEngine;
 
+[ToDo("Delete commentout")]
 public class UIStats : MonoBehaviour {
     public static UIStats instance;
 

@@ -229,15 +229,12 @@ namespace AsteriskMod.Lua
         public static void SetHP(int newHP, int newMaxHP, bool updateHPText = false)
         {
             //UIStats.instance.setHPOverride(newHP, newMaxHP, updateHPText);
-            float percentage = (float)newHP / (float)newMaxHP;
-            DevelopHint.ToDo("前の挙動");
-            AsteriskMod.PlayerUtil.SetHP(newHP, newMaxHP, updateHPText);
+            PlayerLifeUI.instance.LegacySetHPOverride(newHP, newMaxHP, updateHPText);
         }
 
         public static void SetHPBarLength(int newMaxHP)
         {
             //UIStats.instance.setMaxHPOverride(newMaxHP);
-            DevelopHint.ToDo("前の挙動");
             AsteriskMod.PlayerUtil.HPBar.maxhp = newMaxHP;
         }
 
