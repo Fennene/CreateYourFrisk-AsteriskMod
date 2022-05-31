@@ -240,7 +240,7 @@ it's w3c valid, at least
                 Hides all button at the same time.
             </p>
             <p>
-                <br><span class="function">ButtonUtil.RevertAll(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true, <span class="asternew"></span> <span class="boolean"></span> revertActive = true)</span>
+                <br><span class="function">ButtonUtil.Revert(<span class="asternew"></span> <span class="boolean"></span> revertPosition = true, <span class="asternew"></span> <span class="boolean"></span> revertActive = true)</span>
                 Revert the parameters of all button.<br>
 
                 <span class="asternew"></span> If <span class="term">revertPosition</span> is <span class="term">true</span>, 
@@ -248,6 +248,7 @@ it's w3c valid, at least
                 <span class="asternew"></span> If <span class="term">revertActive</span> is <span class="term">true</span>, 
                 actives of buttons will be reverted.
                 <br><br>
+                <span class="Asterisk052x"></span> The name of this function is <span class="term">ButtonUtil.RevertAll()</span>.<br>
                 <span class="Asterisk052x"></span> <span class="term">revertPosition</span> is always <span class="term">true</span>.<br>
                 <span class="Asterisk052x"></span> <span class="term">revertActive</span> is always <span class="term">false</span>.
             </p>
@@ -255,7 +256,10 @@ it's w3c valid, at least
             <br><hr>
 
             <h3 id="Button">The Button object</h3><br><br>
-            <p>This is for controlling each buttons for example moves, recolors, and changes sprites.</p><br>
+            <p>
+                This is for controlling each buttons for example moves, recolors, and changes sprites.<br>
+                The base of this object is The Sprite Object. You can set, get or call parameters or functions like you modify Sprite objects.
+            </p><br>
 
             <p>
                 <br><span class="function"><span class="number"></span> button.x</span>

@@ -117,11 +117,27 @@ it's w3c valid, at least
             <p>The Engine Object provides functions to control CYF engine-self.</p><br>
 
             <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetTargetFrameRate(<span class="number"></span> frameRate = 60)</span>
+                <br><span class="function">Engine.SetTargetFrameRate(<span class="number"></span> frameRate = 60)</span>
                 Sets the frame rate of CYF.
-                The frame rate should be positive integer number.
-                <br><br>
+                The frame rate should be integer number as between <span class="term">30</span> and <span class="term">120</span>.<br>
                 You can reset the frame rate by calling this without any arguments.
+                <br><br>
+                <span class="AsteriskExperiment"></span> You can assign any positive number.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.ModExists(<span class="string"></span> modFolderName)</span>
+                Checks to exists that named mod.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.                
+            </p>
+            <p>
+                <br><span class="function">Engine.RemoveAllProjectiles()<br></span>
+                or <span class="function">Engine.RemoveAllBullets()</span>
+                Attempts to remove all projectiles (bullet objects).
+            </p>
+            <p>
+                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetProjectilesAutoRemovingActive(<span class="boolean"></span> active)</span>
+                Default by true.<br>
+                If <span class="term">false</span>, the engine will not remove projectiles when wave is ended.
             </p>
             <p>
                 <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetBulletPoolSize(<span class="number"></span> newSize = 100)</span>
@@ -132,21 +148,8 @@ it's w3c valid, at least
                 You can call this for more bullet.
                 <br><br>
                 You can reset the size of bullet pool by calling this without any arguments.
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> Engine.ModExists(<span class="string"></span> modFolderName)</span>
-                Checks to exists that named mod.<br>
-                Using <span class="term">../</span> to go up a folder is NOT allowed.                
-            </p>
-            <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetProjectilesAutoRemovingActive(<span class="boolean"></span> active)</span>
-                Default by true.<br>
-                If <span class="term">false</span>, the engine will not remove projectiles when wave is ended.
-            </p>
-            <p>
-                <br><span class="function">Engine.RemoveAllProjectiles()<br></span>
-                or <span class="function">Engine.RemoveAllBullets()</span>
-                Attempts to remove all projectiles (bullet objects).
+                <br><br>
+                <strike>I think it may not work... be needed more debug or experiment</strike>
             </p>
         </div>
 

@@ -241,7 +241,7 @@ namespace AsteriskMod
             }
         }
 
-        public void RevertAll(bool revertPosition = true, bool revertActive = true)
+        public void Revert(bool revertPosition = true, bool revertActive = true)
         {
             CheckInitialized();
             for (var i = 0; i < 4; i++)

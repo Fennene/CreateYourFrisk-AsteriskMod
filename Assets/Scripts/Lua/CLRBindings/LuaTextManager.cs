@@ -584,39 +584,19 @@ public class LuaTextManager : TextManager {
 
     public void SetSoundVolume(float value)
     {
-        Asterisk.RequireExperimentalFeature("text.SetSoundVolume");
         if (value < 0) value = 0;
         else if (value > 1) value = 1;
         //GetComponent<AudioSource>().volume = value;
-        GetComponents<AudioSource>()[1].volume = value;
+        //GetComponents<AudioSource>()[1].volume = value;
+        letterSound.volume = value;
     }
 
     public float GetSoundVolume()
     {
-        Asterisk.RequireExperimentalFeature("text.GetSoundVolume");
         //return GetComponent<AudioSource>().volume;
-        return GetComponents<AudioSource>()[1].volume;
+        //return GetComponents<AudioSource>()[1].volume;
+        return letterSound.volume;
     }
-
-    public void SetSoundMute(bool mute)
-    {
-        Asterisk.RequireExperimentalFeature("text.SetSoundMute");
-        GetComponents<AudioSource>()[1].enabled = !mute;
-    }
-
-    public bool GetSoundMute()
-    {
-        Asterisk.RequireExperimentalFeature("text.GetSoundMute");
-        return !GetComponents<AudioSource>()[1].enabled;
-    }
-
-    /*
-    public void Move(int x, int y)
-    {
-        CheckExists();
-        container.transform.localPosition += new Vector3(x, y, 0);
-    }
-    */
 
     /*
     public void SetVar(string name, DynValue value)

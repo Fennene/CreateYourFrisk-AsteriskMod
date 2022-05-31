@@ -90,26 +90,12 @@ namespace AsteriskMod
 
         public static void SetDialogTextVolume(float value)
         {
-            Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextVolume");
             ArenaUI.SetTextVolume(value);
         }
 
         public static float GetDialogTextVolume()
         {
-            Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextVolume");
             return ArenaUI.GetTextVolume();
-        }
-
-        public static void SetDialogTextMute(bool mute)
-        {
-            Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextMute");
-            ArenaUI.SetTextMute(mute);
-        }
-
-        public static bool GetDialogTextMute()
-        {
-            Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextMute");
-            return ArenaUI.GetTextMute();
         }
     }
 }

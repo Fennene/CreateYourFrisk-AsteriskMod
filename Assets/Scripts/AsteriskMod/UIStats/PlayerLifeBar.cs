@@ -213,7 +213,7 @@ namespace AsteriskMod
                 _limited = value;
                 if (_controlOverride)
                 {
-                    SetHP(_hp, _maxhp);
+                    ForceSetHP(_hp, _maxhp);
                 }
                 else
                 {
@@ -246,6 +246,24 @@ namespace AsteriskMod
             {
                 SetHP(_hp, value);
             }
+        }
+
+        private void ForceSetHP(float newHP, float newMaxHP)
+        {
+            CheckExists(false);
+            float realMaxHP = newMaxHP;
+            if (_limited) realMaxHP = Mathf.Min(newMaxHP, 100);
+            // Set Max HP
+            _maxhp = newMaxHP;
+            self.sizeDelta = new Vector2(realMaxHP * 1.2f, self.sizeDelta.y);
+            // Set Current HP
+            _hp = newHP;
+            float hpMax = _maxhp,
+                  hpFrac = newHP / hpMax;
+            currentFill = hpFrac;
+            desiredFill = hpFrac;
+            if (_limited && hpFrac > 1) hpFrac = 1;
+            fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * 1.2f, fill.rectTransform.offsetMin.y);
         }
 
         public void SetHP(float newHP, float newMaxHP)

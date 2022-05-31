@@ -295,13 +295,30 @@ it's w3c valid, at least
                         More UNDERTALE-ish.
                     </li>
                     <li class="modify">
+                        Add the functions to <span class="term">The Text Object</span><br>
+                        <ul>
+                            <li class="add">
+                                Add the function <span class="term">Text.SetSoundVolume()</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">Text.GetSoundVolume()</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="modify">
+                        Renew <span class="term"><a href="api-playerutil.html">The PlayerUtil Object</a></span>.
+                    </li>
+                    <li class="modify">
                         Renew <span class="term"><a href="api-buttonutil.html#ButtonUtil">The ButtonUtil Object</a></span>.<br>
                         <ul>
+                            <li>
+                                Add the function <span class="term">ButtonUtil.Revert()</span> instead of <span class="term">ButtonUtil.RevertAll()</span>
+                            </li>
                             <li>
                                 Add the second argument <span class="term">autoResize</span> in <span class="term">ButtonUtil.SetSprites()</span>
                             </li>
                             <li>
-                                Add the argument <span class="term">revertPosition</span> in <span class="term">ButtonUtil.RevertAll()</span>
+                                Add the argument <span class="term">revertPosition</span> in <span class="term">ButtonUtil.Revert()</span>
                             </li>
                             <li class="add">
                                 You can get buttons' object by using <span class="term">ButtonUtil[]</span>
@@ -412,6 +429,15 @@ it's w3c valid, at least
                             <li class="add">
                                 Add the function <span class="term">ArenaUtil.DialogTextMove()</span>
                             </li>
+                            <li class="add">
+                                Add the function <span class="term">ArenaUtil.GetDialogTextLetters()</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">ArenaUtil.SetDialogTextVolume()</span>
+                            </li>
+                            <li class="add">
+                                Add the function <span class="term">ArenaUtil.GetDialogTextVolume()</span>
+                            </li>
                             <li class="del">
                                 Delete the function <span class="term">ArenaUtil.SetStarChar()</span><br>
                                 (Please use <span class="term">ArenaUtil.AsteriskChar</span> instead of that.)
@@ -422,19 +448,19 @@ it's w3c valid, at least
                         Add <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
                         <ul>
                             <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetTargetFrameRate()</span>.
-                            </li>
-                            <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>
+                                Add the funtion <span class="term">Engine.SetTargetFrameRate()</span>.
                             </li>
                             <li>
                                 Add the funtion <span class="term">Engine.ModExists()</span>
                             </li>
                             <li>
+                                Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span>
+                            </li>
+                            <li>
                                 Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>
                             </li>
                             <li>
-                                Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>
                             </li>
                         </ul>
                     </li>

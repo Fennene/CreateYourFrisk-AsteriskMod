@@ -32,6 +32,10 @@ namespace AsteriskMod
 
         public static void SetMainTextPosition(int newX, int newY)
         {
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.transform == null)
+            {
+                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
+            }
             Vector3 oldPos = UIController.instance.mainTextManager.transform.position;
             Vector2 oldRelativePos = mainTextManPos;
             mainTextManPos = new Vector2(newX, newY);
@@ -49,6 +53,10 @@ namespace AsteriskMod
 
         public static Table GetMainTextLetters()
         {
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.letterReferences == null)
+            {
+                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
+            }
             Table table = new Table(null);
             int key = 0;
             foreach (Image i in UIController.instance.mainTextManager.letterReferences)
@@ -67,22 +75,13 @@ namespace AsteriskMod
         {
             if (value < 0) value = 0;
             else if (value > 1) value = 1;
-            mainTextMan.GetComponent<AudioSource>().volume = value;
+            //mainTextMan.GetComponent<AudioSource>().volume = value;
+            mainTextMan.GetComponent<TextManager>().letterSound.volume = value;
         }
 
         public static float GetTextVolume()
         {
-            return mainTextMan.GetComponent<AudioSource>().volume;
-        }
-
-        public static void SetTextMute(bool active)
-        {
-            mainTextMan.GetComponent<AudioSource>().enabled = !active;
-        }
-
-        public static bool GetTextMute()
-        {
-            return !mainTextMan.GetComponent<AudioSource>().enabled;
+            return mainTextMan.GetComponent<TextManager>().letterSound.volume;
         }
     }
 }

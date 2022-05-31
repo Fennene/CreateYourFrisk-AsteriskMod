@@ -53,30 +53,30 @@ namespace AsteriskMod.Lua
 
         public static void SetDialogTextVolume(float value)
         {
-            //Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextVolume");
+            Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextVolume");
             //ArenaUIManager.Instance.SetTextVolume(value);
             AsteriskMod.ArenaUtil.SetDialogTextVolume(value);
         }
 
         public static float GetDialogTextVolume()
         {
-            //Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextVolume");
+            Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextVolume");
             //return ArenaUIManager.Instance.GetTextVolume();
             return AsteriskMod.ArenaUtil.GetDialogTextVolume();
         }
 
         public static void SetDialogTextMute(bool mute)
         {
-            //Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextMute");
+            Asterisk.RequireExperimentalFeature("ArenaUtil.SetDialogTextMute");
             //ArenaUIManager.Instance.SetTextMute(mute);
-            AsteriskMod.ArenaUtil.SetDialogTextMute(mute);
+            AsteriskMod.ArenaUtil.SetDialogTextVolume(mute ? 0 : 1);
         }
 
         public static bool GetDialogTextMute()
         {
-            //Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextMute");
+            Asterisk.RequireExperimentalFeature("ArenaUtil.GetDialogTextMute");
             //return ArenaUIManager.Instance.GetTextMute();
-            return AsteriskMod.ArenaUtil.GetDialogTextMute();
+            return AsteriskMod.ArenaUtil.GetDialogTextVolume() == 0;
         }
 
         public static void SetAsteriskChar(char asterisk)

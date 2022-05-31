@@ -21,8 +21,14 @@ namespace AsteriskMod
 
         public static void SetTargetFrameRate(int frameRate = 60)
         {
-            Asterisk.RequireExperimentalFeature("Engine.SetTargetFrameRate");
-            if (frameRate <= 0) throw new CYFException("Engine.SetTargetFrameRate: frame rate should be positive.");
+            if (frameRate < 30 || frameRate > 120)
+            {
+                if (!Asterisk.RequireExperimentalFeature("Engine.SetTargetFrameRate", false))
+                {
+                    throw new CYFException("Engine.SetTargetFrameRate: frame rate should be between 30 and 120, or you need to enable \"Experimental Features\" in AsteriskMod's option.");
+                }
+                if (frameRate <= 0) throw new CYFException("Engine.SetTargetFrameRate: frame rate should be positive.");
+            }
             Application.targetFrameRate = frameRate;
         }
 

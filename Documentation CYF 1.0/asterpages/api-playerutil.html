@@ -154,20 +154,37 @@ it's w3c valid, at least
             <p>
                 <br><span class="function"><span class="number"></span> PlayerUtil.x</span>
                 Horizontal position of the all UI's parent object, relative to the initial position.
+                <br><br>
+                <font color="#DDD">
+                This is NOT same to call <span class="term">.Move()</span> each UI.
+                <br><br>
+                This function moves only parent object of all the player's UIs.<br>
+                In other words, moves reference positions of the UIs.
+                </font>
             </p>
             <p>
                 <br><span class="function"><span class="number"></span> PlayerUtil.y</span>
                 Vertical position of the all UI's parent object, relative to the initial positon.
+                <br><br>
+                <font color="#DDD">
+                This is NOT same to call <span class="term">.Move()</span> each UI.
+                <br><br>
+                This function moves only parent object of all the player's UIs.<br>
+                In other words, moves reference positions of the UIs.
+                </font>
             </p>
             <p>
                 <br><span class="function">PlayerUtil.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the all UI showing the player's status <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
+                <br><br>
+                See also <span class="ref">PlayerUtil.x</span> and <span class="ref">PlayerUtil.y</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the all UI showing the player's status to a new position, relative to the initial position.
                 <br><br>
-                (Same as setting <span class="term">PlayerUtil.x</span> and <span class="term">PlayerUtil.y</span> simultaneously.)
+                (Same as setting <span class="term">PlayerUtil.x</span> and <span class="term">PlayerUtil.y</span> simultaneously.)<br>
+                See also <span class="ref">PlayerUtil.x</span> and <span class="ref">PlayerUtil.y</span>.
             </p>
             <p>
                 <br><span class="function">PlayerUtil.MoveToAbs(<span class="number"></span> absx, <span class="number"></span> absy)</span>
@@ -210,13 +227,21 @@ it's w3c valid, at least
                 </font>
                 <br><br>
                 <font color="#FFF">
-                    * Note that when HPLabel is moved, other HP's UIs is moved with this.
+                    * Note that other HP's UIs (HPBar and HPText) is moved with HPLabel when this is moved.<br>
+                    * Note that the relative position is not accurate!!
                 </font>
             </p>
             <p>
                 <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)<br></span>
                 or<span class="function"><span class="userdata">LifeBar</span> PlayerUtil.hpbar (Read-only)<br></span>
-                Returns propety of the bar objects showing the Player's HP, as a LifeBar object.
+                Returns propety of the bar objects showing the Player's HP, as a LifeBar object.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.HPBar.Remove()</span> in this object.
+                </font>
+                <br><br>
+                <font color="#FFF">
+                    * Note that HPText is moved with HPBar when this is moved, changed maxhp, changed height.
+                </font>
             </p>
             <p>
                 <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)<br></span>
@@ -231,18 +256,19 @@ it's w3c valid, at least
             <br>
 
             <p>
-                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
+                <br><span class="function">PlayerUtil.SetControlOverride(<span class="boolean"></span> active)</span>
                 Either true or false. If true, bars and texts showing the Player's status do <b>NOT</b> update anymore.<br>
                 You should call this if you modify objects displaying the Player's status.<br>
-                This is same to <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
+                This is same to call <span class="term">PlayerUtil.Name.SetControlOverride()</span> <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
             </p>
 
             <p>
                 <br><span class="function">PlayerUtil.SetLV(<span class="string"></span> lv)</span>
                 Set the player's LV as string.<br>
                 This means you can set the LV other than numbers.<br>
-                Note that you can not use <span class="term">Text commands</span>.<br>
                 This is same to call <span class="term">PlayerUtil.Love.SetText()</span>.
+                <br><br>
+                <font color="#DDD">Note that you can not use <span class="term">Text commands</span>.</font>
             </p>
 
             <p>
@@ -425,17 +451,6 @@ it's w3c valid, at least
             <p>
                 <br><span class="function">lifeBar.SendToBottom()</span>
                 Sends this bar to the bottom of its bar's hierarchy. Similar rules apply as with <span class="term">SendToTop()</span>.
-            </p>
-
-            <br><br>
-            <hr><br>
-
-            <p>
-                Below function is about the position of the LifeBar objects.<br>
-                <font color="#DDD">
-                    Note that the anchor(alignment) of the LifeBar object's position is <span class="term">MiddleRight</span>.
-                </font>
-                (Maybe)
             </p>
 
             <p>
