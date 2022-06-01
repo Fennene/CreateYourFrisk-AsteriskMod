@@ -48,6 +48,13 @@ span.string::before {
     color: #de7356;
 }
 
+span.nullable_string::before {
+    content: "\"string\"?";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+    color: #cc6b50;
+}
 span.char::before {
     content: "\"char\"";
     font-family: segoe ui;
@@ -77,6 +84,15 @@ span.number::before {
     font-weight: bold;
     /* font-size: 12px; */
 }
+
+span.nullable_number::before {
+    color: #28996C;
+    content: "number?";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
+
 span.boolean::before {
     color: #DC322F;
     content: "boolean";
@@ -88,13 +104,6 @@ span.boolean::before {
 span.nullable_boolean::before {
     color: #D6312D;
     content: "boolean?";
-    font-family: segoe ui;
-    font-weight: bold;
-    /* font-size: 12px; */
-}
-span.nullable_number::before {
-    color: #28996C;
-    content: "number?";
     font-family: segoe ui;
     font-weight: bold;
     /* font-size: 12px; */

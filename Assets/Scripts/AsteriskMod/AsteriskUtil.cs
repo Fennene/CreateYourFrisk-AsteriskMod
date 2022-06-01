@@ -7,6 +7,7 @@ namespace AsteriskMod
     {
         public static bool IsCYFOverworld { get { return !GlobalControls.modDev; } }
 
+        public static bool IsV053 { get { return AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate; } }
 
         public static Languages ConvertToLanguage(string languageName, bool ignoreUnknown = true)
         {

@@ -231,82 +231,6 @@ public class EnemyController : MonoBehaviour {
         set { script.SetVar("voice", DynValue.NewString(value)); }
     }
 
-    // --------------------------------------------------------------------------------
-    //                          Asterisk Mod Modification
-    // --------------------------------------------------------------------------------
-    public int[] BackgroundBarColor
-    {
-        get
-        {
-            DynValue bgBarColor = script.GetVar("bgcolor");
-            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
-            {
-                return new int[3] { 64, 64, 64 };
-            }
-            int[] _ = new int[bgBarColor.Table.Length];
-            //for (int i = 0; i < bgBarColor.Table.Length; i++)
-            for (int i = 0; i < 3; i++)
-                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
-            return _;
-        }
-        set
-        {
-            DynValue[] values = new DynValue[value.Length];
-            for (int i = 0; i < value.Length; i++)
-                values[i] = DynValue.NewNumber(value[i]);
-            script.SetVar("bgcolor", DynValue.NewTuple(values));
-        }
-    }
-
-    public int[] FillBarColor
-    {
-        get
-        {
-            DynValue bgBarColor = script.GetVar("fillcolor");
-            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
-            {
-                return new int[3] { 0, 255, 0 };
-            }
-            int[] _ = new int[bgBarColor.Table.Length];
-            //for (int i = 0; i < bgBarColor.Table.Length; i++)
-            for (int i = 0; i < 3; i++)
-                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
-            return _;
-        }
-        set
-        {
-            DynValue[] values = new DynValue[value.Length];
-            for (int i = 0; i < value.Length; i++)
-                values[i] = DynValue.NewNumber(value[i]);
-            script.SetVar("fillcolor", DynValue.NewTuple(values));
-        }
-    }
-
-    public int[] BackgroundMiniBarColor
-    {
-        get
-        {
-            DynValue bgBarColor = script.GetVar("minibgcolor");
-            if (bgBarColor == null || (bgBarColor.Type != DataType.Table && bgBarColor.Type != DataType.Tuple) || bgBarColor.Table.Length < 3)
-            {
-                return new int[3] { 255, 0, 0 };
-            }
-            int[] _ = new int[bgBarColor.Table.Length];
-            //for (int i = 0; i < bgBarColor.Table.Length; i++)
-            for (int i = 0; i < 3; i++)
-                _[i] = (int)bgBarColor.Table.Get(i + 1).Number;
-            return _;
-        }
-        set
-        {
-            DynValue[] values = new DynValue[value.Length];
-            for (int i = 0; i < value.Length; i++)
-                values[i] = DynValue.NewNumber(value[i]);
-            script.SetVar("minibgcolor", DynValue.NewTuple(values));
-        }
-    }
-    // --------------------------------------------------------------------------------
-
     public string DefenseMissText {
         get { return script.GetVar("defensemisstext").String; }
         set { script.SetVar("defensemisstext", DynValue.NewString(value)); }
@@ -534,4 +458,157 @@ public class EnemyController : MonoBehaviour {
     public void SetBubbleOffset(int x, int y) { offsets[1] = new Vector2(x, y); }
 
     public void SetDamageUIOffset(int x, int y) { offsets[2] = new Vector2(x, y); }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private const string VAR_NAME_OLD_FIGHT_BG_BAR_COLOR = "minibgcolor";
+    private const string VAR_NAME_OLD_BG_BAR_COLOR = "bgcolor";
+    private const string VAR_NAME_OLD_FILL_BAR_COLOR = "fillcolor";
+
+    private const string VAR_NAME_FIGHT_BG_BAR_COLOR = "menubgbarcolor";
+    private const string VAR_NAME_FIGHT_FILL_BAR_COLOR = "menufillbarcolor";
+    private const string VAR_NAME_FIGHT_BG_BAR_ALPHA = "menubgbaralpha";
+    private const string VAR_NAME_FIGHT_FILL_BAR_ALPHA = "menufillbaralpha";
+    private const string VAR_NAME_BG_BAR_COLOR = "bgbarcolor";
+    private const string VAR_NAME_FILL_BAR_COLOR = "fillbarcolor";
+    private const string VAR_NAME_BARS_VISIBLE = "showbars";
+    //private const string VAR_NAME_DAMAGE_TEXT_VISIBLE = "showdamagetext";
+    private const string VAR_NAME_FORCED_DAMAGE_TEXT = "damagetext";
+
+    private Color32 ConvertToColor(DynValue colorValue, DynValue alphaValue, byte init_r, byte init_g, byte init_b, byte init_a = 255)
+    {
+        int[] color = new int[4] { init_r, init_g, init_b, init_a };
+        if (colorValue != null && (colorValue.Type == DataType.Table || colorValue.Type == DataType.Tuple) && colorValue.Table.Length >= 3)
+        {
+            for (var i = 0; i < 3; i++)
+            {
+                color[i] = (int)colorValue.Table.Get(i + 1).Number;
+                if (color[i] < 0) color[i] = 0;
+                if (color[i] > 255) color[i] = 255;
+            }
+        }
+        if (alphaValue != null && alphaValue.Type == DataType.Number)
+        {
+            color[3] = (int)alphaValue.Number;
+            if (color[3] < 0) color[3] = 0;
+            if (color[3] > 255) color[3] = 255;
+        }
+        return new Color32((byte)color[0], (byte)color[1], (byte)color[2], (byte)color[3]);
+    }
+
+    public Color BGBarColorInFIGHT
+    {
+        get
+        {
+            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? VAR_NAME_FIGHT_BG_BAR_COLOR : VAR_NAME_OLD_FIGHT_BG_BAR_COLOR);
+            DynValue dynAlpha = AsteriskUtil.IsV053 ? script.GetVar(VAR_NAME_FIGHT_BG_BAR_ALPHA) : null;
+            /*
+            int[] color = new int[3] { 255, 0, 0 };
+            int alpha = 255;
+            if (dynColor != null && (dynColor.Type == DataType.Table || dynColor.Type == DataType.Tuple) && dynColor.Table.Length >= 3)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    color[i] = (int)dynColor.Table.Get(i + 1).Number;
+                    if (color[i] < 0) color[i] = 0;
+                    if (color[i] > 255) color[i] = 255;
+                }
+            }
+            if (dynAlpha != null && dynAlpha.Type == DataType.Number)
+            {
+                alpha = (int)dynAlpha.Number;
+                if (alpha < 0) alpha = 0;
+                if (alpha > 255) alpha = 255;
+            }
+            return new Color32((byte)color[0], (byte)color[1], (byte)color[2], (byte)alpha);
+            */
+            return ConvertToColor(dynColor, dynAlpha, 255, 0, 0);
+        }
+        set
+        {
+            Color32 _ = value;
+            DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
+            script.SetVar(AsteriskUtil.IsV053 ? VAR_NAME_FIGHT_BG_BAR_COLOR : VAR_NAME_OLD_FIGHT_BG_BAR_COLOR, DynValue.NewTuple(values));
+            if (AsteriskUtil.IsV053) script.SetVar(VAR_NAME_FIGHT_BG_BAR_ALPHA, DynValue.NewNumber(_.a));
+        }
+    }
+
+    public Color FillBarColorInFIGHT
+    {
+        get
+        {
+            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? VAR_NAME_FIGHT_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR);
+            DynValue dynAlpha = AsteriskUtil.IsV053 ? script.GetVar(VAR_NAME_FIGHT_FILL_BAR_ALPHA) : null;
+            return ConvertToColor(dynColor, dynAlpha, 0, 255, 0);
+        }
+        set
+        {
+            Color32 _ = value;
+            DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
+            script.SetVar(AsteriskUtil.IsV053 ? VAR_NAME_FIGHT_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR, DynValue.NewTuple(values));
+            if (AsteriskUtil.IsV053) script.SetVar(VAR_NAME_FIGHT_FILL_BAR_ALPHA, DynValue.NewNumber(_.a));
+        }
+    }
+
+    public Color BGBarColor
+    {
+        get
+        {
+            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? VAR_NAME_BG_BAR_COLOR : VAR_NAME_OLD_BG_BAR_COLOR);
+            return ConvertToColor(dynColor, null, 64, 64, 64);
+        }
+        set
+        {
+            Color32 _ = value;
+            DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
+            script.SetVar(AsteriskUtil.IsV053 ? VAR_NAME_BG_BAR_COLOR : VAR_NAME_OLD_BG_BAR_COLOR, DynValue.NewTuple(values));
+        }
+    }
+
+    public Color FillBarColor
+    {
+        get
+        {
+            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? VAR_NAME_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR);
+            return ConvertToColor(dynColor, null, 0, 255, 0);
+        }
+        set
+        {
+            Color32 _ = value;
+            DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
+            script.SetVar(AsteriskUtil.IsV053 ? VAR_NAME_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR, DynValue.NewTuple(values));
+        }
+    }
+
+    public bool ShowHPBar
+    {
+        get
+        {
+            if (!AsteriskUtil.IsV053) return true;
+            DynValue value = script.GetVar(VAR_NAME_BARS_VISIBLE);
+            return (value != null && value.Type == DataType.Boolean) ? value.Boolean : true;
+        }
+        set
+        {
+            if (!AsteriskUtil.IsV053) return;
+            script.SetVar(VAR_NAME_BARS_VISIBLE, DynValue.NewBoolean(value));
+        }
+    }
+
+    public string ForcedDamageText
+    {
+        get
+        {
+            if (!AsteriskUtil.IsV053) return null;
+            DynValue value = script.GetVar(VAR_NAME_FORCED_DAMAGE_TEXT);
+            return (value != null && value.Type == DataType.String) ? value.String : null;
+        }
+        set
+        {
+            if (!AsteriskUtil.IsV053) return;
+            script.SetVar(VAR_NAME_FORCED_DAMAGE_TEXT, value == null ? DynValue.NewNil() : DynValue.NewString(value));
+        }
+    }
+    // --------------------------------------------------------------------------------
 }

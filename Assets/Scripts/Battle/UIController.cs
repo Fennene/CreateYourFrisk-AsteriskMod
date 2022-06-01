@@ -598,10 +598,8 @@ public class UIController : MonoBehaviour {
                         //                          Asterisk Mod Modification
                         // --------------------------------------------------------------------------------
                         //lifeBar.setFillColor(Color.green);
-                        int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
-                        lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
-                        int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
-                        lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+                        lifeBar.setBackgroundColor(encounter.EnabledEnemies[i].BGBarColorInFIGHT);
+                        lifeBar.setFillColor(encounter.EnabledEnemies[i].FillBarColorInFIGHT);
                         // --------------------------------------------------------------------------------
                         float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
                         if (encounter.EnabledEnemies[i].HP < 0) {
@@ -970,10 +968,8 @@ public class UIController : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             //lifeBar.setFillColor(Color.green);
-            int[] bgBarColor32 = encounter.EnabledEnemies[i].BackgroundMiniBarColor;
-            lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
-            int[] fillBarColor32 = encounter.EnabledEnemies[i].FillBarColor;
-            lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+            lifeBar.setBackgroundColor(encounter.EnabledEnemies[i].BGBarColorInFIGHT);
+            lifeBar.setFillColor(encounter.EnabledEnemies[i].FillBarColorInFIGHT);
             // --------------------------------------------------------------------------------
             float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
             if (encounter.EnabledEnemies[i].HP < 0) {

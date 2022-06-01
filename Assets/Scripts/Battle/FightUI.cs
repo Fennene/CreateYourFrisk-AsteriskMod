@@ -62,10 +62,8 @@ public class FightUI : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        int[] bgBarColor32 = UIController.instance.encounter.EnabledEnemies[enemyIndex].BackgroundBarColor;
-        lifeBar.setBackgroundColor(new Color32((byte)bgBarColor32[0], (byte)bgBarColor32[1], (byte)bgBarColor32[2], 255));
-        int[] fillBarColor32 = UIController.instance.encounter.EnabledEnemies[enemyIndex].FillBarColor;
-        lifeBar.setFillColor(new Color32((byte)fillBarColor32[0], (byte)fillBarColor32[1], (byte)fillBarColor32[2], 255));
+        lifeBar.setBackgroundColor(enemy.BGBarColor);
+        lifeBar.setFillColor(enemy.FillBarColor);
         // --------------------------------------------------------------------------------
         damageText.transform.SetParent(enemy.transform);
         slice.img.transform.SetParent(enemy.transform);
@@ -160,6 +158,11 @@ public class FightUI : MonoBehaviour {
                 }
                 else if (Damage > 0) damageTextStr = "[color:ff0000]" + Damage;
                 else damageTextStr = "[color:00ff00]" + Damage;
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                if (enemy.ForcedDamageText != null) damageTextStr = enemy.ForcedDamageText;
+                // --------------------------------------------------------------------------------
                 damageTextRt.localPosition = new Vector3(0, 0, 0);
                 damageText.SetText(new TextMessage(damageTextStr, false, true));
                 damageTextRt.localPosition = new Vector3(-UnitaleUtil.CalcTextWidth(damageText)/2 + enemy.offsets[2].x, 40 + enemy.offsets[2].y);
@@ -173,7 +176,12 @@ public class FightUI : MonoBehaviour {
                         lifeBar.whenDamageValue = enemy.GetComponent<RectTransform>().rect.width;
                         lifeBar.setInstant(enemy.HP < 0 ? 0 : enemy.HP / (float)enemy.MaxHP);
                         lifeBar.setLerp(enemy.HP / (float)enemy.MaxHP, newHP / (float)enemy.MaxHP);
-                        lifeBar.setVisible(true);
+                        // --------------------------------------------------------------------------------
+                        //                          Asterisk Mod Modification
+                        // --------------------------------------------------------------------------------
+                        //lifeBar.setVisible(true);
+                        lifeBar.setVisible(enemy.ShowHPBar);
+                        // --------------------------------------------------------------------------------
                         enemy.doDamage(Damage);
                     } catch { return; }
                 }

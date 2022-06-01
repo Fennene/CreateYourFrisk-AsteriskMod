@@ -396,9 +396,59 @@ check = "Serving Size: 1 Monster\nNot monitored by the USDA"</pre>
             <p><span class="CYF"></span> <span class="string"></span> <span class="term">voice</span> - The default voice used by the monster. Set it
             to <span class="term">nil</span> if you want to use the default voice.</p>
 
-            <p><span class="Asterisk"></span> <span class="luatable"><span class="number"></span></span> <span class="term">minibgcolor</span> - Sets the enemy's background bar color in FIGHT menu, as a table of 3 integer values from 0 to 255. Set it to <span class="term">nil</span> if you want to use the default color.</p>
-            <p><span class="Asterisk"></span> <span class="luatable"><span class="number"></span></span> <span class="term">bgcolor</span> - Sets the enemy's background bar color in ATTACKING, as a table of 3 integer values from 0 to 255. Set it to <span class="term">nil</span> if you want to use the default color.</p>
-            <p><span class="Asterisk"></span> <span class="luatable"><span class="number"></span></span> <span class="term">fillcolor</span> - Sets the enemy's fill bar color in ATTACKING and FIGHT menu, as a table of 3 integer values from 0 to 255. Set it to <span class="term">nil</span> if you want to use the default color.</p>
+            <p>
+                <span class="Asterisk"></span> 
+                <span class="luatable"><span class="number"></span></span> 
+                <span class="asternew"></span> <span class="term">menubgbarcolor</span> - Sets the background bar's color of the enemy's HP in FIGHT menu (ENEMYSELECT), as a table of 3 integer values from 0 to 255. 
+                This is similar to setting <span class="term">.color32</span>. 
+                Set it to <span class="term">nil</span> if you want to use the default color.<br>
+                <span class="Asterisk052x"></span> The name of this variable was <span class="term">minibgcolor</span>.
+            </p>
+            <p>
+                <span class="asternew"></span> <span class="Asterisk"></span> 
+                <span class="luatable"><span class="number"></span></span> 
+                <span class="term">menubgbaralpha</span> - Sets the background bar's alpha(transparency) of the enemy's HP in FIGHT menu (ENEMYSELECT), as integer values from 0 to 255. 
+                This is similar to setting <span class="term">.alpha32</span>. 
+                Set it to <span class="term">nil</span> if you want to use the default transparency.
+            </p>
+            <p>
+                <span class="asternew"></span> <span class="Asterisk"></span> 
+                <span class="luatable"><span class="number"></span></span> 
+                <span class="term">menufillbarcolor</span> - Sets the fill bar's color of the enemy's HP in FIGHT menu (ENEMYSELECT), as a table of 3 integer values from 0 to 255. 
+                This is similar to setting <span class="term">.color32</span>. 
+                Set it to <span class="term">nil</span> if you want to use the default color.<br>
+                <span class="Asterisk052x"></span> fill bar's color was used <span class="term">fillcolor</span> in anytimes.
+            </p>
+            <p>
+                <span class="asternew"></span> <span class="Asterisk"></span> 
+                <span class="luatable"><span class="number"></span></span> 
+                <span class="term">menufillbaralpha</span> - Sets the fill bar's alpha(transparency) of the enemy's HP in FIGHT menu (ENEMYSELECT), as integer values from 0 to 255. 
+                This is similar to setting <span class="term">.alpha32</span>. 
+                Set it to <span class="term">nil</span> if you want to use the default transparency.
+            </p>
+            <p>
+                <span class="Asterisk"></span> 
+                <span class="luatable"><span class="number"></span></span> 
+                <span class="asternew"></span> <span class="term">bgcolor</span> - Sets the background bar's color of the enemy's HP in fight UI (ATTACKING), as a table of 3 integer values from 0 to 255. 
+                This is similar to setting <span class="term">.color32</span>. 
+                Set it to <span class="term">nil</span> if you want to use the default color.<br>
+                <span class="Asterisk052x"></span> The name of this variable was <span class="term">bgcolor</span>.
+            </p>
+            <p>
+                <span class="Asterisk"></span> 
+                <span class="luatable"><span class="number"></span></span> 
+                <span class="asternew"></span> <span class="term">fillbarcolor</span> - Sets the fill bar's color of the enemy's HP in fight UI (ATTACKING), as a table of 3 integer values from 0 to 255. 
+                This is similar to setting <span class="term">.color32</span>. 
+                Set it to <span class="term">nil</span> if you want to use the default color.<br>
+                <span class="Asterisk052x"></span> The name of this variable was <span class="term">fillcolor</span>.
+            </p>
+            <p>
+                <span class="asternew"></span> <span class="Asterisk"></span> 
+                <span class="nullable_string"></span> 
+                <span class="term">damagetext</span> - Sets the text of enemy's damage forcibly. 
+                Set it to <span class="term">nil</span> if you do not want to change the text. 
+                Default by <span class="term">nil</span>.
+            </p>
 
             <hr>
 
