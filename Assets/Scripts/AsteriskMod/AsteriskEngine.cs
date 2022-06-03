@@ -6,107 +6,122 @@ namespace AsteriskMod
     {
         public static Asterisk.Versions ModTarget_AsteriskVersion { get; private set; }
 
-        public static void SetTargetAsteriskVersion(Asterisk.Versions version)
-        {
-            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(version));
-            ModTarget_AsteriskVersion = version;
-        }
-
         public static CodeStyle LuaCodeStyle { get; private set; }
-
-        public static void LoadCodeStyle()
-        {
-            LuaCodeStyle = CodeStyle.Load();
-        }
 
         public static char AsteriskChar { get; set; }
 
+        public static bool AutoRemoveProjectiles { get; set; }
+
         public class JapaneseStyleOption
         {
+            // Name
             private static bool _jpName;
+
             public static bool JPName
             {
                 get { return _jpName; }
                 set { SetJapaneseNameActive(value); }
             }
+
             public static void SetJapaneseNameActive(bool active)
             {
                 if (_jpName == active) return;
                 _jpName = active;
                 PlayerNameText.instance.SetJP();
             }
-            public static void SetJPNameActive(bool active) { SetJapaneseNameActive(active); }
+            public static void SetJPName(bool active) { SetJapaneseNameActive(active); }
 
-            private static bool _autoJPfont;
-            public static bool AutoJPFont
+            // Font
+
+            // Options
+            public static string JapaneseFontName { get; set; }
+            public static string JPFontName
             {
-                get { return _autoJPfont; }
-                set { SetAutoJapaneseFontActive(value); }
+                get { return JapaneseFontName; }
+                set { JapaneseFontName = value; }
             }
-            public static void SetAutoJapaneseFontActive(bool active)
+
+            private static bool _autoFontCoordinating;
+            public static bool AutoFontCoordinating
             {
-                if (_autoJPfont == active) return;
-                _autoJPfont = active;
+                get { return _autoFontCoordinating; }
+                set { SetAutoFontCoordinatingActive(value); }
+            }
+
+            public static void SetAutoFontCoordinatingActive(bool active)
+            {
+                if (_autoFontCoordinating == active) return;
+                _autoFontCoordinating = active;
                 AsteriskChar = active ? '＊' : '*';
             }
 
-            /**
-            private static bool _autoFullWidthAsterisk;
-            public static bool AsteriskChanged
+            // Auto set JP
+            public static bool AutoJPFontEncounterText { get; set; }
+            public static bool AutoJPFontBattleDialog { get; set; }
+            public static bool AutoJPFontActCommands { get; set; }
+            public static bool AutoJPFontStateEditor { get; set; }
+
+            public static void SetAutoJapaneseFontStyle(bool active)
             {
-                get { return _autoFullWidthAsterisk; }
-                set { ChangeAsterisk(value); }
+                AutoJPFontEncounterText = active;
+                AutoJPFontBattleDialog = active;
+                AutoJPFontActCommands = active;
+                AutoJPFontStateEditor = active;
             }
-            public static void ChangeAsterisk(bool active)
+            public static void SetAutoJPFont(bool active) { SetAutoJapaneseFontStyle(active); }
+
+            // System
+
+            internal static void Initialize()
             {
-                if (_autoFullWidthAsterisk == active) return;
-                _autoFullWidthAsterisk = active;
-                AsteriskChar = active ? '＊' : '*';
+                _jpName = false;
+                JapaneseFontName = "jp";
+                _autoFontCoordinating = false;
+                SetAutoJapaneseFontStyle(false);
             }
-            */
 
             internal static void Reset()
             {
-                _jpName = false;
-                _autoJPfont = false;
-                //_autoFullWidthAsterisk = false;
+                Initialize();
+                SetJapaneseNameActive(Asterisk.language == Languages.Japanese);
+            }
+
+            public static void SetActive(bool active)
+            {
+                SetJapaneseNameActive(active);
+                SetAutoFontCoordinatingActive(active);
+                SetAutoJapaneseFontStyle(active);
             }
         }
 
-        public static void SetJapaneseMode(bool active)
-        {
-            JapaneseStyleOption.SetJapaneseNameActive(active);
-            JapaneseStyleOption.SetAutoJapaneseFontActive(active);
-        }
-
-        public static bool AutoRemoveProjectiles { get; set; }
-
-        internal static void SafeInitialize()
+        internal static void Initialize()
         {
             ModTarget_AsteriskVersion = Asterisk.Versions.Unknwon;
             LuaCodeStyle = new CodeStyle();
-            JapaneseStyleOption.Reset();
+            AsteriskChar = '*';
+            AutoRemoveProjectiles = true;
+            JapaneseStyleOption.Initialize();
+        }
+
+        internal static void PrepareMod(ModInfo modInfo, CodeStyle codeStyle)
+        {
+            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(modInfo.targetVersion));
+            ModTarget_AsteriskVersion = modInfo.targetVersion;
+            LuaCodeStyle = codeStyle;
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
         }
 
-        public static void Initialize()
+        internal static void AwakeMod()
         {
             CYFEngine.Initialize();
-            UIController.InitalizeButtonManager();
-            AsteriskChar = '*';
-            AutoRemoveProjectiles = true;
             JapaneseStyleOption.Reset();
-            if (Asterisk.language == Languages.Japanese) SetJapaneseMode(true);
         }
 
-        public static void Revert()
+        internal static void Reset()
         {
             CYFEngine.Reset();
-            AsteriskChar = '*';
-            AutoRemoveProjectiles = true;
-            //SetJapaneseMode(false);
-            JapaneseStyleOption.Reset();
+            Initialize();
         }
     }
 }

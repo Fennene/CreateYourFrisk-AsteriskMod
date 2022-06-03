@@ -78,7 +78,7 @@ namespace AsteriskMod
             optionProtecter = true;
             reportProtecter = true;
             displayModInfo = true;
-            AsteriskEngine.SafeInitialize();
+            AsteriskEngine.Initialize();
         }
 
         /// <summary>AsteriskModのオプションを読み込みます。</summary>

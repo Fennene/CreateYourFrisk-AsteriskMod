@@ -94,11 +94,6 @@ namespace AsteriskMod
             {
                 script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
                 script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
-
-                script.Globals["SetJapaneseMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-                script.Globals["SetJapaneseStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-                script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-                script.Globals["SetJPStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
             }
 
             if (AsteriskEngine.ModTarget_AsteriskVersion == Asterisk.Versions.QOLUpdate)

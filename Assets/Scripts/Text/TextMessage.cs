@@ -92,7 +92,7 @@ public class TextMessage {
 
                 //case '\r': newText += "\n  ";                                 break;
                 case '\r':
-                    if (AsteriskEngine.JapaneseStyleOption.AutoJPFont)
+                    if (AsteriskEngine.JapaneseStyleOption.AutoFontCoordinating)
                         newText += "\n   ";
                     else
                         newText += "\n  ";
