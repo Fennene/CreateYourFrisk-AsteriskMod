@@ -833,9 +833,19 @@ public class SelectOMatic : MonoBehaviour {
             button.transform.Find("Fill").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
             //set text
-            button.transform.Find("Text").GetComponent<Text>().text = mod.Name;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //button.transform.Find("Text").GetComponent<Text>().text = mod.Name;
+            //if (GlobalControls.crate)
+            //    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(mod.Name, true);
+            string text = mod.Name;
+            if (modInfos[count].title != "") text = modInfos[count].title;
+            button.transform.Find("Text").GetComponent<Text>().text = text;
             if (GlobalControls.crate)
-                button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(mod.Name, true);
+                button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(text, true);
+            button.transform.Find("Text").GetComponent<Text>().font = ModTitle.GetComponent<Text>().font;
+            // --------------------------------------------------------------------------------
 
             //finally, set function!
             int tempCount = count;
