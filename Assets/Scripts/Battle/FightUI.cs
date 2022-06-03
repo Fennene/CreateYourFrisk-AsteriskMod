@@ -33,6 +33,11 @@ public class FightUI : MonoBehaviour {
     public bool stopped;
     public bool isCoroutine;
     public bool waitingToFade;
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private bool doShake;
+    // --------------------------------------------------------------------------------
 
     public void Start() {
         foreach(RectTransform child in transform) {
@@ -125,8 +130,18 @@ public class FightUI : MonoBehaviour {
                 if (shakeIndex != shakeidx && shakeIndex >= shakeX.Length)
                     shakeIndex = shakeX.Length - 1;
                 shakeIndex = shakeidx;
-                Vector2 localEnePos = enemy.GetComponent<RectTransform>().anchoredPosition; // get local position to do the shake
-                enemy.GetComponent<RectTransform>().anchoredPosition = new Vector2(localEnePos.x + shakeX[shakeIndex], localEnePos.y);
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //Vector2 localEnePos = enemy.GetComponent<RectTransform>().anchoredPosition; // get local position to do the shake
+                //enemy.GetComponent<RectTransform>().anchoredPosition = new Vector2(localEnePos.x + shakeX[shakeIndex], localEnePos.y);
+                if (doShake)
+                {
+                    Vector2 localEnePos = enemy.GetComponent<RectTransform>().anchoredPosition; // get local position to do the shake
+                    enemy.GetComponent<RectTransform>().anchoredPosition = new Vector2(localEnePos.x + shakeX[shakeIndex], localEnePos.y);
+                }
+                enemy.nowShakeX = shakeX[shakeIndex];
+                // --------------------------------------------------------------------------------
 
                 /*#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
                     if (StaticInits.ENCOUNTER == "01 - Two monsters" && StaticInits.MODFOLDER == "Examples")
@@ -136,9 +151,19 @@ public class FightUI : MonoBehaviour {
             if (shakeTimer < 1.5f)
                 damageTextRt.localPosition = new Vector2(damageTextRt.localPosition.x, enemy.offsets[2].y + 40 * (2 + Mathf.Sin(shakeTimer * Mathf.PI * 0.75f)));
             shakeTimer += Time.deltaTime;
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //if (shakeTimer >= totalShakeTime)
+            //    shakeInProgress = false;
             if (shakeTimer >= totalShakeTime)
+            {
+                enemy.nowShakeX = 0;
                 shakeInProgress = false;
-        } else if ((slice.animcomplete &&!slice.img.GetComponent<KeyframeCollection>().enabled && stopped &&!showedup) || needAgain) {
+            }
+            // --------------------------------------------------------------------------------
+        }
+        else if ((slice.animcomplete &&!slice.img.GetComponent<KeyframeCollection>().enabled && stopped &&!showedup) || needAgain) {
             needAgain = true;
             if (!wait1frame) {
                 wait1frame = true;
@@ -193,6 +218,11 @@ public class FightUI : MonoBehaviour {
                 needAgain = false;
                 totalShakeTime = shakeX.Length * (1.5f / 8.0f);
                 showedup = true;
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                doShake = enemy.Shake;
+                // --------------------------------------------------------------------------------
             }
         } else if (!slice.animcomplete)
             slice.img.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(slice.img.GetComponent<Image>().sprite.rect.width, slice.img.GetComponent<Image>().sprite.rect.height);

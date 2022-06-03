@@ -32,10 +32,7 @@ namespace AsteriskMod
 
         public static void SetMainTextPosition(int newX, int newY)
         {
-            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.transform == null)
-            {
-                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
-            }
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.transform == null) return;
             Vector3 oldPos = UIController.instance.mainTextManager.transform.position;
             Vector2 oldRelativePos = mainTextManPos;
             mainTextManPos = new Vector2(newX, newY);
@@ -53,11 +50,8 @@ namespace AsteriskMod
 
         public static Table GetMainTextLetters()
         {
-            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.letterReferences == null)
-            {
-                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
-            }
             Table table = new Table(null);
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.letterReferences == null) return table;
             int key = 0;
             foreach (Image i in UIController.instance.mainTextManager.letterReferences)
             {
@@ -73,10 +67,7 @@ namespace AsteriskMod
 
         public static void SetTextVolume(float value)
         {
-            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null)
-            {
-                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
-            }
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null) return;
             if (value < 0) value = 0;
             else if (value > 1) value = 1;
             //mainTextMan.GetComponent<AudioSource>().volume = value;
@@ -85,19 +76,13 @@ namespace AsteriskMod
 
         public static float GetTextVolume()
         {
-            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null)
-            {
-                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
-            }
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null) return 1;
             return UIController.instance.mainTextManager.GetComponent<TextManager>().letterSound.volume;
         }
 
         public static void SetTextFont(string fontName, bool firstTime = false)
         {
-            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null)
-            {
-                throw new CYFException("The UIController.instance.mainTextManager object has not been initialized yet.\n\nPlease wait to run this code.");
-            }
+            if (UIController.instance == null || UIController.instance.mainTextManager == null || UIController.instance.mainTextManager.GetComponent<TextManager>() == null) return;
             if (fontName == null)
                 throw new CYFException("ArenaUtil.SetDialogTextFont: The first argument (the font name) is nil.\n\nSee the documentation for proper usage.");
             UnderFont uf = SpriteFontRegistry.Get(fontName);

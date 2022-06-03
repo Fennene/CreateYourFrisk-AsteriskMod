@@ -270,6 +270,14 @@ public class EnemyController : MonoBehaviour {
             script.Bind("SetDamageUIOffset", (Action<int, int>)SetDamageUIOffset);
             script.Bind("SetSliceAnimOffset", (Action<int, int>)SetSliceAnimOffset);
             script.Bind("State", (Action<Script, string>)UIController.SwitchStateOnString);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            if (AsteriskUtil.IsV053)
+            {
+                script.Bind("GetShakeX", (Func<int>)(() => { return nowShakeX; }));
+            }
+            // --------------------------------------------------------------------------------
             script.SetVar("canmove", DynValue.NewBoolean(false));
             sprite = new LuaSpriteController(GetComponent<Image>());
             script.SetVar("monstersprite", UserData.Create(sprite, LuaSpriteController.data));
@@ -475,6 +483,7 @@ public class EnemyController : MonoBehaviour {
     private const string VAR_NAME_BARS_VISIBLE = "showbars";
     //private const string VAR_NAME_DAMAGE_TEXT_VISIBLE = "showdamagetext";
     private const string VAR_NAME_FORCED_DAMAGE_TEXT = "damagetext";
+    private const string VAR_NAME_NO_SHAKE = "noshaking";
 
     private Color32 ConvertToColor(DynValue colorValue, DynValue alphaValue, byte init_r, byte init_g, byte init_b, byte init_a = 255)
     {
@@ -610,5 +619,23 @@ public class EnemyController : MonoBehaviour {
             script.SetVar(VAR_NAME_FORCED_DAMAGE_TEXT, value == null ? DynValue.NewNil() : DynValue.NewString(value));
         }
     }
+
+    public bool Shake
+    {
+        get
+        {
+            if (!AsteriskUtil.IsV053) return true;
+            DynValue value = script.GetVar(VAR_NAME_NO_SHAKE);
+            if (value == null || value.Type != DataType.Boolean) return true;
+            return !value.Boolean;
+        }
+        set
+        {
+            if (!AsteriskUtil.IsV053) return;
+            script.SetVar(VAR_NAME_NO_SHAKE, DynValue.NewBoolean(!value));
+        }
+    }
+
+    internal int nowShakeX = 0;
     // --------------------------------------------------------------------------------
 }

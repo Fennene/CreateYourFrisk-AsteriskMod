@@ -162,14 +162,20 @@ it's w3c valid, at least
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.dialogtextx</span>
                 Horizontal position of the text relative to the initial position.
+                <br><br>
+                If the object of the text in dialog box is not initialized, the position is not changed.
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.dialogtexty</span>
                 Vertical position of the text relative to the initial position.
+                <br><br>
+                If the object of the text in dialog box is not initialized, the position is not changed.
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> ArenaUtil.DialogTextMove(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Moves the text in dialog box to the position relative to current position.
+                <br><br>
+                If the object of the text in dialog box is not initialized, the position is not changed.
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> ArenaUtil.DialogTextMoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
@@ -177,12 +183,16 @@ it's w3c valid, at least
                 This is same to set <span class="term">ArenaUtil.dialogtextx</span> and 
                 <span class="term">ArenaUtil.dialogtexty</span> at the same time.
                 <br><br>
+                If the object of the text in dialog box is not initialized, the position is not changed.
+                <br><br>
                 <span class="Asterisk052x"></span> The name of this function is <span class="term">ArenaUtil.SetDialogTextPosition()</span>.
             </p>
 
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="userdata">sprite</span></span> ArenaUtil.GetDialogTextLetters()</span>
                 Returns a table containing sprite objects representing every letter to be displayed in the text object's current line of text.
+                <br><br>
+                If the text in dialog box is not initialized or does not shows, returns empty table.
                 <br><br>
                 See <span class="ref">text.GetLetters()</span> for more info.
             </p>
@@ -198,12 +208,16 @@ it's w3c valid, at least
                 <br><span class="function"><span class="asternew"></span> ArenaUtil.SetDialogTextVolume(<span class="number"></span> value)</span>
                 Sets the dialog text's volume of sound(voice). value should be between 0.0 (muted) and 1.0 (full volume). This is 1.0 by default.
                 <br><br>
+                If the text in dialog box is not initialized, nothing happens.
+                <br><br>
                 <span class="Asterisk052x"></span> This function is <span class="AsteriskExperiment"></span>. 
                 You could't mute texts by using this. Use <span class="term">ArenaUtil.SetDialogTextMute()</span> instead of it.
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.GetDialogTextVolume()</span>
                 Returns the dialog text's volume of sound(voice).
+                <br><br>
+                If the text in dialog box is not initialized, return <span class="term">1</span>.
                 <br><br>
                 <span class="Asterisk052x"></span> This function is <span class="AsteriskExperiment"></span>.
             </p>
