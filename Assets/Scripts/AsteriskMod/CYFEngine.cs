@@ -57,5 +57,40 @@ namespace AsteriskMod
             UIController.instance.encounter.RemoveAllProjectiles();
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
+
+        // wow, I can use ../ to CreateSprite. I didn't know that.
+
+        /*
+        public static void RegistSprite(string filename)
+        {
+            //Asterisk.RequireExperimentalFeature("Engine.RegistSprite");
+            Sprite sprite = SpriteUtil.FromFile(FileLoader.pathToModFile(filename + ".png"));
+            if (sprite == null)
+                throw new CYFException("The sprite " + filename + ".png doesn't exist.");
+            SpriteRegistry.Set("*" + filename, sprite);
+        }
+        */
+
+        /*
+        public static void UnregistSprite(string filename)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.UnregistSprite");
+            if (SpriteRegistry.Get(filename)) throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+            System.Type type = typeof(SpriteRegistry);
+            System.Reflection.FieldInfo field = type.GetField("dict", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            System.Collections.Generic.Dictionary<string, Sprite> dict = (System.Collections.Generic.Dictionary<string, Sprite>)(field.GetValue(typeof(SpriteRegistry)));
+            filename = filename.ToLower();
+            string dictKey = (UnitaleUtil.IsOverworld ? "ow" : "b") + filename;
+            dict.Remove(dictKey);
+        }
+        */
+
+        /*
+        public static void RegistAudioAsMusic(string filename)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.RegistAudioAsMusic");
+            AudioClip clip = FileLoader.getAudioClip(currentPath, dictMod[key].FullName);
+        }
+        */
     }
 }

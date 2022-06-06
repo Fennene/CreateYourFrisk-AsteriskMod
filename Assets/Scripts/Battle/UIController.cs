@@ -633,6 +633,17 @@ public class UIController : MonoBehaviour {
                 else
                     ArenaManager.instance.Resize(155, 130);
                 encounter.CallOnSelfOrChildren("EnemyDialogueStarting");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                DynValue ignoreEnemyDialogue = EnemyEncounter.script.GetVar(EncounterVar.IGNORE_ENEMY_DIALOGUE);
+                if (ignoreEnemyDialogue != null && ignoreEnemyDialogue.Type == DataType.Boolean && ignoreEnemyDialogue.Boolean)
+                {
+                    encounter.CallOnSelfOrChildren("EnemyDialogueEnding");
+                    SwitchState(UIState.DEFENDING);
+                    return;
+                }
+                // --------------------------------------------------------------------------------
                 monsterDialogues = new TextManager[encounter.EnabledEnemies.Length];
                 readyToNextLine = new bool[encounter.EnabledEnemies.Length];
                 for (int i = 0; i < encounter.EnabledEnemies.Length; i++) {

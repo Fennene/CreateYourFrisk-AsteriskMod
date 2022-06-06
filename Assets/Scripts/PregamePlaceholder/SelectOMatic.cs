@@ -38,6 +38,7 @@ public class SelectOMatic : MonoBehaviour {
     public GameObject     ModDescShadow,     ModDesc, ExistDescInfoShadow, ExistDescInfo;
     public GameObject AnimModDescShadow, AnimModDesc;
     public GameObject ENLabelShadow, ENLabel, JPLabelShadow, JPLabel, RetroWarningTextShadow, RetroWarningText;
+    public GameObject NoEncounterLabelShadow, NoEncounterLabel;
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -360,6 +361,12 @@ public class SelectOMatic : MonoBehaviour {
                 EncounterCount.GetComponent<Text>().text = "Has " + count + " encounter" + (count > 1 ? "s" : "");
                 if (GlobalControls.crate)
                     EncounterCount.GetComponent<Text>().text = "HSA " + count + " ENCUOTNER" + (count > 1 ? "S" : "");
+            }
+            else
+            {
+                EncounterCount.GetComponent<Text>().text = "No  encounters";
+                if (GlobalControls.crate)
+                    EncounterCount.GetComponent<Text>().text = "NO ENCUOTNERS";
             }
         }
         // RetroModeCheck
@@ -692,6 +699,8 @@ public class SelectOMatic : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         //int actualCount = 0;
+        NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
+        NoEncounterLabel.GetComponent<Text>().enabled = false;
         ModInfo info = modInfos[CurrentSelectedMod];
         Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
         bool needCheck = (info.showEncounters.Length > 0 || info.hideEncounters.Length > 0);
@@ -714,6 +723,12 @@ public class SelectOMatic : MonoBehaviour {
                 }
             }
             needCheck = (safeCheckCounter > 0);
+            if (safeCheckCounter == 0)
+            {
+                NoEncounterLabelShadow.GetComponent<Text>().enabled = true;
+                NoEncounterLabel.GetComponent<Text>().enabled = true;
+                return;
+            }
         }
         // --------------------------------------------------------------------------------
         foreach (FileInfo encounter in encounterFiles) {

@@ -141,4 +141,13 @@ public static class Temmify {
 
         return sentence;
     }
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public static string ConvertJP(string sentence)
+    {
+        DevelopHint.ToDo();
+        return sentence;
+    }
+    // --------------------------------------------------------------------------------
 }

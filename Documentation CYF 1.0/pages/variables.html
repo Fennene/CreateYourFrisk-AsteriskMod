@@ -299,8 +299,14 @@ deathtext = {
             This text is also used if the player gets revived while <span class="term">revive</span> is true. Otherwise, there is no revive text.</p>
             <br><p><span class="CYF"></span> <span class="string"></span> <span class="term">deathmusic</span> - Sets the death music. The music is played
             if <span class="term">revive</span> is not set.</p>
+
+            <br><p><span class="asternew"></span> <span class="Asterisk"></span> <span class="boolean"></span> <span class="term">ignoreenemydialogue</span> - Whether ignore <span class="term">ENEMYDIALOGUE</span> state or not.<br>
+            If <span class="term">true</span> after calling <span class="term">EnemyDialogueStarting</span>, 
+            the engine calls <span class="term">EnemyDialogueEnding</span> and go to <span class="term">DEFENDING</span> state.</p>
+
             <br><p><span class="CYF"></span> <span class="luatable"><span class="userdata">script</span></span> <span class="term">Wave</span> - A table returning the
             current wave scripts used. Returns a table with a length of 0 if not in the state DEFENDING.</p>
+            
             <br><p><span class="Asterisk"></span> <span class="userdata">script</span> <span class="term">CustomState</span> - A value returning the
             current state scripts used. Returns nil if not in the state CUSTOMSTATE.</p>
 

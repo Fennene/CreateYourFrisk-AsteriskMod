@@ -1,4 +1,5 @@
-﻿using MoonSharp.Interpreter;
+﻿using System.Collections.Generic;
+using MoonSharp.Interpreter;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -133,6 +134,7 @@ namespace AsteriskMod
         //                            Asterisk Mod Addition
         // --------------------------------------------------------------------------------
         private RectTransform self;
+        private Dictionary<string, Image> subbars;
 
         private void Awake()
         {
@@ -526,6 +528,59 @@ namespace AsteriskMod
             relativePosition = new Vector2(newX, newY);
             self.anchoredPosition = initPos + relativePosition;
         }
+
+        [MoonSharpHidden, ToDo]
+        public void AddSprite(LuaSpriteController sprite)
+        {
+            //sprite.GetTarget()
+        }
+
+        /*
+        private void PrepareSubBar(int capacity = -1)
+        {
+            if (subbars != null) return;
+            if (capacity > 0)
+            {
+                subbars = new Dictionary<string, Image>(capacity);
+            }
+            else
+            {
+                subbars = new Dictionary<string, Image>();
+            }
+        }
+
+        private void CheckSubExists(string key, bool getting = false)
+        {
+            CheckExists(getting, false);
+            if (subbars == null || !subbars.ContainsKey(key)) throw new CYFException("SubLifeBar \"" + key + "\" is not found.");
+            if (subbars[key] == null)
+            {
+                throw new CYFException(getting ? "Attempt to get a parameter from a removed SubLifeBar." : "Attempt to set a parameter to a removed SubLifeBar.");
+            }
+        }
+
+        public void AddSubBar(string key)
+        {
+            CheckExists(false, false);
+            PrepareSubBar();
+            subbars[key] = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AsteriskMod/HPBarSub"), self.transform).GetComponent<Image>();
+            subbars[key].transform.SetSiblingIndex(fill.transform.GetSiblingIndex());
+        }
+
+
+        public float subvalue[string key]
+        {
+            get
+            {
+                CheckExists(true);
+                return _hp;
+            }
+            set
+            {
+                SetHP(value, _maxhp);
+            }
+        }
+        */
         // --------------------------------------------------------------------------------
     }
 }
