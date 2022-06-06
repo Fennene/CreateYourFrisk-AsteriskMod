@@ -12,6 +12,37 @@ namespace AsteriskMod
         private static GameObject mainTextMan;
         private static Vector2 mainTextManPos;
 
+        private static Vector2 _arenaOffset;
+        internal static Vector2 ArenaOffset
+        {
+            get { return _arenaOffset; }
+            set
+            {
+                Vector2 oldArenaOffset = _arenaOffset;
+                _arenaOffset = value;
+                UIController.UIState state = UIController.instance.GetState();
+                if (state == UIController.UIState.DEFENDING || state == UIController.UIState.CUSTOMSTATE)
+                {
+                    ArenaManager.instance.MoveImmediate(-oldArenaOffset.x + _arenaOffset.x, -oldArenaOffset.y + _arenaOffset.y, true);
+                }
+                else
+                {
+                    ArenaManager.instance.resetArena();
+                    if (state == UIController.UIState.ENEMYSELECT || state == UIController.UIState.ACTMENU || state == UIController.UIState.ITEMMENU || state == UIController.UIState.MERCYMENU)
+                    {
+                        float xPos = PlayerController.instance.self.anchoredPosition.x - oldArenaOffset.x + _arenaOffset.x;
+                        float yPos = PlayerController.instance.self.anchoredPosition.y - oldArenaOffset.y + _arenaOffset.y;
+                        PlayerController.instance.SetPosition(xPos, yPos, false);
+                    }
+                }
+            }
+        }
+
+        internal static void Initialize()
+        {
+            _arenaOffset = Vector2.zero;
+        }
+
         private void Awake()
         {
             border = transform.Find("arena_border_outer").gameObject;

@@ -9,6 +9,18 @@ namespace AsteriskMod
 
         public static float centerabsy { get { return ArenaManager.arenaCenter.y; } }
 
+        public static float offsetx
+        {
+            get { return ArenaUI.ArenaOffset.x; }
+            set { ArenaUI.ArenaOffset = new Vector2(value, offsety); }
+        }
+
+        public static float offsety
+        {
+            get { return ArenaUI.ArenaOffset.y; }
+            set { ArenaUI.ArenaOffset = new Vector2(offsetx, value); }
+        }
+
         public static void SetBorderColor(float r, float g, float b, float a = 1.0f)
         {
             ArenaUI.SetBorderColor(new Color(r, g, b, a));

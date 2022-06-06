@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Behaviour attached to the arena used to resize it.
 /// </summary>
 public class ArenaManager : MonoBehaviour {
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public const int UI_X = 320;
+    public const int UI_Y = 90;
+    // --------------------------------------------------------------------------------
     public const int UIWidth = 565; // width of the inner Undertale UI box
     public const int UIHeight = 130; // height of the inner Undertale UI box
     public Vector2 basisCoordinates;
@@ -366,7 +373,12 @@ public class ArenaManager : MonoBehaviour {
 
     public void resetArena() {
         if (!firstTurn)
-            MoveToImmediate(320, 90, false);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //MoveToImmediate(320, 90, false);
+            MoveToImmediate(UI_X + ArenaUI.ArenaOffset.x, UI_Y + ArenaUI.ArenaOffset.y, false);
+        // --------------------------------------------------------------------------------
         Resize(UIWidth, UIHeight);
         Show();
     }

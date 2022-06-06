@@ -1537,7 +1537,7 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //PlayerController.instance.SetPosition(upperLeft.x + xMv * 256, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing, true);
         int xDistance = UnitaleUtil.IsOverworld ? 256 : 266;
-        PlayerController.instance.SetPosition(upperLeft.x + xMv * xDistance, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing, true);
+        PlayerController.instance.SetPosition(upperLeft.x + xMv * xDistance + ArenaUI.ArenaOffset.x, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing + ArenaUI.ArenaOffset.y, true);
         // --------------------------------------------------------------------------------
     }
 

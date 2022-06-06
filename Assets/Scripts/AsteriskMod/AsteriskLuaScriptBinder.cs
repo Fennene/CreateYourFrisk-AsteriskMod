@@ -21,9 +21,11 @@ namespace AsteriskMod
             UserData.RegisterType<StateEditor>();
             UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
 
+            /*
             UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
+            */
 
             UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();
             UserData.RegisterType<ExtendedUtil.LuaStringUtil>();
@@ -120,11 +122,13 @@ namespace AsteriskMod
                 DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
                 script.Globals.Set("JPStyle", jpstyle);
 
+                /*
                 GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
                 //if (goms == null) goms = new GameObjectModifyingSystem();
                 DynValue gms = UserData.Create(goms);
                 script.Globals.Set("GameObjectModifyingSystem", gms);
                 script.Globals.Set("GMS", gms);
+                */
 
                 if (AsteriskEngine.LuaCodeStyle.moreUtil)
                 {

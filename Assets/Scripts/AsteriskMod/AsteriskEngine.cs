@@ -92,6 +92,8 @@ namespace AsteriskMod
                 SetAutoFontCoordinatingActive(active);
                 SetAutoJapaneseFontStyle(active);
             }
+
+            internal static string FontCommand { get { return "[font:" + JapaneseFontName + "]"; } }
         }
 
         internal static void Initialize()
@@ -115,6 +117,8 @@ namespace AsteriskMod
         internal static void AwakeMod()
         {
             CYFEngine.Initialize();
+            UIController.InitalizeButtonManager();
+            ArenaUI.Initialize();
             JapaneseStyleOption.Reset();
         }
 
