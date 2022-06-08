@@ -484,8 +484,7 @@ public class EnemyEncounter : MonoBehaviour {
             CustomStateScript.script.Globals["CreateProjectile"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectile;
             CustomStateScript.script.Globals["CreateProjectileAbs"] = (Func<Script, string, float, float, string, DynValue>)CreateProjectileAbs;
             DynValue CustomStateEditor = UserData.Create(new StateEditor());
-            DevelopHint.ToDo("for v0.5.2.x");
-            if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.TakeNewStepUpdate)
+            if (!AsteriskUtil.IsV053)
             {
                 CustomStateEditor = UserData.Create(new AsteriskMod.Lua.StateEditor());
             }

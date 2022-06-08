@@ -269,6 +269,17 @@ namespace AsteriskMod
             }
         }
 
+        public void MoveBelow(LuaStaticTextManager otherText)
+        {
+            CheckExists();
+            if (otherText == null || !otherText.isactive) throw new CYFException("The static text object passed as an argument is nil or inactive.");
+            if (transform.parent.parent != otherText.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two static text objects without the same parent.");
+            else
+            {
+                try { transform.parent.SetSiblingIndex(otherText.transform.parent.GetSiblingIndex()); }
+                catch { throw new CYFException("Error while calling staticText.MoveBelow."); }
+            }
+        }
         public void MoveBelow(LuaTextManager otherText)
         {
             CheckExists();
@@ -281,6 +292,17 @@ namespace AsteriskMod
             }
         }
 
+        public void MoveAbove(LuaStaticTextManager otherText)
+        {
+            CheckExists();
+            if (otherText == null || !otherText.isactive) throw new CYFException("The static text object passed as an argument is nil or inactive.");
+            if (transform.parent.parent != otherText.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two static text objects without the same parent.");
+            else
+            {
+                try { transform.parent.SetSiblingIndex(otherText.transform.parent.GetSiblingIndex() + 1); }
+                catch { throw new CYFException("Error while calling staticText.MoveAbove."); }
+            }
+        }
         public void MoveAbove(LuaTextManager otherText)
         {
             CheckExists();
@@ -748,6 +770,8 @@ namespace AsteriskMod
         }
 
         /*
+        DO NOT
+
         private readonly Dictionary<string, DynValue> vars = new Dictionary<string, DynValue>();
 
         public void SetVar(string name, DynValue value)

@@ -136,7 +136,6 @@ it's w3c valid, at least
             <br><hr>
             
             <h3>The Purpose of Asterisk Mod</h3><br><br>
-
             <p>
                 Asterisk Mod is created to focus on controlling CYF's original UIs.<br>
                 Related each UIs are put themselves together into a object. For example, Controlling UIs related to display the Player's status is named "<span class="term">PlayerUtil</span>".<br>
@@ -146,7 +145,21 @@ it's w3c valid, at least
                 If you use this mod, you may not need to create Fake UI and the engine may works quicker.<br>
                 The main purpose that Asterisk Mod is made is for creating more easier what you come up and your good ideas.
             </p>
+            <br><hr>
 
+            <h3>Relation with v0.6.6 and Compatibility with v0.6.6</h3><br><br>
+            <p>
+                AsteriskMod v0.5.3's renewal and CYF v0.6.6's renewal was at the same time, and AsteriskMod has similar features with official CYF v0.6.6.<br>
+                However there is no relation with official CYF v0.6.6. 
+                AsteriskMod have NOT used CYF v0.6.6's codes.<br>
+                (Some features' ideas may be shared with RTL(CYF's dev) and implemented in official CYF v0.6.6. 
+                (ahh... but it's little little litttttttle ideas.))<br>
+                But actually I made this.<br>
+                That's because CYF v0.6.6 has NOT ALL the features I want!<br>
+                For example... State Script.
+                <br><br>
+                That means there is NO compatibility with v0.6.6.
+            </p>
             <br><hr>
             
             <h3>Features</h3><br><br>
@@ -158,11 +171,11 @@ it's w3c valid, at least
                         <span class="term">Copying Error</span>: You can copy error message.
                     </li><br>
                     <li>
-                        <span class="term">Mod's Description</span>: adds your mod's description.
+                        <span class="term">Mod's Info</span>: modifies mod's information and working.
                     </li><br>
                     <li>
-                        <span class="term">Special Variables</span>: modifies the text of MERCYMENU and 
-                        the color of enemies' life bar.
+                        <span class="term">Special Variables</span>: modifies the text of MERCYMENU, 
+                        the bar's color of enemies' HP, FightUI and ignores enemy's dialog.
                     </li><br>
                     <li>
                         <span class="term">Game Events</span>: adds functions which run some the time point.
@@ -175,10 +188,16 @@ it's w3c valid, at least
                     </li><br>
                     <li>
                         <span class="term">Sprites and Animation</span>: checks layer exists.
+                    </li><br>
+                    <li>
+                        <span class="term">The Text Object</span>: is added <span class="term">Move()</span>.
                     </li>
                 </ul><br>
                 Asterisk Mod has below features:<br><br>
                 <ul>
+                    <li>
+                        <span class="term">Engine</span>: controls the engine itself.
+                    </li><br>
                     <li>
                         <span class="term">PlayerUtil</span>: controls the UI of the player's status.
                     </li><br>
@@ -190,10 +209,16 @@ it's w3c valid, at least
                     </li><br>
                     <li>
                         <span class="term">CustomState</span>: You can create your own state.
+                    </li><br>
+                    <li>
+                        <span class="term">Japanese</span>: CYFの日本語対応！？
+                    </li><br>
+                    <li>
+                        <span class="term">GameObjectModifyingSystem(GMS)</span>: ...
                     </li>
                 </ul><br>
                 See each sections for more information.<br>
-                "Asterisk Mod Features" Mod contains some examples.
+                "Asterisk Mod Features" Mods contain some examples.
             </p>
 
             <br><hr>
@@ -326,6 +351,9 @@ it's w3c valid, at least
                             <li>Add the function <span class="term">Text.SetSoundVolume()</span></li>
                             <li>Add the function <span class="term">Text.GetSoundVolume()</span></li>
                         </ul>
+                    </li>
+                    <li>
+                        Add <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>
                     </li>
                     <li class="modify">
                         Renew <span class="term"><a href="api-playerutil.html">The PlayerUtil Object</a></span>.
@@ -468,9 +496,6 @@ it's w3c valid, at least
                                 (Please use <span class="term">ArenaUtil.AsteriskChar</span> instead of that.)
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        Add <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>
                     </li>
                     <li>
                         Add <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>

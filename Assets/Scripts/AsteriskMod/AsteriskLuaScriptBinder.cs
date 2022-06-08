@@ -95,7 +95,6 @@ namespace AsteriskMod
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
                 script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
-                script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
             }
 
             if (AsteriskEngine.ModTarget_AsteriskVersion == Asterisk.Versions.QOLUpdate)

@@ -63,7 +63,7 @@ it's w3c valid, at least
                     <li class="asternew"><a href="setup.html">Additional Setup</a></li>
                     <li class="asternew"><a href="update-guide.html">Update Migration Guide</a></li>
                     <li class="asternew"><a href="misc.html">Misc.Changes</a></li>
-                    <li class="asternew active" style="margin-left:5px;">&gt; The StaticText Object /<br>The LimitedStaticText Object &lt;</li>
+                    <li class="asternew active" style="margin-left:5px;">&gt; The StaticText Object &lt;</li>
                     <li>Functions &amp; Objects:</li>
                     <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
@@ -111,32 +111,28 @@ it's w3c valid, at least
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-api-statictext">
             <h2><span class="asternew"></span> <span class="Asterisk"></span> The StaticText object [E/M/W]</h2><br><br>
+
             <p>
                 This is derivation of The Text Object, it is made for running CYF faster.<br>
-                This object is used to texts that does not need to update.<br>
-                "does not need to update" means that the text does not need letter effect, text command, voice, multiline and bubble.
+                This text object is used for the texts unneeded any update features.<br>
+                That means, the text is showed instantly, there are no text effect, command, bubble and voice.<br>
+                This is used for the text showing Player's status in the engine by default. 
             </p><br>
 
             <p>
-                The StaticText Object have also derivated class, it is The <span class="userdata">LimitedStaticText</span> Object.<br>
-                <span class="term">LimitedStaticText</span> object is used to The StaticText Object that the engine prepared, 
-                it is letterly limited (means some functions are not allowed).
-            </p><br>
-
-            <hr>
-
-            <p>
-                &lt; Technical info &gt;<br>
-                namespace of <span class="term">The StaticText Object</span> and <span class="term">The LimitedStaticText Object</span> is <span class="term">AsteriskMod</span>.<br>
-                The source code of <span class="term">The StaticText Object</span> is <span class="term">LuaStaticTextManager.cs</span> in <span class="term">Assets/Scripts/AsteriskMod/Text</span>.<br>
-                The source code of <span class="term">The LimitedStaticText Object</span> is <span class="term">LimitedLuaStaticTextManager.cs</span> in <span class="term">Assets/Scripts/AsteriskMod/UIStats</span>.
+                Huh? Is it very useless?<br>
+                If you think like that, you don't need to see this page.<br>
+                This is used in <span class="term">The PlayerUtil Object</span>, 
+                but this is made based on normal <span class="term">Text Object</span>.<br>
+                That means, the functions' names are same to normal Text Object, so you can call functions like calling functions as Text Object.<br>
+                So... what you need to see <a href="#UIStaticTextObject">this</a>.
             </p><br>
 
             <hr><br>
 
             <p>
                 <span class="function"><span class="Asterisk"></span> CreateStaticText(<span class="string"></span> font = "uidialog", <span class="string"></span> text, <span class="luatable"><span class="number"></span>, <span class="number"></span></span> position, <span class="number"></span> textWidth, <span class="string"></span> layer = "BelowPlayer", <span class="nullable_number"></span> charspacing = nil, <span class="number"></span> linespacing = 0) returns <span class="userdata">StaticText</span> [E/M/W]</span>
-                This function creates a Text Object and returns it. 
+                This function creates a StaticText Object and returns it. 
                 However, as you can see, a lot of parameters are needed.
                 Here is what you need to set:<br>
                 <ul>
@@ -147,7 +143,10 @@ it's w3c valid, at least
                     </li><br>
                     <li>
                         <span class="term">text</span> - The text to display. 
-                        Should just be a single string, you can not assign table of string.
+                        <font color="#FFF">
+                            Should just be a single string, you can not assign table of string.<br>
+                            Note that StaticText can NOT use Text Commands.
+                        </font>
                     </li><br>
                     <li>
                         <span class="term">position</span> - Two numbers: The x and y positions of the center of the object. Sorry if it may be hard to place it, but you'll be able to use MoveTo to adjust it afterwards.
@@ -170,20 +169,200 @@ it's w3c valid, at least
                         This is same as the text command <span class="term">[linespacing]</span>.
                     </li>
                 </ul><br>
-                There is NOT a one-frame delay in the StaticText Object.
+                <font color="#DDD">There is NOT a one-frame delay in the StaticText Object.</font>
             </p><br>
 
-            <hr><br>
+            <hr>
 
-            <h3>Common Functions</h3><br><br>
-            <p>These functions can use in <span class="term">The StaticText Object</span> and <span class="term">The LimitedStaticText Object</span></p>
+            <h3 id="UIStaticTextObject">UIStaticTextObject Only</h3><br>
+
+            <p>This is only for <span class="term">PlayerUtil</span>'s StaticText object.</p>
+
+            <p>
+                <br><span class="function">UIStaticText.SetControlOverride(<span class="boolean"></span> active)</span>
+                If <span class="term">true</span>, the text displaying the player's status does not update anymore.
+            </p>
+
+            <br><h4>Note that static text obejct of UI can not be called <span class="term">StaticText.DestroyText().</h4>
+
+
+            <br><hr>
+
+            <h3>Common Variables and Functions</h3><br>
+
+            <p>
+                <br><span class="function">StaticText.Remove()<br></span>
+                or<span class="function">StaticText.DestroyText()</span>
+                This function destroys a static text object, similar to <span class="term">.Remove()</span> for bullets and sprites.
+                <br><br>
+                Trying to get, set or call almost anything besides <span class="term">StaticText.isactive</span> on a destroyed static text object will error.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> StaticText.isactive (Read-Only)</span>
+                Tells you if a static text object is active.
+                <br><br>
+                A static text object will become inactive if you call <span class="term">StaticText.DestroyText()</span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.x</span>
+                The local x position of the object, measured from the position of the static text object's parent. This value depends on the object's pivot.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.y</span>
+                The local y position of the object, measured from the position of the static text object's parent. This value depends on the object's pivot.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.absx</span>
+                The absolute x position of the object, measured from the bottom left corner of the screen. This value depends on the object's pivot.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.absy</span>
+                The absolute y position of the object, measured from the bottom left corner of the screen. This value depends on the object's pivot.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.textMaxWidth</span>
+                Get or set the maximum width of the text. If the value is lower than 16, it'll be set back to 16.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="string"></span> StaticText.layer</span>
+                The sprite layer of the StaticText Object. If it doesn't exist, it returns an error. This is <span class="term">"BelowPlayer"</span> by default.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> StaticText.color</span>
+                Get or set the color of the text, as a table of 3 or 4 values from <span class="term">0</span> to <span class="term">1</span>.<br>
+                For example, <span class="term">statictext.color = {1.0, 0.0, 0.0}</span> makes the text red.<br>
+                Black areas are not affected by coloration.<br>
+                The 4th value is the alpha (transparency) value of the text.<br>
+            </p>
+            <p>
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> StaticText.color32</span>
+                Get or set the color of the text, as a table of 3 or 4 integer values from <span class="term">0</span> to <span class="term">255</span>.<br>
+                For example, <span class="term">statictext.color = {255, 0, 0}</span> makes it red.<br>
+                Black areas are not affected by coloration.<br>
+                The 4th value is the alpha (transparency) value of the text.<br>
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.alpha</span>
+                Get or set the text's transparency, as a value between <span class="term">0</span> and <span class="term">1</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.alpha32</span>
+                Get or set the text's transparency, as an integer between <span class="term">0</span> and <span class="term">255</span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="luatable"><span class="userdata">sprite</span></span> StaticText.GetLetters()</span>
+                Returns a table containing sprite objects representing letters to be displayed.
+                <h4>Letter sprite objects can not have their layer changed, can not run sprite.Mask, and can only be parented to other letter sprites.</h4>
+                NOTE: Accessing this table generates the table anew every time. To save on resources, store this table to a local variable before doing any operations on it. Even code such as <span class="term">for i = 1, #statictext.GetLetters()</span> do is a bad idea.
+            </p>
+
+            <p>
+                <br><span class="function">StaticText.SetParent(<span class="userdata">sprite</span> parent)</span>
+                Sets the text object's parent.<br>
+                The static text object will follow around the parent object as it moves.
+            </p>
+            <p>
+                <br><span class="function">StaticText.SetAnchor(<span class="number"></span> x, <span class="number"></span> y)</span>
+                If this static text object has a parent set via <span class="term">StaticText.SetParent</span>, this will control its anchor point (the relative point on the parent sprite that the text object will follow if the parent sprite gets scaled).
+                <br><br>
+                <span class="term">x</span> and <span class="term">y</span> should usually both be between <span class="term">0</span> and <span class="term">1</span>. However, you are free to use numbers outside of this range as well.
+                <br><br>
+                Works exactly the same as <span class="term">sprite.SetAnchor</span> (see <span class="ref">Sprites & Animation</span>).
+            </p>
+
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.xscale</span>
+                <span class="function"><span class="number"></span> StaticText.yscale</span>
+                Allows you to stretch and squish static text objects, similarly to sprite objects.
+            </p>
+            <p>
+                <br><span class="function">StaticText.Scale(<span class="number"></span> xscale, <span class="number"></span> yscale)</span>
+                Same as setting <span class="term">StaticText.xscale</span> and <span class="term">StaticText.yscale</span> at the same time.
+            </p>
+
+            <p>
+                <br><span class="function">StaticText.MoveBelow(<span class="userdata">staticText</span> otherStaticTextObject)</span>
+                <span class="function">StaticText.MoveBelow(<span class="userdata">text</span> textObject)</span>
+                Moves a static text object below another static text object or text object.<br>
+                They must both be on the same layer.
+            </p>
+            <p>
+                <br><span class="function">StaticText.MoveAbove(<span class="userdata">staticText</span> otherStaticTextObject)</span>
+                <span class="function">StaticText.MoveAbove(<span class="userdata">text</span> textObject)</span>
+                Moves a static text object above another static text object or text object.<br>
+                They must both be on the same layer.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="string"></span> StaticText.text (Read-Only)</span>
+                Gets the text in the StaticText Object.
+            </p>
+            <p>
+                <br><span class="function">StaticText.SetText(<span class="string"></span> text)</span>
+                Sets the text in the StaticText Object.<br>
+                If the static text object is inactive when this is called, the object will reactive itself.
+            </p>
+            <p>
+                <br><span class="function">StaticText.SetFont(<span class="string"></span> fontName)</span>
+                Sets the font of the text. It's the only way of changing text's font.<br>
+                Returns an error if the font doesn't exist.
+                <br><br>
+                <font color="#FFF">* Note that the font is not changed until call <span class="term">StaticText.SetText()</span>.</font>
+            </p>
+            <p>
+                <br><span class="function">StaticText.SetCharSpacing(<span class="nullable_number"></span> space = nil)</span>
+                Sets the number of pixels that separate characters on the same line in the static text object.<br>
+                Negative = less space between characters, Positive = more space between characters.
+                <br><br>
+                The default value is <span class="term">3</span>.<br>
+                Fonts can specify a <span class="term">&lt;charspacing&gt;</span> tag that sets this value.
+                <br><br>
+                Assign <span class="term">nil</span> to reset this value to the value provided by the font (or the default value of 3).
+                <br><br>
+                <font color="#FFF">* Note that the charspacing is not changed until call <span class="term">StaticText.SetText()</span>.</font>
+            </p>
+            <p>
+                <br><span class="function">StaticText.SetLineSpacing(<span class="number"></span> line = 0)</span>
+                Number of pixels that separate different lines in the static text object. The number you enter here gets added on to the active font's regular line spacing.<br>
+                Negative = less space between lines, Positive = more space between lines.<br>
+                <br><br>
+                By default, the amount of pixels between lines is <span class="term">1.5 * the height</span> of the font's "space" character.<br>
+                If the font has a <span class="term">&lt;linespacing&gt;</span> tag, its number value will be the amount of pixels between lines instead.
+                <br><br>
+                Assign <span class="term">nil</span> to reset the line spacing to its original value.
+                <br><br>
+                <font color="#FFF">* Note that the linespacing is not changed until call <span class="term">StaticText.SetText()</span>.</font>
+            </p>
+
+            <p>
+                <br><span class="function">StaticText.Move(<span class="number"></span> x, <span class="number"></span>  y)</span>
+                Moves the text to a new position, relative to the current static text object's position.
+            </p>
+            <p>
+                <br><span class="function">StaticText.MoveTo(<span class="number"></span> x, <span class="number"></span>  y)</span>
+                Moves the text to a new position, relative to the static text object's parent's position.
+            </p>
+            <p>
+                <br><span class="function">StaticText.MoveToAbs(<span class="number"></span> x, <span class="number"></span>  y)</span>
+                Moves the text to a new position, relative to the bottom left corner of the window.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.GetTextWidth()</span>
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> StaticText.GetTextHeight()</span>
+            </p>
 
 
 
             <br><br><br><br><br><br><br><br><br><br>
             <br><br><br><br><br><br><br><br><br><br>
-
-
 
 
 
