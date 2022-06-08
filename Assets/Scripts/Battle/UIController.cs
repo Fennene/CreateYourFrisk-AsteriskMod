@@ -2008,5 +2008,73 @@ public class UIController : MonoBehaviour {
         foreach (LifeBarController lbc in arenaParent.GetComponentsInChildren<LifeBarController>())
             Destroy(lbc.gameObject);
     }
+
+    /*
+    //internal Dictionary<string, TextManager> customMonsterDialogues = new Dictionary<string, TextManager>();
+    //internal Dictionary<string, bool> customReadyToNextLine = new Dictionary<string, bool>();
+
+    internal void SimulateEnemyDialogueBubbleAndText(string key, int targetEnemyIndex, string[] customMessage, bool usePrefix)
+    {
+        //monsterDialogues = new TextManager[encounter.EnabledEnemies.Length];
+        //readyToNextLine = new bool[encounter.EnabledEnemies.Length];
+
+        string[] message = (customMessage == null || customMessage.Length == 0) ? encounter.enemies[targetEnemyIndex].GetDefenseDialog() : customMessage;
+        if (message == null) return;
+        GameObject speechBub = Instantiate(SpriteFontRegistry.BUBBLE_OBJECT);
+        //RectTransform enemyRt = encounter.enemies[targetEnemyIndex].GetComponent<RectTransform>();
+        TextManager sbTextMan = speechBub.GetComponent<TextManager>();
+        customMonsterDialogues.Add(key, sbTextMan);
+        //sbTextMan.SetCaller(encounter.enemies[targetEnemyIndex].script);
+        sbTextMan.SetCaller(encounter.CustomStateScript);
+        Image speechBubImg = speechBub.GetComponent<Image>();
+        // error catcher
+        try { SpriteUtil.SwapSpriteFromFile(speechBubImg, encounter.enemies[targetEnemyIndex].DialogBubble, targetEnemyIndex, true); }
+        catch
+        {
+            if (encounter.enemies[targetEnemyIndex].DialogBubble != "UI/SpeechBubbles/")
+                UnitaleUtil.DisplayLuaError(encounter.enemies[targetEnemyIndex].scriptName + ": Creating a dialogue bubble",
+                                            "The dialogue bubble \"" + encounter.enemies[targetEnemyIndex].script.GetVar("dialogbubble") + "\" doesn't exist.");
+            else
+                UnitaleUtil.DisplayLuaError(encounter.enemies[targetEnemyIndex].scriptName + ": Creating a dialogue bubble",
+                                            "This monster has no set dialogue bubble.");
+            return;
+        }
+        sbTextMan._textMaxWidth = (int)encounter.enemies[targetEnemyIndex].bubbleWidth;
+
+        Sprite speechBubSpr = speechBubImg.sprite;
+        // TODO improve position setting/remove hardcoding of position setting
+        speechBub.transform.SetParent(encounter.enemies[targetEnemyIndex].transform);
+        speechBub.GetComponent<RectTransform>().anchoredPosition = encounter.enemies[targetEnemyIndex].DialogBubblePosition;
+        speechBub.transform.position = new Vector3(speechBub.transform.position.x + encounter.enemies[targetEnemyIndex].offsets[1].x,
+                                                   speechBub.transform.position.y + encounter.enemies[targetEnemyIndex].offsets[1].y, speechBub.transform.position.z);
+        sbTextMan.SetOffset(speechBubSpr.border.x, -speechBubSpr.border.w);
+
+        UnderFont enemyFont = SpriteFontRegistry.Get(encounter.enemies[targetEnemyIndex].Font ?? string.Empty);
+        if (enemyFont == null)
+            enemyFont = SpriteFontRegistry.Get(SpriteFontRegistry.UI_MONSTERTEXT_NAME);
+        sbTextMan.SetFont(enemyFont);
+
+        TextMessage[] monsterMessages = new TextMessage[message.Length];
+        if (usePrefix)
+            for (int j = 0; j < monsterMessages.Length; j++)
+                monsterMessages[j] = new MonsterMessage(encounter.enemies[targetEnemyIndex].DialoguePrefix + message[j]);
+        sbTextMan.SetTextQueue(monsterMessages);
+        speechBubImg.color = new Color(speechBubImg.color.r, speechBubImg.color.g, speechBubImg.color.b, sbTextMan.letterReferences.Count(ltr => ltr != null) == 0 ? 0 : 1);
+        speechBub.GetComponent<Image>().enabled = true;
+        if (encounter.enemies[targetEnemyIndex].Voice != "")
+            sbTextMan.letterSound.clip = AudioClipRegistry.GetVoice(encounter.enemies[targetEnemyIndex].Voice);
+    }
+
+    internal void RemoveEnemyDialogueBubbleAndText()
+    {
+        TextManager[] textManagers = FindObjectsOfType<TextManager>();
+        foreach (TextManager textManager in textManagers)
+            if (textManager.gameObject.name.StartsWith("DialogBubble")) // game object name is hardcoded as it won't change
+                Destroy(textManager.gameObject);
+
+        customMonsterDialogues = new Dictionary<string, TextManager>();
+        //customReadyToNextLine = new Dictionary<string, bool>();
+    }
+    */
     // --------------------------------------------------------------------------------
 }

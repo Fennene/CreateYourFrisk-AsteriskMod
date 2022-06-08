@@ -428,11 +428,12 @@ public class EnemyEncounter : MonoBehaviour {
     private void TryCallStateStarting(UIController.UIState oldState, string oldCustomState)
     {
         customStateHasUpdate = !(CustomStateScript.script.Globals["Update"] == null);
-        if (CustomStateScript.script.Globals["StateEnding"] == null)
+        if (!AsteriskUtil.IsV053 && CustomStateScript.script.Globals["StateEnding"] == null)
         {
             UnitaleUtil.DisplayLuaError(currentCustomStateName, "All the state scripts need an StateEnding() function!");
             return;
         }
+        if (AsteriskUtil.IsV053 && CustomStateScript.script.Globals["StateStarting"] == null) return;
         try
         {
             string oldstatename;
@@ -448,7 +449,7 @@ public class EnemyEncounter : MonoBehaviour {
         }
         catch (Exception ex)
         {
-            if (CustomStateScript.script.Globals["StateStarting"] == null)
+            if (!AsteriskUtil.IsV053 && CustomStateScript.script.Globals["StateStarting"] == null)
                 UnitaleUtil.DisplayLuaError(currentCustomStateName, "All the state scripts need an StateStarting() function!");
             else
                 UnitaleUtil.DisplayLuaError(currentCustomStateName, "This error is a " + ex.GetType() + " error.\nPlease send this error to the main dev.\n\n" + ex.Message + "\n\n" + ex.StackTrace);

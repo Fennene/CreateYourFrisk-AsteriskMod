@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoonSharp.Interpreter;
+using System;
 using UnityEngine.UI;
 
 namespace AsteriskMod
@@ -65,6 +66,39 @@ namespace AsteriskMod
 
         public static void RemoveLifeBar() { UIController.instance.RemoveFightMenuLifeBar(); }
 
+        /*
+        public static void CreateEnemyBubble(string key, int enemyIndex, DynValue customMessage = null, bool usePrefix = true)
+        {
+            Asterisk.RequireExperimentalFeature("StateEditor.CreateEnemyBubble");
+            string[] message;
+            if (customMessage == null || customMessage.Type == DataType.Nil || customMessage.Type == DataType.Void)
+            {
+                message = null;
+            }
+            else if (customMessage.Type == DataType.Table)
+            {
+                message = new string[customMessage.Table.Length];
+                for (var i = 0; i < customMessage.Table.Length; i++)
+                {
+                    if (customMessage.Table.Get(i + 1).Type == DataType.String)
+                    {
+                        message[i] = customMessage.Table.Get(i + 1).String;
+                    }
+                    else
+                    {
+                        throw new CYFException("StateEditor.CreateEnemyBubble: customMessage should be nil or a table of string");
+                    }
+                }
+            }
+            else
+            {
+                throw new CYFException("StateEditor.CreateEnemyBubble: customMessage should be nil or a table of string");
+            }
+            UIController.instance.SimulateEnemyDialogueBubbleAndText(key, enemyIndex, message, usePrefix);
+        }
+
+        public static void RemoveEnemyBubble() { UIController.instance.RemoveEnemyDialogueBubbleAndText(); }
+        */
 
         public static void SetPlayerOnSelection(int selection, bool singleList = true) { UIController.instance.SetPlayerOnSelection((selection - 1) * (singleList ? 2 : 1)); }
 

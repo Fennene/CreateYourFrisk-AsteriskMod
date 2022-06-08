@@ -102,6 +102,7 @@ namespace AsteriskMod
         [MoonSharpHidden]
         internal void CheckInactivate(int buttonID)
         {
+            DevelopHint.ToDo("All Inactivate");
             if (!ActionButtons[buttonID].isactive) return;
             for (var i = 0; i < 4; i++)
             {
