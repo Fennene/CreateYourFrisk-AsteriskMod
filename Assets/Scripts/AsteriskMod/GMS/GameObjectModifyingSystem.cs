@@ -7,6 +7,7 @@ namespace AsteriskMod
     /// Provides the method of modifying as GameObject in Lua Script.<br/>
     /// Be attached to <c>Canvas</c> in <c>Battle</c> Scene
     /// </summary>
+    [ToDo("Recreate")]
     public class GameObjectModifyingSystem : MonoBehaviour
     {
         public static UnityObject Find(string name)

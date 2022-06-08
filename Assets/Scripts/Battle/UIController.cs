@@ -509,7 +509,7 @@ public class UIController : MonoBehaviour {
                 // --------------------------------------------------------------------------------
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
-                DynValue spareText = EnemyEncounter.script.GetVar("sparetext");
+                DynValue spareText = EnemyEncounter.script.GetVar(EncounterVar.SPARE_TEXT);
                 if (spareText != null && spareText.Type == DataType.String)
                 {
                     mercyOptions[0] = spareText.String;
@@ -523,7 +523,7 @@ public class UIController : MonoBehaviour {
                     // --------------------------------------------------------------------------------
                     //                          Asterisk Mod Modification
                     // --------------------------------------------------------------------------------
-                    DynValue fleeText = EnemyEncounter.script.GetVar("fleetext");
+                    DynValue fleeText = EnemyEncounter.script.GetVar(EncounterVar.FLEE_TEXT);
                     if (fleeText != null && fleeText.Type == DataType.String)
                     {
                         mercyOptions[1] = fleeText.String;
@@ -1932,6 +1932,81 @@ public class UIController : MonoBehaviour {
                 PlayerController.instance.SetPosition(mercyPos.x, mercyPos.y, true);
                 break;
         }
+    }
+
+    internal void SimulateFightMenuLifeBar(int targetEnemyInedx, int line) // (int page)
+    {
+        int maxWidth = (int)initialHealthPos.x;
+        //RemoveFightMenuLifeBar();
+
+        if (targetEnemyInedx < 0 || encounter.enemies.Length <= targetEnemyInedx)
+        {
+            throw new CYFException("StateEditor.CreateLifeBar: enemy's index should be between 1 and the number of enemies.");
+        }
+        DevelopHint.ToDo("I don't understand");
+        DevelopHint.RangeStart();
+        int mNameWidth = (int)UnitaleUtil.CalcTextWidth(mainTextManager) + 50;
+        if (mNameWidth > maxWidth)
+            maxWidth = mNameWidth;
+        /*
+        for (int i = page * 2; i <= page * 2 + 1 && i < encounter.EnabledEnemies.Length; i++)
+        {
+            int mNameWidth = (int)UnitaleUtil.CalcTextWidth(mainTextManager) + 50;
+            if (mNameWidth > maxWidth)
+                maxWidth = mNameWidth;
+        }
+        */
+        DevelopHint.RangeEnd();
+        LifeBarController lifeBar = Instantiate(Resources.Load<LifeBarController>("Prefabs/HPBar"));
+        lifeBar.player = true;
+        lifeBar.transform.SetParent(mainTextManager.transform);
+        lifeBar.transform.SetAsFirstSibling();
+        RectTransform lifeBarRect = lifeBar.GetComponent<RectTransform>();
+        lifeBarRect.anchoredPosition = new Vector2(maxWidth, initialHealthPos.y - line * mainTextManager.Charset.LineSpacing);
+        lifeBarRect.sizeDelta = new Vector2(90, lifeBarRect.sizeDelta.y);
+        lifeBar.setBackgroundColor(encounter.enemies[targetEnemyInedx].BGBarColorInFIGHT);
+        lifeBar.setFillColor(encounter.enemies[targetEnemyInedx].FillBarColorInFIGHT);
+        float hpDivide = encounter.enemies[targetEnemyInedx].HP / (float)encounter.enemies[targetEnemyInedx].MaxHP;
+        if (encounter.enemies[targetEnemyInedx].HP < 0)
+        {
+            lifeBar.fill.rectTransform.offsetMin = new Vector2(-90 * hpDivide, 0);
+            lifeBar.fill.rectTransform.offsetMax = new Vector2(-90, 0);
+        }
+        else
+            lifeBar.setInstant(hpDivide);
+        /*
+        for (int i = page * 2; i <= page * 2 + 1 && i < encounter.EnabledEnemies.Length; i++)
+        {
+            LifeBarController lifeBar = Instantiate(Resources.Load<LifeBarController>("Prefabs/HPBar"));
+            lifeBar.player = true;
+            lifeBar.transform.SetParent(mainTextManager.transform);
+            lifeBar.transform.SetAsFirstSibling();
+            RectTransform lifeBarRect = lifeBar.GetComponent<RectTransform>();
+            lifeBarRect.anchoredPosition = new Vector2(maxWidth, initialHealthPos.y - (i - page * 2) * mainTextManager.Charset.LineSpacing);
+            lifeBarRect.sizeDelta = new Vector2(90, lifeBarRect.sizeDelta.y);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //lifeBar.setFillColor(Color.green);
+            lifeBar.setBackgroundColor(encounter.EnabledEnemies[i].BGBarColorInFIGHT);
+            lifeBar.setFillColor(encounter.EnabledEnemies[i].FillBarColorInFIGHT);
+            // --------------------------------------------------------------------------------
+            float hpDivide = encounter.EnabledEnemies[i].HP / (float)encounter.EnabledEnemies[i].MaxHP;
+            if (encounter.EnabledEnemies[i].HP < 0)
+            {
+                lifeBar.fill.rectTransform.offsetMin = new Vector2(-90 * hpDivide, 0);
+                lifeBar.fill.rectTransform.offsetMax = new Vector2(-90, 0);
+            }
+            else
+                lifeBar.setInstant(hpDivide);
+        }
+        */
+    }
+
+    internal void RemoveFightMenuLifeBar()
+    {
+        foreach (LifeBarController lbc in arenaParent.GetComponentsInChildren<LifeBarController>())
+            Destroy(lbc.gameObject);
     }
     // --------------------------------------------------------------------------------
 }

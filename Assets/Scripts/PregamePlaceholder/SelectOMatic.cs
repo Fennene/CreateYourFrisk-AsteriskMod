@@ -826,6 +826,13 @@ public class SelectOMatic : MonoBehaviour {
         // Move the encounter box to the stored position, for easier mod browsing
         content.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, modListScroll);
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
+        NoEncounterLabel.GetComponent<Text>().enabled = false;
+        // --------------------------------------------------------------------------------
+
         int count = -1;
         foreach (DirectoryInfo mod in modDirs) {
             count += 1;

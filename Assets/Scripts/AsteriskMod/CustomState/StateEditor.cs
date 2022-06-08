@@ -5,20 +5,9 @@ namespace AsteriskMod
 {
     public class StateEditor
     {
-        public static void SetDialogText(string text)
-        {
-            UIController.instance.mainTextManager.SetText(new RegularMessage(text));
-        }
+        public static void SetDialogText(string text) { UIController.instance.mainTextManager.SetText(new RegularMessage(text)); }
 
-        public static void SetChoicesDialogText(string[] texts, bool singleList = true)
-        {
-            UIController.instance.mainTextManager.SetText(new SelectMessage(texts, singleList));
-        }
-
-        public static void SetDialogTextPuase(bool puase)
-        {
-            UIController.instance.mainTextManager.SetPause(puase);
-        }
+        public static void SetChoicesDialogText(string[] texts, bool singleList = true) { UIController.instance.mainTextManager.SetText(new SelectMessage(texts, singleList)); }
 
         public static void SetDialogFont(string fontName)
         {
@@ -59,39 +48,32 @@ namespace AsteriskMod
             UIController.instance.mainTextManager.SetEffect(targetEffect);
         }
 
+        public static void SetDialogTextPuase(bool puase) { UIController.instance.mainTextManager.SetPause(puase); }
+
+        public static bool GetLineCompleteDialogText() { return UIController.instance.mainTextManager.LineComplete(); }
+
         public static void SkipDialogText()
         {
             if (UIController.instance.mainTextManager.CanSkip() && !UIController.instance.mainTextManager.LineComplete())
                 UIController.instance.mainTextManager.DoSkipFromPlayer();
         }
 
-        public static bool GetLineCompleteDialogText()
-        {
-            return UIController.instance.mainTextManager.LineComplete();
-        }
-        public static void HideDialogText()
-        {
-            UIController.instance.mainTextManager.DestroyChars();
-        }
+        public static void HideDialogText() { UIController.instance.mainTextManager.DestroyChars(); }
+
+
+        public static void CreateLifeBar(int enemyIndex, int line) { UIController.instance.SimulateFightMenuLifeBar(enemyIndex - 1, line - 1); }
+
+        public static void RemoveLifeBar() { UIController.instance.RemoveFightMenuLifeBar(); }
+
+
+        public static void SetPlayerOnSelection(int selection, bool singleList = true) { UIController.instance.SetPlayerOnSelection((selection - 1) * (singleList ? 2 : 1)); }
+
+        public static void SetPlayerVisible(bool visible) { PlayerController.instance.GetComponent<Image>().enabled = visible; }
+
 
         public static void SetButtonActive(bool fight = false, bool act = false, bool item = false, bool mercy = false)
         {
             UIController.ActionButtonManager.SetVisibleOverrideSprite(new[] { fight, act, item, mercy });
-        }
-
-        public static void SetPlayerOnSelection(int selection, bool singleList = true)
-        {
-            UIController.instance.SetPlayerOnSelection((selection - 1) * (singleList ? 2 : 1));
-        }
-
-        public static void SetPlayerVisible(bool visible)
-        {
-            PlayerController.instance.GetComponent<Image>().enabled = visible;
-        }
-
-        public static void ResetArena()
-        {
-            ArenaManager.instance.resetArena();
         }
 
         public static void SetCurrentAction(string action, bool playerMoveAndUpdateButton = false)
@@ -109,5 +91,8 @@ namespace AsteriskMod
                 throw new CYFException("StateEditor.SetCurrentAction() can only take \"FIGHT\", \"ACT\", \"ITEM\" or \"MERCY\", but you entered \"" + action + "\".");
             }
         }
+
+
+        public static void ResetArena() { ArenaManager.instance.resetArena(); }
     }
 }

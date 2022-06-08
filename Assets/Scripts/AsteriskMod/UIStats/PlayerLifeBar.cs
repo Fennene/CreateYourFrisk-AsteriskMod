@@ -535,6 +535,8 @@ namespace AsteriskMod
             //sprite.GetTarget()
         }
 
+        [MoonSharpHidden, ToDo("AddSubBar(), subvalue[], subcolor[], RemoveSubBar(), RemoveAllSubBars()")]
+        public void AddSubBar(string key) { }
         /*
         private void PrepareSubBar(int capacity = -1)
         {

@@ -161,12 +161,35 @@ it's w3c valid, at least
             </p>
 
             <p>
+                <br><span class="function">StateEditor.SetPlayerVisible(<span class="boolean"></span> visible)</span>
+                Changes the visible of the player's soul, 
+                but different way of <span class="term">Player.soul.alpha</span>.<br>
+                If you use this to invisible the soul, 
+                you should set to visible it in <span class="term">StateEnding()</span>.
+                <br><br>
+                Technical Note: <span class="term">Player.soul.alpha</span> is changed the transparency of the soul, but 
+                this function is changed the enable of the soul's Image Component. That sounds NOT good, however it is 
+                used to change the visible of the soul in CYF engine.
+            </p>
+            <p>
+                <br><span class="function">StateEditor.SetPlayerOnSelection(<span class="number"></span> selection ,<span class="boolean"></span> singleList = true)</span>
+                Sets the position of the player's soul, as a integer number.<br>
+                This is useful for moving the soul to correct position after using <span class="term">StateEditor.SetChoicesDialogText()</span>.
+                <ul>
+                    <li>
+                        <span class="term">singleList</span>: If true(default), the soul will be moved to like 
+                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
+                        If false, the soul will moved like <span class="term">ACTMENU</span>.
+                    </li>
+                </ul>
+            </p>
+
+            <p>
                 <br><span class="function">StateEditor.SetButtonActive(<span class="boolean"></span> fight = false, <span class="boolean"></span> act = false, <span class="boolean"></span> item = false, <span class="boolean"></span> mercy = false)</span>
                 Changes each button's displaying.<br>
                 If true, the button is changed like the player selects. (changes to yellow(normal))<br>
                 If false, the button is changed to orange (normal).
             </p>
-
             <p>
                 <br><span class="function">StateEditor.SetCurrentAction(<span class="string"></span> action, <span class="boolean"></span> playerMoveAndUpdateButton = false)</span>
                 Sets current player's action forced.<br>
@@ -183,32 +206,20 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">StateEditor.SetPlayerOnSelection(<span class="number"></span> selection ,<span class="boolean"></span> singleList = true)</span>
-                Sets the position of the player's soul, as a integer number.<br>
-                This is useful for moving the soul to correct position after using <span class="term">StateEditor.SetChoicesDialogText()</span>.
-                <ul>
-                    <li>
-                        <span class="term">singleList</span>: If true(default), the soul will be moved to like 
-                        <span class="term">ENEMYSELECT</span> or <span class="term">MERCYMENY</span>.<br>
-                        If false, the soul will moved like <span class="term">ACTMENU</span>.
-                    </li>
-                </ul>
+                <br><span class="function"><span class="asternew"></span> StateEditor.CreateLifeBar(<span class="number"></span> enemyIndex, <span class="number"></span> line)</span>
+                Creates a bar of enemy's HP from enemy's index. 
+                <span class="term">enemyIndex</span> should be between <span class="term">1</span> and the number of enemy in the encounter.<br>
+                You can create life bar even if the enemy is inactive.
             </p>
             <p>
-                <br><span class="function">StateEditor.SetPlayerVisible(<span class="boolean"></span> visible)</span>
-                Changes the visible of the player's soul, 
-                but different way of <span class="term">Player.soul.alpha</span>.<br>
-                If you use this to invisible the soul, 
-                you should set to visible it in <span class="term">StateEnding()</span>.
-                <br><br>
-                Technical Note: <span class="term">Player.soul.alpha</span> is changed the transparency of the soul, but 
-                this function is changed the enable of the soul's Image Component. That sounds NOT good, however it is 
-                used to change the visible of the soul in CYF engine.
+                <br><span class="function"><span class="asternew"></span> StateEditor.RemoveLifeBar()</span>
+                Removes the bars created by <span class="term">StateEditor.CreateLifeBar()</span>.<br>
+                <font color="#FFF">You should call this function in <span class="term">StateEnding()</span> if you created bars.</font>
             </p>
 
             <p>
                 <br><span class="function">StateEditor.ResetArena()</span>
-                Reset arena.<br><br>
+                Reset arena.<br>
                 <font color="#FFF">You should call this function in <span class="term">StateEnding()</span> if you change arena with <span class="term">the arena object</span>.</font>
             </p>
         </div>
