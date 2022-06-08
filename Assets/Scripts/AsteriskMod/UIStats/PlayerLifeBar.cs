@@ -463,15 +463,69 @@ namespace AsteriskMod
             self = null;
         }
 
+        public void MoveBelow(PlayerLifeBar otherBar)
+        {
+            CheckExists(false, true);
+            if (isOriginal) throw new CYFException("The life bar of UI can't be moved below any life bars!");
+            if (otherBar == null || !otherBar.isactive) throw new CYFException("The life bar object passed as an argument is nil or inactive.");
+            if (transform.parent.parent != otherBar.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two life bar objects without the same parent.");
+            else
+            {
+                try { transform.parent.SetSiblingIndex(otherBar.transform.parent.GetSiblingIndex()); }
+                catch { throw new CYFException("Error while calling lifeBar.MoveBelow."); }
+            }
+        }
+
+        public void MoveAbove(PlayerLifeBar otherBar)
+        {
+            CheckExists(false, true);
+            if (isOriginal) throw new CYFException("The life bar of UI can't be moved above any life bars!");
+            if (otherBar == null || !otherBar.isactive) throw new CYFException("The life bar object passed as an argument is nil or inactive.");
+            if (transform.parent.parent != otherBar.transform.parent.parent) UnitaleUtil.Warn("You can't change the order of two life bar objects without the same parent.");
+            else
+            {
+                try { transform.parent.SetSiblingIndex(otherBar.transform.parent.GetSiblingIndex() + 1); }
+                catch { throw new CYFException("Error while calling lifeBar.MoveAbove."); }
+            }
+        }
+
+        private void MoveLayer(bool below)
+        {
+            string findName = below ? "*BelowHPBar" : "*AboveHPBar";
+            GameObject parent = GameObject.Find(findName);
+            if (parent == null)
+            {
+                Debug.LogWarning("GameObject\"" + findName + "\" is not found.");
+                throw new CYFException("Error while calling lifeBar.Move" + (below ? "Below" : "Above") +"UI.");
+            }
+            transform.parent = parent.transform;
+        }
+
+        public void MoveBelowUI()
+        {
+            CheckExists(false, true);
+            if (isOriginal) throw new CYFException("The life bar of UI can't be moved below UI!");
+            MoveLayer(true);
+        }
+
+        public void MoveAboveUI()
+        {
+            CheckExists(false, true);
+            if (isOriginal) throw new CYFException("The life bar of UI can't be moved above UI!");
+            MoveLayer(false);
+        }
+
         public void SendToTop()
         {
             CheckExists(false, true);
+            if (isOriginal) throw new CYFException("The life bar of UI can't be sended to top!");
             self.SetAsLastSibling();
         }
 
         public void SendToBottom()
         {
             CheckExists(false, true);
+            if (isOriginal) throw new CYFException("The life bar of UI can't be sended to bottom!");
             self.SetAsFirstSibling();
         }
 

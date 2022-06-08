@@ -236,7 +236,7 @@ it's w3c valid, at least
                 or<span class="function"><span class="userdata">LifeBar</span> PlayerUtil.hpbar (Read-only)<br></span>
                 Returns propety of the bar objects showing the Player's HP, as a LifeBar object.<br>
                 <font color="#DDD">
-                    You can not use <span class="term">PlayerUtil.HPBar.Remove()</span> in this object.
+                    You can not use <span class="term">PlayerUtil.HPBar.Remove()</span>, <span class="term">PlayerUtil.HPBar.MoveBelow()</span>, <span class="term">PlayerUtil.HPBar.MoveAbove()</span>, <span class="term">PlayerUtil.HPBar.MoveBelowUI()</span>, <span class="term">PlayerUtil.HPBar.MoveAboveUI()</span>, <span class="term">PlayerUtil.HPBar.SendToBottom()</span> and <span class="term">PlayerUtil.HPBar.SendToTop()</span> in this object.
                 </font>
                 <br><br>
                 <font color="#FFF">
@@ -349,6 +349,18 @@ it's w3c valid, at least
                 <br><br>
                 See <span class="term">lifeBar.controlOverride</span>.
             </p>
+
+            <p>
+                <br><span class="function"><span class="boolean"></span> lifeBar.isactive</span>
+                Tells you if a LifeBar object is active.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.Remove()</span>
+                This function destroys a LifeBar object, similar to <span class="term">.Remove()</span> for bullets and sprites.
+
+                Trying to get, set or call almost anything besides <span class="term">LifeBar.isactive</span> on a destroyed LifeBar object will error.
+            </p>
+
             <p>
                 <br><span class="function"><span class="boolean"></span> lifeBar.limited</span>
                 Default by <span class="term">true</span>.<br>
@@ -384,31 +396,6 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.fillcolor</span>
-                Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 1.
-                <br><br>
-                For example, <span class="term">lifeBar.fillcolor = {1.0, 1.0, 0.0}</span> colors the FillBar yellow.
-                <br><br>
-                You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
-            </p>
-            <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.fillcolor32</span>
-                Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 255.
-                <br><br>
-                For example, <span class="term">lifeBar.fillcolor32 = {255, 255, 0}</span> colors the FillBar yellow.
-                <br><br>
-                You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha</span>
-                Gets or sets a FillBar's transparency, as a value from 0 to 1.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha32</span>
-                Gets or sets a FillBar's transparency, as a value from 0 to 255.
-            </p>
-
-            <p>
                 <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.bgcolor</span>
                 Gets or sets the coloration of a BGBar, as a table of 3 or 4 values from 0 to 1.
                 <br><br>
@@ -434,23 +421,69 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="boolean"></span> lifeBar.isactive</span>
-                Tells you if a LifeBar object is active.
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.fillcolor</span>
+                Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 1.
+                <br><br>
+                For example, <span class="term">lifeBar.fillcolor = {1.0, 1.0, 0.0}</span> colors the FillBar yellow.
+                <br><br>
+                You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
             </p>
             <p>
-                <br><span class="function">lifeBar.Remove()</span>
-                This function destroys a LifeBar object, similar to <span class="term">.Remove()</span> for bullets and sprites.
-
-                Trying to get, set or call almost anything besides <span class="term">LifeBar.isactive</span> on a destroyed LifeBar object will error.
+                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.fillcolor32</span>
+                Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 255.
+                <br><br>
+                For example, <span class="term">lifeBar.fillcolor32 = {255, 255, 0}</span> colors the FillBar yellow.
+                <br><br>
+                You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> lifeBar.fillalpha</span>
+                Gets or sets a FillBar's transparency, as a value from 0 to 1.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> lifeBar.fillalpha32</span>
+                Gets or sets a FillBar's transparency, as a value from 0 to 255.
             </p>
 
+            <p>
+                <br><span class="function">lifeBar.MoveBelow(<span class="userdata">lifeBar</span> otherLifeBar)</span>
+                Moves a life bar object below another life bar object.<br>
+                They must both be on the same layer (that layer means whether UI's life bar is below or above).
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveBelow()</span> can't be used.</font>
+                <br><br>
+                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.MoveAbove(<span class="userdata">lifeBar</span> otherLifeBar)</span>
+                Moves a life bar object above another life bar object.<br>
+                They must both be on the same layer (that layer means whether UI's life bar is below or above).<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveAbove()</span> can't be used.</font>
+                <br><br>
+                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
+            </p>
+            <p>
+                <br><span class="function">lifeBar.MoveBelowUI()</span>
+                Moves a life bar below UI(<span class="term">PlayerUtil.HPBar</span>).<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveBelowUI()</span> can't be used.</font>
+            </p>
+            <p>
+                <br><span class="function">lifeBar.MoveAboveUI()</span>
+                Moves a life bar above UI(<span class="term">PlayerUtil.HPBar</span>).<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveAboveUI()</span> can't be used.</font>
+            </p>
             <p>
                 <br><span class="function">lifeBar.SendToTop()</span>
-                Sends this bar to the top of its bar's hierarchy. This is same to <span class="term">sprite.SendToTop()</span>.
+                Sends this bar to the top of its bar's hierarchy. This is same to <span class="term">sprite.SendToTop()</span>.<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.SendToTop()</span> can't be used.</font>
+                <br><br>
+                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
             </p>
             <p>
                 <br><span class="function">lifeBar.SendToBottom()</span>
-                Sends this bar to the bottom of its bar's hierarchy. Similar rules apply as with <span class="term">SendToTop()</span>.
+                Sends this bar to the bottom of its bar's hierarchy. Similar rules apply as with <span class="term">SendToTop()</span>.<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.SendToBottom()</span> can't be used.</font>
+                <br><br>
+                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
             </p>
 
             <br><hr>
