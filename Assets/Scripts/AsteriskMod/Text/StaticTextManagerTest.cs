@@ -2,6 +2,7 @@
 
 namespace AsteriskMod
 {
+    [ToDo("Delete")]
     public class StaticTextManagerTest : MonoBehaviour
     {
         private StaticTextManager textMan;

@@ -148,7 +148,6 @@ namespace AsteriskMod
                 DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());
                 script.Globals.Set("ArenaUtil", obs_arenaUtil);
             }
-
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)

@@ -58,16 +58,13 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
-        // wow, I can use ../ to CreateSprite. I didn't know that.
-
         /*
         public static void RegistSprite(string filename)
         {
-            //Asterisk.RequireExperimentalFeature("Engine.RegistSprite");
             Sprite sprite = SpriteUtil.FromFile(FileLoader.pathToModFile(filename + ".png"));
             if (sprite == null)
                 throw new CYFException("The sprite " + filename + ".png doesn't exist.");
-            SpriteRegistry.Set("*" + filename, sprite);
+            SpriteRegistry.Set(filename, sprite);
         }
         */
 

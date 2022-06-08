@@ -1,10 +1,13 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace AsteriskMod
 {
     // This was attached in Assets/Battle.Unity/Canvas/Stats
+    [Obsolete]
     public class PlayerUIManager : MonoBehaviour
     {
         private GameObject NameLVManager;

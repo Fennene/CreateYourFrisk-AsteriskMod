@@ -5,6 +5,25 @@ namespace AsteriskMod
 {
     public static class AsteriskUtil
     {
+        public static bool IsNullOrWhiteSpace(this string text) { return string.IsNullOrEmpty(text) || text.Trim().Length == 0; }
+
+        public static string TrimOnce(this string text, char startPattern, char endPattern)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+            int min = 0;
+            int max = text.Length;
+            if (text.StartsWith(startPattern.ToString())) min++;
+            if (text.EndsWith(endPattern.ToString())) max--;
+            string _ = "";
+            for (var i = min; i < max; i++) _ += text[i];
+            return _;
+        }
+        public static string TrimOnce(this string text, char pattern) { return text.TrimOnce(pattern, pattern); }
+
+        public static bool StartsAndEndsWith(this string text, string startPattern, string endPattern) { return text.StartsWith(startPattern) && text.EndsWith(endPattern); }
+        public static bool StartsAndEndsWith(this string text, string pattern) { return text.StartsAndEndsWith(pattern, pattern); }
+
+
         public static bool IsCYFOverworld { get { return !GlobalControls.modDev; } }
 
         public static bool IsV053 { get { return AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate; } }
