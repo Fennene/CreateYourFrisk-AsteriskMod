@@ -22,7 +22,13 @@ public class FightUIController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     public int[] shakeX; //Modify it in the Editor if needed
     //private int[] shakeX = new int[] { 24, 0, 0, 0, 0, -48, 0, 0, 0, 0, 38, 0, 0, 0, 0, -28, 0, 0, 0, 0, 20, 0, 0, 0, 0, -12, 0, 0, 0, 0, 8, 0, 0, 0, 0, -2, 0, 0, 0, 0};
-    private readonly string[] lineAnim = { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //private readonly string[] lineAnim = { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
+    internal string[] lineAnim = { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
+    internal float lineAnimFrequency = 1 / 12f;
+    // --------------------------------------------------------------------------------
     public string[] sliceAnim; //Modify it in the Editor if needed
     public float sliceAnimFrequency = 1 / 6f;
     public int targetNumber = 1;
@@ -95,6 +101,11 @@ public class FightUIController : MonoBehaviour {
         gameObject.GetComponent<Image>().enabled = true;
         line.StopAnimation();
         line.img.gameObject.SetActive(true);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        line.Set(line.img.GetComponent<AutoloadResourcesFromRegistry>().SpritePath);
+        // --------------------------------------------------------------------------------
         line.img.GetComponent<Image>().enabled = true;
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
@@ -141,7 +152,12 @@ public class FightUIController : MonoBehaviour {
             foreach (FightUI fight in boundFightUiInstances)
                 fight.StopAction(atkMult);
         }
-        line.SetAnimation(lineAnim, 1 / 12f);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //line.SetAnimation(lineAnim, 1 / 12f);
+        line.SetAnimation(lineAnim.Copy(), lineAnimFrequency);
+        // --------------------------------------------------------------------------------
         UIController.PlaySoundSeparate(AudioClipRegistry.GetSound("slice"));
     }
 

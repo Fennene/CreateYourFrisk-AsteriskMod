@@ -11,6 +11,8 @@ namespace AsteriskMod
         private static GameObject arena;
         private static GameObject mainTextMan;
         private static Vector2 mainTextManPos;
+        private static GameObject Target;
+        private static GameObject TargetChoice;
 
         private static Vector2 _arenaOffset;
         internal static Vector2 ArenaOffset
@@ -49,6 +51,8 @@ namespace AsteriskMod
             arena = border.transform.Find("arena").gameObject;
             mainTextMan = arena.transform.Find("TextManager").gameObject;
             mainTextManPos = Vector2.zero;
+            Target = arena.transform.Find("FightUI").gameObject;
+            TargetChoice = Target.transform.Find("FightUILine").gameObject;
         }
 
         public static void SetBorderColor(Color color)
@@ -122,6 +126,20 @@ namespace AsteriskMod
             UIController.instance.mainTextManager.GetComponent<TextManager>().SetFont(uf, firstTime);
             //if (!firstTime)
             //    UIController.instance.mainTextManager.GetComponent<TextManager>().default_charset = uf; // impossible.
+        }
+
+        public static void SetTargetSprite(string path)
+        {
+            //SpriteUtil.SwapSpriteFromFile(Target.GetComponent<Image>(), path);
+            Target.GetComponent<Image>().sprite = SpriteRegistry.Get(path);
+            Target.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = path;
+        }
+
+        public static void SetTargetChoiceSprite(string path)
+        {
+            //SpriteUtil.SwapSpriteFromFile(TargetChoice.GetComponent<Image>(), path);
+            TargetChoice.GetComponent<Image>().sprite = SpriteRegistry.Get(path);
+            TargetChoice.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = path;
         }
     }
 }

@@ -105,6 +105,48 @@ namespace AsteriskMod
             return PlayerController.instance.selfImg.enabled ? 1 : 0;
         }
 
+        public static void SetTargetSprite(string path)
+        {
+            ArenaUI.SetTargetSprite(path);
+        }
+
+        public static void SetTargetChoiceSprite(string path)
+        {
+            ArenaUI.SetTargetChoiceSprite(path);
+        }
+
+        public static void SetTargetChoiceAnim(string[] anim, float frequency = 1 / 12f, string prefix = "")
+        {
+            if (anim.Length == 0)
+            {
+                UIController.instance.fightUI.lineAnim = new[] { "empty" };
+                UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
+            }
+            else
+            {
+                if (prefix != "")
+                {
+                    while (prefix.StartsWith("/"))
+                        prefix = prefix.Substring(1);
+
+                    if (!prefix.EndsWith("/"))
+                        prefix += "/";
+
+                    for (int i = 0; i < anim.Length; i++)
+                        anim[i] = prefix + anim[i];
+                }
+
+                UIController.instance.fightUI.lineAnim = anim;
+                UIController.instance.fightUI.lineAnimFrequency = frequency;
+            }
+        }
+
+        public void ResetTargetChoiceAnim()
+        {
+            UIController.instance.fightUI.lineAnim = new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
+            UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
+        }
+
         public static PlayerLifeBar CreateLifeBar(bool below = false)
         {
             string findName = below ? "*BelowHPBar" : "*AboveHPBar";

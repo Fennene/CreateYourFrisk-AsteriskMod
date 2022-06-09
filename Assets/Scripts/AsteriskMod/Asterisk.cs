@@ -115,7 +115,7 @@ namespace AsteriskMod
             }
 
 #if UNITY_EDITOR
-            Test.Tset();
+            //Test.Tset();
 #endif
         }
 

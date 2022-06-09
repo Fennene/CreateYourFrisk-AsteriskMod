@@ -30,6 +30,12 @@ namespace AsteriskMod
         public static bool StartsAndEndsWith(this string text, string startPattern, string endPattern) { return text.StartsWith(startPattern) && text.EndsWith(endPattern); }
         public static bool StartsAndEndsWith(this string text, string pattern) { return text.StartsAndEndsWith(pattern, pattern); }
 
+        public static T[] Copy<T>(this T[] array)
+        {
+            T[] copied = new T[array.Length];
+            for (var i = 0; i < array.Length; i++) copied[i] = array[i];
+            return copied;
+        }
 
         public static string ConvertArrayToString(object[] array)
         {
