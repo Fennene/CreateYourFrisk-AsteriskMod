@@ -131,8 +131,15 @@ public class Misc {
 
     public static void DestroyWindow() { Application.Quit(); }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
     // TODO: When OW is reworked, add 3rd argument to open a file in any of "mod", "map" or "default" locations
-    public static LuaFile OpenFile(string path, string mode = "rw") { return new LuaFile(path, mode); }
+    //public static LuaFile OpenFile(string path, string mode = "rw") { return new LuaFile(path, mode); }
+
+    // TODO: When OW is reworked, add 4th argument to open a file in any of "mod", "map" or "default" locations
+    public static LuaFile OpenFile(string path, string mode = "rw") { return new LuaFile(path, mode, false); }
+    // --------------------------------------------------------------------------------
 
     public bool FileExists(string path) {
         if (path.Contains(".."))

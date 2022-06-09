@@ -123,12 +123,65 @@ it's w3c valid, at least
                 You can reset the frame rate by calling this without any arguments.
                 <br><br>
                 <span class="AsteriskExperiment"></span> You can assign any positive number.
-            </p>
+            </p><br>
+
             <p>
                 <br><span class="function"><span class="boolean"></span> Engine.ModExists(<span class="string"></span> modFolderName)</span>
                 Checks to exists that named mod.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.                
             </p>
+            <p>
+                <br><span class="function">Engine.OpenFile(<span class="string"></span> fileName, <span class="string"></span> mode = "rw") returns <span class="userdata">file</span></span>
+                Shortcut to <span class="term">Engine.OpenAppDataFile()</span>.
+            </p>
+            <p>
+                <br><span class="function">Engine.OpenAppDataFile(<span class="string"></span> fileName, <span class="string"></span> mode = "rw") returns <span class="userdata">file</span></span>
+                Creates a folder named your mod's name (folder name) in AppData 
+                when The File Functions of The Engine Object is called.<br>
+                (On Windows, <span class="term">C:\Users\%USERNAME%\AppData\LocalLow\Nobody's Getting Paid Here\Create Your Frisk - Asterisk Mod\Mods\YOURMOD</span>)
+                <br><br>
+                This function opens a file ONLY in that folder, for reading and writing.<br>
+                Using <span class="term">../</span> to go up a folder or 
+                Using <span class="term">/</span> to go down a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li>
+                        <span class="term">fileName</span>: Path to the file to open, relative to the folder.<br>
+                        Cannot enter subfolders.
+                    </li><br>
+                    <li>
+                        <span class="term">mode</span>: Determines how the file should be opened:
+                        <ul>
+                            <li><span class="term">r</span>: The file can only be <u>read</u> from.</li>
+                            <li><span class="term">w</span>: The file can only be <u>written</u> to.</li>
+                            <li><span class="term">rw</span>: The file can be read from <u>AND</u> written to.</li>
+                        </ul><br>
+                        Files can be created through use of <span class="term">File.Write</span>.
+                    </li>
+                </ul><br>
+                <font color="#FFF">* Note that AppData file object cannot move and copy.</font><br><br>
+                See <span class="ref"><a href="../pages/api-functions-misc.html#FileObject">The Misc Object</a></span> for more info 
+                about The <span class="userdata">file</span> object.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.FileExists(<span class="string"></span> fileName)</span>
+                Shortcut to <span class="term">Engine.AppDataFileExists()</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.AppDataFileExists(<span class="string"></span> fileName)</span>
+                Use this function to check if a file ONLY in the folder ONLY exists.<br>
+                Using <span class="term">../</span> to go up a folder or 
+                Using <span class="term">/</span> to go down a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li>
+                        <span class="term">fileName</span>: Path to the file to open, relative to the folder.<br>
+                        Cannot enter subfolders.
+                    </li>
+                </ul><br>
+                Use this before <span class="term">Engine.OpenAppDataFile</span> if you plan to read from a file.
+            </p><br>
+
             <p>
                 <br><span class="function">Engine.RemoveAllProjectiles()<br></span>
                 or <span class="function">Engine.RemoveAllBullets()</span>

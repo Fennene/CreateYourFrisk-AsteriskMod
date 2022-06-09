@@ -8,11 +8,47 @@ public class LuaFile {
     public string openMode { get; private set; }
     public string filePath { get; private set; }
 
-    public LuaFile(string path, string mode = "rw") {
-        if (path == null)        throw new CYFException("Cannot open a file with a nil path.");
-        if (path.Contains("..")) throw new CYFException("You cannot open a file outside of a mod folder. The use of \"..\" is forbidden.");
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private bool isUnsafe;
+    // --------------------------------------------------------------------------------
 
-        path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //public LuaFile(string path, string mode = "rw") {
+    public LuaFile(string path, string mode = "rw", bool isFullPath = false) {
+    // --------------------------------------------------------------------------------
+        if (path == null)        throw new CYFException("Cannot open a file with a nil path.");
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //if (path.Contains("..")) throw new CYFException("You cannot open a file outside of a mod folder. The use of \"..\" is forbidden.");
+        if (path.Contains("..")) throw new CYFException("You cannot open a file outside of a " + (isFullPath ? "AppData" : "mod") + " folder. The use of \"..\" is forbidden.");
+        // --------------------------------------------------------------------------------
+
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
+        if (isFullPath)
+        {
+            path = path.Replace('\\', '/');
+            /*
+            if (mode.Contains("w"))
+            {
+                string extension = Path.GetExtension(path);
+                if (path == ".exe" || path == ".com" || path == ".app") throw new CYFException("Cannot open executable file as writing mode in AppData");
+            }
+            */
+        }
+        else
+        {
+            path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
+        }
+        isUnsafe = isFullPath;
+        // --------------------------------------------------------------------------------
 
         if (mode != "r" && mode != "w" && mode != "rw" && mode != "wr") throw new CYFException("A file's open mode can only be \"r\" (read), \"w\" (write) or \"rw\" (read + write).");
         if (mode.Contains("r") && !File.Exists(path))                   throw new CYFException("You can't open a file that doesn't exist in read-only mode.");
@@ -109,6 +145,11 @@ public class LuaFile {
     }
 
     public void Move(string relativePath) {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (isUnsafe) throw new CYFException("file.Move: Cannot move a file in AppData.");
+        // --------------------------------------------------------------------------------
         string newPath = (FileLoader.ModDataPath + "/" + relativePath).Replace('\\', '/');
 
         if (!File.Exists(filePath)) throw new CYFException("The file at the path \"" + filePath + "\" doesn't exist, so you can't move it.");
@@ -123,6 +164,11 @@ public class LuaFile {
     }
 
     public void Copy(string relativePath, bool overwrite = false) {
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (isUnsafe) throw new CYFException("file.Copy: Cannot copy a file in AppData.");
+        // --------------------------------------------------------------------------------
         string newPath = (FileLoader.ModDataPath + "/" + relativePath).Replace('\\', '/');
 
         if (!File.Exists(filePath)) throw new CYFException("The file at the path \"" + filePath + "\" doesn't exist, so you can't move it.");

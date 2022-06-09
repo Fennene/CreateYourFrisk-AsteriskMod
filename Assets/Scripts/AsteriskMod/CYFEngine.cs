@@ -58,6 +58,37 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
+        private static string ConvertToFullPath(string path)
+        {
+            if (path.Contains("\\") || path.Contains("/")) throw new CYFException("You cannot check for a folder inside of a AppData folder. The use of \"/\"(\"\\\") is forbidden.");
+            return Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER + "/" + path);
+        }
+
+        private static void CheckDirectory()
+        {
+            string appDataRoot = Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER).Replace('\\', '/');
+            if (!Directory.Exists(appDataRoot))
+            {
+                try { Directory.CreateDirectory(appDataRoot); }
+                catch (IOException e) { throw new CYFException(e.GetType() + " error:\n\n" + e.Message); }
+            }
+        }
+
+        public static LuaFile OpenAppDataFile(string path, string mode = "rw")
+        {
+            CheckDirectory();
+            return new LuaFile(ConvertToFullPath(path), mode, true);
+        }
+        public static LuaFile OpenFile(string path, string mode = "rw") { return OpenAppDataFile(path, mode); }
+
+        public bool AppDataFileExists(string path)
+        {
+            CheckDirectory();
+            if (path.Contains("..")) throw new CYFException("You cannot check for a file outside of a AppData folder. The use of \"..\" is forbidden.");
+            return File.Exists(ConvertToFullPath(path).Replace('\\', '/'));
+        }
+        public bool FileExists(string path) { return AppDataFileExists(path); }
+
         /*
         public static void RegistSprite(string filename)
         {
