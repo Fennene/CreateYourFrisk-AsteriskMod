@@ -1,10 +1,17 @@
 ﻿using System;
 using System.IO;
+using UnityEngine;
 
 namespace AsteriskMod
 {
     public static class AsteriskUtil
     {
+        public static string ToStringAlt(this object obj)
+        {
+            if (obj is string) return "\"" + obj + "\"";
+            return obj.ToString();
+        }
+
         public static bool IsNullOrWhiteSpace(this string text) { return string.IsNullOrEmpty(text) || text.Trim().Length == 0; }
 
         public static string TrimOnce(this string text, char startPattern, char endPattern)
@@ -22,6 +29,18 @@ namespace AsteriskMod
 
         public static bool StartsAndEndsWith(this string text, string startPattern, string endPattern) { return text.StartsWith(startPattern) && text.EndsWith(endPattern); }
         public static bool StartsAndEndsWith(this string text, string pattern) { return text.StartsAndEndsWith(pattern, pattern); }
+
+
+        public static string ConvertArrayToString(object[] array)
+        {
+            string log = "";
+            for (var i = 0; i < array.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(log)) log += "\n";
+                log += "[" + i.ToString() + "] = " + array[i].ToStringAlt();
+            }
+            return log;
+        }
 
 
         public static bool IsCYFOverworld { get { return !GlobalControls.modDev; } }

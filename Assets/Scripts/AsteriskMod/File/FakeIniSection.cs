@@ -44,5 +44,22 @@ namespace AsteriskMod
             get { return GetParameter(parameterName); }
             set { SetParameter(parameterName, value); }
         }
+
+        public IEnumerable<string> ParameterNames { get { return _parameters.Keys; } }
+        public IEnumerable<FakeIniParameter> Parameters { get { return _parameters.Values; } }
+
+        public override string ToString()
+        {
+            if (_parameters.Keys.Count == 0) return string.Empty;
+            bool first = true;
+            string _ = "";
+            foreach (string parameterName in _parameters.Keys)
+            {
+                if (!first) _ += "\n";
+                _ += parameterName + "=" + _parameters[parameterName].ToString();
+                first = false;
+            }
+            return _;
+        }
     }
 }

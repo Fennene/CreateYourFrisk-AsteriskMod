@@ -63,7 +63,7 @@ namespace AsteriskMod
             if (sectionName.IsNullOrWhiteSpace()) return;
             if (FakeIniUtil.IsMainSection(sectionName)) _main.SetParameter(parameterName, parameter);
             if (!FakeIniUtil.IsValidSectionName(sectionName)) return;
-            if (!_sections.ContainsKey(sectionName)) return;
+            if (!_sections.ContainsKey(sectionName)) _sections[sectionName] = new FakeIniSection();
             _sections[sectionName].SetParameter(parameterName, parameter);
         }
 
@@ -80,6 +80,23 @@ namespace AsteriskMod
         {
             get { return GetSection(sectionName); }
             internal set { SetSection(sectionName, value); }
+        }
+
+        public FakeIniSection Main { get { return _main; } }
+
+        public IEnumerable<string> SectionNames { get { return _sections.Keys; } }
+        public IEnumerable<FakeIniSection> Sections { get { return _sections.Values; } }
+
+        public override string ToString()
+        {
+            string _ = _main.ToString();
+            foreach (string sectionName in _sections.Keys)
+            {
+                if (!_.IsNullOrWhiteSpace()) _ += "\n";
+                _ += "[" + sectionName + "]\n";
+                _ += _sections[sectionName].ToString();
+            }
+            return _;
         }
     }
 }

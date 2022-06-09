@@ -113,6 +113,10 @@ namespace AsteriskMod
             {
                 displayModInfo = LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO).Boolean;
             }
+
+#if UNITY_EDITOR
+            Test.Tset();
+#endif
         }
 
         /// <summary>"Experimental Features"オプションが有効になっているかどうか調べます。<br/>有効になっていない場合はエラーを発生させます。</summary>

@@ -29,8 +29,20 @@
             for (var i = 0; i < parameter.Length; i++) _stringArray[i] = parameter[i];
         }
 
-        public bool IsStringArray { get { return _isStringArray; } }
+        public bool IsArray { get { return _isStringArray; } }
         public string String { get { return _stringArray[0]; } }
-        public string[] StringArray { get { return _stringArray; } }
+        public string[] Array { get { return _stringArray; } }
+
+        public override string ToString()
+        {
+            if (!_isStringArray) return "\"" + String + "\"";
+            if (_stringArray.Length == 0) return "{ }";
+            string _ = "{\"" + String + "\"";
+            for (var i = 1; i < _stringArray.Length; i++)
+            {
+                _ += ", \"" + _stringArray[i] + "\"";
+            }
+            return _ + "}";
+        }
     }
 }

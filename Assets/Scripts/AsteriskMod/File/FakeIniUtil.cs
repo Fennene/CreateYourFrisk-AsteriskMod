@@ -84,14 +84,46 @@ namespace AsteriskMod
                 parameter = new FakeIniParameter(new string[0]);
                 return true;
             }
-            if (!rawArrayText.Contains(",")) return false;
-            string[] rawArray = rawArrayText.Split(',');
-            for (var i = 0; i < rawArray.Length; i++)
+            rawArrayText = rawArrayText.Trim();
+            if (!rawArrayText.StartsAndEndsWith("\"")) return false;
+            // Get Array
+            string[] rawArray = new string[rawArrayText.Count(c => { return c == ','; }) + 1];
+            int index = 0;
+            bool isInElement = false;
+            bool comma = true;
+            char literal = '\"';
+            string element = "";
+            for (var i = 0; i < rawArrayText.Length; i++)
             {
-                rawArray[i] = rawArray[i].Trim();
-                if (!rawArray[i].StartsAndEndsWith("\"")) return false;
-                rawArray[i] = ConvertEscapeSequence(rawArray[i].TrimOnce('\"'));
+                char letter = rawArrayText[i];
+                if ((letter == '\"' || letter == '\'') && (i == 0 || rawArrayText[i - 1] != '\\') && (!isInElement || letter == literal))
+                {
+                    if (isInElement)
+                    {
+                        rawArray[index] = element;
+                        index++;
+                        element = "";
+                        comma = false;
+                    }
+                    isInElement = !isInElement;
+                    literal = letter;
+                    continue;
+                }
+                if (!isInElement)
+                {
+                    if (letter == ',')
+                    {
+                        if (comma) return false;
+                        comma = true;
+                        continue;
+                    }
+                    else if (letter == ' ') continue;
+                    return false;
+                }
+                element += letter;
             }
+            if (isInElement || comma || index != rawArray.Length) return false;
+            for (var i = 0; i < rawArray.Length; i++) rawArray[i] = ConvertEscapeSequence(rawArray[i]);
             parameter = new FakeIniParameter(rawArray);
             return true;
         }
