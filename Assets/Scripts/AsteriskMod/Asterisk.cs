@@ -1,4 +1,5 @@
 ﻿using MoonSharp.Interpreter;
+using System;
 
 namespace AsteriskMod
 {
@@ -63,6 +64,8 @@ namespace AsteriskMod
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
 
+        public static readonly string[] nonOWScenes = { "NewMod", "MHTMenu", "MHTSim", "AsteriskOptions" };
+
         /// <summary>
         /// Initialize AsteriskMod's variables and Modify CYF's global variables<br/>
         /// AsteriskModの変数を初期化し、一部のCYFの変数の値を変更します。
@@ -71,6 +74,14 @@ namespace AsteriskMod
         {
             ControlPanel.instance.WindowBasisName = WindowBasisName;
             ControlPanel.instance.WinodwBsaisNmae = WinodwBsaisNmae;
+
+            int index = GlobalControls.nonOWScenes.Length;
+            Array.Resize(ref GlobalControls.nonOWScenes, index + nonOWScenes.Length);
+            for (var i = 0; i < nonOWScenes.Length; i++)
+            {
+                GlobalControls.nonOWScenes[index + i] = nonOWScenes[i];
+            }
+
             experimentMode = false;
             alwaysShowDesc = true;
             showErrorDog = true;
@@ -78,6 +89,7 @@ namespace AsteriskMod
             optionProtecter = true;
             reportProtecter = true;
             displayModInfo = true;
+
             AsteriskEngine.Initialize();
         }
 

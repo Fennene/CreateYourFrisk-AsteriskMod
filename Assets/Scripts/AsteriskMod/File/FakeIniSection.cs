@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AsteriskMod
+namespace AsteriskMod.FakeIniLoader
 {
     internal class FakeIniSection
     {

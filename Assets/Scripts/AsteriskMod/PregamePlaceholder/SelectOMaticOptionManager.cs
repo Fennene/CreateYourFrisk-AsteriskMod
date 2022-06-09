@@ -21,7 +21,7 @@ namespace AsteriskMod
         private Button.ButtonClickedEvent events;
 
         public GameObject optionSelectWindow;
-        public GameObject newMod, openDocument, cyfOption, asteriskOption;
+        public GameObject newMod, moddingHelper, cyfOption, asteriskOption;
         public GameObject descName, descDesc;
 
         public static bool opened;
@@ -29,8 +29,8 @@ namespace AsteriskMod
         public void StartAlt(SelectOMatic selectOMatic)
         {
             if (!GlobalControls.modDev) return;
-            newMod.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("NewMod"); });
-            openDocument.GetComponent<Button>().onClick.AddListener(() => { OpenDocument(); });
+            //newMod.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("NewMod"); });
+            moddingHelper.GetComponent<Button>().onClick.AddListener(() =>SceneManager.LoadScene("MHTMenu"));
             cyfOption.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Options"); });
             asteriskOption.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("AsteriskOptions"); });
             _selectOMatic = selectOMatic;
@@ -43,6 +43,12 @@ namespace AsteriskMod
                 opened = false;
                 ToggleOptionSelectWindow();
             }
+        }
+
+        internal static void ShowMod(string modDirName, string encounterFileName)
+        {
+            ModdingHelperTools.FakeStaticInits.MODFOLDER = modDirName;
+            ModdingHelperTools.FakeStaticInits.ENCOUNTER = encounterFileName;
         }
 
         private void ToggleOptionSelectWindow()
@@ -71,20 +77,6 @@ namespace AsteriskMod
             optionSelectWindow.SetActive(opened);
         }
 
-        private void OpenDocument()
-        {
-            string documentPath = FileLoader.DataRoot;
-#if UNITY_EDITOR
-            documentPath = Path.Combine(documentPath, "..");
-            documentPath = Path.Combine(documentPath, "Documentation CYF 1.0");
-#else
-            documentPath = Path.Combine(documentPath, "Documentation CYF 0.6.5 Asterisk " + Asterisk.ModVersion);
-#endif
-            documentPath = Path.Combine(documentPath, "documentation.html");
-            try { Process.Start(documentPath); }
-            catch { /* ignore */ }
-        }
-
         private void Update()
         {
             if (!opened) return;
@@ -101,8 +93,8 @@ namespace AsteriskMod
                 }
                 else if (295 < mousePosY && mousePosY <= 335)
                 {
-                    descriptionTitle = "Open Documentation";
-                    description = "Opens the documentation of Create Your Frisk.";
+                    descriptionTitle = "Modding Helper Tools";
+                    description = "Opens Create Your Frisk's Modding Helper Tools.";
                 }
                 else if (255 < mousePosY && mousePosY <= 295)
                 {

@@ -39,6 +39,8 @@ public class SelectOMatic : MonoBehaviour {
     public GameObject AnimModDescShadow, AnimModDesc;
     public GameObject ENLabelShadow, ENLabel, JPLabelShadow, JPLabel, RetroWarningTextShadow, RetroWarningText;
     public GameObject NoEncounterLabelShadow, NoEncounterLabel;
+
+    internal string CurrentSelectingModDirName { get { return modDirs[CurrentSelectedMod].Name; } }
     // --------------------------------------------------------------------------------
 
     // Use this for initialization
@@ -421,6 +423,7 @@ public class SelectOMatic : MonoBehaviour {
         {
             ModBackground.GetComponent<Image>().color = info.bgColor;
         }
+        SelectOMaticOptionManager.ShowMod(modDirs[id].Name, encounters[0]);
         // --------------------------------------------------------------------------------
     }
 

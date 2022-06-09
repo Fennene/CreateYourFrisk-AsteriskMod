@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace AsteriskMod
+namespace AsteriskMod.FakeIniLoader
 {
     internal static class FakeIniFileLoader
     {

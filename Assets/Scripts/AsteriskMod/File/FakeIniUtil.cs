@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace AsteriskMod
+namespace AsteriskMod.FakeIniLoader
 {
     internal class FakeIniUtil
     {

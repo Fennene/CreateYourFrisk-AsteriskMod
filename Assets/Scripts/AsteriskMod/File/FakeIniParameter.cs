@@ -1,4 +1,4 @@
-﻿namespace AsteriskMod
+﻿namespace AsteriskMod.FakeIniLoader
 {
     internal class FakeIniParameter
     {

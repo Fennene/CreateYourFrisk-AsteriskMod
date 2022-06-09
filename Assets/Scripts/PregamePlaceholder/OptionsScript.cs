@@ -1,5 +1,4 @@
-﻿using AsteriskMod;
-using MoonSharp.Interpreter;
+﻿using MoonSharp.Interpreter;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
