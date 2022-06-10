@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+//*using System.Collections.Generic;
 using MoonSharp.Interpreter;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+//*using UnityEngine.SceneManagement;
 using Debug = System.Diagnostics.Debug;
 
 namespace AsteriskMod

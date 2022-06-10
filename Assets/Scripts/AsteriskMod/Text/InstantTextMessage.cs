@@ -5,7 +5,7 @@
         public InstantTextMessage(string text, bool actualText = true)
         {
             text = Unescape(text); // compensate for unity inspector autoescaping control characters
-            text = text.Replace("[name]", PlayerCharacter.instance.Name);
+            if (!AsteriskEngine.IsSimulator) text = text.Replace("[name]", PlayerCharacter.instance.Name);
             Text = text;
             ActualText = actualText;
         }

@@ -18,6 +18,8 @@ namespace AsteriskMod.ModdingHelperTools
         private static readonly Dictionary<string, FileInfo> dictDefault = new Dictionary<string, FileInfo>();
         private static readonly Dictionary<string, FileInfo> dictMod = new Dictionary<string, FileInfo>();
 
+        public static void Start() { loadAllFrom(FakeFileLoader.pathToDefaultFile("Sprites")); }
+
         public static void Init()
         {
             //dict.Clear();

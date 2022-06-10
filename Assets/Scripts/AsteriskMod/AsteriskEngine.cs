@@ -4,6 +4,8 @@ namespace AsteriskMod
 {
     public class AsteriskEngine
     {
+        internal static bool IsSimulator { get; set; }
+
         public static Asterisk.Versions ModTarget_AsteriskVersion { get; private set; }
 
         public static CodeStyle LuaCodeStyle { get; private set; }
@@ -98,6 +100,7 @@ namespace AsteriskMod
 
         internal static void Initialize()
         {
+            IsSimulator = false;
             ModTarget_AsteriskVersion = Asterisk.Versions.Unknwon;
             LuaCodeStyle = new CodeStyle();
             AsteriskChar = '*';

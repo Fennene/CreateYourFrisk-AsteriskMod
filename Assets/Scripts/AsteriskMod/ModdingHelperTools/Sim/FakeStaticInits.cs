@@ -6,15 +6,49 @@ namespace AsteriskMod.ModdingHelperTools
     {
         public static string MODFOLDER;
         public static string ENCOUNTER = "";
+        private static bool firstInit;
 
-        [ToDo("Unknwon")]
         public static bool Initialized { get; set; }
+
+        public static void Start()
+        {
+            if (!firstInit)
+            {
+                FakeSpriteRegistry.Start();
+                FakeSpriteFontRegistry.Start();
+                firstInit = true;
+            }
+            if (string.IsNullOrEmpty(MODFOLDER))
+                MODFOLDER = "@Title";
+            InitAll();
+            Initialized = true;
+            /*
+            if (!firstInit)
+            {
+                firstInit = true;
+                SpriteRegistry.Start();
+                AudioClipRegistry.Start();
+                SpriteFontRegistry.Start();
+                ShaderRegistry.Start();
+            }
+            if (string.IsNullOrEmpty(MODFOLDER))
+                MODFOLDER = EDITOR_MODFOLDER;
+            //if (CurrMODFOLDER != MODFOLDER || CurrENCOUNTER != ENCOUNTER)
+            InitAll();
+            Initialized = true;
+            */
+        }
 
         public static void InitAll(/*bool shaders = false*/)
         {
-            FakeSpriteRegistry.Init();
+            if (!Initialized)
+            {
+                FakeSpriteRegistry.Init();
+                FakeSpriteFontRegistry.Init();
+            }
             //LateUpdater.Init(); // ?
             MusicManager.src = Camera.main.GetComponent<AudioSource>(); // ?
+            Initialized = true;
             /*
             if (!Initialized && (!GlobalControls.isInFight || GlobalControls.modDev))
             {

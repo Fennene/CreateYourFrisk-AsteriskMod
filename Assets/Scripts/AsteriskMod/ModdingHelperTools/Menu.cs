@@ -81,7 +81,9 @@ namespace AsteriskMod.ModdingHelperTools
             FakeStaticInits.Initialized = false;
             try
             {
-                FakeStaticInits.InitAll(/*true*/);
+                AsteriskEngine.IsSimulator = true;
+                //FakeStaticInits.InitAll(/*true*/);
+                FakeStaticInits.Start();
 
                 if (UnitaleUtil.firstErrorShown)
                     throw new Exception();

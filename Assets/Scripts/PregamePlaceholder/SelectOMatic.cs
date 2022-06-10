@@ -212,6 +212,11 @@ public class SelectOMatic : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         StaticInits.Initialized = false;
         try {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            AsteriskEngine.IsSimulator = false;
+            // --------------------------------------------------------------------------------
             StaticInits.InitAll(true);
             if (UnitaleUtil.firstErrorShown)
                 throw new Exception();
