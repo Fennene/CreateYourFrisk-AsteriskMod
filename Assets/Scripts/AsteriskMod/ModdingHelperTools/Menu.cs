@@ -1,4 +1,4 @@
-﻿using MoonSharp.Interpreter;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 namespace AsteriskMod.ModdingHelperTools
 {
@@ -17,7 +18,10 @@ namespace AsteriskMod.ModdingHelperTools
 
         // game objects
         public GameObject Document, Sim, Exit;
-        public Text TargetModName, Description;
+        public Text TargetModName, Description, ErrorText;
+
+
+        // For Document //
 
         private void OpenDocument()
         {
@@ -33,28 +37,79 @@ namespace AsteriskMod.ModdingHelperTools
             catch { /* ignore */ }
         }
 
+
+        // For Simulator //
+
+        private bool EncounterExists(string encounterFileName)
+        {
+            return File.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + FakeStaticInits.MODFOLDER + "/Lua/Encounters/" + encounterFileName + ".lua"));
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            ErrorText.text = "Error: " + message;
+            ErrorText.enabled = true;
+        }
+
         private bool CanLaunch()
         {
-            return new DirectoryInfo(Path.Combine(FileLoader.DataRoot, "Mods/" + FakeStaticInits.MODFOLDER + "/Lua/Encounters/")).Exists
-                      && File.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + FakeStaticInits.MODFOLDER + "/Lua/Encounters/" + FakeStaticInits.ENCOUNTER + ".lua"));
+            if (!new DirectoryInfo(Path.Combine(FileLoader.DataRoot, "Mods/" + FakeStaticInits.MODFOLDER + "/Lua/Encounters/")).Exists)
+            {
+                ShowErrorMessage("Mods/" + FakeStaticInits.MODFOLDER + " is not found.");
+                return false;
+            }
+            if (!EncounterExists(FakeStaticInits.ENCOUNTER))
+            {
+                DirectoryInfo di = new DirectoryInfo(Path.Combine(FakeFileLoader.ModDataPath, "Lua/Encounters"));
+                List<string> encounters = di.GetFiles("*.lua").Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToList();
+                if (encounters.Count > 1) FakeStaticInits.ENCOUNTER = encounters[0];
+                if (!EncounterExists(FakeStaticInits.ENCOUNTER))
+                {
+                    ShowErrorMessage("Mods/" + FakeStaticInits.MODFOLDER + " does not contains any encounters.");
+                    return false;
+                }
+            }
+            return true;
         }
 
         private IEnumerator LaunchSimulator()
         {
-            if (!CanLaunch())
-            {
-                yield break;
-            }
+            if (!CanLaunch()) yield break;
+
             yield return new WaitForEndOfFrame();
-            //SceneManager.LoadScene("MHTSim");
+
+            FakeStaticInits.Initialized = false;
+            try
+            {
+                FakeStaticInits.InitAll(/*true*/);
+
+                if (UnitaleUtil.firstErrorShown)
+                    throw new Exception();
+
+                Debug.Log("Loading " + FakeStaticInits.ENCOUNTER);
+
+                //GlobalControls.isInFight = true; //No.
+                //DiscordControls.StartBattle(FakeStaticInits.MODFOLDER, FakeStaticInits.ENCOUNTER); //No.
+
+                //AsteriskEngine.PrepareMod(); //Not needed
+                SceneManager.LoadScene("MHTSim");
+            }
+            catch (Exception e)
+            {
+                ShowErrorMessage("Some error has occured while loading a mod!\nSee log file.");
+                Debug.LogError("An error occured while loading a mod (Sim):\n" + e.Message + "\n\n" + e.StackTrace);
+            }
         }
+
+
+        // System //
 
         private void Start()
         {
             TargetModName.text = "Target Mod: " + FakeStaticInits.MODFOLDER;
 
             Document.GetComponent<Button>().onClick.AddListener(() => OpenDocument());
-            //Sim.GetComponent<Button>().onClick.AddListener(() => LaunchSimulator());
+            Sim.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(LaunchSimulator()));
             Exit.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("ModSelect"));
 
             if (!GlobalControls.crate) return;
@@ -74,7 +129,8 @@ namespace AsteriskMod.ModdingHelperTools
                     return !GlobalControls.crate ? response : Temmify.Convert(response);
                 case "Sim":
                     response = "<color=#FF0>Battle Simulator</color>\n\n"
-                             + "simulates encountertext,\nsprite(bullet) object, text object\nand etc...";
+                             + "simulates encountertext,\nsprite(bullet) object, text object\nand etc..."
+                             + "\n\n<color=#FF0>Recommended to set window scale to 2!</color>";
                     return !GlobalControls.crate ? response : Temmify.Convert(response);
                 case "Exit":
                     response = "Returns to the Mod Select screen.";
