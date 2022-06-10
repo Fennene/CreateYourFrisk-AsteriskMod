@@ -5,7 +5,7 @@ namespace AsteriskMod
 {
     public class PlayerLifeUI : MonoBehaviour
     {
-        private GameObject hpRect; // self
+        //* private GameObject hpRect; // self
         //* private RectTransform lifebarRt;
 
         private Image hpLabel;
@@ -18,11 +18,12 @@ namespace AsteriskMod
 
         internal static PlayerLifeUI instance;
 
-        private bool encounterHasOnHPChanged; // 互換性
+        [ToDo("for only v0.5.2.9  I wanna delete.")]
+        private bool encounterHasOnHPChanged;
 
         private void Awake()
         {
-            hpRect = gameObject;
+            //* hpRect = gameObject;
 
             hpLabel = transform.Find("*HPLabel").GetComponent<Image>();
             phLabel = transform.Find("*HPLabelCrate").GetComponent<Image>();
@@ -59,7 +60,8 @@ namespace AsteriskMod
             */
             HPLabel = new LuaSpriteController(GlobalControls.crate ? phLabel : hpLabel) { tag = "ui", ignoreSet = GlobalControls.crate };
 
-            encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null; // 互換性
+            DevelopHint.ToDo("for only v0.5.2.9  I wanna delete.");
+            encounterHasOnHPChanged = EnemyEncounter.script.GetVar("OnHPChanged") != null;
         }
 
         internal void ChangeHPLabel()
@@ -84,7 +86,7 @@ namespace AsteriskMod
             // In Undertale, it displays Max HP as it is even if Max HP is less than 10. Undertaleでは最大HPは10未満であろうとそのまま表示する。(先頭に0がつかない)
             LifeTextMan.SetText(new InstantTextMessage(sHpCurrent + " / " + PlayerCharacter.instance.MaxHP));
 
-            // 互換性
+            DevelopHint.ToDo("for only v0.5.2.9  I wanna delete.");
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate) return;
             if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.QOLUpdate) return;
             if (!Asterisk.RequireExperimentalFeature("OnHPChanged", false)) return;

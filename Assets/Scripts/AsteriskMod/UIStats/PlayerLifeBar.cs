@@ -136,10 +136,7 @@ namespace AsteriskMod
         private RectTransform self;
         private Dictionary<string, Image> subbars;
 
-        private void Awake()
-        {
-            self = GetComponent<RectTransform>();
-        }
+        private void Awake() { self = GetComponent<RectTransform>(); }
 
         [MoonSharpHidden]
         internal void setHP(float hpCurrent)

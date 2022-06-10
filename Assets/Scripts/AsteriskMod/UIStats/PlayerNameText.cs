@@ -17,7 +17,8 @@ namespace AsteriskMod
 
         private void Start()
         {
-            NameTextMan._SetText = (_ => { PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth()); });
+            //NameTextMan._SetText = (_ => { PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth()); });
+            NameTextMan._SetText = (_ => { PlayerLoveText.instance.SetPosition((int)AsteriskUtil.CalcTextWidth(NameTextMan, countEOLSpace: true)); });
             if (AsteriskEngine.JapaneseStyleOption.JPName)
             {
                 SetJP();
@@ -34,7 +35,8 @@ namespace AsteriskMod
             nowText = newName;
             NameTextMan.SetText(new InstantTextMessage(AsteriskEngine.JapaneseStyleOption.JPName ? nowText : nowText.ToUpper()));
             NameTextMan.enabled = true;
-            PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth());
+            //PlayerLoveText.instance.SetPosition(NameTextMan.GetTextWidth());
+            PlayerLoveText.instance.SetPosition((int)AsteriskUtil.CalcTextWidth(NameTextMan, countEOLSpace: true));
         }
 
         internal void SetJP()

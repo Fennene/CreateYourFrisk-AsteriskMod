@@ -94,6 +94,7 @@ namespace AsteriskMod.ModdingHelperTools
                 //DiscordControls.StartBattle(FakeStaticInits.MODFOLDER, FakeStaticInits.ENCOUNTER); //No.
 
                 //AsteriskEngine.PrepareMod(); //Not needed
+                BattleSimulator.Initialize();
                 SceneManager.LoadScene("MHTSim");
             }
             catch (Exception e)

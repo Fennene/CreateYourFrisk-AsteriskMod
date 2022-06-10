@@ -1,11 +1,11 @@
 ﻿using MoonSharp.Interpreter;
 using UnityEngine;
 
-namespace AsteriskMod
+namespace AsteriskMod.ModdingHelperTools
 {
-    public class PlayerUtil : MonoBehaviour
+    internal class FakePlayerUtil : MonoBehaviour
     {
-        [MoonSharpHidden] internal static PlayerUtil Instance;
+        internal static FakePlayerUtil Instance;
         private static GameObject Stats;
         private static Vector2 relativePosition;
 
@@ -41,13 +41,6 @@ namespace AsteriskMod
             relativePosition = new Vector2(newX, newY);
             Stats.GetComponent<RectTransform>().anchoredPosition = initPos + relativePosition;
         }
-        /*
-        public static void MoveTo()
-        {
-            Stats.GetComponent<RectTransform>().anchoredPosition -= relativePosition;
-            relativePosition = Vector2.zero;
-        }
-        */
 
         public static void MoveToAbs(int newX, int newY)
         {
@@ -56,64 +49,23 @@ namespace AsteriskMod
             relativePosition = Stats.GetComponent<RectTransform>().anchoredPosition - initPos;
         }
 
-        public static UIStaticTextManager Name { get { return PlayerNameText.instance.NameTextMan; } }
-        public static UIStaticTextManager nametext { get { return Name; } } // Could't name "name".
-
-        public static UIStaticTextManager Love { get { return PlayerLoveText.instance.LoveTextMan; } }
-        public static UIStaticTextManager lovetext { get { return Love; } }
-
-        public static LuaSpriteController HPLabel { get { return PlayerLifeUI.instance.HPLabel; } }
-        public static LuaSpriteController hplabel { get { return HPLabel; } }
-
-        public static PlayerLifeBar HPBar { get { return PlayerLifeUI.instance.LifeBar; } }
-        public static PlayerLifeBar hpbar { get { return HPBar; } }
-
-        public static UIStaticTextManager HPText { get { return PlayerLifeUI.instance.LifeTextMan; } }
-        public static UIStaticTextManager hptext { get { return HPText; } }
-
-        public static void SetControlOverride(bool active)
-        {
-            Name.SetControlOverride(active);
-            Love.SetControlOverride(active);
-            SetHPControlOverride(active);
-        }
-
-        public static void SetLV(string lv)
-        {
-            PlayerLoveText.instance.SetText(lv);
-        }
-
-        public static void SetHPControlOverride(bool active)
-        {
-            PlayerLifeUI.instance.SetHPControlOverride(active);
-        }
-
-        public static void SetHP(float hp, float maxhp, bool updateText = true)
-        {
-            PlayerLifeUI.instance.SetHPOverride(hp, maxhp, updateText);
-        }
-
-        public static void SetHPText(float hp, float maxhp)
-        {
-            PlayerLifeUI.instance.SetHPTextFromNumber(hp, maxhp);
-        }
-
-        public static int GetSoulAlpha()
-        {
-            if (PlayerController.instance == null) return 0;
-            return PlayerController.instance.selfImg.enabled ? 1 : 0;
-        }
+        //public static FakeLuaStaticTextManager Name { get { return FakePlayerName.instance.NameTextMan; } }
+        //public static FakeLuaStaticTextManager Love { get { return FakePlayerLV.instance.LoveTextMan; } }
+        //public static LuaSpriteController HPLabel { get { return FakePlayerHPStat.instance.HPLabel; } }
+        //public static PlayerLifeBar HPBar { get { return FakePlayerHPStat.instance.LifeBar; } }
+        //public static FakeLuaStaticTextManager HPText { get { return FakePlayerHPStat.instance.LifeTextMan; } }
 
         public static void SetTargetSprite(string path)
         {
-            ArenaUI.SetTargetSprite(path);
+            FakeArenaUtil.SetTargetSprite(path);
         }
 
         public static void SetTargetChoiceSprite(string path)
         {
-            ArenaUI.SetTargetChoiceSprite(path);
+            FakeArenaUtil.SetTargetChoiceSprite(path);
         }
 
+        /*
         public static void SetTargetChoiceAnim(string[] anim, float frequency = 1 / 12f, string prefix = "")
         {
             if (anim.Length == 0)
@@ -145,6 +97,7 @@ namespace AsteriskMod
             UIController.instance.fightUI.lineAnim = new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
             UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
         }
+        */
 
         public static PlayerLifeBar CreateLifeBar(bool below = false)
         {
