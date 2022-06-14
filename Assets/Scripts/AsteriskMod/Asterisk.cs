@@ -91,6 +91,7 @@ namespace AsteriskMod
             displayModInfo = true;
 
             AsteriskEngine.Initialize();
+            Lang.Initialize();
         }
 
         /// <summary>AsteriskModのオプションを読み込みます。</summary>
@@ -125,7 +126,6 @@ namespace AsteriskMod
             {
                 displayModInfo = LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO).Boolean;
             }
-
 #if UNITY_EDITOR
             //Test.Tset();
 #endif

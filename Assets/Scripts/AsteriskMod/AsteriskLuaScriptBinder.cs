@@ -20,6 +20,7 @@ namespace AsteriskMod
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
             UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
+            UserData.RegisterType<Lang>();
 
             /*
             UserData.RegisterType<GameObjectModifyingSystem>();
@@ -123,6 +124,8 @@ namespace AsteriskMod
                 script.Globals.Set("Engine", engine);
                 DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
                 script.Globals.Set("JPStyle", jpstyle);
+                DynValue lang = UserData.Create(new Lang());
+                script.Globals.Set("Lang", lang);
 
                 /*
                 GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;

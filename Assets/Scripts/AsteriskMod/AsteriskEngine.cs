@@ -116,6 +116,7 @@ namespace AsteriskMod
             LuaCodeStyle = CodeStyle.Get(modName);
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
+            Lang.PrepareMod(modName);
         }
 
         internal static void AwakeMod()
@@ -130,6 +131,7 @@ namespace AsteriskMod
         {
             CYFEngine.Reset();
             Initialize();
+            Lang.Reset();
         }
     }
 }

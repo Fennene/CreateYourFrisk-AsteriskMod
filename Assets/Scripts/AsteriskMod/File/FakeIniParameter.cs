@@ -51,5 +51,13 @@
             }
             return _ + "}";
         }
+
+        public FakeIniParameter Clone()
+        {
+            FakeIniParameter parameter;
+            if (this.IsArray) parameter = new FakeIniParameter(this.Array, true);
+            else              parameter = new FakeIniParameter(this.String);
+            return parameter;
+        }
     }
 }

@@ -98,5 +98,48 @@ namespace AsteriskMod.FakeIniLoader
             }
             return _;
         }
+
+        public FakeIni Clone()
+        {
+            FakeIni ini = new FakeIni();
+            foreach (string parameterName in this.Main.ParameterNames)
+            {
+                ini.Main[parameterName] = this.Main[parameterName].Clone();
+            }
+            foreach (string sectionName in this.SectionNames)
+            {
+                ini[sectionName] = new FakeIniSection();
+                foreach (string parameterName in this[sectionName].ParameterNames)
+                {
+                    ini[sectionName][parameterName] = this[sectionName][parameterName].Clone();
+                }
+            }
+            return ini;
+        }
+
+        public void Join(FakeIni other, bool overriding = true)
+        {
+            foreach (string parameterName in other.Main.ParameterNames)
+            {
+                if (overriding || !this.Main.ParameterExists(parameterName))
+                {
+                    this.Main[parameterName] = other.Main[parameterName].Clone();
+                }
+            }
+            foreach (string sectionName in other.SectionNames)
+            {
+                if (!this.SectionExists(sectionName))
+                {
+                    this[sectionName] = new FakeIniSection();
+                }
+                foreach (string parameterName in other[sectionName].ParameterNames)
+                {
+                    if (overriding || !this[sectionName].ParameterExists(parameterName))
+                    {
+                        this[sectionName][parameterName] = other[sectionName][parameterName].Clone();
+                    }
+                }
+            }
+        }
     }
 }
