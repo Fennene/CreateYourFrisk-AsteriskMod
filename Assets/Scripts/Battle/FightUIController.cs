@@ -282,4 +282,18 @@ public class FightUIController : MonoBehaviour {
         }
         initFade();
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    internal void SetLineAnimation(string[] anim, float frequency, bool forceChangeAnim)
+    {
+        lineAnim = anim.Copy();
+        lineAnimFrequency = frequency;
+        if (!forceChangeAnim) return;
+        if (line == null || line.currentframe == 0) return;
+        line.StopAnimation();
+        line.SetAnimation(lineAnim.Copy(), lineAnimFrequency);
+    }
+    // --------------------------------------------------------------------------------
 }

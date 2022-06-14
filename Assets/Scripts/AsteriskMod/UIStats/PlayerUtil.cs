@@ -114,12 +114,13 @@ namespace AsteriskMod
             ArenaUI.SetTargetChoiceSprite(path);
         }
 
-        public static void SetTargetChoiceAnim(string[] anim, float frequency = 1 / 12f, string prefix = "")
+        public static void SetTargetChoiceAnim(string[] anim, float frequency = 1 / 12f, string prefix = "", bool forceSetAnimation = true)
         {
             if (anim.Length == 0)
             {
-                UIController.instance.fightUI.lineAnim = new[] { "empty" };
-                UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
+                //*UIController.instance.fightUI.lineAnim = new[] { "empty" };
+                //*UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
+                UIController.instance.fightUI.SetLineAnimation(new[] { "empty" }, 1 / 12f, forceSetAnimation);
             }
             else
             {
@@ -135,15 +136,17 @@ namespace AsteriskMod
                         anim[i] = prefix + anim[i];
                 }
 
-                UIController.instance.fightUI.lineAnim = anim;
-                UIController.instance.fightUI.lineAnimFrequency = frequency;
+                //*UIController.instance.fightUI.lineAnim = anim;
+                //*UIController.instance.fightUI.lineAnimFrequency = frequency;
+                UIController.instance.fightUI.SetLineAnimation(anim, frequency, forceSetAnimation);
             }
         }
 
-        public void ResetTargetChoiceAnim()
+        public void ResetTargetChoiceAnim(bool forceSetAnimation = true)
         {
-            UIController.instance.fightUI.lineAnim = new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
-            UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
+            //*UIController.instance.fightUI.lineAnim = new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
+            //*UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
+            UIController.instance.fightUI.SetLineAnimation(new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" }, 1 / 12f, forceSetAnimation);
         }
 
         public static PlayerLifeBar CreateLifeBar(bool below = false)

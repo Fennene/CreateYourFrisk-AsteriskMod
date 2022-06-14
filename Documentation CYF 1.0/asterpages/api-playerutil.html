@@ -317,13 +317,17 @@ it's w3c valid, at least
                 Change a sprite's current image of targetchoice in FightUI.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.SetTargetChoiceAnim(<span class="luatable"><span class="string"></span></span> anim, <span class="number"></span> frequency, <span class="string"></span> prefix = "")</span>
+                <br><span class="function">PlayerUtil.SetTargetChoiceAnim(<span class="luatable"><span class="string"></span></span> anim, <span class="number"></span> frequency, <span class="string"></span> prefix = "", <span class="boolean"></span> forceSetAnimation = true)</span>
                 Sets the animation of targetchoice's sprite. 
                 Use it like <span class="term">sprite.SetAnimation()</span>.
+                <br><br>
+                if <span class="term">forceSetAnimation</span> is <span class="term">true</span>, swaps animation if the animation of targetchoice is running.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.ResetTargetChoiceAnim()</span>
+                <br><span class="function">PlayerUtil.ResetTargetChoiceAnim(<span class="boolean"></span> forceSetAnimation = true)</span>
                 Resets the animation of targetchoice's sprite to the default slashing animation.
+                <br><br>
+                if <span class="term">forceSetAnimation</span> is <span class="term">true</span>, swaps animation if the animation of targetchoice is running.
             </p>
 
             <p>
