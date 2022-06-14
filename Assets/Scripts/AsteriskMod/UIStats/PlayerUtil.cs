@@ -149,6 +149,16 @@ namespace AsteriskMod
             UIController.instance.fightUI.SetLineAnimation(new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" }, 1 / 12f, forceSetAnimation);
         }
 
+        public float GetTargetChoiceX()
+        {
+            return UIController.instance.fightUI.GetTargetRTX();
+        }
+
+        public int SimulateDamage(int playerATK, int playerWeaponATK, int enemyDEF, float targetChoiceX = 0f, float randomValue = -1f)
+        {
+            return UIController.instance.fightUI.SimulateDamage(playerATK, playerWeaponATK, enemyDEF, targetChoiceX, randomValue);
+        }
+
         public static PlayerLifeBar CreateLifeBar(bool below = false)
         {
             string findName = below ? "*BelowHPBar" : "*AboveHPBar";

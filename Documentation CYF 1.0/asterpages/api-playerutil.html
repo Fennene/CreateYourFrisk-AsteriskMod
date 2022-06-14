@@ -327,7 +327,25 @@ it's w3c valid, at least
                 <br><span class="function">PlayerUtil.ResetTargetChoiceAnim(<span class="boolean"></span> forceSetAnimation = true)</span>
                 Resets the animation of targetchoice's sprite to the default slashing animation.
                 <br><br>
-                if <span class="term">forceSetAnimation</span> is <span class="term">true</span>, swaps animation if the animation of targetchoice is running.
+                If <span class="term">forceSetAnimation</span> is <span class="term">true</span>, swaps animation if the animation of targetchoice is running.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> PlayerUtil.GetTargetChoiceX()</span>
+                Get horizontal position of targetchoice.<br>
+                This is useful for <span class="term">PlayerUtil.SimulateDamage()</span>.
+                <br><br>
+                If targetchoice is not shown or not stopped (current state is not <span class="term">ATTCKING</span> or the player does not attack by pressing Z(Enter) Key), returns the edge of targetchoice's position.
+            </p>
+            <p>
+                <br><span class="function"><span class="number"></span> PlayerUtil.SimulateDamage(<span class="number"></span> playerATK, <span class="number"></span> playerWeaponATK, <span class="number"></span> enemyDEF, <span class="number"></span> targetChoiceX = 0, <span class="number"></span> randomValue = -1)</span>
+                Simulate an enemy's damage with the arguments.<br>
+                <ul>
+                    <li><span class="term">playerATK</span>: player's attack, as integer value.</li>
+                    <li><span class="term">playerWeaponATK</span>: attack of player's weapon, as integer value.</li>
+                    <li><span class="term">enemyDEF</span>: enemy's defence, as integer value.</li>
+                    <li><span class="term">targetChoiceX</span>: horizontal position of targetchoice, as float value.<br>recommended to set between<span class="term">-273.5</span>(left end) and <span class="term">273.5</span>(right end)<br><span class="term">0</span> means center.</li>
+                    <li><span class="term">randomValue</span>: random additional attack, as float value between<span class="term">0.0</span> and <span class="term">1.0</span>.<br>If sets out of range, it is set random value.</li>
+                </ul>
             </p>
 
             <p>

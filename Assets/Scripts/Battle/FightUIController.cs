@@ -295,5 +295,42 @@ public class FightUIController : MonoBehaviour {
         line.StopAnimation();
         line.SetAnimation(lineAnim.Copy(), lineAnimFrequency);
     }
+
+    internal float GetTargetRTX()
+    {
+        if (!stopped) return 547.0f / 2.0f;
+        //if (line == null || line.currentframe == 0) return 547.0f / 2.0f;
+        return targetRt.anchoredPosition.x;
+    }
+
+    private float SimulateAtkMult(float targetRTx)
+    {
+        //if (!stopped) return -1.0f;
+        if (Mathf.Abs(targetRTx) <= 12)
+            return 2.2f;
+        float mult = 2.0f - 2.0f * Mathf.Abs(targetRTx * 2.0f / GetComponent<RectTransform>().rect.width); // GetComponent<RectTransform>().rect.width = 547
+        if (mult < 0)
+            mult = 0;
+        return mult;
+    }
+
+    internal int SimulateDamage(int playerATK, int playerWeaponATK, int enemyDEF, float targetRTx = 0f, float randValue = -1f)
+    {
+        float atkMult = SimulateAtkMult(targetRTx);
+        if (randValue < 0.0f || 1.0f < randValue) randValue = Random.value;
+        int damage = (int)Mathf.Round(((playerWeaponATK + playerATK - enemyDEF) + randValue * 2) * atkMult);
+        if (damage < 0)
+            return 0;
+        return damage;
+    }
+
+    internal int SimulateDamageMemo(EnemyController enemy, float targetRTx)
+    {
+        float atkMult = SimulateAtkMult(targetRTx);
+        int damage = (int)Mathf.Round(((PlayerCharacter.instance.WeaponATK + PlayerCharacter.instance.ATK - enemy.Defense) + Random.value * 2) * atkMult);
+        if (damage < 0)
+            return 0;
+        return damage;
+    }
     // --------------------------------------------------------------------------------
 }

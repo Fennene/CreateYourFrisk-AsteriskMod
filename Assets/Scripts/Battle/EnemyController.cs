@@ -275,7 +275,7 @@ public class EnemyController : MonoBehaviour {
             // --------------------------------------------------------------------------------
             if (AsteriskUtil.IsV053)
             {
-                script.Bind("GetShakeX", (Func<int>)(() => { return nowShakeX; }));
+                script.Bind(MonsterFunc.GET_SHAKE_X, (Func<int>)(() => { return nowShakeX; }));
             }
             // --------------------------------------------------------------------------------
             script.SetVar("canmove", DynValue.NewBoolean(false));
