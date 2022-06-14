@@ -4,7 +4,7 @@ namespace AsteriskMod.FakeIniLoader
 {
     internal static class FakeIniFileLoader
     {
-        public static FakeIni Load(string path)
+        public static FakeIni Load(string path, bool ignoreSection = false)
         {
             FakeIni ini = new FakeIni();
             string[] fileLines = File.ReadAllLines(path);
@@ -16,6 +16,7 @@ namespace AsteriskMod.FakeIniLoader
                 if (line.StartsWith(";")) continue;
                 if (line.StartsWith("[") && line.EndsWith("]"))
                 {
+                    if (ignoreSection) break;
                     string sectionName = line.TrimOnce('[', ']');
                     if (!FakeIniUtil.IsValidSectionName(sectionName)) continue;
                     nowSection = sectionName;

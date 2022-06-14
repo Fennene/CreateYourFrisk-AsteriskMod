@@ -82,6 +82,8 @@ namespace AsteriskMod.ModdingHelperTools
             try
             {
                 AsteriskEngine.IsSimulator = true;
+                //AsteriskEngine.PrepareMod(); //Not needed
+
                 //FakeStaticInits.InitAll(/*true*/);
                 FakeStaticInits.Start();
 
@@ -93,7 +95,6 @@ namespace AsteriskMod.ModdingHelperTools
                 //GlobalControls.isInFight = true; //No.
                 //DiscordControls.StartBattle(FakeStaticInits.MODFOLDER, FakeStaticInits.ENCOUNTER); //No.
 
-                //AsteriskEngine.PrepareMod(); //Not needed
                 BattleSimulator.Initialize();
                 SceneManager.LoadScene("MHTSim");
             }

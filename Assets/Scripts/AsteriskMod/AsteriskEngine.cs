@@ -108,11 +108,12 @@ namespace AsteriskMod
             JapaneseStyleOption.Initialize();
         }
 
-        internal static void PrepareMod(ModInfo modInfo, CodeStyle codeStyle)
+        internal static void PrepareMod(string modName)
         {
-            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(modInfo.targetVersion));
-            ModTarget_AsteriskVersion = modInfo.targetVersion;
-            LuaCodeStyle = codeStyle;
+            ModInfo info = ModInfo.Get(modName);
+            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(info.targetVersion));
+            ModTarget_AsteriskVersion = info.targetVersion;
+            LuaCodeStyle = CodeStyle.Get(modName);
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
         }

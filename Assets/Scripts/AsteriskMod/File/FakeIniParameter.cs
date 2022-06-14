@@ -30,7 +30,14 @@
         }
 
         public bool IsArray { get { return _isStringArray; } }
-        public string String { get { return _stringArray[0]; } }
+        public string String
+        {
+            get
+            {
+                if (_stringArray.Length < 1) return "";
+                return _stringArray[0];
+            }
+        }
         public string[] Array { get { return _stringArray; } }
 
         public override string ToString()

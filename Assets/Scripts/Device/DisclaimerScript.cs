@@ -12,7 +12,7 @@ public class DisclaimerScript : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    public GameObject DescA1, DescA2, DescA3, DescA4, DescA5;
+    public GameObject DescA1, DescA2, DescA3, DescA4, DescA5, DescA6;
     public GameObject Load1, Load2;
     // --------------------------------------------------------------------------------
 
@@ -37,7 +37,8 @@ public class DisclaimerScript : MonoBehaviour {
             Version.GetComponent<Text>().text = "v" + Random.Range(0, 9) + "." + Random.Range(0, 9) + "." + Random.Range(0, 9) + " *v" + Random.Range(0, 9) + "." + Random.Range(0, 9) + "." + Random.Range(0, 9) + "." + Random.Range(0, 9);
             DescA3.GetComponent<Text>().text = "<b><color='red'>KNOW YUOR CODE</color> R U'LL HVAE A BED TMIE!!!</b>";
             DescA4.GetComponent<Text>().text = "GO TO /R/UNITLAE. FOR UPDTAES!!!!!";
-            DescA5.GetComponent<Text>().text = "NO RELESLING HERE!!! IT'S RFEE!!! OR TUBY FEX WILL BE ANGER!!! U'LL HVAE A BED TMIE!!!";
+            DescA5.GetComponent<Text>().text = "＊ GO TO GITHUB. FOR UPDTAES!!!!! ＊";
+            DescA6.GetComponent<Text>().text = "NO RELESLING HERE!!! IT'S RFEE!!! OR TUBY FEX WILL BE ANGER!!! U'LL HVAE A BED TMIE!!!";
             // --------------------------------------------------------------------------------
         }
         // --------------------------------------------------------------------------------

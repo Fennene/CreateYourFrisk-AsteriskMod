@@ -129,7 +129,7 @@ namespace AsteriskMod
                 script.Globals.Set("GMS", gms);
                 */
 
-                if (AsteriskEngine.LuaCodeStyle.moreUtil)
+                if (AsteriskEngine.LuaCodeStyle.extendedUtil)
                 {
                     DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
                     script.Globals.Set("CYFUtil", cyfutil);

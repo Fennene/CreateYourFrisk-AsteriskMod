@@ -1,64 +1,68 @@
-﻿using System.IO;
+﻿using AsteriskMod.FakeIniLoader;
+using System;
+using System.IO;
 using UnityEngine;
 
 namespace AsteriskMod
 {
     public class CodeStyle
     {
-        public string buttonUtilName;
-        public string playerUtilName;
-        public string arenaUtilName;
-        public bool moreUtil;
+        public bool extendedUtil;
+        public bool fasterTable;
 
         public CodeStyle()
         {
-            buttonUtilName = "ButtonUtil";
-            playerUtilName = "PlayerUtil";
-            arenaUtilName = "ArenaUtil";
-            moreUtil = false;
+            extendedUtil = false;
+            fasterTable = false;
         }
+
+        public const string CODESTYLE_FILE_NAME = "Lua/codestyle.cyfmod";
 
         private static bool IgnoreFile(string fullpath)
         {
             return !File.Exists(fullpath) || new FileInfo(fullpath).Length > 1024 * 1024; // 1MB
         }
 
-        internal static CodeStyle Load()
+        private static bool ConvertToBoolean(string text)
         {
-            CodeStyle codeStyle = new CodeStyle();
-            string path = Path.Combine(FileLoader.ModDataPath, "Lua/codestyle.cyfmod");
-            if (IgnoreFile(path)) return codeStyle;
-            Debug.Log("CodeStyle is found.");
-            try
+            text = text.ToLower();
+            if (text == "true") return true;
+            if (text == "false") return false;
+            return false;
+        }
+
+        public static CodeStyle Get(string modDirName)
+        {
+            CodeStyle style = new CodeStyle();
+            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + CODESTYLE_FILE_NAME);
+            if (IgnoreFile(path)) return style;
+
+            FakeIni ini = FakeIniFileLoader.Load(path, false);
+
+            foreach (string realKey in ini.Main.ParameterNames)
             {
-                foreach (string l in File.ReadAllLines(path))
+                string keyName = realKey.ToLower().Replace("_", "-");
+                if (realKey != keyName && ini.Main.ParameterExists(keyName)) continue;
+                switch (keyName)
                 {
-                    string line = l.Replace("\r", "").Replace("\n", "");
-                    if (line.StartsWith(";")) continue;
-                    if (!line.Contains("=")) continue;
-                    string[] _ = line.Split(new char[1] { '=' }, 2);
-                    string key = _[0].Replace("_", "-").Trim();
-                    string parameter = _[1].Replace("\"", "").Trim();
-                    switch (key)
-                    {
-                        case "ButtonUtil":
-                            codeStyle.buttonUtilName = parameter;
-                            break;
-                        case "PlayerUtil":
-                            codeStyle.playerUtilName = parameter;
-                            break;
-                        case "ArenaUtil":
-                            codeStyle.arenaUtilName = parameter;
-                            break;
-                        case "MoreUtil":
-                            if (parameter.ToLower() == "true")
-                                codeStyle.moreUtil = true;
-                            break;
-                    }
+                    case "extended-util":
+                    case "exutil":
+                    case "extendedutil":
+                        style.extendedUtil = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
+                    case "faster-util":
+                    case "faster-tools":
+                    case "faster-table":
+                    case "faster-array":
+                    case "fasterutil":
+                    case "fastertools":
+                    case "fastertable":
+                    case "fasterarray":
+                        style.fasterTable = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
                 }
             }
-            catch { /* ignore */ }
-            return codeStyle;
+            return style;
         }
     }
 }

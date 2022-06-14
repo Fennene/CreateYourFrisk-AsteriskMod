@@ -216,6 +216,7 @@ public class SelectOMatic : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             AsteriskEngine.IsSimulator = false;
+            AsteriskEngine.PrepareMod(modDirs[CurrentSelectedMod].Name);
             // --------------------------------------------------------------------------------
             StaticInits.InitAll(true);
             if (UnitaleUtil.firstErrorShown)
@@ -223,11 +224,6 @@ public class SelectOMatic : MonoBehaviour {
             Debug.Log("Loading " + StaticInits.ENCOUNTER);
             GlobalControls.isInFight = true;
             DiscordControls.StartBattle(modDirs[CurrentSelectedMod].Name, StaticInits.ENCOUNTER);
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            AsteriskEngine.PrepareMod(modInfos[CurrentSelectedMod], CodeStyle.Load());
-            // --------------------------------------------------------------------------------
             SceneManager.LoadScene("Battle");
         } catch (Exception e) {
             ModBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.25f);
@@ -322,29 +318,13 @@ public class SelectOMatic : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         ModInfo info = modInfos[id];
-        // Languages
-        if (info.supportedLanguages[0]) // English
+        // Set BG Color
+        if (Asterisk.displayModInfo)
         {
-            ENLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
-            ENLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
-        }
-        else
-        {
-            ENLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
-            ENLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
-        }
-        if (info.supportedLanguages[1]) // Japanese
-        {
-            JPLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
-            JPLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
-        }
-        else
-        {
-            JPLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
-            JPLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
+            ModBackground.GetComponent<Image>().color = info.bgColor;
         }
         // Change encounter count
-        if (encounters.Count > 1 && (!Asterisk.displayModInfo || info.subtitle == ""))
+        if (encounters.Count > 1 && string.IsNullOrEmpty(info.subtitle))
         {
             int count = encounters.Count;
             //List<string> showEncounters = new List<string>();
@@ -394,9 +374,16 @@ public class SelectOMatic : MonoBehaviour {
         // Set Font
         Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
         ModTitleShadow.GetComponent<Text>().font = font;
-        ModTitle.GetComponent<Text>().font = font;
+        ModTitle      .GetComponent<Text>().font = font;
         EncounterCountShadow.GetComponent<Text>().font = font;
-        EncounterCount.GetComponent<Text>().font = font;
+        EncounterCount      .GetComponent<Text>().font = font;
+        // RichText
+        /**
+        ModTitleShadow.GetComponent<Text>().supportRichText = info.richText;
+        ModTitle      .GetComponent<Text>().supportRichText = info.richText;
+        EncounterCountShadow.GetComponent<Text>().supportRichText = info.richText;
+        EncounterCount      .GetComponent<Text>().supportRichText = info.richText;
+        */
         // Set Alt Text
         if (Asterisk.displayModInfo)
         {
@@ -413,20 +400,36 @@ public class SelectOMatic : MonoBehaviour {
         }
         // Set Description's Alignment
         ModDescShadow.GetComponent<Text>().alignment = info.descAnchor;
-        ModDesc.GetComponent<Text>().alignment = info.descAnchor;
+        ModDesc      .GetComponent<Text>().alignment = info.descAnchor;
         // Set Description's Active
-        bool hasDescription = info.description != "";
+        bool hasDescription = !string.IsNullOrEmpty(info.description);
         ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
-        ModDesc.SetActive(hasDescription && Asterisk.alwaysShowDesc);
+        ModDesc      .SetActive(hasDescription && Asterisk.alwaysShowDesc);
         // Set Description
         ModDescShadow.GetComponent<Text>().text = Regex.Replace(info.description, "<[^>]*?>", "");
-        ModDesc.GetComponent<Text>().text = info.description;
+        ModDesc      .GetComponent<Text>().text = info.description;
         ExistDescInfoShadow.SetActive(hasDescription);
-        ExistDescInfo.SetActive(hasDescription);
-        // Set BG alpha
-        if (Asterisk.displayModInfo)
+        ExistDescInfo      .SetActive(hasDescription);
+        // Languages
+        if (info.supportedLanguages[0]) // English
         {
-            ModBackground.GetComponent<Image>().color = info.bgColor;
+            ENLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
+            ENLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
+        }
+        else
+        {
+            ENLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
+            ENLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
+        }
+        if (info.supportedLanguages[1]) // Japanese
+        {
+            JPLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
+            JPLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
+        }
+        else
+        {
+            JPLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
+            JPLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
         }
         SelectOMaticOptionManager.ShowMod(modDirs[id].Name, encounters[0]);
         // --------------------------------------------------------------------------------
