@@ -29,6 +29,9 @@ namespace AsteriskMod
 
             UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();
             UserData.RegisterType<ExtendedUtil.LuaStringUtil>();
+            UserData.RegisterType<ExtendedUtil.LuaArrayUtil>();
+            UserData.RegisterType<ExtendedUtil.LuaVector>();
+            //UserData.RegisterType<ExtendedUtil.LuaVectorClass>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -129,12 +132,20 @@ namespace AsteriskMod
                 script.Globals.Set("GMS", gms);
                 */
 
-                if (AsteriskEngine.LuaCodeStyle.extendedUtil)
+                if (AsteriskEngine.LuaCodeStyle.stringUtil)
+                {
+                    DynValue stringutil = UserData.Create(new ExtendedUtil.LuaStringUtil());
+                    script.Globals.Set("StringUtil", stringutil);
+                }
+                if (AsteriskEngine.LuaCodeStyle.arrayUtil)
+                {
+                    DynValue arrayutil = UserData.Create(new ExtendedUtil.LuaArrayUtil());
+                    script.Globals.Set("ArrayUtil", arrayutil);
+                }
+                if (AsteriskEngine.LuaCodeStyle.cyfUtil)
                 {
                     DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
                     script.Globals.Set("CYFUtil", cyfutil);
-                    DynValue stringutil = UserData.Create(new ExtendedUtil.LuaStringUtil());
-                    script.Globals.Set("StringUtil", stringutil);
                 }
             }
             else

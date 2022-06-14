@@ -7,13 +7,15 @@ namespace AsteriskMod
 {
     public class CodeStyle
     {
-        public bool extendedUtil;
-        public bool fasterTable;
+        public bool stringUtil;
+        public bool arrayUtil;
+        public bool cyfUtil;
 
         public CodeStyle()
         {
-            extendedUtil = false;
-            fasterTable = false;
+            stringUtil = false;
+            arrayUtil = false;
+            cyfUtil = false;
         }
 
         public const string CODESTYLE_FILE_NAME = "Lua/codestyle.cyfmod";
@@ -45,11 +47,30 @@ namespace AsteriskMod
                 if (realKey != keyName && ini.Main.ParameterExists(keyName)) continue;
                 switch (keyName)
                 {
+                    //case "environment-pathes":
+                    //case "env-pathes":
+                    //style.environmentPathes = ini.Main[realKey].Array;
+                    //break;
+                    /*
                     case "extended-util":
                     case "exutil":
                     case "extendedutil":
                         style.extendedUtil = ConvertToBoolean(ini.Main[realKey].String);
                         break;
+                    */
+                    case "stringutil":
+                    case "string-util":
+                        style.stringUtil = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
+                    case "arrayutil":
+                    case "array-util":
+                        style.arrayUtil = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
+                    case "cyf-util":
+                    case "cyfutil":
+                        style.cyfUtil = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
+                    /*
                     case "faster-util":
                     case "faster-tools":
                     case "faster-table":
@@ -60,6 +81,7 @@ namespace AsteriskMod
                     case "fasterarray":
                         style.fasterTable = ConvertToBoolean(ini.Main[realKey].String);
                         break;
+                    */
                 }
             }
             return style;

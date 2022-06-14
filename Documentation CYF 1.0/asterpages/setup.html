@@ -258,6 +258,67 @@ CarriageReturn="\r"
             <h3>Code Style</h3><br><br>
 
             <p>This is secret feature on AsteriskMod.</p>
+
+            <br>
+
+            <h4>StringUtil</h4><br>
+            <p><span class="function"><span class="boolean"></span> StringUtil.IsNullOrEmpty(<span class="string"></span> text)</span></p>
+            <p><span class="function"><span class="boolean"></span> StringUtil.IsNullOrWhiteSpace(<span class="string"></span> text)</span></p>
+            <p><span class="function"><span class="luatable"><span class="string"></span></span> StringUtil.Split(<span class="string"></span> text, <span class="userdata">params</span> <span class="luatable"><span class="char"></span></span> separator)</span></p>
+            <p><span class="function"><span class="boolean"></span> StringUtil.StartsWith(<span class="string"></span> text, <span class="string"></span> value)</span></p>
+            <p><span class="function"><span class="boolean"></span> StringUtil.EndsWith(<span class="string"></span> text, <span class="string"></span> value)</span></p>
+            <p><span class="function"><span class="boolean"></span> StringUtil.Contains(<span class="string"></span> text, <span class="string"></span> value)</span></p>
+            <p><span class="function"><span class="string"></span> StringUtil.Trim(<span class="string"></span> text, <span class="userdata">params</span> <span class="luatable"><span class="char"></span></span> trimChars)</span></p>
+            <p><span class="function"><span class="string"></span> StringUtil.TrimStart(<span class="string"></span> text, <span class="userdata">params</span> <span class="luatable"><span class="char"></span></span> trimChars)</span></p>
+            <p><span class="function"><span class="string"></span> StringUtil.TrimEnd(<span class="string"></span> text, <span class="userdata">params</span> <span class="luatable"><span class="char"></span></span> trimChars)</span></p>
+            <p><span class="function"><span class="luatable"><span class="char"></span></span> StringUtil.ToCharArray(<span class="string"></span> text)</span></p>
+            <!--
+            <p><span class="function"><span class="string"></span> StringUtil.(<span class="string"></span> text,)</span></p>
+            -->
+
+            <br>
+
+            <h4>ArrayUtil &amp; Vector</h4><br>
+            <p><span class="function"><span class="luatable"><span class="number"></span></span> ArrayUtil.BogoSort(<span class="luatable"><span class="number"></span></span> array, <span class="number"></span> trials = 1)</span><strike>Provides the best sorting algorithm!!!!1!!</strike></p>
+            <p><span class="function"><span class="luatable"><span class="number"></span></span> ArrayUtil.CSharpListSort(<span class="luatable"><span class="number"></span></span> array)</span>Maybe useless.</p>
+            <p>
+                <span class="function"><span class="userdata">vector</span> ArrayUtil.NewVector(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Creates and Returns vector.<br>
+                I have made vector as struct on C#, but MoonSharp makes it class.<br>
+                Vector's Operator (vector+vector, vector-vector, vector*float , vector/float) is overloaded.
+            </p>
+            <p><span class="function"><span class="number"></span> vector.x</span>Gets or Sets vector's x.</p>
+            <p><span class="function"><span class="number"></span> vector.y</span>Gets or Sets vector's y.</p>
+            <p>
+                <span class="function"><span class="number"></span> vector[<span class="number"></span> index]</span>
+                <span class="term">index</span> is integer value as <span class="term">1</span> or <span class="term">2</span>.<br>
+                If out of the range, gets <span class="term">nil</span> or sets nothing.
+            </p>
+            <p><span class="function"><span class="number"></span> vector.Magnitude()</span>Gets a vector's magnitude (size).</p>
+            <p><span class="function"><span class="userdata">vector</span> vector.Normalize()</span>Gets fundamental vector of a vector.</p>
+            <p><span class="function"><span class="number"></span> vector.Distance(<span class="userdata">vector</span> other)</span>Gets a distance from 2 vectors.</p>
+
+            <br>
+
+            <h4>CYFUtil</h4><br>
+            <p><span class="function"><span class="number"></span> CYFUtil.WIDTH</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.HEIGHT</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.WIDTH_HALF</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.HEIGHT_HALF</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.PLAYER_ABSX_FIGHT</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.PLAYER_ABSX_ACT</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.PLAYER_ABSX_ITEM</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.PLAYER_ABSX_MERCY</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.PLAYER_ABSY_BUTTON</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.GetMaxHP(<span class="number"></span> lv)</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.GetATK(<span class="number"></span> lv)</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.GetDEF(<span class="number"></span> lv)</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.GetTotalEXP(<span class="number"></span> lv)</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.CalculateKRLabelX(<span class="number"></span>playerMaxHP = -1)</span></p>
+            <p><span class="function"><span class="number"></span> CYFUtil.KR_LABEL_Y</span></p>
+            <!--
+            <p><span class="function"><span class="number"></span> CYFUtil.</span></p>
+            -->
         </div>
 
         <div class="tab-pane text-style" id="mercy">
