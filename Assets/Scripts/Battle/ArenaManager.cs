@@ -371,15 +371,29 @@ public class ArenaManager : MonoBehaviour {
         arenaCenter = new Vector2(inner.transform.position.x, inner.transform.position.y);
     }
 
-    public void resetArena() {
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    /**
+    //public void resetArena() {
         if (!firstTurn)
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            //MoveToImmediate(320, 90, false);
-            MoveToImmediate(UI_X + ArenaUI.ArenaOffset.x, UI_Y + ArenaUI.ArenaOffset.y, false);
-        // --------------------------------------------------------------------------------
+            MoveToImmediate(320, 90, false);
         Resize(UIWidth, UIHeight);
         Show();
     }
+    */
+    public void resetArena(bool immediate = false) {
+        if (!firstTurn)
+            MoveToImmediate(UI_X + ArenaUI.ArenaOffset.x, UI_Y + ArenaUI.ArenaOffset.y, false);
+        if (immediate)
+        {
+            ResizeImmediate(UIWidth + ArenaUI.ArenaOffsetSize.x, UIHeight + ArenaUI.ArenaOffsetSize.y);
+        }
+        else
+        {
+            Resize(UIWidth + ArenaUI.ArenaOffsetSize.x, UIHeight + ArenaUI.ArenaOffsetSize.y);
+        }
+        Show();
+    }
+    // --------------------------------------------------------------------------------
 }

@@ -55,11 +55,13 @@ namespace AsteriskMod
                 if (_autoFontCoordinating == active) return;
                 _autoFontCoordinating = active;
                 AsteriskChar = active ? '＊' : '*';
+                ArenaUtil.DialogTextMove(0, active ? -5 : 5);
             }
 
             // Auto set JP
             public static bool AutoJPFontEncounterText { get; set; }
             public static bool AutoJPFontBattleDialog { get; set; }
+            public static bool AutoJPFontEnemySelect { get; set; }
             public static bool AutoJPFontActCommands { get; set; }
             public static bool AutoJPFontStateEditor { get; set; }
 
@@ -67,6 +69,7 @@ namespace AsteriskMod
             {
                 AutoJPFontEncounterText = active;
                 AutoJPFontBattleDialog = active;
+                AutoJPFontEnemySelect = active;
                 AutoJPFontActCommands = active;
                 AutoJPFontStateEditor = active;
             }

@@ -30,12 +30,65 @@ namespace AsteriskMod
                 else
                 {
                     ArenaManager.instance.resetArena();
+                    /*
                     if (state == UIController.UIState.ENEMYSELECT || state == UIController.UIState.ACTMENU || state == UIController.UIState.ITEMMENU || state == UIController.UIState.MERCYMENU)
                     {
                         float xPos = PlayerController.instance.self.anchoredPosition.x - oldArenaOffset.x + _arenaOffset.x;
                         float yPos = PlayerController.instance.self.anchoredPosition.y - oldArenaOffset.y + _arenaOffset.y;
                         PlayerController.instance.SetPosition(xPos, yPos, false);
                     }
+                    */
+                }
+            }
+        }
+
+        private static Vector2 _arenaOffsetSize;
+        internal static Vector2 ArenaOffsetSize
+        {
+            get { return _arenaOffsetSize; }
+            set { SetArenaOffsetSize(value.x, value.y, false); }
+        }
+        internal static void SetArenaOffsetSize(float width, float height, bool immediate)
+        {
+            if (width  < -ArenaManager.UIWidth)  width  = -ArenaManager.UIWidth;
+            if (height < -ArenaManager.UIHeight) height = -ArenaManager.UIHeight;
+            Vector2 oldArenaOffsetSize = _arenaOffsetSize;
+            _arenaOffsetSize = new Vector2(width, height);
+            UIController.UIState state = UIController.instance.GetState();
+            if (state == UIController.UIState.DEFENDING || state == UIController.UIState.CUSTOMSTATE)
+            {
+                float newWidth = ArenaManager.instance.desiredWidth - oldArenaOffsetSize.x + _arenaOffsetSize.x;
+                float newHeight = ArenaManager.instance.desiredHeight - oldArenaOffsetSize.y + _arenaOffsetSize.y;
+                ArenaManager.instance.ResizeImmediate(newWidth, newHeight);
+            }
+            else
+            {
+                ArenaManager.instance.resetArena(immediate);
+                /**
+                if (state == UIController.UIState.ENEMYSELECT || state == UIController.UIState.ACTMENU || state == UIController.UIState.ITEMMENU || state == UIController.UIState.MERCYMENU)
+                {
+                    float xPos = PlayerController.instance.self.anchoredPosition.x;// + ((- oldArenaOffsetSize.x + _arenaOffsetSize.x) / 2f);
+                    float yPos = PlayerController.instance.self.anchoredPosition.y - oldArenaOffsetSize.y + _arenaOffsetSize.y;
+                    PlayerController.instance.SetPosition(xPos, yPos, false);
+                }
+                */
+            }
+        }
+
+        private static Vector2 _playerOffset;
+        internal static Vector2 PlayerOffset
+        {
+            get { return _playerOffset; }
+            set
+            {
+                Vector2 oldPlayerOffset = _playerOffset;
+                _playerOffset = value;
+                UIController.UIState state = UIController.instance.GetState();
+                if (state == UIController.UIState.ENEMYSELECT || state == UIController.UIState.ACTMENU || state == UIController.UIState.ITEMMENU || state == UIController.UIState.MERCYMENU)
+                {
+                    float xPos = PlayerController.instance.self.anchoredPosition.x - oldPlayerOffset.x + _playerOffset.x;
+                    float yPos = PlayerController.instance.self.anchoredPosition.y - oldPlayerOffset.y + _playerOffset.y;
+                    PlayerController.instance.SetPosition(xPos, yPos, false);
                 }
             }
         }
@@ -43,6 +96,8 @@ namespace AsteriskMod
         internal static void Initialize()
         {
             _arenaOffset = Vector2.zero;
+            _arenaOffsetSize = Vector2.zero;
+            _playerOffset = Vector2.zero;
         }
 
         private void Awake()

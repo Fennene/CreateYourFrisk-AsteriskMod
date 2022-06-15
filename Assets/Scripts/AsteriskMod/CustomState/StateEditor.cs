@@ -6,9 +6,26 @@ namespace AsteriskMod
 {
     public class StateEditor
     {
-        public static void SetDialogText(string text) { UIController.instance.mainTextManager.SetText(new RegularMessage(text)); }
+        public static void SetDialogText(string text)
+        {
+            if (AsteriskEngine.JapaneseStyleOption.AutoJPFontStateEditor)
+            {
+                text = AsteriskEngine.JapaneseStyleOption.FontCommand + text;
+            }
+            UIController.instance.mainTextManager.SetText(new RegularMessage(text));
+        }
 
-        public static void SetChoicesDialogText(string[] texts, bool singleList = true) { UIController.instance.mainTextManager.SetText(new SelectMessage(texts, singleList)); }
+        public static void SetChoicesDialogText(string[] texts, bool singleList = true)
+        {
+            if (AsteriskEngine.JapaneseStyleOption.AutoJPFontStateEditor)
+            {
+                for (var i = 0; i < texts.Length; i++)
+                {
+                    texts[i] = AsteriskEngine.JapaneseStyleOption.FontCommand + texts[i];
+                }
+            }
+            UIController.instance.mainTextManager.SetText(new SelectMessage(texts, singleList));
+        }
 
         public static void SetDialogFont(string fontName)
         {

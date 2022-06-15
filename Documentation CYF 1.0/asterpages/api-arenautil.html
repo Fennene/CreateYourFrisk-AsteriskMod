@@ -131,11 +131,38 @@ it's w3c valid, at least
 
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.offsetx</span>
-                Horizontal position of arena relative to initial position.
+                Horizontal position of arena relative to initial position.<br>
+                This is useful on states that arena can't be moved by script like <span class="term">ACTIONSELECT</span>.
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.offsety</span>
-                Vertical position of arena relative to initial position.
+                Vertical position of arena relative to initial position.<br>
+                This is useful on states that arena can't be moved by script like <span class="term">ACTIONSELECT</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetOffset(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Same as setting <span class="term">ArenaUtil.offsetx</span> and <span class="term">ArenaUtil.offsety</span> simultaneously.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.relativewidth</span>
+                Width of arena relative to initial size.<br>
+                This is useful on states that arena can't be moved by script like <span class="term">ACTIONSELECT</span>.<br>
+                This parameter does NOT reflecte to <span class="term">arenasize</span> variable.
+                <br><br>
+                You can not set the size of arena to negative by using this.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.relativeheight</span>
+                Height of arena relative to initial size.<br>
+                This is useful on states that arena can't be moved by script like <span class="term">ACTIONSELECT</span>.<br>
+                This parameter does NOT reflecte to <span class="term">arenasize</span> variable.
+                <br><br>
+                You can not set the size of arena to negative by using this.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetRelativeSize(<span class="number"></span> width, <span class="number"></span> height, <span class="boolean"></span> immediate = false)</span>
+                Same as setting <span class="term">ArenaUtil.relativewidth</span> and <span class="term">ArenaUtil.relativeheight</span> simultaneously.
             </p>
 
             <p>
@@ -229,6 +256,19 @@ it's w3c valid, at least
                 If the text in dialog box is not initialized, return <span class="term">1</span>.
                 <br><br>
                 <span class="Asterisk052x"></span> This function is <span class="AsteriskExperiment"></span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.playeroffsetx</span>
+                Horizontal position of the player relative to initial position <u>on selection</u> ("on selection" means for example <span class="term">ENEMYSELECT</span>, <span class="term">ACTMENU</span> and <span class="term">MERCYMENU</span>).
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.playeroffsety</span>
+                Vertical position of the player relative to initial position <u>on selection</u> ("on selection" means for example <span class="term">ENEMYSELECT</span>, <span class="term">ACTMENU</span> and <span class="term">MERCYMENU</span>).
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="number"></span> ArenaUtil.SetPlayerOffsetOnSelection(<span class="number"></span> x, <span class="number"></span> y)</span>
+                Same as setting <span class="term">ArenaUtil.playeroffsetx</span> and <span class="term">ArenaUtil.playeroffsety</span> simultaneously.
             </p>
 
             <br><br>

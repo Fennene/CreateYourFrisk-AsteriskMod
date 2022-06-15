@@ -21,6 +21,28 @@ namespace AsteriskMod
             set { ArenaUI.ArenaOffset = new Vector2(offsetx, value); }
         }
 
+        public static void SetOffset(float x, float y)
+        {
+            ArenaUI.ArenaOffset = new Vector2(x, y);
+        }
+
+        public static float relativewidth
+        {
+            get { return ArenaUI.ArenaOffsetSize.x; }
+            set { ArenaUI.ArenaOffsetSize = new Vector2(value, relativeheight); }
+        }
+
+        public static float relativeheight
+        {
+            get { return ArenaUI.ArenaOffsetSize.y; }
+            set { ArenaUI.ArenaOffsetSize = new Vector2(relativewidth, value); }
+        }
+
+        public static void SetRelativeSize(float width, float height, bool immediate = false)
+        {
+            ArenaUI.SetArenaOffsetSize(width, height, immediate);
+        }
+
         public static void SetBorderColor(float r, float g, float b, float a = 1.0f)
         {
             ArenaUI.SetBorderColor(new Color(r, g, b, a));
@@ -114,6 +136,23 @@ namespace AsteriskMod
         public static float GetDialogTextVolume()
         {
             return ArenaUI.GetTextVolume();
+        }
+
+        public static float playeroffsetx
+        {
+            get { return ArenaUI.PlayerOffset.x; }
+            set { ArenaUI.PlayerOffset = new Vector2(value, playeroffsety); }
+        }
+
+        public static float playeroffsety
+        {
+            get { return ArenaUI.PlayerOffset.y; }
+            set { ArenaUI.PlayerOffset = new Vector2(playeroffsetx, value); }
+        }
+
+        public static void SetPlayerOffsetOnSelection(float x, float y)
+        {
+            ArenaUI.PlayerOffset = new Vector2(x, y);
         }
     }
 }

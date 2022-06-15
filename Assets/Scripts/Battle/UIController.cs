@@ -131,6 +131,17 @@ public class UIController : MonoBehaviour {
         if (caller != null)
             mainTextManager.SetCaller(caller);
         SwitchState(UIState.DIALOGRESULT);
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (AsteriskEngine.JapaneseStyleOption.AutoJPFontBattleDialog)
+        {
+            for (var i = 0; i < msg.Length; i++)
+            {
+                msg[i].Text = AsteriskEngine.JapaneseStyleOption.FontCommand + msg[i].Text;
+            }
+        }
+        // --------------------------------------------------------------------------------
         mainTextManager.SetTextQueue(msg);
     }
 
@@ -458,6 +469,14 @@ public class UIController : MonoBehaviour {
                     encounter.EncounterText = "";
                     UnitaleUtil.Warn("There is no encounter text!");
                 }
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                if (AsteriskEngine.JapaneseStyleOption.AutoJPFontEncounterText)
+                {
+                    encounter.EncounterText = AsteriskEngine.JapaneseStyleOption.FontCommand + encounter.EncounterText;
+                }
+                // --------------------------------------------------------------------------------
                 mainTextManager.SetText(new RegularMessage(encounter.EncounterText));
                 break;
 
@@ -465,8 +484,20 @@ public class UIController : MonoBehaviour {
                 string[] actions = new string[encounter.EnabledEnemies[selectedEnemy].ActCommands.Length];
                 if (actions.Length == 0)
                     throw new CYFException("Cannot enter state ACTMENU without commands.");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //for (int i = 0; i < actions.Length; i++)
+                //    actions[i] = encounter.EnabledEnemies[selectedEnemy].ActCommands[i];
                 for (int i = 0; i < actions.Length; i++)
+                {
                     actions[i] = encounter.EnabledEnemies[selectedEnemy].ActCommands[i];
+                    if (AsteriskEngine.JapaneseStyleOption.AutoJPFontActCommands)
+                    {
+                        actions[i] = AsteriskEngine.JapaneseStyleOption.FontCommand + actions[i];
+                    }
+                }
+                // --------------------------------------------------------------------------------
 
                 selectedAction = 0;
                 SetPlayerOnSelection(selectedAction);
@@ -557,8 +588,20 @@ public class UIController : MonoBehaviour {
                     newNames[2] = "\tPAGE 1";
                     names = newNames;
                 }
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //for (int i = 0; i < names.Length; i++)
+                //    names[i] += "[color:ffffff]";
                 for (int i = 0; i < names.Length; i++)
+                {
+                    if (AsteriskEngine.JapaneseStyleOption.AutoJPFontEnemySelect)
+                    {
+                        names[i] = AsteriskEngine.JapaneseStyleOption.FontCommand + names[i];
+                    }
                     names[i] += "[color:ffffff]";
+                }
+                // --------------------------------------------------------------------------------
                 if (!GlobalControls.retroMode)
                     mainTextManager.SetEffect(new TwitchEffect(mainTextManager));
                 mainTextManager.SetText(new SelectMessage(names, true, colorPrefixes));
@@ -1548,7 +1591,8 @@ public class UIController : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //PlayerController.instance.SetPosition(upperLeft.x + xMv * 256, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing, true);
         int xDistance = UnitaleUtil.IsOverworld ? 256 : 266;
-        PlayerController.instance.SetPosition(upperLeft.x + xMv * xDistance + ArenaUI.ArenaOffset.x, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing + ArenaUI.ArenaOffset.y, true);
+        //*PlayerController.instance.SetPosition(upperLeft.x + xMv * xDistance + ArenaUI.ArenaOffset.x + ArenaUI.PlayerOffset.x, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing + ArenaUI.ArenaOffset.y + ArenaUI.ArenaOffsetSize.y + ArenaUI.PlayerOffset.y, true);
+        PlayerController.instance.SetPosition(upperLeft.x + xMv * xDistance + ArenaUI.PlayerOffset.x, upperLeft.y - yMv * mainTextManager.Charset.LineSpacing + ArenaUI.PlayerOffset.y, true);
         // --------------------------------------------------------------------------------
     }
 
