@@ -9,6 +9,16 @@ namespace AsteriskMod
         private static GameObject Stats;
         private static Vector2 relativePosition;
 
+        public static float defaultdamage;
+        public static float defaultinvtime;
+
+        [MoonSharpHidden]
+        internal static void Initialize()
+        {
+            defaultdamage = 3;
+            defaultinvtime = 1.7f;
+        }
+
         private void Awake()
         {
             Stats = gameObject;

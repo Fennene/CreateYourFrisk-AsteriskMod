@@ -29,7 +29,7 @@ namespace AsteriskMod
             {
                 if (_jpName == active) return;
                 _jpName = active;
-                PlayerNameText.instance.SetJP();
+                if (PlayerNameText.instance) PlayerNameText.instance.SetJP();
             }
             public static void SetJPName(bool active) { SetJapaneseNameActive(active); }
 
@@ -121,6 +121,7 @@ namespace AsteriskMod
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
             JapaneseStyleOption.Initialize();
+            PlayerUtil.Initialize();
         }
 
         internal static void PrepareMod(string modName)
@@ -138,6 +139,7 @@ namespace AsteriskMod
         {
             CYFEngine.Initialize();
             UIController.InitalizeButtonManager();
+            PlayerUtil.Initialize();
             ArenaUI.Initialize();
             JapaneseStyleOption.Reset();
         }

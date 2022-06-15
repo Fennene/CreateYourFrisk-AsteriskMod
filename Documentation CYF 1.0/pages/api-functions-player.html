@@ -179,7 +179,7 @@ it's w3c valid, at least
                 Will always be false while not in a wave script.
                 <br>NOTE: This only will change with the default control scheme (see <span class="term">Player.SetControlOverride</span> below).
                 </li><br>
-                <li><span class="new"></span><span class="term">Player.Hurt(<span class="number"></span> damage, <span class="number"></span> invul_time = 1.7, <span class="boolean"></span> ignoreDef = false, <span class="boolean"></span> playSound = true)</span>
+                <li><span class="new"></span><span class="term">Player.Hurt(<span class="number"></span> damage, <span class="number"></span> invul_time = <span class="asternew"></span>PlayerUtil.defaultinvtime, <span class="boolean"></span> ignoreDef = false, <span class="boolean"></span> playSound = true)</span>
                 - deals damage to the player, and makes them invincible for <span class="term">invul_time</span> seconds.
                 <br>Can not hurt the player again if they are already hurting (flashing).
                 <br><br>
@@ -187,6 +187,7 @@ it's w3c valid, at least
                 <br><br>
                 <span class="CYF"></span> Call <span class="term">Player.Hurt(0, 0)</span> to stop the player's invincibility frames without making a sound.
                 <br><span class="new"></span>Set <span class="term">playSound</span> to <span class="term">false</span>, and no sound will be played whatsoever.
+                <br><span class="asternew"></span> <span class="Asterisk"></span> default value of <span class="term">invul_time</span> can be changed with <span class="ref"><a href="../asterpages/api-playerutil.html#DefaultInvTime">PlayerUtil.defaultinvtime</a></span>.
                 </li><br>
                 <li><span class="term">Player.Heal(<span class="number"></span> value)</span> - heals the player for this amount. This is exactly the same as
                     Player.Hurt(-value, 0). It also plays the healing sound.

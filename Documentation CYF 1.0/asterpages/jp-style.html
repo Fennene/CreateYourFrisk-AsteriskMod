@@ -121,7 +121,7 @@ it's w3c valid, at least
 
             <p>
                 <br><span class="function">JPStyle.SetActive(<span class="boolean"></span> active)</span>
-                以下にある機能を一括で有効または無効にします。
+                以下にある全ての機能を一括で有効または無効にします。
             </p>
 
             <br><hr>
@@ -190,6 +190,70 @@ ArenaUtil.DialogTextMove(0, 5) -- 位置調整
             </div>とほぼ同等です。
                 <br><br>
                 既に<span class="term">true</span>であるのに、<span class="term">true</span>を代入した場合、または既に<span class="term">false</span>であるのに、<span class="term">false</span>を代入した場合は、何も起こりません。
+            </p>
+
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.AutoJPFontEncounterText</span>
+                <span class="term">true</span>を設定した場合、
+                <span class="term">ACTIONSELECT</span>において、ダイアログテキスト(フレーバーテキスト)をエンジン側で自動的に、
+                日本語フォント(デフォルトでは<span class="term">jp</span>)で表示するようになります。<br>
+                これは、<span class="term">encountertext</span>変数に、
+                <span class="term">[font:jp]</span>のようにテキストコマンドを設定する手間を省きます。
+                <br><br>
+                内部的には、<span class="term">encountertext</span>変数を読み込む際、エンジン側で自動的に、
+                テキストの先頭に<span class="term">[font]</span>テキストコマンドを追加しています。<br>
+                <span class="term">encountertext</span>変数には影響しません。
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.AutoJPFontBattleDialog</span>
+                <span class="term">true</span>を設定した場合、
+                <span class="term">DIALOGRESULT</span>において、ダイアログテキスト(フレーバーテキスト)をエンジン側で自動的に、
+                日本語フォント(デフォルトでは<span class="term">jp</span>)で表示するようになります。<br>
+                これは、<span class="term">BattleDialogue()</span>で各テキストに、
+                <span class="term">[font:jp]</span>のようにテキストコマンドを設定する手間を省きます。
+                <br><br>
+                内部的には、<span class="term">BattleDialogue()</span>で取得した各テキストで、エンジン側で自動的に、
+                各テキストの先頭に<span class="term">[font]</span>テキストコマンドを追加しています。
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.AutoJPFontEnemySelect</span>
+                <span class="term">true</span>を設定した場合、
+                <span class="term">ENEMYSELECT</span>において、ダイアログボックス内の、敵に名前をエンジン側で自動的に、
+                日本語フォント(デフォルトでは<span class="term">jp</span>)で表示するようになります。<br>
+                これは、Monsterスクリプトの<span class="term">name</span>変数に、
+                <span class="term">[font:jp]</span>のようにテキストコマンドを設定する手間を省きます。
+                <br><br>
+                内部的には、<span class="term">name</span>変数を読み込む際、エンジン側で自動的に、
+                テキストの先頭に<span class="term">[font]</span>テキストコマンドを追加しています。<br>
+                Monsterスクリプトの<span class="term">name</span>変数には影響しません。
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.AutoJPFontActCommands</span>
+                <span class="term">true</span>を設定した場合、
+                <span class="term">ACTMENU</span>において、各コマンドをエンジン側で自動的に、
+                日本語フォント(デフォルトでは<span class="term">jp</span>)で表示するようになります。<br>
+                これは、Monsterスクリプトの<span class="term">commands</span>変数に、
+                <span class="term">[font:jp]</span>のようにテキストコマンドを設定する手間を省きます。
+                <br><br>
+                内部的には、<span class="term">commands</span>変数を読み込む際、エンジン側で自動的に、
+                テキストの先頭に<span class="term">[font]</span>テキストコマンドを追加しています。<br>
+                <span class="term">commands</span>変数には影響しないため、
+                <span class="term">HandleCustomCommand(command)</span>イベントでも、
+                (<span class="term">[font:jp]</span>無しで、)そのまま取得できます。
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.AutoJPFontStateEditor</span>
+                <span class="term">true</span>を設定した場合、
+                <span class="term">CUSTOMSTATE</span>において、ダイアログボックス内のテキストをエンジン側で自動的に、
+                日本語フォント(デフォルトでは<span class="term">jp</span>)で表示するようになります。<br>
+            </p>
+            <p>
+                <br><span class="function">JPStyle.SetAutoJapaneseFontStyle(<span class="boolean"></span> active)</span>
+                上記５つのパラメータを一括で設定します。<br>
+                ちょっと何いっているか分かりづらかったと思いますが、要は、
+                <span class="term">true</span>に設定すると、
+                わざわざ<span class="term">[font:jp]</span>と書かなくてもいいようになる 
+                ということです。
             </p>
 
 

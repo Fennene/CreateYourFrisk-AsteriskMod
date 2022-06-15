@@ -122,6 +122,12 @@ public class PlayerController : MonoBehaviour {
     public bool deathEscape = true;
     private int soundDelay;
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public virtual void Hurt() { Hurt(PlayerUtil.defaultdamage, PlayerUtil.defaultinvtime); }
+    // --------------------------------------------------------------------------------
+
     /// <summary>
     /// Hurts the player and makes them invulnerable for invulnerabilitySeconds.
     /// </summary>

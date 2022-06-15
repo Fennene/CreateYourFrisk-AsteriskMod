@@ -147,9 +147,11 @@ it's w3c valid, at least
                     Note that this feature can NOT be used in Overworld because of some reasons.
                 </font><br>
                 That's why original UIStats class and that objects is not deleted completely.
-            </p><br>
+            </p>
 
-            <hr>
+            <br><hr>
+
+            <h3>Status UI</h3><br><br>
 
             <p>
                 <br><span class="function"><span class="number"></span> PlayerUtil.x</span>
@@ -243,6 +245,17 @@ it's w3c valid, at least
                     * Note that HPText is moved with HPBar when this is moved, changed maxhp, changed height.
                 </font>
             </p>
+
+            <p>
+                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.CreateLifeBar(<span class="boolean"></span> below = false)</span>
+                Creates Life Bar and Return The LifeBar Object.<br>
+                When the <span class="term">below</span> is <span class="term">true</span>, 
+                LifeBar is created in below original Player's HP Bar.
+                <br><br>
+                If the GameObject that will be lifebar's parent can not find by some reason, returns nil. 
+                <u>(However this is not happen on normal.)</u>
+            </p>
+
             <p>
                 <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)<br></span>
                 or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.hptext (Read-only)<br></span>
@@ -299,6 +312,20 @@ it's w3c valid, at least
                 You should use <span class="term">PlayerUtil.HPText.SetText()</span> if you set the text as string.
             </p>
 
+            <br><hr>
+
+            <h3>Player</h3><br>
+
+            <p id="DefaultDamage">
+                <br><span class="function"><span class="asternew"></span><span class="number"></span> PlayerUtil.defaultdamage</span>
+                Gets ot Sets default damage of the player.<br>
+                Default by <span class="term">3</span>.
+            </p>
+            <p id="DefaultInvTime">
+                <br><span class="function"><span class="asternew"></span><span class="number"></span> PlayerUtil.defaultinvtime</span>
+                Gets ot Sets default invincible time of the player.<br>
+                Default by <span class="term">1.7</span>.
+            </p>
             <p>
                 <br><span class="function"><span class="number"></span> PlayerUtil.GetSoulAlpha()</span>
                 Gets the alpha (transparency) of the player's soul.<br>
@@ -307,6 +334,10 @@ it's w3c valid, at least
                 If some reason causes non-initializing the object of the Player, returns 0. 
                 <u>(However this is not happen on normal.)</u>
             </p>
+
+            <br><hr>
+
+            <h3>FIGHT UI</h3><br>
 
             <p>
                 <br><span class="function">PlayerUtil.SetTargetSprite(<span class="string"></span> path)</span>
@@ -348,19 +379,7 @@ it's w3c valid, at least
                 </ul>
             </p>
 
-            <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.CreateLifeBar(<span class="boolean"></span> below = false)</span>
-                Creates Life Bar and Return The LifeBar Object.<br>
-                When the <span class="term">below</span> is <span class="term">true</span>, 
-                LifeBar is created in below original Player's HP Bar.
-                <br><br>
-                If the GameObject that will be lifebar's parent can not find by some reason, returns nil. 
-                <u>(However this is not happen on normal.)</u>
-            </p>
-
-            <br>
-
-            <hr>
+            <br><hr>
 
             <h3>The LifeBar Object</h3><br><br>
             <p>

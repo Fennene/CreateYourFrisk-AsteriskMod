@@ -356,7 +356,9 @@ end </pre>
                 If you implement this function in your script, you have to manually define what should happen after
                 bullet collision. This is what allows you to create orange, cyan and green projectiles, and much much
                 more. If you don't implement this function in your wave script, it'll stick to the default of dealing 3
-                damage on hit. Below are multiple examples of how to use this function.</p>
+                damage on hit.<br>
+                <span class="asternew"></span> <span class="Asterisk"></span> the default damage of the player can be changed with <span class="ref"><a href="../asterpages/api-playerutil.html#DefaultDamage">PlayerUtil.defaultdamage</a></span>.<br>
+                Below are multiple examples of how to use this function.</p>
 <div class="code-container"><pre class="brush:lua;">--Defining your own damage for this wave
 function OnHit(bullet)
     Player.Hurt(10)

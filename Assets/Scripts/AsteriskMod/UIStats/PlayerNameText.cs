@@ -21,6 +21,7 @@ namespace AsteriskMod
             NameTextMan._SetText = (_ => { PlayerLoveText.instance.SetPosition((int)AsteriskUtil.CalcTextWidth(NameTextMan, countEOLSpace: true)); });
             if (AsteriskEngine.JapaneseStyleOption.JPName)
             {
+                nowText = PlayerCharacter.instance.Name;
                 SetJP();
                 return;
             }
