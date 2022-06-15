@@ -856,6 +856,7 @@ MonoBehaviour:
   img: {fileID: 506907624}
   SetNativeSize: 0
   SpritePath: UI/Buttons/itembt_0
+  done: 0
 --- !u!1 &520132535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,16 +1162,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 610348797}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1cd8741235a5cb47a23270c049ef764, type: 3}
+  m_Script: {fileID: 11500000, guid: 6835e95bcd76bf5459f90e9c0773b03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundFightUiInstances: []
-  allFightUiInstances: []
-  targetRt: {fileID: 1306673876}
+  targetRt: {fileID: 0}
   presetDmg: 0
-  shakeX: 0c000000f4ffffff07000000f9ffffff03000000fdffffff01000000ffffffff00000000
+  shakeX: 0c000000f4ffffff07000000f9ffffff030000000000000001000000ffffffff00000000
   sliceAnim:
   - UI/Battle/spr_slice_o_0
   - UI/Battle/spr_slice_o_1
@@ -1292,6 +1291,7 @@ MonoBehaviour:
   img: {fileID: 610348799}
   SetNativeSize: 0
   SpritePath: UI/Battle/spr_target_0
+  done: 0
 --- !u!1 &639286007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 651146614}
+  - component: {fileID: 651146617}
   - component: {fileID: 651146616}
   - component: {fileID: 651146615}
   m_Layer: 5
@@ -1648,6 +1649,19 @@ MonoBehaviour:
   battleDialogueStarted: 0
   frozenState: 0
   frozenTimestamp: 0
+--- !u!114 &651146617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 651146613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68bf96e09a68f646bb5c8f2ce2ba879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightUI: {fileID: 0}
+  stateSwitched: 0
 --- !u!1 &669874877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,7 +1823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &778448266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2285,6 +2299,7 @@ MonoBehaviour:
   img: {fileID: 991344421}
   SetNativeSize: 0
   SpritePath: UI/Buttons/actbt_0
+  done: 0
 --- !u!1 &1001485533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,9 +2467,9 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1007297935}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91ef8095a607e34b90bda1f89e683c0, type: 3}
+  m_Script: {fileID: 11500000, guid: e2ddac8f74f28aa44bcabb7fb37d5f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   basisCoordinates: {x: 0, y: 0}
@@ -2753,6 +2768,7 @@ MonoBehaviour:
   img: {fileID: 1280180707}
   SetNativeSize: 0
   SpritePath: UI/Buttons/mercybt_0
+  done: 0
 --- !u!1 &1304618329
 GameObject:
   m_ObjectHideFlags: 0
@@ -2884,6 +2900,7 @@ MonoBehaviour:
   img: {fileID: 1306673878}
   SetNativeSize: 0
   SpritePath: UI/Battle/spr_targetchoice_0
+  done: 0
 --- !u!114 &1306673878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3250,6 +3267,7 @@ MonoBehaviour:
   img: {fileID: 1401963668}
   SetNativeSize: 0
   SpritePath: UI/spr_hpname_0
+  done: 0
 --- !u!114 &1401963668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3517,7 +3535,6 @@ GameObject:
   - component: {fileID: 1509689745}
   - component: {fileID: 1509689749}
   - component: {fileID: 1509689750}
-  - component: {fileID: 1509689751}
   - component: {fileID: 1509689753}
   - component: {fileID: 1509689752}
   m_Layer: 5
@@ -3551,9 +3568,9 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1509689743}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5f21ef4909a934996482893b311592, type: 3}
+  m_Script: {fileID: 11500000, guid: c41b572cc46a7b74f90cf7ce02c6ed8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   arenaBounds: {fileID: 1502133296}
@@ -3569,9 +3586,6 @@ MonoBehaviour:
   lastMovement: {x: 0, y: 0}
   lastEnemyChosen: -1
   lastHitMult: -1
-  deathMusic: 
-  deathText: []
-  deathEscape: 1
 --- !u!114 &1509689746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3713,9 +3727,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbeabe2b597b1184395bbf62adafd68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
+  img: {fileID: 1509689746}
   SetNativeSize: 1
   SpritePath: ut-heart
+  done: 0
 --- !u!114 &1509689750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3727,25 +3742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbc081086ab24d458b6c45dcf29bf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1509689751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1509689743}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748e7f2c60fd0194f942eef4ac4f63d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIndex: -1
-  playerZ: -1
-  autolinebreakstate: 0
-  revived: 0
-  hasRevived: 0
-  reviveTextSet: 0
-  musicBefore: {fileID: 0}
-  music: {fileID: 0}
 --- !u!114 &1509689752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4890,9 +4886,9 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1727881044}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ad3223d63ab6c4aaf6641272b8ed00, type: 3}
+  m_Script: {fileID: 11500000, guid: a8fa2c247ad852a459134cf8e9587606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1727881056
@@ -4990,6 +4986,7 @@ MonoBehaviour:
   img: {fileID: 1745075055}
   SetNativeSize: 0
   SpritePath: UI/Buttons/fightbt_0
+  done: 0
 --- !u!1 &1776304109
 GameObject:
   m_ObjectHideFlags: 0

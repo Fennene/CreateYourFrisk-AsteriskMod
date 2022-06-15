@@ -803,6 +803,7 @@ public class UIController : MonoBehaviour {
             mercyButtonSprite = SpriteRegistry.Get("UI/Buttons/mercybt_1");
         }
         */
+        if (AsteriskEngine.IsSimulator) return;
         ActionButtonManager.Awake();
         // --------------------------------------------------------------------------------
 

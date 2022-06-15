@@ -27,7 +27,6 @@ namespace AsteriskMod.ModdingHelperTools
             return null;
         }
 
-        /*
         public static string getRelativePathWithoutExtension(string fullPath)
         {
             fullPath = fullPath.Replace('\\', '/');
@@ -37,7 +36,6 @@ namespace AsteriskMod.ModdingHelperTools
                 fullPath = fullPath.Substring(DefaultDataPath.Length + 9, fullPath.Length - DefaultDataPath.Length - 13);
             return fullPath;
         }
-        */
 
         public static string getRelativePathWithoutExtension(string rootPath, string fullPath) { return FileLoader.getRelativePathWithoutExtension(rootPath, fullPath); }
     }

@@ -8,6 +8,8 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class FakeStaticTextManager : MonoBehaviour
     {
+        public bool IsUI;
+
         internal Image[] letterReferences;
         internal Vector2[] letterPositions;
 
@@ -60,7 +62,7 @@ namespace AsteriskMod.ModdingHelperTools
             vSpacing = 0;
             hSpacing = font.CharSpacing;
             defaultColor = font.DefaultColor;
-            if (GetType() == typeof(FakeLuaStaticTextManager))
+            if (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI)
             {
                 if (((FakeLuaStaticTextManager)this).hasColorBeenSet) defaultColor = ((FakeLuaStaticTextManager)this)._color;
                 if (((FakeLuaStaticTextManager)this).hasAlphaBeenSet) defaultColor.a = ((FakeLuaStaticTextManager)this).alpha;
@@ -75,7 +77,7 @@ namespace AsteriskMod.ModdingHelperTools
         public void ResetFont()
         {
             if (Charset == null || default_charset == null)
-                if (GetType() == typeof(FakeLuaStaticTextManager))
+                if (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI)
                     ((FakeLuaStaticTextManager)this).SetFont(SpriteFontRegistry.UI_DEFAULT_NAME);
                 else
                     SetFont(FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME), true);
@@ -120,7 +122,7 @@ namespace AsteriskMod.ModdingHelperTools
 
             if (!offsetSet)
                 SetOffset(0, 0);
-            if (GetType() != typeof(FakeLuaStaticTextManager))
+            if (GetType() != typeof(FakeLuaStaticTextManager) || IsUI)
                 ResetFont();
             currentColor = defaultColor;
             colorSet = false;
@@ -132,7 +134,7 @@ namespace AsteriskMod.ModdingHelperTools
             DestroyChars();
             currentX = self.position.x + offset.x;
             currentY = self.position.y + offset.y;
-            if (GetType() != typeof(FakeLuaStaticTextManager) && gameObject.name != "TextParent" && gameObject.name != "ReviveText")
+            if ((GetType() != typeof(FakeLuaStaticTextManager) || IsUI) && gameObject.name != "TextParent" && gameObject.name != "ReviveText")
                 currentY -= Charset.LineSpacing;
             SpawnText(forceNoAutoLineBreak);
             /*
@@ -294,7 +296,7 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void MoveLetter(string currentText, int index, RectTransform ltrRect)
         {
-            if (GetType() == typeof(FakeLuaStaticTextManager) || gameObject.name == "TextParent" || gameObject.name == "ReviveText")
+            if ((GetType() == typeof(FakeLuaStaticTextManager) && !IsUI) || gameObject.name == "TextParent" || gameObject.name == "ReviveText")
             {
                 // Allow Game Over fonts to enjoy the fixed text positioning, too!
                 float diff = (Charset.Letters[currentText[index]].border.w - Charset.Letters[currentText[index]].border.y);
@@ -313,7 +315,7 @@ namespace AsteriskMod.ModdingHelperTools
             letterReferences = new Image[currentText.Length];
             letterPositions = new Vector2[currentText.Length];
             if (currentText.Length > 1 && !forceNoAutoLineBreak)
-                if (BattleSimulator.autoLineBreak || GetType() == typeof(FakeLuaStaticTextManager))
+                if (BattleSimulator.autoLineBreak || (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI))
                     SpawnTextSpaceTest(0, currentText, out currentText);
 
             for (int i = 0; i < currentText.Length; i++)
@@ -330,7 +332,7 @@ namespace AsteriskMod.ModdingHelperTools
                     case ' ':
                         if (i + 1 == currentText.Length || currentText[i + 1] == ' ' || forceNoAutoLineBreak)
                             break;
-                        if (BattleSimulator.autoLineBreak || GetType() == typeof(FakeLuaStaticTextManager))
+                        if (BattleSimulator.autoLineBreak || (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI))
                         {
                             SpawnTextSpaceTest(i, currentText, out currentText);
                             if (currentText[i] != ' ')

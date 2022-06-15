@@ -10,13 +10,19 @@ namespace AsteriskMod.ModdingHelperTools
 
         public static bool Initialized { get; set; }
 
+        public delegate void LoadedAction();
+        public static event LoadedAction Loaded;
+
+        private static void OnEnable() { UIController.SendToStaticInit += SendLoaded; }
+        private static void OnDisable() { UIController.SendToStaticInit -= SendLoaded; }
+
         public static void Start()
         {
             if (!firstInit)
             {
+                firstInit = true;
                 FakeSpriteRegistry.Start();
                 FakeSpriteFontRegistry.Start();
-                firstInit = true;
             }
             if (string.IsNullOrEmpty(MODFOLDER))
                 MODFOLDER = "@Title";
@@ -46,9 +52,10 @@ namespace AsteriskMod.ModdingHelperTools
                 FakeSpriteRegistry.Init();
                 FakeSpriteFontRegistry.Init();
             }
-            //LateUpdater.Init(); // ?
-            MusicManager.src = Camera.main.GetComponent<AudioSource>(); // ?
             Initialized = true;
+            FakeLateUpdater.Init(); // ?
+            MusicManager.src = Camera.main.GetComponent<AudioSource>(); // ?
+            SendLoaded();
             /*
             if (!Initialized && (!GlobalControls.isInFight || GlobalControls.modDev))
             {
@@ -95,6 +102,12 @@ namespace AsteriskMod.ModdingHelperTools
             //CurrENCOUNTER = ENCOUNTER;
             //CurrMODFOLDER = MODFOLDER;
             */
+        }
+
+        public static void SendLoaded()
+        {
+            if (Loaded != null)
+                Loaded();
         }
     }
 }

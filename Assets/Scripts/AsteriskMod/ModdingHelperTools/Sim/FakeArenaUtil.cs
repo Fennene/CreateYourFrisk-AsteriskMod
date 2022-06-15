@@ -7,8 +7,8 @@ namespace AsteriskMod.ModdingHelperTools
     {
         private static GameObject border;
         private static GameObject arena;
-        private static GameObject mainTextMan;
-        private static Vector2 mainTextManPos;
+        //* private static GameObject mainTextMan;
+        //* private static Vector2 mainTextManPos;
         private static GameObject Target;
         private static GameObject TargetChoice;
 
@@ -21,37 +21,54 @@ namespace AsteriskMod.ModdingHelperTools
                 Vector2 oldArenaOffset = _arenaOffset;
                 _arenaOffset = value;
                 UIController.UIState state = BattleSimulator.CurrentState;
-
-                return;
-
                 if (state == UIController.UIState.DEFENDING || state == UIController.UIState.CUSTOMSTATE)
                 {
-                    ArenaManager.instance.MoveImmediate(-oldArenaOffset.x + _arenaOffset.x, -oldArenaOffset.y + _arenaOffset.y, true);
+                    FakeArenaManager.instance.MoveImmediate(-oldArenaOffset.x + _arenaOffset.x, -oldArenaOffset.y + _arenaOffset.y, true);
                 }
                 else
                 {
-                    ArenaManager.instance.resetArena();
-                    if (state == UIController.UIState.ENEMYSELECT || state == UIController.UIState.ACTMENU || state == UIController.UIState.ITEMMENU || state == UIController.UIState.MERCYMENU)
-                    {
-                        float xPos = PlayerController.instance.self.anchoredPosition.x - oldArenaOffset.x + _arenaOffset.x;
-                        float yPos = PlayerController.instance.self.anchoredPosition.y - oldArenaOffset.y + _arenaOffset.y;
-                        PlayerController.instance.SetPosition(xPos, yPos, false);
-                    }
+                    FakeArenaManager.instance.resetArena();
                 }
+            }
+        }
+
+        private static Vector2 _arenaOffsetSize;
+        internal static Vector2 ArenaOffsetSize
+        {
+            get { return _arenaOffsetSize; }
+            set { SetArenaOffsetSize(value.x, value.y, false); }
+        }
+        internal static void SetArenaOffsetSize(float width, float height, bool immediate)
+        {
+            if (width < -ArenaManager.UIWidth) width = -ArenaManager.UIWidth;
+            if (height < -ArenaManager.UIHeight) height = -ArenaManager.UIHeight;
+            Vector2 oldArenaOffsetSize = _arenaOffsetSize;
+            _arenaOffsetSize = new Vector2(width, height);
+            UIController.UIState state = BattleSimulator.CurrentState;
+            if (state == UIController.UIState.DEFENDING || state == UIController.UIState.CUSTOMSTATE)
+            {
+                float newWidth = FakeArenaManager.instance.desiredWidth - oldArenaOffsetSize.x + _arenaOffsetSize.x;
+                float newHeight = FakeArenaManager.instance.desiredHeight - oldArenaOffsetSize.y + _arenaOffsetSize.y;
+                FakeArenaManager.instance.ResizeImmediate(newWidth, newHeight);
+            }
+            else
+            {
+                FakeArenaManager.instance.resetArena(immediate);
             }
         }
 
         internal static void Initialize()
         {
             _arenaOffset = Vector2.zero;
+            _arenaOffsetSize = Vector2.zero;
         }
 
         private void Awake()
         {
             border = transform.Find("arena_border_outer").gameObject;
             arena = border.transform.Find("arena").gameObject;
-            mainTextMan = arena.transform.Find("TextManager").gameObject;
-            mainTextManPos = Vector2.zero;
+            //* mainTextMan = arena.transform.Find("TextManager").gameObject;
+            //* mainTextManPos = Vector2.zero;
             Target = arena.transform.Find("FightUI").gameObject;
             TargetChoice = Target.transform.Find("FightUILine").gameObject;
         }

@@ -20,6 +20,7 @@ namespace AsteriskMod.ModdingHelperTools
             if (!FakePlayerLV.instance.Initialized) FakePlayerLV.instance.Start();
             if (Asterisk.language == Languages.Japanese)
             {
+                nowText = BattleSimulator.PlayerName;
                 SetJP();
                 return;
             }
@@ -33,7 +34,7 @@ namespace AsteriskMod.ModdingHelperTools
             if (nowText == newName && !force) return;
             nowText = newName;
             //NameTextMan.SetText(new InstantTextMessage(AsteriskEngine.JapaneseStyleOption.JPName ? nowText : nowText.ToUpper()));
-            NameTextMan.SetText(new InstantTextMessage(nowText));
+            NameTextMan.SetText(new InstantTextMessage((Asterisk.language == Languages.Japanese) ? nowText : nowText.ToUpper()));
             NameTextMan.enabled = true;
             FakePlayerLV.instance.SetPosition((int)AsteriskUtil.CalcTextWidth(NameTextMan, countEOLSpace: true));
         }

@@ -6,8 +6,6 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class FakeLuaStaticTextManager : FakeStaticTextManager
     {
-        public bool IsUI;
-
         private GameObject container;
         private Color textColor;
         private float xScale = 1;
@@ -19,7 +17,7 @@ namespace AsteriskMod.ModdingHelperTools
         protected override void Awake()
         {
             base.Awake();
-            if (IsUI)
+            if (!IsUI)
                 transform.SetParent(GameObject.Find("TopLayer").transform);
             container = gameObject;
         }

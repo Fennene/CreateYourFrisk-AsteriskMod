@@ -83,6 +83,7 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 AsteriskEngine.IsSimulator = true;
                 //AsteriskEngine.PrepareMod(); //Not needed
+                FakeArenaUtil.Initialize();
 
                 //FakeStaticInits.InitAll(/*true*/);
                 FakeStaticInits.Start();

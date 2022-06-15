@@ -220,4 +220,16 @@ public class ProjectileController {
             return false;
         return p.isPP() ? p.HitTestPP() : p.HitTest();
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    /*
+    public bool isCollidingWithSprite(LuaSpriteController sprite)
+    {
+        if (p == null) return false;
+        if (sprite == spr) return true;
+    }
+    */
+    // --------------------------------------------------------------------------------
 }

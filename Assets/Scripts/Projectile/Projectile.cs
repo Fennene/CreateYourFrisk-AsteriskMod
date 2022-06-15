@@ -187,4 +187,28 @@ public abstract class Projectile : MonoBehaviour {
         Vector2 positionPlayerFromProjectile = (Vector2)PlayerController.instance.self.position - selfAbs.position - (selfAbs.size + PlayerController.instance.playerAbs.size) / 2;
         return UnitaleUtil.TestPP(playerHitbox, texture, ctrl.sprite.rotation, 8, img.mainTexture.height, new Vector2(ctrl.sprite.xscale, ctrl.sprite.yscale), positionPlayerFromProjectile);
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    /*
+    internal bool HitTestWithRT(RectTransform self)
+    {
+        return selfAbs.Overlaps(self.rect);
+    }
+
+    internal bool HitTestPPWithRT(RectTransform self)
+    {
+        if (!selfAbs.Overlaps(self.rect)) return false;
+        if (needUpdateTex)
+        {
+            texture = ((Texture2D)img.mainTexture).GetPixels32();
+            needUpdateTex = false;
+        }
+
+        Vector2 positionPlayerFromProjectile = (Vector2)self.position - selfAbs.position - (selfAbs.size + PlayerController.instance.playerAbs.size) / 2;
+        return UnitaleUtil.TestPP(playerHitbox, texture, ctrl.sprite.rotation, 8, img.mainTexture.height, new Vector2(ctrl.sprite.xscale, ctrl.sprite.yscale), positionPlayerFromProjectile);
+    }
+    */
+    // --------------------------------------------------------------------------------
 }
