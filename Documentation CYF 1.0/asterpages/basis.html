@@ -74,8 +74,10 @@ it's w3c valid, at least
                     <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
                     <li class="li-indent asternew"><a href="customstate-event.html">Available Events</a></li>
                     <li class="li-indent asternew"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
-                    <li><span class="asternew"></span>Japanese Localization<br>(日本語対応):</li>
-                    <li class="li-indent asternew"><a href="jp-basis.html">基本</a></li>
+                    <li><span class="asternew"></span>Japanese Localization<br>[日本語対応]:</li>
+                    <li class="li-indent asternew"><a href="jp-basis.html">Basis [基本]</a></li>
+                    <li class="li-indent asternew"><a href="jp-style.html">The JPStyle Object<br>[JPStyleオブジェクト]</a></li>
+                    <li class="li-indent asternew"><a href="jp-lang.html">The .lang File &amp; The Lang Object<br>[.langファイル &amp; Langオブジェクト]</a></li>
                     <li><span class="asternew"></span>Gameobject Modifying System:</li>
                     <li class="li-indent asternew"><a href="gms-basis.html">Basis</a></li>
                     <li class="li-indent asternew"><a href="gms-main.html">The GameObject Object</a></li>
@@ -357,6 +359,20 @@ it's w3c valid, at least
                     <li>
                         Add <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>
                     </li>
+                    <li>
+                        Add <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
+                        <ul>
+                            <li>Add the funtion <span class="term">Engine.SetTargetFrameRate()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.ModExists()</span></li>
+                            <li>Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span></li>
+                            <li>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>
+                            </li>
+                            <li>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="modify">
                         Renew <span class="term"><a href="api-playerutil.html">The PlayerUtil Object</a></span>.
                         <ul>
@@ -477,24 +493,11 @@ it's w3c valid, at least
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        Add <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
+                    <li class="modify">
+                        Modify CustomState
                         <ul>
-                            <li>
-                                Add the funtion <span class="term">Engine.SetTargetFrameRate()</span>.
-                            </li>
-                            <li>
-                                Add the funtion <span class="term">Engine.ModExists()</span>
-                            </li>
-                            <li>
-                                Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span>
-                            </li>
-                            <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>
-                            </li>
-                            <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>
-                            </li>
+                            <li><span class="term">StateStarting()</span> event is no longer really required.</li>
+                            <li><span class="term">StateEnding()</span> event is no longer really required.</li>
                         </ul>
                     </li>
                     <li>

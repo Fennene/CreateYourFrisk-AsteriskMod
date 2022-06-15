@@ -83,6 +83,8 @@ namespace AsteriskMod
         public static string[] GetRaw(string key) { return _modLangs[_target].Main[key].Array; }
         public static string[] GetRaw(string sectionName, string parameterName) { return _modLangs[_target][sectionName][parameterName].Array; }
 
+        public string this[string key] { get { return Get(key); } }
+
         public static void Set(string key, string value) { _modLangs[_target].Main[key] = new FakeIniParameter(value); }
         public static void Set(string sectionName, string parameterName, string parameter) { _modLangs[_target][sectionName][parameterName] = new FakeIniParameter(parameter); }
 

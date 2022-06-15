@@ -75,6 +75,17 @@ namespace AsteriskMod
             }
             public static void SetAutoJPFont(bool active) { SetAutoJapaneseFontStyle(active); }
 
+            public static void SetJapaneseButton(bool active)
+            {
+                int index1 = active ? 2 : 0;
+                int index2 = index1 + 1;
+                UIController.ActionButtonManager.FIGHT.SetSprite("fightbt_" + index1, "fightbt_" + index2);
+                UIController.ActionButtonManager.ACT  .SetSprite("actbt_"   + index1, "actbt_"   + index2);
+                UIController.ActionButtonManager.ITEM .SetSprite("itembt_"  + index1, "itembt_"  + index2);
+                UIController.ActionButtonManager.MERCY.SetSprite("mercybt_" + index1, "mercybt_" + index2);
+            }
+            public static void SetJPButton(bool active) { SetJapaneseButton(active); }
+
             // System
 
             internal static void Initialize()
@@ -96,6 +107,7 @@ namespace AsteriskMod
                 SetJapaneseNameActive(active);
                 SetAutoFontCoordinatingActive(active);
                 SetAutoJapaneseFontStyle(active);
+                SetJapaneseButton(active);
             }
 
             internal static string FontCommand { get { return "[font:" + JapaneseFontName + "]"; } }

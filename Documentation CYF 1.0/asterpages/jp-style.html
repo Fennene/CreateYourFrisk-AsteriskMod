@@ -14,7 +14,7 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>*CYF ドキュメント - 日本語化 基本</title>
+    <title>*CYF ドキュメント - JPStyle オブジェクト</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
@@ -114,8 +114,97 @@ it's w3c valid, at least
     </div>
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
-        <div class="tab-pane active text-style" id="asterisk-jp-basis">
-            <h2 id="JP"><span class="asternew"></span> <span class="Asterisk"></span> 日本語化 (Japanalize)</h2><br><br>
+        <div class="tab-pane active text-style" id="asterisk-jp-jpstyle">
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> JPStyle オブジェクト [E/M/W/S]</h2><br><br>
+            <p>このオブジェクト(クラス)は 日本語対応をスムーズに行うためのものです。</p>
+
+
+            <p>
+                <br><span class="function">JPStyle.SetActive(<span class="boolean"></span> active)</span>
+                以下にある機能を一括で有効または無効にします。
+            </p>
+
+            <br><hr>
+
+            <h3>プレイヤー名関係</h3>
+
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.JPName</span>
+                プレイヤー名が日本語対応している(フォントが<span class="term">jpname</span>である)かどうか取得します。<br>
+                代入(設定)は、<span class="term">JPStyle.SetJapaneseNameActive()</span>を設定することと同等です。
+                <br><br>
+                <font color="#DDD">デフォルト値はCYFの言語設定に依存します。</font>
+            </p>
+            <p>
+                <br><span class="function">JPStyle.SetJPName(<span class="boolean"></span> active)</span>
+                <span class="term">JPStyle.SetJapaneseNameActive()</span>のショートカット用。
+            </p>
+            <p>
+                <br><span class="function">JPStyle.SetJapaneseNameActive(<span class="boolean"></span> active)</span>
+                プレイヤー名を日本語対応させます。<br>
+                これは、
+            <div class="code-container">
+<pre class="brush: lua;">
+-- "active"がtrueの場合
+PlayerUtil.Name.SetFont("jpname")
+PlayerUtil.Name.Move(0, 6) -- 位置調整
+-- "active"がfalseの場合
+PlayerUtil.Name.SetFont("uibattlesmall")
+PlayerUtil.Name.Move(0, -6) -- 位置調整
+</pre>
+            </div>とほぼ同等です。
+                <br><br>
+                既に<span class="term">true</span>であるのに、<span class="term">true</span>を代入した場合、または既に<span class="term">false</span>であるのに、<span class="term">false</span>を代入した場合は、何も起こりません。
+            </p>
+
+            <br><hr>
+
+            <h3>フォント関係</h3>
+
+            <p>
+                <br><span class="function"><span class="boolean"></span>JPStyle.AutoFontCoordinating</span>
+                アスタリスクを伴わない改行で文字のズレを直すかどうかを返します。<br>
+                詳細は<span class="term">JPStyle.SetAutoFontCoordinatingActive()</span>を参照してください。
+                <br><br>
+                デフォルトでは<span class="term">false</span>。
+            </p>
+            <p>
+                <br><span class="function">JPStyle.SetAutoFontCoordinatingActive(<span class="boolean"></span> active)</span>
+                公式日本語版では、アスタリスク(<span class="term">*</span>のこと)は全角のアスタリスクを使用します。<br>
+                ただ単に、日本語フォント(デフォルトでは<span class="term">jp</span>)に変えて<span class="term">ArenaUtil.AsteriskChar = "＊"</span>を実行するだけでは、<br>アスタリスクを伴わない改行(<span class="term">\r</span>による改行)で、文字がずれます。<br>
+                この関数はその文字のズレを調整します。
+                <br><br>
+                基本的に、<span class="term">jp</span>フォント用です。
+                <br><br>
+                これは、
+            <div class="code-container">
+<pre class="brush: lua;">
+-- "active"がtrueの場合
+ArenaUtil.AsteriskChar = "＊"
+ArenaUtil.DialogTextMove(0, -5) -- 位置調整
+-- 加えてCYFエンジン側で改行の内部調整を実行するようになる。
+-- "active"がfalseの場合
+ArenaUtil.AsteriskChar = "*"
+ArenaUtil.DialogTextMove(0, 5) -- 位置調整
+</pre>
+            </div>とほぼ同等です。
+                <br><br>
+                既に<span class="term">true</span>であるのに、<span class="term">true</span>を代入した場合、または既に<span class="term">false</span>であるのに、<span class="term">false</span>を代入した場合は、何も起こりません。
+            </p>
+
+
+
+
+
+
+
+
+
+
+
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
             <p>AsteriskModにはCYFエンジン及びModを、日本語化するための機能がいくつか追加されています。</p><br>
 
             <p>
