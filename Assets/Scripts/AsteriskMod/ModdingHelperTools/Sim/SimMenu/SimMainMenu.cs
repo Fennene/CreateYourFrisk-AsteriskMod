@@ -30,6 +30,11 @@ namespace AsteriskMod.ModdingHelperTools
                 if (AnimFrameCounter.IsRunningAnimation) return;
                 SimMenuWindowManager.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.Screen);
             });
+            UnityButtonUtil.AddListener(GoToSprProjSimMenu, () =>
+            {
+                if (AnimFrameCounter.IsRunningAnimation) return;
+                SimMenuWindowManager.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.SprProjSim);
+            });
         }
     }
 }

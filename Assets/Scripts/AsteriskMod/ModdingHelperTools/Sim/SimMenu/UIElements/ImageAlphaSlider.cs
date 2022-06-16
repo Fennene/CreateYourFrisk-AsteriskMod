@@ -14,6 +14,7 @@ namespace AsteriskMod.ModdingHelperTools.UI
         public Text alphaMax;
         public Toggle alpha32Toggle;
         private bool scriptChange;
+        public Image cover;
 
 #if UNITY_EDITOR
         private void ThrowDebugError(string message)
@@ -54,14 +55,14 @@ namespace AsteriskMod.ModdingHelperTools.UI
             }
         }
 
-        private void ChangeAlpha(float targetAlpha)
+        protected virtual void ChangeAlpha(float targetAlpha)
         {
             Color _ = target.color;
             _.a = targetAlpha;
             target.color = _;
         }
 
-        private void ChangeAlpha32(byte targetAlpha)
+        protected virtual void ChangeAlpha32(byte targetAlpha)
         {
             Color32 _ = (Color32)target.color;
             _.a = targetAlpha;
@@ -178,6 +179,18 @@ namespace AsteriskMod.ModdingHelperTools.UI
                 }
                 scriptChange = false;
             });
+        }
+
+        public override void Enable()
+        {
+            if (cover == null) return;
+            cover.enabled = false;
+        }
+
+        public override void Disable()
+        {
+            if (cover == null) return;
+            cover.enabled = true;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace AsteriskMod.ModdingHelperTools
         private static RectTransform Backgrounds;
         private static RectTransform Main;
         private static RectTransform Screen;
+        private static RectTransform SprSim;
 
         private static bool animationRequester;
         private static RectTransform closeTarget;
@@ -23,15 +24,18 @@ namespace AsteriskMod.ModdingHelperTools
             if (_uniqueCheck) throw new Exception("SimMenuWindowManagerが複数存在します。");
             _uniqueCheck = true;
 
-            Backgrounds = transform.Find("Backgrounds").GetComponent<RectTransform>();
-            Main        = transform.Find("MainMenu")   .GetComponent<RectTransform>();
-            Screen      = transform.Find("ScreenMenu") .GetComponent<RectTransform>();
+            Backgrounds = transform.Find("Backgrounds")   .GetComponent<RectTransform>();
+            Main        = transform.Find("MainMenu")      .GetComponent<RectTransform>();
+            Screen      = transform.Find("ScreenMenu")    .GetComponent<RectTransform>();
+
+            SprSim      = transform.Find("SprProjSimMenu").GetComponent<RectTransform>();
         }
 
         internal enum DisplayingSimMenu
         {
             Main,
-            Screen
+            Screen,
+            SprProjSim
         }
         private static DisplayingSimMenu _currentSimMenu = DisplayingSimMenu.Main;
         internal static DisplayingSimMenu CurrentSimMenu { get { return _currentSimMenu; } }
@@ -44,6 +48,8 @@ namespace AsteriskMod.ModdingHelperTools
                     return Main;
                 case DisplayingSimMenu.Screen:
                     return Screen;
+                case DisplayingSimMenu.SprProjSim:
+                    return SprSim;
                 default:
                     return Main;
             }
@@ -135,6 +141,7 @@ namespace AsteriskMod.ModdingHelperTools
             Backgrounds.anchoredPosition = position;
             Main.anchoredPosition = position;
             Screen.anchoredPosition = position;
+            SprSim.anchoredPosition = position;
             if (!BattleSimulator.MenuOpened) return;
             position = new Vector2(400, 0);
             Backgrounds.anchoredPosition = position;
@@ -146,6 +153,7 @@ namespace AsteriskMod.ModdingHelperTools
             Backgrounds.anchoredPosition = position;
             Main.anchoredPosition = position;
             Screen.anchoredPosition = position;
+            SprSim.anchoredPosition = position;
             if (!BattleSimulator.MenuOpened) return;
             position = new Vector2(0, 0);
             Backgrounds.anchoredPosition = position;

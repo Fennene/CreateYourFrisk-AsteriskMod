@@ -1,12 +1,12 @@
-﻿using MoonSharp.Interpreter;
-using System;
+﻿//* using MoonSharp.Interpreter;
+//* using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+//* using System.Linq;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
+//* using Object = UnityEngine.Object;
 
 namespace AsteriskMod.ModdingHelperTools
 {
@@ -82,6 +82,70 @@ namespace AsteriskMod.ModdingHelperTools
             else if (dictDefault.ContainsKey(key)) dict[dictKey] = FromFile(dictDefault[key].FullName);
             else                                   return null;
             return dict[dictKey];
+        }
+
+        public static void Set(string key, Sprite value) { dict["sim" + key.ToLower()] = value; }
+
+        public static void SwapSpriteFromFile(Component target, string filename, int bubbleID = -1)
+        {
+            /**
+            try
+            {
+                if (bubbleID != -1)
+                {
+                    FileInfo fi = new FileInfo(Path.ChangeExtension(FakeFileLoader.pathToModFile("Sprites/" + filename + ".png"), "xml"));
+                    if (!fi.Exists)
+                        fi = new FileInfo(Path.ChangeExtension(FakeFileLoader.pathToDefaultFile("Sprites/" + filename + ".png"), "xml"));
+                    if (fi.Exists)
+                    {
+                        XmlDocument xmld = new XmlDocument();
+                        xmld.Load(fi.FullName);
+                        if (xmld["spritesheet"] != null && "single".Equals(xmld["spritesheet"].GetAttribute("type")))
+                            if (!UnitaleUtil.IsOverworld)
+                                UIController.instance.encounter.EnabledEnemies[bubbleID].bubbleWidth = ParseUtil.GetFloat(xmld["spritesheet"].GetElementsByTagName("width").Count > 0
+                                    ? xmld["spritesheet"].GetElementsByTagName("width")[0].InnerText
+                                    : xmld["spritesheet"].GetElementsByTagName("wideness")[0].InnerText);
+                    }
+                    else
+                        UIController.instance.encounter.EnabledEnemies[bubbleID].bubbleWidth = 0;
+                }
+            }
+            catch (Exception)
+            {
+                UIController.instance.encounter.EnabledEnemies[bubbleID].bubbleWidth = 0;
+            }
+            */
+            Sprite newSprite = FakeSpriteRegistry.Get(filename);
+            if (newSprite == null)
+            {
+                if (filename.Length == 0)
+                {
+                    Debug.LogError("SwapSprite: Filename is empty!");
+                    return;
+                }
+                newSprite = FromFile(FakeFileLoader.pathToModFile("Sprites/" + filename + ".png"));
+                if (newSprite == null)
+                    throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+                FakeSpriteRegistry.Set(filename, newSprite);
+            }
+
+            Image img = target.GetComponent<Image>();
+            if (!img)
+            {
+                SpriteRenderer img2 = target.GetComponent<SpriteRenderer>();
+                Vector2 pivot = img2.GetComponent<RectTransform>().pivot;
+                img2.sprite = newSprite;
+                img2.GetComponent<RectTransform>().sizeDelta = new Vector2(newSprite.texture.width, newSprite.texture.height);
+                img2.GetComponent<RectTransform>().pivot = pivot;
+            }
+            else
+            {
+                Vector2 pivot = img.rectTransform.pivot;
+                img.sprite = newSprite;
+                //enemyImg.SetNativeSize();
+                img.rectTransform.sizeDelta = new Vector2(newSprite.texture.width, newSprite.texture.height);
+                img.rectTransform.pivot = pivot;
+            }
         }
 
         public static Sprite FromFile(string filename)
