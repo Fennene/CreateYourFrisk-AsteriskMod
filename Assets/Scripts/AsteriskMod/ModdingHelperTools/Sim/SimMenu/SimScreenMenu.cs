@@ -6,14 +6,14 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class SimScreenMenu : MonoBehaviour
     {
-        private static bool _uniqueCheck;
+        //* private static bool _uniqueCheck;
 
         internal static Button BackButton;
 
         private void Awake()
         {
-            if (_uniqueCheck) throw new Exception("SimScreenMenuが複数存在します。");
-            _uniqueCheck = true;
+            //* if (_uniqueCheck) throw new Exception("SimScreenMenuが複数存在します。");
+            //* _uniqueCheck = true;
 
             BackButton = transform.Find("MenuNameLabel").Find("BackButton").GetComponent<Button>();
         }

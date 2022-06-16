@@ -6,7 +6,7 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class SimMenuWindowManager : MonoBehaviour
     {
-        private static bool _uniqueCheck;
+        //* private static bool _uniqueCheck;
 
         private static RectTransform Backgrounds;
         private static RectTransform Main;
@@ -21,14 +21,22 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void Awake()
         {
-            if (_uniqueCheck) throw new Exception("SimMenuWindowManagerが複数存在します。");
-            _uniqueCheck = true;
+            //* if (_uniqueCheck) throw new Exception("SimMenuWindowManagerが複数存在します。");
+            //* _uniqueCheck = true;
 
             Backgrounds = transform.Find("Backgrounds")   .GetComponent<RectTransform>();
             Main        = transform.Find("MainMenu")      .GetComponent<RectTransform>();
             Screen      = transform.Find("ScreenMenu")    .GetComponent<RectTransform>();
 
             SprSim      = transform.Find("SprProjSimMenu").GetComponent<RectTransform>();
+
+            animationRequester = false;
+            closeTarget = null;
+            openTarget = null;
+            target = DisplayingSimMenu.Main;
+            animationSpeed = 0f;
+
+            _currentSimMenu = DisplayingSimMenu.Main;
         }
 
         internal enum DisplayingSimMenu

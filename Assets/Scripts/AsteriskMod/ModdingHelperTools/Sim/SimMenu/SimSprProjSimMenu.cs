@@ -8,18 +8,21 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class SimSprProjSimMenu : MonoBehaviour
     {
-        private static bool _uniqueCheck;
+        //* private static bool _uniqueCheck;
 
         internal static Button BackButton;
         internal static Transform bulletLayer;
 
         private void Awake()
         {
-            if (_uniqueCheck) throw new Exception("SimSprProjSimMenuが複数存在します。");
-            _uniqueCheck = true;
+            //* if (_uniqueCheck) throw new Exception("SimSprProjSimMenuが複数存在します。");
+            //* _uniqueCheck = true;
 
             BackButton = transform.Find("MenuNameLabel").Find("BackButton").GetComponent<Button>();
             bulletLayer = GameObject.Find("BulletPool").transform;
+
+            Sprites = new FakeSpriteController[MAX_SPRITE_OBJECT];
+            Bullets = new FakeProjectileController[MAX_BULLET_OBJECT];
         }
 
         private void Start()

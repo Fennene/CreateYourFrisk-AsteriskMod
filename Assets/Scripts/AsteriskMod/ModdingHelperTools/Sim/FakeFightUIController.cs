@@ -272,7 +272,7 @@ namespace AsteriskMod.ModdingHelperTools
             targetRt.anchoredPosition = new Vector2(targetRt.anchoredPosition.x + mv, 0);
             if (!Finished() || /**boundFightUiInstances.Count == 0*/true) return;
             stopped = true;
-            StationaryMissScript smc = Resources.Load<StationaryMissScript>("Prefabs/StationaryMiss");
+            //* StationaryMissScript smc = Resources.Load<StationaryMissScript>("Prefabs/StationaryMiss");
             /**
             foreach (FightUI fightUi in boundFightUiInstances)
             {

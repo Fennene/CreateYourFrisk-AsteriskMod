@@ -6,7 +6,7 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class SimMenuOpener : MonoBehaviour
     {
-        private static bool _uniqueCheck;
+        //* private static bool _uniqueCheck;
 
         internal static RectTransform self;
         internal static Image selfImage;
@@ -19,13 +19,17 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void Awake()
         {
-            if (_uniqueCheck) throw new Exception("SimMenuOpenerが複数存在します。");
-            _uniqueCheck = true;
+            //* if (_uniqueCheck) throw new Exception("SimMenuOpenerが複数存在します。");
+            //* _uniqueCheck = true;
 
             self = GetComponent<RectTransform>();
             selfImage = GetComponent<Image>();
             button = GetComponent<Button>();
             icon = transform.GetChild(0).GetComponent<Image>();
+
+            animationRequester = false;
+            open = false;
+            animationSpeed = 0f;
         }
 
         internal static void SetButtonActive(bool active) { button.enabled = selfImage.enabled = icon.enabled = active; }
