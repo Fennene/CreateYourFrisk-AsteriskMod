@@ -1,5 +1,7 @@
-﻿using MoonSharp.Interpreter;
+﻿using AsteriskMod.ModdingHelperTools.UI;
+using MoonSharp.Interpreter;
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -23,6 +25,8 @@ namespace AsteriskMod.ModdingHelperTools
 
             Sprites = new FakeSpriteController[MAX_SPRITE_OBJECT];
             Bullets = new FakeProjectileController[MAX_BULLET_OBJECT];
+
+            AwakeCreateObjects();
         }
 
         private void Start()
@@ -32,6 +36,7 @@ namespace AsteriskMod.ModdingHelperTools
                 if (AnimFrameCounter.IsRunningAnimation) return;
                 SimMenuWindowManager.ChangePage(SimMenuWindowManager.DisplayingSimMenu.SprProjSim, SimMenuWindowManager.DisplayingSimMenu.Main);
             });
+            StartCreateObjects();
         }
 
         internal static FakeSpriteController CreateSprite(string filename, string tag = "BelowArena", int childNumber = -1)
@@ -106,5 +111,50 @@ namespace AsteriskMod.ModdingHelperTools
 
         internal static FakeSpriteController[] Sprites;
         internal static FakeProjectileController[] Bullets;
+
+        internal static CYFInputField Create_SpriteName;
+        internal static Dropdown Create_SpriteLayer;
+        internal static Toggle Create_AsBullet;
+        internal static Button Create_Run;
+        internal static Image Create_Run_Image;
+        internal static bool CanCreateSprite { get { return Sprites[MAX_SPRITE_OBJECT - 1] == null; } }
+        internal static bool CanCreateBullet { get { return Bullets[MAX_BULLET_OBJECT - 1] == null; } }
+
+        internal void AwakeCreateObjects()
+        {
+            Transform objManagerWindow = transform.Find("ObjectManagerWindow").Find("View");
+            Transform temp = objManagerWindow.Find("ObjCreate");
+            Create_SpriteName = temp.Find("SpriteName").GetComponent<CYFInputField>();
+            Create_SpriteLayer = temp.Find("LayerName").GetComponent<Dropdown>();
+            Create_AsBullet = temp.Find("ProjCheck").GetComponent<Toggle>();
+            Create_Run = temp.Find("Create").GetComponent<Button>();
+            Create_Run_Image = temp.Find("Create").GetComponent<Image>();
+        }
+
+        internal void StartCreateObjects()
+        {
+            Create_SpriteName.InputField.onValueChanged.RemoveAllListeners();
+            Create_SpriteName.InputField.onValueChanged.AddListener((value) =>
+            {
+                FileInfo fi = new FileInfo(FakeFileLoader.pathToModFile("Sprites/" + value + ".png"));
+                if (!fi.Exists) fi = new FileInfo(FakeFileLoader.pathToDefaultFile("Sprites/" + value + ".png"));
+                if (!fi.Exists) Create_SpriteName.OuterImage.color = new Color32(255, 64, 64, 255);
+                else            Create_SpriteName.ResetOuterColor();
+                if (!Create_AsBullet.isOn && !CanCreateSprite) return;
+                if (Create_AsBullet.isOn && !CanCreateBullet) return;
+                if (Create_Run.enabled == fi.Exists) return;
+                Create_Run.enabled = fi.Exists;
+                Create_Run_Image.color = fi.Exists ? new Color32(242, 242, 242, 255) : new Color32(192, 192, 192, 255);
+            });
+
+            Create_AsBullet.onValueChanged.RemoveAllListeners();
+            Create_AsBullet.onValueChanged.AddListener((value) =>
+            {
+                Create_SpriteLayer.value = value ? 5 : 2;
+                bool cantCreate = ((!value && !CanCreateSprite) || (value && !CanCreateBullet));
+                Create_Run.enabled = !cantCreate;
+                Create_Run_Image.color = !cantCreate ? new Color32(242, 242, 242, 255) : new Color32(192, 192, 192, 255);
+            });
+        }
     }
 }
