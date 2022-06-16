@@ -155,6 +155,28 @@ namespace AsteriskMod.ModdingHelperTools.UI
             alpha32Toggle.onValueChanged.RemoveAllListeners();
             alpha32Toggle.onValueChanged.AddListener((value) =>
             {
+                scriptChange = true;
+                if (value)
+                {
+                    alphaMax.text = "255";
+                    byte alpha32 = (byte)((int)(alphaSlider.value * 255));
+                    alphaSlider.wholeNumbers = true;
+                    alphaSlider.minValue = 0;
+                    alphaSlider.maxValue = 255;
+                    alphaSlider.value = alpha32;
+                    alphaValue.InputField.text = alpha32.ToString();
+                }
+                else
+                {
+                    alphaMax.text = "1";
+                    float alpha = (byte)((int)alphaSlider.value) / 255f;
+                    alphaSlider.wholeNumbers = false;
+                    alphaSlider.minValue = 0;
+                    alphaSlider.maxValue = 1;
+                    alphaSlider.value = alpha;
+                    alphaValue.InputField.text = alpha.ToString();
+                }
+                scriptChange = false;
             });
         }
     }
