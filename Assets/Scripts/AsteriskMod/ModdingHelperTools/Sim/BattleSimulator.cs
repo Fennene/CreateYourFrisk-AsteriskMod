@@ -19,6 +19,9 @@
             _playerLV = 1;
             _playerHP = 20;
             _playerMaxHP = 20;
+
+            MenuOpened = false;
+            LeftMenu = true;
         }
 
         internal static string PlayerName
@@ -80,5 +83,8 @@
             get { return _state; }
             set { _state = value; }
         }
+
+        internal static bool MenuOpened = false;
+        internal static bool LeftMenu = true;
     }
 }
