@@ -7,17 +7,20 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal static class SPControllerUI
     {
-        [ToDo] private static Image DisabledCover;
+        private static Image DisabledCover;
         private static bool scriptChange;
 
         internal static void Awake(Transform controllerView)
         {
+            DisabledCover = controllerView.parent.Find("Cover").GetComponent<Image>();
             scriptChange = false;
 
             AwakeSprite(controllerView.Find("Sprite"));
             AwakePosition(controllerView.Find("Pos"));
             AwakeScale(controllerView.Find("Scale"));
             AwakeColor(controllerView.Find("Color"));
+
+            DisabledCover.enabled = true;
         }
 
         internal static void Start()
@@ -34,8 +37,10 @@ namespace AsteriskMod.ModdingHelperTools
             || (!SPTargetDelUI.IsTargetBullet && SPTargetDelUI.TargetIndex >= SimSprProjSimMenu.SpriteLength)
             || (SPTargetDelUI.IsTargetBullet && SPTargetDelUI.TargetIndex >= SimSprProjSimMenu.BulletLength))
             {
+                DisabledCover.enabled = true;
                 return;
             }
+            DisabledCover.enabled = false;
             scriptChange = true;
             UpdateSpriteParameter();
             UpdatePositionParameter();
@@ -308,7 +313,7 @@ namespace AsteriskMod.ModdingHelperTools
                     {
                         byte r32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32[0], (bullet) => bullet.sprite.color32[0]));
                         Color_rValue.InputField.text = r32.ToString();
-                        Color_r.value = (float)((int)r32);
+                        Color_r.value = r32;
                     }
                     scriptChange = false;
                     return;
@@ -341,15 +346,15 @@ namespace AsteriskMod.ModdingHelperTools
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
-                            sprite.color = new float[3] { (float)((int)r32), color32[1], color32[2] };
+                            sprite.color32 = new float[3] { r32, color32[1], color32[2] };
                         },
                         (bullet) =>
                         {
                             float[] color32 = bullet.sprite.color32;
-                            bullet.sprite.color = new float[3] { (float)((int)r32), color32[1], color32[2] };
+                            bullet.sprite.color32 = new float[3] { r32, color32[1], color32[2] };
                         }
                     );
-                    Color_r.value = (float)((int)r32);
+                    Color_r.value = r32;
                 }
                 scriptChange = false;
             });
@@ -359,40 +364,38 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Color_32Toggle.isOn)
                 {
-                    float r = value;
                     SimSprProjSimMenu.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
-                            sprite.color = new float[3] { r, color[1], color[2] };
+                            sprite.color = new float[3] { value, color[1], color[2] };
                         },
                         (bullet) =>
                         {
                             float[] color = bullet.sprite.color;
-                            bullet.sprite.color = new float[3] { r, color[1], color[2] };
+                            bullet.sprite.color = new float[3] { value, color[1], color[2] };
                         }
                     );
                     scriptChange = true;
-                    Color_rValue.InputField.text = r.ToString();
+                    Color_rValue.InputField.text = value.ToString();
                     scriptChange = false;
                 }
                 else
                 {
-                    byte r32 = (byte)((int)value);
                     SimSprProjSimMenu.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
-                            sprite.color = new float[3] { (float)((int)r32), color32[1], color32[2] };
+                            sprite.color32 = new float[3] { value, color32[1], color32[2] };
                         },
                         (bullet) =>
                         {
                             float[] color32 = bullet.sprite.color32;
-                            bullet.sprite.color = new float[3] { (float)((int)r32), color32[1], color32[2] };
+                            bullet.sprite.color32 = new float[3] { value, color32[1], color32[2] };
                         }
                     );
                     scriptChange = true;
-                    Color_rValue.InputField.text = r32.ToString();
+                    Color_rValue.InputField.text = value.ToString();
                     scriptChange = false;
                 }
             });
@@ -412,7 +415,7 @@ namespace AsteriskMod.ModdingHelperTools
                     {
                         byte g32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32[1], (bullet) => bullet.sprite.color32[1]));
                         Color_gValue.InputField.text = g32.ToString();
-                        Color_g.value = (float)((int)g32);
+                        Color_g.value = g32;
                     }
                     scriptChange = false;
                     return;
@@ -445,15 +448,15 @@ namespace AsteriskMod.ModdingHelperTools
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
-                            sprite.color = new float[3] { color32[0], (float)((int)g32), color32[2] };
+                            sprite.color32 = new float[3] { color32[0], g32, color32[2] };
                         },
                         (bullet) =>
                         {
                             float[] color32 = bullet.sprite.color32;
-                            bullet.sprite.color = new float[3] { color32[0], (float)((int)g32), color32[2] };
+                            bullet.sprite.color32 = new float[3] { color32[0], g32, color32[2] };
                         }
                     );
-                    Color_g.value = (float)((int)g32);
+                    Color_g.value = g32;
                 }
                 scriptChange = false;
             });
@@ -463,40 +466,38 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Color_32Toggle.isOn)
                 {
-                    float g = value;
                     SimSprProjSimMenu.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
-                            sprite.color = new float[3] { color[0], g, color[2] };
+                            sprite.color = new float[3] { color[0], value, color[2] };
                         },
                         (bullet) =>
                         {
                             float[] color = bullet.sprite.color;
-                            bullet.sprite.color = new float[3] { color[0], g, color[2] };
+                            bullet.sprite.color = new float[3] { color[0], value, color[2] };
                         }
                     );
                     scriptChange = true;
-                    Color_gValue.InputField.text = g.ToString();
+                    Color_gValue.InputField.text = value.ToString();
                     scriptChange = false;
                 }
                 else
                 {
-                    byte g32 = (byte)((int)value);
                     SimSprProjSimMenu.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
-                            sprite.color = new float[3] { color32[0], (float)((int)g32), color32[2] };
+                            sprite.color32 = new float[3] { color32[0], value, color32[2] };
                         },
                         (bullet) =>
                         {
                             float[] color32 = bullet.sprite.color32;
-                            bullet.sprite.color = new float[3] { color32[0], (float)((int)g32), color32[2] };
+                            bullet.sprite.color32 = new float[3] { color32[0], value, color32[2] };
                         }
                     );
                     scriptChange = true;
-                    Color_gValue.InputField.text = g32.ToString();
+                    Color_gValue.InputField.text = value.ToString();
                     scriptChange = false;
                 }
             });
@@ -516,7 +517,7 @@ namespace AsteriskMod.ModdingHelperTools
                     {
                         byte b32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32[2], (bullet) => bullet.sprite.color32[2]));
                         Color_bValue.InputField.text = b32.ToString();
-                        Color_b.value = (float)((int)b32);
+                        Color_b.value = b32;
                     }
                     scriptChange = false;
                     return;
@@ -549,15 +550,15 @@ namespace AsteriskMod.ModdingHelperTools
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
-                            sprite.color = new float[3] { color32[0], color32[1], (float)((int)b32) };
+                            sprite.color32 = new float[3] { color32[0], color32[1], b32 };
                         },
                         (bullet) =>
                         {
                             float[] color32 = bullet.sprite.color32;
-                            bullet.sprite.color = new float[3] { color32[0], color32[1], (float)((int)b32) };
+                            bullet.sprite.color32 = new float[3] { color32[0], color32[1], b32 };
                         }
                     );
-                    Color_b.value = (float)((int)b32);
+                    Color_b.value = b32;
                 }
                 scriptChange = false;
             });
@@ -567,40 +568,38 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Color_32Toggle.isOn)
                 {
-                    float b = value;
                     SimSprProjSimMenu.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
-                            sprite.color = new float[3] { color[0], color[1], b };
+                            sprite.color = new float[3] { color[0], color[1], value };
                         },
                         (bullet) =>
                         {
                             float[] color = bullet.sprite.color;
-                            bullet.sprite.color = new float[3] { color[0], color[1], b };
+                            bullet.sprite.color = new float[3] { color[0], color[1], value };
                         }
                     );
                     scriptChange = true;
-                    Color_bValue.InputField.text = b.ToString();
+                    Color_bValue.InputField.text = value.ToString();
                     scriptChange = false;
                 }
                 else
                 {
-                    byte b32 = (byte)((int)value);
                     SimSprProjSimMenu.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
-                            sprite.color = new float[3] { color32[0], color32[1], (float)((int)b32) };
+                            sprite.color32 = new float[3] { color32[0], color32[1], value };
                         },
                         (bullet) =>
                         {
                             float[] color32 = bullet.sprite.color32;
-                            bullet.sprite.color = new float[3] { color32[0], color32[1], (float)((int)b32) };
+                            bullet.sprite.color32 = new float[3] { color32[0], color32[1], value };
                         }
                     );
                     scriptChange = true;
-                    Color_bValue.InputField.text = b32.ToString();
+                    Color_bValue.InputField.text = value.ToString();
                     scriptChange = false;
                 }
             });
@@ -611,6 +610,13 @@ namespace AsteriskMod.ModdingHelperTools
                 Color_rMaxLabel.text = value ? "255" : "1";
                 Color_gMaxLabel.text = value ? "255" : "1";
                 Color_bMaxLabel.text = value ? "255" : "1";
+                Color_r.wholeNumbers = value;
+                Color_g.wholeNumbers = value;
+                Color_b.wholeNumbers = value;
+                Color_r.maxValue = value ? 255 : 1;
+                Color_g.maxValue = value ? 255 : 1;
+                Color_b.maxValue = value ? 255 : 1;
+                UpdateColorParameter();
                 scriptChange = false;
             });
         }

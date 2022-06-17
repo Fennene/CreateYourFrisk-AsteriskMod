@@ -150,6 +150,7 @@ namespace AsteriskMod.ModdingHelperTools
             p.gameObject.GetComponent<RectMask2D>().enabled = false;
             //*spr.StopAnimation();
             //*BulletPool.instance.Requeue(p);
+            GameObject.Destroy(p.gameObject);
             p = null;
         }
 
