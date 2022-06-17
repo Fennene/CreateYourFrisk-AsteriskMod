@@ -14,6 +14,8 @@ namespace AsteriskMod
 
         public static bool AutoRemoveProjectiles { get; set; }
 
+        public static bool AutoResetStaticText { get; set; }
+
         public class JapaneseStyleOption
         {
             // Name
@@ -120,6 +122,7 @@ namespace AsteriskMod
             LuaCodeStyle = new CodeStyle();
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
+            AutoResetStaticText = false;
             JapaneseStyleOption.Initialize();
             PlayerUtil.Initialize();
         }
@@ -132,6 +135,7 @@ namespace AsteriskMod
             LuaCodeStyle = CodeStyle.Get(modName);
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
+            AutoResetStaticText = false;
             Lang.PrepareMod(modName);
         }
 

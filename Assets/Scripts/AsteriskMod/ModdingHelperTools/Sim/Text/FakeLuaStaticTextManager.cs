@@ -318,6 +318,7 @@ namespace AsteriskMod.ModdingHelperTools
             SetFont(uf, firstTime);
             if (!firstTime)
                 default_charset = uf;
+            SetText(instantText);
         }
 
         public void Move(int x, int y)

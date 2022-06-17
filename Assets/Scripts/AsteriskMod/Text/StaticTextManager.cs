@@ -915,12 +915,14 @@ namespace AsteriskMod
             if (!space.HasValue) newhSpacing = Charset.CharSpacing;
             else newhSpacing = space.Value;
             newhSpacingSet = true;
+            if (AsteriskEngine.AutoResetStaticText) SetText(instantText);
         }
 
         public void SetLineSpacing(float space = 0)
         {
             newvSpacing = space;
             newvSpacingSet = true;
+            if (AsteriskEngine.AutoResetStaticText) SetText(instantText);
         }
 
         // CheckCommand() // always return false

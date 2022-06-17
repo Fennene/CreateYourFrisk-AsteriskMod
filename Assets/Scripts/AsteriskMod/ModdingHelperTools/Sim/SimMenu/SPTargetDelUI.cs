@@ -48,16 +48,14 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 //*if (scriptChange) return;
 
-                DevelopHint.ToDo("パラメータ変更ウインドウ");
-                if (value > 0) SPControllerUI.UpdateData();
+                SPControllerUI.UpdateParameters();
 
                 CheckRemoveButton();
             });
 
             UnityToggleUtil.AddListener(TargetObjectAsBullet, (value) =>
             {
-                DevelopHint.ToDo();
-
+                UpdateTargetDropDown();
                 CheckRemoveButton();
             });
 
@@ -81,7 +79,7 @@ namespace AsteriskMod.ModdingHelperTools
             });
         }
 
-        internal static void UpdateTargetDropDown()
+        internal static void UpdateTargetDropDown(bool setToNoSelect = false)
         {
             TargetObjectSelecter.options = new List<Dropdown.OptionData>();
             TargetObjectSelecter.options.Add(new Dropdown.OptionData { text = "< No Select >" });
@@ -102,6 +100,8 @@ namespace AsteriskMod.ModdingHelperTools
             }
 
             TargetObjectSelecter.RefreshShownValue();
+
+            if (setToNoSelect) TargetObjectSelecter.value = 0;
         }
     }
 }

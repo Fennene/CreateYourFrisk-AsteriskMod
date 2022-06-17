@@ -550,6 +550,7 @@ namespace AsteriskMod
             if (!firstTime)
                 default_charset = uf;
             //* UpdateBubble();
+            if (AsteriskEngine.AutoResetStaticText) SetText(instantText);
         }
 
         // UpdateBubble()

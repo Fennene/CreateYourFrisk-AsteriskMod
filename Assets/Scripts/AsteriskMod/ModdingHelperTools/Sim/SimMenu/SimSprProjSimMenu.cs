@@ -182,7 +182,7 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 Sprites[i] = Sprites[i + 1];
             }
-            SPTargetDelUI.UpdateTargetDropDown();
+            SPTargetDelUI.UpdateTargetDropDown(true);
         }
         internal static void RemoveBullet(int index)
         {
@@ -194,7 +194,7 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 Bullets[i] = Bullets[i + 1];
             }
-            SPTargetDelUI.UpdateTargetDropDown();
+            SPTargetDelUI.UpdateTargetDropDown(true);
         }
 
         internal static void ActionToTarget(Action<FakeSpriteController> spriteAction, Action<FakeProjectileController> bulletAction)

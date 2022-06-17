@@ -358,12 +358,14 @@ namespace AsteriskMod.ModdingHelperTools
             if (!space.HasValue) newhSpacing = Charset.CharSpacing;
             else newhSpacing = space.Value;
             newhSpacingSet = true;
+            SetText(instantText);
         }
 
         public void SetLineSpacing(float space = 0)
         {
             newvSpacing = space;
             newvSpacingSet = true;
+            SetText(instantText);
         }
     }
 }

@@ -131,7 +131,7 @@ it's w3c valid, at least
             <hr><br>
 
             <p>
-                <span class="function"><span class="Asterisk"></span> CreateStaticText(<span class="string"></span> font = "uidialog", <span class="string"></span> text, <span class="luatable"><span class="number"></span>, <span class="number"></span></span> position, <span class="number"></span> textWidth, <span class="string"></span> layer = "BelowPlayer", <span class="nullable_number"></span> charspacing = nil, <span class="number"></span> linespacing = 0) returns <span class="userdata">StaticText</span> [E/M/W]</span>
+                <span class="function">CreateStaticText(<span class="string"></span> font = "uidialog", <span class="string"></span> text, <span class="luatable"><span class="number"></span>, <span class="number"></span></span> position, <span class="number"></span> textWidth, <span class="string"></span> layer = "BelowPlayer", <span class="nullable_number"></span> charspacing = nil, <span class="number"></span> linespacing = 0) returns <span class="userdata">StaticText</span> [E/M/W/S]</span>
                 This function creates a StaticText Object and returns it. 
                 However, as you can see, a lot of parameters are needed.
                 Here is what you need to set:<br>
@@ -170,6 +170,10 @@ it's w3c valid, at least
                     </li>
                 </ul><br>
                 <font color="#DDD">There is NOT a one-frame delay in the StaticText Object.</font>
+                <br><br><br>
+                <span class="function">AutoRefreshStaticText(<span class="boolean"></span> active) [E/M/W/S]</span>
+                If <span class="term">true</span>, the engine will call <span class="term">StaticText.SetText()</span> automatically after you call <span class="term">StaticText.SetFont()</span>, <span class="term">StaticText.SetCharSpacing()</span> or <span class="term">StaticText.SetLineSpacing()</span>.<br>
+                Default by <span class="term">false</span>.
             </p><br>
 
             <hr>
@@ -312,7 +316,7 @@ it's w3c valid, at least
                 Sets the font of the text. It's the only way of changing text's font.<br>
                 Returns an error if the font doesn't exist.
                 <br><br>
-                <font color="#FFF">* Note that the font is not changed until call <span class="term">StaticText.SetText()</span>.</font>
+                <font color="#FFF">* Note that the font is not changed until call <span class="term">StaticText.SetText()</span> unless calling <span class="term">AutoRefreshStaticText(true)</span>.</font>
             </p>
             <p>
                 <br><span class="function">StaticText.SetCharSpacing(<span class="nullable_number"></span> space = nil)</span>
@@ -324,7 +328,7 @@ it's w3c valid, at least
                 <br><br>
                 Assign <span class="term">nil</span> to reset this value to the value provided by the font (or the default value of 3).
                 <br><br>
-                <font color="#FFF">* Note that the charspacing is not changed until call <span class="term">StaticText.SetText()</span>.</font>
+                <font color="#FFF">* Note that the charspacing is not changed until call <span class="term">StaticText.SetText()</span> unless calling <span class="term">AutoRefreshStaticText(true)</span>.</font>
             </p>
             <p>
                 <br><span class="function">StaticText.SetLineSpacing(<span class="number"></span> line = 0)</span>
@@ -336,7 +340,7 @@ it's w3c valid, at least
                 <br><br>
                 Assign <span class="term">nil</span> to reset the line spacing to its original value.
                 <br><br>
-                <font color="#FFF">* Note that the linespacing is not changed until call <span class="term">StaticText.SetText()</span>.</font>
+                <font color="#FFF">* Note that the linespacing is not changed until call <span class="term">StaticText.SetText()</span> unless calling <span class="term">AutoRefreshStaticText(true)</span>.</font>
             </p>
 
             <p>
@@ -354,251 +358,21 @@ it's w3c valid, at least
 
             <p>
                 <br><span class="function"><span class="number"></span> StaticText.GetTextWidth()</span>
+                Returns the width of the currently set text in pixels.<br>
+                Will give the same result even if the text isn't finished typing.
+                <br><br>
+                Also ignores <span class="term">StaticText.xscale</span>.
+                <br><br>
+                Useful if you want to center your text.
             </p>
             <p>
                 <br><span class="function"><span class="number"></span> StaticText.GetTextHeight()</span>
-            </p>
-
-
-
-            <br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br>
-
-
-
-
-
-            <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.x</span>
-                Horizontal position of the all UI's parent object, relative to the initial position.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.y</span>
-                Vertical position of the all UI's parent object, relative to the initial positon.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Moves the all UI showing the player's status <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
-                Moves the all UI showing the player's status to a new position, relative to the initial position.
+                Returns the height of the curently set text in pixels.<br>
+                Will give the same result even if the text isn't finished typing.
                 <br><br>
-                (Same as setting <span class="term">PlayerUtil.x</span> and <span class="term">PlayerUtil.y</span> simultaneously.)
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.MoveToAbs(<span class="number"></span> absx, <span class="number"></span> absy)</span>
-                Moves the all UI showing the player's status to a new position, relative to the bottom left corner of the window.
+                Also ignores <span class="term">StaticText.yscale</span>.
                 <br><br>
-                <font color="#FFF">
-                    Note: This function is not 100% accurate. 
-                    Please use <span class="term">PlayerUtil.MoveTo()</span> as possible.
-                </font>
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.MoveTo()</span>
-                You can move the all UI showing the player's status to the initial position 
-                if you do not provide any argument.
-            </p>
-
-            <br>
-
-            <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Name (Read-only)</span>
-                Returns propety of the text showing the Player's name, as a LimitedStaticText object.
-                <br><br>
-                <font color="#FFF">
-                    You can not use <span class="term">SetControlOverride()</span> and 
-                    <span class="term">SetText()</span> in this object.
-                </font><br>
-                (That's beacuse you can change text by changing <span class="term">Player.name</span>)
-            </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.Love (Read-only)</span>
-                Returns propety of the text showing the Player's love, as a LimitedStaticText object.
-            </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)</span>
-                Returns propety of the bar objects showing the Player's HP, as a LifeBar object.
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">LimitedStaticText</span> PlayerUtil.HPText (Read-only)</span>
-                Returns propety of the text showing the Player's HP, as a LimitedStaticText object.
-            </p>
-
-            <br>
-
-            <p>
-                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
-                Either true or false. If true, bars and texts showing the Player's status do <b>NOT</b> update anymore.<br>
-                You should call this if you modify objects displaying the Player's status.<br>
-                This is same to <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
-            </p>
-
-            <p>
-                <br><span class="function">PlayerUtil.SetLV(<span class="string"></span> lv)</span>
-                Set the player's LV as string.<br>
-                This means you can set the LV other than numbers.<br>
-                Note that you can not use <span class="term">Text commands</span>.<br>
-                This is same to call <span class="term">PlayerUtil.Love.SetText()</span>.
-            </p>
-
-            <p>
-                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
-                Either true or false. If true, bars and texts showing HP do <b>NOT</b> update anymore.<br>
-                You should call this if you modify objects displaying the Player's HP.<br>
-                This is same to <span class="term">PlayerUtil.HPBar.SetControlOverride()</span> and <span class="term">PlayerUtil.HPText.SetControlOverride()</span> at the same time.
-            </p>
-
-            <p>
-                <br><span class="function">PlayerUtil.SetHP(<span class="number"></span> hp, <span class="number"></span> maxhp, <span class="boolean"></span> updateText = true)</span>
-                Sets the lengthes of bars displaying the Player's HP from 2 values.
-                <ul>
-                    <li>
-                        <span class="term">updateHPText</span>: If true, sets the text showing the Player's HP as based on 2 values.
-                    </li>
-                </ul>
-                This is similar to call <span class="term">PlayerUtil.HPBar.SetHP()</span> and <span class="term">PlayerUtil.SetHPText()</span> at the same time.<br>
-                Recommends to call <span class="term">PlayerUtil.SetHPControlOverride(true)</span> or 
-                call <span class="term">PlayerUtil.HPBar.SetControlOverride(true)</span> and 
-                <span class="term">PlayerUtil.HPText.SetControlOverride(true)</span> before use this.
-            </p>
-            <p>
-                <br><span class="function">PlayerUtil.SetHPText(<span class="number"></span> hp, <span class="number"></span> maxhp)</span>
-                Sets the text showing the Player's HP as based on 2 values.<br>
-                Recommends to call <span class="term">PlayerUtil.SetHPControlOverride(true)</span> or 
-                <span class="term">PlayerUtil.HPText.SetControlOverride(true)</span> before use this.<br>
-                You should use <span class="term">PlayerUtil.HPText.SetText()</span> if you set the text as string.
-            </p>
-
-            <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.GetSoulAlpha()</span>
-                Gets the alpha (transparency) of the player's soul.<br>
-                When the player damaged, the soul will be blinking. This function can be get that blinking as number 0 or 1.
-                <br><br>
-                If some reason causes non-initializing the object of the Player, returns 0. 
-                <u>(However this is not happen on normal.)</u>
-            </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.CreateLifeBar(<span class="boolean"></span> below = false)</span>
-                Creates Life Bar and Return The LifeBar Object.<br>
-                When the <span class="term">below</span> is <span class="term">true</span>, 
-                LifeBar is created in below original Player's HP Bar.
-                <br><br>
-                If the GameObject that will be lifebar's parent can not find by some reason, returns nil. 
-                <u>(However this is not happen on normal.)</u>
-            </p>
-
-            <br>
-
-            <hr>
-
-            <h3>The LifeBar Object</h3><br><br>
-            <p>
-                LifeBars are composed of 3 GameObjects. 
-                Those are parent, BGBar, and FillBar. <br>
-                You don't need to think about the parent object.<br>
-                BGBar(Background Bar) means the bar placed far side, as its name suggests, default color is red.<br>
-                On the other hand, FillBar means the bar placed nearer side, default color is yellow.<br>
-                Simply put, BGBar is the bar showing the Player's MaxHP and 
-                FillBar is the bar showing current the Player's HP.<br>
-                This is not only used in <span class="term">PlayerUtil.HPBar</span>, 
-                but you can create LifeBar and also use by calling <span class="term">PlayerUtil.CreateLifeBar()</span>.
-            </p><br>
-
-            <p>
-                <br><span class="function"><span class="boolean"></span> lifeBar.controlOverride</span>
-                If <span class="term">true</span>, the HPBar displaying the player's HP does not update anymore.<br>
-                <font color="#FFF">
-                    This is for <span class="term">PlayerUtil.HPBar</span>.<br>
-                    This parameter of lifebars created by <span class="term">PlayerUtil.CreateLifeBar()</span> is always true.
-                </font>
-            </p>
-            <p>
-                <br><span class="function">lifeBar.SetControlOverride(<span class="boolean"></span> active)</span>
-                Same as setting <span class="term">lifeBar.controlOverride</span>.
-                <br><br>
-                See <span class="term">lifeBar.controlOverride</span>.
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> lifeBar.limited</span>
-                Default by <span class="term">true</span>.<br>
-                LifeBars are limited a length of it.<br>
-                Normally, FillBar's length is not over to BGBar's one, and 
-                Both Bars' lengthes are fixed if value is over 100.<br>
-                If this parameter is <span class="term">false</span>, those limit is disabled.
-            </p>
-
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.hp</span>
-                Gets or sets a length of FillBar.<br>
-                This is not percentage.<br>
-                If <span class="term">lifeBar.limited</span> is true, FillBar's length is not over BGBar's one.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.maxhp</span>
-                Gets or sets a length of BGBar.<br>
-                This means getting or setting maximum value of the bars' lengthes.<br>
-                If <span class="term">lifeBar.limited</span> is true and this value is over 100, BGBar's length is fixed.
-            </p>
-            <p>
-                <br><span class="function">lifeBar.SetHP(<span class="number"></span> newHP, <span class="number"></span> newMaxHP)</span>
-                Same as setting <span class="term">lifeBar.hp</span> and <span class="term">lifeBar.maxhp</span> simultaneously.
-                <br><br>
-                See <span class="term">lifeBar.hp</span> and <span class="term">lifeBar.maxhp</span>.
-            </p>
-
-            <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.fillcolor</span></span>
-                Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 1.
-                <br><br>
-                For example, <span class="term">lifeBar.fillcolor = {1.0, 1.0, 0.0}</span> colors the FillBar yellow.
-                <br><br>
-                You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
-            </p>
-            <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.fillcolor32</span></span>
-                Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 255.
-                <br><br>
-                For example, <span class="term">lifeBar.fillcolor32 = {255, 255, 0}</span> colors the FillBar yellow.
-                <br><br>
-                You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha</span></span>
-                Gets or sets a FillBar's transparency, as a value from 0 to 1.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha32</span></span>
-                Gets or sets a FillBar's transparency, as a value from 0 to 255.
-            </p>
-
-            <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.bgcolor</span></span>
-                Gets or sets the coloration of a BGBar, as a table of 3 or 4 values from 0 to 1.
-                <br><br>
-                For example, <span class="term">lifeBar.bgcolor = {1.0, 0.0, 0.0}</span> colors the BGBar red.
-                <br><br>
-                You can provide a 4th value, which sets the alpha (transparency) of the BGBar.
-            </p>
-            <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> lifeBar.bgcolor32</span></span>
-                Gets or sets the coloration of a BGBar, as a table of 3 or 4 values from 0 to 255.
-                <br><br>
-                For example, <span class="term">lifeBar.bgcolor32 = {255, 0, 0}</span> colors the BGBar red.
-                <br><br>
-                You can provide a 4th value, which sets the alpha (transparency) of the BGBar.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.bgalpha</span></span>
-                Gets or sets a BGBar's transparency, as a value from 0 to 1.
-            </p>
-            <p>
-                <br><span class="function"><span class="number"></span> lifeBar.bgalpha32</span></span>
-                Gets or sets a BGBar's transparency, as a value from 0 to 255.
+                <font color="#FFF">Note: This function is not 100% accurate.</font>
             </p>
         </div>
 
