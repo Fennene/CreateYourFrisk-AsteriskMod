@@ -19,6 +19,10 @@ namespace AsteriskMod.ModdingHelperTools
             AwakePosition(controllerView.Find("Pos"));
             AwakeScale(controllerView.Find("Scale"));
             AwakeColor(controllerView.Find("Color"));
+            AwakeAlpha(controllerView.Find("Alpha"));
+            AwakeRotation(controllerView.Find("Rotation"));
+            AwakeLayer(controllerView.Find("Layer"));
+            AwakeCode(controllerView.Find("Code"));
 
             DisabledCover.enabled = true;
         }
@@ -29,6 +33,10 @@ namespace AsteriskMod.ModdingHelperTools
             StartPosition();
             StartScale();
             StartColor();
+            StartAlpha();
+            StartRotation();
+            StartLayer();
+            StartCode();
         }
 
         internal static void UpdateParameters()
@@ -46,6 +54,10 @@ namespace AsteriskMod.ModdingHelperTools
             UpdatePositionParameter();
             UpdateScaleParameter();
             UpdateColorParameter();
+            UpdateAlphaParameter();
+            UpdateRotationParameter();
+            UpdateLayerParameter();
+            UpdateCodeParameter();
             scriptChange = false;
         }
 
@@ -318,7 +330,6 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = false;
                     return;
                 }
-                scriptChange = true;
                 if (!Color_32Toggle.isOn)
                 {
                     float r = ParseUtil.GetFloat(value);
@@ -336,8 +347,10 @@ namespace AsteriskMod.ModdingHelperTools
                             bullet.sprite.color = new float[3] { r, color[1], color[2] };
                         }
                     );
+                    scriptChange = true;
                     Color_rValue.InputField.text = r.ToString(); // adjust out of range
                     Color_r.value = r;
+                    scriptChange = false;
                 }
                 else
                 {
@@ -354,9 +367,10 @@ namespace AsteriskMod.ModdingHelperTools
                             bullet.sprite.color32 = new float[3] { r32, color32[1], color32[2] };
                         }
                     );
+                    scriptChange = true;
                     Color_r.value = r32;
+                    scriptChange = false;
                 }
-                scriptChange = false;
             });
             Color_r.onValueChanged.RemoveAllListeners();
             Color_r.onValueChanged.AddListener((value) =>
@@ -420,7 +434,6 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = false;
                     return;
                 }
-                scriptChange = true;
                 if (!Color_32Toggle.isOn)
                 {
                     float g = ParseUtil.GetFloat(value);
@@ -438,8 +451,10 @@ namespace AsteriskMod.ModdingHelperTools
                             bullet.sprite.color = new float[3] { color[0], g, color[2] };
                         }
                     );
+                    scriptChange = true;
                     Color_gValue.InputField.text = g.ToString();
                     Color_g.value = g;
+                    scriptChange = false;
                 }
                 else
                 {
@@ -456,9 +471,10 @@ namespace AsteriskMod.ModdingHelperTools
                             bullet.sprite.color32 = new float[3] { color32[0], g32, color32[2] };
                         }
                     );
+                    scriptChange = true;
                     Color_g.value = g32;
+                    scriptChange = false;
                 }
-                scriptChange = false;
             });
             Color_g.onValueChanged.RemoveAllListeners();
             Color_g.onValueChanged.AddListener((value) =>
@@ -522,7 +538,6 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = false;
                     return;
                 }
-                scriptChange = true;
                 if (!Color_32Toggle.isOn)
                 {
                     float b = ParseUtil.GetFloat(value);
@@ -540,8 +555,10 @@ namespace AsteriskMod.ModdingHelperTools
                             bullet.sprite.color = new float[3] { color[0], color[1], b };
                         }
                     );
+                    scriptChange = true;
                     Color_bValue.InputField.text = b.ToString();
                     Color_b.value = b;
+                    scriptChange = false;
                 }
                 else
                 {
@@ -558,9 +575,10 @@ namespace AsteriskMod.ModdingHelperTools
                             bullet.sprite.color32 = new float[3] { color32[0], color32[1], b32 };
                         }
                     );
+                    scriptChange = true;
                     Color_b.value = b32;
+                    scriptChange = false;
                 }
-                scriptChange = false;
             });
             Color_b.onValueChanged.RemoveAllListeners();
             Color_b.onValueChanged.AddListener((value) =>
@@ -638,6 +656,249 @@ namespace AsteriskMod.ModdingHelperTools
             Color_r.value = color[0];
             Color_g.value = color[1];
             Color_b.value = color[2];
+        }
+
+        // --------------------------------------------------------------------------------
+
+        private static CYFInputField Alpha_value;
+        private static Slider Alpha_slider;
+        private static Text Alpha_maxLabel;
+        private static Toggle Alpha_32Toggle;
+
+        private static void AwakeAlpha(Transform parent)
+        {
+            Alpha_value    = parent.Find("aValue") .GetComponent<CYFInputField>();
+            Alpha_slider   = parent.Find("a")      .GetComponent<Slider>();
+            Alpha_32Toggle = parent.Find("alpha32").GetComponent<Toggle>();
+            Alpha_maxLabel = Alpha_slider.transform.Find("max").GetComponent<Text>();
+        }
+
+        private static void StartAlpha()
+        {
+            CYFInputFieldUtil.AddListener_OnValueChanged(Alpha_value, (value) => CYFInputFieldUtil.ShowInputError(Alpha_value, !Alpha_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
+            CYFInputFieldUtil.AddListener_OnEndEdit(Alpha_value, (value) =>
+            {
+                if (scriptChange) return;
+                if ((!Alpha_32Toggle.isOn && !CanFloatParse(value)) || (Alpha_32Toggle.isOn && !CanByteParse(value)))
+                {
+                    scriptChange = true;
+                    if (!Alpha_32Toggle.isOn)
+                    {
+                        float a = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha);
+                        Alpha_value.InputField.text = a.ToString();
+                        Alpha_slider.value = a;
+                    }
+                    else
+                    {
+                        byte a32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha));
+                        Alpha_value.InputField.text = a32.ToString();
+                        Alpha_slider.value = a32;
+                    }
+                    scriptChange = false;
+                    return;
+                }
+                if (!Alpha_32Toggle.isOn)
+                {
+                    float a = ParseUtil.GetFloat(value);
+                    if (a < 0) a = 0;
+                    if (a > 1) a = 1;
+                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha = a; }, (bullet) => { bullet.sprite.alpha = a; });
+                    scriptChange = true;
+                    Alpha_value.InputField.text = a.ToString(); // adjust out of range
+                    Alpha_slider.value = a;
+                    scriptChange = false;
+                }
+                else
+                {
+                    byte a32 = byte.Parse(value);
+                    scriptChange = true;
+                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha32 = a32; }, (bullet) => { bullet.sprite.alpha32 = a32; });
+                    Alpha_slider.value = a32;
+                    scriptChange = false;
+                }
+            });
+            Alpha_slider.onValueChanged.RemoveAllListeners();
+            Alpha_slider.onValueChanged.AddListener((value) =>
+            {
+                if (scriptChange) return;
+                if (!Alpha_32Toggle.isOn)
+                {
+                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha = value; }, (bullet) => { bullet.sprite.alpha = value; });
+                    scriptChange = true;
+                    Alpha_value.InputField.text = value.ToString();
+                    scriptChange = false;
+                }
+                else
+                {
+                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha32 = value; }, (bullet) => { bullet.sprite.alpha32 = value; });
+                    scriptChange = true;
+                    Alpha_value.InputField.text = value.ToString();
+                    scriptChange = false;
+                }
+            });
+            UnityToggleUtil.AddListener(Alpha_32Toggle, (value) =>
+            {
+                scriptChange = true;
+                Alpha_maxLabel.text = value ? "255" : "1";
+                Alpha_slider.wholeNumbers = value;
+                Alpha_slider.maxValue = value ? 255 : 1;
+                UpdateAlphaParameter();
+                scriptChange = false;
+            });
+        }
+
+        private static void UpdateAlphaParameter()
+        {
+            float alpha;
+            if (!Alpha_32Toggle.isOn)
+            {
+                alpha = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha);
+            }
+            else
+            {
+                alpha = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha32, (bullet) => bullet.sprite.alpha32);
+            }
+            Alpha_value.InputField.text = alpha.ToString();
+            Alpha_slider.value = alpha;
+        }
+
+        // --------------------------------------------------------------------------------
+
+        private static CYFInputField Rotation_value;
+        private static Slider Rotation_slider;
+
+        private static void AwakeRotation(Transform parent)
+        {
+            Rotation_value  = parent.Find("rotationValue").GetComponent<CYFInputField>();
+            Rotation_slider = parent.Find("rotation")     .GetComponent<Slider>();
+        }
+
+        private static void StartRotation()
+        {
+            CYFInputFieldUtil.AddListener_OnValueChanged(Rotation_value, (value) => CYFInputFieldUtil.ShowInputError(Rotation_value, CanFloatParse(value)));
+            CYFInputFieldUtil.AddListener_OnEndEdit(Rotation_value, (value) =>
+            {
+                if (scriptChange) return;
+                if (!CanFloatParse(value))
+                {
+                    float rotation = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
+                    scriptChange = true;
+                    Rotation_value.InputField.text = rotation.ToString();
+                    Rotation_slider.value = (int)rotation;
+                    scriptChange = false;
+                    return;
+                }
+                float rotate = ParseUtil.GetFloat(value);
+                if (rotate < 0) rotate = 0;
+                if (rotate > 360) rotate = 360;
+                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.rotation = rotate; }, (bullet) => { bullet.sprite.rotation = rotate; });
+                scriptChange = true;
+                Rotation_value.InputField.text = rotate.ToString();
+                Rotation_slider.value = (int)rotate;
+                scriptChange = false;
+            });
+            Rotation_slider.onValueChanged.RemoveAllListeners();
+            Rotation_slider.onValueChanged.AddListener((value) =>
+            {
+                if (scriptChange) return;
+                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.rotation = value; }, (bullet) => { bullet.sprite.rotation = value; });
+                scriptChange = true;
+                Rotation_value.InputField.text = value.ToString();
+                scriptChange = false;
+            });
+        }
+
+        private static void UpdateRotationParameter()
+        {
+            float rotation = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
+            Rotation_value.InputField.text = rotation.ToString();
+            Rotation_slider.value = (int)rotation;
+        }
+
+        // --------------------------------------------------------------------------------
+
+        private static Dropdown Layer_layer;
+
+        private static readonly string[] LAYERS = new[] { "Bottom", "BelowUI", "BelowArena", "BelowPlayer", "BelowBullet", "Top" };
+        private static int ConvertLayerName(string layerName)
+        {
+            if (layerName == "") return !SPTargetDelUI.IsTargetBullet ? 2 : 5;
+            if (layerName == "Top") return !SPTargetDelUI.IsTargetBullet ? 5 : 6;
+            for (var i = 0; i < 5; i++)
+            {
+                if (layerName == LAYERS[i]) return i;
+            }
+            return !SPTargetDelUI.IsTargetBullet ? 2 : 5;
+        }
+        private static string ConvertToLayerName(int layerDropDownValue)
+        {
+            if (layerDropDownValue < 0) return !SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
+            if (layerDropDownValue > (!SPTargetDelUI.IsTargetBullet ? 5 : 6)) return !SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
+            if (layerDropDownValue < 5) return LAYERS[layerDropDownValue];
+            if (layerDropDownValue == 5) return !SPTargetDelUI.IsTargetBullet ? LAYERS[5] : "";
+            return !SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
+        }
+
+        private static void AwakeLayer(Transform parent)
+        {
+            Layer_layer = parent.Find("layer").GetComponent<Dropdown>();
+        }
+
+        private static void StartLayer()
+        {
+            Layer_layer.onValueChanged.RemoveAllListeners();
+            Layer_layer.onValueChanged.AddListener((value) =>
+            {
+                if (scriptChange) return;
+                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.layer = ConvertToLayerName(value); }, (bullet) => { bullet.layer = ConvertToLayerName(value); });
+            });
+        }
+
+        private static void UpdateLayerParameter()
+        {
+            Layer_layer.options = new System.Collections.Generic.List<Dropdown.OptionData>();
+            for (var i = 0; i < LAYERS.Length; i++)
+            {
+                Layer_layer.options.Add(new Dropdown.OptionData { text = LAYERS[i] });
+                if (i == 4 && SPTargetDelUI.IsTargetBullet) Layer_layer.options.Add(new Dropdown.OptionData { text = "BulletPool" });
+            }
+            Layer_layer.RefreshShownValue();
+            Layer_layer.value = ConvertLayerName((string)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.layer, (bullet) => bullet.layer));
+        }
+
+        // --------------------------------------------------------------------------------
+
+        private static CYFInputField Code_Script;
+        private static Toggle Code_Update;
+        private static Toggle Code_Really;
+        private static Button Code_Run;
+        private static Image Code_RunImage;
+
+        private static void AwakeCode(Transform parent)
+        {
+            Code_Script   = parent.Find("Script").GetComponent<CYFInputField>();
+            Code_Update   = parent.Find("Update").GetComponent<Toggle>();
+            Code_Really   = parent.Find("Really").GetComponent<Toggle>();
+            Code_Run      = parent.Find("Run")   .GetComponent<Button>();
+            Code_RunImage = parent.Find("Run")   .GetComponent<Image>();
+        }
+
+        private static void StartCode()
+        {
+            CYFInputFieldUtil.AddListener_OnValueChanged(Code_Script, (_) => Code_Script.ResetOuterColor());
+            UnityToggleUtil.AddListener(Code_Really, (value) => UnityButtonUtil.SetActive(Code_Run, Code_RunImage, value));
+            UnityButtonUtil.AddListener(Code_Run, () =>
+            {
+                DevelopHint.ToDo();
+            });
+        }
+
+        private static void UpdateCodeParameter()
+        {
+            Code_Update.isOn = false;
+            Code_Script.InputField.text = !SPTargetDelUI.IsTargetBullet ? "sprite.SendToTop()" : "bullet.sprite.SendToTop()";
+            Code_Script.ResetOuterColor();
+            Code_Really.isOn = false;
         }
     }
 }
