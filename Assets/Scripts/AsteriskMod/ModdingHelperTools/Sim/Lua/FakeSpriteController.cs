@@ -376,8 +376,8 @@ namespace AsteriskMod.ModdingHelperTools
                 // We mod the value from 0 to 360 because angles are between 0 and 360 normally
                 internalRotation.z = Math.Mod(value, 360);
                 gameObject.GetComponent<RectTransform>().eulerAngles = internalRotation;
-                if (gameObject.GetComponent<Projectile>() && gameObject.GetComponent<Projectile>().isPP())
-                    gameObject.GetComponent<Projectile>().needSizeRefresh = true;
+                if (gameObject.GetComponent<FakeProjectile>()/**&& gameObject.GetComponent<FakeProjectile>().isPP()*/)
+                    gameObject.GetComponent<FakeProjectile>().needSizeRefresh = true;
             }
         }
 
