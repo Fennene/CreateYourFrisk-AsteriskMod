@@ -55,7 +55,7 @@ namespace AsteriskMod.ModdingHelperTools
 
             UnityToggleUtil.AddListener(TargetObjectAsBullet, (value) =>
             {
-                UpdateTargetDropDown();
+                UpdateTargetDropDown(true);
                 CheckRemoveButton();
             });
 

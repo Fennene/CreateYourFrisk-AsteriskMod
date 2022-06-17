@@ -165,7 +165,7 @@ namespace AsteriskMod.ModdingHelperTools
         }
         internal static bool AddBullet(string spriteFileName, string layer = "")
         {
-            int index = GetEmptySpriteIndex();
+            int index = GetEmptyBulletIndex();
             if (index == -1) return false;
             Bullets[index] = CreateProjectile(spriteFileName, 0, 0, layer);
             SPTargetDelUI.UpdateTargetDropDown();
