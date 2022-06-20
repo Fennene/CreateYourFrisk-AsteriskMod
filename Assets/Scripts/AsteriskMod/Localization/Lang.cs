@@ -18,8 +18,6 @@ namespace AsteriskMod
         private const string ENGLISH_LANG_FILE = "Localization/en.lang";
         private const string JAPANESE_LANG_FILE = "Localization/ja.lang";
 
-        //private static Dictionary<string, FakeIni> _customLangs;
-
         [MoonSharpHidden]
         internal static void Initialize()
         {

@@ -358,6 +358,10 @@ namespace AsteriskMod.ModdingHelperTools
             return (int)AsteriskUtil.CalcTextHeight(this);
         }
 
+        public int width { get { return GetTextWidth(); } }
+
+        public int height { get { return GetTextHeight(); } }
+
         public string text { get { return instantText.Text; } }
     }
 }

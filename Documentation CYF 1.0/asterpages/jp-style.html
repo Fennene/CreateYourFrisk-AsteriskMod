@@ -248,6 +248,10 @@ ArenaUtil.DialogTextMove(0, 5) -- 位置調整
                 日本語フォント(デフォルトでは<span class="term">jp</span>)で表示するようになります。<br>
             </p>
             <p>
+                <br><span class="function">JPStyle.SetAutoJPFont(<span class="boolean"></span> active)</span>
+                <span class="term">JPStyle.SetAutoJapaneseFontStyle()</span>のショートカット用。
+            </p>
+            <p>
                 <br><span class="function">JPStyle.SetAutoJapaneseFontStyle(<span class="boolean"></span> active)</span>
                 上記５つのパラメータを一括で設定します。<br>
                 ちょっと何いっているか分かりづらかったと思いますが、要は、
@@ -256,91 +260,43 @@ ArenaUtil.DialogTextMove(0, 5) -- 位置調整
                 ということです。
             </p>
 
+            <p>
+                <br><span class="function"><span class="string"></span> JPStyle.JPFontName</span>
+                <span class="term">JPStyle.SetAutoJapaneseFontStyle()</span>のショートカット用。
+            </p>
+            <p>
+                <br><span class="function"><span class="string"></span> JPStyle.JapaneseFontName</span>
+                デフォルトの日本語フォントを設定します。<br>
+                この設定は上記のパラメータで使用されます。<br>
+                デフォルトでは<span class="term">"jp"</span>
+            </p>
 
+            <br><hr>
 
-
-
-
-
-
-
-
-
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-            <p>AsteriskModにはCYFエンジン及びModを、日本語化するための機能がいくつか追加されています。</p><br>
+            <h3>その他</h3>
 
             <p>
-                CYFエンジン自体の日本語化は、Mod選択画面の右上にある「Options」を選択し、(オプション選択用のウインドウ的なものが開くので) 「Asterisk Mod Option」を選択すると、言語を変える設定のボタン(「Language:English」と表示されていると思います)をクリックしてください。
-            </p><br>
-
+                <br><span class="function">JPStyle.SetJPButton(<span class="boolean"></span> active)</span>
+                <span class="term">JPStyle.SetJapaneseButton()</span>のショートカット用。
+            </p>
             <p>
-                エンジンが日本語であると、Mod内でプレイヤー名が日本語で表示されます。(Mod製作者が何かしら設定していない限り。)
-            </p><br>
-
-            <hr>
-
-            <h3>Modの日本語対応</h3><br><br>
-
-            <p>
-                Modを日本語化したいのであれば、まず <span class="term">EncounterStarting()</span>に <span class="term">JPStyle.SetActive(Language == "Japanese")</span> と書くことをおすすめします。
+                <br><span class="function">JPStyle.SetJapaneseButton(<span class="boolean"></span> active)</span>
+                ボタンを日本語にします。<br>
+                これは、
             <div class="code-container">
 <pre class="brush: lua;">
-function EncounterStarting()
-    JPStyle.SetActive(Language == "Japanese")
-end
+-- "active"がtrueの場合
+ButtonUtil.FIGHT.SetSprite("fightbt_2", "fightbt_3")
+ButtonUtil.ACT  .SetSprite("actbt_2"  , "actbt_3"  )
+ButtonUtil.ITEM .SetSprite("itembt_2" , "itembt_3" )
+ButtonUtil.MERCY.SetSprite("mercybt_2", "mercybt_3")
+-- "active"がfalseの場合
+ButtonUtil.FIGHT.SetSprite("fightbt_0", "fightbt_1")
+ButtonUtil.ACT  .SetSprite("actbt_0"  , "actbt_1"  )
+ButtonUtil.ITEM .SetSprite("itembt_0" , "itembt_1" )
+ButtonUtil.MERCY.SetSprite("mercybt_0", "mercybt_1")
 </pre>
-            </div><br>
-                <span class="ref">JPStyle.SetActive()</span> は日本語化の機能を全て有効にするので、各機能の詳細や一部の機能のみを有効化したい場合は、<span class="ref">JPStyleオブジェクト</span>セクションを参照してください。 
-            </p><br><br>
-
-            <p>
-                AsteriskModには、Defaultフォルダに、日本語のフォントが既に入っています。<br>
-                使用できるフォントは以下の通りです。
-                <ul>
-                    <li><span class="term">jp</span> - 公式日本語版の汎用フォントです。</li>
-                    <li><span class="term">jp2</span> - 戦闘中のモンスターのセリフ用のフォントです。実際の公式日本語版のフォントではないです。</li>
-                    <li><span class="term">jpname</span> - 公式日本語版の戦闘時のプレイヤー名表示用フォントです。</li>
-                </ul><br>
-                対応している文字は、半角英数字記号と全角ひらがなと全角カタカナです。<br>
-                <span class="term">jp</span>と<span class="term">jp2</span>はそれに加えて、全角英数字記号を含みます。
-                <br><br>
-                使用方法としては テキストコマンドの<span class="term">[font:jp]</span>や、Textオブジェクトの<span class="term">Text.SetFont("jp")</span>ですが、<br>
-                <span class="ref">JPStyleオブジェクト</span>を使用すれば、テキストコマンドを書く手間が減ります。( 詳細は(ry )
-            </p><br><br>
-
-            <p>
-                また、AsteriskModには、Defaultフォルダに、日本語のボタンも既に入っています。<br>
-                日本語版のボタンのテクスチャのファイル名は以下の通り。(拡張子はpngです。)
-                <table>
-                    <tr>
-                        <th>各ボタン名</th>
-                        <th>非アクティブ時</th>
-                        <th>アクティブ時</th>
-                    </tr>
-                    <tr>
-                        <td>たたかう</td>
-                        <td>fightbt_2</td>
-                        <td>fightbt_3</td>
-                    </tr>
-                    <tr>
-                        <td>こうどう</td>
-                        <td>actbt_2</td>
-                        <td>actbt_3</td>
-                    </tr>
-                    <tr>
-                        <td>アイテム</td>
-                        <td>itembt_2</td>
-                        <td>itembt_3</td>
-                    </tr>
-                    <tr>
-                        <td>みのがす</td>
-                        <td>mercybt_2</td>
-                        <td>mercybt_3</td>
-                    </tr>
-                </table><br>
-                <span class="ref">JPStyleオブジェクト</span>で一括設定できます。(ry
+            </div>と同等です。
             </p>
         </div>
 

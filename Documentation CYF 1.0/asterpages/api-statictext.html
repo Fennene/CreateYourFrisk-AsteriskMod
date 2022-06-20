@@ -131,7 +131,7 @@ it's w3c valid, at least
             <hr><br>
 
             <p>
-                <span class="function">CreateStaticText(<span class="string"></span> font = "uidialog", <span class="string"></span> text, <span class="luatable"><span class="number"></span>, <span class="number"></span></span> position, <span class="number"></span> textWidth, <span class="string"></span> layer = "BelowPlayer", <span class="nullable_number"></span> charspacing = nil, <span class="number"></span> linespacing = 0) returns <span class="userdata">StaticText</span> [E/M/W/S]</span>
+                <span class="function">CreateStaticText(<span class="string"></span> font = "uidialog", <span class="string"></span> text, <span class="luatable"><span class="number"></span>, <span class="number"></span></span> position, <span class="int"></span> textWidth, <span class="string"></span> layer = "BelowPlayer", <span class="nullable_float"></span> charspacing = nil, <span class="float"></span> linespacing = 0) returns <span class="userdata">StaticText</span> [E/M/W/S]</span>
                 This function creates a StaticText Object and returns it. 
                 However, as you can see, a lot of parameters are needed.
                 Here is what you need to set:<br>
@@ -209,24 +209,24 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.x</span>
+                <br><span class="function"><span class="int"></span> StaticText.x</span>
                 The local x position of the object, measured from the position of the static text object's parent. This value depends on the object's pivot.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.y</span>
+                <br><span class="function"><span class="int"></span> StaticText.y</span>
                 The local y position of the object, measured from the position of the static text object's parent. This value depends on the object's pivot.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.absx</span>
+                <br><span class="function"><span class="int"></span> StaticText.absx</span>
                 The absolute x position of the object, measured from the bottom left corner of the screen. This value depends on the object's pivot.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.absy</span>
+                <br><span class="function"><span class="int"></span> StaticText.absy</span>
                 The absolute y position of the object, measured from the bottom left corner of the screen. This value depends on the object's pivot.
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.textMaxWidth</span>
+                <br><span class="function"><span class="int"></span> StaticText.textMaxWidth</span>
                 Get or set the maximum width of the text. If the value is lower than 16, it'll be set back to 16.
             </p>
 
@@ -236,7 +236,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> StaticText.color</span>
+                <br><span class="function"><span class="luatable"><span class="float"></span>, <span class="float"></span>, <span class="float"></span>, <span class="float"></span> = 1 </span> StaticText.color</span>
                 Get or set the color of the text, as a table of 3 or 4 values from <span class="term">0</span> to <span class="term">1</span>.<br>
                 For example, <span class="term">statictext.color = {1.0, 0.0, 0.0}</span> makes the text red.<br>
                 Black areas are not affected by coloration.<br>
@@ -250,7 +250,7 @@ it's w3c valid, at least
                 The 4th value is the alpha (transparency) value of the text.<br>
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.alpha</span>
+                <br><span class="function"><span class="float"></span> StaticText.alpha</span>
                 Get or set the text's transparency, as a value between <span class="term">0</span> and <span class="term">1</span>.
             </p>
             <p>
@@ -271,7 +271,7 @@ it's w3c valid, at least
                 The static text object will follow around the parent object as it moves.
             </p>
             <p>
-                <br><span class="function">StaticText.SetAnchor(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function">StaticText.SetAnchor(<span class="float"></span> x, <span class="float"></span> y)</span>
                 If this static text object has a parent set via <span class="term">StaticText.SetParent</span>, this will control its anchor point (the relative point on the parent sprite that the text object will follow if the parent sprite gets scaled).
                 <br><br>
                 <span class="term">x</span> and <span class="term">y</span> should usually both be between <span class="term">0</span> and <span class="term">1</span>. However, you are free to use numbers outside of this range as well.
@@ -280,12 +280,12 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.xscale</span>
-                <span class="function"><span class="number"></span> StaticText.yscale</span>
+                <br><span class="function"><span class="float"></span> StaticText.xscale</span>
+                <span class="function"><span class="float"></span> StaticText.yscale</span>
                 Allows you to stretch and squish static text objects, similarly to sprite objects.
             </p>
             <p>
-                <br><span class="function">StaticText.Scale(<span class="number"></span> xscale, <span class="number"></span> yscale)</span>
+                <br><span class="function">StaticText.Scale(<span class="float"></span> xscale, <span class="float"></span> yscale)</span>
                 Same as setting <span class="term">StaticText.xscale</span> and <span class="term">StaticText.yscale</span> at the same time.
             </p>
 
@@ -319,7 +319,7 @@ it's w3c valid, at least
                 <font color="#FFF">* Note that the font is not changed until call <span class="term">StaticText.SetText()</span> unless calling <span class="term">AutoRefreshStaticText(true)</span>.</font>
             </p>
             <p>
-                <br><span class="function">StaticText.SetCharSpacing(<span class="nullable_number"></span> space = nil)</span>
+                <br><span class="function">StaticText.SetCharSpacing(<span class="nullable_float"></span> space = nil)</span>
                 Sets the number of pixels that separate characters on the same line in the static text object.<br>
                 Negative = less space between characters, Positive = more space between characters.
                 <br><br>
@@ -331,7 +331,7 @@ it's w3c valid, at least
                 <font color="#FFF">* Note that the charspacing is not changed until call <span class="term">StaticText.SetText()</span> unless calling <span class="term">AutoRefreshStaticText(true)</span>.</font>
             </p>
             <p>
-                <br><span class="function">StaticText.SetLineSpacing(<span class="number"></span> line = 0)</span>
+                <br><span class="function">StaticText.SetLineSpacing(<span class="float"></span> line = 0)</span>
                 Number of pixels that separate different lines in the static text object. The number you enter here gets added on to the active font's regular line spacing.<br>
                 Negative = less space between lines, Positive = more space between lines.<br>
                 <br><br>
@@ -344,20 +344,28 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">StaticText.Move(<span class="number"></span> x, <span class="number"></span>  y)</span>
+                <br><span class="function">StaticText.Move(<span class="int"></span> x, <span class="int"></span>  y)</span>
                 Moves the text to a new position, relative to the current static text object's position.
             </p>
             <p>
-                <br><span class="function">StaticText.MoveTo(<span class="number"></span> x, <span class="number"></span>  y)</span>
+                <br><span class="function">StaticText.MoveTo(<span class="int"></span> x, <span class="int"></span>  y)</span>
                 Moves the text to a new position, relative to the static text object's parent's position.
             </p>
             <p>
-                <br><span class="function">StaticText.MoveToAbs(<span class="number"></span> x, <span class="number"></span>  y)</span>
+                <br><span class="function">StaticText.MoveToAbs(<span class="int"></span> x, <span class="int"></span>  y)</span>
                 Moves the text to a new position, relative to the bottom left corner of the window.
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.GetTextWidth()</span>
+                <br><span class="function"> <span class="int"></span> StaticText.width (Read-only)</span>
+                Shortcut to <span class="term">StaticText.GetTextWidth()</span>.
+            </p>
+            <p>
+                <br><span class="function"> <span class="int"></span> StaticText.height (Read-only)</span>
+                Shortcut to <span class="term">StaticText.GetTextHeight()</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="int"></span> StaticText.GetTextWidth()</span>
                 Returns the width of the currently set text in pixels.<br>
                 Will give the same result even if the text isn't finished typing.
                 <br><br>
@@ -366,7 +374,7 @@ it's w3c valid, at least
                 Useful if you want to center your text.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> StaticText.GetTextHeight()</span>
+                <br><span class="function"><span class="int"></span> StaticText.GetTextHeight()</span>
                 Returns the height of the curently set text in pixels.<br>
                 Will give the same result even if the text isn't finished typing.
                 <br><br>

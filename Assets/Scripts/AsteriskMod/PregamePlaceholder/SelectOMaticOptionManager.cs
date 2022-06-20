@@ -29,6 +29,11 @@ namespace AsteriskMod
         public void StartAlt(SelectOMatic selectOMatic)
         {
             if (!GlobalControls.modDev) return;
+            selectOMatic.ExistDescInfoShadow.GetComponent<Text>().text = EngineLang.Get("ModSelect", "DescVisible");
+            selectOMatic.ExistDescInfo      .GetComponent<Text>().text = EngineLang.Get("ModSelect", "DescVisible");
+            selectOMatic.NoEncounterLabelShadow.GetComponent<Text>().text = EngineLang.Get("ModSelect", "NoEncounter");
+            selectOMatic.NoEncounterLabel      .GetComponent<Text>().text = EngineLang.Get("ModSelect", "NoEncounter");
+
             //newMod.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("NewMod"); });
             moddingHelper.GetComponent<Button>().onClick.AddListener(() =>SceneManager.LoadScene("MHTMenu"));
             cyfOption.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Options"); });
@@ -83,31 +88,31 @@ namespace AsteriskMod
             int mousePosX = (int)((ScreenResolution.mousePosition.x / ScreenResolution.displayedSize.x) * 640);
             int mousePosY = (int)((Input.mousePosition.y / ScreenResolution.displayedSize.y) * 480);
             string descriptionTitle = "Option";
-            string description = "Hover over an option and its description will appear here!";
+            string description = EngineLang.Get("ModSelect", "OptionHover");
             if (90 <= mousePosX && mousePosX <= 310)
             {
                 if (335 < mousePosY && mousePosY <= 375)
                 {
                     descriptionTitle = "Create New Mod";
-                    description = "Creates your new mod.\n\nGenerates skeleton of a mod\nin this option.";
+                    description = EngineLang.Get("ModSelect", "OptionNewMod");
                 }
                 else if (295 < mousePosY && mousePosY <= 335)
                 {
                     descriptionTitle = "Modding Helper Tools";
-                    description = "Opens Create Your Frisk's Modding Helper Tools.";
+                    description = EngineLang.Get("ModSelect", "OptionHelper");
                 }
                 else if (255 < mousePosY && mousePosY <= 295)
                 {
                     descriptionTitle = "CYF Option";
-                    description = "Goes to the normal option.";
+                    description = EngineLang.Get("ModSelect", "OptionCYF");
                 }
                 else if (215 < mousePosY && mousePosY <= 255)
                 {
                     descriptionTitle = "Asterisk Mod Option";
-                    description = "Goes to the option that AsteriskMod adds.";
+                    description = EngineLang.Get("ModSelect", "OptionAsterisk");
                 }
             }
-            if (GlobalControls.crate)
+            if (GlobalControls.crate && Asterisk.language != Languages.Japanese)
             {
                 if (descriptionTitle.StartsWith("Create"))
                 {

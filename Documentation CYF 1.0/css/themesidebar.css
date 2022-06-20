@@ -113,6 +113,20 @@ span.nullable_number::before {
     font-weight: bold;
     /* font-size: 12px; */
 }
+span.nullable_int::before {
+    color: #28996C;
+    content: "int?";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
+span.nullable_float::before {
+    color: #28996C;
+    content: "float?";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
 
 span.boolean::before {
     color: #DC322F;

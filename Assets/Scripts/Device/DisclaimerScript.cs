@@ -20,6 +20,10 @@ public class DisclaimerScript : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
+        DescA3.GetComponent<Text>().text = EngineLang.Get("Disclaimer", "Text3");
+        DescA4.GetComponent<Text>().text = EngineLang.Get("Disclaimer", "Text4");
+        DescA5.GetComponent<Text>().text = EngineLang.Get("Disclaimer", "Text5");
+        DescA6.GetComponent<Text>().text = EngineLang.Get("Disclaimer", "Text6");
         int _ = Random.Range(0, 1000);
         // --------------------------------------------------------------------------------
         if (GlobalControls.crate) {

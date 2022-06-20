@@ -30,12 +30,12 @@ namespace AsteriskMod
             QOLUpdate, // v0.5.2.9
             /// <summary>v0.5.3<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3"/></summary>
             TakeNewStepUpdate,
-            /// <summary>Unknown Version<br/>This version is regarded to latest version.</summary>
-            Unknwon
-            // <summary>v0.5.3.5 ?</summary>
+            // <summary>v0.5.3.2 ?</summary>
             //GMSUpdate,
             // <summary>v0.5.4</summary>
             //AsteriskMod
+            /// <summary>Unknown Version<br/>This version is regarded to latest version.</summary>
+            Unknwon
         }
 
         /// <summary>Whether "Experimental Features" is enabled or not</summary>

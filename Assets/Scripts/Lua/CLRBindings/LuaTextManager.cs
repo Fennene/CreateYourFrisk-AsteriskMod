@@ -580,7 +580,9 @@ public class LuaTextManager : TextManager {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    //private readonly Dictionary<string, DynValue> vars = new Dictionary<string, DynValue>();
+    public int width { get { return GetTextWidth(); } }
+
+    public int height { get { return GetTextHeight(); } }
 
     public void SetSoundVolume(float value)
     {
@@ -597,6 +599,8 @@ public class LuaTextManager : TextManager {
         //return GetComponents<AudioSource>()[1].volume;
         return letterSound.volume;
     }
+
+    //private readonly Dictionary<string, DynValue> vars = new Dictionary<string, DynValue>();
 
     /*
     public void SetVar(string name, DynValue value)

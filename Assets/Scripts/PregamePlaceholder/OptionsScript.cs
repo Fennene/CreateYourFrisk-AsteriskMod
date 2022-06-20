@@ -1,4 +1,5 @@
-﻿using MoonSharp.Interpreter;
+﻿using AsteriskMod;
+using MoonSharp.Interpreter;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
@@ -222,6 +223,40 @@ public class OptionsScript : MonoBehaviour {
                 return !GlobalControls.crate ? "Hover over an option and its description will appear here!" : "HOVR OVR DA TING N GET TEXT HEAR!!";
         }
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    private string GetDescriptionNew(string buttonName)
+    {
+        if (GlobalControls.crate) return GetDescription(buttonName);
+        if (buttonName == "ClearSave") return EngineLang.Get("CYFOption", buttonName) + "<b><size='14'>" + Application.persistentDataPath + "/save.gd</size></b>";
+        if (EngineLang.Exists("CYFOption", buttonName)) return EngineLang.Get("CYFOption", buttonName);
+        return EngineLang.Get("CYFOption", "Hover");
+        switch (buttonName)
+        {
+            case "Discord":
+                response = "Changes how much Discord Rich Presence should display on your profile regarding you playing Create Your Frisk.\n\n"
+                         + "<b>Everything</b>: Everything is displayed: the mod you're playing, a timestamp and a description.\n\n"
+                         + "<b>Game Only</b>: Only shows that you're playing Create Your Frisk.\n\n"
+                         + "<b>Nothing</b>: Disables Discord Rich Presence entirely.\n\n"
+                         + "If CYF's connection to Discord is lost, you will have to restart CYF if you want your rich presence back.";
+                return !GlobalControls.crate ? response : Temmify.Convert(response);
+            case "Exit":
+                response = "Returns to the Mod Select screen.";
+                return !GlobalControls.crate ? response : Temmify.Convert(response);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            case "Git":
+                response = "Goes to official CYF's GitHub page.";
+                return response; //!GlobalControls.crate ? response : Temmify.Convert(response);
+            // --------------------------------------------------------------------------------
+            default:
+                return !GlobalControls.crate ? "Hover over an option and its description will appear here!" : "HOVR OVR DA TING N GET TEXT HEAR!!";
+        }
+    }
+    // --------------------------------------------------------------------------------
 
     // Used to animate scrolling left or right.
     private void Update() {
