@@ -152,19 +152,19 @@ namespace AsteriskMod
             }
         }
 
-        public void ResetTargetChoiceAnim(bool forceSetAnimation = true)
+        public static void ResetTargetChoiceAnim(bool forceSetAnimation = true)
         {
             //*UIController.instance.fightUI.lineAnim = new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
             //*UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
             UIController.instance.fightUI.SetLineAnimation(new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" }, 1 / 12f, forceSetAnimation);
         }
 
-        public float GetTargetChoiceX()
+        public static float GetTargetChoiceX()
         {
             return UIController.instance.fightUI.GetTargetRTX();
         }
 
-        public int SimulateDamage(int playerATK, int playerWeaponATK, int enemyDEF, float targetChoiceX = 0f, float randomValue = -1f)
+        public static int SimulateDamage(int playerATK, int playerWeaponATK, int enemyDEF, float targetChoiceX = 0f, float randomValue = -1f)
         {
             return UIController.instance.fightUI.SimulateDamage(playerATK, playerWeaponATK, enemyDEF, targetChoiceX, randomValue);
         }

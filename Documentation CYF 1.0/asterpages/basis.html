@@ -123,22 +123,39 @@ it's w3c valid, at least
             <br><br>
 
             <p>
-                Asterisk Mod is a folk of original Create Your Frisk.<br>
-                It adds features to customize the UIs of CYF and
+                <font color="#FFF">Asterisk Mod is a folk of Create Your Frisk v0.6.5.</font><br>
+                It adds features to customize the UIs of CYF, and
                 you can write more succinct and simple codes.
                 <br><br>
                 The GitHub page <a href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod">here</a>.<br>
-                You can find string <span class="term">Asterisk Mod Modification</span> in source codes.<br>
-                That is codes which modified or added by Asterisk Mod.
+                You can see the codes which modified or added by Asterisk Mod with finding string <span class="term">Asterisk Mod Modification</span> in source codes.
                 <br><br>
-                <font color="#FF0">Nil256 is not good at to read and write in English.</font> 
+                <font color="#FF0">Nil256 is not good at to read and write in English.</font><br>
                 There may be some mistakes of English in this documentation, Sorry.
             </p>
 
             <br><hr>
             
+            <!-- 原文
+                < Asterisk Mod の 目的 > 
+                AsteriskModは (UIの)カスタマイズ性と コードの書きやすさを重点において 開発されたModです。<br>
+                v0.6.5を基(ベース)に、私が欲しいと思った機能をできる限り追加しています。<br>
+                AsteriskModでは関連するUIを １オブジェクトにまとめて提供します。 例えば、 Playerのステータスに関わるUIを PlayerUtil オブジェクトとして定義しています。<br>
+                いくつかの追加要素を除き、基本的には元のオブジェクトを変更することはないです。
+                <br><br>
+                各機能に関しては "機能概要"、 v0.6.6があるからいらねぇだろと言いたい人は "v0.6.6との関係性と互換性"を参照してください。 どちらもこのページの下記にあります。
+            -->
             <h3>The Purpose of Asterisk Mod</h3><br><br>
             <p>
+                AsteriskMod is developed focus on customizability of UIs and ease to write lua codes.<br>
+                Based on CYF v0.6.5, it has added features I have thought I want, as much as I can have modified.<br>
+                It provides the objects that related each UIs are put themselves together into one object. 
+                For example, it define UIs displaying the player's status as "<span class="term">The PlayerUtil Object</span>".<br>
+                Excepted some features, it does <u>not</u> modify original (CYF's) objects basically.
+                <br><br>
+                More info about each features, see "<span class="term">Features overview</span>"; If you wanna tell me "This is useless beacuse there is CYFv0.6.6.", see "<span class="term">Relation with v0.6.6 and Compatibility with v0.6.6</span>".<br>
+                There are both of that below this page. 
+            <!-- OLD
                 Asterisk Mod is created to focus on controlling CYF's original UIs.<br>
                 Related each UIs are put themselves together into a object. For example, Controlling UIs related to display the Player's status is named "<span class="term">PlayerUtil</span>".<br>
                 Yeah, the names' suffix of the most objects is "Util".<br>
@@ -146,11 +163,37 @@ it's w3c valid, at least
                 However, that is not exactly wrong.<br>
                 If you use this mod, you may not need to create Fake UI and the engine may works quicker.<br>
                 The main purpose that Asterisk Mod is made is for creating more easier what you come up and your good ideas.
+            -->
             </p>
             <br><hr>
 
+            <!-- 原文
+                < v0.6.6との関係性と互換性 >
+                CYFv0.6.6 で UIの操作は追加されたって？存在する意味がないって？問題ない。v0.6.6よりカスタマイズ性は存在する。
+
+                実際、v0.6.6と似た機能が存在しますが、 AsteriskModのコードは、v0.6.6のコードを使用して <u><b>いません</b</u>。
+                また、私は v0.6.6で変更されたコードさえも ほぼ見ていません。
+            -->
             <h3>Relation with v0.6.6 and Compatibility with v0.6.6</h3><br><br>
             <p>
+                Huh? CYF v0.6.6 added features of UIs' customization... and There is NOT meaning of AsteriskMod...?<br>
+                Np. AsteriskMod has (maybe) more features than CYF v0.6.6.<br>
+                Ahhh... Welp... so... &nbsp;&nbsp;&nbsp;You try this before you talk like that!
+                <br><br>
+                Actually, AsteriskMod contains similar features with official CYF v0.6.6, 
+                but it has <u>NOT</u> used codes of v0.6.6.<br>
+                Additionally, I do <u>NOT</u> look over almost codes of v0.6.6!!<br>
+                <font color="#DDD">Note that AsteriskMod is started to develop before relasing v0.6.6!</font><br>
+                (AsteriskMod was started to develop on August 2021 (including private version)).
+                <br><br>
+                <font color="#FFF">That means there is NO compatibility with v0.6.6.</font>
+                <br><br>
+                I will continue developping at least until CYF implement features like state script ans The StateEditor Object.
+                <!--
+                (Some my ideas shared with Rhenny(RTL)(CYF's dev) and a little implemented in official CYF v0.6.6.)<br>
+                (Thank you, Rhenny)
+
+                [OLD]
                 AsteriskMod v0.5.3's renewal and CYF v0.6.6's renewal was at the same time, and AsteriskMod has similar features with official CYF v0.6.6.<br>
                 However there is no relation with official CYF v0.6.6. 
                 AsteriskMod have NOT used CYF v0.6.6's codes.<br>
@@ -161,13 +204,14 @@ it's w3c valid, at least
                 For example... State Script.
                 <br><br>
                 That means there is NO compatibility with v0.6.6.
+                -->
             </p>
             <br><hr>
             
-            <h3>Features</h3><br><br>
+            <h3>Features Overview</h3><br><br>
 
             <p>
-                Asterisk Mod adds below features to CYF:
+                AsteriskMod adds and modifies below features to CYF:
                 <ul>
                     <li>
                         <span class="term">Copying Error</span>: You can copy error message.
@@ -176,47 +220,49 @@ it's w3c valid, at least
                         <span class="term">Mod's Info</span>: modifies mod's information and working.
                     </li><br>
                     <li>
-                        <span class="term">Special Variables</span>: modifies the text of MERCYMENU, 
-                        the bar's color of enemies' HP, FightUI and ignores enemy's dialog.
+                        <span class="term">Special Variables</span>: provides variables: checking whether modified CYF or not, modifying the text of MERCYMENU, changing states, modifying the bar's color of enemy's HP, and controlling FightUI.
                     </li><br>
                     <li>
-                        <span class="term">Game Events</span>: adds functions which run some the time point.
+                        <span class="term">Game Events</span>: adds functions which run some the time point. (but these are <span class="AsteriskExperiment"></span>.)
                     </li><br>
                     <li>
-                        <span class="term">Misc. functions</span>: has function that returns current action.
+                        <span class="term">Misc. functions</span>: provides functions: returning current action, going to CustomState, and getting horizontal position when shake in progress.
                     </li><br>
                     <li>
-                        <span class="term">The Misc Object</span>: reverses and rotates camera.
+                        <span class="term">The Misc Object</span>: Tentatively I made this, but I had forgotten to exist shader...
                     </li><br>
                     <li>
-                        <span class="term">Sprites and Animation</span>: checks layer exists.
+                        <span class="term">Projectile management</span>: adds variables which moves bullet automatically.
                     </li><br>
                     <li>
-                        <span class="term">The Text Object</span>: is added <span class="term">Move()</span>.
+                        <span class="term">Sprites and Animation</span>: adds function which checks layer exists.
+                    </li><br>
+                    <li>
+                        <span class="term">The Text Object</span>: <span class="term">Text.Move()</span>!!1!!!!!1!!!!!!
                     </li>
                 </ul><br>
                 Asterisk Mod has below features:<br><br>
                 <ul>
                     <li>
-                        <span class="term">Engine</span>: controls the engine itself.
+                        <span class="term">Engine</span>: controls the engine itself and opens AppData directory.
                     </li><br>
                     <li>
-                        <span class="term">PlayerUtil</span>: controls the UI of the player's status.
+                        <span class="term">PlayerUtil</span>: controls the UIs displaying the player's status, changes default damage and invincible of the player, changes the sprite and animation of Fight UI, and gets enemy's damage with some arguments.
                     </li><br>
                     <li>
                         <span class="term">ButtonUtil</span>: controls the buttons.
                     </li><br>
                     <li>
-                        <span class="term">ArenaUtil</span>: controls the object in arena and itself.
+                        <span class="term">ArenaUtil</span>: changes default position and size of arena, changes the color of arena, changes the position of dialog text, gets sprites of dialog text object, and changes the position of player on selection.
                     </li><br>
                     <li>
-                        <span class="term">CustomState</span>: You can create your own state.
+                        <span class="term">CustomState</span>: You can create your own state with state scripts and <span class="term">The StateEditor Object</span>!!1!!!!!1!!!!!!
                     </li><br>
                     <li>
-                        <span class="term">Japanese</span>: CYFの日本語対応！？
+                        <span class="term">Japanese Localization</span>: CYFの日本語対応！？
                     </li><br>
                     <li>
-                        <span class="term">GameObjectModifyingSystem(GMS)</span>: ...
+                        <span class="term">GameObjectModifyingSystem(GMS)</span>: ah... um...
                     </li>
                 </ul><br>
                 See each sections for more information.<br>
@@ -310,8 +356,15 @@ it's w3c valid, at least
             <p>Nil256 plans that Asterisk Mod v0.5.4 will be effectively Asterisk Mod v1.0.</p>
             <br>
 
-            <h4><span class="Future"></span> v0.5.3.1 ~ v0.5.3.9 [GameobjectModifyingSystemUpdate]</h4>
-            <!--<p>Coming Soon... ?? ????? ??????</p>-->
+            <h4><span class="Future"></span> v0.5.3.6 ~ v0.5.3.9 [?????]</h4>
+            <p>Nobody including Nil256 knows...</p>
+            <br>
+
+            <h4><span class="Future"></span> v0.5.3.5 [??]</h4>
+            <p>Temporary LTS version?</p>
+            <br>
+
+            <h4><span class="Future"></span> v0.5.3.1 ~ v0.5.3.4 [GameobjectModifyingSystemUpdate...?]</h4>
             <br>
 
             <h4>v0.5.3 [TakeNewStepUpdate]</h4>
@@ -350,6 +403,14 @@ it's w3c valid, at least
                         </ul>
                     </li>
                     <li>
+                        Add the variables to <span class="term">The Bullet Object</span><br>
+                        <ul>
+                            <li>Add the variable <span class="term">Bullet.velocity</span></li>
+                            <li>Add the variable <span class="term">Bullet.velocityx</span></li>
+                            <li>Add the variable <span class="term">Bullet.velocityy</span></li>
+                        </ul>
+                    </li>
+                    <li>
                         Add the functions to <span class="term">The Text Object</span><br>
                         <ul>
                             <li>Add the function <span class="term">Text.SetSoundVolume()</span></li>
@@ -364,7 +425,12 @@ it's w3c valid, at least
                         <ul>
                             <li>Add the funtion <span class="term">Engine.SetTargetFrameRate()</span>.</li>
                             <li>Add the funtion <span class="term">Engine.ModExists()</span></li>
+                            <li>Add the funtion <span class="term">Engine.OpenAppDataFile()</span></li>
+                            <li>Add the funtion <span class="term">Engine.AppDataFileExists()</span></li>
                             <li>Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span></li>
+                            <li>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetSpriteFilterMode()</span>
+                            </li>
                             <li>
                                 Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>
                             </li>
@@ -377,9 +443,11 @@ it's w3c valid, at least
                         Renew <span class="term"><a href="api-playerutil.html">The PlayerUtil Object</a></span>.
                         <ul>
                             <li>All.</li>
-                            <li>Add the variable <span class="term">PlayerUtil.HPLabel</span></li>
+                            <li>Add the variable <span class="term">PlayerUtil.x</span></li>
+                            <li>Add the variable <span class="term">PlayerUtil.y</span></li>
                             <li>Add the variable <span class="term">PlayerUtil.defaultdamage</span></li>
                             <li>Add the variable <span class="term">PlayerUtil.defaultinvtime</span></li>
+                            <li>Add the function <span class="term">PlayerUtil.MoveToAbs()</span></li>
                             <li>Add the function <span class="term">PlayerUtil.SetTargetSprite()</span></li>
                             <li>Add the function <span class="term">PlayerUtil.SetTargetChoiceSprite()</span></li>
                             <li>Add the function <span class="term">PlayerUtil.SetTargetChoiceAnim()</span></li>
@@ -430,13 +498,13 @@ it's w3c valid, at least
                         Renew <span class="term"><a href="api-buttonutil.html#Button">The Button Object</a></span>.<br>
                         <ul>
                             <li>
-                                Add the read-only parameter <span class="term">button.isactive</span> instead of <span class="term">button.GetActive()</span>
+                                Add the read-only variable <span class="term">button.isactive</span> instead of <span class="term">button.GetActive()</span>
                             </li>
                             <li>
-                                Add the parameter <span class="term">button.color</span> instead of <span class="term">button.SetColor()</span>
+                                Add the variable <span class="term">button.color</span> instead of <span class="term">button.SetColor()</span>
                             </li>
                             <li>
-                                Add the parameter <span class="term">button.color32</span> instead of <span class="term">button.SetColor32()</span>
+                                Add the variable <span class="term">button.color32</span> instead of <span class="term">button.SetColor32()</span>
                             </li>
                             <li>
                                 The third argument <span class="term">prefix</span> in <span class="term">button.SetSprite()</span> is assgined <span class="term">"UI/Buttons"</span>.
@@ -450,15 +518,15 @@ it's w3c valid, at least
                             <li>
                                 Add the argument <span class="term">revertPosition</span> and <span class="term">revertActive</span> in <span class="term">button.Revert()</span>
                             </li>
-                            <li class="add">Add the parameter <span class="term">button.absx</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.absy</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.playerx</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.playery</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.playerabs</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.xscale</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.yscale</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.alpha</span>.</li>
-                            <li class="add">Add the parameter <span class="term">button.alpha32</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.absx</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.absy</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.playerx</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.playery</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.playerabs</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.xscale</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.yscale</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.alpha</span>.</li>
+                            <li class="add">Add the variable <span class="term">button.alpha32</span>.</li>
                             <li class="add">Add the function <span class="term">button.MoveToAbs()</span>.</li>
                             <li class="add">Add the function <span class="term">button.Scale()</span>.</li>
                             <li class="add">Add the function <span class="term">button.Show()</span>.</li>
@@ -472,16 +540,16 @@ it's w3c valid, at least
                                 Add the function <span class="term">ArenaUtil.DialogTextMoveTo()</span> instead of <span class="term">ArenaUtil.SetDialogTextPosition()</span>
                             </li>
                             <li>
-                                Add the parameter <span class="term">ArenaUtil.AsteriskChar</span> instead of <span class="term">ArenaUtil.SetAsteriskChar()</span>
+                                Add the variable <span class="term">ArenaUtil.AsteriskChar</span> instead of <span class="term">ArenaUtil.SetAsteriskChar()</span>
                             </li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.offsetx</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.offsety</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.relativewidth</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.relativeheight</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.dialogtextx</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.dialogtexty</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.playeroffsetx</span></li>
-                            <li class="add">Add the parameter <span class="term">ArenaUtil.playeroffsety</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.offsetx</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.offsety</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.relativewidth</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.relativeheight</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.dialogtextx</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.dialogtexty</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.playeroffsetx</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.playeroffsety</span></li>
                             <li class="add">Add the function <span class="term">ArenaUtil.SetOffset()</span></li>
                             <li class="add">Add the function <span class="term">ArenaUtil.SetRelativeSize()</span></li>
                             <li class="add">Add the function <span class="term">ArenaUtil.DialogTextMove()</span></li>
@@ -511,6 +579,14 @@ it's w3c valid, at least
                             <li>
                                 Add the function <span class="term">StateEditor.RemoveLifeBar()</span>
                             </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add the new content <span class="term"><a href="jp-basis.html">Localization System</a></span>.
+                        <ul>
+                            <li>Add <span class="term">The JPStyle Object</span>.</li>
+                            <li>Add <span class="term">The Lang Object</span>.</li>
+                            <li>Add <span class="term">.lang</span> file system.</li>
                         </ul>
                     </li>
                     <li>

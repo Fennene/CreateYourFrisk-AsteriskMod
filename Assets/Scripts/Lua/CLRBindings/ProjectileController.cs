@@ -15,10 +15,20 @@ public class ProjectileController {
     private float lastAbsX;
     private float lastAbsY;
     public static bool globalPixelPerfectCollision;
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    internal Vector2 _velocity;
+    // --------------------------------------------------------------------------------
 
     public ProjectileController(Projectile p) {
         this.p = p;
         spr = new LuaSpriteController(p.GetComponent<Image>());
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        _velocity = Vector2.zero;
+        // --------------------------------------------------------------------------------
     }
 
     // The x position of the sprite, relative to the arena position and its anchor.
@@ -220,6 +230,36 @@ public class ProjectileController {
             return false;
         return p.isPP() ? p.HitTestPP() : p.HitTest();
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public float[] velocity
+    {
+        get { return new[] { _velocity.x, _velocity.y }; }
+        set
+        {
+            if (value == null)
+                throw new CYFException("bullet.velocity can't be nil.");
+            if (value.Length != 2)
+                throw new CYFException("You need 2 numeric values when setting bullet.velocity.");
+            if (p != null)
+                _velocity = new Vector2(value[0], value[1]);
+        }
+    }
+
+    public float velocityx
+    {
+        get { return p == null ? 0 : _velocity.x; }
+        set { if (p != null) _velocity = new Vector2(value, velocityy); }
+    }
+
+    public float velocityy
+    {
+        get { return p == null ? 0 : _velocity.y; }
+        set { if (p != null) _velocity = new Vector2(velocityx, value); }
+    }
+    // --------------------------------------------------------------------------------
 
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification

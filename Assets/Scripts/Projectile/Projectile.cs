@@ -103,6 +103,12 @@ public abstract class Projectile : MonoBehaviour {
         selfAbs.x = self.position.x + Offsetx;
         selfAbs.y = self.position.y + Offsety;
 
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        ctrl.Move(ctrl._velocity.x, ctrl._velocity.y);
+        // --------------------------------------------------------------------------------
+
         if (!HitTest()) return;
         if (isPP()) {
             if (HitTestPP())

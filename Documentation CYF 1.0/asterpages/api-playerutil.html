@@ -154,42 +154,42 @@ it's w3c valid, at least
             <h3>Status UI</h3><br><br>
 
             <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.x</span>
+                <br><span class="function"><span class="int"></span> PlayerUtil.x</span>
                 Horizontal position of the all UI's parent object, relative to the initial position.
                 <br><br>
                 <font color="#DDD">
-                This is NOT same to call <span class="term">.Move()</span> each UI.
+                This is NOT same to call <span class="term">.Move()</span> each UIs.
                 <br><br>
                 This function moves only parent object of all the player's UIs.<br>
                 In other words, moves reference positions of the UIs.
                 </font>
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.y</span>
+                <br><span class="function"><span class="int"></span> PlayerUtil.y</span>
                 Vertical position of the all UI's parent object, relative to the initial positon.
                 <br><br>
                 <font color="#DDD">
-                This is NOT same to call <span class="term">.Move()</span> each UI.
+                This is NOT same to call <span class="term">.Move()</span> each UIs.
                 <br><br>
                 This function moves only parent object of all the player's UIs.<br>
                 In other words, moves reference positions of the UIs.
                 </font>
             </p>
             <p>
-                <br><span class="function">PlayerUtil.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function">PlayerUtil.Move(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Moves the all UI showing the player's status <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See also <span class="ref">PlayerUtil.x</span> and <span class="ref">PlayerUtil.y</span>.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function">PlayerUtil.MoveTo(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Moves the all UI showing the player's status to a new position, relative to the initial position.
                 <br><br>
                 (Same as setting <span class="term">PlayerUtil.x</span> and <span class="term">PlayerUtil.y</span> simultaneously.)<br>
                 See also <span class="ref">PlayerUtil.x</span> and <span class="ref">PlayerUtil.y</span>.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.MoveToAbs(<span class="number"></span> absx, <span class="number"></span> absy)</span>
+                <br><span class="function">PlayerUtil.MoveToAbs(<span class="int"></span> absx, <span class="int"></span> absy)</span>
                 Moves the all UI showing the player's status to a new position, relative to the bottom left corner of the window.
                 <br><br>
                 <font color="#FFF">
@@ -292,7 +292,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">PlayerUtil.SetHP(<span class="number"></span> hp, <span class="number"></span> maxhp, <span class="boolean"></span> updateText = true)</span>
+                <br><span class="function">PlayerUtil.SetHP(<span class="float"></span> hp, <span class="float"></span> maxhp, <span class="boolean"></span> updateText = true)</span>
                 Sets the lengthes of bars displaying the Player's HP from 2 values.
                 <ul>
                     <li>
@@ -305,7 +305,7 @@ it's w3c valid, at least
                 <span class="term">PlayerUtil.HPText.SetControlOverride(true)</span> before use this.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.SetHPText(<span class="number"></span> hp, <span class="number"></span> maxhp)</span>
+                <br><span class="function">PlayerUtil.SetHPText(<span class="float"></span> hp, <span class="float"></span> maxhp)</span>
                 Sets the text showing the Player's HP as based on 2 values.<br>
                 Recommends to call <span class="term">PlayerUtil.SetHPControlOverride(true)</span> or 
                 <span class="term">PlayerUtil.HPText.SetControlOverride(true)</span> before use this.<br>
@@ -317,17 +317,17 @@ it's w3c valid, at least
             <h3>Player</h3><br>
 
             <p id="DefaultDamage">
-                <br><span class="function"><span class="asternew"></span><span class="number"></span> PlayerUtil.defaultdamage</span>
+                <br><span class="function"><span class="number"></span> PlayerUtil.defaultdamage</span>
                 Gets ot Sets default damage of the player.<br>
                 Default by <span class="term">3</span>.
             </p>
             <p id="DefaultInvTime">
-                <br><span class="function"><span class="asternew"></span><span class="number"></span> PlayerUtil.defaultinvtime</span>
+                <br><span class="function"><span class="float"></span> PlayerUtil.defaultinvtime</span>
                 Gets ot Sets default invincible time of the player.<br>
                 Default by <span class="term">1.7</span>.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.GetSoulAlpha()</span>
+                <br><span class="function"><span class="int"></span> PlayerUtil.GetSoulAlpha()</span>
                 Gets the alpha (transparency) of the player's soul.<br>
                 When the player damaged, the soul will be blinking. This function can be get that blinking as number 0 or 1.
                 <br><br>
@@ -348,7 +348,7 @@ it's w3c valid, at least
                 Change a sprite's current image of targetchoice in FightUI.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.SetTargetChoiceAnim(<span class="luatable"><span class="string"></span></span> anim, <span class="number"></span> frequency, <span class="string"></span> prefix = "", <span class="boolean"></span> forceSetAnimation = true)</span>
+                <br><span class="function">PlayerUtil.SetTargetChoiceAnim(<span class="luatable"><span class="string"></span></span> anim, <span class="float"></span> frequency, <span class="string"></span> prefix = "", <span class="boolean"></span> forceSetAnimation = true)</span>
                 Sets the animation of targetchoice's sprite. 
                 Use it like <span class="term">sprite.SetAnimation()</span>.
                 <br><br>
@@ -361,14 +361,14 @@ it's w3c valid, at least
                 If <span class="term">forceSetAnimation</span> is <span class="term">true</span>, swaps animation if the animation of targetchoice is running.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.GetTargetChoiceX()</span>
+                <br><span class="function"><span class="float"></span> PlayerUtil.GetTargetChoiceX()</span>
                 Get horizontal position of targetchoice.<br>
                 This is useful for <span class="term">PlayerUtil.SimulateDamage()</span>.
                 <br><br>
                 If targetchoice is not shown or not stopped (current state is not <span class="term">ATTCKING</span> or the player does not attack by pressing Z(Enter) Key), returns the edge of targetchoice's position.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> PlayerUtil.SimulateDamage(<span class="number"></span> playerATK, <span class="number"></span> playerWeaponATK, <span class="number"></span> enemyDEF, <span class="number"></span> targetChoiceX = 0, <span class="number"></span> randomValue = -1)</span>
+                <br><span class="function"><span class="int"></span> PlayerUtil.SimulateDamage(<span class="int"></span> playerATK, <span class="int"></span> playerWeaponATK, <span class="int"></span> enemyDEF, <span class="float"></span> targetChoiceX = 0, <span class="float"></span> randomValue = -1)</span>
                 Simulate an enemy's damage with the arguments.<br>
                 <ul>
                     <li><span class="term">playerATK</span>: player's attack, as integer value.</li>
@@ -430,32 +430,32 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.hp</span>
+                <br><span class="function"><span class="float"></span> lifeBar.hp</span>
                 Gets or sets a length of FillBar.<br>
                 This is not percentage.<br>
                 If <span class="term">lifeBar.limited</span> is true, FillBar's length is not over BGBar's one.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.maxhp</span>
+                <br><span class="function"><span class="float"></span> lifeBar.maxhp</span>
                 Gets or sets a length of BGBar.<br>
                 This means getting or setting maximum value of the bars' lengthes.<br>
                 If <span class="term">lifeBar.limited</span> is true and this value is over 100, BGBar's length is fixed.
             </p>
             <p>
-                <br><span class="function">lifeBar.SetHP(<span class="number"></span> newHP, <span class="number"></span> newMaxHP)</span>
+                <br><span class="function">lifeBar.SetHP(<span class="float"></span> newHP, <span class="float"></span> newMaxHP)</span>
                 Same as setting <span class="term">lifeBar.hp</span> and <span class="term">lifeBar.maxhp</span> simultaneously.
                 <br><br>
                 See <span class="term">lifeBar.hp</span> and <span class="term">lifeBar.maxhp</span>.
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.height</span>
+                <br><span class="function"><span class="float"></span> lifeBar.height</span>
                 Gets or sets a height of the bar.<br>
                 Default by <span class="term">20</span>.
             </p>
 
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.bgcolor</span>
+                <br><span class="function"><span class="luatable"><span class="float"></span>, <span class="float"></span>, <span class="float"></span>, <span class="float"></span> = 1 </span> lifeBar.bgcolor</span>
                 Gets or sets the coloration of a BGBar, as a table of 3 or 4 values from 0 to 1.
                 <br><br>
                 For example, <span class="term">lifeBar.bgcolor = {1.0, 0.0, 0.0}</span> colors the BGBar red.
@@ -471,7 +471,7 @@ it's w3c valid, at least
                 You can provide a 4th value, which sets the alpha (transparency) of the BGBar.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.bgalpha</span>
+                <br><span class="function"><span class="float"></span> lifeBar.bgalpha</span>
                 Gets or sets a BGBar's transparency, as a value from 0 to 1.
             </p>
             <p>
@@ -480,7 +480,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> lifeBar.fillcolor</span>
+                <br><span class="function"><span class="luatable"><span class="float"></span>, <span class="float"></span>, <span class="float"></span>, <span class="float"></span> = 1 </span> lifeBar.fillcolor</span>
                 Gets or sets the coloration of a FillBar, as a table of 3 or 4 values from 0 to 1.
                 <br><br>
                 For example, <span class="term">lifeBar.fillcolor = {1.0, 1.0, 0.0}</span> colors the FillBar yellow.
@@ -496,7 +496,7 @@ it's w3c valid, at least
                 You can provide a 4th value, which sets the alpha (transparency) of the FillBar.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.fillalpha</span>
+                <br><span class="function"><span class="float"></span> lifeBar.fillalpha</span>
                 Gets or sets a FillBar's transparency, as a value from 0 to 1.
             </p>
             <p>
@@ -552,21 +552,21 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.x</span>
+                <br><span class="function"><span class="int"></span> lifeBar.x</span>
                 Horizontal position of lifeBar relative to the initial position.
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> lifeBar.y</span>
+                <br><span class="function"><span class="int"></span> lifeBar.y</span>
                 Vertical position of lifeBar relative to the initial position.
             </p>
             <p>
-                <br><span class="function">lifeBar.Move(<span class="number"></span>x, <span class="number"></span> y)</span>
+                <br><span class="function">lifeBar.Move(<span class="int"></span>x, <span class="int"></span> y)</span>
                 Moves the lifeBar <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.
             </p>
             <p>
-                <br><span class="function">lifeBar.MoveTo(<span class="number"></span>x, <span class="number"></span> y)</span>
+                <br><span class="function">lifeBar.MoveTo(<span class="int"></span>x, <span class="int"></span> y)</span>
                 Same as setting x and y simultaneously.
                 <br><br>
                 See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.

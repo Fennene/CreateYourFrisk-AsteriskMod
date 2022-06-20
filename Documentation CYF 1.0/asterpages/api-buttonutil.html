@@ -204,19 +204,19 @@ it's w3c valid, at least
                 <span class="Asterisk052x"></span> <span class="term">autoResize</span> is always <span class="term">true</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.Move(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Moves all button at the same time.
                 <br><br>
                 See <span class="term">button.Move()</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.MoveTo(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Set the position of all button at the same time.
                 <br><br>
                 See <span class="term">button.MoveTo()</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 1)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor(<span class="float"></span> r, <span class="float"></span> g, <span class="float"></span> b, <span class="float"></span> a = 1)</span>
                 Sets colors of all button at the same time.<br>
                 Sets the button's color, as 3 or 4 values from 0 to 1.<br>
                 For example, ButtonUtil.SetColors(1.0, 0.0, 0.0) makes the button red.<br>
@@ -224,7 +224,7 @@ it's w3c valid, at least
                 The 4th value is the alpha (transparency) value of the button.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor32(<span class="number"></span> r, <span class="number"></span> g, <span class="number"></span> b, <span class="number"></span> a = 255)</span>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor32(<span class="byte"></span> r, <span class="byte"></span> g, <span class="byte"></span> b, <span class="byte"></span> a = 255)</span>
                 Sets colors of all button at the same time.<br>
                 Sets the button's color, as 3 or 4 integer values from 0 to 255.<br>
                 For example, ButtonUtil.SetColor32s(255, 0, 0) makes the button red.<br>
@@ -262,7 +262,7 @@ it's w3c valid, at least
             </p><br>
 
             <p>
-                <br><span class="function"><span class="number"></span> button.x</span>
+                <br><span class="function"><span class="int"></span> button.x</span>
                 Horizontal position of sprite relative to the initial position.
                 <br><br>
                 Note that each buttons have different anchor of the position.<br>
@@ -270,7 +270,7 @@ it's w3c valid, at least
                 The anchor of <span class="term">ITEM</span> and <span class="term">MERCY</span> is bottom right anchor.<br>
             </p>
             <p>
-                <br><span class="function"><span class="number"></span> button.y</span>
+                <br><span class="function"><span class="int"></span> button.y</span>
                 Vertical position of sprite relative to the initial positon.
                 <br><br>
                 Note that each buttons have different anchor of the position.<br>
@@ -278,24 +278,24 @@ it's w3c valid, at least
                 The anchor of <span class="term">ITEM</span> and <span class="term">MERCY</span> is bottom right anchor.<br>
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.absx</span>
+                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.absx</span>
                 Horizontal position of sprite relative to the bottom left corner of the screen.
                 <br><br>
                 The anchor of a button's absolute position is always the center of the texture as like sprite object.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.absy</span>
+                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.absy</span>
                 Vertical position of sprite relative to the bottom left corner of the screen.
                 <br><br>
                 The anchor of a button's absolute position is always the center of the texture as like sprite object.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.playerx</span>
+                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.playerx</span>
                 Horizontal position of <font color="#FFF">the player</font> relative to the position of the button.<br>
                 If <span class="term">button.playerabs</span> is <span class="term">true</span>, this position means the same to <span class="term">Player.absx</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.playery</span>
+                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.playery</span>
                 Vertical position of <font color="#FFF">the player</font> relative to the position of the button.<br>
                 If <span class="term">button.playerabs</span> is <span class="term">true</span>, this position means the same to <span class="term">Player.absy</span>.
             </p>
@@ -305,12 +305,12 @@ it's w3c valid, at least
                 See <span class="term">buton.playerx</span> and <span class="term">buton.playery</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.xscale</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.xscale</span>
                 Horizontal scaling of sprite (<span class="term">1.0</span> by default). 
                 <span class="term">2.0</span> is twice as large, <span class="term">0.5</span> is half as large.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.yscale</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.yscale</span>
                 Vertical scaling of sprite (<span class="term">1.0</span> by default). 
                 <span class="term">2.0</span> is twice as large, <span class="term">0.5</span> is half as large.
             </p>
@@ -322,7 +322,7 @@ it's w3c valid, at least
                 <span class="Asterisk052x"></span> checks the active by using <span class="term">button.GetActive()</span> instead of this.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 1 </span> button.color</span>
+                <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="float"></span>, <span class="float"></span>, <span class="float"></span>, <span class="float"></span> = 1 </span> button.color</span>
                 Gets or sets the coloration of a button, as a table of 3 or 4 values from 0 to 1.
                 <br><br>
                 For example, <span class="term">button.color = {1.0, 0.0, 0.0}</span> colors the button red. This actually overlays the button's original color, so if you want full control over the color, make sure your button is white. <i>Black areas are not affected by coloration.</i>
@@ -332,7 +332,7 @@ it's w3c valid, at least
                 <span class="Asterisk052x"></span> changes color by using <span class="term">button.SetColor()</span> instead of this. There is no method of getting color.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="number"></span>, <span class="number"></span>, <span class="number"></span>, <span class="number"></span> = 255 </span> button.color32</span>
+                <br><span class="function"><span class="asternew"></span> <span class="luatable"><span class="byte"></span>, <span class="byte"></span>, <span class="byte"></span>, <span class="byte"></span> = 255 </span> button.color32</span>
                 Gets or sets the coloration of a button, as a table of 3 or 4 integer values from 0 to 255.
                 <br><br>
                 For example, <span class="term">button.color32 = {255, 0, 0}</span> colors the button red. This actually overlays the button's original color, so if you want full control over the color, make sure your button is white. <i>Black areas are not affected by coloration.</i>
@@ -342,11 +342,11 @@ it's w3c valid, at least
                 <span class="Asterisk052x"></span> changes color by using <span class="term">button.SetColor32()</span> instead of this. There is no method of getting color.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.alpha</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.alpha</span>
                 Gets or sets a button's transparency, as a value from 0 to 1.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="number"></span> button.alpha32</span>
+                <br><span class="function"><span class="asternew"></span> <span class="byte"></span> button.alpha32</span>
                 Gets or sets a button's transparency, as a integer value from 0 to 255.
             </p>
             <p>
@@ -385,25 +385,25 @@ it's w3c valid, at least
                 </ul>
             </p>
             <p>
-                <br><span class="function">button.Move(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function">button.Move(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Moves the sprite <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See <span class="term">button.x</span> and <span class="term">button.y</span>.
             </p>
             <p>
-                <br><span class="function">button.MoveTo(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function">button.MoveTo(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Same as setting x and y simultaneously.
                 <br><br>
                 See <span class="term">button.x</span> and <span class="term">button.y</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> button.MoveToAbs(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <br><span class="function"><span class="asternew"></span> button.MoveToAbs(<span class="int"></span> x, <span class="int"></span> y)</span>
                 Same as setting absx and absy simultaneously. Moves a sprite to an absolute screen position.
                 <br><br>
                 See <span class="term">button.absx</span> and <span class="term">button.absy</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> button.Scale(<span class="number"></span> xScale, <span class="number"></span> yScale)</span>
+                <br><span class="function"><span class="asternew"></span> button.Scale(<span class="float"></span> xScale, <span class="float"></span> yScale)</span>
                 Same as setting xscale and yscale simultaneously.
                 <br><br>
                 See <span class="term">button.xscale</span> and <span class="term">button.yscale</span>.

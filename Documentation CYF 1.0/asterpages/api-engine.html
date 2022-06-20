@@ -117,7 +117,7 @@ it's w3c valid, at least
             <p>The Engine Object provides functions to control CYF engine-self.</p><br>
 
             <p>
-                <br><span class="function">Engine.SetTargetFrameRate(<span class="number"></span> frameRate = 60)</span>
+                <br><span class="function">Engine.SetTargetFrameRate(<span class="int"></span> frameRate = 60)</span>
                 Sets the frame rate of CYF.
                 The frame rate should be integer number as between <span class="term">30</span> and <span class="term">120</span>.<br>
                 You can reset the frame rate by calling this without any arguments.
@@ -197,12 +197,19 @@ it's w3c valid, at least
             </p>
             -->
             <p>
+                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetSpriteFilterMode(<span class="string"></span> filename, <span class="string"></span> filtermode = "POINT")</span>
+                Sets sprites' filter mode.<br>
+                <span class="term">filtermode</span> can be only <span class="term">POINT</span>, <span class="term">BILINEAR</span>, or <span class="term">TRILINEAR</span>.<br>
+                Default by "<span class="term">POINT</span>".
+            </p>
+
+            <p>
                 <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetProjectilesAutoRemovingActive(<span class="boolean"></span> active)</span>
                 Default by true.<br>
                 If <span class="term">false</span>, the engine will not remove projectiles when wave is ended.
             </p>
             <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetBulletPoolSize(<span class="number"></span> newSize = 100)</span>
+                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetBulletPoolSize(<span class="int"></span> newSize = 100)</span>
                 Sets the size of bullet pool.
                 The size should be positive integer number<br>
                 <span class="term">bullet pool</span> is one of CYF's system for <span class="term">the bullet object</span>.

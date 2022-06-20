@@ -85,6 +85,27 @@ span.number::before {
     /* font-size: 12px; */
 }
 
+span.byte::before {
+    color: #2AA172;
+    content: "byte";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
+span.int::before {
+    color: #2AA172;
+    content: "int";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
+span.float::before {
+    color: #2AA172;
+    content: "float";
+    font-family: segoe ui;
+    font-weight: bold;
+    /* font-size: 12px; */
+}
 span.nullable_number::before {
     color: #28996C;
     content: "number?";

@@ -1,4 +1,5 @@
 ﻿using MoonSharp.Interpreter;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -98,6 +99,33 @@ namespace AsteriskMod
             SpriteRegistry.Set(filename, sprite);
         }
         */
+
+        public static void SetSpriteFilterMode(string filename, string filtermode = "POINT")
+        {
+            Asterisk.RequireExperimentalFeature("Engine.SetSpriteFilterMode");
+            Sprite sprite = SpriteRegistry.Get(filename);
+            if (sprite == null)
+            {
+                if (filename.Length == 0)
+                {
+                    Debug.LogError("Engine.SetSpriteFilterMode: Filename is empty!");
+                    return;
+                }
+                sprite = SpriteUtil.FromFile(FileLoader.pathToModFile("Sprites/" + filename + ".png"));
+                if (sprite == null)
+                    throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+                SpriteRegistry.Set(filename, sprite);
+            }
+            try
+            {
+                sprite.texture.filterMode = (FilterMode)Enum.Parse(typeof(FilterMode), filtermode);
+            }
+            catch
+            {
+                if (filtermode != null) throw new CYFException("Engine.SetSpriteFilterMode: filtermode can only have either \"POINT\", \"BILINEAR\" or \"TRILINEAR\", but you entered \"" + filtermode.ToUpper() + "\".");
+                                        throw new CYFException("Engine.SetSpriteFilterMode: filtermode can only have either \"POINT\", \"BILINEAR\" or \"TRILINEAR\", but you set it to a nil value.");
+            }
+        }
 
         /*
         public static void UnregistSprite(string filename)
