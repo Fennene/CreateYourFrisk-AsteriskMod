@@ -22,7 +22,6 @@ public class ErrorDisplay : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess;
         GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess + "\nPress C to copy above error messages.";
-        transform.parent.Find("wof").gameObject.SetActive(Asterisk.showErrorDog);
         // --------------------------------------------------------------------------------
     }
 

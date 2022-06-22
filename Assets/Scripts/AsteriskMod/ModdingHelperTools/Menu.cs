@@ -145,6 +145,13 @@ namespace AsteriskMod.ModdingHelperTools
             }
         }
 
+        private string GetDescriptionNew(string buttonName)
+        {
+            if (GlobalControls.crate) return GetDescription(buttonName);
+            if (EngineLang.Exists("MHTMenu", buttonName)) return EngineLang.Get("MHTMenu", buttonName);
+            return EngineLang.Get("MHTMenu", "Hover");
+        }
+
         private void Update()
         {
             // update the description every 1/6th of a second
@@ -186,7 +193,7 @@ namespace AsteriskMod.ModdingHelperTools
                     else if (mousePosY <= 60 && mousePosY > 20)
                         hoverItem = "Exit";
                 }
-                Description.GetComponent<Text>().text = GetDescription(hoverItem);
+                Description.GetComponent<Text>().text = GetDescriptionNew(hoverItem);
             }
         }
     }

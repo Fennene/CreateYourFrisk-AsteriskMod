@@ -17,7 +17,7 @@ namespace AsteriskMod
         private int DescriptionTimer;
 
         // game objects
-        public GameObject Language, ReplaceTitle, DescVisible, ErrorDog, Protect, Experiment, Exit, Git;
+        public GameObject Language, ReplaceTitle, DescVisible, Protect, Experiment, Exit, Git;
         public Text Description;
 
         // Use this for initialization
@@ -57,17 +57,6 @@ namespace AsteriskMod
                 DescVisible.GetComponentInChildren<Text>().text = "Show Always Mods' Descriptions: " + (Asterisk.alwaysShowDesc ? "On" : "Off");
             });
             DescVisible.GetComponentInChildren<Text>().text = "Show Always Mods' Descriptions: " + (Asterisk.alwaysShowDesc ? "On" : "Off");
-
-            // error dog
-            ErrorDog.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                Asterisk.showErrorDog = !Asterisk.showErrorDog;
-
-                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_DOG, DynValue.NewBoolean(Asterisk.showErrorDog), true);
-
-                ErrorDog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (Asterisk.showErrorDog ? "On" : "Off");
-            });
-            ErrorDog.GetComponentInChildren<Text>().text = "Show Error Dog: " + (Asterisk.showErrorDog ? "On" : "Off");
 
             // safe set almighty global
             Protect.GetComponent<Button>().onClick.AddListener(() =>
@@ -131,12 +120,6 @@ namespace AsteriskMod
                              + "Whether mods' descriptions are always shown or not.\n\n"
                              + "Default by On";
                     return !GlobalControls.crate ? response : Temmify.Convert(response);
-                case "Dog":
-                    response = "Show Annoying Error Dog\n\n"
-                             + "Whether the dog in the error screen is shown or not.\n"
-                             + "This is useful for looking at\nlong error message.\n\n"
-                             + "Default by On";
-                    return !GlobalControls.crate ? response : Temmify.Convert(response);
                 case "SafeSetAlMightGlobal":
                     response = "Permission of changing system option's data from mods' code.\n\n"
                              + "Save data of option also uses AlMighty Global, so mod can change that data forcely.\n"
@@ -169,6 +152,13 @@ namespace AsteriskMod
             }
         }
 
+        private string GetDescriptionNew(string buttonName)
+        {
+            if (GlobalControls.crate) return GetDescription(buttonName);
+            if (EngineLang.Exists("AsteriskOption", buttonName)) return EngineLang.Get("AsteriskOption", buttonName);
+            return EngineLang.Get("AsteriskOption", "Hover");
+        }
+
         // Used to animate scrolling left or right.
         private void Update()
         {
@@ -195,16 +185,15 @@ namespace AsteriskMod
                     // ShowAlwaysDesc
                     else if (mousePosY <= 340 && mousePosY > 300)
                         hoverItem = "Desc";
-                    // ErrorDog
-                    else if (mousePosY <= 300 && mousePosY > 260)
-                        hoverItem = "Dog";
                     // SafeAlMightyGlobal
-                    else if (mousePosY <= 260 && mousePosY > 220)
+                    else if (mousePosY <= 300 && mousePosY > 260)
                         hoverItem = "SafeSetAlMightGlobal";
                     // Experiment
-                    else if (mousePosY <= 220 && mousePosY > 180)
+                    else if (mousePosY <= 260 && mousePosY > 220)
                         hoverItem = "Experiment";
                     /*
+                    else if (mousePosY <= 220 && mousePosY > 180)
+                        hoverItem = "";
                     else if (mousePosY <= 180 && mousePosY > 140)
                         hoverItem = "";
                     else if (mousePosY <= 140 && mousePosY > 100)
@@ -226,7 +215,7 @@ namespace AsteriskMod
                 Git.SetActive(hoverItem != "SafeSetAlMightGlobal");
                 // --------------------------------------------------------------------------------
 
-                Description.GetComponent<Text>().text = GetDescription(hoverItem);
+                Description.GetComponent<Text>().text = GetDescriptionNew(hoverItem);
             }
 
             /*

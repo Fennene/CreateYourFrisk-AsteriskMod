@@ -42,8 +42,6 @@ namespace AsteriskMod
         public static bool experimentMode;
         /// <summary>In Mod Selection, whether always show mods' description or not</summary>
         public static bool alwaysShowDesc;
-        /// <summary>Shows annoying dog</summary>
-        public static bool showErrorDog;
         /// <summary>Engine's Target Language<br/>Currently always English</summary>
         public static Languages language;
         /// <summary>Whether mods prevent to change system option by <c>SetAlMightyGlobal()</c> or not</summary>
@@ -84,7 +82,6 @@ namespace AsteriskMod
 
             experimentMode = false;
             alwaysShowDesc = true;
-            showErrorDog = true;
             language = Languages.English;
             optionProtecter = true;
             reportProtecter = true;
@@ -104,10 +101,6 @@ namespace AsteriskMod
             if (LuaScriptBinder.GetAlMighty(null, OPTION_DESC) != null && LuaScriptBinder.GetAlMighty(null, OPTION_DESC).Type == DataType.Boolean)
             {
                 alwaysShowDesc = LuaScriptBinder.GetAlMighty(null, OPTION_DESC).Boolean;
-            }
-            if (LuaScriptBinder.GetAlMighty(null, OPTION_DOG) != null && LuaScriptBinder.GetAlMighty(null, OPTION_DOG).Type == DataType.Boolean)
-            {
-                showErrorDog = LuaScriptBinder.GetAlMighty(null, OPTION_DOG).Boolean;
             }
             if (LuaScriptBinder.GetAlMighty(null, OPTION_LANG) != null && LuaScriptBinder.GetAlMighty(null, OPTION_LANG).Type == DataType.String)
             {

@@ -233,28 +233,6 @@ public class OptionsScript : MonoBehaviour {
         if (buttonName == "ClearSave") return EngineLang.Get("CYFOption", buttonName) + "<b><size='14'>" + Application.persistentDataPath + "/save.gd</size></b>";
         if (EngineLang.Exists("CYFOption", buttonName)) return EngineLang.Get("CYFOption", buttonName);
         return EngineLang.Get("CYFOption", "Hover");
-        switch (buttonName)
-        {
-            case "Discord":
-                response = "Changes how much Discord Rich Presence should display on your profile regarding you playing Create Your Frisk.\n\n"
-                         + "<b>Everything</b>: Everything is displayed: the mod you're playing, a timestamp and a description.\n\n"
-                         + "<b>Game Only</b>: Only shows that you're playing Create Your Frisk.\n\n"
-                         + "<b>Nothing</b>: Disables Discord Rich Presence entirely.\n\n"
-                         + "If CYF's connection to Discord is lost, you will have to restart CYF if you want your rich presence back.";
-                return !GlobalControls.crate ? response : Temmify.Convert(response);
-            case "Exit":
-                response = "Returns to the Mod Select screen.";
-                return !GlobalControls.crate ? response : Temmify.Convert(response);
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            case "Git":
-                response = "Goes to official CYF's GitHub page.";
-                return response; //!GlobalControls.crate ? response : Temmify.Convert(response);
-            // --------------------------------------------------------------------------------
-            default:
-                return !GlobalControls.crate ? "Hover over an option and its description will appear here!" : "HOVR OVR DA TING N GET TEXT HEAR!!";
-        }
     }
     // --------------------------------------------------------------------------------
 
@@ -310,9 +288,10 @@ public class OptionsScript : MonoBehaviour {
             }
 
             Git.SetActive(hoverItem != "Discord");
-            // --------------------------------------------------------------------------------
 
-            Description.GetComponent<Text>().text = GetDescription(hoverItem);
+            //Description.GetComponent<Text>().text = GetDescription(hoverItem);
+            Description.GetComponent<Text>().text = GetDescriptionNew(hoverItem);
+            // --------------------------------------------------------------------------------
         }
 
         // make the player click twice to reset RG or AG, or to wipe their save
