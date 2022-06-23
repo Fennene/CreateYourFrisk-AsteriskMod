@@ -33,4 +33,32 @@ public static class ParseUtil {
         float b = (intColor         & 255) / 255.0f;
         return new Color(r, g, b);
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public static bool CanParseInt(string s)
+    {
+        int _;
+        return int.TryParse(s, out _);
+    }
+
+    public static bool CanParseFloat(string s)
+    {
+        float _;
+        return float.TryParse(s, out _);
+    }
+
+    public static bool CanParseByteAccurately(string s)
+    {
+        byte _;
+        return byte.TryParse(s, out _);
+    }
+    public static byte GetByteAccurately(string s)
+    {
+        byte b;
+        if (byte.TryParse(s, out b)) return b;
+        throw new CYFException("Byte parse failed : \"" + s + "\"");
+    }
+    // --------------------------------------------------------------------------------
 }

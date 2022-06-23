@@ -27,7 +27,7 @@ namespace AsteriskMod
         /// <summary>Get Sprite for image.overrideSprite from sprite's path</summary>
         internal void Awake(string overrideSpritePath)
         {
-            _sprite = SpriteRegistry.Get(overrideSpritePath);
+            _sprite = SpriteUtil.TryGetSprite(overrideSpritePath);
             Initialize();
             _overrideSpritePath = overrideSpritePath;
         }
@@ -40,7 +40,7 @@ namespace AsteriskMod
             _button = _gameObject.GetComponent<Image>();
             if (GlobalControls.crate)
             {
-                _button.sprite = SpriteRegistry.Get(crateSpritePath);
+                _button.sprite = SpriteUtil.TryGetSprite(crateSpritePath);
                 _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = crateSpritePath;
             }
             _normalSpritePath = _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath;
@@ -65,6 +65,7 @@ namespace AsteriskMod
         private Vector2 _relativePosition;
         private Vector2 _relativePlayerPosition;
         private bool _playerPositionOverride;
+        private Vector3 _internalRotation;
 
         /// <summary>Initialize parameters for customize button</summary>
         private void Initialize()
@@ -75,6 +76,7 @@ namespace AsteriskMod
             _playerPositionOverride = false;
             xScale = 1;
             yScale = 1;
+            _internalRotation = Vector3.zero;
         }
 
         public bool isactive { get; private set; }
@@ -94,7 +96,7 @@ namespace AsteriskMod
             overrideSpritePath = prefix + overrideSpritePath;
             if (!autoResize)
             {
-                _button.sprite = SpriteRegistry.Get(normalSpritePath);
+                _button.sprite = SpriteUtil.TryGetSprite(normalSpritePath);
             }
             else
             {
@@ -111,7 +113,7 @@ namespace AsteriskMod
                 _button.overrideSprite = null;
             }
             */
-            Sprite newOverrideSprite = SpriteRegistry.Get(overrideSpritePath);
+            Sprite newOverrideSprite = SpriteUtil.TryGetSprite(overrideSpritePath);
             if (_button.overrideSprite == _sprite)
             {
                 _button.overrideSprite = newOverrideSprite;
@@ -291,6 +293,17 @@ namespace AsteriskMod
             set { _button.color = new Color32(((Color32)_button.color).r, ((Color32)_button.color).g, ((Color32)_button.color).b, (byte)value); }
         }
 
+        public float rotation
+        {
+            get { return _internalRotation.z; }
+            set
+            {
+                // We mod the value from 0 to 360 because angles are between 0 and 360 normally
+                _internalRotation.z = Math.Mod(value, 360);
+                _button.GetComponent<RectTransform>().eulerAngles = _internalRotation;
+            }
+        }
+
         private float xScale;
         private float yScale;
 
@@ -332,7 +345,7 @@ namespace AsteriskMod
         {
             // Revert Sprite
             SpriteUtil.SwapSpriteFromFile(_button, _normalSpritePath);
-            _sprite = SpriteRegistry.Get(_overrideSpritePath);
+            _sprite = SpriteUtil.TryGetSprite(_overrideSpritePath);
             if (_button.overrideSprite != null) _button.overrideSprite = _sprite;
             // Revert Color & Alpha
             _button.color = new Color(1, 1, 1, 1);

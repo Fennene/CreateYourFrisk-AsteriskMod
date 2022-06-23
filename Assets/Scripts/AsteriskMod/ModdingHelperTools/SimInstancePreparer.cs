@@ -62,6 +62,8 @@ namespace AsteriskMod.ModdingHelperTools
             SPCreateUI = null;
             SimSprProjSimMenu.Dispose();
 
+            SimDialogBoxMenu.Dispose();
+
             AnimFrameCounter.Dispose();
 
             FakeArenaUtil.Dispose();

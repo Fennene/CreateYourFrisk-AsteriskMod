@@ -186,14 +186,14 @@ namespace AsteriskMod
         public static void SetTargetSprite(string path)
         {
             //SpriteUtil.SwapSpriteFromFile(Target.GetComponent<Image>(), path);
-            Target.GetComponent<Image>().sprite = SpriteRegistry.Get(path);
+            Target.GetComponent<Image>().sprite = SpriteUtil.TryGetSprite(path);
             Target.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = path;
         }
 
         public static void SetTargetChoiceSprite(string path)
         {
             //SpriteUtil.SwapSpriteFromFile(TargetChoice.GetComponent<Image>(), path);
-            TargetChoice.GetComponent<Image>().sprite = SpriteRegistry.Get(path);
+            TargetChoice.GetComponent<Image>().sprite = SpriteUtil.TryGetSprite(path);
             TargetChoice.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = path;
         }
     }

@@ -11,7 +11,7 @@ namespace AsteriskMod.ModdingHelperTools
 
         private Button StateMenu;
         private Button GoToScreenMenu;
-        //internal Button GoToDialogBoxMenu;
+        internal Button GoToDialogBoxMenu;
         private Button GoToSprProjSimMenu;
         private Button GoToSTTextSimMenu;
         private Button Exit;
@@ -23,6 +23,7 @@ namespace AsteriskMod.ModdingHelperTools
 
             StateMenu          = transform.Find("State")     .GetComponent<Button>();
             GoToScreenMenu     = transform.Find("Screen")    .GetComponent<Button>();
+            GoToDialogBoxMenu  = transform.Find("DialogBox") .GetComponent<Button>();
             GoToSprProjSimMenu = transform.Find("SprProjSim").GetComponent<Button>();
             GoToSTTextSimMenu  = transform.Find("StaticText").GetComponent<Button>();
             Exit               = transform.Find("Exit")      .GetComponent<Button>();
@@ -40,7 +41,11 @@ namespace AsteriskMod.ModdingHelperTools
                 if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                 SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.Screen);
             });
-
+            UnityButtonUtil.AddListener(GoToDialogBoxMenu, () =>
+            {
+                if (AnimFrameCounter.Instance.IsRunningAnimation) return;
+                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.DialogBox);
+            });
             UnityButtonUtil.AddListener(GoToSprProjSimMenu, () =>
             {
                 if (AnimFrameCounter.Instance.IsRunningAnimation) return;
@@ -49,7 +54,7 @@ namespace AsteriskMod.ModdingHelperTools
             UnityButtonUtil.AddListener(GoToSTTextSimMenu, () =>
             {
                 if (AnimFrameCounter.Instance.IsRunningAnimation) return;
-                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.STTextSim);
+                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.StaticTextSim);
             });
             UnityButtonUtil.AddListener(Exit, () =>
             {

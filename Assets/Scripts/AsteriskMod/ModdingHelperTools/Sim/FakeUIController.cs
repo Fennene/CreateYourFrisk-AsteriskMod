@@ -179,6 +179,8 @@ namespace AsteriskMod.ModdingHelperTools
                     // ActionDialogResult(new TextMessage("This is where you'd\rdefend yourself.\nBut the code was spaghetti.", true, false), UIState.ACTIONSELECT);
                     break;
             }
+
+            if (!first) SimDialogBoxMenu.Instance.UpdateState();
         }
     }
 }

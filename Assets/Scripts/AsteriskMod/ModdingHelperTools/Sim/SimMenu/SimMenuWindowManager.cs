@@ -12,7 +12,7 @@ namespace AsteriskMod.ModdingHelperTools
         private RectTransform Main;
         private RectTransform State;
         private RectTransform Screen;
-        //* private static RectTransform Arena;
+        private RectTransform Arena;
         private RectTransform SprSim;
         private RectTransform STTextSim;
 
@@ -28,7 +28,7 @@ namespace AsteriskMod.ModdingHelperTools
             Main        = transform.Find("MainMenu")      .GetComponent<RectTransform>();
             State       = transform.Find("GameStateMenu") .GetComponent<RectTransform>();
             Screen      = transform.Find("ScreenMenu")    .GetComponent<RectTransform>();
-
+            Arena       = transform.Find("DialogBoxMenu") .GetComponent<RectTransform>();
             SprSim      = transform.Find("SprProjSimMenu").GetComponent<RectTransform>();
             STTextSim   = transform.Find("STTextSimMenu") .GetComponent<RectTransform>();
 
@@ -48,8 +48,9 @@ namespace AsteriskMod.ModdingHelperTools
             Main,
             GameState,
             Screen,
+            DialogBox,
             SprProjSim,
-            STTextSim
+            StaticTextSim
         }
         private DisplayingSimMenu _currentSimMenu = DisplayingSimMenu.Main;
         internal DisplayingSimMenu CurrentSimMenu { get { return _currentSimMenu; } }
@@ -64,9 +65,11 @@ namespace AsteriskMod.ModdingHelperTools
                     return State;
                 case DisplayingSimMenu.Screen:
                     return Screen;
+                case DisplayingSimMenu.DialogBox:
+                    return Arena;
                 case DisplayingSimMenu.SprProjSim:
                     return SprSim;
-                case DisplayingSimMenu.STTextSim:
+                case DisplayingSimMenu.StaticTextSim:
                     return STTextSim;
                 default:
                     return Main;
@@ -160,6 +163,7 @@ namespace AsteriskMod.ModdingHelperTools
             Main.anchoredPosition = position;
             State.anchoredPosition = position;
             Screen.anchoredPosition = position;
+            Arena.anchoredPosition = position;
             SprSim.anchoredPosition = position;
             STTextSim.anchoredPosition = position;
             if (!SimInstance.BattleSimulator.MenuOpened) return;
@@ -174,6 +178,7 @@ namespace AsteriskMod.ModdingHelperTools
             Main.anchoredPosition = position;
             State.anchoredPosition = position;
             Screen.anchoredPosition = position;
+            Arena.anchoredPosition = position;
             SprSim.anchoredPosition = position;
             STTextSim.anchoredPosition = position;
             if (!SimInstance.BattleSimulator.MenuOpened) return;

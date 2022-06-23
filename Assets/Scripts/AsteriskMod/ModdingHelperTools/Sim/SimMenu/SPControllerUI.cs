@@ -70,10 +70,6 @@ namespace AsteriskMod.ModdingHelperTools
             return fi.Exists;
         }
 
-        private bool CanFloatParse(string value) { float _; return float.TryParse(value, out _); }
-
-        private bool CanByteParse(string value) { byte _; return byte.TryParse(value, out _); }
-
         // --------------------------------------------------------------------------------
 
         private CYFInputField Sprite_Set;
@@ -147,12 +143,12 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void StartPosition()
         {
-            CYFInputFieldUtil.AddListener_OnValueChanged(Position_x, (value) => CYFInputFieldUtil.ShowInputError(Position_x, CanFloatParse(value)));
-            CYFInputFieldUtil.AddListener_OnValueChanged(Position_y, (value) => CYFInputFieldUtil.ShowInputError(Position_y, CanFloatParse(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Position_x, (value) => CYFInputFieldUtil.ShowInputError(Position_x, ParseUtil.CanParseFloat(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Position_y, (value) => CYFInputFieldUtil.ShowInputError(Position_y, ParseUtil.CanParseFloat(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Position_x, (value) =>
             {
                 if (scriptChange) return;
-                if (!CanFloatParse(value))
+                if (!ParseUtil.CanParseFloat(value))
                 {
                     scriptChange = true;
                     Position_x.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
@@ -178,7 +174,7 @@ namespace AsteriskMod.ModdingHelperTools
             CYFInputFieldUtil.AddListener_OnEndEdit(Position_y, (value) =>
             {
                 if (scriptChange) return;
-                if (!CanFloatParse(value))
+                if (!ParseUtil.CanParseFloat(value))
                 {
                     scriptChange = true;
                     Position_y.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
@@ -243,12 +239,12 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void StartScale()
         {
-            CYFInputFieldUtil.AddListener_OnValueChanged(Scale_xscale, (value) => CYFInputFieldUtil.ShowInputError(Scale_xscale, CanFloatParse(value)));
-            CYFInputFieldUtil.AddListener_OnValueChanged(Scale_yscale, (value) => CYFInputFieldUtil.ShowInputError(Scale_yscale, CanFloatParse(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Scale_xscale, (value) => CYFInputFieldUtil.ShowInputError(Scale_xscale, ParseUtil.CanParseFloat(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Scale_yscale, (value) => CYFInputFieldUtil.ShowInputError(Scale_yscale, ParseUtil.CanParseFloat(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Scale_xscale, (value) =>
             {
                 if (scriptChange) return;
-                if (!CanFloatParse(value))
+                if (!ParseUtil.CanParseFloat(value))
                 {
                     scriptChange = true;
                     Scale_xscale.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.xscale, (bullet) => bullet.sprite.xscale)).ToString();
@@ -260,7 +256,7 @@ namespace AsteriskMod.ModdingHelperTools
             CYFInputFieldUtil.AddListener_OnEndEdit(Scale_yscale, (value) =>
             {
                 if (scriptChange) return;
-                if (!CanFloatParse(value))
+                if (!ParseUtil.CanParseFloat(value))
                 {
                     scriptChange = true;
                     Scale_yscale.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.yscale, (bullet) => bullet.sprite.yscale)).ToString();
@@ -306,13 +302,13 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void StartColor()
         {
-            CYFInputFieldUtil.AddListener_OnValueChanged(Color_rValue, (value) => CYFInputFieldUtil.ShowInputError(Color_rValue, !Color_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
-            CYFInputFieldUtil.AddListener_OnValueChanged(Color_gValue, (value) => CYFInputFieldUtil.ShowInputError(Color_gValue, !Color_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
-            CYFInputFieldUtil.AddListener_OnValueChanged(Color_bValue, (value) => CYFInputFieldUtil.ShowInputError(Color_bValue, !Color_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Color_rValue, (value) => CYFInputFieldUtil.ShowInputError(Color_rValue, !Color_32Toggle.isOn ? ParseUtil.CanParseFloat(value) : ParseUtil.CanParseByteAccurately(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Color_gValue, (value) => CYFInputFieldUtil.ShowInputError(Color_gValue, !Color_32Toggle.isOn ? ParseUtil.CanParseFloat(value) : ParseUtil.CanParseByteAccurately(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Color_bValue, (value) => CYFInputFieldUtil.ShowInputError(Color_bValue, !Color_32Toggle.isOn ? ParseUtil.CanParseFloat(value) : ParseUtil.CanParseByteAccurately(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Color_rValue, (value) =>
             {
                 if (scriptChange) return;
-                if ((!Color_32Toggle.isOn && !CanFloatParse(value)) || (Color_32Toggle.isOn && !CanByteParse(value)))
+                if ((!Color_32Toggle.isOn && !ParseUtil.CanParseFloat(value)) || (Color_32Toggle.isOn && !ParseUtil.CanParseByteAccurately(value)))
                 {
                     scriptChange = true;
                     if (!Color_32Toggle.isOn)
@@ -416,7 +412,7 @@ namespace AsteriskMod.ModdingHelperTools
             CYFInputFieldUtil.AddListener_OnEndEdit(Color_gValue, (value) =>
             {
                 if (scriptChange) return;
-                if ((!Color_32Toggle.isOn && !CanFloatParse(value)) || (Color_32Toggle.isOn && !CanByteParse(value)))
+                if ((!Color_32Toggle.isOn && !ParseUtil.CanParseFloat(value)) || (Color_32Toggle.isOn && !ParseUtil.CanParseByteAccurately(value)))
                 {
                     scriptChange = true;
                     if (!Color_32Toggle.isOn)
@@ -520,7 +516,7 @@ namespace AsteriskMod.ModdingHelperTools
             CYFInputFieldUtil.AddListener_OnEndEdit(Color_bValue, (value) =>
             {
                 if (scriptChange) return;
-                if ((!Color_32Toggle.isOn && !CanFloatParse(value)) || (Color_32Toggle.isOn && !CanByteParse(value)))
+                if ((!Color_32Toggle.isOn && !ParseUtil.CanParseFloat(value)) || (Color_32Toggle.isOn && !ParseUtil.CanParseByteAccurately(value)))
                 {
                     scriptChange = true;
                     if (!Color_32Toggle.isOn)
@@ -675,11 +671,11 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void StartAlpha()
         {
-            CYFInputFieldUtil.AddListener_OnValueChanged(Alpha_value, (value) => CYFInputFieldUtil.ShowInputError(Alpha_value, !Alpha_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Alpha_value, (value) => CYFInputFieldUtil.ShowInputError(Alpha_value, !Alpha_32Toggle.isOn ? ParseUtil.CanParseFloat(value) : ParseUtil.CanParseByteAccurately(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Alpha_value, (value) =>
             {
                 if (scriptChange) return;
-                if ((!Alpha_32Toggle.isOn && !CanFloatParse(value)) || (Alpha_32Toggle.isOn && !CanByteParse(value)))
+                if ((!Alpha_32Toggle.isOn && !ParseUtil.CanParseFloat(value)) || (Alpha_32Toggle.isOn && !ParseUtil.CanParseByteAccurately(value)))
                 {
                     scriptChange = true;
                     if (!Alpha_32Toggle.isOn)
@@ -775,11 +771,11 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void StartRotation()
         {
-            CYFInputFieldUtil.AddListener_OnValueChanged(Rotation_value, (value) => CYFInputFieldUtil.ShowInputError(Rotation_value, CanFloatParse(value)));
+            CYFInputFieldUtil.AddListener_OnValueChanged(Rotation_value, (value) => CYFInputFieldUtil.ShowInputError(Rotation_value, ParseUtil.CanParseFloat(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Rotation_value, (value) =>
             {
                 if (scriptChange) return;
-                if (!CanFloatParse(value))
+                if (!ParseUtil.CanParseFloat(value))
                 {
                     float rotation = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
                     scriptChange = true;

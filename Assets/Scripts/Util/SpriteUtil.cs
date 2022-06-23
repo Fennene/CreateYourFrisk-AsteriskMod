@@ -59,6 +59,28 @@ public static class SpriteUtil {
 
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public static Sprite TryGetSprite(string filename)
+    {
+        Sprite newSprite = SpriteRegistry.Get(filename);
+        if (newSprite == null)
+        {
+            if (filename.Length == 0)
+            {
+                Debug.LogError("TryGetSprite: Filename is empty!");
+                return null;
+            }
+            newSprite = FromFile(FileLoader.pathToModFile("Sprites/" + filename + ".png"));
+            if (newSprite == null)
+                throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+            SpriteRegistry.Set(filename, newSprite);
+        }
+        return newSprite;
+    }
+    // --------------------------------------------------------------------------------
+
     public static Sprite SpriteWithXml(XmlNode spriteNode, Sprite source) {
         XmlNode xmlRect = spriteNode.SelectSingleNode("rect");
         Rect spriteRect = new Rect(0, 0, source.texture.width, source.texture.height);

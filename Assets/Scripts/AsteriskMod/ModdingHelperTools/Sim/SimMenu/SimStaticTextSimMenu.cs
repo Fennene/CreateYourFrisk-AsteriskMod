@@ -28,7 +28,7 @@ namespace AsteriskMod.ModdingHelperTools
             UnityButtonUtil.AddListener(BackButton, () =>
             {
                 if (AnimFrameCounter.Instance.IsRunningAnimation) return;
-                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.STTextSim, SimMenuWindowManager.DisplayingSimMenu.Main);
+                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.StaticTextSim, SimMenuWindowManager.DisplayingSimMenu.Main);
             });
 
             SimInstance.STTargetUI.Start();
