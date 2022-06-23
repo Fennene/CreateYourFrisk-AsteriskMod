@@ -62,6 +62,7 @@ namespace AsteriskMod
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
             script.Globals["AsteriskVersion"] = AsteriskUtil.ConvertFromModVersionForLua(AsteriskEngine.ModTarget_AsteriskVersion);
+            //script.Globals["AsteriskDevEdition"] = Asterisk.DevEdition;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
 
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)

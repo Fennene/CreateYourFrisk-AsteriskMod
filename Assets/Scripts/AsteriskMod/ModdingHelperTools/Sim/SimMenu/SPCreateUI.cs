@@ -100,6 +100,7 @@ namespace AsteriskMod.ModdingHelperTools
                 {
                     SimSprProjSimMenu.Instance.AddBullet(SpriteName.InputField.text, ConvertLayerName());
                 }
+                CheckButtonEnable();
             });
         }
     }

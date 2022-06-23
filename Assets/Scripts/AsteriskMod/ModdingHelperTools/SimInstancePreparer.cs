@@ -27,6 +27,9 @@ namespace AsteriskMod.ModdingHelperTools
         internal static SPTargetDelUI SPTargetDelUI;
         internal static SPControllerUI SPControllerUI;
 
+        internal static STTargetUI STTargetUI;
+        internal static STControllerUI STControllerUI;
+
         internal static void Prepare()
         {
             BattleSimulator = new BattleSimulator();
@@ -39,6 +42,9 @@ namespace AsteriskMod.ModdingHelperTools
             SPCreateUI = new SPCreateUI();
             SPTargetDelUI = new SPTargetDelUI();
             SPControllerUI = new SPControllerUI();
+
+            STTargetUI = new STTargetUI();
+            STControllerUI = new STControllerUI();
         }
 
         internal static void Dispose()
@@ -46,6 +52,10 @@ namespace AsteriskMod.ModdingHelperTools
             SimMenuMover.Dispose();
             SimMenuOpener.Dispose();
             SimMenuWindowManager.Dispose();
+
+            STControllerUI = null;
+            STTargetUI = null;
+            SimStaticTextSimMenu.Dispose();
 
             SPControllerUI = null;
             SPTargetDelUI = null;

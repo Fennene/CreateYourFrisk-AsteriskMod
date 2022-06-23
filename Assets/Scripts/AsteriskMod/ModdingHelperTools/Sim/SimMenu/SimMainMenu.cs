@@ -53,7 +53,7 @@ namespace AsteriskMod.ModdingHelperTools
             });
             UnityButtonUtil.AddListener(Exit, () =>
             {
-                FakeSpriteController spr = SimSprProjSimMenu.CreateSprite("black", childNumber: -1);
+                FakeSpriteController spr = SimSprProjSimMenu.Instance.CreateSprite("black", childNumber: -1);
                 if (GameObject.Find("TopLayer")) spr.layer = "Top";
                 spr.Scale(640, 480);
                 AsteriskEngine.IsSimulator = false;

@@ -16,6 +16,7 @@ namespace AsteriskMod
         public const string ModAuthor = "Nil256";
         public const string ModAuthorJP = "にるにころ";
         public const string ModAuthorAlt = "FenneneProject";
+        //public const bool DevEdition = true;
 
         /// <summary>Asterisk Mod's Versions</summary>
         public enum Versions

@@ -59,10 +59,7 @@ namespace AsteriskMod.ModdingHelperTools
                 CheckRemoveButton();
             });
 
-            UnityToggleUtil.AddListener(ReallyRemove, (value) =>
-            {
-                CheckRemoveButton();
-            });
+            UnityToggleUtil.AddListener(ReallyRemove, (value) => CheckRemoveButton());
 
             UnityButtonUtil.AddListener(Remove, () =>
             {

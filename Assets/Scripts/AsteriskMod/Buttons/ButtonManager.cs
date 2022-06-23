@@ -175,13 +175,13 @@ namespace AsteriskMod
             ActionButtons[3].SetActive(mercy);
         }
 
-        public void SetSprites(string buttonSpritePathRoot, bool autoResize = false)
+        public void SetSprites(string buttonSpritePathRoot, string inactiveSuffix = "_0", string activeSuffix = "_1", bool autoResize = false)
         {
             CheckInitialized();
             if (GlobalControls.crate) return;
             for (var i = 0; i < 4; i++)
             {
-                ActionButtons[i].SetSprite(TexturePathes[i] + "_0", TexturePathes[i] + "_1", buttonSpritePathRoot, autoResize);
+                ActionButtons[i].SetSprite(TexturePathes[i] + inactiveSuffix, TexturePathes[i] + activeSuffix, buttonSpritePathRoot, autoResize);
             }
         }
 

@@ -316,6 +316,7 @@ namespace AsteriskMod.ModdingHelperTools
             if (uf == null)
                 throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
             SetFont(uf, firstTime);
+            font = fontName;
             if (!firstTime)
                 default_charset = uf;
             SetText(instantText);
@@ -363,5 +364,7 @@ namespace AsteriskMod.ModdingHelperTools
         public int height { get { return GetTextHeight(); } }
 
         public string text { get { return instantText.Text; } }
+
+        internal string font { get; set; }
     }
 }

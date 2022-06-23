@@ -169,7 +169,8 @@ it's w3c valid, at least
                 <font color="#FFF">* Note: you can NOT inactive all buttons.</font>
             </p>
             <p>
-                <br><span class="function">ButtonUtil.SetSprites(<span class="string"></span> buttonSpritePathRoot, <span class="asternew"></span> <span class="boolean"></span> autoResize = false)</span>
+                <br><span class="function">ButtonUtil.SetSprites(<span class="string"></span> buttonSpritePathRoot, <span class="asternew"></span> <span class="string"></span> inactiveSuffix = "_0", <span class="asternew"></span> <span class="string"></span> activeSuffix = "_1", <span class="asternew"></span> <span class="boolean"></span> autoResize = false)</span>
+                <font color="#DDD">* inactiveSuffix = "_0", activeSuffix = "_1"</font><br>
                 Sets the sprites of all buttons at once by specifying directory.<br>
                 <span class="term">buttonSpritePathRoot</span> need to contain below named png file:
                 <table>
@@ -199,9 +200,10 @@ it's w3c valid, at least
                         <td>mercybt_1</td>
                     </tr>
                 </table>
+                <span class="asternew"></span> You can specify suffix of file names by changing <span class="term">inactiveSuffix</span> and <span class="term">activeSuffix</span>.<br>
                 <span class="asternew"></span> <span class="term">autoResize</span>: Whether button's size will be changed based on sprite's size or not.
                 <br><br>
-                <span class="Asterisk052x"></span> <span class="term">autoResize</span> is always <span class="term">true</span>.
+                <span class="Asterisk052x"></span> <span class="term">autoResize</span> is always <span class="term">true</span>, and you cannot assign <span class="term">inactiveSuffix</span> and <span class="term">activeSuffix</span>.
             </p>
             <p>
                 <br><span class="function"><span class="asternew"></span> ButtonUtil.Move(<span class="int"></span> x, <span class="int"></span> y)</span>

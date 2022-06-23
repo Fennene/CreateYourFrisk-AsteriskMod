@@ -1,7 +1,4 @@
-﻿using AsteriskMod.ModdingHelperTools.UI;
-using MoonSharp.Interpreter;
-using System;
-using System.IO;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -43,7 +40,7 @@ namespace AsteriskMod.ModdingHelperTools
             SimInstance.SPControllerUI.Start();
         }
 
-        internal static FakeSpriteController CreateSprite(string filename, string tag = "BelowArena", int childNumber = -1)
+        internal FakeSpriteController CreateSprite(string filename, string tag = "BelowArena", int childNumber = -1)
         {
             string canvas = "Canvas/";
             if (ParseUtil.TestInt(tag) && childNumber == -1)

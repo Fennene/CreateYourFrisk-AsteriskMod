@@ -55,7 +55,7 @@ namespace AsteriskMod.Lua
 
         public static void SetSprites(string dirPath)
         {
-            UIController.ActionButtonManager.SetSprites(dirPath, true);
+            UIController.ActionButtonManager.SetSprites(dirPath, autoResize:true);
             /*
             FIGHT.SetSprite("fightbt_0", "fightbt_1", dirPath);
             ACT.SetSprite("actbt_0", "actbt_1", dirPath);
