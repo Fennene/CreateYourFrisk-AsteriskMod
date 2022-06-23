@@ -312,7 +312,7 @@ namespace AsteriskMod.ModdingHelperTools
             if (fontName == null)
                 throw new CYFException("StaticText.SetFont: The first argument (the font name) is nil.\n\nSee the documentation for proper usage.");
             //CheckExists();
-            UnderFont uf = FakeSpriteFontRegistry.Get(fontName);
+            UnderFont uf = SimInstance.FakeSpriteFontRegistry.Get(fontName);
             if (uf == null)
                 throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
             SetFont(uf, firstTime);

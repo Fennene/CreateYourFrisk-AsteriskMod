@@ -11,7 +11,7 @@ namespace AsteriskMod.ModdingHelperTools
             bgImage = GetComponent<Image>();
             try
             {
-                Sprite bg = FakeSpriteRegistry.FromFile(FakeFileLoader.pathToModFile("Sprites/bg.png"));
+                Sprite bg = SimInstance.FakeSpriteRegistry.FromFile(SimInstance.FakeFileLoader.pathToModFile("Sprites/bg.png"));
                 if (bg == null) return;
                 bg.texture.filterMode = FilterMode.Point;
                 bgImage.sprite = bg;

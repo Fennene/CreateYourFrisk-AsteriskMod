@@ -6,15 +6,16 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class SimMenuMover : MonoBehaviour
     {
+        internal static SimMenuMover Instance;
         //* private static bool _uniqueCheck;
 
-        internal static RectTransform self;
-        internal static Image selfImage;
-        internal static Button button;
-        internal static Image icon;
+        private RectTransform self;
+        private Image selfImage;
+        private Button button;
+        private Image icon;
 
-        private static bool animationRequester;
-        private static bool goToRight;
+        private bool animationRequester;
+        private bool goToRight;
 
         private void Awake()
         {
@@ -28,142 +29,149 @@ namespace AsteriskMod.ModdingHelperTools
 
             animationRequester = false;
             goToRight = false;
+
+            Instance = this;
         }
 
-        internal static void SetButtonActive(bool active) { button.enabled = selfImage.enabled = icon.enabled = active; }
+        internal void SetButtonActive(bool active) { button.enabled = selfImage.enabled = icon.enabled = active; }
 
-        private static void SetAnimation(bool willGoToRight)
+        private void SetAnimation(bool willGoToRight)
         {
-            SimMenuOpener.SetButtonActive(false);
-            SimMenuMover.SetButtonActive(false);
+            SimMenuOpener.Instance.SetButtonActive(false);
+            Instance.SetButtonActive(false);
             animationRequester = true;
             goToRight = willGoToRight;
-            AnimFrameCounter.StartAnimation();
+            AnimFrameCounter.Instance.StartAnimation();
         }
 
-        private static void TryMove(bool willGoToRight)
+        private void TryMove(bool willGoToRight)
         {
-            if (BattleSimulator.MenuOpened)
+            if (SimInstance.BattleSimulator.MenuOpened)
             {
                 SetAnimation(willGoToRight);
                 return;
             }
-            AnimFrameCounter.StartAnimation();
+            AnimFrameCounter.Instance.StartAnimation();
             if (willGoToRight)
             {
-                SimMenuWindowManager.GoToRight();
-                SimMenuOpener.GoToRight();
-                SimMenuMover.GoToRight();
+                SimMenuWindowManager.Instance.GoToRight();
+                SimMenuOpener.Instance.GoToRight();
+                Instance.GoToRight();
                 UnityButtonUtil.AddListener(button, () =>
                 {
-                    if (AnimFrameCounter.IsRunningAnimation) return;
+                    if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                     icon.sprite = Resources.Load<Sprite>("Sprites/AsteriskMod/sim_toright");
                     TryMove(false);
                 });
             }
             else
             {
-                SimMenuWindowManager.GoToLeft();
-                SimMenuOpener.GoToLeft();
-                SimMenuMover.GoToLeft();
+                SimMenuWindowManager.Instance.GoToLeft();
+                SimMenuOpener.Instance.GoToLeft();
+                Instance.GoToLeft();
                 UnityButtonUtil.AddListener(button, () =>
                 {
-                    if (AnimFrameCounter.IsRunningAnimation) return;
+                    if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                     icon.sprite = Resources.Load<Sprite>("Sprites/AsteriskMod/sim_toleft");
                     TryMove(true);
                 });
             }
-            BattleSimulator.LeftMenu = !willGoToRight;
-            AnimFrameCounter.EndAnimation();
+            SimInstance.BattleSimulator.LeftMenu = !willGoToRight;
+            AnimFrameCounter.Instance.EndAnimation();
         }
 
         private void Start()
         {
             UnityButtonUtil.AddListener(button, () =>
             {
-                if (AnimFrameCounter.IsRunningAnimation) return;
+                if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                 icon.sprite = Resources.Load<Sprite>("Sprites/AsteriskMod/sim_toleft");
                 TryMove(true);
             });
         }
 
-        internal static void AnimOpen(float speed)
+        internal void AnimOpen(float speed)
         {
             self.anchoredPosition += new Vector2(speed, 0);
         }
-        internal static void AnimClose(float speed)
+        internal void AnimClose(float speed)
         {
             self.anchoredPosition += new Vector2(speed, 0);
         }
-        internal static void Open()
+        internal void Open()
         {
-            self.anchoredPosition = new Vector2((BattleSimulator.LeftMenu ? 250 : 350), -60);
+            self.anchoredPosition = new Vector2((SimInstance.BattleSimulator.LeftMenu ? 250 : 350), -60);
         }
-        internal static void Close()
+        internal void Close()
         {
-            self.anchoredPosition = new Vector2((BattleSimulator.LeftMenu ? 10 : 590), -60);
+            self.anchoredPosition = new Vector2((SimInstance.BattleSimulator.LeftMenu ? 10 : 590), -60);
         }
 
-        internal static void AnimGoToRight() { }
-        internal static void AnimGoToLeft() { }
-        internal static void GoToRight()
+        internal void AnimGoToRight() { }
+        internal void AnimGoToLeft() { }
+        internal void GoToRight()
         {
-            self.anchoredPosition = new Vector2((BattleSimulator.MenuOpened ? 350 : 590), -60);
+            self.anchoredPosition = new Vector2((SimInstance.BattleSimulator.MenuOpened ? 350 : 590), -60);
             SetButtonActive(true);
         }
-        internal static void GoToLeft()
+        internal void GoToLeft()
         {
-            self.anchoredPosition = new Vector2((BattleSimulator.MenuOpened ? 250 : 10), -60);
+            self.anchoredPosition = new Vector2((SimInstance.BattleSimulator.MenuOpened ? 250 : 10), -60);
             SetButtonActive(true);
         }
 
         private void Update()
         {
-            if (!AnimFrameCounter.IsRunningAnimation) return;
+            if (!AnimFrameCounter.Instance.IsRunningAnimation) return;
             if (!animationRequester) return;
-            if (AnimFrameCounter.CurrentFrame >= 16)
+            if (AnimFrameCounter.Instance.CurrentFrame >= 16)
             {
                 if (goToRight)
                 {
-                    SimMenuWindowManager.GoToRight();
-                    SimMenuOpener.GoToRight();
-                    SimMenuMover.GoToRight();
+                    SimMenuWindowManager.Instance.GoToRight();
+                    SimMenuOpener.Instance.GoToRight();
+                    Instance.GoToRight();
                     UnityButtonUtil.AddListener(button, () =>
                     {
-                        if (AnimFrameCounter.IsRunningAnimation) return;
+                        if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                         icon.sprite = Resources.Load<Sprite>("Sprites/AsteriskMod/sim_toright");
                         TryMove(false);
                     });
                 }
                 else
                 {
-                    SimMenuWindowManager.GoToLeft();
-                    SimMenuOpener.GoToLeft();
-                    SimMenuMover.GoToLeft();
+                    SimMenuWindowManager.Instance.GoToLeft();
+                    SimMenuOpener.Instance.GoToLeft();
+                    Instance.GoToLeft();
                     UnityButtonUtil.AddListener(button, () =>
                     {
-                        if (AnimFrameCounter.IsRunningAnimation) return;
+                        if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                         icon.sprite = Resources.Load<Sprite>("Sprites/AsteriskMod/sim_toleft");
                         TryMove(true);
                     });
                 }
-                BattleSimulator.LeftMenu = !goToRight;
-                AnimFrameCounter.EndAnimation();
+                SimInstance.BattleSimulator.LeftMenu = !goToRight;
+                AnimFrameCounter.Instance.EndAnimation();
                 animationRequester = false;
                 return;
             }
             if (goToRight)
             {
-                SimMenuWindowManager.AnimGoToRight();
-                SimMenuOpener.AnimGoToRight();
-                SimMenuMover.AnimGoToRight();
+                SimMenuWindowManager.Instance.AnimGoToRight();
+                SimMenuOpener.Instance.AnimGoToRight();
+                Instance.AnimGoToRight();
             }
             else
             {
-                SimMenuWindowManager.AnimGoToLeft();
-                SimMenuOpener.AnimGoToLeft();
-                SimMenuMover.AnimGoToLeft();
+                SimMenuWindowManager.Instance.AnimGoToLeft();
+                SimMenuOpener.Instance.AnimGoToLeft();
+                Instance.AnimGoToLeft();
             }
+        }
+
+        internal static void Dispose()
+        {
+            Instance = null;
         }
     }
 }

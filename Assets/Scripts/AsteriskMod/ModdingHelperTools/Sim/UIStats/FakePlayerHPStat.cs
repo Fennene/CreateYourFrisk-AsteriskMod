@@ -31,7 +31,7 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void Start()
         {
-            LifeTextMan.SetFont(FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
+            LifeTextMan.SetFont(SimInstance.FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
             SetHP();
 
             //HPLabel = new LuaSpriteController(hpLabel) { tag = "ui", ignoreSet = GlobalControls.crate };
@@ -40,11 +40,11 @@ namespace AsteriskMod.ModdingHelperTools
         internal void SetHP()
         {
             //LifeBar.setHP(hpCurrent);
-            float hpCurrent = BattleSimulator.PlayerHP;
-            LifeBar.SetHP(hpCurrent, BattleSimulator.PlayerMaxHP);
+            float hpCurrent = SimInstance.BattleSimulator.PlayerHP;
+            LifeBar.SetHP(hpCurrent, SimInstance.BattleSimulator.PlayerMaxHP);
             int count = UnitaleUtil.DecimalCount(hpCurrent);
             string sHpCurrent = hpCurrent < 10 ? "0" + hpCurrent.ToString("F" + count) : hpCurrent.ToString("F" + count);
-            LifeTextMan.SetText(new InstantTextMessage(BattleSimulator.PlayerHP + " / " + BattleSimulator.PlayerMaxHP));
+            LifeTextMan.SetText(new InstantTextMessage(SimInstance.BattleSimulator.PlayerHP + " / " + SimInstance.BattleSimulator.PlayerMaxHP));
         }
 
         /*

@@ -106,7 +106,7 @@ public abstract class Projectile : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        ctrl.Move(ctrl._velocity.x, ctrl._velocity.y);
+        if (ctrl != null) ctrl.Move(ctrl._velocity.x, ctrl._velocity.y);
         // --------------------------------------------------------------------------------
 
         if (!HitTest()) return;

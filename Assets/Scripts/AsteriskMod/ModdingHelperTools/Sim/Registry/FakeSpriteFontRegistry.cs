@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace AsteriskMod.ModdingHelperTools
 {
-    public static class FakeSpriteFontRegistry
+    public class FakeSpriteFontRegistry
     {
-        public static GameObject LETTER_OBJECT;
-        public static GameObject BUBBLE_OBJECT;
-        private static readonly Dictionary<string, FileInfo> dictDefault = new Dictionary<string, FileInfo>();
-        private static readonly Dictionary<string, FileInfo> dictMod = new Dictionary<string, FileInfo>();
+        internal GameObject LETTER_OBJECT;
+        internal GameObject BUBBLE_OBJECT;
+        private readonly Dictionary<string, FileInfo> dictDefault = new Dictionary<string, FileInfo>();
+        private readonly Dictionary<string, FileInfo> dictMod = new Dictionary<string, FileInfo>();
 
-        private static readonly Dictionary<string, UnderFont> dict = new Dictionary<string, UnderFont>();
+        private readonly Dictionary<string, UnderFont> dict = new Dictionary<string, UnderFont>();
 
-        public static void Start() { LoadAllFrom(FakeFileLoader.pathToDefaultFile("Sprites/UI/Fonts")); }
+        public void Start() { LoadAllFrom(SimInstance.FakeFileLoader.pathToDefaultFile("Sprites/UI/Fonts")); }
 
-        public static void Init()
+        public void Init()
         {
             dict.Clear();
             LETTER_OBJECT = Resources.Load<GameObject>("Prefabs/letter");
@@ -25,10 +25,10 @@ namespace AsteriskMod.ModdingHelperTools
             //string modPath = FakeFileLoader.pathToModFile("Sprites/UI/Fonts");
             //string defaultPath = FakeFileLoader.pathToDefaultFile("Sprites/UI/Fonts");
             //loadAllFrom(defaultPath);
-            LoadAllFrom(FakeFileLoader.pathToModFile("Sprites/UI/Fonts"), true);
+            LoadAllFrom(SimInstance.FakeFileLoader.pathToModFile("Sprites/UI/Fonts"), true);
         }
 
-        private static void LoadAllFrom(string directoryPath, bool mod = false)
+        private void LoadAllFrom(string directoryPath, bool mod = false)
         {
             DirectoryInfo dInfo = new DirectoryInfo(directoryPath);
 
@@ -51,14 +51,14 @@ namespace AsteriskMod.ModdingHelperTools
             }
         }
 
-        public static UnderFont Get(string key)
+        public UnderFont Get(string key)
         {
             string k = key;
             key = key.ToLower();
             return dict.ContainsKey(key) ? dict[key] : TryLoad(k);
         }
 
-        public static UnderFont TryLoad(string key)
+        public UnderFont TryLoad(string key)
         {
             string k = key;
             key = key.ToLower();
@@ -73,11 +73,11 @@ namespace AsteriskMod.ModdingHelperTools
             return dict[key];
         }
 
-        private static UnderFont GetUnderFont(string fontName)
+        private UnderFont GetUnderFont(string fontName)
         {
             XmlDocument xml = new XmlDocument();
-            string fontPath = FakeFileLoader.requireFile("Sprites/UI/Fonts/" + fontName + ".png");
-            string xmlPath = FakeFileLoader.requireFile("Sprites/UI/Fonts/" + fontName + ".xml", false);
+            string fontPath = SimInstance.FakeFileLoader.requireFile("Sprites/UI/Fonts/" + fontName + ".png");
+            string xmlPath = SimInstance.FakeFileLoader.requireFile("Sprites/UI/Fonts/" + fontName + ".xml", false);
             if (xmlPath == null)
                 return null;
             try { xml.Load(xmlPath); }
@@ -109,9 +109,9 @@ namespace AsteriskMod.ModdingHelperTools
             return underfont;
         }
 
-        private static Dictionary<char, Sprite> LoadBuiltInFont(XmlNode sheetNode, string fontPath)
+        private Dictionary<char, Sprite> LoadBuiltInFont(XmlNode sheetNode, string fontPath)
         {
-            Sprite[] letterSprites = SpriteUtil.AtlasFromXml(sheetNode, FakeSpriteRegistry.FromFile(fontPath));
+            Sprite[] letterSprites = SpriteUtil.AtlasFromXml(sheetNode, SimInstance.FakeSpriteRegistry.FromFile(fontPath));
             Dictionary<char, Sprite> letters = new Dictionary<char, Sprite>();
             foreach (Sprite s in letterSprites)
             {

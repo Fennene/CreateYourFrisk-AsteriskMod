@@ -57,12 +57,12 @@ namespace AsteriskMod.ModdingHelperTools
 
         public static void SetTargetSprite(string path)
         {
-            FakeArenaUtil.SetTargetSprite(path);
+            FakeArenaUtil.Instance.SetTargetSprite(path);
         }
 
         public static void SetTargetChoiceSprite(string path)
         {
-            FakeArenaUtil.SetTargetChoiceSprite(path);
+            FakeArenaUtil.Instance.SetTargetChoiceSprite(path);
         }
 
         /*

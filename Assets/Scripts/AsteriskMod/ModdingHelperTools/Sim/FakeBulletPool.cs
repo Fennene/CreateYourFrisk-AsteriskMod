@@ -7,7 +7,6 @@ namespace AsteriskMod.ModdingHelperTools
     internal class FakeBulletPool : MonoBehaviour
     {
         public static FakeBulletPool instance;
-        public static int POOLSIZE = 100;
         private static readonly Queue<FakeProjectile> pool = new Queue<FakeProjectile>();
         private static FakeProjectile bPrefab; // bullet prefab
                                            //private static int currentProjectile = 0;
@@ -21,7 +20,7 @@ namespace AsteriskMod.ModdingHelperTools
             bPrefab = Resources.Load<FakeProjectile>("Prefabs/LUAProjectile 1");
 
             pool.Clear();
-            for (int i = 0; i < POOLSIZE; i++)
+            for (int i = 0; i < BulletPool.POOLSIZE; i++)
                 createPooledBullet();
         }
 

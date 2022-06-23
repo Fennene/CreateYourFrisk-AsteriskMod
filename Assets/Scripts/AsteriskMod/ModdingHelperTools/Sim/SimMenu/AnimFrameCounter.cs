@@ -4,28 +4,23 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class AnimFrameCounter : MonoBehaviour
     {
-        /**
-        private static bool _uniqueCheck;
-        private void Awake()
-        {
-            if (_uniqueCheck) throw new Exception("AnimFrameCounterが複数存在します。");
-            _uniqueCheck = true;
-        }
-        */
+        internal static AnimFrameCounter Instance;
 
-        private static bool _anim;
-        internal static bool IsRunningAnimation { get { return _anim; } }
+        private bool _anim;
+        internal bool IsRunningAnimation { get { return _anim; } }
 
-        private static int _frameCounter;
-        internal static int CurrentFrame { get { return _frameCounter; } }
+        private int _frameCounter;
+        internal int CurrentFrame { get { return _frameCounter; } }
 
         private void Awake()
         {
             _frameCounter = 0;
             _anim = false;
+
+            Instance = this;
         }
 
-        internal static void StartAnimation()
+        internal void StartAnimation()
         {
             _frameCounter = 0;
             _anim = true;
@@ -37,10 +32,15 @@ namespace AsteriskMod.ModdingHelperTools
             _frameCounter++;
         }
 
-        internal static void EndAnimation()
+        internal void EndAnimation()
         {
             _anim = false;
             _frameCounter = 0;
+        }
+
+        internal static void Dispose()
+        {
+            Instance = null;
         }
     }
 }

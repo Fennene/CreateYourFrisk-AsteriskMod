@@ -11,9 +11,9 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class FakeUnitaleUtil
     {
-        public static void PlaySound(string basis, string sound, float volume = 0.65f)
+        public void PlaySound(string basis, string sound, float volume = 0.65f)
         {
-            sound = FakeFileLoader.getRelativePathWithoutExtension(sound).Replace('\\', '/');
+            sound = SimInstance.FakeFileLoader.getRelativePathWithoutExtension(sound).Replace('\\', '/');
             for (int i = 1; i > 0; i++)
             {
                 object audio = NewMusicManager.audiolist[basis + i];
@@ -38,6 +38,6 @@ namespace AsteriskMod.ModdingHelperTools
             }
         }
 
-        public static void PlaySound(string basis, AudioClip sound, float volume = 0.65f) { PlaySound(basis, sound.name, volume); }
+        public void PlaySound(string basis, AudioClip sound, float volume = 0.65f) { PlaySound(basis, sound.name, volume); }
     }
 }

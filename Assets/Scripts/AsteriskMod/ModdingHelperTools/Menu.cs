@@ -60,7 +60,7 @@ namespace AsteriskMod.ModdingHelperTools
             }
             if (!EncounterExists(FakeStaticInits.ENCOUNTER))
             {
-                DirectoryInfo di = new DirectoryInfo(Path.Combine(FakeFileLoader.ModDataPath, "Lua/Encounters"));
+                DirectoryInfo di = new DirectoryInfo(Path.Combine(SimInstance.FakeFileLoader.ModDataPath, "Lua/Encounters"));
                 List<string> encounters = di.GetFiles("*.lua").Select(f => Path.GetFileNameWithoutExtension(f.Name)).ToList();
                 if (encounters.Count > 1) FakeStaticInits.ENCOUNTER = encounters[0];
                 if (!EncounterExists(FakeStaticInits.ENCOUNTER))
@@ -76,17 +76,19 @@ namespace AsteriskMod.ModdingHelperTools
         {
             if (!CanLaunch()) yield break;
 
+            SimInstance.Prepare();
+
             yield return new WaitForEndOfFrame();
 
-            FakeStaticInits.Initialized = false;
+            SimInstance.FakeStaticInits.Initialized = false;
             try
             {
                 AsteriskEngine.IsSimulator = true;
                 //AsteriskEngine.PrepareMod(); //Not needed
-                FakeArenaUtil.Initialize();
+                //FakeArenaUtil.Instance.Initialize(); //error
 
                 //FakeStaticInits.InitAll(/*true*/);
-                FakeStaticInits.Start();
+                SimInstance.FakeStaticInits.Start();
 
                 if (UnitaleUtil.firstErrorShown)
                     throw new Exception();
@@ -96,7 +98,7 @@ namespace AsteriskMod.ModdingHelperTools
                 //GlobalControls.isInFight = true; //No.
                 //DiscordControls.StartBattle(FakeStaticInits.MODFOLDER, FakeStaticInits.ENCOUNTER); //No.
 
-                BattleSimulator.Initialize();
+                SimInstance.BattleSimulator.Initialize();
                 SceneManager.LoadScene("MHTSim");
             }
             catch (Exception e)
@@ -111,11 +113,18 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void Start()
         {
+            SimInstance.Dispose();
+            SimInstance.Initialize();
+
             TargetModName.text = "Target Mod: " + FakeStaticInits.MODFOLDER;
 
             Document.GetComponent<Button>().onClick.AddListener(() => OpenDocument());
             Sim.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(LaunchSimulator()));
-            Exit.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("ModSelect"));
+            Exit.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                SimInstance.Dispose();
+                SceneManager.LoadScene("ModSelect");
+            });
 
             if (!GlobalControls.crate) return;
             Exit.GetComponentInChildren<Text>().text = "EXIT TOO MAD SELCT";

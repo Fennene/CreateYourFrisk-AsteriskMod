@@ -16,14 +16,14 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void OnEnable()
         {
-            FakeStaticInits.Loaded += LateStart;
+            SimInstance.FakeStaticInits.Loaded += LateStart;
             if (FindObjectsOfType<SpriteAutoLoader>().Any(a => a.done || a.doneFromLoadedScene))
                 LateStart();
         }
 
         private void OnDisable()
         {
-            FakeStaticInits.Loaded -= LateStart;
+            SimInstance.FakeStaticInits.Loaded -= LateStart;
         }
 
         private void LateStart()
@@ -40,7 +40,7 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 if (img != null)
                 {
-                    img.sprite = FakeSpriteRegistry.Get(SpritePath);
+                    img.sprite = SimInstance.FakeSpriteRegistry.Get(SpritePath);
                     if (img.sprite == null && currHandleDictErrors)
                     {
                         UnitaleUtil.DisplayLuaError("AutoloadSpritesFromRegistry", "You tried to load the sprite \"" + SpritePath + "\", but it doesn't exist.");

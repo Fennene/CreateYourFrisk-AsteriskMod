@@ -458,14 +458,14 @@ namespace AsteriskMod.ModdingHelperTools
                 throw new CYFException("You can't set a sprite as nil!");
             if (img)
             {
-                FakeSpriteRegistry.SwapSpriteFromFile(img, name);
+                SimInstance.FakeSpriteRegistry.SwapSpriteFromFile(img, name);
                 originalSprite = img.sprite;
                 nativeSizeDelta = new Vector2(img.sprite.texture.width, img.sprite.texture.height);
             }
             else
             {
                 SpriteRenderer imgtemp = img.GetComponent<SpriteRenderer>();
-                FakeSpriteRegistry.SwapSpriteFromFile(imgtemp, name);
+                SimInstance.FakeSpriteRegistry.SwapSpriteFromFile(imgtemp, name);
                 originalSprite = imgtemp.sprite;
                 nativeSizeDelta = new Vector2(imgtemp.sprite.texture.width, imgtemp.sprite.texture.height);
             }
@@ -486,7 +486,7 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 GetTarget().SetParent(parent.gameObject.transform);
                 if (gameObject.GetComponent<MaskImage>())
-                    gameObject.GetComponent<MaskImage>().inverted = parent._masked == MaskMode.INVERTEDSPRITE || parent._masked == MaskMode.INVERTEDSTENCIL;
+                    gameObject.GetComponent<MaskImage>().inverted = parent._masked == LuaSpriteController.MaskMode.INVERTEDSPRITE || parent._masked == LuaSpriteController.MaskMode.INVERTEDSTENCIL;
             }
             catch { throw new CYFException("sprite.SetParent(): You tried to set a removed sprite/nil sprite as this sprite's parent."); }
         }
@@ -779,16 +779,7 @@ namespace AsteriskMod.ModdingHelperTools
             else GetTarget().SetSiblingIndex(sprite.GetTarget().GetSiblingIndex() + 1);
         }
 
-        public enum MaskMode
-        {
-            OFF,
-            BOX,
-            SPRITE,
-            STENCIL,
-            INVERTEDSPRITE,
-            INVERTEDSTENCIL
-        }
-        public MaskMode _masked;
+        public LuaSpriteController.MaskMode _masked;
         public void Mask(string mode)
         {
             switch (tag)
@@ -799,10 +790,10 @@ namespace AsteriskMod.ModdingHelperTools
 
             }
 
-            MaskMode masked;
+            LuaSpriteController.MaskMode masked;
             try
             {
-                masked = (MaskMode)Enum.Parse(typeof(MaskMode), mode, true);
+                masked = (LuaSpriteController.MaskMode)Enum.Parse(typeof(LuaSpriteController.MaskMode), mode, true);
             }
             catch
             {
@@ -824,12 +815,12 @@ namespace AsteriskMod.ModdingHelperTools
 
                 switch (masked)
                 {
-                    case MaskMode.BOX:
+                    case LuaSpriteController.MaskMode.BOX:
                         //Remove sprite mask if applicable
                         spr.enabled = false;
                         box.enabled = true;
                         break;
-                    case MaskMode.OFF:
+                    case LuaSpriteController.MaskMode.OFF:
                         //Mask has been disabled
                         spr.enabled = false;
                         box.enabled = false;
@@ -839,7 +830,7 @@ namespace AsteriskMod.ModdingHelperTools
                         spr.enabled = true;
                         box.enabled = false;
                         // Used to differentiate between "sprite" and "stencil"-like display modes
-                        spr.showMaskGraphic = masked == MaskMode.SPRITE || masked == MaskMode.INVERTEDSPRITE;
+                        spr.showMaskGraphic = masked == LuaSpriteController.MaskMode.SPRITE || masked == LuaSpriteController.MaskMode.INVERTEDSPRITE;
                         break;
                 }
             }

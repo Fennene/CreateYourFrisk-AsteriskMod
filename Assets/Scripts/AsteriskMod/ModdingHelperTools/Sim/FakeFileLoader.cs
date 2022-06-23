@@ -5,16 +5,16 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class FakeFileLoader
     {
-        public static string DataRoot { get { return FileLoader.DataRoot; } }
-        public static string ModDataPath { get { return Path.Combine(DataRoot, "Mods/" + FakeStaticInits.MODFOLDER); } }
-        public static string DefaultDataPath { get { return FileLoader.DefaultDataPath; } }
+        public string DataRoot { get { return FileLoader.DataRoot; } }
+        public string ModDataPath { get { return Path.Combine(DataRoot, "Mods/" + FakeStaticInits.MODFOLDER); } }
+        public string DefaultDataPath { get { return FileLoader.DefaultDataPath; } }
 
-        public static byte[] getBytesFrom(string filename) { return File.ReadAllBytes(requireFile(filename)); }
+        public byte[] getBytesFrom(string filename) { return File.ReadAllBytes(requireFile(filename)); }
 
-        public static string pathToModFile(string filename) { return Path.Combine(ModDataPath, filename); }
-        public static string pathToDefaultFile(string filename) { return Path.Combine(DefaultDataPath, filename); }
+        public string pathToModFile(string filename) { return Path.Combine(ModDataPath, filename); }
+        public string pathToDefaultFile(string filename) { return Path.Combine(DefaultDataPath, filename); }
 
-        public static string requireFile(string filename, bool errorOnFailure = true)
+        public string requireFile(string filename, bool errorOnFailure = true)
         {
             FileInfo fi = new FileInfo(pathToModFile(filename));
             if (!fi.Exists)
@@ -27,7 +27,7 @@ namespace AsteriskMod.ModdingHelperTools
             return null;
         }
 
-        public static string getRelativePathWithoutExtension(string fullPath)
+        public string getRelativePathWithoutExtension(string fullPath)
         {
             fullPath = fullPath.Replace('\\', '/');
             if (fullPath.Contains(ModDataPath.Replace('\\', '/')))
@@ -37,6 +37,6 @@ namespace AsteriskMod.ModdingHelperTools
             return fullPath;
         }
 
-        public static string getRelativePathWithoutExtension(string rootPath, string fullPath) { return FileLoader.getRelativePathWithoutExtension(rootPath, fullPath); }
+        public string getRelativePathWithoutExtension(string rootPath, string fullPath) { return FileLoader.getRelativePathWithoutExtension(rootPath, fullPath); }
     }
 }

@@ -10,38 +10,37 @@ namespace AsteriskMod.ModdingHelperTools
 {
     internal class SimSprProjSimMenu : MonoBehaviour
     {
-        //* private static bool _uniqueCheck;
+        internal static SimSprProjSimMenu Instance;
 
-        internal static Button BackButton;
-        internal static Transform bulletLayer;
+        private Button BackButton;
+        private Transform bulletLayer;
 
         private void Awake()
         {
-            //* if (_uniqueCheck) throw new Exception("SimSprProjSimMenuが複数存在します。");
-            //* _uniqueCheck = true;
-
             BackButton = transform.Find("MenuNameLabel").Find("BackButton").GetComponent<Button>();
             bulletLayer = GameObject.Find("BulletPool").transform;
 
             Sprites = new FakeSpriteController[MAX_SPRITE_OBJECT];
             Bullets = new FakeProjectileController[MAX_BULLET_OBJECT];
 
+            Instance = this;
+
             Transform objManagerWindow = transform.Find("ObjectManagerWindow").Find("View");
-            SPCreateUI.Awake(objManagerWindow.Find("ObjCreate"));
-            SPTargetDelUI.Awake(objManagerWindow.Find("Obj"), objManagerWindow.Find("ObjDel"));
-            SPControllerUI.Awake(transform.Find("ObjControllerWindow").Find("View"));
+            SimInstance.SPCreateUI.Awake(objManagerWindow.Find("ObjCreate"));
+            SimInstance.SPTargetDelUI.Awake(objManagerWindow.Find("Obj"), objManagerWindow.Find("ObjDel"));
+            SimInstance.SPControllerUI.Awake(transform.Find("ObjControllerWindow").Find("View"));
         }
 
         private void Start()
         {
             UnityButtonUtil.AddListener(BackButton, () =>
             {
-                if (AnimFrameCounter.IsRunningAnimation) return;
-                SimMenuWindowManager.ChangePage(SimMenuWindowManager.DisplayingSimMenu.SprProjSim, SimMenuWindowManager.DisplayingSimMenu.Main);
+                if (AnimFrameCounter.Instance.IsRunningAnimation) return;
+                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.SprProjSim, SimMenuWindowManager.DisplayingSimMenu.Main);
             });
-            SPCreateUI.Start();
-            SPTargetDelUI.Start();
-            SPControllerUI.Start();
+            SimInstance.SPCreateUI.Start();
+            SimInstance.SPTargetDelUI.Start();
+            SimInstance.SPControllerUI.Start();
         }
 
         internal static FakeSpriteController CreateSprite(string filename, string tag = "BelowArena", int childNumber = -1)
@@ -52,9 +51,9 @@ namespace AsteriskMod.ModdingHelperTools
                 childNumber = ParseUtil.GetInt(tag);
                 tag = "BelowArena";
             }
-            Image i = Object.Instantiate(FakeSpriteRegistry.GENERIC_SPRITE_PREFAB);
+            Image i = Object.Instantiate(SimInstance.FakeSpriteRegistry.GENERIC_SPRITE_PREFAB);
             if (!string.IsNullOrEmpty(filename))
-                FakeSpriteRegistry.SwapSpriteFromFile(i, filename);
+                SimInstance.FakeSpriteRegistry.SwapSpriteFromFile(i, filename);
             else
                 throw new CYFException("You can't create a sprite object with a nil sprite!");
             if (!GameObject.Find(tag + "Layer") && tag != "none")
@@ -72,7 +71,7 @@ namespace AsteriskMod.ModdingHelperTools
             return new FakeSpriteController(i);
         }
 
-        private static FakeProjectileController CreateProjectileAbs(string sprite, float xpos, float ypos, string layerName = "")
+        private FakeProjectileController CreateProjectileAbs(string sprite, float xpos, float ypos, string layerName = "")
         {
             FakeLuaProjectile projectile = Instantiate(Resources.Load<FakeLuaProjectile>("Prefabs/AsteriskMod/FakeLUAProjectile 1"));
             projectile.transform.SetParent(bulletLayer);
@@ -82,7 +81,7 @@ namespace AsteriskMod.ModdingHelperTools
             //* LuaProjectile projectile = (LuaProjectile)BulletPool.instance.Retrieve();
             if (sprite == null)
                 throw new CYFException("You can't create a projectile with a nil sprite!");
-            FakeSpriteRegistry.SwapSpriteFromFile(projectile, sprite);
+            SimInstance.FakeSpriteRegistry.SwapSpriteFromFile(projectile, sprite);
             projectile.name = sprite;
             //* projectile.owner = s;
             projectile.gameObject.SetActive(true);
@@ -105,21 +104,21 @@ namespace AsteriskMod.ModdingHelperTools
             //* return projectileController;
             return projectile.ctrl;
         }
-        internal static FakeProjectileController CreateProjectile(string sprite, float xpos, float ypos, string layerName = "")
+        internal FakeProjectileController CreateProjectile(string sprite, float xpos, float ypos, string layerName = "")
         {
             return CreateProjectileAbs(sprite, FakeArenaManager.arenaCenter.x + xpos, FakeArenaManager.arenaCenter.y + ypos, layerName);
         }
 
-        private static readonly byte MAX_SPRITE_OBJECT = 16;
-        private static readonly byte MAX_BULLET_OBJECT = 16;
+        private readonly byte MAX_SPRITE_OBJECT = 16;
+        private readonly byte MAX_BULLET_OBJECT = 16;
 
-        internal static FakeSpriteController[] Sprites;
-        internal static FakeProjectileController[] Bullets;
+        internal FakeSpriteController[] Sprites;
+        internal FakeProjectileController[] Bullets;
 
-        internal static bool CanCreateSprite { get { return Sprites[MAX_SPRITE_OBJECT - 1] == null; } }
-        internal static bool CanCreateBullet { get { return Bullets[MAX_BULLET_OBJECT - 1] == null; } }
+        internal bool CanCreateSprite { get { return Sprites[MAX_SPRITE_OBJECT - 1] == null; } }
+        internal bool CanCreateBullet { get { return Bullets[MAX_BULLET_OBJECT - 1] == null; } }
 
-        private static int GetEmptySpriteIndex()
+        private int GetEmptySpriteIndex()
         {
             for (var i = 0; i < MAX_SPRITE_OBJECT; i++)
             {
@@ -127,7 +126,7 @@ namespace AsteriskMod.ModdingHelperTools
             }
             return -1;
         }
-        private static int GetEmptyBulletIndex()
+        private int GetEmptyBulletIndex()
         {
             for (var i = 0; i < MAX_BULLET_OBJECT; i++)
             {
@@ -136,7 +135,7 @@ namespace AsteriskMod.ModdingHelperTools
             return -1;
         }
 
-        internal static int SpriteLength
+        internal int SpriteLength
         {
             get
             {
@@ -145,7 +144,7 @@ namespace AsteriskMod.ModdingHelperTools
                 return _;
             }
         }
-        internal static int BulletLength
+        internal int BulletLength
         {
             get
             {
@@ -155,24 +154,24 @@ namespace AsteriskMod.ModdingHelperTools
             }
         }
 
-        internal static bool AddSprite(string spriteFileName, string layer = "BelowArena")
+        internal bool AddSprite(string spriteFileName, string layer = "BelowArena")
         {
             int index = GetEmptySpriteIndex();
             if (index == -1) return false;
             Sprites[index] = CreateSprite(spriteFileName, layer);
-            SPTargetDelUI.UpdateTargetDropDown();
+            SimInstance.SPTargetDelUI.UpdateTargetDropDown();
             return true;
         }
-        internal static bool AddBullet(string spriteFileName, string layer = "")
+        internal bool AddBullet(string spriteFileName, string layer = "")
         {
             int index = GetEmptyBulletIndex();
             if (index == -1) return false;
             Bullets[index] = CreateProjectile(spriteFileName, 0, 0, layer);
-            SPTargetDelUI.UpdateTargetDropDown();
+            SimInstance.SPTargetDelUI.UpdateTargetDropDown();
             return true;
         }
 
-        internal static void RemoveSprite(int index)
+        internal void RemoveSprite(int index)
         {
             if (index < 0) return;
             if (index >= MAX_SPRITE_OBJECT) return;
@@ -182,9 +181,9 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 Sprites[i] = Sprites[i + 1];
             }
-            SPTargetDelUI.UpdateTargetDropDown(true);
+            SimInstance.SPTargetDelUI.UpdateTargetDropDown(true);
         }
-        internal static void RemoveBullet(int index)
+        internal void RemoveBullet(int index)
         {
             if (index < 0) return;
             if (index >= MAX_BULLET_OBJECT) return;
@@ -194,37 +193,42 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 Bullets[i] = Bullets[i + 1];
             }
-            SPTargetDelUI.UpdateTargetDropDown(true);
+            SimInstance.SPTargetDelUI.UpdateTargetDropDown(true);
         }
 
-        internal static void ActionToTarget(Action<FakeSpriteController> spriteAction, Action<FakeProjectileController> bulletAction)
+        internal void ActionToTarget(Action<FakeSpriteController> spriteAction, Action<FakeProjectileController> bulletAction)
         {
-            if (SPTargetDelUI.TargetIndex < 0) return;
-            if (!SPTargetDelUI.IsTargetBullet)
+            if (SimInstance.SPTargetDelUI.TargetIndex < 0) return;
+            if (!SimInstance.SPTargetDelUI.IsTargetBullet)
             {
-                if (SPTargetDelUI.TargetIndex >= SpriteLength) return;
-                spriteAction.Invoke(Sprites[SPTargetDelUI.TargetIndex]);
+                if (SimInstance.SPTargetDelUI.TargetIndex >= SpriteLength) return;
+                spriteAction.Invoke(Sprites[SimInstance.SPTargetDelUI.TargetIndex]);
             }
             else
             {
-                if (SPTargetDelUI.TargetIndex >= BulletLength) return;
-                bulletAction.Invoke(Bullets[SPTargetDelUI.TargetIndex]);
+                if (SimInstance.SPTargetDelUI.TargetIndex >= BulletLength) return;
+                bulletAction.Invoke(Bullets[SimInstance.SPTargetDelUI.TargetIndex]);
             }
         }
 
-        internal static object GetFromTarget(Func<FakeSpriteController, object> spriteFunc, Func<FakeProjectileController, object> bulletFunc)
+        internal object GetFromTarget(Func<FakeSpriteController, object> spriteFunc, Func<FakeProjectileController, object> bulletFunc)
         {
-            if (SPTargetDelUI.TargetIndex < 0) return null;
-            if (!SPTargetDelUI.IsTargetBullet)
+            if (SimInstance.SPTargetDelUI.TargetIndex < 0) return null;
+            if (!SimInstance.SPTargetDelUI.IsTargetBullet)
             {
-                if (SPTargetDelUI.TargetIndex >= SpriteLength) return null;
-                return spriteFunc.Invoke(Sprites[SPTargetDelUI.TargetIndex]);
+                if (SimInstance.SPTargetDelUI.TargetIndex >= SpriteLength) return null;
+                return spriteFunc.Invoke(Sprites[SimInstance.SPTargetDelUI.TargetIndex]);
             }
             else
             {
-                if (SPTargetDelUI.TargetIndex >= BulletLength) return null;
-                return bulletFunc.Invoke(Bullets[SPTargetDelUI.TargetIndex]);
+                if (SimInstance.SPTargetDelUI.TargetIndex >= BulletLength) return null;
+                return bulletFunc.Invoke(Bullets[SimInstance.SPTargetDelUI.TargetIndex]);
             }
+        }
+
+        internal static void Dispose()
+        {
+            Instance = null;
         }
     }
 }

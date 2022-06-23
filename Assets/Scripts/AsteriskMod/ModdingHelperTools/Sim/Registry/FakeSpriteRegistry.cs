@@ -10,17 +10,17 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.ModdingHelperTools
 {
-    public static class FakeSpriteRegistry
+    public class FakeSpriteRegistry
     {
-        private static readonly Dictionary<string, Sprite> dict = new Dictionary<string, Sprite>();
-        public static Image GENERIC_SPRITE_PREFAB;
-        public static Sprite EMPTY_SPRITE;
-        private static readonly Dictionary<string, FileInfo> dictDefault = new Dictionary<string, FileInfo>();
-        private static readonly Dictionary<string, FileInfo> dictMod = new Dictionary<string, FileInfo>();
+        private readonly Dictionary<string, Sprite> dict = new Dictionary<string, Sprite>();
+        public Image GENERIC_SPRITE_PREFAB;
+        public Sprite EMPTY_SPRITE;
+        private readonly Dictionary<string, FileInfo> dictDefault = new Dictionary<string, FileInfo>();
+        private readonly Dictionary<string, FileInfo> dictMod = new Dictionary<string, FileInfo>();
 
-        public static void Start() { loadAllFrom(FakeFileLoader.pathToDefaultFile("Sprites")); }
+        public void Start() { loadAllFrom(SimInstance.FakeFileLoader.pathToDefaultFile("Sprites")); }
 
-        public static void Init()
+        public void Init()
         {
             //dict.Clear();
             GENERIC_SPRITE_PREFAB = Resources.Load<Image>("Prefabs/generic_sprite");
@@ -29,20 +29,20 @@ namespace AsteriskMod.ModdingHelperTools
             tex.Apply();
             EMPTY_SPRITE = Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f));
             EMPTY_SPRITE.name = "blank";
-            string modPath = FakeFileLoader.pathToModFile("Sprites");
+            string modPath = SimInstance.FakeFileLoader.pathToModFile("Sprites");
             //string defaultPath = FakeFileLoader.pathToDefaultFile("Sprites");
             //loadAllFrom(defaultPath);
             prepareMod(modPath);
         }
 
-        private static void prepareMod(string directoryPath)
+        private void prepareMod(string directoryPath)
         {
             dict.Clear();
 
             loadAllFrom(directoryPath, true);
         }
 
-        private static void loadAllFrom(string directoryPath, bool mod = false)
+        private void loadAllFrom(string directoryPath, bool mod = false)
         {
             DirectoryInfo dInfo = new DirectoryInfo(directoryPath);
 
@@ -58,24 +58,24 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 dictMod.Clear();
                 foreach (FileInfo file in fInfoTest)
-                    dictMod[FakeFileLoader.getRelativePathWithoutExtension(directoryPath, file.FullName).ToLower()] = file;
+                    dictMod[SimInstance.FakeFileLoader.getRelativePathWithoutExtension(directoryPath, file.FullName).ToLower()] = file;
             }
             else
             {
                 dictDefault.Clear();
                 foreach (FileInfo file in fInfoTest)
-                    dictDefault[FakeFileLoader.getRelativePathWithoutExtension(directoryPath, file.FullName).ToLower()] = file;
+                    dictDefault[SimInstance.FakeFileLoader.getRelativePathWithoutExtension(directoryPath, file.FullName).ToLower()] = file;
             }
         }
 
-        public static Sprite Get(string key)
+        public Sprite Get(string key)
         {
             key = key.ToLower();
             string dictKey = "sim" + key;
             return dict.ContainsKey(dictKey) ? dict[dictKey] : tryLoad(key);
         }
 
-        private static Sprite tryLoad(string key)
+        private Sprite tryLoad(string key)
         {
             string dictKey = "sim" + key;
             if (dictMod.ContainsKey(key))          dict[dictKey] = FromFile(dictMod[key].FullName);
@@ -84,9 +84,9 @@ namespace AsteriskMod.ModdingHelperTools
             return dict[dictKey];
         }
 
-        public static void Set(string key, Sprite value) { dict["sim" + key.ToLower()] = value; }
+        public void Set(string key, Sprite value) { dict["sim" + key.ToLower()] = value; }
 
-        public static void SwapSpriteFromFile(Component target, string filename, int bubbleID = -1)
+        public void SwapSpriteFromFile(Component target, string filename, int bubbleID = -1)
         {
             /**
             try
@@ -115,7 +115,7 @@ namespace AsteriskMod.ModdingHelperTools
                 UIController.instance.encounter.EnabledEnemies[bubbleID].bubbleWidth = 0;
             }
             */
-            Sprite newSprite = FakeSpriteRegistry.Get(filename);
+            Sprite newSprite = Get(filename);
             if (newSprite == null)
             {
                 if (filename.Length == 0)
@@ -123,10 +123,10 @@ namespace AsteriskMod.ModdingHelperTools
                     Debug.LogError("SwapSprite: Filename is empty!");
                     return;
                 }
-                newSprite = FromFile(FakeFileLoader.pathToModFile("Sprites/" + filename + ".png"));
+                newSprite = FromFile(SimInstance.FakeFileLoader.pathToModFile("Sprites/" + filename + ".png"));
                 if (newSprite == null)
                     throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
-                FakeSpriteRegistry.Set(filename, newSprite);
+                Set(filename, newSprite);
             }
 
             Image img = target.GetComponent<Image>();
@@ -148,10 +148,10 @@ namespace AsteriskMod.ModdingHelperTools
             }
         }
 
-        public static Sprite FromFile(string filename)
+        public Sprite FromFile(string filename)
         {
             Texture2D SpriteTexture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
-            SpriteTexture.LoadImage(FakeFileLoader.getBytesFrom(filename));
+            SpriteTexture.LoadImage(SimInstance.FakeFileLoader.getBytesFrom(filename));
             SpriteTexture.filterMode = FilterMode.Point;
             SpriteTexture.wrapMode = TextureWrapMode.Clamp;
 

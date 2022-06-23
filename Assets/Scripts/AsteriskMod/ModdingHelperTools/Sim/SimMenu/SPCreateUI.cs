@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.ModdingHelperTools
 {
-    internal static class SPCreateUI
+    internal class SPCreateUI
     {
-        private static CYFInputField SpriteName;
-        private static Dropdown SpriteLayer;
-        private static Toggle AsBullet;
-        private static Button Run;
-        private static Image Button_Image;
+        private CYFInputField SpriteName;
+        private Dropdown SpriteLayer;
+        private Toggle AsBullet;
+        private Button Run;
+        private Image Button_Image;
 
-        private static bool scriptChange;
+        private bool scriptChange;
 
-        internal static void Awake(Transform createUIParent)
+        internal void Awake(Transform createUIParent)
         {
             SpriteName   = createUIParent.Find("SpriteName").GetComponent<CYFInputField>();
             SpriteLayer  = createUIParent.Find("LayerName") .GetComponent<Dropdown>();
@@ -26,7 +26,7 @@ namespace AsteriskMod.ModdingHelperTools
             scriptChange = false;
         }
 
-        private static string ConvertLayerName()
+        private string ConvertLayerName()
         {
             switch (SpriteLayer.value)
             {
@@ -50,13 +50,13 @@ namespace AsteriskMod.ModdingHelperTools
             }
         }
 
-        private static void CheckButtonEnable(bool prerequisites = true)
+        private void CheckButtonEnable(bool prerequisites = true)
         {
             bool canPress = prerequisites;
             if (canPress)
             {
-                if (!AsBullet.isOn && !SimSprProjSimMenu.CanCreateSprite) canPress = false;
-                if (AsBullet.isOn && !SimSprProjSimMenu.CanCreateBullet)  canPress = false;
+                if (!AsBullet.isOn && !SimSprProjSimMenu.Instance.CanCreateSprite) canPress = false;
+                if (AsBullet.isOn && !SimSprProjSimMenu.Instance.CanCreateBullet)  canPress = false;
             }
             if (canPress)
             {
@@ -65,12 +65,12 @@ namespace AsteriskMod.ModdingHelperTools
             UnityButtonUtil.SetActive(Run, Button_Image, canPress);
         }
 
-        internal static void Start()
+        internal void Start()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(SpriteName, (value) =>
             {
-                FileInfo fi = new FileInfo(FakeFileLoader.pathToModFile("Sprites/" + value + ".png"));
-                if (!fi.Exists) fi = new FileInfo(FakeFileLoader.pathToDefaultFile("Sprites/" + value + ".png"));
+                FileInfo fi = new FileInfo(SimInstance.FakeFileLoader.pathToModFile("Sprites/" + value + ".png"));
+                if (!fi.Exists) fi = new FileInfo(SimInstance.FakeFileLoader.pathToDefaultFile("Sprites/" + value + ".png"));
                 CYFInputFieldUtil.ShowInputError(SpriteName, fi.Exists);
                 CheckButtonEnable(fi.Exists);
             });
@@ -94,11 +94,11 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 if (!AsBullet.isOn)
                 {
-                    SimSprProjSimMenu.AddSprite(SpriteName.InputField.text, ConvertLayerName());
+                    SimSprProjSimMenu.Instance.AddSprite(SpriteName.InputField.text, ConvertLayerName());
                 }
                 else
                 {
-                    SimSprProjSimMenu.AddBullet(SpriteName.InputField.text, ConvertLayerName());
+                    SimSprProjSimMenu.Instance.AddBullet(SpriteName.InputField.text, ConvertLayerName());
                 }
             });
         }

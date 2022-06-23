@@ -100,7 +100,7 @@ namespace AsteriskMod.ModdingHelperTools
             //*HP = PlayerCharacter.instance.HP;
         }
 
-        public static void PlaySound(AudioClip clip) { FakeUnitaleUtil.PlaySound("CollisionSoundChannel", clip.name); }
+        public static void PlaySound(AudioClip clip) { SimInstance.FakeUnitaleUtil.PlaySound("CollisionSoundChannel", clip.name); }
 
         //*public string deathMusic;
         //*public string[] deathText;
@@ -145,13 +145,13 @@ namespace AsteriskMod.ModdingHelperTools
                 }
 
                 if (invulnerabilitySeconds >= 0) invulTimer = invulnerabilitySeconds;
-                if (damage != 0) SetHP(BattleSimulator.PlayerHP - damage, false);
+                if (damage != 0) SetHP(SimInstance.BattleSimulator.PlayerHP - damage, false);
             }
             else if (damage < 0)
             {
                 if (playSound)
                     PlaySound(AudioClipRegistry.GetSound("healsound"));
-                SetHP(BattleSimulator.PlayerHP - damage);
+                SetHP(SimInstance.BattleSimulator.PlayerHP - damage);
             }
         }
 

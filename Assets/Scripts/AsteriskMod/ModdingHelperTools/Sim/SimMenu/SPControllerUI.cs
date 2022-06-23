@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace AsteriskMod.ModdingHelperTools
 {
-    internal static class SPControllerUI
+    internal class SPControllerUI
     {
-        private static Image DisabledCover;
-        private static bool scriptChange;
+        private Image DisabledCover;
+        private bool scriptChange;
 
-        internal static void Awake(Transform controllerView)
+        internal void Awake(Transform controllerView)
         {
             DisabledCover = controllerView.parent.Find("Cover").GetComponent<Image>();
             scriptChange = false;
@@ -22,12 +22,12 @@ namespace AsteriskMod.ModdingHelperTools
             AwakeAlpha(controllerView.Find("Alpha"));
             AwakeRotation(controllerView.Find("Rotation"));
             AwakeLayer(controllerView.Find("Layer"));
-            AwakeCode(controllerView.Find("Code"));
+            //AwakeCode(controllerView.Find("Code"));
 
             DisabledCover.enabled = true;
         }
 
-        internal static void Start()
+        internal void Start()
         {
             StartSprite();
             StartPosition();
@@ -36,14 +36,14 @@ namespace AsteriskMod.ModdingHelperTools
             StartAlpha();
             StartRotation();
             StartLayer();
-            StartCode();
+            //StartCode();
         }
 
-        internal static void UpdateParameters()
+        internal void UpdateParameters()
         {
-            if (SPTargetDelUI.TargetIndex < 0
-            || (!SPTargetDelUI.IsTargetBullet && SPTargetDelUI.TargetIndex >= SimSprProjSimMenu.SpriteLength)
-            || (SPTargetDelUI.IsTargetBullet && SPTargetDelUI.TargetIndex >= SimSprProjSimMenu.BulletLength))
+            if (SimInstance.SPTargetDelUI.TargetIndex < 0
+            || (!SimInstance.SPTargetDelUI.IsTargetBullet && SimInstance.SPTargetDelUI.TargetIndex >= SimSprProjSimMenu.Instance.SpriteLength)
+            || (SimInstance.SPTargetDelUI.IsTargetBullet && SimInstance.SPTargetDelUI.TargetIndex >= SimSprProjSimMenu.Instance.BulletLength))
             {
                 DisabledCover.enabled = true;
                 return;
@@ -57,37 +57,37 @@ namespace AsteriskMod.ModdingHelperTools
             UpdateAlphaParameter();
             UpdateRotationParameter();
             UpdateLayerParameter();
-            UpdateCodeParameter();
+            //UpdateCodeParameter();
             scriptChange = false;
         }
 
         // --------------------------------------------------------------------------------
 
-        private static bool SpriteExists(string value)
+        private bool SpriteExists(string value)
         {
-            FileInfo fi = new FileInfo(FakeFileLoader.pathToModFile("Sprites/" + value + ".png"));
-            if (!fi.Exists) fi = new FileInfo(FakeFileLoader.pathToDefaultFile("Sprites/" + value + ".png"));
+            FileInfo fi = new FileInfo(SimInstance.FakeFileLoader.pathToModFile("Sprites/" + value + ".png"));
+            if (!fi.Exists) fi = new FileInfo(SimInstance.FakeFileLoader.pathToDefaultFile("Sprites/" + value + ".png"));
             return fi.Exists;
         }
 
-        private static bool CanFloatParse(string value) { float _; return float.TryParse(value, out _); }
+        private bool CanFloatParse(string value) { float _; return float.TryParse(value, out _); }
 
-        private static bool CanByteParse(string value) { byte _; return byte.TryParse(value, out _); }
+        private bool CanByteParse(string value) { byte _; return byte.TryParse(value, out _); }
 
         // --------------------------------------------------------------------------------
 
-        private static CYFInputField Sprite_Set;
-        private static Text Sprite_width;
-        private static Text Sprite_height;
+        private CYFInputField Sprite_Set;
+        private Text Sprite_width;
+        private Text Sprite_height;
 
-        private static void AwakeSprite(Transform parent)
+        private void AwakeSprite(Transform parent)
         {
             Sprite_Set = parent.Find("Set").GetComponent<CYFInputField>();
             Sprite_width  = parent.Find("width") .Find("Text").GetComponent<Text>();
             Sprite_height = parent.Find("height").Find("Text").GetComponent<Text>();
         }
 
-        private static void StartSprite()
+        private void StartSprite()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Sprite_Set, (value) =>
             {
@@ -97,8 +97,8 @@ namespace AsteriskMod.ModdingHelperTools
                     return;
                 }
 
-                Sprite_width.text  = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.width,(bullet)  => bullet.sprite.width)) .ToString();
-                Sprite_height.text = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.height,(bullet) => bullet.sprite.height)).ToString();
+                Sprite_width.text  = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.width,(bullet)  => bullet.sprite.width)) .ToString();
+                Sprite_height.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.height,(bullet) => bullet.sprite.height)).ToString();
 
                 CYFInputFieldUtil.ShowInputError(Sprite_Set, true);
             });
@@ -109,34 +109,34 @@ namespace AsteriskMod.ModdingHelperTools
                 if (!SpriteExists(value))
                 {
                     scriptChange = true;
-                    Sprite_Set.InputField.text = ((string)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.spritename, (bullet) => bullet.sprite.spritename)).ToString();
+                    Sprite_Set.InputField.text = ((string)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.spritename, (bullet) => bullet.sprite.spritename)).ToString();
                     scriptChange = false;
                     return;
                 }
 
-                SimSprProjSimMenu.ActionToTarget((sprite) => sprite.Set(value), (bullet) => bullet.sprite.Set(value));
+                SimSprProjSimMenu.Instance.ActionToTarget((sprite) => sprite.Set(value), (bullet) => bullet.sprite.Set(value));
 
-                Sprite_width.text  = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.width,(bullet)  => bullet.sprite.width)) .ToString();
-                Sprite_height.text = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.height,(bullet) => bullet.sprite.height)).ToString();
+                Sprite_width.text  = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.width,(bullet)  => bullet.sprite.width)) .ToString();
+                Sprite_height.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.height,(bullet) => bullet.sprite.height)).ToString();
 
-                SPTargetDelUI.UpdateTargetDropDown();
+                SimInstance.SPTargetDelUI.UpdateTargetDropDown();
             });
         }
 
-        private static void UpdateSpriteParameter()
+        private void UpdateSpriteParameter()
         {
-            Sprite_Set.InputField.text = ((string)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.spritename, (bullet) => bullet.sprite.spritename)).ToString();
+            Sprite_Set.InputField.text = ((string)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.spritename, (bullet) => bullet.sprite.spritename)).ToString();
         }
 
         // --------------------------------------------------------------------------------
 
-        private static Text Position_xLabel;
-        private static CYFInputField Position_x;
-        private static Text Position_yLabel;
-        private static CYFInputField Position_y;
-        private static Toggle Position_Abs;
+        private Text Position_xLabel;
+        private CYFInputField Position_x;
+        private Text Position_yLabel;
+        private CYFInputField Position_y;
+        private Toggle Position_Abs;
 
-        private static void AwakePosition(Transform parent)
+        private void AwakePosition(Transform parent)
         {
             Position_xLabel = parent.Find("xLabel").GetComponent<Text>();
             Position_x      = parent.Find("x")     .GetComponent<CYFInputField>();
@@ -145,7 +145,7 @@ namespace AsteriskMod.ModdingHelperTools
             Position_Abs    = parent.Find("Abs")   .GetComponent<Toggle>();
         }
 
-        private static void StartPosition()
+        private void StartPosition()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Position_x, (value) => CYFInputFieldUtil.ShowInputError(Position_x, CanFloatParse(value)));
             CYFInputFieldUtil.AddListener_OnValueChanged(Position_y, (value) => CYFInputFieldUtil.ShowInputError(Position_y, CanFloatParse(value)));
@@ -155,14 +155,14 @@ namespace AsteriskMod.ModdingHelperTools
                 if (!CanFloatParse(value))
                 {
                     scriptChange = true;
-                    Position_x.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget(
+                    Position_x.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
                         (sprite) => { return Position_Abs.isOn ? sprite.absx : sprite.x; },
                         (bullet) => { return Position_Abs.isOn ? bullet.absx : bullet.x; }
                     )).ToString();
                     scriptChange = false;
                     return;
                 }
-                SimSprProjSimMenu.ActionToTarget(
+                SimSprProjSimMenu.Instance.ActionToTarget(
                     (sprite) =>
                     {
                         if (Position_Abs.isOn) sprite.absx = ParseUtil.GetFloat(value);
@@ -181,14 +181,14 @@ namespace AsteriskMod.ModdingHelperTools
                 if (!CanFloatParse(value))
                 {
                     scriptChange = true;
-                    Position_y.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget(
+                    Position_y.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
                         (sprite) => { return Position_Abs.isOn ? sprite.absy : sprite.y; },
                         (bullet) => { return Position_Abs.isOn ? bullet.absy : bullet.y; }
                     )).ToString();
                     scriptChange = false;
                     return;
                 }
-                SimSprProjSimMenu.ActionToTarget(
+                SimSprProjSimMenu.Instance.ActionToTarget(
                     (sprite) =>
                     {
                         if (Position_Abs.isOn) sprite.absy = ParseUtil.GetFloat(value);
@@ -206,11 +206,11 @@ namespace AsteriskMod.ModdingHelperTools
                 scriptChange = true;
                 Position_xLabel.text = value ? "absx:" : "x:";
                 Position_yLabel.text = value ? "absy:" : "y:";
-                Position_x.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget(
+                Position_x.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
                     (sprite) => { return value ? sprite.absx : sprite.x; },
                     (bullet) => { return value ? bullet.absx : bullet.x; }
                 )).ToString();
-                Position_y.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget(
+                Position_y.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
                     (sprite) => { return value ? sprite.absy : sprite.y; },
                     (bullet) => { return value ? bullet.absy : bullet.y; }
                 )).ToString();
@@ -218,13 +218,13 @@ namespace AsteriskMod.ModdingHelperTools
             });
         }
 
-        private static void UpdatePositionParameter()
+        private void UpdatePositionParameter()
         {
-            Position_x.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget(
+            Position_x.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
                 (sprite) => { return Position_Abs.isOn ? sprite.absx : sprite.x; },
                 (bullet) => { return Position_Abs.isOn ? bullet.absx : bullet.x; }
                 )).ToString();
-            Position_y.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget(
+            Position_y.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget(
                 (sprite) => { return Position_Abs.isOn ? sprite.absy : sprite.y; },
                 (bullet) => { return Position_Abs.isOn ? bullet.absy : bullet.y; }
                 )).ToString();
@@ -232,16 +232,16 @@ namespace AsteriskMod.ModdingHelperTools
 
         // --------------------------------------------------------------------------------
 
-        private static CYFInputField Scale_xscale;
-        private static CYFInputField Scale_yscale;
+        private CYFInputField Scale_xscale;
+        private CYFInputField Scale_yscale;
 
-        private static void AwakeScale(Transform parent)
+        private void AwakeScale(Transform parent)
         {
             Scale_xscale  = parent.Find("xscale").GetComponent<CYFInputField>();
             Scale_yscale  = parent.Find("yscale").GetComponent<CYFInputField>();
         }
 
-        private static void StartScale()
+        private void StartScale()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Scale_xscale, (value) => CYFInputFieldUtil.ShowInputError(Scale_xscale, CanFloatParse(value)));
             CYFInputFieldUtil.AddListener_OnValueChanged(Scale_yscale, (value) => CYFInputFieldUtil.ShowInputError(Scale_yscale, CanFloatParse(value)));
@@ -251,11 +251,11 @@ namespace AsteriskMod.ModdingHelperTools
                 if (!CanFloatParse(value))
                 {
                     scriptChange = true;
-                    Scale_xscale.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.xscale, (bullet) => bullet.sprite.xscale)).ToString();
+                    Scale_xscale.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.xscale, (bullet) => bullet.sprite.xscale)).ToString();
                     scriptChange = false;
                     return;
                 }
-                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.xscale = ParseUtil.GetFloat(value); }, (bullet) => { bullet.sprite.xscale = ParseUtil.GetFloat(value); });
+                SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.xscale = ParseUtil.GetFloat(value); }, (bullet) => { bullet.sprite.xscale = ParseUtil.GetFloat(value); });
             });
             CYFInputFieldUtil.AddListener_OnEndEdit(Scale_yscale, (value) =>
             {
@@ -263,34 +263,34 @@ namespace AsteriskMod.ModdingHelperTools
                 if (!CanFloatParse(value))
                 {
                     scriptChange = true;
-                    Scale_yscale.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.yscale, (bullet) => bullet.sprite.yscale)).ToString();
+                    Scale_yscale.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.yscale, (bullet) => bullet.sprite.yscale)).ToString();
                     scriptChange = false;
                     return;
                 }
-                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.yscale = ParseUtil.GetFloat(value); }, (bullet) => { bullet.sprite.yscale = ParseUtil.GetFloat(value); });
+                SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.yscale = ParseUtil.GetFloat(value); }, (bullet) => { bullet.sprite.yscale = ParseUtil.GetFloat(value); });
             });
         }
 
-        private static void UpdateScaleParameter()
+        private void UpdateScaleParameter()
         {
-            Scale_xscale.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.xscale, (bullet) => bullet.sprite.xscale)).ToString();
-            Scale_yscale.InputField.text = ((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.yscale, (bullet) => bullet.sprite.yscale)).ToString();
+            Scale_xscale.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.xscale, (bullet) => bullet.sprite.xscale)).ToString();
+            Scale_yscale.InputField.text = ((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.yscale, (bullet) => bullet.sprite.yscale)).ToString();
         }
 
         // --------------------------------------------------------------------------------
 
-        private static CYFInputField Color_rValue;
-        private static Slider Color_r;
-        private static Text Color_rMaxLabel;
-        private static CYFInputField Color_gValue;
-        private static Slider Color_g;
-        private static Text Color_gMaxLabel;
-        private static CYFInputField Color_bValue;
-        private static Slider Color_b;
-        private static Text Color_bMaxLabel;
-        private static Toggle Color_32Toggle;
+        private CYFInputField Color_rValue;
+        private Slider Color_r;
+        private Text Color_rMaxLabel;
+        private CYFInputField Color_gValue;
+        private Slider Color_g;
+        private Text Color_gMaxLabel;
+        private CYFInputField Color_bValue;
+        private Slider Color_b;
+        private Text Color_bMaxLabel;
+        private Toggle Color_32Toggle;
 
-        private static void AwakeColor(Transform parent)
+        private void AwakeColor(Transform parent)
         {
             Color_rValue = parent.Find("rValue").GetComponent<CYFInputField>();
             Color_r      = parent.Find("r")     .GetComponent<Slider>();
@@ -304,7 +304,7 @@ namespace AsteriskMod.ModdingHelperTools
             Color_32Toggle = parent.Find("color32").GetComponent<Toggle>();
         }
 
-        private static void StartColor()
+        private void StartColor()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Color_rValue, (value) => CYFInputFieldUtil.ShowInputError(Color_rValue, !Color_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
             CYFInputFieldUtil.AddListener_OnValueChanged(Color_gValue, (value) => CYFInputFieldUtil.ShowInputError(Color_gValue, !Color_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
@@ -317,13 +317,13 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = true;
                     if (!Color_32Toggle.isOn)
                     {
-                        float r = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color[0], (bullet) => bullet.sprite.color[0]);
+                        float r = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color[0], (bullet) => bullet.sprite.color[0]);
                         Color_rValue.InputField.text = r.ToString();
                         Color_r.value = r;
                     }
                     else
                     {
-                        byte r32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32[0], (bullet) => bullet.sprite.color32[0]));
+                        byte r32 = (byte)((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color32[0], (bullet) => bullet.sprite.color32[0]));
                         Color_rValue.InputField.text = r32.ToString();
                         Color_r.value = r32;
                     }
@@ -335,7 +335,7 @@ namespace AsteriskMod.ModdingHelperTools
                     float r = ParseUtil.GetFloat(value);
                     if (r < 0) r = 0;
                     if (r > 1) r = 1;
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
@@ -355,7 +355,7 @@ namespace AsteriskMod.ModdingHelperTools
                 else
                 {
                     byte r32 = byte.Parse(value);
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
@@ -378,7 +378,7 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Color_32Toggle.isOn)
                 {
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
@@ -396,7 +396,7 @@ namespace AsteriskMod.ModdingHelperTools
                 }
                 else
                 {
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
@@ -421,13 +421,13 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = true;
                     if (!Color_32Toggle.isOn)
                     {
-                        float g = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color[1], (bullet) => bullet.sprite.color[1]);
+                        float g = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color[1], (bullet) => bullet.sprite.color[1]);
                         Color_gValue.InputField.text = g.ToString();
                         Color_g.value = g;
                     }
                     else
                     {
-                        byte g32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32[1], (bullet) => bullet.sprite.color32[1]));
+                        byte g32 = (byte)((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color32[1], (bullet) => bullet.sprite.color32[1]));
                         Color_gValue.InputField.text = g32.ToString();
                         Color_g.value = g32;
                     }
@@ -439,7 +439,7 @@ namespace AsteriskMod.ModdingHelperTools
                     float g = ParseUtil.GetFloat(value);
                     if (g < 0) g = 0;
                     if (g > 1) g = 1;
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
@@ -459,7 +459,7 @@ namespace AsteriskMod.ModdingHelperTools
                 else
                 {
                     byte g32 = byte.Parse(value);
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
@@ -482,7 +482,7 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Color_32Toggle.isOn)
                 {
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
@@ -500,7 +500,7 @@ namespace AsteriskMod.ModdingHelperTools
                 }
                 else
                 {
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
@@ -525,13 +525,13 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = true;
                     if (!Color_32Toggle.isOn)
                     {
-                        float b = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color[2], (bullet) => bullet.sprite.color[2]);
+                        float b = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color[2], (bullet) => bullet.sprite.color[2]);
                         Color_bValue.InputField.text = b.ToString();
                         Color_b.value = b;
                     }
                     else
                     {
-                        byte b32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32[2], (bullet) => bullet.sprite.color32[2]));
+                        byte b32 = (byte)((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color32[2], (bullet) => bullet.sprite.color32[2]));
                         Color_bValue.InputField.text = b32.ToString();
                         Color_b.value = b32;
                     }
@@ -543,7 +543,7 @@ namespace AsteriskMod.ModdingHelperTools
                     float b = ParseUtil.GetFloat(value);
                     if (b < 0) b = 0;
                     if (b > 1) b = 1;
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
@@ -563,7 +563,7 @@ namespace AsteriskMod.ModdingHelperTools
                 else
                 {
                     byte b32 = byte.Parse(value);
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
@@ -586,7 +586,7 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Color_32Toggle.isOn)
                 {
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color = sprite.color;
@@ -604,7 +604,7 @@ namespace AsteriskMod.ModdingHelperTools
                 }
                 else
                 {
-                    SimSprProjSimMenu.ActionToTarget(
+                    SimSprProjSimMenu.Instance.ActionToTarget(
                         (sprite) =>
                         {
                             float[] color32 = sprite.color32;
@@ -639,16 +639,16 @@ namespace AsteriskMod.ModdingHelperTools
             });
         }
 
-        private static void UpdateColorParameter()
+        private void UpdateColorParameter()
         {
             float[] color;
             if (!Color_32Toggle.isOn)
             {
-                color = (float[])SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color, (bullet) => bullet.sprite.color);
+                color = (float[])SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color, (bullet) => bullet.sprite.color);
             }
             else
             {
-                color = (float[])SimSprProjSimMenu.GetFromTarget((sprite) => sprite.color32, (bullet) => bullet.sprite.color32);
+                color = (float[])SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.color32, (bullet) => bullet.sprite.color32);
             }
             Color_rValue.InputField.text = color[0].ToString();
             Color_gValue.InputField.text = color[1].ToString();
@@ -660,12 +660,12 @@ namespace AsteriskMod.ModdingHelperTools
 
         // --------------------------------------------------------------------------------
 
-        private static CYFInputField Alpha_value;
-        private static Slider Alpha_slider;
-        private static Text Alpha_maxLabel;
-        private static Toggle Alpha_32Toggle;
+        private CYFInputField Alpha_value;
+        private Slider Alpha_slider;
+        private Text Alpha_maxLabel;
+        private Toggle Alpha_32Toggle;
 
-        private static void AwakeAlpha(Transform parent)
+        private void AwakeAlpha(Transform parent)
         {
             Alpha_value    = parent.Find("aValue") .GetComponent<CYFInputField>();
             Alpha_slider   = parent.Find("a")      .GetComponent<Slider>();
@@ -673,7 +673,7 @@ namespace AsteriskMod.ModdingHelperTools
             Alpha_maxLabel = Alpha_slider.transform.Find("max").GetComponent<Text>();
         }
 
-        private static void StartAlpha()
+        private void StartAlpha()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Alpha_value, (value) => CYFInputFieldUtil.ShowInputError(Alpha_value, !Alpha_32Toggle.isOn ? CanFloatParse(value) : CanByteParse(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Alpha_value, (value) =>
@@ -684,13 +684,13 @@ namespace AsteriskMod.ModdingHelperTools
                     scriptChange = true;
                     if (!Alpha_32Toggle.isOn)
                     {
-                        float a = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha);
+                        float a = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha);
                         Alpha_value.InputField.text = a.ToString();
                         Alpha_slider.value = a;
                     }
                     else
                     {
-                        byte a32 = (byte)((float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha));
+                        byte a32 = (byte)((float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha));
                         Alpha_value.InputField.text = a32.ToString();
                         Alpha_slider.value = a32;
                     }
@@ -702,7 +702,7 @@ namespace AsteriskMod.ModdingHelperTools
                     float a = ParseUtil.GetFloat(value);
                     if (a < 0) a = 0;
                     if (a > 1) a = 1;
-                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha = a; }, (bullet) => { bullet.sprite.alpha = a; });
+                    SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.alpha = a; }, (bullet) => { bullet.sprite.alpha = a; });
                     scriptChange = true;
                     Alpha_value.InputField.text = a.ToString(); // adjust out of range
                     Alpha_slider.value = a;
@@ -712,7 +712,7 @@ namespace AsteriskMod.ModdingHelperTools
                 {
                     byte a32 = byte.Parse(value);
                     scriptChange = true;
-                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha32 = a32; }, (bullet) => { bullet.sprite.alpha32 = a32; });
+                    SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.alpha32 = a32; }, (bullet) => { bullet.sprite.alpha32 = a32; });
                     Alpha_slider.value = a32;
                     scriptChange = false;
                 }
@@ -723,14 +723,14 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!Alpha_32Toggle.isOn)
                 {
-                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha = value; }, (bullet) => { bullet.sprite.alpha = value; });
+                    SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.alpha = value; }, (bullet) => { bullet.sprite.alpha = value; });
                     scriptChange = true;
                     Alpha_value.InputField.text = value.ToString();
                     scriptChange = false;
                 }
                 else
                 {
-                    SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.alpha32 = value; }, (bullet) => { bullet.sprite.alpha32 = value; });
+                    SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.alpha32 = value; }, (bullet) => { bullet.sprite.alpha32 = value; });
                     scriptChange = true;
                     Alpha_value.InputField.text = value.ToString();
                     scriptChange = false;
@@ -747,16 +747,16 @@ namespace AsteriskMod.ModdingHelperTools
             });
         }
 
-        private static void UpdateAlphaParameter()
+        private void UpdateAlphaParameter()
         {
             float alpha;
             if (!Alpha_32Toggle.isOn)
             {
-                alpha = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha);
+                alpha = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.alpha, (bullet) => bullet.sprite.alpha);
             }
             else
             {
-                alpha = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.alpha32, (bullet) => bullet.sprite.alpha32);
+                alpha = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.alpha32, (bullet) => bullet.sprite.alpha32);
             }
             Alpha_value.InputField.text = alpha.ToString();
             Alpha_slider.value = alpha;
@@ -764,16 +764,16 @@ namespace AsteriskMod.ModdingHelperTools
 
         // --------------------------------------------------------------------------------
 
-        private static CYFInputField Rotation_value;
-        private static Slider Rotation_slider;
+        private CYFInputField Rotation_value;
+        private Slider Rotation_slider;
 
-        private static void AwakeRotation(Transform parent)
+        private void AwakeRotation(Transform parent)
         {
             Rotation_value  = parent.Find("rotationValue").GetComponent<CYFInputField>();
             Rotation_slider = parent.Find("rotation")     .GetComponent<Slider>();
         }
 
-        private static void StartRotation()
+        private void StartRotation()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Rotation_value, (value) => CYFInputFieldUtil.ShowInputError(Rotation_value, CanFloatParse(value)));
             CYFInputFieldUtil.AddListener_OnEndEdit(Rotation_value, (value) =>
@@ -781,7 +781,7 @@ namespace AsteriskMod.ModdingHelperTools
                 if (scriptChange) return;
                 if (!CanFloatParse(value))
                 {
-                    float rotation = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
+                    float rotation = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
                     scriptChange = true;
                     Rotation_value.InputField.text = rotation.ToString();
                     Rotation_slider.value = (int)rotation;
@@ -791,7 +791,7 @@ namespace AsteriskMod.ModdingHelperTools
                 float rotate = ParseUtil.GetFloat(value);
                 if (rotate < 0) rotate = 0;
                 if (rotate > 360) rotate = 360;
-                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.rotation = rotate; }, (bullet) => { bullet.sprite.rotation = rotate; });
+                SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.rotation = rotate; }, (bullet) => { bullet.sprite.rotation = rotate; });
                 scriptChange = true;
                 Rotation_value.InputField.text = rotate.ToString();
                 Rotation_slider.value = (int)rotate;
@@ -801,80 +801,81 @@ namespace AsteriskMod.ModdingHelperTools
             Rotation_slider.onValueChanged.AddListener((value) =>
             {
                 if (scriptChange) return;
-                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.rotation = value; }, (bullet) => { bullet.sprite.rotation = value; });
+                SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.rotation = value; }, (bullet) => { bullet.sprite.rotation = value; });
                 scriptChange = true;
                 Rotation_value.InputField.text = value.ToString();
                 scriptChange = false;
             });
         }
 
-        private static void UpdateRotationParameter()
+        private void UpdateRotationParameter()
         {
-            float rotation = (float)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
+            float rotation = (float)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.rotation, (bullet) => bullet.sprite.rotation);
             Rotation_value.InputField.text = rotation.ToString();
             Rotation_slider.value = (int)rotation;
         }
 
         // --------------------------------------------------------------------------------
 
-        private static Dropdown Layer_layer;
+        private Dropdown Layer_layer;
 
-        private static readonly string[] LAYERS = new[] { "Bottom", "BelowUI", "BelowArena", "BelowPlayer", "BelowBullet", "Top" };
-        private static int ConvertLayerName(string layerName)
+        private readonly string[] LAYERS = new[] { "Bottom", "BelowUI", "BelowArena", "BelowPlayer", "BelowBullet", "Top" };
+        private int ConvertLayerName(string layerName)
         {
-            if (layerName == "") return !SPTargetDelUI.IsTargetBullet ? 2 : 5;
-            if (layerName == "Top") return !SPTargetDelUI.IsTargetBullet ? 5 : 6;
+            if (layerName == "") return !SimInstance.SPTargetDelUI.IsTargetBullet ? 2 : 5;
+            if (layerName == "Top") return !SimInstance.SPTargetDelUI.IsTargetBullet ? 5 : 6;
             for (var i = 0; i < 5; i++)
             {
                 if (layerName == LAYERS[i]) return i;
             }
-            return !SPTargetDelUI.IsTargetBullet ? 2 : 5;
+            return !SimInstance.SPTargetDelUI.IsTargetBullet ? 2 : 5;
         }
-        private static string ConvertToLayerName(int layerDropDownValue)
+        private string ConvertToLayerName(int layerDropDownValue)
         {
-            if (layerDropDownValue < 0) return !SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
-            if (layerDropDownValue > (!SPTargetDelUI.IsTargetBullet ? 5 : 6)) return !SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
+            if (layerDropDownValue < 0) return !SimInstance.SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
+            if (layerDropDownValue > (!SimInstance.SPTargetDelUI.IsTargetBullet ? 5 : 6)) return !SimInstance.SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
             if (layerDropDownValue < 5) return LAYERS[layerDropDownValue];
-            if (layerDropDownValue == 5) return !SPTargetDelUI.IsTargetBullet ? LAYERS[5] : "";
-            return !SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
+            if (layerDropDownValue == 5) return !SimInstance.SPTargetDelUI.IsTargetBullet ? LAYERS[5] : "";
+            return !SimInstance.SPTargetDelUI.IsTargetBullet ? LAYERS[2] : "";
         }
 
-        private static void AwakeLayer(Transform parent)
+        private void AwakeLayer(Transform parent)
         {
             Layer_layer = parent.Find("layer").GetComponent<Dropdown>();
         }
 
-        private static void StartLayer()
+        private void StartLayer()
         {
             Layer_layer.onValueChanged.RemoveAllListeners();
             Layer_layer.onValueChanged.AddListener((value) =>
             {
                 if (scriptChange) return;
-                SimSprProjSimMenu.ActionToTarget((sprite) => { sprite.layer = ConvertToLayerName(value); }, (bullet) => { bullet.layer = ConvertToLayerName(value); });
+                SimSprProjSimMenu.Instance.ActionToTarget((sprite) => { sprite.layer = ConvertToLayerName(value); }, (bullet) => { bullet.layer = ConvertToLayerName(value); });
             });
         }
 
-        private static void UpdateLayerParameter()
+        private void UpdateLayerParameter()
         {
             Layer_layer.options = new System.Collections.Generic.List<Dropdown.OptionData>();
             for (var i = 0; i < LAYERS.Length; i++)
             {
                 Layer_layer.options.Add(new Dropdown.OptionData { text = LAYERS[i] });
-                if (i == 4 && SPTargetDelUI.IsTargetBullet) Layer_layer.options.Add(new Dropdown.OptionData { text = "BulletPool" });
+                if (i == 4 && SimInstance.SPTargetDelUI.IsTargetBullet) Layer_layer.options.Add(new Dropdown.OptionData { text = "BulletPool" });
             }
             Layer_layer.RefreshShownValue();
-            Layer_layer.value = ConvertLayerName((string)SimSprProjSimMenu.GetFromTarget((sprite) => sprite.layer, (bullet) => bullet.layer));
+            Layer_layer.value = ConvertLayerName((string)SimSprProjSimMenu.Instance.GetFromTarget((sprite) => sprite.layer, (bullet) => bullet.layer));
         }
 
         // --------------------------------------------------------------------------------
 
-        private static CYFInputField Code_Script;
-        private static Toggle Code_Update;
-        private static Toggle Code_Really;
-        private static Button Code_Run;
-        private static Image Code_RunImage;
+        /*
+        private CYFInputField Code_Script;
+        private Toggle Code_Update;
+        private Toggle Code_Really;
+        private Button Code_Run;
+        private Image Code_RunImage;
 
-        private static void AwakeCode(Transform parent)
+        private void AwakeCode(Transform parent)
         {
             Code_Script   = parent.Find("Script").GetComponent<CYFInputField>();
             Code_Update   = parent.Find("Update").GetComponent<Toggle>();
@@ -883,7 +884,7 @@ namespace AsteriskMod.ModdingHelperTools
             Code_RunImage = parent.Find("Run")   .GetComponent<Image>();
         }
 
-        private static void StartCode()
+        private void StartCode()
         {
             CYFInputFieldUtil.AddListener_OnValueChanged(Code_Script, (_) => Code_Script.ResetOuterColor());
             UnityToggleUtil.AddListener(Code_Really, (value) => UnityButtonUtil.SetActive(Code_Run, Code_RunImage, value));
@@ -893,12 +894,13 @@ namespace AsteriskMod.ModdingHelperTools
             });
         }
 
-        private static void UpdateCodeParameter()
+        private void UpdateCodeParameter()
         {
             Code_Update.isOn = false;
-            Code_Script.InputField.text = !SPTargetDelUI.IsTargetBullet ? "sprite.SendToTop()" : "bullet.sprite.SendToTop()";
+            Code_Script.InputField.text = !SimInstance.SPTargetDelUI.IsTargetBullet ? "sprite.SendToTop()" : "bullet.sprite.SendToTop()";
             Code_Script.ResetOuterColor();
             Code_Really.isOn = false;
         }
+        */
     }
 }

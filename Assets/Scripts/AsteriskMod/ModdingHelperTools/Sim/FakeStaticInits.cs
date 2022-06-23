@@ -2,27 +2,27 @@
 
 namespace AsteriskMod.ModdingHelperTools
 {
-    public static class FakeStaticInits
+    public class FakeStaticInits
     {
         public static string MODFOLDER;
         public static string ENCOUNTER = "";
-        private static bool firstInit;
+        private bool firstInit;
 
-        public static bool Initialized { get; set; }
+        public bool Initialized { get; set; }
 
         public delegate void LoadedAction();
-        public static event LoadedAction Loaded;
+        public event LoadedAction Loaded;
 
-        private static void OnEnable() { UIController.SendToStaticInit += SendLoaded; }
-        private static void OnDisable() { UIController.SendToStaticInit -= SendLoaded; }
+        private void OnEnable() { UIController.SendToStaticInit += SendLoaded; }
+        private void OnDisable() { UIController.SendToStaticInit -= SendLoaded; }
 
-        public static void Start()
+        public void Start()
         {
             if (!firstInit)
             {
                 firstInit = true;
-                FakeSpriteRegistry.Start();
-                FakeSpriteFontRegistry.Start();
+                SimInstance.FakeSpriteRegistry.Start();
+                SimInstance.FakeSpriteFontRegistry.Start();
             }
             if (string.IsNullOrEmpty(MODFOLDER))
                 MODFOLDER = "@Title";
@@ -45,12 +45,12 @@ namespace AsteriskMod.ModdingHelperTools
             */
         }
 
-        public static void InitAll(/*bool shaders = false*/)
+        public void InitAll(/*bool shaders = false*/)
         {
             if (!Initialized)
             {
-                FakeSpriteRegistry.Init();
-                FakeSpriteFontRegistry.Init();
+                SimInstance.FakeSpriteRegistry.Init();
+                SimInstance.FakeSpriteFontRegistry.Init();
             }
             Initialized = true;
             FakeLateUpdater.Init(); // ?
@@ -104,7 +104,7 @@ namespace AsteriskMod.ModdingHelperTools
             */
         }
 
-        public static void SendLoaded()
+        public void SendLoaded()
         {
             if (Loaded != null)
                 Loaded();

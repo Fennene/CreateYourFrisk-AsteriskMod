@@ -1,20 +1,24 @@
-﻿namespace AsteriskMod.ModdingHelperTools
+﻿using UnityEngine;
+
+namespace AsteriskMod.ModdingHelperTools
 {
-    internal static class BattleSimulator
+    internal class BattleSimulator
     {
-        private static UIController.UIState _state;
+        private UIController.UIState _state;
 
-        internal static bool autoLineBreak;
+        internal bool autoLineBreak;
+        internal Vector2 arenaSize;
 
-        private static string _playerName;
-        private static int _playerLV;
-        private static int _playerHP;
-        private static int _playerMaxHP;
+        private string _playerName;
+        private int _playerLV;
+        private int _playerHP;
+        private int _playerMaxHP;
 
-        internal static void Initialize()
+        internal void Initialize()
         {
             _state = UIController.UIState.ACTIONSELECT;
             autoLineBreak = false;
+            arenaSize = new Vector2(155, 130);
             _playerName = (Asterisk.language == Languages.Japanese) ? "にるにころ" : "Nil256";
             _playerLV = 1;
             _playerHP = 20;
@@ -24,7 +28,7 @@
             LeftMenu = true;
         }
 
-        internal static string PlayerName
+        internal string PlayerName
         {
             get { return _playerName; }
             set
@@ -37,7 +41,7 @@
             }
         }
 
-        internal static int PlayerLV
+        internal int PlayerLV
         {
             get { return _playerLV; }
             set
@@ -51,7 +55,7 @@
             }
         }
 
-        internal static int PlayerHP
+        internal int PlayerHP
         {
             get { return _playerHP; }
             set
@@ -64,7 +68,7 @@
             }
         }
 
-        internal static int PlayerMaxHP
+        internal int PlayerMaxHP
         {
             get { return _playerMaxHP; }
             set
@@ -78,13 +82,13 @@
             }
         }
 
-        internal static UIController.UIState CurrentState
+        internal UIController.UIState CurrentState
         {
             get { return _state; }
             set { _state = value; }
         }
 
-        internal static bool MenuOpened = false;
-        internal static bool LeftMenu = true;
+        internal bool MenuOpened = false;
+        internal bool LeftMenu = true;
     }
 }

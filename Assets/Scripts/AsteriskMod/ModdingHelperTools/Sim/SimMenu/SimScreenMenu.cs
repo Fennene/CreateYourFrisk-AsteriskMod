@@ -8,7 +8,7 @@ namespace AsteriskMod.ModdingHelperTools
     {
         //* private static bool _uniqueCheck;
 
-        internal static Button BackButton;
+        private Button BackButton;
 
         private void Awake()
         {
@@ -22,8 +22,8 @@ namespace AsteriskMod.ModdingHelperTools
         {
             UnityButtonUtil.AddListener(BackButton, () =>
             {
-                if (AnimFrameCounter.IsRunningAnimation) return;
-                SimMenuWindowManager.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Screen, SimMenuWindowManager.DisplayingSimMenu.Main);
+                if (AnimFrameCounter.Instance.IsRunningAnimation) return;
+                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Screen, SimMenuWindowManager.DisplayingSimMenu.Main);
             });
         }
     }

@@ -20,8 +20,8 @@ namespace AsteriskMod.ModdingHelperTools
         internal void Start()
         {
             if (Initialized) return;
-            LoveTextMan.SetFont(FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
-            SetLove(BattleSimulator.PlayerLV);
+            LoveTextMan.SetFont(SimInstance.FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
+            SetLove(SimInstance.BattleSimulator.PlayerLV);
             Initialized = true;
         }
 

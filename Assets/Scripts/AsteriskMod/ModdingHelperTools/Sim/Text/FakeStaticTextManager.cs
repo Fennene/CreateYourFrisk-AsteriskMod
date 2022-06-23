@@ -80,7 +80,7 @@ namespace AsteriskMod.ModdingHelperTools
                 if (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI)
                     ((FakeLuaStaticTextManager)this).SetFont(SpriteFontRegistry.UI_DEFAULT_NAME);
                 else
-                    SetFont(FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME), true);
+                    SetFont(SimInstance.FakeSpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME), true);
             Charset = default_charset;
             Debug.Assert(default_charset != null, "default_charset != null");
             defaultColor = default_charset.DefaultColor;
@@ -262,7 +262,7 @@ namespace AsteriskMod.ModdingHelperTools
                     letterReferences[i + 1] = letterReferences[i];
                 }
 
-            GameObject singleLtr = Instantiate(FakeSpriteFontRegistry.LETTER_OBJECT);
+            GameObject singleLtr = Instantiate(SimInstance.FakeSpriteFontRegistry.LETTER_OBJECT);
             RectTransform ltrRect = singleLtr.GetComponent<RectTransform>();
 
             bool isLua = GetType() == typeof(FakeLuaStaticTextManager);
@@ -315,7 +315,7 @@ namespace AsteriskMod.ModdingHelperTools
             letterReferences = new Image[currentText.Length];
             letterPositions = new Vector2[currentText.Length];
             if (currentText.Length > 1 && !forceNoAutoLineBreak)
-                if (BattleSimulator.autoLineBreak || (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI))
+                if (SimInstance.BattleSimulator.autoLineBreak || (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI))
                     SpawnTextSpaceTest(0, currentText, out currentText);
 
             for (int i = 0; i < currentText.Length; i++)
@@ -332,7 +332,7 @@ namespace AsteriskMod.ModdingHelperTools
                     case ' ':
                         if (i + 1 == currentText.Length || currentText[i + 1] == ' ' || forceNoAutoLineBreak)
                             break;
-                        if (BattleSimulator.autoLineBreak || (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI))
+                        if (SimInstance.BattleSimulator.autoLineBreak || (GetType() == typeof(FakeLuaStaticTextManager) && !IsUI))
                         {
                             SpawnTextSpaceTest(i, currentText, out currentText);
                             if (currentText[i] != ' ')

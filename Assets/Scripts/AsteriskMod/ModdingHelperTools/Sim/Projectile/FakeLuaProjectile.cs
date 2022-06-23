@@ -20,7 +20,7 @@ namespace AsteriskMod.ModdingHelperTools
         {
             if (newSprite == null)
                 throw new CYFException("You can't set a projectile's sprite to nil!");
-            FakeSpriteRegistry.SwapSpriteFromFile(this, newSprite);
+            SimInstance.FakeSpriteRegistry.SwapSpriteFromFile(this, newSprite);
         }
 
         //public override void OnUpdate() {

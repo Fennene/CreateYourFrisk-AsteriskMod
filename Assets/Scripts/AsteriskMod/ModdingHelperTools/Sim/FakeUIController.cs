@@ -91,7 +91,7 @@ namespace AsteriskMod.ModdingHelperTools
             */
             GameObject.Find("Main Camera").GetComponent<ProjectileHitboxRenderer>().enabled = false;//* !GameObject.Find("Main Camera").GetComponent<ProjectileHitboxRenderer>().enabled;
 
-            FakeStaticInits.SendLoaded();
+            SimInstance.FakeStaticInits.SendLoaded();
             /**
             psContainer = new GameObject("psContainer");
             // The following is a trick to make psContainer spawn within the battle scene, rather than the overworld scene, if in the overworld
@@ -160,15 +160,23 @@ namespace AsteriskMod.ModdingHelperTools
                 FakePlayerController.instance.setControlOverride(true);
             }
 
-            UIController.UIState oldState = BattleSimulator.CurrentState;
-            BattleSimulator.CurrentState = newState;
+            UIController.UIState oldState = SimInstance.BattleSimulator.CurrentState;
+            SimInstance.BattleSimulator.CurrentState = newState;
 
-            switch (BattleSimulator.CurrentState)
+            switch (SimInstance.BattleSimulator.CurrentState)
             {
                 case UIController.UIState.ACTIONSELECT:
                     //* forcedAction = Actions.NONE;
                     FakePlayerController.instance.setControlOverride(true);
                     FakePlayerController.instance.GetComponent<Image>().enabled = true;
+
+                    FakePlayerController.instance.SetPosition(48, 25, true);
+                    break;
+                case UIController.UIState.DEFENDING:
+                    FakeArenaManager.instance.Resize((int)SimInstance.BattleSimulator.arenaSize.x, (int)SimInstance.BattleSimulator.arenaSize.y);
+                    FakePlayerController.instance.setControlOverride(false);
+                    //* encounter.NextWave();
+                    // ActionDialogResult(new TextMessage("This is where you'd\rdefend yourself.\nBut the code was spaghetti.", true, false), UIState.ACTIONSELECT);
                     break;
             }
         }
