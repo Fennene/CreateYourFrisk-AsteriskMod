@@ -16,7 +16,7 @@ namespace AsteriskMod
 
         public static bool AutoResetStaticText { get; set; }
 
-        public class JapaneseStyleOption
+        public static class JapaneseStyleOption
         {
             // Name
             private static bool _jpName;
@@ -33,17 +33,11 @@ namespace AsteriskMod
                 _jpName = active;
                 if (PlayerNameText.instance) PlayerNameText.instance.SetJP();
             }
-            public static void SetJPName(bool active) { SetJapaneseNameActive(active); }
 
             // Font
 
             // Options
             public static string JapaneseFontName { get; set; }
-            public static string JPFontName
-            {
-                get { return JapaneseFontName; }
-                set { JapaneseFontName = value; }
-            }
 
             private static bool _autoFontCoordinating;
             public static bool AutoFontCoordinating
@@ -75,7 +69,6 @@ namespace AsteriskMod
                 AutoJPFontActCommands = active;
                 AutoJPFontStateEditor = active;
             }
-            public static void SetAutoJPFont(bool active) { SetAutoJapaneseFontStyle(active); }
 
             public static void SetJapaneseButton(bool active)
             {
@@ -86,7 +79,6 @@ namespace AsteriskMod
                 UIController.ActionButtonManager.ITEM .SetSprite("itembt_"  + index1, "itembt_"  + index2);
                 UIController.ActionButtonManager.MERCY.SetSprite("mercybt_" + index1, "mercybt_" + index2);
             }
-            public static void SetJPButton(bool active) { SetJapaneseButton(active); }
 
             // System
 

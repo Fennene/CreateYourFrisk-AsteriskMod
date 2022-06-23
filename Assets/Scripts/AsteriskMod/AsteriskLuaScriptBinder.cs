@@ -19,7 +19,6 @@ namespace AsteriskMod
             UserData.RegisterType<UIStaticTextManager>();
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
-            UserData.RegisterType<AsteriskEngine.JapaneseStyleOption>();
             UserData.RegisterType<Lang>();
 
             /*
@@ -124,8 +123,6 @@ namespace AsteriskMod
 
                 DynValue engine = UserData.Create(new CYFEngine());
                 script.Globals.Set("Engine", engine);
-                DynValue jpstyle = UserData.Create(new AsteriskEngine.JapaneseStyleOption());
-                script.Globals.Set("JPStyle", jpstyle);
                 DynValue lang = UserData.Create(new Lang());
                 script.Globals.Set("Lang", lang);
 

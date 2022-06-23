@@ -88,6 +88,11 @@ namespace AsteriskMod
             SetHPControlOverride(active);
         }
 
+        public static void SetJapaneseNameActive(bool active)
+        {
+            AsteriskEngine.JapaneseStyleOption.SetJapaneseNameActive(active);
+        }
+
         public static void SetLV(string lv)
         {
             PlayerLoveText.instance.SetText(lv);

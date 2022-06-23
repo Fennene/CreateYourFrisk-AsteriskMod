@@ -138,6 +138,22 @@ namespace AsteriskMod
             return ArenaUI.GetTextVolume();
         }
 
+        public static void SetAutoFontCommandActive(bool active)
+        {
+            AsteriskEngine.JapaneseStyleOption.SetAutoJapaneseFontStyle(active);
+        }
+
+        public static void SetAutoFontCommandFont(string fontName)
+        {
+            if (SpriteFontRegistry.Get(fontName) == null) throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
+            AsteriskEngine.JapaneseStyleOption.JapaneseFontName = fontName;
+        }
+
+        public static void SetFullWidthAsterisk(bool active)
+        {
+            AsteriskEngine.JapaneseStyleOption.SetAutoFontCoordinatingActive(active);
+        }
+
         public static float playeroffsetx
         {
             get { return ArenaUI.PlayerOffset.x; }

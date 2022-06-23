@@ -79,9 +79,17 @@ namespace AsteriskMod
         public static void HideDialogText() { UIController.instance.mainTextManager.DestroyChars(); }
 
 
-        public static void CreateLifeBar(int enemyIndex, int line) { UIController.instance.SimulateFightMenuLifeBar(enemyIndex - 1, line - 1); }
+        public static void CreateLifeBar(int enemyIndex, int line)
+        {
+            Asterisk.RequireExperimentalFeature("StateEditor.CreateLifeBar");
+            UIController.instance.SimulateFightMenuLifeBar(enemyIndex - 1, line - 1);
+        }
 
-        public static void RemoveLifeBar() { UIController.instance.RemoveFightMenuLifeBar(); }
+        public static void RemoveLifeBar()
+        {
+            Asterisk.RequireExperimentalFeature("StateEditor.RemoveLifeBar");
+            UIController.instance.RemoveFightMenuLifeBar();
+        }
 
         /*
         public static void CreateEnemyBubble(string key, int enemyIndex, DynValue customMessage = null, bool usePrefix = true)

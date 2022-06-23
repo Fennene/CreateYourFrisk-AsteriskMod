@@ -128,19 +128,7 @@ it's w3c valid, at least
 
             <hr>
 
-            <h3>Modの日本語対応</h3><br><br>
-
-            <p>
-                Modを日本語化したいのであれば、まず <span class="term">EncounterStarting()</span>に <span class="term">JPStyle.SetActive(Language == "Japanese")</span> と書くことをおすすめします。
-            <div class="code-container">
-<pre class="brush: lua;">
-function EncounterStarting()
-    JPStyle.SetActive(Language == "Japanese")
-end
-</pre>
-            </div><br>
-                <span class="ref">JPStyle.SetActive()</span> は日本語化の機能を全て有効にするので、各機能の詳細や一部の機能のみを有効化したい場合は、<span class="ref">JPStyleオブジェクト</span>セクションを参照してください。 
-            </p><br><br>
+            <h3>AsteriskModに含まれている日本語翻訳用リソース</h3><br><br>
 
             <p>
                 AsteriskModには、Defaultフォルダに、日本語のフォントが既に入っています。<br>
@@ -154,7 +142,7 @@ end
                 <span class="term">jp</span>と<span class="term">jp2</span>はそれに加えて、全角英数字記号を含みます。
                 <br><br>
                 使用方法としては テキストコマンドの<span class="term">[font:jp]</span>や、Textオブジェクトの<span class="term">Text.SetFont("jp")</span>ですが、<br>
-                <span class="ref">JPStyleオブジェクト</span>を使用すれば、テキストコマンドを書く手間が減ります。( 詳細は(ry )
+                後述の関数を使用して、テキストコマンドを書く手間を減らすことができます。
             </p><br><br>
 
             <p>
@@ -187,8 +175,141 @@ end
                         <td>mercybt_3</td>
                     </tr>
                 </table><br>
-                <span class="ref">JPStyleオブジェクト</span>で一括設定できます。(ry
+                <span class="term">ButtonUtil.SetSprites("UI/Buttons", "_2", "_3")</span> で一括設定できます。
+            </p><br><br>
+
+            <p>
+                AsteriskModでModを製作する場合は、これらのリソースを クレジット無しで使用できますが、<br>
+                <font color="#FFF">
+                    公式のCYFで、Modにコピーして使用する場合は、<font color="#FF0">クレジットが必須です。</font><br>
+                    README や ゲーム内で にるにころ とクレジットを表示してください。
+                </font>
             </p>
+
+            <br><hr>
+
+            <h3>Modの日本語対応</h3><br><br>
+
+            <p>
+                AsteriskModには 日本語翻訳やその他言語への翻訳を 簡単にするための関数がいくつか存在します。
+            </p>
+
+            <p>
+                <br><span class="function">PlayerUtil.SetJapaneseNameActive(<span class="boolean"></span> active)</span>
+                <span class="term">true</span>を代入した場合、 プレイヤー名が日本語フォントで表示されます。<br>
+                デフォルト値（初期値）は エンジンの表示言語の設定に依存し、 
+                ユーザーが 表示言語を日本語にしている場合、 <span class="term">true</span>です。<br>
+                この関数は、
+            <div class="code-container">
+<pre class="brush: lua;">
+-- "active"がtrueの場合
+PlayerUtil.Name.SetFont("jpname")
+PlayerUtil.Name.Move(0, 6) -- 位置調整
+-- "active"がfalseの場合
+PlayerUtil.Name.SetFont("uibattlesmall")
+PlayerUtil.Name.Move(0, -6) -- 位置調整
+</pre>
+            </div>とほぼ同等です。
+            </p>
+
+            <p>
+                <br><span class="function"><span class="string"></span> Language [E/M/W/S]</span>
+                ユーザーの使用している（表示言語の設定で設定してある）言語を取得します。<br>
+                この変数は次の値をとります：
+                <ul>
+                    <li><span class="term">English</span></li>
+                    <li><span class="term">Japanese</span></li>
+                </ul>
+            </p>
+
+            <p>
+                <br><span class="function"><span class="char"></span> ArenaUtil.AsteriskChar [E/M/W/S]</span>
+                アスタリスク（<span class="term">*</span>）の 文字を変更します。<br>
+                <span class="term">＊</span>を指定して、日本語のフォントで日本語用のアスタリスクを使用できます。<br>
+                全角のアスタリスク（フォントで指定してある空白の２倍の大きさの時）を指定した場合、後述の
+                <span class="term">ArenaUtil.SetFullWidthAsterisk(true)</span>を呼び出してください。<br>
+                <font color="#ddd">頻繁に変更することはお勧めしません。</font>
+            </p>
+
+            <p>
+                <br><span class="function">ArenaUtil.SetFullWidthAsterisk(<span class="boolean"></span> active) [E/M/W/S]</span>
+                <span class="term">ArenaUtil.AsteriskChar</span>にて、
+                全角のアスタリスク（フォントで指定してある空白の２倍の大きさの時）を指定した場合、
+                <span class="term">true</span>を指定して呼び出してください。<br>
+                これは、 <span class="term">\r</span> の改行（アスタリスク無しの改行）で、
+                足りない空白を補う機能を有効にします。
+            </p>
+
+            <p>
+                <br><span class="function">ArenaUtil.SetAutoFontCommandActive(<span class="boolean"></span> active) [E/M/W/S]</span>
+                エンジン側で自動的に、文字列（テキスト）の先頭に fontコマンド（<span class="term">[font:xxx]</span>）を追加します。<br>
+                対応しているのは以下の通り：
+                <ul>
+                    <li>Encounterスクリプトの <span class="term">encountertext</span>変数</li>
+                    <li>Monsterスクリプトの <span class="term">commands</span>変数</li>
+                    <li>Monsterスクリプトの <span class="term">name</span>変数</li>
+                    <li><span class="term">BattleDialog()</span>関数の引数</li>
+                    <li><span class="term">StateEditor.SetDialogText()</span>関数の第一引数 と <span class="term">StateEditor.SetChoicesDialogText()</span>関数の第一引数の各要素</li>
+                </ul><br>
+                例は次の通り： （Monsterスクリプト）
+            <div class="code-container">
+<pre class="brush: lua;">
+name = "グレータードッグ" -- ENEMYSELECTで日本語フォント(jp)で表示される。
+commands = {"ぶんせき", "ナデナデ", "よぶ", "あそぶ", "むしする"} -- 各要素に[font:jp]と書く手間が省ける。
+
+function HandleCustomCommand(command) -- 引数の文字列に [FONT:JP] はつかない。
+    if command == "ぶんせき" then -- if command == "[FONT:JP]ぶんせき" then と書かなくて良い。
+        -- ...
+    elseif command == "ナデナデ" then
+        -- ...
+    elseif command == "よぶ" then
+        -- ...
+    elseif command == "あそぶ" then
+        -- ...
+    elseif command == "むしする" then
+        -- ...
+    end
+end
+</pre>
+            </div>
+            </p>
+            <p>
+                <br><span class="function">ArenaUtil.SetAutoFontCommandFont(<span class="string"></span> fontName) [E/M/W/S]</span>
+                前述の<span class="term">ArenaUtil.SetAutoFontCommandActive()</span>にて、
+                フォントを決めることができます。<br>
+                デフォルトでは "<span class="term">jp</span>"。
+            </p>
+
+
+            <br><br>
+
+            <p>
+                以下のコードは 日本語対応の一例です。
+            <div class="code-container">
+<pre class="brush: lua;">
+function EncounterStarting()
+    -- Audio.Stop() とか
+
+    if Language == "Japanese" then
+        PlayerUtil.SetJapaneseNameActive(true) -- なぜかバグ？で括弧閉じが全角で表示される 本当は半角括弧じゃないとエラーです
+        ButtonUtil.SetSprites("UI/Buttons", "_2", "_3")
+        ArenaUtil.AsteriskChar = "＊"
+        ArenaUtil.SetFullWidthAsterisk(true)
+        ArenaUtil.SetAutoFontCommandActive(true)
+        sparetext = "[font:jp]にがす"
+        fleetext = "[font:jp]にげる"
+    end
+
+    -- Player.name = "にるにころ" とか
+end
+</pre>
+            </div>
+            </p><br><br>
+            <p>
+                <span class="term">.langファイル</span>と<span class="term">Langオブジェクト</span>を使用すると、
+                より翻訳が簡単になります。<br>
+                詳しくは <span class="ref">The .lang File &amp; The Lang Object [.langファイル & Langオブジェクト]</span>を参照してください。
+            </p><br>
         </div>
 
         <div class="tab-pane text-style" id="mercy">
