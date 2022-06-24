@@ -66,7 +66,7 @@ namespace AsteriskMod.Lua
 
         public static void RevertAll()
         {
-            UIController.ActionButtonManager.Revert(true);
+            UIController.ActionButtonManager.Revert(true, false);
             /*
             FIGHT.Revert();
             ACT.Revert();

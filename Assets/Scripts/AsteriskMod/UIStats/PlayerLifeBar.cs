@@ -133,7 +133,7 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
         //                            Asterisk Mod Addition
         // --------------------------------------------------------------------------------
-        private RectTransform self;
+        [MoonSharpHidden] internal RectTransform self;
         private Dictionary<string, Image> subbars;
 
         private void Awake() { self = GetComponent<RectTransform>(); }
@@ -150,7 +150,7 @@ namespace AsteriskMod
         }
 
         [MoonSharpHidden]
-        internal void setMaxHP(bool maxhpOnly = false)
+        internal void setMaxHP(bool maxhpOnly = false, bool resetTextPosition = false)
         {
             if (_controlOverride) return;
             //* self.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), self.sizeDelta.y);
@@ -158,6 +158,7 @@ namespace AsteriskMod
             float realMaxLength = PlayerCharacter.instance.MaxHP;
             if (_limited) realMaxLength = Mathf.Min(100, realMaxLength);
             self.sizeDelta = new Vector2(realMaxLength * 1.2f, self.sizeDelta.y);
+            if (resetTextPosition) PlayerLifeUI.instance.SetTextPosition();
             if (maxhpOnly) return;
             setHP(PlayerCharacter.instance.HP);
         }
@@ -216,7 +217,7 @@ namespace AsteriskMod
                 }
                 else
                 {
-                    setMaxHP();
+                    setMaxHP(resetTextPosition:true);
                 }
             }
         }
@@ -255,6 +256,7 @@ namespace AsteriskMod
             // Set Max HP
             _maxhp = newMaxHP;
             self.sizeDelta = new Vector2(realMaxHP * 1.2f, self.sizeDelta.y);
+            if (isOriginal) PlayerLifeUI.instance.SetTextPosition();
             // Set Current HP
             _hp = newHP;
             float hpMax = _maxhp,
@@ -278,6 +280,7 @@ namespace AsteriskMod
                 _maxhp = newMaxHP;
                 //self.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), self.sizeDelta.y);
                 self.sizeDelta = new Vector2(realMaxHP * 1.2f, self.sizeDelta.y);
+                if (isOriginal) PlayerLifeUI.instance.SetTextPosition();
             }
 
             // Set Current HP
@@ -486,6 +489,7 @@ namespace AsteriskMod
             }
         }
 
+        /**
         private void MoveLayer(bool below)
         {
             string findName = below ? "*BelowHPBar" : "*AboveHPBar";
@@ -511,6 +515,7 @@ namespace AsteriskMod
             if (isOriginal) throw new CYFException("The life bar of UI can't be moved above UI!");
             MoveLayer(false);
         }
+        */
 
         public void SendToTop()
         {
@@ -526,12 +531,12 @@ namespace AsteriskMod
             self.SetAsFirstSibling();
         }
 
-        public int x
+        public float x
         {
             get
             {
                 CheckExists(true);
-                return Mathf.RoundToInt(relativePosition.x);
+                return relativePosition.x;
             }
             set
             {
@@ -539,12 +544,12 @@ namespace AsteriskMod
             }
         }
 
-        public int y
+        public float y
         {
             get
             {
                 CheckExists(true);
-                return Mathf.RoundToInt(relativePosition.y);
+                return relativePosition.y;
             }
             set
             { 
@@ -565,19 +570,40 @@ namespace AsteriskMod
             }
         }
 
-        public void Move(int x, int y)
+        public void Move(float x, float y)
         {
             CheckExists(false, true);
             relativePosition += new Vector2(x, y);
             self.anchoredPosition += new Vector2(x, y);
         }
 
-        public void MoveTo(int newX, int newY)
+        public void MoveTo(float newX, float newY)
         {
             CheckExists(false, true);
             Vector2 initPos = self.anchoredPosition - relativePosition;
             relativePosition = new Vector2(newX, newY);
             self.anchoredPosition = initPos + relativePosition;
+        }
+
+        public string layer
+        {
+            get
+            {
+                if (isOriginal) return "*HPRect";
+                if (transform.parent.name.StartsWith("*")) return transform.parent.name.Substring(1);
+                return transform.parent.name.Substring(0, transform.parent.name.Length - 5);
+            }
+            set
+            {
+                if (isOriginal) throw new CYFException("The life bar of UI can't be moved above any life bars!");
+                Transform parent = transform.parent;
+                try
+                {
+                    if (value == "BelowHPBar" || value == "AboveHPBar") transform.SetParent(GameObject.Find("*" + value)    .transform);
+                    else                                                transform.SetParent(GameObject.Find(value + "Layer").transform);
+                }
+                catch { transform.SetParent(parent); }
+            }
         }
 
         [MoonSharpHidden, ToDo]

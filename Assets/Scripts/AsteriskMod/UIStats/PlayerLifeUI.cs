@@ -5,7 +5,7 @@ namespace AsteriskMod
 {
     public class PlayerLifeUI : MonoBehaviour
     {
-        //* private GameObject hpRect; // self
+        internal RectTransform hpRect; // self
         //* private RectTransform lifebarRt;
 
         private Image hpLabel;
@@ -13,7 +13,9 @@ namespace AsteriskMod
         public LuaSpriteController HPLabel { get; private set; }
 
         public PlayerLifeBar LifeBar { get; private set; }
+
         private GameObject lifeTextCore;
+        private RectTransform lifeTextRT;
         public UIStaticTextManager LifeTextMan { get; private set; }
 
         internal static PlayerLifeUI instance;
@@ -23,21 +25,22 @@ namespace AsteriskMod
 
         private void Awake()
         {
-            //* hpRect = gameObject;
+            hpRect = GetComponent<RectTransform>();
 
             hpLabel = transform.Find("*HPLabel").GetComponent<Image>();
             phLabel = transform.Find("*HPLabelCrate").GetComponent<Image>();
 
-            LifeBar = gameObject.GetComponentInChildren<PlayerLifeBar>();
+            LifeBar = transform.Find("*HPBar").GetComponent<PlayerLifeBar>();
             LifeBar.Initialize(true);
             //* lifebarRt = lifebar.GetComponent<RectTransform>();
 
             //* LifeTextMan = LifeBar.gameObject.GetComponentInChildren<UIStaticTextManager>();
 
-            lifeTextCore = GameObject.Find("*LifeTextParent");
+            lifeTextCore = transform.Find("*LifeTextParent").gameObject;
             //* lifeTextCore = LifeTextMan.gameObject;
             lifeTextCore.transform.position = new Vector3(lifeTextCore.transform.position.x, lifeTextCore.transform.position.y - 1, lifeTextCore.transform.position.z);
 
+            lifeTextRT  = lifeTextCore.GetComponent<RectTransform>();
             LifeTextMan = lifeTextCore.GetComponent<UIStaticTextManager>();
 
             instance = this;
@@ -99,7 +102,15 @@ namespace AsteriskMod
             //* lifebarRt.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), lifebarRt.sizeDelta.y);
             //* SetHP(PlayerCharacter.instance.HP);
             LifeBar.setMaxHP(true);
+            SetTextPosition();
+
             SetHP(PlayerCharacter.instance.HP);
+        }
+
+        internal void SetTextPosition()
+        {
+            if (LifeTextMan._controlOverride) return;
+            lifeTextRT.anchoredPosition = new Vector2(LifeBar.self.sizeDelta.x + 30, lifeTextRT.anchoredPosition.y);
         }
 
         public void SetHPControlOverride(bool active)

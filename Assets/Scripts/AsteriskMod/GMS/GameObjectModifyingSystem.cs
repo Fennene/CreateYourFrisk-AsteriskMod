@@ -10,14 +10,14 @@ namespace AsteriskMod
     [ToDo("Recreate")]
     public class GameObjectModifyingSystem : MonoBehaviour
     {
-        public static UnityObject Find(string name)
+        public UnityObject Find(string name)
         {
             GameObject gameObject = GameObject.Find(name);
             if (gameObject == null) throw new CYFException("GameObject \"" + name + "\" is not found.");
             return new UnityObject(gameObject, true);
         }
 
-        public static UnityObject CreateObject(string name)
+        public UnityObject CreateObject(string name)
         {
             GameObject gameObject = new GameObject(name);
             gameObject.transform.parent = Instance.transform;

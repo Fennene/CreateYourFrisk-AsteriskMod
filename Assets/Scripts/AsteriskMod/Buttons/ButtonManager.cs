@@ -49,6 +49,7 @@ namespace AsteriskMod
         /// <summary>Call in UIController.Start()</summary>
         internal void Start()
         {
+            StartParent();
             for (var i = 0; i < 4; i++)
             {
                 ActionButtons[i].Start(ButtonObjectNames[i], GetTexturePath(TexturePathesCrate[i], false));
@@ -88,7 +89,7 @@ namespace AsteriskMod
         internal Vector2 GetPlayerPosition(int buttonID)
         {
             if (ActionButtons[buttonID].playerabs) return ActionButtons[buttonID].RelativePlayerPosition;
-            Vector2 vector = ActionButtons[buttonID].RelativePosition + ActionButtons[buttonID].RelativePlayerPosition;
+            Vector2 vector = parentRelativePosition + ActionButtons[buttonID].RelativePosition + ActionButtons[buttonID].RelativePlayerPosition;
             vector.x += DefaultPlayerPosX[buttonID];
             vector.y += DefaultPlayerPosY;
             return vector;
@@ -97,7 +98,15 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
         //                            Asterisk Mod Features
         // --------------------------------------------------------------------------------
+        private RectTransform parent;
+        private Vector2 parentRelativePosition;
         private bool initialized = false;
+
+        private void StartParent()
+        {
+            parent = GameObject.Find("UIRect").GetComponent<RectTransform>();
+            parentRelativePosition = Vector2.zero;
+        }
 
         [MoonSharpHidden]
         internal void CheckInactivate(int buttonID)
@@ -185,22 +194,30 @@ namespace AsteriskMod
             }
         }
 
-        public void Move(int x, int y)
+        public float x
         {
-            CheckInitialized();
-            for (var i = 0; i < 4; i++)
-            {
-                ActionButtons[i].Move(x, y);
-            }
+            get { return parentRelativePosition.x; }
+            set { MoveTo(value, y); }
         }
 
-        public void MoveTo(int newX, int newY)
+        public float y
+        {
+            get { return parentRelativePosition.y; }
+            set { MoveTo(x, value); }
+        }
+
+        public void Move(float x, float y)
+        {
+            MoveTo(x + parentRelativePosition.x, y + parentRelativePosition.y);
+        }
+
+        public void MoveTo(float newX, float newY)
         {
             CheckInitialized();
-            for (var i = 0; i < 4; i++)
-            {
-                ActionButtons[i].MoveTo(newX, newY);
-            }
+            Vector2 initPos = parent.anchoredPosition - parentRelativePosition;
+            parentRelativePosition = new Vector2(newX, newY);
+            parent.anchoredPosition = initPos + parentRelativePosition;
+            UIController.instance.UpdatePlayerPositionOnAction();
         }
 
         public void SetColor(float r, float g, float b, float a = 1)

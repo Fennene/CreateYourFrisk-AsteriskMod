@@ -6,8 +6,9 @@ namespace AsteriskMod
     public class PlayerUtil : MonoBehaviour
     {
         [MoonSharpHidden] internal static PlayerUtil Instance;
-        private static GameObject Stats;
-        private static Vector2 relativePosition;
+        private GameObject Stats;
+        private Vector2 relativePosition;
+        private Vector2 relativeHPRectPosition;
 
         public static float defaultdamage;
         public static float defaultinvtime;
@@ -23,29 +24,30 @@ namespace AsteriskMod
         {
             Stats = gameObject;
             relativePosition = Vector2.zero;
+            relativeHPRectPosition = Vector2.zero;
             Instance = this;
         }
 
-        public static int x
+        public float x
         {
-            get { return Mathf.RoundToInt(relativePosition.x); }
+            get { return relativePosition.x; }
             set { MoveTo(value, y); }
         }
 
-        public static int y
+        public float y
         {
-            get { return Mathf.RoundToInt(relativePosition.y); }
+            get { return relativePosition.y; }
             set { MoveTo(x, value); }
         }
 
-        public static void Move(int x, int y)
+        public void Move(float x, float y)
         {
             Vector2 add = new Vector2(x, y);
             relativePosition += add;
             Stats.GetComponent<RectTransform>().anchoredPosition += add;
         }
 
-        public static void MoveTo(int newX, int newY)
+        public void MoveTo(float newX, float newY)
         {
             Vector2 initPos = Stats.GetComponent<RectTransform>().anchoredPosition - relativePosition;
             relativePosition = new Vector2(newX, newY);
@@ -59,77 +61,127 @@ namespace AsteriskMod
         }
         */
 
-        public static void MoveToAbs(int newX, int newY)
+        public void MoveToAbs(float newX, float newY)
         {
             Vector2 initPos = Stats.GetComponent<RectTransform>().anchoredPosition - relativePosition;
             Stats.transform.position = new Vector3(newX, newY, Stats.transform.position.z);
             relativePosition = Stats.GetComponent<RectTransform>().anchoredPosition - initPos;
         }
 
-        public static UIStaticTextManager Name { get { return PlayerNameText.instance.NameTextMan; } }
-        public static UIStaticTextManager nametext { get { return Name; } } // Could't name "name".
 
-        public static UIStaticTextManager Love { get { return PlayerLoveText.instance.LoveTextMan; } }
-        public static UIStaticTextManager lovetext { get { return Love; } }
+        public UIStaticTextManager Name { get { return PlayerNameText.instance.NameTextMan; } }
+        public UIStaticTextManager nametext { get { return Name; } } // Could't name "name".
 
-        public static LuaSpriteController HPLabel { get { return PlayerLifeUI.instance.HPLabel; } }
-        public static LuaSpriteController hplabel { get { return HPLabel; } }
+        public void SetJapaneseNameActive(bool active)
+        {
+            AsteriskEngine.JapaneseStyleOption.SetJapaneseNameActive(active);
+        }
 
-        public static PlayerLifeBar HPBar { get { return PlayerLifeUI.instance.LifeBar; } }
-        public static PlayerLifeBar hpbar { get { return HPBar; } }
+        public UIStaticTextManager Love { get { return PlayerLoveText.instance.LoveTextMan; } }
+        public UIStaticTextManager lovetext { get { return Love; } }
 
-        public static UIStaticTextManager HPText { get { return PlayerLifeUI.instance.LifeTextMan; } }
-        public static UIStaticTextManager hptext { get { return HPText; } }
+        public void SetLV(string lv)
+        {
+            PlayerLoveText.instance.SetText(lv);
+        }
 
-        public static void SetControlOverride(bool active)
+
+        public float hpx
+        {
+            get { return relativeHPRectPosition.x; }
+            set { HPMoveTo(value, hpy); }
+        }
+        public float HPx
+        {
+            get { return hpx; }
+            set { hpx = value; }
+        }
+
+        public float hpy
+        {
+            get { return relativeHPRectPosition.y; }
+            set { HPMoveTo(hpx, value); }
+        }
+        public float HPy
+        {
+            get { return hpy; }
+            set { hpy = value; }
+        }
+
+        public void HPMove(float x, float y)
+        {
+            Vector2 add = new Vector2(x, y);
+            relativeHPRectPosition += add;
+            PlayerLifeUI.instance.hpRect.anchoredPosition += add;
+        }
+
+        public void HPMoveTo(float newX, float newY)
+        {
+            Vector2 initPos = PlayerLifeUI.instance.hpRect.anchoredPosition - relativeHPRectPosition;
+            relativeHPRectPosition = new Vector2(newX, newY);
+            PlayerLifeUI.instance.hpRect.anchoredPosition = initPos + relativeHPRectPosition;
+        }
+
+        /*
+        public void HPMoveToAbs(float newX, float newY)
+        {
+            Vector2 initPos = PlayerLifeUI.instance.hpRect.anchoredPosition - relativeHPRectPosition;
+            PlayerLifeUI.instance.hpRect.gameObject.transform.position = new Vector3(newX, newY, PlayerLifeUI.instance.hpRect.gameObject.transform.position.z);
+            relativeHPRectPosition = PlayerLifeUI.instance.hpRect.anchoredPosition - initPos;
+        }
+        */
+
+        public LuaSpriteController HPLabel { get { return PlayerLifeUI.instance.HPLabel; } }
+        public LuaSpriteController hplabel { get { return HPLabel; } }
+
+        public PlayerLifeBar HPBar { get { return PlayerLifeUI.instance.LifeBar; } }
+        public PlayerLifeBar hpbar { get { return HPBar; } }
+
+        public UIStaticTextManager HPText { get { return PlayerLifeUI.instance.LifeTextMan; } }
+        public UIStaticTextManager hptext { get { return HPText; } }
+
+        public void SetHP(float hp, float maxhp, bool updateText = true)
+        {
+            PlayerLifeUI.instance.SetHPOverride(hp, maxhp, updateText);
+        }
+
+        public void SetHPText(float hp, float maxhp)
+        {
+            PlayerLifeUI.instance.SetHPTextFromNumber(hp, maxhp);
+        }
+
+
+        public void SetHPControlOverride(bool active)
+        {
+            PlayerLifeUI.instance.SetHPControlOverride(active);
+        }
+
+        public void SetControlOverride(bool active)
         {
             Name.SetControlOverride(active);
             Love.SetControlOverride(active);
             SetHPControlOverride(active);
         }
 
-        public static void SetJapaneseNameActive(bool active)
-        {
-            AsteriskEngine.JapaneseStyleOption.SetJapaneseNameActive(active);
-        }
 
-        public static void SetLV(string lv)
-        {
-            PlayerLoveText.instance.SetText(lv);
-        }
-
-        public static void SetHPControlOverride(bool active)
-        {
-            PlayerLifeUI.instance.SetHPControlOverride(active);
-        }
-
-        public static void SetHP(float hp, float maxhp, bool updateText = true)
-        {
-            PlayerLifeUI.instance.SetHPOverride(hp, maxhp, updateText);
-        }
-
-        public static void SetHPText(float hp, float maxhp)
-        {
-            PlayerLifeUI.instance.SetHPTextFromNumber(hp, maxhp);
-        }
-
-        public static int GetSoulAlpha()
+        public int GetSoulAlpha()
         {
             if (PlayerController.instance == null) return 0;
             return PlayerController.instance.selfImg.enabled ? 1 : 0;
         }
 
-        public static void SetTargetSprite(string path)
+
+        public void SetTargetSprite(string path)
         {
             ArenaUI.SetTargetSprite(path);
         }
 
-        public static void SetTargetChoiceSprite(string path)
+        public void SetTargetChoiceSprite(string path)
         {
             ArenaUI.SetTargetChoiceSprite(path);
         }
 
-        public static void SetTargetChoiceAnim(string[] anim, float frequency = 1 / 12f, string prefix = "", bool forceSetAnimation = true)
+        public void SetTargetChoiceAnim(string[] anim, float frequency = 1 / 12f, string prefix = "", bool forceSetAnimation = true)
         {
             if (anim.Length == 0)
             {
@@ -157,24 +209,49 @@ namespace AsteriskMod
             }
         }
 
-        public static void ResetTargetChoiceAnim(bool forceSetAnimation = true)
+        public void ResetTargetChoiceAnim(bool forceSetAnimation = true)
         {
             //*UIController.instance.fightUI.lineAnim = new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" };
             //*UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
             UIController.instance.fightUI.SetLineAnimation(new[] { "UI/Battle/spr_targetchoice_0", "UI/Battle/spr_targetchoice_1" }, 1 / 12f, forceSetAnimation);
         }
 
-        public static float GetTargetChoiceX()
+        public float GetTargetChoiceX()
         {
             return UIController.instance.fightUI.GetTargetRTX();
         }
 
-        public static int SimulateDamage(int playerATK, int playerWeaponATK, int enemyDEF, float targetChoiceX = 0f, float randomValue = -1f)
+        public int SimulateDamage(int playerATK, int playerWeaponATK, int enemyDEF, float targetChoiceX = 0f, float randomValue = -1f)
         {
             return UIController.instance.fightUI.SimulateDamage(playerATK, playerWeaponATK, enemyDEF, targetChoiceX, randomValue);
         }
 
-        public static PlayerLifeBar CreateLifeBar(bool below = false)
+        public PlayerLifeBar CreateLifeBar(string layer = "BelowHPBar")
+        {
+            string layerName = layer;
+            string prefabName;
+            if (layer == "BelowHPBar" || layer == "AboveHPBar")
+            {
+                layerName = "*" + layer;
+                prefabName = "Prefabs/AsteriskMod/LifeBar";
+            }
+            else
+            {
+                layerName += "Layer";
+                prefabName = "Prefabs/AsteriskMod/LifeBarOnSpriteL";
+            }
+            GameObject parent = GameObject.Find(layerName);
+            if (parent == null)
+            {
+                UnitaleUtil.DisplayLuaError("Creating a lifeBar", "The lifeBar layer " + layer + " doesn't exist.");
+                return null;
+            }
+            PlayerLifeBar lifeBar = GameObject.Instantiate(Resources.Load<GameObject>(prefabName), parent.transform).GetComponent<PlayerLifeBar>();
+            lifeBar.Initialize(false);
+            return lifeBar;
+        }
+        /*
+        public PlayerLifeBar CreateLifeBar(bool below = false)
         {
             string findName = below ? "*BelowHPBar" : "*AboveHPBar";
             GameObject parent = GameObject.Find(findName);
@@ -187,5 +264,6 @@ namespace AsteriskMod
             lifeBar.Initialize(false);
             return lifeBar;
         }
+        */
     }
 }

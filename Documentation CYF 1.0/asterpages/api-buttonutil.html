@@ -130,7 +130,55 @@ it's w3c valid, at least
                 (However, namespace will be not changed for compatibility if the Mod will be launched as before v0.5.3.)<br>
                 <span class="term">UIController.cs</span> have not contained functions of controlling each buttons. 
                 Instead of that, <span class="term">AsteriskMod.ButtonManager.cs</span> controls all button and <span class="term">AsteriskMod.ActionButton.cs</span> controls each buttons finely.
-            </p><br>
+            </p>
+
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> ButtonUtil.x</span>
+                Horizontal position of the all buttons' parent object, relative to the initial position.
+                <br><br>
+                <font color="#DDD">
+                    This function is NOT same to set <span class="term">button.x</span> to all buttons.
+                </font><br>
+                <font color="#FFF">
+                    <span class="term">button.x</span> of each button does NOT affect.
+                </font>
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> ButtonUtil.y</span>
+                Vertical position of the all buttons' parent object, relative to the initial position.
+                <br><br>
+                <font color="#DDD">
+                    This function is NOT same to set <span class="term">button.y</span> to all buttons.
+                </font><br>
+                <font color="#FFF">
+                    <span class="term">button.y</span> of each button does NOT affect.
+                </font>
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.Move(<span class="float"></span> x, <span class="float"></span> y)</span>
+                Moves the parent object of all buttons 
+                <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
+                <br><br>
+                <font color="#DDD">
+                    This function is NOT same to call <span class="term">button.Move()</span> to all buttons.
+                </font><br>
+                <font color="#FFF">
+                    <span class="term">button.x</span> and <span class="term">button.y</span> of each button do NOT affect.
+                </font>
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> ButtonUtil.MoveTo(<span class="float"></span> x, <span class="float"></span> y)</span>
+                Moves the parent object of all buttons to a new position, relative to the initial position.
+                <br><br>
+                <font color="#DDD">
+                    This function is NOT same to call <span class="term">button.MoveTo()</span> to all buttons.
+                </font><br>
+                <font color="#FFF">
+                    <span class="term">button.x</span> and <span class="term">button.y</span> of each button do NOT affect.
+                </font>
+            </p>
+
+            <br>
 
             <p>
                 <br><span class="function"><span class="userdata">Button</span> ButtonUtil.FIGHT (Read-only)<br></span>or
@@ -206,18 +254,6 @@ it's w3c valid, at least
                 <span class="Asterisk052x"></span> <span class="term">autoResize</span> is always <span class="term">true</span>, and you cannot assign <span class="term">inactiveSuffix</span> and <span class="term">activeSuffix</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.Move(<span class="int"></span> x, <span class="int"></span> y)</span>
-                Moves all button at the same time.
-                <br><br>
-                See <span class="term">button.Move()</span>.
-            </p>
-            <p>
-                <br><span class="function"><span class="asternew"></span> ButtonUtil.MoveTo(<span class="int"></span> x, <span class="int"></span> y)</span>
-                Set the position of all button at the same time.
-                <br><br>
-                See <span class="term">button.MoveTo()</span>.
-            </p>
-            <p>
                 <br><span class="function"><span class="asternew"></span> ButtonUtil.SetColor(<span class="float"></span> r, <span class="float"></span> g, <span class="float"></span> b, <span class="float"></span> a = 1)</span>
                 Sets colors of all button at the same time.<br>
                 Sets the button's color, as 3 or 4 values from 0 to 1.<br>
@@ -264,7 +300,7 @@ it's w3c valid, at least
             </p><br>
 
             <p>
-                <br><span class="function"><span class="int"></span> button.x</span>
+                <br><span class="function"><span class="float"></span> button.x</span>
                 Horizontal position of sprite relative to the initial position.
                 <br><br>
                 Note that each buttons have different anchor of the position.<br>
@@ -272,7 +308,7 @@ it's w3c valid, at least
                 The anchor of <span class="term">ITEM</span> and <span class="term">MERCY</span> is bottom right anchor.<br>
             </p>
             <p>
-                <br><span class="function"><span class="int"></span> button.y</span>
+                <br><span class="function"><span class="float"></span> button.y</span>
                 Vertical position of sprite relative to the initial positon.
                 <br><br>
                 Note that each buttons have different anchor of the position.<br>
@@ -280,24 +316,24 @@ it's w3c valid, at least
                 The anchor of <span class="term">ITEM</span> and <span class="term">MERCY</span> is bottom right anchor.<br>
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.absx</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.absx</span>
                 Horizontal position of sprite relative to the bottom left corner of the screen.
                 <br><br>
                 The anchor of a button's absolute position is always the center of the texture as like sprite object.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.absy</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.absy</span>
                 Vertical position of sprite relative to the bottom left corner of the screen.
                 <br><br>
                 The anchor of a button's absolute position is always the center of the texture as like sprite object.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.playerx</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.playerx</span>
                 Horizontal position of <font color="#FFF">the player</font> relative to the position of the button.<br>
                 If <span class="term">button.playerabs</span> is <span class="term">true</span>, this position means the same to <span class="term">Player.absx</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> <span class="int"></span> button.playery</span>
+                <br><span class="function"><span class="asternew"></span> <span class="float"></span> button.playery</span>
                 Vertical position of <font color="#FFF">the player</font> relative to the position of the button.<br>
                 If <span class="term">button.playerabs</span> is <span class="term">true</span>, this position means the same to <span class="term">Player.absy</span>.
             </p>
@@ -393,19 +429,19 @@ it's w3c valid, at least
                 </ul>
             </p>
             <p>
-                <br><span class="function">button.Move(<span class="int"></span> x, <span class="int"></span> y)</span>
+                <br><span class="function">button.Move(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Moves the sprite <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See <span class="term">button.x</span> and <span class="term">button.y</span>.
             </p>
             <p>
-                <br><span class="function">button.MoveTo(<span class="int"></span> x, <span class="int"></span> y)</span>
+                <br><span class="function">button.MoveTo(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Same as setting x and y simultaneously.
                 <br><br>
                 See <span class="term">button.x</span> and <span class="term">button.y</span>.
             </p>
             <p>
-                <br><span class="function"><span class="asternew"></span> button.MoveToAbs(<span class="int"></span> x, <span class="int"></span> y)</span>
+                <br><span class="function"><span class="asternew"></span> button.MoveToAbs(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Same as setting absx and absy simultaneously. Moves a sprite to an absolute screen position.
                 <br><br>
                 See <span class="term">button.absx</span> and <span class="term">button.absy</span>.

@@ -151,10 +151,10 @@ it's w3c valid, at least
 
             <br><hr>
 
-            <h3>Status UI</h3><br><br>
+            <h3>Status UI (All)</h3><br><br>
 
             <p>
-                <br><span class="function"><span class="int"></span> PlayerUtil.x</span>
+                <br><span class="function"><span class="float"></span> PlayerUtil.x</span>
                 Horizontal position of the all UI's parent object, relative to the initial position.
                 <br><br>
                 <font color="#DDD">
@@ -165,7 +165,7 @@ it's w3c valid, at least
                 </font>
             </p>
             <p>
-                <br><span class="function"><span class="int"></span> PlayerUtil.y</span>
+                <br><span class="function"><span class="float"></span> PlayerUtil.y</span>
                 Vertical position of the all UI's parent object, relative to the initial positon.
                 <br><br>
                 <font color="#DDD">
@@ -176,29 +176,33 @@ it's w3c valid, at least
                 </font>
             </p>
             <p>
-                <br><span class="function">PlayerUtil.Move(<span class="int"></span> x, <span class="int"></span> y)</span>
+                <br><span class="function">PlayerUtil.Move(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Moves the all UI showing the player's status <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See also <span class="ref">PlayerUtil.x</span> and <span class="ref">PlayerUtil.y</span>.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.MoveTo(<span class="int"></span> x, <span class="int"></span> y)</span>
+                <br><span class="function">PlayerUtil.MoveTo(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Moves the all UI showing the player's status to a new position, relative to the initial position.
                 <br><br>
                 (Same as setting <span class="term">PlayerUtil.x</span> and <span class="term">PlayerUtil.y</span> simultaneously.)<br>
                 See also <span class="ref">PlayerUtil.x</span> and <span class="ref">PlayerUtil.y</span>.
             </p>
             <p>
-                <br><span class="function">PlayerUtil.MoveToAbs(<span class="int"></span> absx, <span class="int"></span> absy)</span>
+                <br><span class="function">PlayerUtil.MoveToAbs(<span class="float"></span> absx, <span class="float"></span> absy)</span>
                 Moves the all UI showing the player's status to a new position, relative to the bottom left corner of the window.
-                <br><br>
-                <font color="#FFF">
-                    Note: This function is not 100% accurate. 
-                    Please use <span class="term">PlayerUtil.MoveTo()</span> as possible.
-                </font>
             </p>
 
-            <br>
+            <p>
+                <br><span class="function">PlayerUtil.SetControlOverride(<span class="boolean"></span> active)</span>
+                Either true or false. If true, bars and texts showing the Player's status do <b>NOT</b> update anymore.<br>
+                You should call this if you modify objects displaying the Player's status.<br>
+                This is same to call <span class="term">PlayerUtil.Name.SetControlOverride()</span> <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
+            </p>
+
+            <br><hr>
+
+            <h3>Status UI (Name &amp; Love)</h3><br><br>
 
             <p>
                 <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Name (Read-only)<br></span>
@@ -209,78 +213,22 @@ it's w3c valid, at least
                     <span class="term">PlayerUtil.Name.DestroyText()</span> in this object.
                 </font>
             </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Love (Read-only)<br></span>
-                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.lovetext (Read-only)<br></span>
-                Returns propety of the text showing the Player's love, as a StaticText object.
-                <font color="#DDD">
-                    You can not use <span class="term">PlayerUtil.Love.Remove()</span> and 
-                    <span class="term">PlayerUtil.Love.DestroyText()</span> in this object.
-                </font>
-            </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">sprite</span> PlayerUtil.HPLabel (Read-only)<br></span>
-                or<span class="function"><span class="userdata">sprite</span> PlayerUtil.hplabel (Read-only)<br></span>
-                Returns propety of the objects written "HP", as a sprite object.<br>
-                <font color="#DDD">
-                    You can not use <span class="term">PlayerUtil.HPLabel.Remove()</span> in this object.
-                </font>
-                <br><br>
-                <font color="#FFF">
-                    * Note that other HP's UIs (HPBar and HPText) is moved with HPLabel when this is moved.<br>
-                    * Note that the relative position is not accurate!!
-                </font>
-            </p>
-            <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)<br></span>
-                or<span class="function"><span class="userdata">LifeBar</span> PlayerUtil.hpbar (Read-only)<br></span>
-                Returns propety of the bar objects showing the Player's HP, as a LifeBar object.<br>
-                <font color="#DDD">
-                    You can not use <span class="term">PlayerUtil.HPBar.Remove()</span>, <span class="term">PlayerUtil.HPBar.MoveBelow()</span>, <span class="term">PlayerUtil.HPBar.MoveAbove()</span>, <span class="term">PlayerUtil.HPBar.MoveBelowUI()</span>, <span class="term">PlayerUtil.HPBar.MoveAboveUI()</span>, <span class="term">PlayerUtil.HPBar.SendToBottom()</span> and <span class="term">PlayerUtil.HPBar.SendToTop()</span> in this object.
-                </font>
-                <br><br>
-                <font color="#FFF">
-                    * Note that HPText is moved with HPBar when this is moved, changed maxhp, changed height.
-                </font>
-            </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.CreateLifeBar(<span class="boolean"></span> below = false)</span>
-                Creates Life Bar and Return The LifeBar Object.<br>
-                When the <span class="term">below</span> is <span class="term">true</span>, 
-                LifeBar is created in below original Player's HP Bar.
-                <br><br>
-                If the GameObject that will be lifebar's parent can not find by some reason, returns nil. 
-                <u>(However this is not happen on normal.)</u>
-            </p>
-
-            <p>
-                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)<br></span>
-                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.hptext (Read-only)<br></span>
-                Returns propety of the text showing the Player's HP, as a StaticText object.
-                <font color="#DDD">
-                    You can not use <span class="term">PlayerUtil.HPText.Remove()</span> and 
-                    <span class="term">PlayerUtil.HPText.DestroyText()</span> in this object.
-                </font>
-            </p>
-
-            <br>
-
-            <p>
-                <br><span class="function">PlayerUtil.SetControlOverride(<span class="boolean"></span> active)</span>
-                Either true or false. If true, bars and texts showing the Player's status do <b>NOT</b> update anymore.<br>
-                You should call this if you modify objects displaying the Player's status.<br>
-                This is same to call <span class="term">PlayerUtil.Name.SetControlOverride()</span> <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
-            </p>
-
             <p>
                 <br><span class="function">PlayerUtil.SetJapaneseNameActive(<span class="boolean"></span> active)</span>
                 Supports Japanese player name.<br>
                 日本語訳や詳細は <span class="ref">Japanese Localization [日本語対応]</span>を参照してください。
             </p>
 
+            <p>
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.Love (Read-only)<br></span>
+                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.lovetext (Read-only)<br></span>
+                Returns propety of the text showing the Player's love, as a StaticText object.<br>
+                The position of this object is changed with the length of name's text automatically until <span class="term">PlayerUtil.Love.SetControlOverride(true)</span> is called.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.Love.Remove()</span> and 
+                    <span class="term">PlayerUtil.Love.DestroyText()</span> in this object.
+                </font>
+            </p>
             <p>
                 <br><span class="function">PlayerUtil.SetLV(<span class="string"></span> lv)</span>
                 Set the player's LV as string.<br>
@@ -290,11 +238,86 @@ it's w3c valid, at least
                 <font color="#DDD">Note that you can not use <span class="term">Text commands</span>.</font>
             </p>
 
+            <br><hr>
+
+            <h3>Status UI (HP)</h3><br><br>
+
             <p>
-                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
-                Either true or false. If true, bars and texts showing HP do <b>NOT</b> update anymore.<br>
-                You should call this if you modify objects displaying the Player's HP.<br>
-                This is same to <span class="term">PlayerUtil.HPBar.SetControlOverride()</span> and <span class="term">PlayerUtil.HPText.SetControlOverride()</span> at the same time.
+                <br><span class="function"><span class="float"></span> PlayerUtil.hpx<br></span>or
+                <span class="function"><span class="float"></span> PlayerUtil.HPx</span>
+                Parent object's horizontal position of the objects showing the player's HP, relative to the initial position.
+                <br><br>
+                <font color="#DDD">
+                This is NOT same to call <span class="term">.Move()</span> each UIs.
+                <br><br>
+                This function moves only parent object of HP's UIs.<br>
+                In other words, moves reference positions of the UIs.
+                </font>
+            </p>
+            <p>
+                <br><span class="function"><span class="float"></span> PlayerUtil.hpy<br></span>or
+                <span class="function"><span class="float"></span> PlayerUtil.HPy</span>
+                Parent object's vertical position of the objects showing the player's HP, relative to the initial position.
+                <br><br>
+                <font color="#DDD">
+                This is NOT same to call <span class="term">.Move()</span> each UIs.
+                <br><br>
+                This function moves only parent object of HP's UIs.<br>
+                In other words, moves reference positions of the UIs.
+                </font>
+            </p>
+            <p>
+                <br><span class="function">PlayerUtil.HPMove(<span class="float"></span> x, <span class="float"></span> y)</span>
+                Moves the all UI showing the player's HP <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
+                <br><br>
+                See also <span class="ref">PlayerUtil.hpx</span> and <span class="ref">PlayerUtil.hpy</span>.
+            </p>
+            <p>
+                <br><span class="function">PlayerUtil.HPMoveTo(<span class="float"></span> x, <span class="float"></span> y)</span>
+                Moves the all UI showing the player's HP to a new position, relative to the initial position.
+                <br><br>
+                (Same as setting <span class="term">PlayerUtil.hpx</span> and <span class="term">PlayerUtil.hpy</span> simultaneously.)<br>
+                See also <span class="ref">PlayerUtil.hpx</span> and <span class="ref">PlayerUtil.hpy</span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="userdata">sprite</span> PlayerUtil.HPLabel (Read-only)<br></span>
+                or<span class="function"><span class="userdata">sprite</span> PlayerUtil.hplabel (Read-only)<br></span>
+                Returns propety of the objects written "HP", as a sprite object.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.HPLabel.Remove()</span> in this object.
+                </font>
+            </p>
+            <p>
+                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.HPBar (Read-only)<br></span>
+                or<span class="function"><span class="userdata">LifeBar</span> PlayerUtil.hpbar (Read-only)<br></span>
+                Returns propety of the bar objects showing the Player's HP, as a LifeBar object.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.HPBar.Remove()</span>, 
+                    <span class="term">PlayerUtil.HPBar.layer</span>, 
+                    <span class="term">PlayerUtil.HPBar.MoveBelow()</span>, 
+                    <span class="term">PlayerUtil.HPBar.MoveAbove()</span>, 
+                    <span class="term">PlayerUtil.HPBar.SendToBottom()</span> and 
+                    <span class="term">PlayerUtil.HPBar.SendToTop()</span> in this object.
+                </font>
+            </p>
+
+            <p>
+                <br><span class="function"><span class="userdata">LifeBar</span> PlayerUtil.CreateLifeBar(<span class="string"></span> layer = "BelowHPBar")</span>
+                Creates Life Bar and Return The LifeBar Object.<br>
+                On The LifeBar Object, you can specify special layer 
+                named "<span class="term">BelowHPBar</span>" and "<span class="term">AboveHPBar</span>"
+            </p>
+
+            <p>
+                <br><span class="function"><span class="userdata">StaticText</span> PlayerUtil.HPText (Read-only)<br></span>
+                or<span class="function"><span class="userdata">StaticText</span> PlayerUtil.hptext (Read-only)<br></span>
+                Returns propety of the text showing the Player's HP, as a StaticText object.<br>
+                The position of this object is changed with the length of player's life bar automatically until <span class="term">PlayerUtil.HPText.SetControlOverride(true)</span> is called.<br>
+                <font color="#DDD">
+                    You can not use <span class="term">PlayerUtil.HPText.Remove()</span> and 
+                    <span class="term">PlayerUtil.HPText.DestroyText()</span> in this object.
+                </font>
             </p>
 
             <p>
@@ -316,6 +339,13 @@ it's w3c valid, at least
                 Recommends to call <span class="term">PlayerUtil.SetHPControlOverride(true)</span> or 
                 <span class="term">PlayerUtil.HPText.SetControlOverride(true)</span> before use this.<br>
                 You should use <span class="term">PlayerUtil.HPText.SetText()</span> if you set the text as string.
+            </p>
+
+            <p>
+                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
+                Either true or false. If true, bars and texts showing HP do <b>NOT</b> update anymore.<br>
+                You should call this if you modify objects displaying the Player's HP.<br>
+                This is same to <span class="term">PlayerUtil.HPBar.SetControlOverride()</span> and <span class="term">PlayerUtil.HPText.SetControlOverride()</span> at the same time.
             </p>
 
             <br><hr>
@@ -387,7 +417,7 @@ it's w3c valid, at least
 
             <br><hr>
 
-            <h3>The LifeBar Object</h3><br><br>
+            <h3 id="LifeBar">The LifeBar Object</h3><br><br>
             <p>
                 LifeBars are composed of 3 GameObjects. 
                 Those are parent, BGBar, and FillBar. <br>
@@ -455,7 +485,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="float"></span> lifeBar.height</span>
+                <br><span class="function"><span class="int"></span> lifeBar.height</span>
                 Gets or sets a height of the bar.<br>
                 Default by <span class="term">20</span>.
             </p>
@@ -511,71 +541,58 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">lifeBar.MoveBelow(<span class="userdata">lifeBar</span> otherLifeBar)</span>
-                Moves a life bar object below another life bar object.<br>
-                They must both be on the same layer (that layer means whether UI's life bar is below or above).
-                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveBelow()</span> can't be used.</font>
-                <br><br>
-                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
-            </p>
-            <p>
-                <br><span class="function">lifeBar.MoveAbove(<span class="userdata">lifeBar</span> otherLifeBar)</span>
-                Moves a life bar object above another life bar object.<br>
-                They must both be on the same layer (that layer means whether UI's life bar is below or above).<br>
-                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveAbove()</span> can't be used.</font>
-                <br><br>
-                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
-            </p>
-            <p>
-                <br><span class="function">lifeBar.MoveBelowUI()</span>
-                Moves a life bar below UI(<span class="term">PlayerUtil.HPBar</span>).<br>
-                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveBelowUI()</span> can't be used.</font>
-            </p>
-            <p>
-                <br><span class="function">lifeBar.MoveAboveUI()</span>
-                Moves a life bar above UI(<span class="term">PlayerUtil.HPBar</span>).<br>
-                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveAboveUI()</span> can't be used.</font>
-            </p>
-            <p>
-                <br><span class="function">lifeBar.SendToTop()</span>
-                Sends this bar to the top of its bar's hierarchy. This is same to <span class="term">sprite.SendToTop()</span>.<br>
-                <font color="#DDD"><span class="term">PlayerUtil.HPBar.SendToTop()</span> can't be used.</font>
-                <br><br>
-                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
-            </p>
-            <p>
-                <br><span class="function">lifeBar.SendToBottom()</span>
-                Sends this bar to the bottom of its bar's hierarchy. Similar rules apply as with <span class="term">SendToTop()</span>.<br>
-                <font color="#DDD"><span class="term">PlayerUtil.HPBar.SendToBottom()</span> can't be used.</font>
-                <br><br>
-                You need to call <span class="term">lifeBar.MoveBelowUI()</span> or <span class="term">lifeBar.MoveAboveUI()</span> at first if you wanna move beyond UI.
-            </p>
-
-            <br><hr>
-            <p>
-                Below functions are related to the position.<br>
-                Note that lifebars' positions are affected by the position of <span class="term">PlayerUtil.HPLabel</span>.
-            </p>
-
-            <p>
-                <br><span class="function"><span class="int"></span> lifeBar.x</span>
+                <br><span class="function"><span class="float"></span> lifeBar.x</span>
                 Horizontal position of lifeBar relative to the initial position.
             </p>
             <p>
-                <br><span class="function"><span class="int"></span> lifeBar.y</span>
+                <br><span class="function"><span class="float"></span> lifeBar.y</span>
                 Vertical position of lifeBar relative to the initial position.
             </p>
             <p>
-                <br><span class="function">lifeBar.Move(<span class="int"></span>x, <span class="int"></span> y)</span>
+                <br><span class="function">lifeBar.Move(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Moves the lifeBar <span class="term">x</span> pixels right, and <span class="term">y</span> pixels up.
                 <br><br>
                 See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.
             </p>
             <p>
-                <br><span class="function">lifeBar.MoveTo(<span class="int"></span>x, <span class="int"></span> y)</span>
+                <br><span class="function">lifeBar.MoveTo(<span class="float"></span> x, <span class="float"></span> y)</span>
                 Same as setting x and y simultaneously.
                 <br><br>
                 See <span class="term">lifeBar.x</span> and <span class="term">lifeBar.y</span>.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="string"></span> lifeBar.layer</span>
+                Gets or sets the current layer a bar is on. Does nothing(?) if you set it to a layer that doesn't exist.
+                <br><br>
+                Default value: "BelowHPBar"
+                <br><br>
+                You can specify special layer 
+                named "<span class="term">BelowHPBar</span>" and "<span class="term">AboveHPBar</span>".
+                <br>
+                <font color="#DDD">On <span class="term">PlayerUtil.HPBar</span>, layer can't be changed.</font>
+            </p>
+            <p>
+                <br><span class="function">lifeBar.SendToTop()</span>
+                Sends this bar to the top of its bar's hierarchy. This is same to <span class="term">sprite.SendToTop()</span>.<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.SendToTop()</span> can't be used.</font>
+            </p>
+            <p>
+                <br><span class="function">lifeBar.SendToBottom()</span>
+                Sends this bar to the bottom of its bar's hierarchy. Similar rules apply as with <span class="term">SendToTop()</span>.<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.SendToBottom()</span> can't be used.</font>
+            </p>
+            <p>
+                <br><span class="function">lifeBar.MoveBelow(<span class="userdata">lifeBar</span> otherLifeBar)</span>
+                Moves a life bar object below another life bar object.<br>
+                They must both be on the same layer.<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveBelow()</span> can't be used.</font>
+            </p>
+            <p>
+                <br><span class="function">lifeBar.MoveAbove(<span class="userdata">lifeBar</span> otherLifeBar)</span>
+                Moves a life bar object above another life bar object.<br>
+                They must both be on the same layer.<br>
+                <font color="#DDD"><span class="term">PlayerUtil.HPBar.MoveAbove()</span> can't be used.</font>
             </p>
         </div>
 

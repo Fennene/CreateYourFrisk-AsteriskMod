@@ -29,7 +29,7 @@ namespace AsteriskMod.Lua
 
         public void SetActive(bool active)
         {
-            UIController.ActionButtonManager[buttonID + 1].SetActive(active);
+            UIController.ActionButtonManager[buttonID + 1].SetActive(active, true);
             /*
             isActive = active;
             button.GetComponent<Image>().color = new Color(1f, 1f, 1f, (isActive ? 1f : 0f));
@@ -92,18 +92,18 @@ namespace AsteriskMod.Lua
         public float x
         {
             get { /*return position.x;*/ return UIController.ActionButtonManager[buttonID + 1].x; }
-            set { /*MoveTo(value, position.y);*/ UIController.ActionButtonManager[buttonID + 1].x = (int)value; }
+            set { /*MoveTo(value, position.y);*/ UIController.ActionButtonManager[buttonID + 1].x = value; }
         }
 
         public float y
         {
             get { /*return position.y;*/ return UIController.ActionButtonManager[buttonID + 1].y; }
-            set { /*MoveTo(position.x, value);*/ UIController.ActionButtonManager[buttonID + 1].y = (int)value; }
+            set { /*MoveTo(position.x, value);*/ UIController.ActionButtonManager[buttonID + 1].y = value; }
         }
 
         public void MoveTo(float x, float y)
         {
-            UIController.ActionButtonManager[buttonID + 1].MoveTo((int)x, (int)y);
+            UIController.ActionButtonManager[buttonID + 1].MoveTo(x, y);
             /*
             button.GetComponent<RectTransform>().anchoredPosition = new Vector2(button.GetComponent<RectTransform>().anchoredPosition.x - position.x, button.GetComponent<RectTransform>().anchoredPosition.y - position.y);
             position = new Vector2(x, y);
@@ -113,7 +113,7 @@ namespace AsteriskMod.Lua
 
         public void Move(float x, float y)
         {
-            UIController.ActionButtonManager[buttonID + 1].Move((int)x, (int)y);
+            UIController.ActionButtonManager[buttonID + 1].Move(x, y);
             // MoveTo(position.x + x, position.y + y);
         }
 

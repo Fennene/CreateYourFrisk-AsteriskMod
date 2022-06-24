@@ -135,15 +135,15 @@ namespace AsteriskMod
             }
         }
 
-        public int x
+        public float x
         {
-            get { return Mathf.FloorToInt(RelativePosition.x); }
+            get { return RelativePosition.x; }
             set { MoveTo(value, y); }
         }
 
-        public int y
+        public float y
         {
-            get { return Mathf.FloorToInt(RelativePosition.y); }
+            get { return RelativePosition.y; }
             set { MoveTo(x, value); }
         }
 
@@ -162,24 +162,24 @@ namespace AsteriskMod
             return _gameObject.transform.position.y + _button.GetComponent<RectTransform>().sizeDelta.y / 2;
         }
 
-        public int absx
+        public float absx
         {
-            get{ return Mathf.FloorToInt(GetAbsX()); }
+            get{ return GetAbsX(); }
             set { MoveToAbs(value, absy); }
         }
 
-        public int absy
+        public float absy
         {
-            get { return Mathf.FloorToInt(GetAbsY()); }
+            get { return GetAbsY(); }
             set { MoveToAbs(absx, value); }
         }
 
-        public void Move(int x, int y)
+        public void Move(float x, float y)
         {
             MoveTo(x + this.x, y + this.y);
         }
 
-        public void MoveTo(int newX, int newY)
+        public void MoveTo(float newX, float newY)
         {
             Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - RelativePosition;
             RelativePosition = new Vector2(newX, newY);
@@ -196,12 +196,12 @@ namespace AsteriskMod
             return x + _button.GetComponent<RectTransform>().sizeDelta.x / 2;
         }
 
-        private float ConvertToAbsY(float y) // I don't like this method, but I could not found better others.
+        private float ConvertToAbsY(float y)
         {
             return y - _button.GetComponent<RectTransform>().sizeDelta.y / 2;
         }
 
-        public void MoveToAbs(int newX, int newY)
+        public void MoveToAbs(float newX, float newY)
         {
             Vector2 initPos = _button.GetComponent<RectTransform>().anchoredPosition - RelativePosition;
             _gameObject.transform.position = new Vector3(ConvertToAbsX(newX), ConvertToAbsY(newY), _gameObject.transform.position.z);
@@ -218,15 +218,15 @@ namespace AsteriskMod
             }
         }
 
-        public int playerx
+        public float playerx
         {
-            get { return Mathf.FloorToInt(RelativePlayerPosition.x); }
+            get { return RelativePlayerPosition.x; }
             set { RelativePlayerPosition = new Vector2(value, RelativePlayerPosition.y); }
         }
 
-        public int playery
+        public float playery
         {
-            get { return Mathf.FloorToInt(RelativePlayerPosition.y); }
+            get { return RelativePlayerPosition.y; }
             set { RelativePlayerPosition = new Vector2(RelativePlayerPosition.x, value); }
         }
 

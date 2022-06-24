@@ -1,5 +1,6 @@
 ﻿using System;
 using MoonSharp.Interpreter;
+using MoonSharp.Interpreter.Loaders;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -40,6 +41,24 @@ namespace AsteriskMod
             UserData.RegisterType<Lua.ArenaUtil>();
             UserData.RegisterType<Lua.StateEditor>();
             UserData.RegisterType<Lua.LuaLifeBar>();
+        }
+
+        public static void SetModulePaths(Script script)
+        {
+            string[] pathes = new string[4 + AsteriskEngine.LuaCodeStyle.libPathes.Length];
+            //* pathes = new[] { FileLoader.pathToModFile("Lua/?.lua"), FileLoader.pathToDefaultFile("Lua/?.lua"), FileLoader.pathToModFile("Lua/Libraries/?.lua"), FileLoader.pathToDefaultFile("Lua/Libraries/?.lua") };
+            pathes[0] = FileLoader.pathToModFile    ("Lua/?.lua");
+            pathes[1] = FileLoader.pathToDefaultFile("Lua/?.lua");
+            pathes[2] = FileLoader.pathToModFile    ("Lua/Libraries/?.lua");
+            pathes[3] = FileLoader.pathToDefaultFile("Lua/Libraries/?.lua");
+            if (AsteriskEngine.LuaCodeStyle.libPathes.Length > 0)
+            {
+                for (var i = 0; i < AsteriskEngine.LuaCodeStyle.libPathes.Length; i++)
+                {
+                    pathes[i + 4] = FileLoader.pathToModFile(AsteriskEngine.LuaCodeStyle.libPathes[i]);
+                }
+            }
+            ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = pathes;
         }
 
         public static void BoundScriptVariables(Script script)
@@ -127,11 +146,14 @@ namespace AsteriskMod
                 script.Globals.Set("Lang", lang);
 
                 /*
-                GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
-                //if (goms == null) goms = new GameObjectModifyingSystem();
-                DynValue gms = UserData.Create(goms);
-                script.Globals.Set("GameObjectModifyingSystem", gms);
-                script.Globals.Set("GMS", gms);
+                if (AsteriskEngine.LuaCodeStyle.gms)
+                {
+                    GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
+                    //if (goms == null) goms = new GameObjectModifyingSystem();
+                    DynValue gms = UserData.Create(goms);
+                    script.Globals.Set("GameObjectModifyingSystem", gms);
+                    script.Globals.Set("GMS", gms);
+                }
                 */
 
                 if (AsteriskEngine.LuaCodeStyle.stringUtil)
@@ -147,7 +169,7 @@ namespace AsteriskMod
                 if (AsteriskEngine.LuaCodeStyle.cyfUtil)
                 {
                     DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
-                    script.Globals.Set("CYFUtil", cyfutil);
+                    script.Globals.Set("Util", cyfutil);
                 }
             }
             else

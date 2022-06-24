@@ -1,5 +1,6 @@
 ﻿using AsteriskMod.FakeIniLoader;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -7,12 +8,16 @@ namespace AsteriskMod
 {
     public class CodeStyle
     {
+        public bool gms;
+        public string[] libPathes;
         public bool stringUtil;
         public bool arrayUtil;
         public bool cyfUtil;
 
         public CodeStyle()
         {
+            gms = false;
+            libPathes = new string[0];
             stringUtil = false;
             arrayUtil = false;
             cyfUtil = false;
@@ -39,25 +44,25 @@ namespace AsteriskMod
             string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + CODESTYLE_FILE_NAME);
             if (IgnoreFile(path)) return style;
 
-            FakeIni ini = FakeIniFileLoader.Load(path, false);
-
+            FakeIni ini = FakeIniFileLoader.Load(path, true);
+            string[] rawLibPathes = new string[0];
             foreach (string realKey in ini.Main.ParameterNames)
             {
                 string keyName = realKey.ToLower().Replace("_", "-");
                 if (realKey != keyName && ini.Main.ParameterExists(keyName)) continue;
                 switch (keyName)
                 {
-                    //case "environment-pathes":
-                    //case "env-pathes":
-                    //style.environmentPathes = ini.Main[realKey].Array;
-                    //break;
-                    /*
-                    case "extended-util":
-                    case "exutil":
-                    case "extendedutil":
-                        style.extendedUtil = ConvertToBoolean(ini.Main[realKey].String);
+                    case "environment-pathes":
+                    case "env-pathes":
+                    case "library-pathes":
+                    case "lib-pathes":
+                        rawLibPathes = ini.Main[realKey].Array;
                         break;
-                    */
+                    case "gameobjectmodifyingsystem":
+                    case "gameobject-modifying-system":
+                    case "gms":
+                        style.gms = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
                     case "stringutil":
                     case "string-util":
                         style.stringUtil = ConvertToBoolean(ini.Main[realKey].String);
@@ -70,20 +75,34 @@ namespace AsteriskMod
                     case "cyfutil":
                         style.cyfUtil = ConvertToBoolean(ini.Main[realKey].String);
                         break;
-                    /*
-                    case "faster-util":
-                    case "faster-tools":
-                    case "faster-table":
-                    case "faster-array":
-                    case "fasterutil":
-                    case "fastertools":
-                    case "fastertable":
-                    case "fasterarray":
-                        style.fasterTable = ConvertToBoolean(ini.Main[realKey].String);
-                        break;
-                    */
                 }
             }
+            if (rawLibPathes.Length == 0) return style;
+
+            List<string> libPathes = new List<string>();
+            foreach (string libPath in rawLibPathes)
+            {
+                if (libPath.Contains("..")) continue;
+                string tempPath = libPath;
+                if (tempPath.EndsWith("/"))
+                {
+                    tempPath += "?.lua";
+                }
+                else if (tempPath.EndsWith("?"))
+                {
+                    tempPath += ".lua";
+                }
+                else if (tempPath.Contains(".") && !tempPath.EndsWith(".lua"))
+                {
+                    continue;
+                }
+                else
+                {
+                    tempPath += "/?.lua";
+                }
+                libPathes.Add(tempPath);
+            }
+            style.libPathes = libPathes.ToArray();
             return style;
         }
     }

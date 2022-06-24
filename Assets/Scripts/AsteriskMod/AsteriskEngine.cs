@@ -50,8 +50,8 @@ namespace AsteriskMod
             {
                 if (_autoFontCoordinating == active) return;
                 _autoFontCoordinating = active;
-                AsteriskChar = active ? '＊' : '*';
-                ArenaUtil.DialogTextMove(0, active ? -5 : 5);
+                //* AsteriskChar = active ? '＊' : '*';
+                //* ArenaUtil.DialogTextMove(0, active ? -5 : 5);
             }
 
             // Auto set JP

@@ -77,10 +77,6 @@ it's w3c valid, at least
                     <li><span class="asternew"></span>Japanese Localization<br>[日本語対応]:</li>
                     <li class="li-indent asternew"><a href="jp-basis.html">Basis [基本]</a></li>
                     <li class="li-indent asternew"><a href="jp-lang.html">The .lang File &amp; The Lang Object<br>[.langファイル &amp; Langオブジェクト]</a></li>
-                    <li><span class="asternew"></span>Gameobject Modifying System:</li>
-                    <li class="li-indent asternew"><a href="gms-basis.html">Basis</a></li>
-                    <li class="li-indent asternew"><a href="gms-main.html">The GameObject Object</a></li>
-                    <li class="li-indent asternew"><a href="gms-image.html">The ImageComponent Object</a></li>
                     <hr style="margin-top:10px;margin-bottom:10px;">
                 <li class="li-header"></span><span class="CYF"></span> Shaders</li>
                     <li><a href="../pages/shaders.html">Introduction</a></li>
@@ -259,9 +255,6 @@ it's w3c valid, at least
                     </li><br>
                     <li>
                         <span class="term">Japanese Localization</span>: CYFの日本語対応！？
-                    </li><br>
-                    <li>
-                        <span class="term">GameObjectModifyingSystem(GMS)</span>: ah... um...
                     </li>
                 </ul><br>
                 See each sections for more information.<br>
@@ -389,63 +382,69 @@ it's w3c valid, at least
                     <li class="modify">
                         Renew <span class="term">Special Variables</span><br>
                         <ul>
-                            <li>Add the variable <span class="term">menubgbarcolor</span> in Monster Script instead of <span class="term">minibgcolor</span></li>
-                            <li>Add the variable <span class="term">bgbarcolor</span> in Monster Script instead of <span class="term">bgcolor</span></li>
-                            <li>Add the variable <span class="term">fillbarcolor</span> in Monster Script instead of <span class="term">fillcolor</span></li>
-                            <li class="add">Add the variable <span class="term">AsteriskMod</span></li>
-                            <!--<li class="add">Add the variable <span class="term">AsteriskDevEdition</span></li>-->
-                            <li class="add">Add the variable <span class="term">Language</span></li>
-                            <li class="add">Add the encounter variable <span class="term">ignoreenemydialogue</span></li>
-                            <li class="add">Add the monster variable <span class="term">menufillbarcolor</span></li>
-                            <li class="add">Add the monster variable <span class="term">menubgbaralpha</span></li>
-                            <li class="add">Add the monster variable <span class="term">menufillbaralpha</span></li>
-                            <li class="add">Add the monster variable <span class="term">showbars</span></li>
-                            <li class="add">Add the monster variable <span class="term">damagetext</span></li>
-                            <li class="add">Add the monster variable <span class="term">noshaking</span></li>
+                            <li class="modify">
+                                Add the variable <span class="term">menubgbarcolor</span> in Monster Script instead of <span class="term">minibgcolor</span>.
+                            </li>
+                            <li class="modify">
+                                Add the variable <span class="term">bgbarcolor</span> in Monster Script instead of <span class="term">bgcolor</span>.
+                            </li>
+                            <li class="modify">
+                                Add the variable <span class="term">fillbarcolor</span> in Monster Script instead of <span class="term">fillcolor</span>.
+                            </li>
+                            <li class="add">Add the variable <span class="term">AsteriskMod</span>.</li>
+                            <!--<li class="add">Add the variable <span class="term">AsteriskDevEdition</span>.</li>-->
+                            <li class="add">Add the variable <span class="term">Language</span>.</li>
+                            <li class="add">Add the encounter variable <span class="term">ignoreenemydialogue</span>.</li>
+                            <li class="add">Add the monster variable <span class="term">menufillbarcolor</span>.</li>
+                            <li class="add">Add the monster variable <span class="term">menubgbaralpha</span>.</li>
+                            <li class="add">Add the monster variable <span class="term">menufillbaralpha</span>.</li>
+                            <li class="add">Add the monster variable <span class="term">showbars</span>.</li>
+                            <li class="add">Add the monster variable <span class="term">damagetext</span>.</li>
+                            <li class="add">Add the monster variable <span class="term">noshaking</span>.</li>
                         </ul>
                     </li>
                     <li>
                         Add Misc. functions<br>
                         <ul>
-                            <li>Add the monster function <span class="term">GetShakeX()</span></li>
+                            <li>Add the monster function <span class="term">GetShakeX()</span>.</li>
                         </ul>
                     </li>
                     <li>
-                        Add the variables to <span class="term">The Bullet Object</span><br>
+                        Add the variables to <span class="term">The Bullet Object</span>.<br>
                         <ul>
-                            <li>Add the variable <span class="term">Bullet.velocity</span></li>
-                            <li>Add the variable <span class="term">Bullet.velocityx</span></li>
-                            <li>Add the variable <span class="term">Bullet.velocityy</span></li>
+                            <li>Add the variable <span class="term">Bullet.velocity</span>.</li>
+                            <li>Add the variable <span class="term">Bullet.velocityx</span>.</li>
+                            <li>Add the variable <span class="term">Bullet.velocityy</span>.</li>
                         </ul>
                     </li>
                     <li>
                         Add the functions to <span class="term">The Text Object</span><br>
                         <ul>
-                            <li>Add the variable <span class="term">Text.width</span></li>
-                            <li>Add the variable <span class="term">Text.height</span></li>
-                            <li>Add the function <span class="term">Text.SetSoundVolume()</span></li>
-                            <li>Add the function <span class="term">Text.GetSoundVolume()</span></li>
+                            <li>Add the variable <span class="term">Text.width</span>.</li>
+                            <li>Add the variable <span class="term">Text.height</span>.</li>
+                            <li>Add the function <span class="term">Text.SetSoundVolume()</span>.</li>
+                            <li>Add the function <span class="term">Text.GetSoundVolume()</span>.</li>
                         </ul>
                     </li>
                     <li>
-                        Add <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>
+                        Add the new content <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>.
                     </li>
                     <li>
-                        Add <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
+                        Add the new content <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
                         <ul>
                             <li>Add the funtion <span class="term">Engine.SetTargetFrameRate()</span>.</li>
-                            <li>Add the funtion <span class="term">Engine.ModExists()</span></li>
-                            <li>Add the funtion <span class="term">Engine.OpenAppDataFile()</span></li>
-                            <li>Add the funtion <span class="term">Engine.AppDataFileExists()</span></li>
-                            <li>Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span></li>
+                            <li>Add the funtion <span class="term">Engine.ModExists()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.OpenAppDataFile()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.AppDataFileExists()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span>.</li>
                             <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetSpriteFilterMode()</span>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetSpriteFilterMode()</span>.
                             </li>
                             <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetProjectilesAutoRemovingActive()</span>.
                             </li>
                             <li>
-                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>
+                                Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetBulletPoolSize()</span>.
                             </li>
                         </ul>
                     </li>
@@ -453,81 +452,125 @@ it's w3c valid, at least
                         Renew <span class="term"><a href="api-playerutil.html">The PlayerUtil Object</a></span>.
                         <ul>
                             <li>All.</li>
-                            <li>Add the variable <span class="term">PlayerUtil.x</span></li>
-                            <li>Add the variable <span class="term">PlayerUtil.y</span></li>
-                            <li>Add the variable <span class="term">PlayerUtil.defaultdamage</span></li>
-                            <li>Add the variable <span class="term">PlayerUtil.defaultinvtime</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.SetJapaneseNameActive()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.MoveToAbs()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.SetTargetSprite()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.SetTargetChoiceSprite()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.SetTargetChoiceAnim()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.ResetTargetChoiceAnim()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.GetTargetChoiceX()</span></li>
-                            <li>Add the function <span class="term">PlayerUtil.SimulateDamage()</span></li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.x</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.y</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.Name</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.Love</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.hpx</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.hpy</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.HPLabel</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.HPBar</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.HPText</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.defaultdamage</span>.</li>
+                            <li class="add">Add the variable <span class="term">PlayerUtil.defaultinvtime</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.MoveToAbs()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.SetJapaneseNameActive()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.SetTargetSprite()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.SetTargetChoiceSprite()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.SetTargetChoiceAnim()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.ResetTargetChoiceAnim()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.GetTargetChoiceX()</span>.</li>
+                            <li class="add">Add the function <span class="term">PlayerUtil.SimulateDamage()</span>.</li>
+                        </ul>
+                    </li>
+                    <li class="modify">
+                        Renew <span class="term"><a href="api-playerutil.html#LifeBar">The LifeBar Object</a></span>.
+                        <ul>
+                            <li>All.</li>
+                            <li>
+                                Add the variable <span class="term">lifeBar.hp</span> instead of <span class="term">lifeBar.value</span>.
+                            </li>
+                            <li>
+                                Add the variable <span class="term">lifeBar.maxhp</span> instead of <span class="term">lifeBar.length</span>.
+                            </li>
+                            <li>
+                                Add the variable <span class="term">lifeBar.bgcolor</span> instead of <span class="term">lifeBar.SetBackgroundColor()</span>.
+                            </li>
+                            <li>
+                                Add the variable <span class="term">lifeBar.bgcolor32</span> instead of <span class="term">lifeBar.SetBackgroundColor32()</span>.
+                            </li>
+                            <li>
+                                Add the variable <span class="term">lifeBar.fillcolor</span> instead of <span class="term">lifeBar.SetFillColor()</span>.
+                            </li>
+                            <li>
+                                Add the variable <span class="term">lifeBar.fillcolor32</span> instead of <span class="term">lifeBar.SetFillColor32()</span>.
+                            </li>
+                            <li>
+                                Add the function <span class="term">lifeBar.SetHP()</span> instead of <span class="term">lifeBar.SetValue()</span> and <span class="term">lifeBar.SetLength()</span>.
+                            </li>
+                            <li class="add">Add the variable <span class="term">lifeBar.controlOverride</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.isactive</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.limited</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.height</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.bgalpha</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.bgalpha32</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.fillalpha</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.fillalpha32</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.x</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.y</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.layer</span>.</li>
+                            <li class="add">Add the function <span class="term">lifeBar.SetControlOverride()</span>.</li>
+                            <li class="add">Add the function <span class="term">lifeBar.Remove()</span>.</li>
+                            <li class="add">Add the function <span class="term">lifeBar.Move()</span>.</li>
+                            <li class="add">Add the function <span class="term">lifeBar.MoveTo()</span>.</li>
+                            <li class="add">Add the function <span class="term">lifeBar.MoveBelow()</span>.</li>
+                            <li class="add">Add the function <span class="term">lifeBar.MoveAbove()</span>.</li>
                         </ul>
                     </li>
                     <li class="modify">
                         Renew <span class="term"><a href="api-buttonutil.html#ButtonUtil">The ButtonUtil Object</a></span>.<br>
                         <ul>
                             <li>
-                                Add the function <span class="term">ButtonUtil.Revert()</span> instead of <span class="term">ButtonUtil.RevertAll()</span>
+                                Add the function <span class="term">ButtonUtil.Revert()</span> instead of <span class="term">ButtonUtil.RevertAll()</span>.
                             </li>
                             <li>
-                                Add the second argument <span class="term">autoResize</span> in <span class="term">ButtonUtil.SetSprites()</span>
+                                Add the second and third argument spcifying suffixes in <span class="term">ButtonUtil.SetSprites()</span>.
                             </li>
                             <li>
-                                Add the argument <span class="term">revertPosition</span> in <span class="term">ButtonUtil.Revert()</span>
+                                Add the fourth argument <span class="term">autoResize</span> in <span class="term">ButtonUtil.SetSprites()</span>.
+                            </li>
+                            <li>
+                                Add the argument <span class="term">revertPosition</span> in <span class="term">ButtonUtil.Revert()</span>.
                             </li>
                             <li class="add">
-                                You can get buttons' object by using <span class="term">ButtonUtil[]</span>
+                                You can get buttons' object by using <span class="term">ButtonUtil[]</span>.
                             </li>
                             <li class="add">
                                 You can get buttons' object by using low letters.
                             </li>
-                            <li class="add">
-                                Add the function <span class="term">ButtonUtil.Move()</span>
-                            </li>
-                            <li class="add">
-                                Add the function <span class="term">ButtonUtil.MoveTo()</span>
-                            </li>
-                            <li class="add">
-                                Add the function <span class="term">ButtonUtil.SetColor()</span>
-                            </li>
-                            <li class="add">
-                                Add the function <span class="term">ButtonUtil.SetColor32()</span>
-                            </li>
-                            <li class="add">
-                                Add the function <span class="term">ButtonUtil.Show()</span>
-                            </li>
-                            <li class="add">
-                                Add the function <span class="term">ButtonUtil.Hide()</span>
-                            </li>
+                            <li class="add">Add the variable <span class="term">ButtonUtil.x</span>.</li>
+                            <li class="add">Add the variable <span class="term">ButtonUtil.y</span>.</li>
+                            <li class="add">Add the function <span class="term">ButtonUtil.Move()</span>.</li>
+                            <li class="add">Add the function <span class="term">ButtonUtil.MoveTo()</span>.</li>
+                            <li class="add">Add the function <span class="term">ButtonUtil.SetColor()</span>.</li>
+                            <li class="add">Add the function <span class="term">ButtonUtil.SetColor32()</span>.</li>
+                            <li class="add">Add the function <span class="term">ButtonUtil.Show()</span>.</li>
+                            <li class="add">Add the function <span class="term">ButtonUtil.Hide()</span>.</li>
                         </ul>
                     </li>
                     <li class="modify">
                         Renew <span class="term"><a href="api-buttonutil.html#Button">The Button Object</a></span>.<br>
                         <ul>
                             <li>
-                                Add the read-only variable <span class="term">button.isactive</span> instead of <span class="term">button.GetActive()</span>
+                                Add the read-only variable <span class="term">button.isactive</span> instead of <span class="term">button.GetActive()</span>.
                             </li>
                             <li>
-                                Add the variable <span class="term">button.color</span> instead of <span class="term">button.SetColor()</span>
+                                Add the variable <span class="term">button.color</span> instead of <span class="term">button.SetColor()</span>.
                             </li>
                             <li>
-                                Add the variable <span class="term">button.color32</span> instead of <span class="term">button.SetColor32()</span>
+                                Add the variable <span class="term">button.color32</span> instead of <span class="term">button.SetColor32()</span>.
                             </li>
                             <li>
                                 The third argument <span class="term">prefix</span> in <span class="term">button.SetSprite()</span> is assgined <span class="term">"UI/Buttons"</span>.
                             </li>
                             <li>
-                                Add the second argument <span class="term">changeVisibility</span> in <span class="term">button.SetActive()</span>
+                                Add the second argument <span class="term">changeVisibility</span> in <span class="term">button.SetActive()</span>.
                             </li>
                             <li>
-                                Add the fourth argument <span class="term">autoResize</span> in <span class="term">button.SetSprite()</span>
+                                Add the fourth argument <span class="term">autoResize</span> in <span class="term">button.SetSprite()</span>.
                             </li>
                             <li>
-                                Add the argument <span class="term">revertPosition</span> and <span class="term">revertActive</span> in <span class="term">button.Revert()</span>
+                                Add the argument <span class="term">revertPosition</span> and <span class="term">revertActive</span> in <span class="term">button.Revert()</span>.
                             </li>
                             <li class="add">Add the variable <span class="term">button.absx</span>.</li>
                             <li class="add">Add the variable <span class="term">button.absy</span>.</li>
@@ -549,31 +592,34 @@ it's w3c valid, at least
                         Renew <span class="term"><a href="api-arenautil.html#ArenaUtil">The ArenaUtil Object</a></span>.<br>
                         <ul>
                             <li>
-                                Add the function <span class="term">ArenaUtil.DialogTextMoveTo()</span> instead of <span class="term">ArenaUtil.SetDialogTextPosition()</span>
+                                Add the function <span class="term">ArenaUtil.DialogTextMoveTo()</span> instead of <span class="term">ArenaUtil.SetDialogTextPosition()</span>.
                             </li>
                             <li>
-                                Add the variable <span class="term">ArenaUtil.AsteriskChar</span> instead of <span class="term">ArenaUtil.SetAsteriskChar()</span>
+                                Add the variable <span class="term">ArenaUtil.AsteriskChar</span> instead of <span class="term">ArenaUtil.SetAsteriskChar()</span>.
                             </li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.offsetx</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.offsety</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.relativewidth</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.relativeheight</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.dialogtextx</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.dialogtexty</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.playeroffsetx</span></li>
-                            <li class="add">Add the variable <span class="term">ArenaUtil.playeroffsety</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetOffset()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetRelativeSize()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.DialogTextMove()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.GetDialogTextLetters()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetFullWidthAsterisk()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetAutoFontCommandActive()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetAutoFontCommandFont()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetDialogTextVolume()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.GetDialogTextVolume()</span></li>
-                            <li class="add">Add the function <span class="term">ArenaUtil.SetPlayerOffsetOnSelection()</span></li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.isMoving</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.isResizing</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.isModifying</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.offsetx</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.offsety</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.relativewidth</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.relativeheight</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.dialogtextx</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.dialogtexty</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.playeroffsetx</span>.</li>
+                            <li class="add">Add the variable <span class="term">ArenaUtil.playeroffsety</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetOffset()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetRelativeSize()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.DialogTextMove()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.GetDialogTextLetters()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetFullWidthAsterisk()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetAutoFontCommandActive()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetAutoFontCommandFont()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetDialogTextVolume()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.GetDialogTextVolume()</span>.</li>
+                            <li class="add">Add the function <span class="term">ArenaUtil.SetPlayerOffsetOnSelection()</span>.</li>
                             <li class="del">
-                                Delete the function <span class="term">ArenaUtil.SetStarChar()</span><br>
+                                Delete the function <span class="term">ArenaUtil.SetStarChar()</span>.<br>
                                 (Please use <span class="term">ArenaUtil.AsteriskChar</span> instead of that.)
                             </li>
                         </ul>
@@ -599,17 +645,8 @@ it's w3c valid, at least
                     <li>
                         Add the new content <span class="term"><a href="jp-basis.html">Localization System</a></span>.
                         <ul>
-                            <li>Add <span class="term">The JPStyle Object</span>.</li>
                             <li>Add <span class="term">The Lang Object</span>.</li>
                             <li>Add <span class="term">.lang</span> file system.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Add the new content <span class="term"><a href="gms-basis.html">GameObject Modifying System</a></span>.
-                        <ul>
-                            <li>Add <span class="term">The GameObjectModifyingSystem(GMS) Object</span>.</li>
-                            <li>Add <span class="term">The GameObject Object</span>.</li>
-                            <li>Add <span class="term">The ImageComponent Object</span>.</li>
                         </ul>
                     </li>
                 </ul>

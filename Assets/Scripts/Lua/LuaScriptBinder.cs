@@ -61,7 +61,12 @@ public static class LuaScriptBinder {
     public static Script BoundScript(/*bool overworld = false*/) {
         Script script = new Script(CoreModules.Preset_Complete ^ CoreModules.IO ^ CoreModules.OS_System) { Options = { ScriptLoader = new FileSystemScriptLoader() } };
         // library support
-        ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = new[] { FileLoader.pathToModFile("Lua/?.lua"), FileLoader.pathToDefaultFile("Lua/?.lua"), FileLoader.pathToModFile("Lua/Libraries/?.lua"), FileLoader.pathToDefaultFile("Lua/Libraries/?.lua") };
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = new[] { FileLoader.pathToModFile("Lua/?.lua"), FileLoader.pathToDefaultFile("Lua/?.lua"), FileLoader.pathToModFile("Lua/Libraries/?.lua"), FileLoader.pathToDefaultFile("Lua/Libraries/?.lua") };
+        AsteriskLuaScriptBinder.SetModulePaths(script);
+        // --------------------------------------------------------------------------------
         // separate function bindings
         script.Globals["SetGlobal"] = (Action<Script, string, DynValue>)SetBattle;
         script.Globals["GetGlobal"] = (Func<Script, string, DynValue>)GetBattle;
