@@ -118,11 +118,13 @@ it's w3c valid, at least
 
             <br><hr>
 
-            <h3><span class="term">info.cyfmod</span></h3><br><br>
+            <h3>Common</h3><br><br>
+
+            <h4><span class="term">info.cyfmod</span></h4><br>
 
             <p>
-                At first, you should change <span class="term">target-version</span> parameter to AsteriskMod's latest version.<br>
-                Latest version is <span class="term">v0.5.3</span>, so you write below:
+                At first, change <span class="term">target-version</span> parameter to AsteriskMod's latest version<br>
+                Latest version is <span class="term">v0.5.3</span>, so you write like below:
                 <div class="code-container">
 <pre class="brush: lua;">
 -- info.cyfmod:
@@ -131,6 +133,106 @@ target-version="v0.5.3"
                 </div>
             </p>
 
+            <br><hr>
+
+            <h3>v0.5.2.x -&gt; v0.5.3</h3><br><br>
+
+            <p>
+                It is not too much to say that this version changes everything about past version features.
+                That's because v0.5.3 contains clean-up of C# and Lua code.
+            </p><br>
+
+            <h4>namespace</h4><br>
+
+            <p>
+                This is not important content but I have written this just in case it is needed.<br>
+                <ul>
+                    <li><span class="term">PlayerUtil</span>: <span class="term">AsteriskMod.Lua</span> -&gt; <span class="term">AsteriskMod</span></li>
+                    <li><span class="term">The LifeBar Object</span>: <span class="term">AsteriskMod.Lua</span> -&gt; <span class="term">AsteriskMod</span></li>
+                    <li><span class="term">ButtonUtil</span>: <span class="term">AsteriskMod.Lua</span> -&gt; <span class="term">AsteriskMod</span></li>
+                    <li><span class="term">The Button Object</span>: <span class="term">AsteriskMod.Lua</span> -&gt; <span class="term">AsteriskMod</span></li>
+                    <li><span class="term">ArenaUtil</span>: <span class="term">AsteriskMod.Lua</span> -&gt; <span class="term">AsteriskMod</span></li>
+                    <li><span class="term">StateEditor</span>: <span class="term">AsteriskMod.Lua</span> -&gt; <span class="term">AsteriskMod</span></li>
+                </ul>
+            </p><br>
+
+            <h4><a href="api-playerutil.html">The PlayerUtil Object</a></h4><br>
+
+            <p>
+                The functions of moving all UI's parent object is renamed:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.UIMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Move()</span></li>
+                    <li><span class="term">PlayerUtil.UIMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.MoveTo()</span></li>
+                </ul>
+                Below variables getting position is added instead of <span>PlayerUtil.GetUIPosition()</span>:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.x</span></li>
+                    <li><span class="term">PlayerUtil.y</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.UIMove(10, -3)
+PlayerUtil.UIMoveTo(-9, 73)
+local pos = PlayerUtil.GetUIPosition()
+if pos[1] == 10 or pos[2] == -5 then
+end
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.Move(10, -3)
+PlayerUtil.MoveTo(-9, 73) -- or  PlayerUtil.x = -9  PlayerUtil.y = 73
+if PlayerUtil.x == 10 or PlayerUtil.y == -5 then
+end
+</pre>
+                </div><br>
+            </p><br>
+
+            <h4><a href="api-playerutil.html#LifeBar">The LifeBar Object</a></h4><br>
+
+            <p>
+                <ul>
+                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                </ul>
+            </p><br>
+
+            <h4><a href="api-buttonutil.html">The ButtonUtil Object</a></h4><br>
+
+            <p>
+                <ul>
+                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                </ul>
+            </p><br>
+
+            <h4><a href="api-buttonutil.html#Button">The Button Object</a></h4><br>
+
+            <p>
+                <ul>
+                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                </ul>
+            </p><br>
+
+            <h4><a href="api-playerutil.html">The ArenaUtil Object</a></h4><br>
+
+            <p>
+                <ul>
+                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                </ul>
+            </p><br>
+
+            <!--
+            <h4><a href="">The Util Object</a></h4><br>
+
+            <p>
+                <ul>
+                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                </ul>
+            </p><br>
+            -->
+
+            <br>
         </div>
 
         <div class="tab-pane text-style" id="mercy">

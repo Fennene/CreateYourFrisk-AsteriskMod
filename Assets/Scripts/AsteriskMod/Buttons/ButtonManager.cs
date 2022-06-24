@@ -265,6 +265,7 @@ namespace AsteriskMod
             {
                 ActionButtons[i].Revert(revertPosition, revertActive);
             }
+            if (revertPosition) MoveTo(0f, 0f);
         }
     }
 }
