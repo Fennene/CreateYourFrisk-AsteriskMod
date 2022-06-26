@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: Assets/Scenes/AsteriskMod/MHTMenu.unity
     guid: f83a23ed011bc5f48a048004cc7a2365
   - enabled: 1
+    path: Assets/Scenes/AsteriskMod/CyfModFileEditor.unity
+    guid: 103a1bae9afd33b4f948964be8346032
+  - enabled: 1
     path: Assets/Scenes/AsteriskMod/MHTSim.unity
     guid: cbe0728d16522a143ae106bd97e9c0a0
   - enabled: 1

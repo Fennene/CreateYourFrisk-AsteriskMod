@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 using System.IO;
 
 public class ScriptRegistry {
@@ -42,7 +43,12 @@ public class ScriptRegistry {
         DirectoryInfo dInfo = new DirectoryInfo(directoryPath);
         if (!dInfo.Exists) {
             if (!needed) return;
-            UnitaleUtil.DisplayLuaError("mod loading", "You tried to load the mod \"" + StaticInits.MODFOLDER + "\" but it can't be found, or at least its \"Lua/" + folderName + "\" folder can't be found.\nAre you sure it exists?");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //UnitaleUtil.DisplayLuaError("mod loading", "You tried to load the mod \"" + StaticInits.MODFOLDER + "\" but it can't be found, or at least its \"Lua/" + folderName + "\" folder can't be found.\nAre you sure it exists?");
+            UnitaleUtil.DisplayLuaError("mod loading", EngineLang.Get("Exception", "LuaDirectoryNotFound1") + StaticInits.MODFOLDER + EngineLang.Get("Exception", "LuaDirectoryNotFound2") + folderName + EngineLang.Get("Exception", "LuaDirectoryNotFound3"));
+            // --------------------------------------------------------------------------------
             throw new CYFException("mod loading");
         }
         FileInfo[] fInfo = dInfo.GetFiles("*.lua", SearchOption.AllDirectories);

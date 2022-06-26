@@ -222,9 +222,9 @@ RectTransform:
   - {fileID: 1145778383}
   - {fileID: 666042082}
   - {fileID: 1483033492}
+  - {fileID: 645751917}
   - {fileID: 1631460680}
   - {fileID: 1339812569}
-  - {fileID: 645751917}
   - {fileID: 1342957225}
   - {fileID: 1822809090}
   - {fileID: 107375590}
@@ -586,7 +586,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 30}
+  m_SizeDelta: {x: 240, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314621090
 MonoBehaviour:
@@ -848,12 +848,12 @@ GameObject:
   - component: {fileID: 645751919}
   - component: {fileID: 645751918}
   m_Layer: 5
-  m_Name: Fullscreen
+  m_Name: CyfmodFile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &645751917
 RectTransform:
   m_ObjectHideFlags: 0
@@ -868,11 +868,11 @@ RectTransform:
   - {fileID: 314621089}
   - {fileID: 1189463714}
   m_Father: {fileID: 64571900}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155, y: -40}
+  m_AnchoredPosition: {x: -155, y: 40}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &645751918
@@ -1651,7 +1651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 2
-  m_Text: 'Blurless Fullscreen: On'
+  m_Text: .cyfmod file Editor
 --- !u!222 &1189463716
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1755,11 +1755,11 @@ RectTransform:
   m_Children:
   - {fileID: 457890949}
   m_Father: {fileID: 64571900}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155, y: 0}
+  m_AnchoredPosition: {x: -155, y: -40}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1342957224
@@ -2175,11 +2175,11 @@ RectTransform:
   - {fileID: 68851440}
   - {fileID: 1558413010}
   m_Father: {fileID: 64571900}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155, y: 40}
+  m_AnchoredPosition: {x: -155, y: 0}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1631460681
@@ -2640,6 +2640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Document: {fileID: 1483033491}
+  Cyfmod: {fileID: 645751916}
   Sim: {fileID: 1631460679}
   Exit: {fileID: 107375589}
   TargetModName: {fileID: 666528725}

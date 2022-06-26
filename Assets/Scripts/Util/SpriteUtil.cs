@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -38,7 +39,12 @@ public static class SpriteUtil {
             }
             newSprite = FromFile(FileLoader.pathToModFile("Sprites/" + filename + ".png"));
             if (newSprite == null)
-                throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                // throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+                throw new CYFException(EngineLang.Get("Exception", "SpriteNotFound1") + filename + EngineLang.Get("Exception", "SpriteNotFound2"));
+                // --------------------------------------------------------------------------------
             SpriteRegistry.Set(filename, newSprite);
         }
 
@@ -74,7 +80,12 @@ public static class SpriteUtil {
             }
             newSprite = FromFile(FileLoader.pathToModFile("Sprites/" + filename + ".png"));
             if (newSprite == null)
-                throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                // throw new CYFException("The sprite Sprites/" + filename + ".png doesn't exist.");
+                throw new CYFException(EngineLang.Get("Exception", "SpriteNotFound1") + filename + EngineLang.Get("Exception", "SpriteNotFound2"));
+                // --------------------------------------------------------------------------------
             SpriteRegistry.Set(filename, newSprite);
         }
         return newSprite;
@@ -138,12 +149,22 @@ public static class SpriteUtil {
         if (!string.IsNullOrEmpty(filename))
             SwapSpriteFromFile(i, filename);
         else
-            throw new CYFException("You can't create a sprite object with a nil sprite!");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            // throw new CYFException("You can't create a sprite object with a nil sprite!");
+            throw new CYFException(EngineLang.Get("Exception", "Sprite_CreateWithNil"));
+            // --------------------------------------------------------------------------------
         if (!GameObject.Find(tag + "Layer") && tag != "none")
             if ((!UnitaleUtil.IsOverworld && tag == "BelowArena") || (UnitaleUtil.IsOverworld && tag == "Default"))
                 i.transform.SetParent(GameObject.Find(canvas).transform);
             else
-                UnitaleUtil.DisplayLuaError("Creating a sprite", "The sprite layer " + tag + " doesn't exist.");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                // UnitaleUtil.DisplayLuaError("Creating a sprite", "The sprite layer " + tag + " doesn't exist.");
+                UnitaleUtil.DisplayLuaError("Creating a sprite", EngineLang.Get("Exception", "SpriteLayerNotFound1") + tag + EngineLang.Get("Exception", "SpriteLayerNotFound2"));
+                // --------------------------------------------------------------------------------
         else {
             i.transform.SetParent(GameObject.Find(tag == "none" ? canvas : tag + "Layer").transform, true);
             if (childNumber != -1)

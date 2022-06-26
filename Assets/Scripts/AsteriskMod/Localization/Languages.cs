@@ -82,9 +82,38 @@ namespace AsteriskMod
 
             English.SetParameter("MHTMenu", "Hover", new FakeIniParameter("Hover over an option and its description will appear here!"));
             English.SetParameter("MHTMenu", "Document", new FakeIniParameter("<color=#FF0>Open CYF Documentation</color>\n\nOpens the documentation of\nCreate Your Frisk.\nIt is written about all of CYF\n and AsteriskMod.\n\nYou should read document before asking\nany question to CYF Discord."));
+            English.SetParameter("MHTMenu", "Cyfmod", new FakeIniParameter("<color=#FF0>.cyfmod file Editor</color>\n\n"));
             English.SetParameter("MHTMenu", "Sim", new FakeIniParameter("<color=#FF0>Battle Simulator</color>\n\nsimulates sprite(bullet) object,\nstatic text object\nand etc...\n\n<color=#FF0>Recommended to set window scale to 2!</color>"));
             English.SetParameter("MHTMenu", "Exit", new FakeIniParameter("Returns to the Mod Select screen."));
             //English.SetParameter("MHTMenu", "", new FakeIniParameter(""));
+
+            // Mod Loading
+            English.SetParameter("Exception", "ModsDirectoryNotFound", new FakeIniParameter("The engine detected no Mods folder in your files: are you sure it exists?"));
+            English.SetParameter("Exception", "ModNotFound1", new FakeIniParameter("You tried to load the mod \""));
+            English.SetParameter("Exception", "ModNotFound2", new FakeIniParameter("\" but it can't be found.\nAre you sure it exists?"));
+            English.SetParameter("Exception", "ModFileNotFound1", new FakeIniParameter("Attempted to load "));
+            English.SetParameter("Exception", "ModFileNotFound2", new FakeIniParameter(" from either a mod or default directory, but it was missing in both."));
+            English.SetParameter("Exception", "LuaDirectoryNotFound1", new FakeIniParameter("You tried to load the mod \""));
+            English.SetParameter("Exception", "LuaDirectoryNotFound2", new FakeIniParameter("\" but it can't be found, or at least its \"Lua/"));
+            English.SetParameter("Exception", "LuaDirectoryNotFound3", new FakeIniParameter("\" folder can't be found.\nAre you sure it exists?"));
+            // Audio/Sounds Resource
+            English.SetParameter("Exception", "AudioNotFound1", new FakeIniParameter("Attempted to load the audio file \""));
+            English.SetParameter("Exception", "AudioNotFound2", new FakeIniParameter("\" from either a mod or default directory, but it was missing in both."));
+            // Sprite Resource
+            English.SetParameter("Exception", "SpritesDirectoryNotFound1", new FakeIniParameter("You tried to load the mod \""));
+            English.SetParameter("Exception", "SpritesDirectoryNotFound2", new FakeIniParameter("\" but it can't be found, or at least its \"Sprites\" folder can't be found.\nAre you sure it exists?"));
+            English.SetParameter("Exception", "SpriteNotFound1", new FakeIniParameter("The sprite Sprites/"));
+            English.SetParameter("Exception", "SpriteNotFound2", new FakeIniParameter(".png doesn't exist."));
+            English.SetParameter("Exception", "SpriteLayerNotFound1", new FakeIniParameter("The sprite layer "));
+            English.SetParameter("Exception", "SpriteLayerNotFound2", new FakeIniParameter(" doesn't exist."));
+            English.SetParameter("Exception", "Sprite_CreateWithNil", new FakeIniParameter("You can't create a sprite object with a nil sprite!"));
+            // Font Resource
+            English.SetParameter("Exception", "FontLoadingAnyError1", new FakeIniParameter("An error was encountered while loading the font \""));
+            English.SetParameter("Exception", "FontLoadingAnyError2", new FakeIniParameter("\":"));
+            //English.SetParameter("Exception", "FontNonRoot", new FakeIniParameter(""));
+            English.SetParameter("Exception", "FontSpaceCharNotFound1", new FakeIniParameter("The fonts need a space character to compute their line height, and the font \""));
+            English.SetParameter("Exception", "FontSpaceCharNotFound2", new FakeIniParameter("\" doesn't have one."));
+            //English.SetParameter("Exception", "", new FakeIniParameter(""));
 
             //English.SetParameter("MHTSim", "", new FakeIniParameter(""));
         }
@@ -133,9 +162,37 @@ namespace AsteriskMod
 
             Japanese.SetParameter("MHTMenu", "Hover", new FakeIniParameter("オプションにカーソルを乗せると\nここに説明が表示されます。"));
             Japanese.SetParameter("MHTMenu", "Document", new FakeIniParameter("<color=#FF0>CYFドキュメントへの移動</color>\n\nCYFのドキュメントを開きます。\nドキュメントには\nCYFとAsteriskModについての\n全てが書かれています。\n\nCYF公式Discordチャンネルで聞く前に\nまずはドキュメントを確認してみましょう。"));
+            Japanese.SetParameter("MHTMenu", "Cyfmod", new FakeIniParameter("<color=#FF0>.cyfmodファイルの編集</color>\n\n"));
             Japanese.SetParameter("MHTMenu", "Sim", new FakeIniParameter("<color=#FF0>Battle Simulator</color>\n\nスプライト(弾丸)オブジェクトや\n静的テキストオブジェクトなどを\nシミュレートします。\n\n<color=#FF0>ウインドウの拡大倍率を\n２倍にすることをおすすめします。</color>"));
             Japanese.SetParameter("MHTMenu", "Exit", new FakeIniParameter("Mod選択画面に戻ります。"));
             //Japanese.SetParameter("MHTMenu", "", new FakeIniParameter(""));
+
+            // Mod Loading
+            Japanese.SetParameter("Exception", "ModsDirectoryNotFound", new FakeIniParameter("エンジンはModsフォルダを検出できませんでした。\nModsフォルダが存在するか確認してください。"));
+            Japanese.SetParameter("Exception", "ModNotFound1", new FakeIniParameter("Mod\""));
+            Japanese.SetParameter("Exception", "ModNotFound2", new FakeIniParameter("を読み取ろうとしましたが、そのModが見つかりませんでした。\nそのModが本当に存在するか確認してください。"));
+            Japanese.SetParameter("Exception", "ModFileNotFound1", new FakeIniParameter("ファイル "));
+            Japanese.SetParameter("Exception", "ModFileNotFound2", new FakeIniParameter(" を読み取ろうとしましたが、Modフォルダ内 及び Defaultフォルダ内に存在しませんでした。"));
+            Japanese.SetParameter("Exception", "LuaDirectoryNotFound1", new FakeIniParameter("Mod\""));
+            Japanese.SetParameter("Exception", "LuaDirectoryNotFound2", new FakeIniParameter("\"を読み取ろうとしましたが、そのModが存在しないか、そのMod内に少なくとも\"Lua/"));
+            Japanese.SetParameter("Exception", "LuaDirectoryNotFound3", new FakeIniParameter("\"フォルダが見つかりませんでした。"));
+            // Audio/Sounds Resource
+            Japanese.SetParameter("Exception", "AudioNotFound1", new FakeIniParameter("音声ファイル\""));
+            Japanese.SetParameter("Exception", "AudioNotFound2", new FakeIniParameter("\nを読み取ろうとしましたが、Modフォルダ内 及び Defaultフォルダ内に存在しませんでした。"));
+            // Sprite Resource
+            Japanese.SetParameter("Exception", "SpritesDirectoryNotFound1", new FakeIniParameter("Mod\""));
+            Japanese.SetParameter("Exception", "SpritesDirectoryNotFound2", new FakeIniParameter("\"を読み取ろうとしましたが、そのModが存在しないか、そのMod内に少なくとも\"Sprites\"フォルダが見つかりませんでした。"));
+            Japanese.SetParameter("Exception", "SpriteNotFound1", new FakeIniParameter("Sprites/"));
+            Japanese.SetParameter("Exception", "SpriteNotFound2", new FakeIniParameter(".png が見つかりませんでした。"));
+            Japanese.SetParameter("Exception", "SpriteLayerNotFound1", new FakeIniParameter("\""));
+            Japanese.SetParameter("Exception", "SpriteLayerNotFound2", new FakeIniParameter("\"と言う名前の スプライトレイヤーは存在しません。"));
+            Japanese.SetParameter("Exception", "Sprite_CreateWithNil", new FakeIniParameter("nilでスプライトを作成することはできません！\n(補足: CreateSprite()などで、ファイル名に nil を指定しないでください。)"));
+            // Font Resource
+            Japanese.SetParameter("Exception", "FontLoadingAnyError1", new FakeIniParameter("フォント\""));
+            Japanese.SetParameter("Exception", "FontLoadingAnyError2", new FakeIniParameter("\"の読み込み中にエラーが発生しました。以下エラーメッセージ:"));
+            Japanese.SetParameter("Exception", "FontSpaceCharNotFound1", new FakeIniParameter("フォントには行の高さを計算するための、半角空白(スペース)文字が必要です。しかし、フォント\""));
+            Japanese.SetParameter("Exception", "FontSpaceCharNotFound2", new FakeIniParameter("\"には、半角空白(スペース)文字が定義されていません。"));
+            //Japanese.SetParameter("Exception", "", new FakeIniParameter(""));
 
             //Japanese.SetParameter("MHTSim", "", new FakeIniParameter(""));
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using UnityEngine;
@@ -96,7 +97,12 @@ public static class SpriteFontRegistry {
             return null;
         try { xml.Load(xmlPath); }
         catch (XmlException ex) {
-            UnitaleUtil.DisplayLuaError("Instanciating a font", "An error was encountered while loading the font \"" + fontName + "\":\n\n" + ex.Message);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            // UnitaleUtil.DisplayLuaError("Instanciating a font", "An error was encountered while loading the font \"" + fontName + "\":\n\n" + ex.Message);
+            UnitaleUtil.DisplayLuaError("Instanciating a font", EngineLang.Get("Exception", "FontLoadingAnyError1") + fontName + EngineLang.Get("Exception", "FontLoadingAnyError2") + "\n\n" + ex.Message);
+            // --------------------------------------------------------------------------------
             return null;
         }
         if (xml["font"] == null) {
@@ -108,7 +114,12 @@ public static class SpriteFontRegistry {
         UnderFont underfont;
         try { underfont = new UnderFont(fontMap, fontName); }
         catch {
-            UnitaleUtil.DisplayLuaError("Instanciating a font", "The fonts need a space character to compute their line height, and the font '" + fontName + "' doesn't have one.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //UnitaleUtil.DisplayLuaError("Instanciating a font", "The fonts need a space character to compute their line height, and the font '" + fontName + "' doesn't have one.");
+            UnitaleUtil.DisplayLuaError("Instanciating a font", EngineLang.Get("Exception", "FontSpaceCharNotFound1") + fontName + EngineLang.Get("Exception", "FontSpaceCharNotFound2"));
+            // --------------------------------------------------------------------------------
             return null;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +57,12 @@ public static class SpriteRegistry {
         DirectoryInfo dInfo = new DirectoryInfo(directoryPath);
 
         if (!dInfo.Exists) {
-            UnitaleUtil.DisplayLuaError("mod loading", "You tried to load the mod \"" + StaticInits.MODFOLDER + "\" but it can't be found, or at least its \"Sprites\" folder can't be found.\nAre you sure it exists?");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            // UnitaleUtil.DisplayLuaError("mod loading", "You tried to load the mod \"" + StaticInits.MODFOLDER + "\" but it can't be found, or at least its \"Sprites\" folder can't be found.\nAre you sure it exists?");
+            UnitaleUtil.DisplayLuaError("mod loading", EngineLang.Get("Exception", "SpritesDirectoryNotFound1") + StaticInits.MODFOLDER + EngineLang.Get("Exception", "SpritesDirectoryNotFound2"));
+            // --------------------------------------------------------------------------------
             throw new CYFException("mod loading");
         }
 

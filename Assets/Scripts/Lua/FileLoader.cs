@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -31,7 +32,12 @@ public static class FileLoader {
                 Debug.Assert(rootInfo.Parent != null, "rootInfo.Parent != null");
                 rootInfo = new DirectoryInfo(rootInfo.Parent.FullName);
             } catch {
-                UnitaleUtil.DisplayLuaError("CYF's Startup", "The engine detected no Mods folder in your files: are you sure it exists?");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //UnitaleUtil.DisplayLuaError("CYF's Startup", "The engine detected no Mods folder in your files: are you sure it exists?");
+                UnitaleUtil.DisplayLuaError("CYF's Startup", EngineLang.Get("Exception", "ModsDirectoryNotFound"));
+                // --------------------------------------------------------------------------------
                 return;
             }
             SysDepDataRoot = rootInfo.FullName;
@@ -112,7 +118,12 @@ public static class FileLoader {
         if (fi.Exists) return fi.FullName;
         if (!errorOnFailure) return null;
         if (filename.Length != 0)
-            throw new CYFException("Attempted to load " + filename + " from either a mod or default directory, but it was missing in both.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            // throw new CYFException("Attempted to load " + filename + " from either a mod or default directory, but it was missing in both.");
+            throw new CYFException(EngineLang.Get("Exception", "ModFileNotFound1") + filename + EngineLang.Get("Exception", "ModFileNotFound2"));
+            // --------------------------------------------------------------------------------
         return null;
 
     }

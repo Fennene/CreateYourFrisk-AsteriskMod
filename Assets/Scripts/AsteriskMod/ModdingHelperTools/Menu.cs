@@ -17,7 +17,7 @@ namespace AsteriskMod.ModdingHelperTools
         private int DescriptionTimer;
 
         // game objects
-        public GameObject Document, Sim, Exit;
+        public GameObject Document, Cyfmod, Sim, Exit;
         public Text TargetModName, Description, ErrorText;
 
 
@@ -119,6 +119,7 @@ namespace AsteriskMod.ModdingHelperTools
             TargetModName.text = "Target Mod: " + FakeStaticInits.MODFOLDER;
 
             Document.GetComponent<Button>().onClick.AddListener(() => OpenDocument());
+            Cyfmod.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("CyfModFileEditor"));
             Sim.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(LaunchSimulator()));
             Exit.GetComponent<Button>().onClick.AddListener(() =>
             {
@@ -140,6 +141,11 @@ namespace AsteriskMod.ModdingHelperTools
                              + "Opens the documentation of\nCreate Your Frisk.\n"
                              + "It is written about all of CYF.\n\n"
                              + "You should read document before asking\nany question to CYF Discord.";
+                    return !GlobalControls.crate ? response : Temmify.Convert(response);
+                case "Cyfmod":
+                    response = "<color=#FF0>.cyfmod file Editor</color>\n\n"
+                             + ""
+                             + "\n\n<color=#FF0>Recommended to set window scale to 2!</color>";
                     return !GlobalControls.crate ? response : Temmify.Convert(response);
                 case "Sim":
                     response = "<color=#FF0>Battle Simulator</color>\n\n"
@@ -183,11 +189,11 @@ namespace AsteriskMod.ModdingHelperTools
                         hoverItem = "Document";
                     // Sim
                     else if (mousePosY <= 300 && mousePosY > 260)
-                        hoverItem = "Sim";
-                    /*
+                        hoverItem = "Cyfmod";
                     // Retro
                     else if (mousePosY <= 260 && mousePosY > 220)
-                        hoverItem = "Retro";
+                        hoverItem = "Sim";
+                    /*
                     // Fullscreen
                     else if (mousePosY <= 220 && mousePosY > 180)
                         hoverItem = "Fullscreen";

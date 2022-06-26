@@ -21,7 +21,15 @@ public class ErrorDisplay : MonoBehaviour {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         //GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess;
-        GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess + "\nPress C to copy above error messages.";
+        if (Asterisk.language == Languages.Japanese)
+        {
+            mess = !GlobalControls.modDev ? "CYFの再起動" : "リロード";
+            GetComponent<Text>().text = Message + "\n\nESCキーで" + mess + "、\nCキーで上記のエラーメッセージをクリップボードにコピーします。";
+        }
+        else
+        {
+            GetComponent<Text>().text = Message + "\n\nPress ESC to " + mess + "\nPress C to copy above error messages to clipboard.";
+        }
         // --------------------------------------------------------------------------------
     }
 

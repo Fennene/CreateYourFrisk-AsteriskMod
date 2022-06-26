@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AsteriskMod;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -25,7 +26,12 @@ public class AudioClipRegistry {
         else if (dictDefault.ContainsKey(key)) dict[key] = FileLoader.getAudioClip(currentPath, dictDefault[key].FullName);
         else {
             if (GlobalControls.retroMode) UnitaleUtil.Warn("The audio file \"" + k + "\" doesn't exist.");
-            else                          throw new CYFException("Attempted to load the audio file \"" + k + "\" from either a mod or default directory, but it was missing in both.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //else                          throw new CYFException("Attempted to load the audio file \"" + k + "\" from either a mod or default directory, but it was missing in both.");
+            else                          throw new CYFException(EngineLang.Get("Exception", "AudioNotFound1") + k + EngineLang.Get("Exception", "AudioNotFound2"));
+            // --------------------------------------------------------------------------------
             return null;
         }
         return dict[key];
@@ -85,7 +91,12 @@ public class AudioClipRegistry {
         DirectoryInfo dInfo = new DirectoryInfo(directoryPath);
 
         if (!dInfo.Exists) {
-            UnitaleUtil.DisplayLuaError("mod loading", "You tried to load the mod \"" + StaticInits.MODFOLDER + "\" but it can't be found.\nAre you sure it exists?");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //UnitaleUtil.DisplayLuaError("mod loading", "You tried to load the mod \"" + StaticInits.MODFOLDER + "\" but it can't be found.\nAre you sure it exists?");
+            UnitaleUtil.DisplayLuaError("mod loading", EngineLang.Get("Exception", "ModNotFound1") + StaticInits.MODFOLDER + EngineLang.Get("Exception", "ModNotFound2"));
+            // --------------------------------------------------------------------------------
             throw new CYFException("mod loading");
         }
 
