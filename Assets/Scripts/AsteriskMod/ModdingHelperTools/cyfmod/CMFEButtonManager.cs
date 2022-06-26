@@ -13,8 +13,37 @@ namespace AsteriskMod.ModdingHelperTools
     {
         internal static CMFEButtonManager Instance;
 
+        internal ModInfo realModInfo;
+        internal ModInfo editing;
+        //internal bool notAccepted;
+
+        internal static ModInfo OriginalModInfo { get { return Instance.realModInfo; } }
+        internal static ModInfo CurrentModInfo { get { return Instance.editing; } }
+
         private void Awake()
         {
+            realModInfo = ModInfo.Get(FakeStaticInits.MODFOLDER);
+
+            if (!ModInfo.Exists(FakeStaticInits.MODFOLDER))
+            {
+                if (ModInfo.CreateFile(FakeStaticInits.MODFOLDER))
+                {
+                    realModInfo = ModInfo.Get(FakeStaticInits.MODFOLDER);
+                }
+                else
+                {
+                    realModInfo = new ModInfo();
+                    realModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
+                }
+            }
+
+            if (realModInfo.targetVersion == Asterisk.Versions.Unknwon) realModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
+
+            editing = realModInfo.Clone();
+            //notAccepted = false;
+
+            UpdateParameters();
+
             Instance = this;
         }
 

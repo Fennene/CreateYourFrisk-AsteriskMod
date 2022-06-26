@@ -27,7 +27,9 @@ namespace AsteriskMod.ModdingHelperTools
         private Text title;
         private Text description;
 
+        private GameObject targetVersionEditor;
         private GameObject textEditor;
+        private bool scriptChange;
 
         private Button Cancel;
         private Button Delete;
@@ -41,10 +43,12 @@ namespace AsteriskMod.ModdingHelperTools
         {
             self = GetComponent<RectTransform>();
 
-            title = transform.Find("Title").Find("TitleLabel").GetComponent<Text>();
-            description = transform.Find("Main").Find("Description").GetComponent<Text>();
+            title       = transform.Find("Title").Find("TitleLabel") .GetComponent<Text>();
+            description = transform.Find("Main") .Find("Description").GetComponent<Text>();
 
-            textEditor = transform.Find("Main").Find("TextEditor").gameObject;
+            targetVersionEditor = transform.Find("Main").Find("TargetVersionDropDown").gameObject;
+            textEditor          = transform.Find("Main").Find("TextEditor")           .gameObject;
+            scriptChange = false;
 
             Cancel = transform.Find("Cancel").GetComponent<Button>();
             Delete = transform.Find("Delete").GetComponent<Button>();
@@ -52,6 +56,7 @@ namespace AsteriskMod.ModdingHelperTools
             Accept = transform.Find("Accept").GetComponent<Button>();
 
             animationRequester = false;
+            openAnim = false;
 
             Insatnce = this;
         }
@@ -66,8 +71,10 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void Start()
         {
-            self.anchoredPosition = new Vector2(0, openAnim ? 0 : -480);
+            self.anchoredPosition = new Vector2(0, -480);
             UnityButtonUtil.AddListener(Cancel, CloseWindow);
+
+            AddListeners();
         }
 
         private void Update()
@@ -96,14 +103,54 @@ namespace AsteriskMod.ModdingHelperTools
             AnimFrameCounter.Instance.StartAnimation();
         }
 
+
+        private int ConvertToDropDownValue(Asterisk.Versions version)
+        {
+            switch (version)
+            {
+                case Asterisk.Versions.TakeNewStepUpdate:
+                    return 0;
+                case Asterisk.Versions.QOLUpdate:
+                    return 1;
+                default:
+                    return 2;
+            }
+        }
+
+        private void AddListeners()
+        {
+            targetVersionEditor.GetComponent<Dropdown>().onValueChanged.RemoveAllListeners();
+            targetVersionEditor.GetComponent<Dropdown>().onValueChanged.AddListener((value) =>
+            {
+                if (scriptChange) return;
+                switch (value)
+                {
+                    case 1:
+                        CMFEButtonManager.CurrentModInfo.targetVersion = Asterisk.Versions.QOLUpdate;
+                        break;
+                    case 2:
+                        CMFEButtonManager.CurrentModInfo.targetVersion = Asterisk.Versions.UtilUpdate;
+                        break;
+                    default:
+                        CMFEButtonManager.CurrentModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
+                        break;
+                }
+            });
+        }
+
         private void SetEditingParameter(ParameterWindows parameter)
         {
+            scriptChange = true;
             string t = "Error!";
             string d = "No Description";
+            targetVersionEditor.SetActive(false);
+            textEditor.SetActive(false);
             switch (parameter)
             {
                 case ParameterWindows.TargetVersion:
                     t = "AsteriskMod's Target Version";
+                    targetVersionEditor.SetActive(true);
+                    targetVersionEditor.GetComponent<Dropdown>().value = ConvertToDropDownValue(CMFEButtonManager.CurrentModInfo.targetVersion);
                     break;
                 case ParameterWindows.Title:
                     t = "Mod's Title";
@@ -123,6 +170,7 @@ namespace AsteriskMod.ModdingHelperTools
             }
             title.text = t;
             description.text = d;
+            scriptChange = false;
         }
     }
 }

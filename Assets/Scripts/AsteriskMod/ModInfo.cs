@@ -235,5 +235,46 @@ namespace AsteriskMod
             catch { /* ignore */ }
             return info;
         }
+
+        public static bool Exists(string modDirName)
+        {
+            return File.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME));
+        }
+
+        public static bool CreateFile(string modDirName)
+        {
+            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
+            try { File.WriteAllText(path, "target-version=\"v0.5.3\""); }
+            catch { return false; }
+            return true;
+        }
+
+        public ModInfo Clone()
+        {
+            ModInfo clone = new ModInfo();
+
+            clone.targetVersion = targetVersion;
+            clone.supportedLanguages = supportedLanguages.Copy();
+            clone.showEncounters = showEncounters.Copy();
+            clone.hideEncounters = hideEncounters.Copy();
+            clone.retroMode = retroMode;
+
+            clone.title = title;
+            clone.subtitle = subtitle;
+            clone.description = description;
+            clone.descAnchor = descAnchor;
+            clone.richText = richText;
+            clone.font = font;
+            clone.bgColor = bgColor;
+            clone.launchBGColor = launchBGColor;
+
+            return clone;
+        }
+
+        public bool Write(string modDirName)
+        {
+            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
+            return false;
+        }
     }
 }
