@@ -72,7 +72,7 @@ namespace AsteriskMod.ModdingHelperTools
         private void Start()
         {
             self.anchoredPosition = new Vector2(0, -480);
-            UnityButtonUtil.AddListener(Cancel, CloseWindow);
+            //UnityButtonUtil.AddListener(Cancel, CloseWindow);
 
             AddListeners();
         }
@@ -122,7 +122,11 @@ namespace AsteriskMod.ModdingHelperTools
             targetVersionEditor.GetComponent<Dropdown>().onValueChanged.RemoveAllListeners();
             targetVersionEditor.GetComponent<Dropdown>().onValueChanged.AddListener((value) =>
             {
-                if (scriptChange) return;
+                if (scriptChange)
+                {
+                    CMFEButtonManager.Instance.UpdateParameters();
+                    return;
+                }
                 switch (value)
                 {
                     case 1:
@@ -135,6 +139,7 @@ namespace AsteriskMod.ModdingHelperTools
                         CMFEButtonManager.CurrentModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
                         break;
                 }
+                CMFEButtonManager.Instance.UpdateParameters();
             });
         }
 
@@ -149,8 +154,33 @@ namespace AsteriskMod.ModdingHelperTools
             {
                 case ParameterWindows.TargetVersion:
                     t = "AsteriskMod's Target Version";
+                    d = "Sets the mod's working AsteriskMod version.";
                     targetVersionEditor.SetActive(true);
                     targetVersionEditor.GetComponent<Dropdown>().value = ConvertToDropDownValue(CMFEButtonManager.CurrentModInfo.targetVersion);
+                    UnityButtonUtil.AddListener(Cancel, () =>
+                    {
+                        CMFEButtonManager.CurrentModInfo.targetVersion = CMFEButtonManager.OriginalModInfo.targetVersion;
+                        targetVersionEditor.GetComponent<Dropdown>().value = ConvertToDropDownValue(CMFEButtonManager.CurrentModInfo.targetVersion);
+                        CloseWindow();
+                    });
+                    UnityButtonUtil.AddListener(Delete, () =>
+                    {
+                        CMFEButtonManager.CurrentModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
+                        targetVersionEditor.GetComponent<Dropdown>().value = ConvertToDropDownValue(CMFEButtonManager.CurrentModInfo.targetVersion);
+                        CloseWindow();
+                    });
+                    UnityButtonUtil.AddListener(Revert, () =>
+                    {
+                        CMFEButtonManager.CurrentModInfo.targetVersion = CMFEButtonManager.OriginalModInfo.targetVersion;
+                        targetVersionEditor.GetComponent<Dropdown>().value = ConvertToDropDownValue(CMFEButtonManager.CurrentModInfo.targetVersion);
+                    });
+                    UnityButtonUtil.AddListener(Accept, () =>
+                    {
+                        CMFEButtonManager.OriginalModInfo.targetVersion = CMFEButtonManager.CurrentModInfo.targetVersion;
+                        targetVersionEditor.GetComponent<Dropdown>().value = ConvertToDropDownValue(CMFEButtonManager.CurrentModInfo.targetVersion);
+                        CMFEButtonManager.Instance.WarningText.enabled = true;
+                        CloseWindow();
+                    });
                     break;
                 case ParameterWindows.Title:
                     t = "Mod's Title";

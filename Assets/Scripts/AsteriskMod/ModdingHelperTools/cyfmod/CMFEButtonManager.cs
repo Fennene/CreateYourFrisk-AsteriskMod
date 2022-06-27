@@ -42,19 +42,22 @@ namespace AsteriskMod.ModdingHelperTools
             editing = realModInfo.Clone();
             //notAccepted = false;
 
-            UpdateParameters();
-
             Instance = this;
+
+            UpdateParameters();
         }
 
         public Button ExitButton;
         public Button AcceptButton;
+        public Text WarningText;
 
         public Button TargetVersionButton;
         public Text TargetVersionLabelShadow, TargetVersionLabel;
 
         private void Start()
         {
+            WarningText.enabled = false;
+
             UnityButtonUtil.AddListener(ExitButton, () =>
             {
                 CMFEWindowManager.Dispose();
@@ -68,6 +71,8 @@ namespace AsteriskMod.ModdingHelperTools
 
         internal void UpdateParameters()
         {
+            TargetVersionLabel.text = "Target Version:\n" + Asterisk.ConvertFromModVersion(CurrentModInfo.targetVersion);
+            TargetVersionLabelShadow.text = TargetVersionLabel.text;
         }
     }
 }
