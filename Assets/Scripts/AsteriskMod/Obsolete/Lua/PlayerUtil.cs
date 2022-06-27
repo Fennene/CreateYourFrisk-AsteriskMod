@@ -49,12 +49,14 @@ namespace AsteriskMod.Lua
         {
             //PlayerUIManager.Instance.MoveNameLVPosition(x, y);
             AsteriskMod.PlayerUtil.Instance.Name.Move(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
+            AsteriskMod.PlayerUtil.Instance.Love.Move(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
         }
 
         public static void NameUIMoveTo(float x, float y)
         {
             //PlayerUIManager.Instance.SetNameLVPosition(x, y);
             AsteriskMod.PlayerUtil.Instance.Name.MoveTo(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
+            AsteriskMod.PlayerUtil.Instance.Love.MoveTo(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
         }
 
         public static Table GetNameUIPosition()

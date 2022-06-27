@@ -34,7 +34,7 @@ namespace AsteriskMod
         public ModInfo()
         {
             targetVersion = Asterisk.Versions.Unknwon;
-            supportedLanguages = new bool[2] { false, false };
+            supportedLanguages = new bool[0];
             showEncounters = new string[0];
             hideEncounters = new string[0];
             retroMode = null;
@@ -127,6 +127,7 @@ namespace AsteriskMod
                     case "languages":
                     //case "language":
                     case "localization":
+                        info.supportedLanguages = new bool[2];
                         foreach (string langText in ini.Main[realKey].Array)
                         {
                             Languages lang = AsteriskUtil.ConvertToLanguage(langText, false);

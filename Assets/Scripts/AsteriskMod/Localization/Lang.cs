@@ -15,8 +15,8 @@ namespace AsteriskMod
         private const string JAPANESE_TAG = "*ja";
 
         private const string LANG_DIR = "Localization";
-        private const string ENGLISH_LANG_FILE = "Localization/en.lang";
-        private const string JAPANESE_LANG_FILE = "Localization/ja.lang";
+        [MoonSharpHidden] internal const string ENGLISH_LANG_FILE = "Localization/en.lang";
+        [MoonSharpHidden] internal const string JAPANESE_LANG_FILE = "Localization/ja.lang";
 
         [MoonSharpHidden]
         internal static void Initialize()
