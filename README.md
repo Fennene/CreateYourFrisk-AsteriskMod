@@ -1,3 +1,7 @@
+README‚Ì“ú–{Œê–ó‚Í[‚±‚¿‚ç](https://github.com/Fennene/CreateYourFrisk-AsteriskMod/blob/main/README-JP.md)
+
+---
+
 # Create Your Frisk - Asterisk Mod
 
 ### !WARNING! This is NOT official CYF.
@@ -6,11 +10,9 @@ Original CYF Link: [https://github.com/RhenaudTheLukark/CreateYourFrisk](https:/
 
 ---
 
-Welcome to the Git repository for **Create Your Frisk - Asterisk Mod**, a fork of [**Unitale**](https://github.com/lvk/Unitale/) by lvk and [**CreateYourFrisk**](https://github.com/RhenaudTheLukark/CreateYourFrisk) by RhenaudTheLukark!
+Welcome to the Git repository for **Create Your Frisk - Asterisk Mod**, a fork of [**Unitale**](https://github.com/lvk/Unitale/) by lvk and [**CreateYourFrisk v0.6.5**](https://github.com/RhenaudTheLukark/CreateYourFrisk/releases/tag/v0.6.5) by RhenaudTheLukark!
 
 When testing, you'll want to load the Disclaimer scene from the Scenes folder.
-
-Editing the Overworld requires **Unity** (see **Unity Version** below).
 
 There is original CYF's [**Discord server**](https://discord.gg/GFJ5277)! Feel free to check it out if you want to be in touch with Unitale and Create Your Frisk's community!
 
@@ -18,17 +20,19 @@ There is original CYF's [**Discord server**](https://discord.gg/GFJ5277)! Feel f
 
 ## Asterisk Mod
 
-Current version is **v0.5.2.9**.
+Current version is **v0.5.2.9**. (Latest (experiment) version is *v0.5.2.A*.)
 
 Asterisk Mod adds some strong functions and objects to original CYF.
 
-For example
+For example,
 
-"PlayerUtil.SetHPText()"  can change text showing the player's HP to any string.
+Calculates the damage enemy takes with "PlayerUtil.SimulateDamage()". *(on v0.5.2.A)*
 
 You can inactive MERCY Button by "ButtonUtil.MERCY.SetActive(false)".
 
-Moreover, you can create your CustomState by State Script!
+Moves the text in dialog box by calling "ArenaUtil.DialogTextMoveTo()". *(on v0.5.2.A)*
+
+Moreover, you can create your CustomState by **State Script**!!
 
 ***
 
@@ -40,7 +44,7 @@ To download the engine, go to [**the releases page**](https://github.com/Fennene
 
 ## Unity Version
 
-CYF's latest version is **v0.6.5** and AsteriskMod's latest version is **v0.5.2.9**. It was built using **Unity Personal 2018.2.13f1**.
+CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.2.9**. It was built using **Unity Personal 2018.2.13f1**.
 
 To get this version of Unity, either:
 

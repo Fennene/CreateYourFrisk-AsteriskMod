@@ -411,7 +411,19 @@ public class SelectOMatic : MonoBehaviour {
         ExistDescInfoShadow.SetActive(hasDescription);
         ExistDescInfo      .SetActive(hasDescription);
         // Languages
-        if (info.supportedLanguages[0]) // English
+        bool en = false;
+        bool jp = false;
+        if (info.supportedLanguages.Length > 0)
+        {
+            en = info.supportedLanguages[0];
+            jp = info.supportedLanguages[1];
+        }
+        else
+        {
+            en = File.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + modDirs[id].Name + "/" + Lang.ENGLISH_LANG_FILE));
+            jp = File.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + modDirs[id].Name + "/" + Lang.JAPANESE_LANG_FILE));
+        }
+        if (en) // English
         {
             ENLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
             ENLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
@@ -421,7 +433,7 @@ public class SelectOMatic : MonoBehaviour {
             ENLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
             ENLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
         }
-        if (info.supportedLanguages[1]) // Japanese
+        if (jp) // Japanese
         {
             JPLabelShadow.GetComponent<Text>().color = new Color32(  0,   0,   0, 255);
             JPLabel      .GetComponent<Text>().color = new Color32(255, 255, 255, 255);
