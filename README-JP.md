@@ -1,4 +1,4 @@
-﻿# Create Your Frisk - Asterisk Mod
+# Create Your Frisk - Asterisk Mod
 
 ### !警告! これは公式のCYFではありません！
 

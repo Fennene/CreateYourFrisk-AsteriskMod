@@ -1,4 +1,4 @@
-README‚Ì“ú–{Œê–ó‚Í[‚±‚¿‚ç](https://github.com/Fennene/CreateYourFrisk-AsteriskMod/blob/main/README-JP.md)
+READMEã®æ—¥æœ¬èªè¨³ã¯[ã“ã¡ã‚‰](https://github.com/Fennene/CreateYourFrisk-AsteriskMod/blob/main/README-JP.md)
 
 ---
 
