@@ -196,7 +196,6 @@ namespace AsteriskMod
                         if (_.HasValue) info.richText = _.Value;
                         break;
 
-                    case "description-font":
                     case "font":
                         string fontName = ini.Main[realKey].String.ToLower().Replace("-", " ").Replace("_", " ");
                         if (fontName == "8bit" || fontName == "8bitoperator" || fontName == "8bit operator" || fontName == "8bitoperator jve" || fontName == "8bit operator jve")
@@ -274,8 +273,57 @@ namespace AsteriskMod
 
         public bool Write(string modDirName)
         {
+            string text;
+            text = "target-version=\"" + Asterisk.ConvertFromModVersion(targetVersion) + "\"\n";
+            if (showEncounters.Length > 0)
+            {
+                text += "show-encounters={";
+                foreach (string encounterName in showEncounters)
+                {
+                    if (!text.EndsWith("{")) text += ",";
+                    text += "\"" + encounterName + "\"";
+                }
+                text += "}\n";
+            }
+            if (hideEncounters.Length > 0)
+            {
+                text += "hide-encounters={";
+                foreach (string encounterName in hideEncounters)
+                {
+                    if (!text.EndsWith("{")) text += ",";
+                    text += "\"" + encounterName + "\"";
+                }
+                text += "}\n";
+            }
+            if (supportedLanguages.Length > 0)
+            {
+                text += "supported-languages={";
+                if (supportedLanguages[0]) text += "\"en\"";
+                if (supportedLanguages[1]) text += (!text.EndsWith("{") ? "," : "") + "\"ja\"";
+                text += "}\n";
+            }
+            if (!string.IsNullOrEmpty(title))    text += "title=\"" + title + "\"\n";
+            if (!string.IsNullOrEmpty(subtitle)) text += "subtitle=\"" + subtitle + "\"\n";
+            if (!string.IsNullOrEmpty(description)) text += "description-file=\"" + description + "\"\n";
+            if (descAnchor != TextAnchor.UpperLeft) text += "description-align=\"" + descAnchor.ToString() + "\"\n";
+            if (font != DisplayFont.PixelOperator)
+            {
+                if (font == DisplayFont.EightBitoperator) text += "font=\"8bitoperator\"\n";
+            }
+            if (bgColor.r != 1 || bgColor.g != 1 || bgColor.b != 1) text += "bg-color={\"" + bgColor.r.ToString() + "\",\"" + bgColor.g.ToString() + "\",\"" + bgColor.b.ToString() + "\"}\n";
+            if (bgColor.a != 0.1875f) text += "bg-alpha=\"" + bgColor.a.ToString() + "\"\n";
             string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
-            return false;
+            try   { File.WriteAllText(path, text); }
+            catch { return false; }
+            return true;
+        }
+
+        public static bool DeleteFile(string modDirName)
+        {
+            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
+            try   { File.Delete(path); }
+            catch { return false; }
+            return true;
         }
     }
 }

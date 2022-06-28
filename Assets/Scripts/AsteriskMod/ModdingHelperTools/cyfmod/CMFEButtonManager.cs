@@ -65,6 +65,7 @@ namespace AsteriskMod.ModdingHelperTools
                 AnimFrameCounter.Dispose();
                 SceneManager.LoadScene("MHTMenu");
             });
+            UnityButtonUtil.AddListener(AcceptButton, () =>CMFEWindowManager.Insatnce.OpenWindow(CMFEWindowManager.ParameterWindows.File));
 
             UnityButtonUtil.AddListener(TargetVersionButton, () => CMFEWindowManager.Insatnce.OpenWindow(CMFEWindowManager.ParameterWindows.TargetVersion));
         }

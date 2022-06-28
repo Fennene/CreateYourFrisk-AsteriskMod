@@ -486,6 +486,19 @@ ul.rn li li::before {
     background: #000;
     content: "";
 }
+ul.rn li li.del::before {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: -1.1em;
+    top: 0.6em;
+    border-radius: 50%;
+    border: solid 2px;
+    color: #f00;
+    background: #000;
+    content: "";
+}
 
 ul.rn li.fix::before {
     display: block;

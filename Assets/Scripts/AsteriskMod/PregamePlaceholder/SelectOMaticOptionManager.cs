@@ -26,6 +26,13 @@ namespace AsteriskMod
 
         public static bool opened;
 
+        private string[] CantOpenMHT = new string[] {
+            "@0.5.0_SEE_CRATE", "@OverWorld Test", "@Title",
+            "Encounter Skeleton", "Examples", "Examples 2", "RTLGeno",
+            "Encounter Skeleton (Asterisk Mod)",
+            "Asterisk Mod Features", "Asterisk Mod Features 2", "Asterisk Mod Features 3"
+        };
+
         public void StartAlt(SelectOMatic selectOMatic)
         {
             if (!GlobalControls.modDev) return;
@@ -50,10 +57,22 @@ namespace AsteriskMod
             }
         }
 
-        internal static void ShowMod(string modDirName, string encounterFileName)
+        internal void ShowMod(string modDirName, string encounterFileName)
         {
             ModdingHelperTools.FakeStaticInits.MODFOLDER = modDirName;
             ModdingHelperTools.FakeStaticInits.ENCOUNTER = encounterFileName;
+            UnityEngine.Debug.Log(modDirName);
+            if (CantOpenMHT.Contains(modDirName))
+            {
+                moddingHelper.GetComponentInChildren<Text>().color = Color.gray;
+                moddingHelper.GetComponent<Button>().onClick.RemoveAllListeners();
+            }
+            else
+            {
+                moddingHelper.GetComponentInChildren<Text>().color = Color.white;
+                moddingHelper.GetComponent<Button>().onClick.RemoveAllListeners();
+                moddingHelper.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("MHTMenu"));
+            }
         }
 
         private void ToggleOptionSelectWindow()

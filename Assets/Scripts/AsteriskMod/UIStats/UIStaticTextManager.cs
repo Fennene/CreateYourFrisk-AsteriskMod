@@ -23,5 +23,12 @@ namespace AsteriskMod
         {
             _controlOverride = active;
         }
+
+        internal Action _UpdatePosition = (() => { });
+
+        public void UpdatePosition()
+        {
+            _UpdatePosition();
+        }
     }
 }

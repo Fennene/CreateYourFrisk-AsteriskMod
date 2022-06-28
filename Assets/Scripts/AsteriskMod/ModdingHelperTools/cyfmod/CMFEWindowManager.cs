@@ -196,6 +196,36 @@ namespace AsteriskMod.ModdingHelperTools
                     break;
                 case ParameterWindows.File:
                     t = "Accept Change or Manages File";
+                    d = "Cancel: Closes this window.\nDelete: Deletes info.cyfmod\nRevert: Reverts all changes\nAccept: Save changes.\n\n!WARNING! commentout will be deleted when saves change.";
+                    UnityButtonUtil.AddListener(Cancel, () =>
+                    {
+                        CloseWindow();
+                    });
+                    UnityButtonUtil.AddListener(Delete, () =>
+                    {
+                        ModInfo.DeleteFile(FakeStaticInits.ENCOUNTER);
+                        CMFEButtonManager.Instance.realModInfo = new ModInfo();
+                        CMFEButtonManager.Instance.realModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
+                        CMFEButtonManager.Instance.editing = CMFEButtonManager.Instance.realModInfo.Clone();
+                        CMFEButtonManager.Instance.WarningText.enabled = false;
+                        CMFEButtonManager.Instance.UpdateParameters();
+                        CloseWindow();
+                    });
+                    UnityButtonUtil.AddListener(Revert, () =>
+                    {
+                        CMFEButtonManager.Instance.editing = CMFEButtonManager.Instance.realModInfo.Clone();
+                        CMFEButtonManager.Instance.WarningText.enabled = false;
+                        CMFEButtonManager.Instance.UpdateParameters();
+                        CloseWindow();
+                    });
+                    UnityButtonUtil.AddListener(Accept, () =>
+                    {
+                        CMFEButtonManager.Instance.realModInfo.Write(FakeStaticInits.ENCOUNTER);
+                        CMFEButtonManager.Instance.editing = CMFEButtonManager.Instance.realModInfo.Clone();
+                        CMFEButtonManager.Instance.WarningText.enabled = false;
+                        CMFEButtonManager.Instance.UpdateParameters();
+                        CloseWindow();
+                    });
                     break;
             }
             title.text = t;

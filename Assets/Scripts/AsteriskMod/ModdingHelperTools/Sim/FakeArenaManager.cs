@@ -399,16 +399,16 @@ namespace AsteriskMod.ModdingHelperTools
         {
             if (!firstTurn)
                 //MoveToImmediate(ArenaManager.UI_X + ArenaUI.ArenaOffset.x, ArenaManager.UI_Y + ArenaUI.ArenaOffset.y, false);
-                MoveToImmediate(ArenaManager.UI_X, ArenaManager.UI_Y, false);
+                MoveToImmediate(ArenaManager.UI_X + FakeArenaUtil.Instance.ArenaOffset.x, ArenaManager.UI_Y + FakeArenaUtil.Instance.ArenaOffset.y, false);
             if (immediate)
             {
                 //ResizeImmediate(ArenaManager.UIWidth + ArenaUI.ArenaOffsetSize.x, ArenaManager.UIHeight + ArenaUI.ArenaOffsetSize.y);
-                ResizeImmediate(ArenaManager.UIWidth, ArenaManager.UIHeight);
+                ResizeImmediate(ArenaManager.UIWidth + FakeArenaUtil.Instance.ArenaOffsetSize.x, ArenaManager.UIHeight + FakeArenaUtil.Instance.ArenaOffsetSize.y);
             }
             else
             {
                 //Resize(ArenaManager.UIWidth + ArenaUI.ArenaOffsetSize.x, ArenaManager.UIHeight + ArenaUI.ArenaOffsetSize.y);
-                Resize(ArenaManager.UIWidth, ArenaManager.UIHeight);
+                Resize(ArenaManager.UIWidth + FakeArenaUtil.Instance.ArenaOffsetSize.x, ArenaManager.UIHeight + FakeArenaUtil.Instance.ArenaOffsetSize.y);
             }
             Show();
         }

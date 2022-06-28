@@ -184,6 +184,15 @@ it's w3c valid, at least
                 If <span class="term">true</span>, the text displaying the player's status does not update anymore.
             </p>
 
+            <p>
+                <br><span class="function">UIStaticText.UpdatePosition()</span>
+                This is for <span class="term">PlayerUtil.Love</span> and <span class="term">PlayerUtil.HPText</span>.<br>
+                Update the position of the text based on other UIs.<br>
+                On <span class="term">PlayerUtil.Love</span>, adjust the position based on the width of <span class="term">PlayerUtil.Name</span>, 
+                On <span class="term">PlayerUtil.HPText</span>, adjust the position based on the width of <span class="term">PlayerUtil.HPBar</span>.<br>
+                This is useful after <span class="term">UIStaticText.SetControlOverride()</span> is called.
+            </p>
+
             <br><h4>Note that static text obejct of UI can not be called <span class="term">StaticText.DestroyText().</h4>
 
 

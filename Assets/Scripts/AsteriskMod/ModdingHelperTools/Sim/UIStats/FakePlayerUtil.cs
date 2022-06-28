@@ -6,54 +6,102 @@ namespace AsteriskMod.ModdingHelperTools
     internal class FakePlayerUtil : MonoBehaviour
     {
         internal static FakePlayerUtil Instance;
-        private static GameObject Stats;
-        private static Vector2 relativePosition;
+
+        private GameObject Stats;
+        private Vector2 relativePosition;
+        private Vector2 relativeHPRectPosition;
 
         private void Awake()
         {
             Stats = gameObject;
             relativePosition = Vector2.zero;
+            relativeHPRectPosition = Vector2.zero;
             Instance = this;
         }
 
-        public static int x
+        public float x
         {
-            get { return Mathf.RoundToInt(relativePosition.x); }
+            get { return relativePosition.x; }
             set { MoveTo(value, y); }
         }
 
-        public static int y
+        public float y
         {
-            get { return Mathf.RoundToInt(relativePosition.y); }
+            get { return relativePosition.y; }
             set { MoveTo(x, value); }
         }
 
-        public static void Move(int x, int y)
+        public void Move(float x, float y)
         {
             Vector2 add = new Vector2(x, y);
             relativePosition += add;
             Stats.GetComponent<RectTransform>().anchoredPosition += add;
         }
 
-        public static void MoveTo(int newX, int newY)
+        public void MoveTo(float newX, float newY)
         {
             Vector2 initPos = Stats.GetComponent<RectTransform>().anchoredPosition - relativePosition;
             relativePosition = new Vector2(newX, newY);
             Stats.GetComponent<RectTransform>().anchoredPosition = initPos + relativePosition;
         }
 
-        public static void MoveToAbs(int newX, int newY)
+        public void MoveToAbs(float newX, float newY)
         {
             Vector2 initPos = Stats.GetComponent<RectTransform>().anchoredPosition - relativePosition;
             Stats.transform.position = new Vector3(newX, newY, Stats.transform.position.z);
             relativePosition = Stats.GetComponent<RectTransform>().anchoredPosition - initPos;
         }
 
-        //public static FakeLuaStaticTextManager Name { get { return FakePlayerName.instance.NameTextMan; } }
-        //public static FakeLuaStaticTextManager Love { get { return FakePlayerLV.instance.LoveTextMan; } }
-        //public static LuaSpriteController HPLabel { get { return FakePlayerHPStat.instance.HPLabel; } }
-        //public static PlayerLifeBar HPBar { get { return FakePlayerHPStat.instance.LifeBar; } }
-        //public static FakeLuaStaticTextManager HPText { get { return FakePlayerHPStat.instance.LifeTextMan; } }
+        /*
+        public FakeLuaStaticTextManager Name { get { return FakePlayerName.instance.NameTextMan; } }
+
+        public void SetJapaneseNameActive(bool active)
+        {
+            AsteriskEngine.JapaneseStyleOption.SetJapaneseNameActive(active);
+        }
+
+        public FakeLuaStaticTextManager Love { get { return FakePlayerLV.instance.LoveTextMan; } }
+
+        public void SetLV(string lv)
+        {
+            FakePlayerLV.instance.SetText(lv);
+        }
+        */
+
+        public float hpx
+        {
+            get { return relativeHPRectPosition.x; }
+            set { HPMoveTo(value, hpy); }
+        }
+
+        public float hpy
+        {
+            get { return relativeHPRectPosition.y; }
+            set { HPMoveTo(hpx, value); }
+        }
+
+        public void HPMove(float x, float y)
+        {
+            Vector2 add = new Vector2(x, y);
+            relativeHPRectPosition += add;
+            FakePlayerHPStat.instance.hpRect.anchoredPosition += add;
+        }
+
+        public void HPMoveTo(float newX, float newY)
+        {
+            Vector2 initPos = FakePlayerHPStat.instance.hpRect.anchoredPosition - relativeHPRectPosition;
+            relativeHPRectPosition = new Vector2(newX, newY);
+            FakePlayerHPStat.instance.hpRect.anchoredPosition = initPos + relativeHPRectPosition;
+        }
+
+        /*
+        public FakeLuaStaticTextManager HPLabel { get { return FakePlayerHPStat.instance.HPLabel; } }
+
+        public PlayerLifeBar HPBar { get { return FakePlayerHPStat.instance.LifeBar; } }
+
+        public FakeLuaStaticTextManager HPText { get { return FakePlayerHPStat.instance.LifeTextMan; } }
+        */
+
 
         public static void SetTargetSprite(string path)
         {
@@ -98,17 +146,28 @@ namespace AsteriskMod.ModdingHelperTools
             UIController.instance.fightUI.lineAnimFrequency = 1 / 12f;
         }
         */
-
-        public static PlayerLifeBar CreateLifeBar(bool below = false)
+        public PlayerLifeBar CreateLifeBar(string layer = "BelowHPBar")
         {
-            string findName = below ? "*BelowHPBar" : "*AboveHPBar";
-            GameObject parent = GameObject.Find(findName);
+            string layerName = layer;
+            string prefabName;
+            if (layer == "BelowHPBar" || layer == "AboveHPBar")
+            {
+                layerName = "*" + layer;
+                prefabName = "Prefabs/AsteriskMod/LifeBar";
+            }
+            else
+            {
+                layerName += "Layer";
+                prefabName = "Prefabs/AsteriskMod/LifeBarOnSpriteL";
+            }
+            GameObject parent = GameObject.Find(layerName);
             if (parent == null)
             {
-                Debug.LogWarning("GameObject\"" + findName + "\" is not found.");
+                Debug.LogWarning("GameObject\"" + layerName + "\" is not found.");
+                UnitaleUtil.DisplayLuaError("Creating a lifeBar", "The lifeBar layer " + layer + " doesn't exist.");
                 return null;
             }
-            PlayerLifeBar lifeBar = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AsteriskMod/LifeBar"), parent.transform).GetComponent<PlayerLifeBar>();
+            PlayerLifeBar lifeBar = GameObject.Instantiate(Resources.Load<GameObject>(prefabName), parent.transform).GetComponent<PlayerLifeBar>();
             lifeBar.Initialize(false);
             return lifeBar;
         }

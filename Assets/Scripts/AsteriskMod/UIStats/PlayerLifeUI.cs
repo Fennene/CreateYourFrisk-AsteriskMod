@@ -48,6 +48,7 @@ namespace AsteriskMod
 
         private void Start()
         {
+            LifeTextMan._UpdatePosition = () => { SetTextPosition(true); };
             LifeTextMan.SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
             SetMaxHP();
 
@@ -107,10 +108,10 @@ namespace AsteriskMod
             SetHP(PlayerCharacter.instance.HP);
         }
 
-        internal void SetTextPosition()
+        internal void SetTextPosition(bool force = false)
         {
             DevelopHint.ToDo("Boring Compatibility");
-            if (LifeTextMan._controlOverride && AsteriskUtil.IsV053) return;
+            if (LifeTextMan._controlOverride && AsteriskUtil.IsV053 && !force) return;
             lifeTextRT.anchoredPosition = new Vector2(LifeBar.self.sizeDelta.x + 30, lifeTextRT.anchoredPosition.y);
         }
 

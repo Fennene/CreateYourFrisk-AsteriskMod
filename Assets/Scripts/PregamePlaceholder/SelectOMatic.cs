@@ -443,7 +443,7 @@ public class SelectOMatic : MonoBehaviour {
             JPLabelShadow.GetComponent<Text>().color = new Color32( 0,  0,  0,  64);
             JPLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
         }
-        SelectOMaticOptionManager.ShowMod(modDirs[id].Name, encounters[0]);
+        SelectOMaticOptionManager.instance.ShowMod(modDirs[id].Name, encounters[0]);
         // --------------------------------------------------------------------------------
     }
 

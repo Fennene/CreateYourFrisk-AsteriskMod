@@ -11,6 +11,7 @@ namespace AsteriskMod.ExtendedUtil
         {
             this.x = x;
             this.y = y;
+            MoveAction = (a, b) => { };
         }
 
         public float? this[int index]
@@ -48,5 +49,22 @@ namespace AsteriskMod.ExtendedUtil
         public static LuaVector operator -(LuaVector a) { return new LuaVector(-a.x, -a.y); }
 
         public static LuaVector Zero { get { return new LuaVector(0, 0); } }
+
+
+        public void Move(float x, float y)
+        {
+            MoveAction(x, y);
+            this.x += x;
+            this.y += y;
+        }
+
+        public void MoveTo(float newX, float newY)
+        {
+            MoveAction(x, y);
+            this.x = newX;
+            this.y = newY;
+        }
+
+        public System.Action<float, float> MoveAction { get; set; }
     }
 }
