@@ -39,26 +39,28 @@ namespace AsteriskMod
             Unknwon
         }
 
-        /// <summary>Whether "Experimental Features" is enabled or not</summary>
+        /// <summary>Whether "Experimental Features" is enabled or not<br/>実験的機能が有効かどうか</summary>
         public static bool experimentMode;
-        /// <summary>In Mod Selection, whether always show mods' description or not</summary>
+        /// <summary>In Mod Selection, whether always show mods' description or not<br/>Mod選択画面においてModの説明を常に表示するかどうか</summary>
         public static bool alwaysShowDesc;
-        /// <summary>Engine's Target Language<br/>Currently always English</summary>
+        /// <summary>Engine's Displaying Language<br/>エンジンの表示言語</summary>
         public static Languages language;
-        /// <summary>Whether mods prevent to change system option by <c>SetAlMightyGlobal()</c> or not</summary>
+        /// <summary>Whether mods prevent to change system option by <c>SetAlMightyGlobal()</c> or not<br/></summary>
         public static bool optionProtecter;
-        /// <summary>Whether show error or not if mods try to change system option by <c>SetAlMightyGlobal()</c></summary>
+        /// <summary>Whether show error or not if mods try to change system option by <c>SetAlMightyGlobal()</c><br/></summary>
         public static bool reportProtecter;
-        /// <summary>Whether replaces mod's name set from modders</summary>
+        /// <summary>Whether replaces mod's name set from modders<br/>Mod製作者が設定したMod名に置き換えるかどうか</summary>
         public static bool displayModInfo;
+        /// <summary>Whether change UIs with user's set language<br/>ユーザーの設定した言語に応じてUIを自動で変えるかどうか</summary>
+        public static bool changeUIwithLanguage;
 
         internal const string OPTION_EXPERIMENT = "*CYF-Experiment";
         internal const string OPTION_DESC = "*CYF-Description";
-        internal const string OPTION_DOG = "*CYF-ErrorDog";
         internal const string OPTION_LANG = "*CYF-Language";
         internal const string OPTION_PROTECT = "*CYF-ProtectOption";
         internal const string OPTION_PROTECT_ERROR = "*CYF-ProtectReport";
         internal const string OPTION_MODINFO = "*CYF-ModInfo";
+        internal const string OPTION_UIWITHLANG = "*CYF-UIChangedWithLanguage";
 
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
@@ -87,6 +89,7 @@ namespace AsteriskMod
             optionProtecter = true;
             reportProtecter = true;
             displayModInfo = true;
+            changeUIwithLanguage = true;
 
             AsteriskEngine.Initialize();
             Lang.Initialize();
@@ -119,6 +122,10 @@ namespace AsteriskMod
             if (LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO) != null && LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO).Type == DataType.Boolean)
             {
                 displayModInfo = LuaScriptBinder.GetAlMighty(null, OPTION_MODINFO).Boolean;
+            }
+            if (LuaScriptBinder.GetAlMighty(null, OPTION_UIWITHLANG) != null && LuaScriptBinder.GetAlMighty(null, OPTION_UIWITHLANG).Type == DataType.Boolean)
+            {
+                changeUIwithLanguage = LuaScriptBinder.GetAlMighty(null, OPTION_UIWITHLANG).Boolean;
             }
 #if UNITY_EDITOR
             //Test.Tset();

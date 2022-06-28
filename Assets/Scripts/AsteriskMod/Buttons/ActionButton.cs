@@ -43,6 +43,12 @@ namespace AsteriskMod
                 _button.sprite = SpriteUtil.TryGetSprite(crateSpritePath);
                 _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = crateSpritePath;
             }
+            else if (Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage)
+            {
+                string path = _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath.Replace("_0", "_2");
+                _button.sprite = SpriteUtil.TryGetSprite(path);
+                _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = path;
+            }
             _normalSpritePath = _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath;
         }
 

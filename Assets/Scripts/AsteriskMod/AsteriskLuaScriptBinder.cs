@@ -196,7 +196,7 @@ namespace AsteriskMod
                 throw new CYFException("SetAlMightyGlobal: The first argument (the index) is nil.\n\nSee the documentation for proper usage.");
             byte protect = 0;
             if (key == "CYFSafeMode" || key == "CYFRetroMode" || key == "CYFPerfectFullscreen" || key == "CYFWindowScale" || key == "CYFDiscord") protect = 1;
-            if (key == Asterisk.OPTION_EXPERIMENT || key == Asterisk.OPTION_DESC || key == Asterisk.OPTION_DOG || key == Asterisk.OPTION_LANG) protect = 1;
+            if (key == Asterisk.OPTION_EXPERIMENT || key == Asterisk.OPTION_DESC || key == Asterisk.OPTION_LANG || key == Asterisk.OPTION_UIWITHLANG) protect = 1;
             if (key == Asterisk.OPTION_PROTECT || key == Asterisk.OPTION_PROTECT_ERROR || key == Asterisk.OPTION_MODINFO) protect = 1;
             if (key == "CrateYourFrisk" && (value == null || value.Type != DataType.Boolean || !value.Boolean)) protect = 2;
             if (Asterisk.reportProtecter && protect > 0)

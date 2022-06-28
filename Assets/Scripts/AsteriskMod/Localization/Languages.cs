@@ -72,6 +72,7 @@ namespace AsteriskMod
 
             English.SetParameter("AsteriskOption", "Hover", new FakeIniParameter("Hover over an option and its description will appear here!"));
             English.SetParameter("AsteriskOption", "Lang", new FakeIniParameter("Display Language\n\nSwitches display language\nto English or Japanese."));
+            English.SetParameter("AsteriskOption", "LangWithUI", new FakeIniParameter("This option is for when engine's language is Japanese."));
             English.SetParameter("AsteriskOption", "Title", new FakeIniParameter("Replace Prepared Mods' Title\n\nWhether replace mods' title and subtitle to prepared from modders.\n\nDefault by On"));
             English.SetParameter("AsteriskOption", "Desc", new FakeIniParameter("Always Description Visible\n\nWhether mods' descriptions are always shown or not.\n\nDefault by On"));
             English.SetParameter("AsteriskOption", "SafeSetAlMightGlobal", new FakeIniParameter("Permission of changing system option's data from mods' code.\n\nSave data of option also uses AlMighty Global, so mod can change that data forcely.\nThis feature will prevent that illegal change.\n\nYou can select option: Error, Ignore, Allow.\n<b>Error</b> shows error message if that change happens.\n<b>Ignore</b> prevents that change and continues mod running.\n<b>Allow</b> allows that change.\n\nDefault by \"Error\""));
@@ -152,6 +153,7 @@ namespace AsteriskMod
 
             Japanese.SetParameter("AsteriskOption", "Hover", new FakeIniParameter("オプションにカーソルを乗せると\nここに説明が表示されます。"));
             Japanese.SetParameter("AsteriskOption", "Lang", new FakeIniParameter("表示言語\n\n英語と日本語を切り替えます。"));
+            Japanese.SetParameter("AsteriskOption", "LangWithUI", new FakeIniParameter("日本語用のUIにするかどうか\n\n有効にすると、\nプレイヤー名やボタンが\n日本語版のように表示されます。\n\nデフォルトでは有効"));
             Japanese.SetParameter("AsteriskOption", "Title", new FakeIniParameter("Modのタイトル表示\n\nModのタイトルやサブタイトルを\nMod製作者が用意したものに\n表示を切り替えるかどうか。\n\nデフォルトでは有効(On)"));
             Japanese.SetParameter("AsteriskOption", "Desc", new FakeIniParameter("常時Mod説明の表示\n\nModの説明文を\n常時表示するかどうか。\n\nデフォルトでは有効(On)"));
             Japanese.SetParameter("AsteriskOption", "SafeSetAlMightGlobal", new FakeIniParameter("Modのコードから\nシステムのオプションの\n変更許可\n\nオプションのデータも\nAlMighty Globalを使用して\n保存されるため\nModからそのデータを\n強制的に変更できます。\nこの機能はその不正な変更を\n防ぎます。\n\n以下のオプションを利用できます。\n<b>Error</b> - 不正な変更を検出し\nエラーを表示します。\n<b>Ignore</b> - 不正な変更を防ぎ\nModの実行を継続します。\n<b>Allow</b> - 不正な変更を許可します。\n\nデフォルトではエラー(Error)"));

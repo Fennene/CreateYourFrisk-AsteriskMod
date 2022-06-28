@@ -17,7 +17,7 @@ namespace AsteriskMod
         private int DescriptionTimer;
 
         // game objects
-        public GameObject Language, ReplaceTitle, DescVisible, Protect, Experiment, Exit, Git;
+        public GameObject Language, UIChangeWithLang, ReplaceTitle, DescVisible, Protect, Experiment, Exit, Git;
         public Text Description;
 
         // Use this for initialization
@@ -35,6 +35,18 @@ namespace AsteriskMod
                 Language.GetComponentInChildren<Text>().text = "Language: " + AsteriskUtil.ConvertFromLanguage(Asterisk.language, false);
             });
             Language.GetComponentInChildren<Text>().text = "Language: " + AsteriskUtil.ConvertFromLanguage(Asterisk.language, false);
+
+            // UIを日本語表記にするかどうか
+
+            UIChangeWithLang.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                Asterisk.changeUIwithLanguage = !Asterisk.changeUIwithLanguage;
+
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_UIWITHLANG, DynValue.NewBoolean(Asterisk.changeUIwithLanguage), true);
+
+                UIChangeWithLang.GetComponentInChildren<Text>().text = "UIを日本語表記にするかどうか: " + (Asterisk.changeUIwithLanguage ? "有効" : "無効");
+            });
+            UIChangeWithLang.GetComponentInChildren<Text>().text = "UIを日本語表記にするかどうか: " + (Asterisk.changeUIwithLanguage ? "有効" : "無効");
 
             // replace modders mod title
             ReplaceTitle.GetComponent<Button>().onClick.AddListener(() =>
@@ -110,6 +122,9 @@ namespace AsteriskMod
                     response = "Display Language\n\n"
                              + "Switches display language\nto English or Japanese.";
                     return !GlobalControls.crate ? response : Temmify.Convert(response);
+                case "LangWithUI":
+                    response = "This option is for when engine's language is Japanese.";
+                    return !GlobalControls.crate ? response : Temmify.Convert(response);
                 case "Title":
                     response = "Replace Prepared Mods' Title\n\n"
                              + "Whether replace mods' title and subtitle to prepared from modders.\n\n"
@@ -179,21 +194,21 @@ namespace AsteriskMod
                     // Language
                     if (mousePosY <= 420 && mousePosY > 380)
                         hoverItem = "Lang";
-                    // ReplaceTitle
                     else if (mousePosY <= 380 && mousePosY > 340)
+                        hoverItem = "LangWithUI";
+                    // ReplaceTitle
+                    else if (mousePosY <= 340 && mousePosY > 300)
                         hoverItem = "Title";
                     // ShowAlwaysDesc
-                    else if (mousePosY <= 340 && mousePosY > 300)
+                    else if (mousePosY <= 300 && mousePosY > 260)
                         hoverItem = "Desc";
                     // SafeAlMightyGlobal
-                    else if (mousePosY <= 300 && mousePosY > 260)
+                    else if (mousePosY <= 260 && mousePosY > 220)
                         hoverItem = "SafeSetAlMightGlobal";
                     // Experiment
-                    else if (mousePosY <= 260 && mousePosY > 220)
+                    else if (mousePosY <= 220 && mousePosY > 180)
                         hoverItem = "Experiment";
                     /*
-                    else if (mousePosY <= 220 && mousePosY > 180)
-                        hoverItem = "";
                     else if (mousePosY <= 180 && mousePosY > 140)
                         hoverItem = "";
                     else if (mousePosY <= 140 && mousePosY > 100)
@@ -203,9 +218,6 @@ namespace AsteriskMod
                     else if (mousePosY <= 60 && mousePosY > 20)
                         hoverItem = "Exit";
                 }
-                // --------------------------------------------------------------------------------
-                //                          Asterisk Mod Modification
-                // --------------------------------------------------------------------------------
                 if (mousePosX >= 350 && mousePosX <= 600)
                 {
                     if (mousePosY <= 60 && mousePosY > 20)
@@ -213,7 +225,6 @@ namespace AsteriskMod
                 }
 
                 Git.SetActive(hoverItem != "SafeSetAlMightGlobal");
-                // --------------------------------------------------------------------------------
 
                 Description.GetComponent<Text>().text = GetDescriptionNew(hoverItem);
             }

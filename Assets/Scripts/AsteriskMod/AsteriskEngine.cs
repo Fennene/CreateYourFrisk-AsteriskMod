@@ -93,7 +93,7 @@ namespace AsteriskMod
             internal static void Reset()
             {
                 Initialize();
-                SetJapaneseNameActive(Asterisk.language == Languages.Japanese);
+                SetJapaneseNameActive(Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage);
             }
 
             public static void SetActive(bool active)

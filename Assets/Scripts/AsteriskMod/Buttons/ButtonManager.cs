@@ -24,7 +24,12 @@ namespace AsteriskMod
 
         private string GetTexturePath(string buttonTextureName, bool active)
         {
-            return "UI/Buttons/" + buttonTextureName + "_" + (active ? "1" : "0");
+            string suffix = active ? "_1" : "_0";
+            if (Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage && !GlobalControls.crate)
+            {
+                suffix = active ? "_3" : "_2";
+            }
+            return "UI/Buttons/" + buttonTextureName + suffix;
         }
 
         private static readonly string[] TexturePathes = new string[4] { "fightbt", "actbt", "itembt", "mercybt" };
