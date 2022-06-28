@@ -63,7 +63,7 @@ namespace AsteriskMod
                 //*    fillvalue = 1;
                 if (_limited && fillvalue > 1) fillvalue = 1;
                 //fill.rectTransform.offsetMax = new Vector2(-(Mathf.Min(PlayerCharacter.instance.MaxHP, 100) * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
-                fill.rectTransform.offsetMax = new Vector2(-(realMaxLength * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
+                fill.rectTransform.offsetMax = new Vector2(-(realMaxLength * (1 - fillvalue)) * _hpscale, fill.rectTransform.offsetMin.y);
             //* }
             //fill.rectTransform.offsetMax = new Vector2(-(1 - fillvalue) * PlayerCharacter.instance.MaxHP * 1.2f, fill.rectTransform.offsetMin.y);
         }
@@ -134,7 +134,7 @@ namespace AsteriskMod
         //                            Asterisk Mod Addition
         // --------------------------------------------------------------------------------
         [MoonSharpHidden] internal RectTransform self;
-        private Dictionary<string, Image> subbars;
+        //private Dictionary<string, Image> subbars;
 
         private void Awake() { self = GetComponent<RectTransform>(); }
 
@@ -157,7 +157,8 @@ namespace AsteriskMod
             //* self.sizeDelta = new Vector2(Mathf.Min(100, PlayerCharacter.instance.MaxHP) * 1.2f, self.sizeDelta.y);
             float realMaxLength = PlayerCharacter.instance.MaxHP;
             if (_limited) realMaxLength = Mathf.Min(100, realMaxLength);
-            self.sizeDelta = new Vector2(realMaxLength * 1.2f, self.sizeDelta.y);
+            //* self.sizeDelta = new Vector2(realMaxLength * 1.2f, self.sizeDelta.y);
+            self.sizeDelta = new Vector2(realMaxLength * _hpscale, self.sizeDelta.y);
             if (resetTextPosition) PlayerLifeUI.instance.SetTextPosition();
             if (maxhpOnly) return;
             setHP(PlayerCharacter.instance.HP);
@@ -169,6 +170,7 @@ namespace AsteriskMod
         private float _hp;
         private float _maxhp;
         private Vector2 relativePosition;
+        private float _hpscale;
 
         [MoonSharpHidden]
         internal void Initialize(bool isOriginalUI)
@@ -176,6 +178,7 @@ namespace AsteriskMod
             isOriginal = isOriginalUI;
             _controlOverride = !isOriginal;
             relativePosition = Vector2.zero;
+            _hpscale = 1.2f;
             if (isOriginal)
             {
                 _hp = PlayerCharacter.instance.HP;
@@ -248,6 +251,24 @@ namespace AsteriskMod
             }
         }
 
+        public float hpscale
+        {
+            get { return _hpscale; }
+            set
+            {
+                CheckExists(false);
+                _hpscale = value;
+                if (_controlOverride)
+                {
+                    ForceSetHP(_hp, _maxhp);
+                }
+                else
+                {
+                    setMaxHP(resetTextPosition: true);
+                }
+            }
+        }
+
         private void ForceSetHP(float newHP, float newMaxHP)
         {
             CheckExists(false);
@@ -255,7 +276,7 @@ namespace AsteriskMod
             if (_limited) realMaxHP = Mathf.Min(newMaxHP, 100);
             // Set Max HP
             _maxhp = newMaxHP;
-            self.sizeDelta = new Vector2(realMaxHP * 1.2f, self.sizeDelta.y);
+            self.sizeDelta = new Vector2(realMaxHP * _hpscale, self.sizeDelta.y);
             if (isOriginal) PlayerLifeUI.instance.SetTextPosition();
             // Set Current HP
             _hp = newHP;
@@ -264,7 +285,7 @@ namespace AsteriskMod
             currentFill = hpFrac;
             desiredFill = hpFrac;
             if (_limited && hpFrac > 1) hpFrac = 1;
-            fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * 1.2f, fill.rectTransform.offsetMin.y);
+            fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * _hpscale, fill.rectTransform.offsetMin.y);
         }
 
         public void SetHP(float newHP, float newMaxHP)
@@ -279,7 +300,7 @@ namespace AsteriskMod
             {
                 _maxhp = newMaxHP;
                 //self.sizeDelta = new Vector2(Mathf.Min(120, PlayerCharacter.instance.MaxHP * 1.2f), self.sizeDelta.y);
-                self.sizeDelta = new Vector2(realMaxHP * 1.2f, self.sizeDelta.y);
+                self.sizeDelta = new Vector2(realMaxHP * _hpscale, self.sizeDelta.y);
                 if (isOriginal) PlayerLifeUI.instance.SetTextPosition();
             }
 
@@ -290,7 +311,7 @@ namespace AsteriskMod
             currentFill = hpFrac;
             desiredFill = hpFrac;
             if (_limited && hpFrac > 1) hpFrac = 1;
-            fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * 1.2f, fill.rectTransform.offsetMin.y);
+            fill.rectTransform.offsetMax = new Vector2(-(realMaxHP * (1 - hpFrac)) * _hpscale, fill.rectTransform.offsetMin.y);
         }
 
         [MoonSharpHidden]

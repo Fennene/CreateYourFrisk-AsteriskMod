@@ -11,6 +11,7 @@ namespace AsteriskMod.ModdingHelperTools
         private RectTransform Backgrounds;
         private RectTransform Main;
         private RectTransform State;
+        private RectTransform Player;
         private RectTransform Screen;
         private RectTransform Arena;
         private RectTransform SprSim;
@@ -27,6 +28,7 @@ namespace AsteriskMod.ModdingHelperTools
             Backgrounds = transform.Find("Backgrounds")   .GetComponent<RectTransform>();
             Main        = transform.Find("MainMenu")      .GetComponent<RectTransform>();
             State       = transform.Find("GameStateMenu") .GetComponent<RectTransform>();
+            Player      = transform.Find("PlayerMenu") .GetComponent<RectTransform>();
             Screen      = transform.Find("ScreenMenu")    .GetComponent<RectTransform>();
             Arena       = transform.Find("DialogBoxMenu") .GetComponent<RectTransform>();
             SprSim      = transform.Find("SprProjSimMenu").GetComponent<RectTransform>();
@@ -47,6 +49,7 @@ namespace AsteriskMod.ModdingHelperTools
         {
             Main,
             GameState,
+            PlayerStatus,
             Screen,
             DialogBox,
             SprProjSim,
@@ -63,6 +66,8 @@ namespace AsteriskMod.ModdingHelperTools
                     return Main;
                 case DisplayingSimMenu.GameState:
                     return State;
+                case DisplayingSimMenu.PlayerStatus:
+                    return Player;
                 case DisplayingSimMenu.Screen:
                     return Screen;
                 case DisplayingSimMenu.DialogBox:
@@ -162,6 +167,7 @@ namespace AsteriskMod.ModdingHelperTools
             Backgrounds.anchoredPosition = position;
             Main.anchoredPosition = position;
             State.anchoredPosition = position;
+            Player.anchoredPosition = position;
             Screen.anchoredPosition = position;
             Arena.anchoredPosition = position;
             SprSim.anchoredPosition = position;
@@ -177,6 +183,7 @@ namespace AsteriskMod.ModdingHelperTools
             Backgrounds.anchoredPosition = position;
             Main.anchoredPosition = position;
             State.anchoredPosition = position;
+            Player.anchoredPosition = position;
             Screen.anchoredPosition = position;
             Arena.anchoredPosition = position;
             SprSim.anchoredPosition = position;

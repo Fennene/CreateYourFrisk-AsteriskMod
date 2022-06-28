@@ -9,9 +9,10 @@ namespace AsteriskMod.ModdingHelperTools
     {
         //* private static bool _uniqueCheck;
 
-        private Button StateMenu;
+        private Button GoToStateMenu;
+        private Button GoToPlayerMenu;
         private Button GoToScreenMenu;
-        internal Button GoToDialogBoxMenu;
+        private Button GoToDialogBoxMenu;
         private Button GoToSprProjSimMenu;
         private Button GoToSTTextSimMenu;
         private Button Exit;
@@ -21,7 +22,8 @@ namespace AsteriskMod.ModdingHelperTools
             //* if (_uniqueCheck) throw new Exception("SimMainMenuが複数存在します。");
             //* _uniqueCheck = true;
 
-            StateMenu          = transform.Find("State")     .GetComponent<Button>();
+            GoToStateMenu      = transform.Find("State")     .GetComponent<Button>();
+            GoToPlayerMenu     = transform.Find("Player")    .GetComponent<Button>();
             GoToScreenMenu     = transform.Find("Screen")    .GetComponent<Button>();
             GoToDialogBoxMenu  = transform.Find("DialogBox") .GetComponent<Button>();
             GoToSprProjSimMenu = transform.Find("SprProjSim").GetComponent<Button>();
@@ -31,10 +33,15 @@ namespace AsteriskMod.ModdingHelperTools
 
         private void Start()
         {
-            UnityButtonUtil.AddListener(StateMenu, () =>
+            UnityButtonUtil.AddListener(GoToStateMenu, () =>
             {
                 if (AnimFrameCounter.Instance.IsRunningAnimation) return;
                 SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.GameState);
+            });
+            UnityButtonUtil.AddListener(GoToPlayerMenu, () =>
+            {
+                if (AnimFrameCounter.Instance.IsRunningAnimation) return;
+                SimMenuWindowManager.Instance.ChangePage(SimMenuWindowManager.DisplayingSimMenu.Main, SimMenuWindowManager.DisplayingSimMenu.PlayerStatus);
             });
             UnityButtonUtil.AddListener(GoToScreenMenu, () =>
             {
