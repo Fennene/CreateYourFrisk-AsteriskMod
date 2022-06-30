@@ -32,14 +32,26 @@ namespace AsteriskMod
                 FrameCounter.StopCount();
                 return;
             }
-            rectTransform.anchoredPosition += new Vector2(0, opened ? 30 : -30);
+            rectTransform.anchoredPosition += new Vector2(0, opened ? -30 : 30);
         }
 
-        public Text title;
-        public Text description;
-        public TextBox textBox;
-        public Text error;
-        public Button cancel;
-        public Button accept;
+        public Text _title;
+        public Text _description;
+        public TextBox _textBox;
+        public Text _error;
+        public Button _cancel;
+        public Button _accept;
+
+        public string Title
+        {
+            get { return _title.text; }
+            set { _title.text = value; }
+        }
+
+        public string Description
+        {
+            get { return _description.text; }
+            set { _description.text = value; }
+        }
     }
 }

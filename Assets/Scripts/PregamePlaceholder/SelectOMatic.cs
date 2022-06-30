@@ -896,7 +896,7 @@ public class SelectOMatic : MonoBehaviour {
             //if (GlobalControls.crate)
             //    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(mod.Name, true);
             string text = mod.Name;
-            if (modInfos[count].title != "") text = modInfos[count].title;
+            if (modInfos[count].title != "" && Asterisk.displayModInfo) text = modInfos[count].title;
             button.transform.Find("Text").GetComponent<Text>().text = text;
             if (GlobalControls.crate)
                 button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(text, true);

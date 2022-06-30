@@ -136,6 +136,12 @@ namespace AsteriskMod
             }
 
             ModPackDatas = ModPack.GetModPacks(true);
+            string _ = "Load ModPacks\n";
+            for (var i = 0; i < ModPackDatas.Length; i++)
+            {
+                _ += "\n" + ModPackDatas[i].FileName;
+            }
+            UnityEngine.Debug.Log(_);
             if (LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK) != null && LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Type == DataType.Number)
             {
                 TargetModPack = (int)LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Number;

@@ -50,6 +50,7 @@ namespace AsteriskMod
             English.SetParameter("ModSelect", "DescVisible", new FakeIniParameter(" Press V to show/hide the description"));
             English.SetParameter("ModSelect", "NoEncounter", new FakeIniParameter("No Encounters Available"));
             English.SetParameter("ModSelect", "OptionHover", new FakeIniParameter("Hover over an option and its description will appear here!"));
+            English.SetParameter("ModSelect", "OptionModPack", new FakeIniParameter("Manages ModPack\n\nModPack can create mods' packages you wanna show"));
             English.SetParameter("ModSelect", "OptionNewMod", new FakeIniParameter("Creates your new mod.\n\nGenerates skeleton of a mod\nin this option."));
             //English.SetParameter("ModSelect", "OptionHelper", new FakeIniParameter("Opens Create Your Frisk's Modding Helper Tools."));
             English.SetParameter("ModSelect", "OptionHelper", new FakeIniParameter("Opens Modding Helper Tools."));
@@ -82,7 +83,7 @@ namespace AsteriskMod
             //English.SetParameter("AsteriskOption", "", new FakeIniParameter(""));
 
             English.SetParameter("ModPack", "Description", new FakeIniParameter("Using Mod Pack can only show mods which you wanna show."));
-            English.SetParameter("ModPack", "Selecterlabel", new FakeIniParameter("Selecting ModPack:"));
+            English.SetParameter("ModPack", "SelecterLabel", new FakeIniParameter("Selecting ModPack:"));
             English.SetParameter("ModPack", "SelecterOptionNoSelect", new FakeIniParameter("No Select (Show All)"));
             English.SetParameter("ModPack", "SelecterOptionCreate", new FakeIniParameter("< Create New ModPack >"));
 
@@ -152,6 +153,7 @@ namespace AsteriskMod
             Japanese.SetParameter("ModSelect", "DescVisible", new FakeIniParameter(" Vキーで説明の表示を切り替えます。"));
             Japanese.SetParameter("ModSelect", "NoEncounter", new FakeIniParameter("利用可能なエンカウンターがありません"));
             Japanese.SetParameter("ModSelect", "OptionHover", new FakeIniParameter("オプションにカーソルを乗せると\nここに説明が表示されます。"));
+            Japanese.SetParameter("ModSelect", "OptionModPack", new FakeIniParameter("ModPackの管理をします。\n\nModPackはModの表示/非表示\nを制御できます。"));
             Japanese.SetParameter("ModSelect", "OptionNewMod", new FakeIniParameter("Modの作成。\n\nModのベース(骨組み)を\n生成します。"));
             Japanese.SetParameter("ModSelect", "OptionHelper", new FakeIniParameter("Mod製作支援ツールを開きます。"));
             Japanese.SetParameter("ModSelect", "OptionCYF", new FakeIniParameter("通常のCYFの\nオプションを開きます。"));
@@ -183,7 +185,7 @@ namespace AsteriskMod
             //Japanese.SetParameter("AsteriskOption", "", new FakeIniParameter(""));
 
             Japanese.SetParameter("ModPack", "Description", new FakeIniParameter("ModPackを使用して、表示したいModを決められます。"));
-            Japanese.SetParameter("ModPack", "Selecterlabel", new FakeIniParameter("選択中のModPack:"));
+            Japanese.SetParameter("ModPack", "SelecterLabel", new FakeIniParameter("選択中のModPack:"));
             Japanese.SetParameter("ModPack", "SelecterOptionNoSelect", new FakeIniParameter("選択しない (全て表示)"));
             Japanese.SetParameter("ModPack", "SelecterOptionCreate", new FakeIniParameter("< ModPackを作成する >"));
 

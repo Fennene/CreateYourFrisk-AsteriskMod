@@ -21,7 +21,7 @@ namespace AsteriskMod
         private Button.ButtonClickedEvent events;
 
         public GameObject optionSelectWindow;
-        public GameObject newMod, moddingHelper, cyfOption, asteriskOption;
+        public GameObject modPackMan, newMod, moddingHelper, cyfOption, asteriskOption;
         public GameObject descName, descDesc;
 
         public static bool opened;
@@ -41,6 +41,7 @@ namespace AsteriskMod
             selectOMatic.NoEncounterLabelShadow.GetComponent<Text>().text = EngineLang.Get("ModSelect", "NoEncounter");
             selectOMatic.NoEncounterLabel      .GetComponent<Text>().text = EngineLang.Get("ModSelect", "NoEncounter");
 
+            modPackMan.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("ModPack"));
             //newMod.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("NewMod"); });
             moddingHelper.GetComponent<Button>().onClick.AddListener(() =>SceneManager.LoadScene("MHTMenu"));
             cyfOption.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Options"); });
@@ -112,20 +113,25 @@ namespace AsteriskMod
             {
                 if (335 < mousePosY && mousePosY <= 375)
                 {
+                    descriptionTitle = "Manage ModPack";
+                    description = EngineLang.Get("ModSelect", "OptionModPack");
+                }
+                else if (295 < mousePosY && mousePosY <= 335)
+                {
                     descriptionTitle = "Create New Mod";
                     description = EngineLang.Get("ModSelect", "OptionNewMod");
                 }
-                else if (295 < mousePosY && mousePosY <= 335)
+                else if (255 < mousePosY && mousePosY <= 295)
                 {
                     descriptionTitle = "Modding Helper Tools";
                     description = EngineLang.Get("ModSelect", "OptionHelper");
                 }
-                else if (255 < mousePosY && mousePosY <= 295)
+                else if (215 < mousePosY && mousePosY <= 255)
                 {
                     descriptionTitle = "CYF Option";
                     description = EngineLang.Get("ModSelect", "OptionCYF");
                 }
-                else if (215 < mousePosY && mousePosY <= 255)
+                else if (175 < mousePosY && mousePosY <= 215)
                 {
                     descriptionTitle = "Asterisk Mod Option";
                     description = EngineLang.Get("ModSelect", "OptionAsterisk");

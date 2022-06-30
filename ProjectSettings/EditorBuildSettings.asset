@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ModSelect.unity
     guid: 07ece637afd80c14ab6c725c0c20242f
+  - enabled: 1
+    path: Assets/Scenes/AsteriskMod/ModPack.unity
+    guid: b846d4eda728a3f4093f37368afa3c7e
   - enabled: 0
     path: Assets/Scenes/AsteriskMod/NewMod.unity
     guid: cc73e7c65f854b3459a7ceae64528a17

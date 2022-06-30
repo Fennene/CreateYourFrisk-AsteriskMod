@@ -14,7 +14,7 @@ namespace AsteriskMod
         {
             FilePath = fullPath;
             FileName = Path.GetFileNameWithoutExtension(FilePath);
-            ShowingMods = File.ReadAllLines(FileName);
+            ShowingMods = File.ReadAllLines(FilePath);
         }
 
         public static string ModPackDirectory { get { return Path.Combine(Application.persistentDataPath, "ModPack").Replace('\\', '/'); } }
@@ -34,7 +34,7 @@ namespace AsteriskMod
             for (var i = 0; i < filePathes.Length; i++)
             {
                 ModPack modPack;
-                try   { modPack = new ModPack(filePathes[i]); }
+                try   { modPack = new ModPack(filePathes[i].Replace('\\', '/')); }
                 catch { continue; }
                 modPacks.Add(modPack);
             }
