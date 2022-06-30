@@ -53,6 +53,10 @@ namespace AsteriskMod
         public static bool displayModInfo;
         /// <summary>Whether change UIs with user's set language<br/>ユーザーの設定した言語に応じてUIを自動で変えるかどうか</summary>
         public static bool changeUIwithLanguage;
+        /// <summary>ModPack Files' Datas</summary>
+        public static ModPack[] ModPackDatas;
+        /// <summary>Target ModPack's index</summary>
+        public static int TargetModPack;
 
         internal const string OPTION_EXPERIMENT = "*CYF-Experiment";
         internal const string OPTION_DESC = "*CYF-Description";
@@ -61,6 +65,7 @@ namespace AsteriskMod
         internal const string OPTION_PROTECT_ERROR = "*CYF-ProtectReport";
         internal const string OPTION_MODINFO = "*CYF-ModInfo";
         internal const string OPTION_UIWITHLANG = "*CYF-UIChangedWithLanguage";
+        internal const string OPTION_MODPACK = "*CYF-ModPack";
 
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
@@ -90,6 +95,8 @@ namespace AsteriskMod
             reportProtecter = true;
             displayModInfo = true;
             changeUIwithLanguage = true;
+            //ModPackDatas = new ModPack[0];
+            TargetModPack = -1;
 
             AsteriskEngine.Initialize();
             Lang.Initialize();
@@ -127,6 +134,14 @@ namespace AsteriskMod
             {
                 changeUIwithLanguage = LuaScriptBinder.GetAlMighty(null, OPTION_UIWITHLANG).Boolean;
             }
+
+            ModPackDatas = ModPack.GetModPacks(true);
+            if (LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK) != null && LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Type == DataType.Number)
+            {
+                TargetModPack = (int)LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Number;
+            }
+            if (TargetModPack < -1 || TargetModPack >= ModPackDatas.Length) TargetModPack = -1;
+
 #if UNITY_EDITOR
             //Test.Tset();
 #endif

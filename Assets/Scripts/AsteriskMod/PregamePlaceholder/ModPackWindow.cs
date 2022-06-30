@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AsteriskMod.ModPack
+namespace AsteriskMod
 {
-    internal class TextBoxWindow : FrameAnimation
+    internal class ModPackWindow : FrameAnimation
     {
         private bool opened;
 
