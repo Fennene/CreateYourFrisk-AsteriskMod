@@ -114,16 +114,12 @@ namespace AsteriskMod
                 script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
                 script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
                 script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+                script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
             }
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
                 script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
                 script.Globals["AutoRefreshStaticText"] = (Action<bool>)((value)=> { AsteriskEngine.AutoResetStaticText = value; });
-            }
-
-            if (AsteriskEngine.ModTarget_AsteriskVersion == Asterisk.Versions.QOLUpdate)
-            {
-                script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
             }
         }
 
@@ -367,7 +363,7 @@ namespace AsteriskMod
         */
 
 
-        [ToDo("for only v0.5.2.9  I wanna delete.")]
+        [ToDo("Deletes when GMS is Implemented.")]
         public static bool? IsEmptyLayer(string name)
         {
             string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";

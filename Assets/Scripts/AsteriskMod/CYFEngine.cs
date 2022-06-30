@@ -1,6 +1,7 @@
 ﻿using MoonSharp.Interpreter;
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace AsteriskMod
@@ -40,7 +41,7 @@ namespace AsteriskMod
             BulletPool.POOLSIZE = newSize;
         }
 
-        public static bool ModExists(string modFolderName)
+        public bool ModExists(string modFolderName)
         {
             if (modFolderName == null) throw new CYFException("Engine.ModExists: folder's name can not be nil.");
             if (modFolderName.Contains("..")) throw new CYFException("You cannot check file or directory outside of a mod folder. The use of \"..\" is forbidden.");
@@ -59,13 +60,12 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
-        private static string ConvertToFullPath(string path)
+        private string ConvertToAppDataFullPath(string path)
         {
-            if (path.Contains("\\") || path.Contains("/")) throw new CYFException("You cannot check for a folder inside of a AppData folder. The use of \"/\"(\"\\\") is forbidden.");
             return Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER + "/" + path);
         }
 
-        private static void CheckDirectory()
+        private void CheckDirectory()
         {
             string appDataRoot = Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER).Replace('\\', '/');
             if (!Directory.Exists(appDataRoot))
@@ -75,20 +75,83 @@ namespace AsteriskMod
             }
         }
 
-        public static LuaFile OpenAppDataFile(string path, string mode = "rw")
+        private string GetAppDataErrorMessage(string keyName)
+        {
+            return EngineLang.Get("Exception", keyName).Replace("mod", "AppData");
+        }
+
+        public LuaFile OpenAppDataFile(string path, string mode = "rw")
         {
             CheckDirectory();
-            return new LuaFile(ConvertToFullPath(path), mode, true);
+            return new LuaFile(ConvertToAppDataFullPath(path), mode, true);
         }
-        public static LuaFile OpenFile(string path, string mode = "rw") { return OpenAppDataFile(path, mode); }
+        public LuaFile OpenFile(string path, string mode = "rw") { return OpenAppDataFile(path, mode); }
 
         public bool AppDataFileExists(string path)
         {
             CheckDirectory();
-            if (path.Contains("..")) throw new CYFException("You cannot check for a file outside of a AppData folder. The use of \"..\" is forbidden.");
-            return File.Exists(ConvertToFullPath(path).Replace('\\', '/'));
+            if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscCheckFileOutside"));
+            return File.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'));
         }
         public bool FileExists(string path) { return AppDataFileExists(path); }
+
+        public bool AppDataDirExists(string path)
+        {
+            CheckDirectory();
+            if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscCheckDirOutside"));
+            return Directory.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'));
+        }
+        public bool DirExists(string path) { return AppDataDirExists(path); }
+
+        public bool CreateAppDataDir(string path)
+        {
+            if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscCreateDirOutside"));
+
+            if (Directory.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'))) return false;
+            Directory.CreateDirectory(ConvertToAppDataFullPath(path));
+            return true;
+        }
+        public bool CreateDir(string path) { return CreateAppDataDir(path); }
+
+        private static bool PathValid(string path) { return path != " " && path != "" && path != "/" && path != "\\" && path != "." && path != "./" && path != ".\\"; }
+
+        public bool MoveAppDataDir(string path, string newPath)
+        {
+            if (path.Contains("..") || newPath.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscMoveDirOutside"));
+
+            if (!AppDataDirExists(path) || AppDataDirExists(newPath) || !PathValid(path)) return false;
+            Directory.Move(ConvertToAppDataFullPath(path), ConvertToAppDataFullPath(newPath));
+            return true;
+        }
+        public bool MoveDir(string path, string newPath) { return MoveAppDataDir(path, newPath); }
+
+        public bool RemoveAppDataDir(string path, bool force = false)
+        {
+            if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscRemoveDirOutside"));
+
+            if (!Directory.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'))) return false;
+            try { Directory.Delete(ConvertToAppDataFullPath(path), force); }
+            catch { /* ignored */ }
+
+            return false;
+        }
+        public bool RemoveDir(string path, bool force = false) { return RemoveAppDataDir(path, force); }
+
+        public string[] ListAppDataDir(string path, bool getFolders = false)
+        {
+            if (path == null) throw new CYFException(EngineLang.Get("Exception", "MiscNullListDir"));
+            if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscListDirOutside"));
+
+            path = ConvertToAppDataFullPath(path).Replace('\\', '/');
+            if (!Directory.Exists(path)) throw new CYFException("Invalid path:\n\n\"" + path + "\"");
+
+            DirectoryInfo d = new DirectoryInfo(path);
+            System.Collections.Generic.List<string> retval = new System.Collections.Generic.List<string>();
+            retval.AddRange(!getFolders ? d.GetFiles().Select(fi => Path.GetFileName(fi.ToString()))
+                                        : d.GetDirectories().Select(di => di.Name));
+            return retval.ToArray();
+        }
+        public string[] ListDir(string path, bool getFolders = false) { return ListAppDataDir(path, getFolders); }
 
         /*
         public static void RegistSprite(string filename)
@@ -100,7 +163,7 @@ namespace AsteriskMod
         }
         */
 
-        public static void SetSpriteFilterMode(string filename, string filtermode = "POINT")
+        public void SetSpriteFilterMode(string filename, string filtermode = "POINT")
         {
             Asterisk.RequireExperimentalFeature("Engine.SetSpriteFilterMode");
             Sprite sprite = SpriteRegistry.Get(filename);

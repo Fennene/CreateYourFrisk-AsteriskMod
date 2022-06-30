@@ -49758,12 +49758,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1605084958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b6761159c8f6224a8a895abea10dd25, type: 3}
+  m_Script: {fileID: 11500000, guid: fbeabe2b597b1184395bbf62adafd68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  img: {fileID: 1605084961}
   SetNativeSize: 0
   SpritePath: UI/spr_hpname_0
-  Loop: 0
   done: 0
 --- !u!114 &1605084961
 MonoBehaviour:

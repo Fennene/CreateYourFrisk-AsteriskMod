@@ -721,7 +721,7 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        //int actualCount = 0;
+        int actualCount = -1;
         NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
         NoEncounterLabel.GetComponent<Text>().enabled = false;
         ModInfo info = modInfos[CurrentSelectedMod];
@@ -758,7 +758,7 @@ public class SelectOMatic : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            //actualCount++;
+            actualCount++;
             if (needCheck)
             {
                 string encounterName = Path.GetFileNameWithoutExtension(encounter.Name);
@@ -791,7 +791,19 @@ public class SelectOMatic : MonoBehaviour {
             button.transform.Find("Fill").GetComponent<Image>().color = new Color(0.5f,  0.5f,  0.5f,  0.5f);
 
             // set text
-            button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
+            if (actualCount < info.encounterNames.Length && !string.IsNullOrEmpty(info.encounterNames[actualCount]))
+            {
+                button.transform.Find("Text").GetComponent<Text>().text = info.encounterNames[actualCount];
+            }
+            else
+            {
+                button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
+            }
+            // --------------------------------------------------------------------------------
             if (GlobalControls.crate)
                 button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(Path.GetFileNameWithoutExtension(encounter.Name), true);
             // --------------------------------------------------------------------------------

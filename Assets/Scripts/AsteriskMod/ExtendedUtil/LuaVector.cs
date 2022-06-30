@@ -2,7 +2,7 @@
 
 namespace AsteriskMod.ExtendedUtil
 {
-    public struct LuaVector
+    public class LuaVector
     {
         public float x;
         public float y;
@@ -11,7 +11,7 @@ namespace AsteriskMod.ExtendedUtil
         {
             this.x = x;
             this.y = y;
-            MoveAction = (a, b) => { };
+            //MoveAction = (a, b) => { };
         }
 
         public float? this[int index]
@@ -32,14 +32,20 @@ namespace AsteriskMod.ExtendedUtil
 
         public float Magnitude() { return Mathf.Sqrt(x * x + y * y); }
 
-        public LuaVector Normalize()
+        public void Normalize()
         {
             float magnitude = Magnitude();
-            if (magnitude < 1.192092896e-07f) return Zero;
-            return this / magnitude;
+            if (magnitude < 1.192092896e-07f)
+            {
+                x = y = 0f;
+                return;
+            }
+            x /= magnitude;
+            y /= magnitude;
         }
 
         public float Distance(LuaVector other) { return (this - other).Magnitude(); }
+
 
         public static LuaVector operator +(LuaVector a, LuaVector b) { return new LuaVector(a.x + b.x, a.y + b.y); }
         public static LuaVector operator -(LuaVector a, LuaVector b) { return new LuaVector(a.x - b.x, a.y - b.y); }
@@ -48,8 +54,24 @@ namespace AsteriskMod.ExtendedUtil
 
         public static LuaVector operator -(LuaVector a) { return new LuaVector(-a.x, -a.y); }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || this.GetType() != obj.GetType()) return false;
+            LuaVector other = (LuaVector)obj;
+            return (this.x == other.x) && (this.y == other.y);
+        }
+        public static bool operator ==(LuaVector a, LuaVector b) { return a.Equals(b); }
+        public static bool operator !=(LuaVector a, LuaVector b) { return !(a == b); }
+        public override int GetHashCode() { return this.x.GetHashCode() ^ this.y.GetHashCode(); }
+
         public static LuaVector Zero { get { return new LuaVector(0, 0); } }
 
+
+        public LuaVector Copy() { return new LuaVector(this.x, this.y); }
+        public LuaVector Clone() { return new LuaVector(this.x, this.y); }
+
+        /*
+        public System.Action<float, float> MoveAction;
 
         public void Move(float x, float y)
         {
@@ -64,7 +86,6 @@ namespace AsteriskMod.ExtendedUtil
             this.x = newX;
             this.y = newY;
         }
-
-        public System.Action<float, float> MoveAction { get; set; }
+        */
     }
 }

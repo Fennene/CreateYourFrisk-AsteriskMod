@@ -81,12 +81,22 @@ namespace AsteriskMod
             English.SetParameter("AsteriskOption", "Git", new FakeIniParameter("Goes to AsteriskMod's GitHub page."));
             //English.SetParameter("AsteriskOption", "", new FakeIniParameter(""));
 
+            English.SetParameter("ModPack", "Description", new FakeIniParameter("Using Mod Pack can only show mods which you wanna show."));
+            English.SetParameter("ModPack", "Selecterlabel", new FakeIniParameter("Selecting ModPack:"));
+            English.SetParameter("ModPack", "SelecterOptionNoSelect", new FakeIniParameter("No Select (Show All)"));
+            English.SetParameter("ModPack", "SelecterOptionCreate", new FakeIniParameter("< Create New ModPack >"));
+
             English.SetParameter("MHTMenu", "Hover", new FakeIniParameter("Hover over an option and its description will appear here!"));
             English.SetParameter("MHTMenu", "Document", new FakeIniParameter("<color=#FF0>Open CYF Documentation</color>\n\nOpens the documentation of\nCreate Your Frisk.\nIt is written about all of CYF\n and AsteriskMod.\n\nYou should read document before asking\nany question to CYF Discord."));
             English.SetParameter("MHTMenu", "Cyfmod", new FakeIniParameter("<color=#FF0>.cyfmod file Editor</color>\n\n"));
             English.SetParameter("MHTMenu", "Sim", new FakeIniParameter("<color=#FF0>Battle Simulator</color>\n\nsimulates sprite(bullet) object,\nstatic text object\nand etc...\n\n<color=#FF0>Recommended to set window scale to 2!</color>"));
             English.SetParameter("MHTMenu", "Exit", new FakeIniParameter("Returns to the Mod Select screen."));
             //English.SetParameter("MHTMenu", "", new FakeIniParameter(""));
+
+            English.SetParameter("InvalidPathMessage", "Null", new FakeIniParameter("The path should not be empty string or only white space string."));
+            English.SetParameter("InvalidPathMessage", "StartWithDot", new FakeIniParameter("The path can not start with \".\"."));
+            English.SetParameter("InvalidPathMessage", "InvalidChar", new FakeIniParameter("The path contains invalid characters."));
+            English.SetParameter("InvalidPathMessage", "SpecialName", new FakeIniParameter(" can not use to name of the path."));
 
             // Mod Loading
             English.SetParameter("Exception", "ModsDirectoryNotFound", new FakeIniParameter("The engine detected no Mods folder in your files: are you sure it exists?"));
@@ -114,6 +124,16 @@ namespace AsteriskMod
             //English.SetParameter("Exception", "FontNonRoot", new FakeIniParameter(""));
             English.SetParameter("Exception", "FontSpaceCharNotFound1", new FakeIniParameter("The fonts need a space character to compute their line height, and the font \""));
             English.SetParameter("Exception", "FontSpaceCharNotFound2", new FakeIniParameter("\" doesn't have one."));
+            // CYF IO Exceptions
+            //English.SetParameter("Exception", "MiscFile", new FakeIniParameter(""));
+            //English.SetParameter("Exception", "MiscFile", new FakeIniParameter(""));
+            English.SetParameter("Exception", "MiscCheckFileOutside", new FakeIniParameter("You cannot check for a file outside of a mod folder. The use of \"..\" is forbidden."));
+            English.SetParameter("Exception", "MiscCheckDirOutside", new FakeIniParameter("You cannot check for a directory outside of a mod folder. The use of \"..\" is forbidden."));
+            English.SetParameter("Exception", "MiscCreateDirOutside", new FakeIniParameter("You cannot create a directory outside of a mod folder. The use of \"..\" is forbidden."));
+            English.SetParameter("Exception", "MiscMoveDirOutside", new FakeIniParameter("You cannot move a directory outside of a mod folder. The use of \"..\" is forbidden."));
+            English.SetParameter("Exception", "MiscRemoveDirOutside", new FakeIniParameter("You cannot remove a directory outside of a mod folder. The use of \"..\" is forbidden."));
+            English.SetParameter("Exception", "MiscNullListDir", new FakeIniParameter("Cannot list a directory with a nil path."));
+            English.SetParameter("Exception", "MiscListDirOutside", new FakeIniParameter("You cannot list directories outside of a mod folder. The use of \"..\" is forbidden."));
             //English.SetParameter("Exception", "", new FakeIniParameter(""));
 
             //English.SetParameter("MHTSim", "", new FakeIniParameter(""));
@@ -162,12 +182,22 @@ namespace AsteriskMod
             Japanese.SetParameter("AsteriskOption", "Git", new FakeIniParameter("AsteriskModの\nGitHubページに移動します。"));
             //Japanese.SetParameter("AsteriskOption", "", new FakeIniParameter(""));
 
+            Japanese.SetParameter("ModPack", "Description", new FakeIniParameter("ModPackを使用して、表示したいModを決められます。"));
+            Japanese.SetParameter("ModPack", "Selecterlabel", new FakeIniParameter("選択中のModPack:"));
+            Japanese.SetParameter("ModPack", "SelecterOptionNoSelect", new FakeIniParameter("選択しない (全て表示)"));
+            Japanese.SetParameter("ModPack", "SelecterOptionCreate", new FakeIniParameter("< ModPackを作成する >"));
+
             Japanese.SetParameter("MHTMenu", "Hover", new FakeIniParameter("オプションにカーソルを乗せると\nここに説明が表示されます。"));
             Japanese.SetParameter("MHTMenu", "Document", new FakeIniParameter("<color=#FF0>CYFドキュメントへの移動</color>\n\nCYFのドキュメントを開きます。\nドキュメントには\nCYFとAsteriskModについての\n全てが書かれています。\n\nCYF公式Discordチャンネルで聞く前に\nまずはドキュメントを確認してみましょう。"));
             Japanese.SetParameter("MHTMenu", "Cyfmod", new FakeIniParameter("<color=#FF0>.cyfmodファイルの編集</color>\n\n"));
             Japanese.SetParameter("MHTMenu", "Sim", new FakeIniParameter("<color=#FF0>Battle Simulator</color>\n\nスプライト(弾丸)オブジェクトや\n静的テキストオブジェクトなどを\nシミュレートします。\n\n<color=#FF0>ウインドウの拡大倍率を\n２倍にすることをおすすめします。</color>"));
             Japanese.SetParameter("MHTMenu", "Exit", new FakeIniParameter("Mod選択画面に戻ります。"));
             //Japanese.SetParameter("MHTMenu", "", new FakeIniParameter(""));
+
+            Japanese.SetParameter("InvalidPathMessage", "Null", new FakeIniParameter("パスは空の文字列や空白のみの文字列であってはなりません。"));
+            Japanese.SetParameter("InvalidPathMessage", "StartWithDot", new FakeIniParameter("パスは\".\"から始めてはいけません。"));
+            Japanese.SetParameter("InvalidPathMessage", "InvalidChar", new FakeIniParameter("パスに使用できない文字が含まれています。"));
+            Japanese.SetParameter("InvalidPathMessage", "SpecialName", new FakeIniParameter("はパスに使用できない名前です。"));
 
             // Mod Loading
             Japanese.SetParameter("Exception", "ModsDirectoryNotFound", new FakeIniParameter("エンジンはModsフォルダを検出できませんでした。\nModsフォルダが存在するか確認してください。"));
@@ -194,9 +224,62 @@ namespace AsteriskMod
             Japanese.SetParameter("Exception", "FontLoadingAnyError2", new FakeIniParameter("\"の読み込み中にエラーが発生しました。以下エラーメッセージ:"));
             Japanese.SetParameter("Exception", "FontSpaceCharNotFound1", new FakeIniParameter("フォントには行の高さを計算するための、半角空白(スペース)文字が必要です。しかし、フォント\""));
             Japanese.SetParameter("Exception", "FontSpaceCharNotFound2", new FakeIniParameter("\"には、半角空白(スペース)文字が定義されていません。"));
+            // CYF IO Exceptions
+            Japanese.SetParameter("Exception", "MiscCheckFileOutside", new FakeIniParameter("modフォルダの外のファイルを確認することはできません。 \"..\"の使用は許可されていません。"));
+            Japanese.SetParameter("Exception", "MiscCheckDirOutside", new FakeIniParameter("modフォルダの外のディレクトリを確認することはできません。 \"..\"の使用は許可されていません。"));
+            Japanese.SetParameter("Exception", "MiscCreateDirOutside", new FakeIniParameter("modフォルダの外にディレクトリを作成することはできません。 \"..\"の使用は許可されていません。"));
+            Japanese.SetParameter("Exception", "MiscMoveDirOutside", new FakeIniParameter("modフォルダの外にディレクトリを移動させることはできません。 \"..\"の使用は許可されていません。"));
+            Japanese.SetParameter("Exception", "MiscRemoveDirOutside", new FakeIniParameter("modフォルダの外のディレクトリを削除することはできません。 \"..\"の使用は許可されていません。"));
+            Japanese.SetParameter("Exception", "MiscNullListDir", new FakeIniParameter("パスがnilのディレクトリを一覧表示することはできません。"));
+            Japanese.SetParameter("Exception", "MiscListDirOutside", new FakeIniParameter("modフォルダの外のディレクトリを一覧表示することはできません。 \"..\"の使用は許可されていません。"));
             //Japanese.SetParameter("Exception", "", new FakeIniParameter(""));
 
             //Japanese.SetParameter("MHTSim", "", new FakeIniParameter(""));
+        }
+
+        internal static string TranslateErrorMessage(string message)
+        {
+            if (Asterisk.language != Languages.Japanese) return message;
+            string[] messages = message.Split(':');
+            string errormessage = messages[messages.Length - 1].TrimStart(' ');
+
+            //if (errormessage == "attempt to index a nil value") errormessage = "nilをインデックスにしようとしました。";
+
+            if (errormessage.StartsWith("cannot access field"))
+            {
+                string[] temp = errormessage.Split(' ');
+                if (temp.Length >= 6)
+                {
+                    string fieldName = temp[3];
+                    string className = temp[5].Replace("userdata<", "").Replace(">", "");
+                    errormessage = "ユーザーデータ<" + className + ">の\"" + fieldName + "\"にアクセスできません。";
+                    errormessage += "\n(補足:\"" + className.Replace("AsteriskMod.", "") + "\"に\"" + fieldName + "\"が定義されているかドキュメントで確認してください。";
+                }
+            }
+
+            if (errormessage.StartsWith("bad argument"))
+            {
+                string[] temp = errormessage.Split('(');
+                if (temp.Length >= 2)
+                {
+                    string[] temp2 = temp[1].Split(' ');
+                    if (temp2.Length >= 4)
+                    {
+                        string expected = temp2[0];
+                        string got = temp2[3].Replace(")", "");
+                        errormessage = temp[0];
+                        errormessage += "(" + got + "ではなく" + expected + "を引数にしてください。)";
+                    }
+                }
+            }
+
+            message = "";
+            for (var i = 0; i < messages.Length - 1; i++)
+            {
+                message += messages[i] + ":";
+            }
+            message += " " + errormessage;
+            return message;
         }
     }
 }

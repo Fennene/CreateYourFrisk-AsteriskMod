@@ -185,6 +185,11 @@ CarriageReturn="\r"
                         </ul>
                     </li><!--<br>-->
                     <li>
+                        <span class="asternew"></span> <span class="luatable"><span class="string"></span></span> <span class="term">encounter-names</span> - replaces encounters' names.<br>
+                        Array's indexes correspond to Lua files' order.<br>
+                        Name will not be override by specifying empty string.
+                    </li><!--<br>-->
+                    <li>
                         <span class="asternew"></span> <span class="luatable"><span class="string"></span></span> <span class="term">show-encounters</span> or <span class="term">show</span> - limits encounters the player can select.<br>
                         You can choose encounters you wanna SHOW by using this.<br>
                         Each element is the file's name (without extension) of encounter.<br>
@@ -287,17 +292,17 @@ CarriageReturn="\r"
             <p><span class="function"><span class="luatable"><span class="number"></span></span> ArrayUtil.BogoSort(<span class="luatable"><span class="number"></span></span> array, <span class="number"></span> trials = 1)</span><strike>Provides the best sorting algorithm!!!!1!!</strike></p>
             <p><span class="function"><span class="luatable"><span class="number"></span></span> ArrayUtil.CSharpListSort(<span class="luatable"><span class="number"></span></span> array)</span>Maybe useless.</p>
             <p>
-                <span class="function"><span class="userdata">vector</span> ArrayUtil.NewVector(<span class="number"></span> x, <span class="number"></span> y)</span>
+                <span class="function"><span class="userdata">vector</span> ArrayUtil.CreateVector(<span class="number"></span> x, <span class="number"></span> y)</span>
                 Creates and Returns vector.<br>
-                I have made vector as struct on C#, but MoonSharp makes it class.<br>
-                Vector's Operator (vector+vector, vector-vector, vector*float , vector/float) is overloaded.
+                On MoonSharp(Lua), userdata can not be struct.<br>
+                Vector's Operator (vector+vector, vector-vector, vector*float , vector/float, vector==vector, vector~=vector) is overloaded.
             </p>
             <p>
-                <span class="function"><span class="userdata">vector</span> ArrayUtil.NewVector()</span>
+                <span class="function"><span class="userdata">vector</span> ArrayUtil.CreateVector()</span>
                 Creates and Returns zero vector.
             </p>
             <p>
-                <span class="function"><span class="userdata">vector</span> ArrayUtil.NewVector(<span class="userdata">vector</span> original)</span>
+                <span class="function"><span class="userdata">vector</span> ArrayUtil.CreateVector(<span class="userdata">vector</span> original)</span>
                 Creates and Returns copied vector.
             </p>
             <p><span class="function"><span class="number"></span> vector.x</span>Gets or Sets vector's x.</p>
@@ -310,6 +315,7 @@ CarriageReturn="\r"
             <p><span class="function"><span class="number"></span> vector.Magnitude()</span>Gets a vector's magnitude (size).</p>
             <p><span class="function"><span class="userdata">vector</span> vector.Normalize()</span>Gets fundamental vector of a vector.</p>
             <p><span class="function"><span class="number"></span> vector.Distance(<span class="userdata">vector</span> other)</span>Gets a distance from 2 vectors.</p>
+            <p><span class="function"><span class="userdata">vector</span> vector.Copy()</span>Copies and Returns the vector.</p>
 
             <br>
 

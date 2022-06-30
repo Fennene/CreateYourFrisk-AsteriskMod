@@ -119,7 +119,7 @@ namespace AsteriskMod.ModdingHelperTools
             TargetModName.text = "Target Mod: " + FakeStaticInits.MODFOLDER;
 
             Document.GetComponent<Button>().onClick.AddListener(() => OpenDocument());
-            Cyfmod.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("CyfModFileEditor"));
+            //* Cyfmod.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("CyfModFileEditor"));
             Sim.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(LaunchSimulator()));
             Exit.GetComponent<Button>().onClick.AddListener(() =>
             {

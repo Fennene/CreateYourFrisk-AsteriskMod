@@ -129,33 +129,24 @@ it's w3c valid, at least
                 Checks to exists that named mod.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.                
             </p>
+
             <p>
-                <br><span class="function">Engine.OpenFile(<span class="string"></span> fileName, <span class="string"></span> mode = "rw") returns <span class="userdata">file</span></span>
-                Shortcut to <span class="term">Engine.OpenAppDataFile()</span>.
-            </p>
-            <p>
-                <br><span class="function">Engine.OpenAppDataFile(<span class="string"></span> fileName, <span class="string"></span> mode = "rw") returns <span class="userdata">file</span></span>
-                Creates a folder named your mod's name (folder name) in AppData 
-                when The File Functions of The Engine Object is called.<br>
-                (On Windows, <span class="term">C:\Users\%USERNAME%\AppData\LocalLow\Nobody's Getting Paid Here\Create Your Frisk - Asterisk Mod\Mods\YOURMOD</span>)
-                <br><br>
-                This function opens a file ONLY in that folder, for reading and writing.<br>
-                Using <span class="term">../</span> to go up a folder or 
-                Using <span class="term">/</span> to go down a folder is NOT allowed.
+                <br><span class="function">Engine.OpenAppDataFile(<span class="string"></span> path, <span class="string"></span> mode = "rw") returns <span class="userdata">File</span></span>
+                This function opens a file <u>in your Mod's AppData folder ONLY</u>, for reading and writing.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
                 <ul>
-                    <li>
-                        <span class="term">fileName</span>: Path to the file to open, relative to the folder.<br>
-                        Cannot enter subfolders.
-                    </li><br>
+                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
+                        (On Windows, This relative path is <span class="term">C:\Users\%USERNAME%\AppData\LocalLow\Nobody's Getting Paid Here\Create Your Frisk - Asterisk Mod\Mods\YOURMOD</span>)<br>
+                        Can enter subfolders.</li><br>
                     <li>
                         <span class="term">mode</span>: Determines how the file should be opened:
                         <ul>
-                            <li><span class="term">r</span>: The file can only be <u>read</u> from.</li>
-                            <li><span class="term">w</span>: The file can only be <u>written</u> to.</li>
-                            <li><span class="term">rw</span>: The file can be read from <u>AND</u> written to.</li>
-                        </ul><br>
-                        Files can be created through use of <span class="term">File.Write</span>.
+                            <li><span class="term">r</span>: The file can only be <u>read</u> from.</li><br>
+                            <li><span class="term">w</span>: The file can only be <u>written</u> to.</li><br>
+                            <li><span class="term">rw</span>: The file can be read from <u>AND</u> written to.</li><br>
+                        </ul>
+                        Files can be <u>created</u> through use of <span class="term">File.Write</span>.
                     </li>
                 </ul><br>
                 <font color="#FFF">* Note that AppData file object cannot move and copy.</font><br><br>
@@ -163,23 +154,63 @@ it's w3c valid, at least
                 about The <span class="userdata">file</span> object.
             </p>
             <p>
-                <br><span class="function"><span class="boolean"></span> Engine.FileExists(<span class="string"></span> fileName)</span>
-                Shortcut to <span class="term">Engine.AppDataFileExists()</span>.
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> Engine.AppDataFileExists(<span class="string"></span> fileName)</span>
-                Use this function to check if a file ONLY in the folder ONLY exists.<br>
-                Using <span class="term">../</span> to go up a folder or 
-                Using <span class="term">/</span> to go down a folder is NOT allowed.
+                <br><span class="function"><span class="boolean"></span> Engine.AppDataFileExists(<span class="string"></span> path)</span>
+                Use this function to check if a file <u>in your Mod's AppData folder ONLY</u> exists.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
                 <ul>
-                    <li>
-                        <span class="term">fileName</span>: Path to the file to open, relative to the folder.<br>
-                        Cannot enter subfolders.
-                    </li>
-                </ul><br>
+                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
+                        Can enter subfolders.</li><br>
+                </ul>
                 Use this before <span class="term">Engine.OpenAppDataFile</span> if you plan to read from a file.
-            </p><br>
+            </p>
+            <p>
+                <br><span class="function"><span class="luatable"><span class="string"></span></span> Engine.AppDataListDir(<span class="string"></span> path, <span class="boolean"></span> getFolders = false)</span>
+                This function returns a list of either files or folders <u>in your Mod's AppData folder ONLY</u>.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
+                        Can enter subfolders.</li><br>
+                    <li><span class="term">getFolders</span>: If true, this function will return the names of all <b>Folders</b> in <span class="term">path</span>.<br>
+                        Otherwise, this function will return the names of all <b>Files</b> in <span class="term">path</span>.</li>
+                </ul>
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.AppDataDirExists(<span class="string"></span> path)</span>
+                Use this function to check if a folder <u>in your Mod's AppData folder ONLY</u> exists.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
+                        Can enter subfolders.</li>
+                </ul>
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.CreateAppDataDir(<span class="string"></span> path)</span>
+                Attempts to create a folder with the path <span class="term">path</span> relative to your Mod's AppData folder.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.MoveAppDataDir(<span class="string"></span> path, <span class="string"></span> newPath)</span>
+                Attempts to move a folder with the path <span class="term">path</span> relative to your Mod's AppData folder to a new location <span class="term">newPath</span>
+                also relative to your mod's AppData folder.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
+            </p>
+            <p>
+                <br><span class="function"><span class="boolean"></span> Engine.RemoveAppDataDir(<span class="string"></span> path, <span class="boolean"></span> force = false)</span>
+                Attempts to delete a folder with the path <span class="term">path</span> relative to your Mod's AppData folder.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li><span class="term">force</span>: If true, this function will forcefully remove a folder. Otherwise, a folder will only be removed if it is empty.</li>
+                </ul>
+                Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
+            </p>
 
             <p>
                 <br><span class="function">Engine.RemoveAllProjectiles()<br></span>

@@ -248,9 +248,48 @@ namespace AsteriskMod
         }
 
 
-        public static string GetModsFolder()
+        public static string GetModsFolder() { return Path.Combine(FileLoader.DataRoot, "Mods"); }
+
+        public static bool IsIgnoreFile(string fullpath) { return !File.Exists(fullpath) || new FileInfo(fullpath).Length > 1024 * 1024; } // 1MB
+
+        public static readonly string[] SpecialInvalidPathNames = new[]
         {
-            return Path.Combine(FileLoader.DataRoot, "Mods");
+            "CON", "PRN", "AUX", "NUL",
+            "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+            "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+        };
+
+        public static bool IsInvalidPath(string path, out string errorMessage)
+        {
+            errorMessage = "";
+            // Empty or White Space Check
+            if (path.IsNullOrWhiteSpace())
+            {
+                errorMessage = EngineLang.Get("InvalidPathMessage", "Null");
+                return true;
+            }
+            // Check StartsWith "." [for Mac]
+            if (path.StartsWith("."))
+            {
+                errorMessage = EngineLang.Get("InvalidPathMessage", "StartWithDot");
+                return true;
+            }
+            // Path.InvalidFileNameChars
+            if (path.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            {
+                errorMessage = EngineLang.Get("InvalidPathMessage", "InvalidChar");
+                return true;
+            }
+            // SpecialInvalidPathNames
+            for (var i = 0; i < SpecialInvalidPathNames.Length; i++)
+            {
+                if (Path.GetFileNameWithoutExtension(path).ToUpper() == SpecialInvalidPathNames[i])
+                {
+                    errorMessage = "\"" + SpecialInvalidPathNames[i] + "\"" + EngineLang.Get("InvalidPathMessage", "SpecialName");
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -291,13 +330,6 @@ namespace AsteriskMod
             Directory.CreateDirectory(path);
             return path;
         }
-
-        public static readonly string[] SpecialInvalidPathNames = new[]
-        {
-            "CON", "PRN", "AUX", "NUL",
-            "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
-            "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
-        };
 
         private static bool ContainsInvalidCharOrName(string path, out string message)
         {
@@ -379,6 +411,5 @@ namespace AsteriskMod
             }
             return (message != "");
         }
-
     }
 }

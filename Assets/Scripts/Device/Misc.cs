@@ -143,19 +143,31 @@ public class Misc {
 
     public bool FileExists(string path) {
         if (path.Contains(".."))
-            throw new CYFException("You cannot check for a file outside of a mod folder. The use of \"..\" is forbidden.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            throw new CYFException(EngineLang.Get("Exception", "MiscCheckFileOutside"));
+            // --------------------------------------------------------------------------------
         return File.Exists((FileLoader.ModDataPath + "/" + path).Replace('\\', '/'));
     }
 
     public bool DirExists(string path) {
         if (path.Contains(".."))
-            throw new CYFException("You cannot check for a directory outside of a mod folder. The use of \"..\" is forbidden.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            throw new CYFException(EngineLang.Get("Exception", "MiscCheckDirOutside"));
+            // --------------------------------------------------------------------------------
         return Directory.Exists((FileLoader.ModDataPath + "/" + path).Replace('\\', '/'));
     }
 
     public bool CreateDir(string path) {
         if (path.Contains(".."))
-            throw new CYFException("You cannot create a directory outside of a mod folder. The use of \"..\" is forbidden.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            throw new CYFException(EngineLang.Get("Exception", "MiscCreateDirOutside"));
+            // --------------------------------------------------------------------------------
 
         if (Directory.Exists((FileLoader.ModDataPath + "/" + path).Replace('\\', '/'))) return false;
         Directory.CreateDirectory(FileLoader.ModDataPath + "/" + path);
@@ -166,7 +178,11 @@ public class Misc {
 
     public bool MoveDir(string path, string newPath) {
         if (path.Contains("..") || newPath.Contains(".."))
-            throw new CYFException("You cannot move a directory outside of a mod folder. The use of \"..\" is forbidden.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            throw new CYFException(EngineLang.Get("Exception", "MiscMoveDirOutside"));
+            // --------------------------------------------------------------------------------
 
         if (!DirExists(path) || DirExists(newPath) || !PathValid(path)) return false;
         Directory.Move(FileLoader.ModDataPath + "/" + path, FileLoader.ModDataPath + "/" + newPath);
@@ -175,7 +191,11 @@ public class Misc {
 
     public bool RemoveDir(string path, bool force = false) {
         if (path.Contains(".."))
-            throw new CYFException("You cannot remove a directory outside of a mod folder. The use of \"..\" is forbidden.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            throw new CYFException(EngineLang.Get("Exception", "MiscRemoveDirOutside"));
+            // --------------------------------------------------------------------------------
 
         if (!Directory.Exists((FileLoader.ModDataPath + "/" + path).Replace('\\', '/'))) return false;
         try { Directory.Delete(FileLoader.ModDataPath + "/" + path, force); }
@@ -185,8 +205,12 @@ public class Misc {
     }
 
     public string[] ListDir(string path, bool getFolders = false) {
-        if (path == null)        throw new CYFException("Cannot list a directory with a nil path.");
-        if (path.Contains("..")) throw new CYFException("You cannot list directories outside of a mod folder. The use of \"..\" is forbidden.");
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        if (path == null)        throw new CYFException(EngineLang.Get("Exception", "MiscNullListDir"));
+        if (path.Contains("..")) throw new CYFException(EngineLang.Get("Exception", "MiscListDirOutside"));
+        // --------------------------------------------------------------------------------
 
         path = (FileLoader.ModDataPath + "/" + path).Replace('\\', '/');
         if (!Directory.Exists(path))

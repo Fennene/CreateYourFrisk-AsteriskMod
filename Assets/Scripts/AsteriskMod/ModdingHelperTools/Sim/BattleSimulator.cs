@@ -19,7 +19,7 @@ namespace AsteriskMod.ModdingHelperTools
             _state = UIController.UIState.ACTIONSELECT;
             autoLineBreak = false;
             arenaSize = new Vector2(155, 130);
-            _playerName = (Asterisk.language == Languages.Japanese) ? "にるにころ" : "Nil256";
+            _playerName = (Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage) ? "にるにころ" : "Nil256";
             _playerLV = 1;
             _playerHP = 20;
             _playerMaxHP = 20;

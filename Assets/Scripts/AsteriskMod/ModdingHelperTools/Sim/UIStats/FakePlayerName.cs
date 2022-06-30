@@ -18,7 +18,7 @@ namespace AsteriskMod.ModdingHelperTools
         private void Start()
         {
             if (!FakePlayerLV.instance.Initialized) FakePlayerLV.instance.Start();
-            if (Asterisk.language == Languages.Japanese)
+            if (Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage)
             {
                 nowText = SimInstance.BattleSimulator.PlayerName;
                 SetJP();
@@ -41,8 +41,8 @@ namespace AsteriskMod.ModdingHelperTools
 
         internal void SetJP()
         {
-            NameTextMan.SetFont(SimInstance.FakeSpriteFontRegistry.Get(AsteriskEngine.JapaneseStyleOption.JPName ? SpriteFontRegistry.UI_JP_NAME_NAME : SpriteFontRegistry.UI_SMALLTEXT_NAME));
-            NameTextMan.Move(0, 6 * (AsteriskEngine.JapaneseStyleOption.JPName ? 1 : -1));
+            NameTextMan.SetFont(SimInstance.FakeSpriteFontRegistry.Get((Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage) ? SpriteFontRegistry.UI_JP_NAME_NAME : SpriteFontRegistry.UI_SMALLTEXT_NAME));
+            NameTextMan.Move(0, 6 * ((Asterisk.language == Languages.Japanese && Asterisk.changeUIwithLanguage) ? 1 : -1));
             SetName(nowText, true);
         }
     }

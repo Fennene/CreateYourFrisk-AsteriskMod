@@ -16,6 +16,7 @@ namespace AsteriskMod
     {
         public Asterisk.Versions targetVersion;
         public bool[] supportedLanguages;
+        public string[] encounterNames;
         public string[] showEncounters;
         public string[] hideEncounters;
         public bool? retroMode;
@@ -35,6 +36,7 @@ namespace AsteriskMod
         {
             targetVersion = Asterisk.Versions.Unknwon;
             supportedLanguages = new bool[0];
+            encounterNames = new string[0];
             showEncounters = new string[0];
             hideEncounters = new string[0];
             retroMode = null;
@@ -47,11 +49,6 @@ namespace AsteriskMod
             font = DisplayFont.PixelOperator;
             bgColor = new Color32(255, 255, 255, 64);
             launchBGColor = new Color(1f, 1f, 1f, 0.1875f);
-        }
-
-        private static bool IgnoreFile(string fullpath)
-        {
-            return !File.Exists(fullpath) || new FileInfo(fullpath).Length > 1024 * 1024; // 1MB
         }
 
         private static bool? ConvertToNullableBoolean(string text)
@@ -106,7 +103,7 @@ namespace AsteriskMod
         {
             ModInfo info = new ModInfo();
             string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
-            if (IgnoreFile(path)) return info;
+            if (AsteriskUtil.IsIgnoreFile(path)) return info;
 
             FakeIni ini = FakeIniFileLoader.Load(path, true);
             string descFilePath = "";
@@ -135,6 +132,11 @@ namespace AsteriskMod
                             if (lang == Languages.English) info.supportedLanguages[0] = true;
                             if (lang == Languages.Japanese) info.supportedLanguages[1] = true;
                         }
+                        break;
+
+                    case "encounter-names":
+                    case "encounters-names":
+                        info.encounterNames = ini.Main[realKey].Array;
                         break;
 
                     case "show":
@@ -230,7 +232,7 @@ namespace AsteriskMod
             }
             if (descFilePath.IsNullOrWhiteSpace() || descFilePath.Contains("..")) return info;
             descFilePath = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + descFilePath);
-            if (IgnoreFile(descFilePath)) return info;
+            if (AsteriskUtil.IsIgnoreFile(descFilePath)) return info;
             try   { info.description = File.ReadAllText(descFilePath); }
             catch { /* ignore */ }
             return info;

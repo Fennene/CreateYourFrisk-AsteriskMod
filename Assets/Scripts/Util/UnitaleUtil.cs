@@ -1,10 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using AsteriskMod;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 /// <summary>
@@ -85,6 +86,11 @@ public static class UnitaleUtil {
         if (firstErrorShown)
             return;
         firstErrorShown = true;
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        decoratedMessage = EngineLang.TranslateErrorMessage(decoratedMessage);
+        // --------------------------------------------------------------------------------
         ErrorDisplay.Message = (!DoNotDecorateMessage ? "error in script " + source + "\n\n" : "") + decoratedMessage;
         if (Application.isEditor) SceneManager.LoadSceneAsync("Error"); // prevents editor from crashing
         else                      SceneManager.LoadScene("Error");

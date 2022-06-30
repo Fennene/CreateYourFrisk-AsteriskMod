@@ -8,15 +8,10 @@ namespace AsteriskMod.ExtendedUtil
 {
     public class LuaArrayUtil
     {
-        public static LuaVector NewVector() { return new LuaVector(0f, 0f); }
-        public static LuaVector NewVector(float x, float y) { return new LuaVector(x, y); }
-        public static LuaVector NewVector(LuaVector original) { return new LuaVector(original.x, original.y); }
-        
-        public static LuaVector CreateVector() { return NewVector(); }
-        public static LuaVector CreateVector(float x, float y) { return NewVector(x, y); }
-        public static LuaVector CreateVector(LuaVector original) { return NewVector(original); }
+        public static LuaVector CreateVector() { return LuaVector.Zero.Copy(); }
+        public static LuaVector CreateVector(float x, float y) { return new LuaVector(x, y); }
+        public static LuaVector CreateVector(LuaVector original) { return original.Copy(); }
 
-        //public static LuaVectorClass NewVectorClass(float x, float y) { return new LuaVectorClass(x, y); }
 
         private static bool IsSorted(int[] array)
         {
