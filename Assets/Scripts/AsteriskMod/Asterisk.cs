@@ -53,8 +53,6 @@ namespace AsteriskMod
         public static bool displayModInfo;
         /// <summary>Whether change UIs with user's set language<br/>ユーザーの設定した言語に応じてUIを自動で変えるかどうか</summary>
         public static bool changeUIwithLanguage;
-        /// <summary>ModPack Files' Datas</summary>
-        public static ModPack[] ModPackDatas;
         /// <summary>Target ModPack's index</summary>
         public static int TargetModPack;
 
@@ -134,19 +132,10 @@ namespace AsteriskMod
             {
                 changeUIwithLanguage = LuaScriptBinder.GetAlMighty(null, OPTION_UIWITHLANG).Boolean;
             }
-
-            ModPackDatas = ModPack.GetModPacks(true);
-            string _ = "Load ModPacks\n";
-            for (var i = 0; i < ModPackDatas.Length; i++)
-            {
-                _ += "\n" + ModPackDatas[i].FileName;
-            }
-            UnityEngine.Debug.Log(_);
             if (LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK) != null && LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Type == DataType.Number)
             {
                 TargetModPack = (int)LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Number;
             }
-            if (TargetModPack < -1 || TargetModPack >= ModPackDatas.Length) TargetModPack = -1;
 
 #if UNITY_EDITOR
             //Test.Tset();

@@ -203,8 +203,8 @@ namespace AsteriskMod.ModdingHelperTools
                     });
                     UnityButtonUtil.AddListener(Delete, () =>
                     {
-                        ModInfo.DeleteFile(FakeStaticInits.ENCOUNTER);
-                        CMFEButtonManager.Instance.realModInfo = new ModInfo();
+                        LegacyModInfo.DeleteFile(FakeStaticInits.ENCOUNTER);
+                        CMFEButtonManager.Instance.realModInfo = new LegacyModInfo();
                         CMFEButtonManager.Instance.realModInfo.targetVersion = Asterisk.Versions.TakeNewStepUpdate;
                         CMFEButtonManager.Instance.editing = CMFEButtonManager.Instance.realModInfo.Clone();
                         CMFEButtonManager.Instance.WarningText.enabled = false;

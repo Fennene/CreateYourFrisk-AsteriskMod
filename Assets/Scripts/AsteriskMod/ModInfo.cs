@@ -1,62 +1,48 @@
 ﻿using AsteriskMod.FakeIniLoader;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AsteriskMod
 {
-    public enum DisplayFont
-    {
-        PixelOperator,
-        EightBitoperator,
-        JFDotShinonome14
-    }
-
     public class ModInfo
     {
-        public Asterisk.Versions targetVersion;
-        public bool[] supportedLanguages;
-        public string[] encounterNames;
-        public string[] showEncounters;
-        public string[] hideEncounters;
-        public bool? retroMode;
-
-        public string title;
-        public string subtitle;
-        public string description;
-        public TextAnchor descAnchor;
-        public bool richText;
-        public DisplayFont font;
-        public Color bgColor;
-        public Color launchBGColor;
-
         public const string MODINFO_FILE_NAME = "info.cyfmod";
+
+        public bool HasFile { get; private set; }
+        public Asterisk.Versions TargetVersion { get; private set; }
+        public string[] EncounterNames { get; private set; }
+        public string[] ShowEncounters { get; private set; }
+        public string[] HideEncounters { get; private set; }
+        public Color BackgroundColor { get; private set; }
+        [ToDo("will implemente")] internal Color LaunchingBackgroundColor { get; private set; }
+        public Font ScreenFont { get; private set; }
+        public string TitleOverride { get; private set; }
+        public string SubtitleOverride { get; private set; }
+        [ToDo("will implemente")] internal bool RichText { get; private set; }
+        public string Description { get; private set; }
+        public TextAnchor DescriptionAlign { get; private set; }
+        public bool[] SupportedLanguagesOverride { get; private set; }
+        [ToDo("will implemente")] internal bool RetroMode { get; private set; }
 
         public ModInfo()
         {
-            targetVersion = Asterisk.Versions.Unknwon;
-            supportedLanguages = new bool[0];
-            encounterNames = new string[0];
-            showEncounters = new string[0];
-            hideEncounters = new string[0];
-            retroMode = null;
-
-            title = "";
-            subtitle = "";
-            description = "";
-            descAnchor = TextAnchor.UpperLeft;
-            richText = false;
-            font = DisplayFont.PixelOperator;
-            bgColor = new Color32(255, 255, 255, 64);
-            launchBGColor = new Color(1f, 1f, 1f, 0.1875f);
-        }
-
-        private static bool? ConvertToNullableBoolean(string text)
-        {
-            text = text.ToLower();
-            if (text == "true") return true;
-            if (text == "false") return false;
-            return null;
+            HasFile = false;
+            TargetVersion = Asterisk.Versions.Unknwon;
+            EncounterNames = null;
+            ShowEncounters = null;
+            HideEncounters = null;
+            BackgroundColor = new Color(1f, 1f, 1f, 0.1875f);
+            ScreenFont = AsteriskResources.PixelOperator;
+            TitleOverride = null;
+            SubtitleOverride = null;
+            Description = null;
+            DescriptionAlign = TextAnchor.UpperLeft;
+            SupportedLanguagesOverride = null;
         }
 
         private static Color TryConvertToColor(Color origin, string[] array)
@@ -99,86 +85,95 @@ namespace AsteriskMod
             return color;
         }
 
-        public static ModInfo Get(string modDirName)
+        public static ModInfo GetFromFile(string path, bool isFullPath = false)
         {
             ModInfo info = new ModInfo();
-            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
-            if (AsteriskUtil.IsIgnoreFile(path)) return info;
+            string fullPath = isFullPath ? path : Path.Combine(FileLoader.DataRoot, "Mods/" + path + "/" + MODINFO_FILE_NAME);
+            if (AsteriskUtil.IsIgnoreFile(fullPath)) return info;
 
-            FakeIni ini = FakeIniFileLoader.Load(path, true);
-            string descFilePath = "";
+            info.HasFile = true;
+            FakeIni ini = FakeIniFileLoader.Load(fullPath, true);
+            string descFilePath = null;
             foreach (string realKey in ini.Main.ParameterNames)
             {
-                string keyName = realKey.ToLower().Replace("_", "-");
+                string keyName = realKey.ToLower().Replace('_', '-');
                 if (realKey != keyName && ini.Main.ParameterExists(keyName)) continue;
                 switch (keyName)
                 {
                     case "target-version":
                     case "target":
                     case "asterisk-version":
-                        info.targetVersion = Asterisk.ConvertToModVersion(ini.Main[realKey].String);
-                        break;
-
-                    case "supported-languages":
-                    //case "supported-language":
-                    case "languages":
-                    //case "language":
-                    case "localization":
-                        info.supportedLanguages = new bool[2];
-                        foreach (string langText in ini.Main[realKey].Array)
-                        {
-                            Languages lang = AsteriskUtil.ConvertToLanguage(langText, false);
-                            if (lang == Languages.Unknown) continue;
-                            if (lang == Languages.English) info.supportedLanguages[0] = true;
-                            if (lang == Languages.Japanese) info.supportedLanguages[1] = true;
-                        }
+                        info.TargetVersion = Asterisk.ConvertToModVersion(ini.Main[realKey].String);
                         break;
 
                     case "encounter-names":
                     case "encounters-names":
-                        info.encounterNames = ini.Main[realKey].Array;
+                        info.EncounterNames = ini.Main[realKey].Array;
                         break;
 
-                    case "show":
                     case "show-encounters":
-                    //case "show-encounter":
-                        if (info.hideEncounters.Length > 0) info.hideEncounters = new string[0];
-                        info.showEncounters = ini.Main[realKey].Array;
+                    case "show":
+                        info.ShowEncounters = ini.Main[realKey].Array;
                         break;
 
-                    case "hide":
                     case "hide-encounters":
-                    //case "hide-encounter":
-                        if (info.showEncounters.Length > 0) continue; // Showキーの優先
-                        info.hideEncounters = ini.Main[realKey].Array;
+                    case "hide":
+                        info.HideEncounters = ini.Main[realKey].Array;
                         break;
 
-                    case "retro-mode":
-                    case "retro":
-                        info.retroMode = ConvertToNullableBoolean(ini.Main[realKey].String);
+                    case "bg-color":
+                    case "background-color":
+                        info.BackgroundColor = TryConvertToColor(info.BackgroundColor, ini.Main[realKey].Array);
+                        break;
+                    case "bg-color32":
+                    case "background-color32":
+                        info.BackgroundColor = TryConvertToColor32(info.BackgroundColor, ini.Main[realKey].Array);
                         break;
 
+                    case "bg-alpha":
+                    case "background-alpha":
+                        float alpha;
+                        if (float.TryParse(ini.Main[realKey].String, out alpha))
+                        {
+                            info.BackgroundColor = new Color(info.BackgroundColor.r, info.BackgroundColor.g, info.BackgroundColor.b, alpha);
+                        }
+                        break;
+                    case "bg-alpha32":
+                    case "background-alpha32":
+                        byte alpha32;
+                        if (byte.TryParse(ini.Main[realKey].String, out alpha32))
+                        {
+                            Color32 color32 = (Color32)info.BackgroundColor;
+                            info.BackgroundColor = new Color32(color32.r, color32.g, color32.a, alpha32);
+                        }
+                        break;
+
+                    case "font":
+                        string fontName = ini.Main[realKey].String.ToLower().Replace("-", " ").Replace("_", " ");
+                        if (fontName == "8bit" || fontName == "8bitoperator" || fontName == "8bit operator" || fontName == "8bitoperator jve" || fontName == "8bit operator jve")
+                        {
+                            info.ScreenFont = AsteriskResources.EightBitoperator;
+                        }
+                        break;
 
                     case "title":
                     case "mod-title":
-                    //case "name":
                     case "mod-name":
-                        info.title = ini.Main[realKey].String;
+                        info.TitleOverride = ini.Main[realKey].String;
                         break;
 
                     case "subtitle":
                     case "sub-title":
-                        info.subtitle = ini.Main[realKey].String;
+                        info.SubtitleOverride = ini.Main[realKey].String;
                         break;
                     case "author":
-                        info.subtitle = (ini.Main[realKey].String.StartsWith("by ") ? "" : "by ") + ini.Main[realKey].String;
+                        info.SubtitleOverride = (ini.Main[realKey].String.StartsWith("by ") ? "" : "by ") + ini.Main[realKey].String;
                         break;
 
                     case "description":
                     case "desc":
-                        info.description = ini.Main[realKey].String;
+                        info.Description = ini.Main[realKey].String;
                         break;
-
                     case "description-file":
                     case "desc-file":
                     case "descfile":
@@ -186,146 +181,34 @@ namespace AsteriskMod
                         break;
 
                     case "description-align":
+                    case "desc-align":
                     case "align":
                     case "description-anchor":
                     case "anchor":
-                        try   { info.descAnchor = (TextAnchor)Enum.Parse(typeof(TextAnchor), ini.Main[realKey].String); }
+                        try   { info.DescriptionAlign = (TextAnchor)Enum.Parse(typeof(TextAnchor), ini.Main[realKey].String); }
                         catch { /* ignore */ }
                         break;
 
-                    case "rich-text":
-                        bool? _ = ConvertToNullableBoolean(ini.Main[realKey].String);
-                        if (_.HasValue) info.richText = _.Value;
-                        break;
-
-                    case "font":
-                        string fontName = ini.Main[realKey].String.ToLower().Replace("-", " ").Replace("_", " ");
-                        if (fontName == "8bit" || fontName == "8bitoperator" || fontName == "8bit operator" || fontName == "8bitoperator jve" || fontName == "8bit operator jve")
+                    case "supported-languages":
+                    case "languages":
+                    case "localization":
+                        info.SupportedLanguagesOverride = new bool[2];
+                        foreach (string langText in ini.Main[realKey].Array)
                         {
-                            info.font = DisplayFont.EightBitoperator;
+                            Languages lang = AsteriskUtil.ConvertToLanguage(langText, false);
+                            if (lang == Languages.Unknown)  continue;
+                            if (lang == Languages.English)  info.SupportedLanguagesOverride[0] = true;
+                            if (lang == Languages.Japanese) info.SupportedLanguagesOverride[1] = true;
                         }
                         break;
-
-
-                    case "bg-color":
-                    case "background-color":
-                        info.bgColor = TryConvertToColor(info.bgColor, ini.Main[realKey].Array);
-                        break;
-                    case "bg-color32":
-                    case "background-color32":
-                        info.bgColor = TryConvertToColor32(info.bgColor, ini.Main[realKey].Array);
-                        break;
-
-                    case "bg-alpha":
-                    case "background-alpha":
-                        float alpha;
-                        if (float.TryParse(ini.Main[realKey].String, out alpha))
-                            info.bgColor = new Color(1f, 1f, 1f, alpha);
-                        break;
-                    case "bg-alpha32":
-                    case "background-alpha32":
-                        byte alpha32;
-                        if (byte.TryParse(ini.Main[realKey].String, out alpha32))
-                            info.bgColor = new Color32(255, 255, 255, alpha32);
-                        break;
                 }
             }
-            if (descFilePath.IsNullOrWhiteSpace() || descFilePath.Contains("..")) return info;
-            descFilePath = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + descFilePath);
+            if (descFilePath.IsNullOrWhiteSpace() || descFilePath.Contains("..") || isFullPath) return info;
+            descFilePath = Path.Combine(FileLoader.DataRoot, "Mods/" + path + "/" + descFilePath);
             if (AsteriskUtil.IsIgnoreFile(descFilePath)) return info;
-            try   { info.description = File.ReadAllText(descFilePath); }
+            try   { info.Description = File.ReadAllText(descFilePath); }
             catch { /* ignore */ }
             return info;
-        }
-
-        public static bool Exists(string modDirName)
-        {
-            return File.Exists(Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME));
-        }
-
-        public static bool CreateFile(string modDirName)
-        {
-            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
-            try { File.WriteAllText(path, "target-version=\"v0.5.3\""); }
-            catch { return false; }
-            return true;
-        }
-
-        public ModInfo Clone()
-        {
-            ModInfo clone = new ModInfo();
-
-            clone.targetVersion = targetVersion;
-            clone.supportedLanguages = supportedLanguages.Copy();
-            clone.showEncounters = showEncounters.Copy();
-            clone.hideEncounters = hideEncounters.Copy();
-            clone.retroMode = retroMode;
-
-            clone.title = title;
-            clone.subtitle = subtitle;
-            clone.description = description;
-            clone.descAnchor = descAnchor;
-            clone.richText = richText;
-            clone.font = font;
-            clone.bgColor = bgColor;
-            clone.launchBGColor = launchBGColor;
-
-            return clone;
-        }
-
-        public bool Write(string modDirName)
-        {
-            string text;
-            text = "target-version=\"" + Asterisk.ConvertFromModVersion(targetVersion) + "\"\n";
-            if (showEncounters.Length > 0)
-            {
-                text += "show-encounters={";
-                foreach (string encounterName in showEncounters)
-                {
-                    if (!text.EndsWith("{")) text += ",";
-                    text += "\"" + encounterName + "\"";
-                }
-                text += "}\n";
-            }
-            if (hideEncounters.Length > 0)
-            {
-                text += "hide-encounters={";
-                foreach (string encounterName in hideEncounters)
-                {
-                    if (!text.EndsWith("{")) text += ",";
-                    text += "\"" + encounterName + "\"";
-                }
-                text += "}\n";
-            }
-            if (supportedLanguages.Length > 0)
-            {
-                text += "supported-languages={";
-                if (supportedLanguages[0]) text += "\"en\"";
-                if (supportedLanguages[1]) text += (!text.EndsWith("{") ? "," : "") + "\"ja\"";
-                text += "}\n";
-            }
-            if (!string.IsNullOrEmpty(title))    text += "title=\"" + title + "\"\n";
-            if (!string.IsNullOrEmpty(subtitle)) text += "subtitle=\"" + subtitle + "\"\n";
-            if (!string.IsNullOrEmpty(description)) text += "description-file=\"" + description + "\"\n";
-            if (descAnchor != TextAnchor.UpperLeft) text += "description-align=\"" + descAnchor.ToString() + "\"\n";
-            if (font != DisplayFont.PixelOperator)
-            {
-                if (font == DisplayFont.EightBitoperator) text += "font=\"8bitoperator\"\n";
-            }
-            if (bgColor.r != 1 || bgColor.g != 1 || bgColor.b != 1) text += "bg-color={\"" + bgColor.r.ToString() + "\",\"" + bgColor.g.ToString() + "\",\"" + bgColor.b.ToString() + "\"}\n";
-            if (bgColor.a != 0.1875f) text += "bg-alpha=\"" + bgColor.a.ToString() + "\"\n";
-            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
-            try   { File.WriteAllText(path, text); }
-            catch { return false; }
-            return true;
-        }
-
-        public static bool DeleteFile(string modDirName)
-        {
-            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modDirName + "/" + MODINFO_FILE_NAME);
-            try   { File.Delete(path); }
-            catch { return false; }
-            return true;
         }
     }
 }

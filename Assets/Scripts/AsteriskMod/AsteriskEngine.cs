@@ -121,7 +121,7 @@ namespace AsteriskMod
 
         internal static void PrepareMod(string modName)
         {
-            ModInfo info = ModInfo.Get(modName);
+            LegacyModInfo info = LegacyModInfo.Get(modName);
             Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(info.targetVersion));
             ModTarget_AsteriskVersion = info.targetVersion;
             LuaCodeStyle = CodeStyle.Get(modName);

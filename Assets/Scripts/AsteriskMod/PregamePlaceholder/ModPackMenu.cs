@@ -11,7 +11,7 @@ namespace AsteriskMod
     internal class ModPackMenu : MonoBehaviour
     {
         private static List<DirectoryInfo> modDirs;
-        private static List<ModInfo> modInfos;
+        private static List<LegacyModInfo> modInfos;
 
         public Text description;
 
@@ -40,8 +40,8 @@ namespace AsteriskMod
                                           select modDir).ToList();
             modDirs = purged;
             modDirs.Sort((a, b) => a.Name.CompareTo(b.Name));
-            modInfos = new List<ModInfo>();
-            for (var i = 0; i < modDirs.Count; i++) modInfos.Add(ModInfo.Get(modDirs[i].Name));
+            modInfos = new List<LegacyModInfo>();
+            for (var i = 0; i < modDirs.Count; i++) modInfos.Add(LegacyModInfo.Get(modDirs[i].Name));
 
             description.text = EngineLang.Get("ModPack", "Description");
 

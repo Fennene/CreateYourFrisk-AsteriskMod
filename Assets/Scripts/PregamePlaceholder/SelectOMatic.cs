@@ -33,7 +33,7 @@ public class SelectOMatic : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    private static List<ModInfo> modInfos;
+    private static List<LegacyModInfo> modInfos;
 
     public GameObject     ModDescShadow,     ModDesc, ExistDescInfoShadow, ExistDescInfo;
     public GameObject AnimModDescShadow, AnimModDesc;
@@ -74,10 +74,10 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        modInfos = new List<ModInfo>();
+        modInfos = new List<LegacyModInfo>();
         for (var i = 0; i < modDirs.Count; i++)
         {
-            modInfos.Add(ModInfo.Get(modDirs[i].Name));
+            modInfos.Add(LegacyModInfo.Get(modDirs[i].Name));
         }
         // --------------------------------------------------------------------------------
 
@@ -317,7 +317,7 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        ModInfo info = modInfos[id];
+        LegacyModInfo info = modInfos[id];
         // Set BG Color
         if (Asterisk.displayModInfo)
         {
@@ -724,7 +724,7 @@ public class SelectOMatic : MonoBehaviour {
         int actualCount = -1;
         NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
         NoEncounterLabel.GetComponent<Text>().enabled = false;
-        ModInfo info = modInfos[CurrentSelectedMod];
+        LegacyModInfo info = modInfos[CurrentSelectedMod];
         Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
         bool needCheck = (info.showEncounters.Length > 0 || info.hideEncounters.Length > 0);
         if (needCheck)
