@@ -479,6 +479,7 @@ namespace AsteriskMod
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
+            DevelopHint.ToDo();
             if (SelectOMaticOptionManager.opened) return;
             // --------------------------------------------------------------------------------
 
@@ -536,7 +537,7 @@ namespace AsteriskMod
                 if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
                     btnExit.GetComponent<Button>().onClick.Invoke();
 
-                // Encounter or Mod List controls:
+            // Encounter or Mod List controls:
             }
             else
             {
