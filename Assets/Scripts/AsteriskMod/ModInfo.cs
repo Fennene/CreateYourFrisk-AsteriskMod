@@ -36,7 +36,8 @@ namespace AsteriskMod
             EncounterNames = null;
             ShowEncounters = null;
             HideEncounters = null;
-            BackgroundColor = new Color(1f, 1f, 1f, 0.1875f);
+            //BackgroundColor = new Color(1f, 1f, 1f, 0.1875f);
+            BackgroundColor = new Color(1f, 1f, 1f, 0.25f);
             ScreenFont = AsteriskResources.PixelOperator;
             TitleOverride = null;
             SubtitleOverride = null;

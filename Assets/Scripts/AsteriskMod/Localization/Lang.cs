@@ -30,6 +30,7 @@ namespace AsteriskMod
         {
             _target = (Asterisk.language == Languages.Japanese) ? JAPANESE_TAG : ENGLISH_TAG;
             _modLangs = new Dictionary<string, FakeIni>();
+
             string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modName);
             if (File.Exists(path + "/" + ENGLISH_LANG_FILE))
             {
@@ -61,6 +62,14 @@ namespace AsteriskMod
         internal static void Reset()
         {
             _modLangs = new Dictionary<string, FakeIni>();
+        }
+
+        [MoonSharpHidden]
+        internal static void Exist(string modName, out bool english, out bool japanese)
+        {
+            string path = Path.Combine(FileLoader.DataRoot, "Mods/" + modName);
+            english  = File.Exists(path + "/" + ENGLISH_LANG_FILE );
+            japanese = File.Exists(path + "/" + JAPANESE_LANG_FILE);
         }
 
         public static void SetTargetLanguage(string langName)

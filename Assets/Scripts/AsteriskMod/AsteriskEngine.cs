@@ -119,11 +119,10 @@ namespace AsteriskMod
             PlayerUtil.Initialize();
         }
 
-        internal static void PrepareMod(string modName)
+        internal static void PrepareMod(string modName, ModInfo modInfo)
         {
-            LegacyModInfo info = LegacyModInfo.Get(modName);
-            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(info.targetVersion));
-            ModTarget_AsteriskVersion = info.targetVersion;
+            Debug.Log("AsteriskMod TargetVersion: " + Asterisk.ConvertFromModVersion(modInfo.TargetVersion));
+            ModTarget_AsteriskVersion = modInfo.TargetVersion;
             LuaCodeStyle = CodeStyle.Get(modName);
             AsteriskChar = '*';
             AutoRemoveProjectiles = true;
