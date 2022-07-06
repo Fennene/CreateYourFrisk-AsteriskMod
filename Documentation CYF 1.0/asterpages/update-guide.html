@@ -274,11 +274,12 @@ end
                 </div>
                 <br><br>
 
-                The functions of moving the texts showing name and love are renamed:<br>
+                Below functions have similar features of below functions:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.NameUIMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Name.Move()</span> and <span class="term">PlayerUtil.Love.Move()</span></li>
                     <li><span class="term">PlayerUtil.NameUIMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Name.MoveTo()</span> and <span class="term">PlayerUtil.Love.MoveTo()</span></li>
                 </ul>
+                <!--
                 Below variables getting position are added instead of <span>PlayerUtil.GetNameUIPosition()</span>:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.Name.x</span></li>
@@ -286,10 +287,15 @@ end
                     <li><span class="term">PlayerUtil.Love.x</span></li>
                     <li><span class="term">PlayerUtil.Love.y</span></li>
                 </ul>
+                -->
                 <font color="#DDD">
                 The text showing the player's name and The text showing the player's love are separated on AsteriskMod v0.5.3, 
                 so you can modify each text.
                 </font><br>
+                <font color="#FF0">
+                Note that Static Text's position is not relative position to initial position!
+                </font><br>
+                <!--
                 From
                 <div class="code-container">
 <pre class="brush: lua;">
@@ -318,7 +324,7 @@ end
 -- end
 </pre>
                 </div>
-                <br><br>
+                --><br><br>
 
                 Use variable of static text if the texts showing name and love wanna be colored:<br>
                 <ul>
@@ -451,16 +457,23 @@ PlayerUtil.HPBar.fillcolor32 = {127, 127, 127}
                 </div>
                 <br><br>
 
-                Use variable of static text if the text showing the Player's HP wanna be moved:<br>
+                <!--Use variable of static text if the text showing the Player's HP wanna be moved:<br>-->
+                Below functions have similar features of below functions:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.HPTextMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.Move()</span></li>
                     <li><span class="term">PlayerUtil.HPTextMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.MoveTo()</span></li>
                 </ul>
+                <!--
                 Use below variables getting position instead of <span>PlayerUtil.GetHPTextPosition()</span>:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.HPText.x</span></li>
                     <li><span class="term">PlayerUtil.HPText.y</span></li>
                 </ul>
+                -->
+                <font color="#FF0">
+                Note that Static Text's position is not relative position to initial position!
+                </font><br>
+                <!--
                 From
                 <div class="code-container">
 <pre class="brush: lua;">
@@ -480,7 +493,7 @@ if PlayerUtil.HPText.x == 1 or PlayerUtil.HPText.y == -102 then
 end
 </pre>
                 </div>
-                <br><br>
+                --><br><br>
 
                 Use the function of static text if the text showing the Player's HP wanna be changed:<br>
                 <ul>
@@ -654,6 +667,29 @@ button.color = {0.5, 0.5, 0}
 button.color32 = {252, 127, 0}
 </pre>
                 </div>
+                <br><br>
+                <span class="term">button.SetSprite()</span>'s 3rd argument is changed:
+                <ul>
+                    <li><span class="term">""</span> &nbsp;-&gt;&nbsp; <span class="term">"UI/Buttons"</span></li>
+                </ul>
+                <span class="term">button.SetSprite()</span>'s 4th argument is added and you should assign <span class="term">true</span>.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+button.SetSprite("UI/Buttons/fightbt_0", "UI/Buttons/fightbt_1")
+button.SetSprite("actbt_0", "actbt_1", "UI/Buttons")
+button.SetSprite("UI/AlternativeButtons/itembt_0", "UI/AlternativeButtons/itembt_1")
+button.SetSprite("mercybt_0", "mercybt_1", "UI/AlternativeButtons")
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+button.SetSprite("UI/Buttons/fightbt_0", "UI/Buttons/fightbt_1", "")
+button.SetSprite("actbt_0", "actbt_1")
+button.SetSprite("UI/AlternativeButtons/itembt_0", "UI/AlternativeButtons/itembt_1", "", true)
+button.SetSprite("mercybt_0", "mercybt_1", "UI/AlternativeButtons", true)
+</pre>
                 <br><br>
                 The below function have similar features to below function:
                 <ul>

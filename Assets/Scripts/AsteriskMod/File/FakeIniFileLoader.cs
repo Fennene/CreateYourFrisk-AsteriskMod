@@ -9,12 +9,12 @@ namespace AsteriskMod.FakeIniLoader
             FakeIni ini = new FakeIni();
             string[] fileLines = File.ReadAllLines(path);
             if (fileLines.Length < 1) return ini;
-            if (fileLines[0].StartsWith("!") || fileLines[0].StartsWith("#")) fileLines[0] = ";" + fileLines[0];
+            if (fileLines[0].StartsWith("!") || fileLines[0].StartsWith("#")) fileLines[0] = ";;" + fileLines[0];
             string nowSection = "$Main";
             foreach (string fileLine in fileLines)
             {
                 string line = fileLine.Trim();
-                if (line.StartsWith(";")) continue;
+                if (line.StartsWith(";;") || line.StartsWith("; ")) continue;
                 if (line.StartsWith("[") && line.EndsWith("]"))
                 {
                     if (ignoreSection) break;

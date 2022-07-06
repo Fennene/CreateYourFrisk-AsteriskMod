@@ -110,11 +110,9 @@ it's w3c valid, at least
             <h2>Available Variables, Functions and Objects in CustomState</h2><br><br>
             <p>
                 There is a list of variables, functions, and objects you can use in State Script.<br>
-                You can use almost features written <span class="term">[E/M/W]</span> in this document in state scripts.<br><br>
+                You can use features written <span class="term">[E/M/W]</span> in this document in state scripts.<br><br>
                 If you want to know each feature, see the other pages.
             </p><br>
-
-            <h1>TODO: Add new variable/functions/objects</h1>
 
             <br>
             <h4>Variables</h4>
@@ -130,7 +128,13 @@ it's w3c valid, at least
                     <span class="boolean"></span> <span class="term">Asterisk</span>: whether AsteriskMod is enabled or disabled. always true.
                 </li><br>
                 <li>
+                    <span class="boolean"></span> <span class="term">AsteriskMod</span>: whether AsteriskMod is finished(v0.5.4) or not. always false.
+                </li><br>
+                <li>
                     <span class="boolean"></span> <span class="term">AsteriskExperiment</span>: whether <span class="term">Experimental Features</span> is enabled or disabled.
+                </li><br>
+                <li>
+                    <span class="string"></span> <span class="term">Language</span>: user's displaying language.
                 </li><br>
                 <li>
                     <span class="boolean"></span> <span class="term">safe</span>: whether CYF's safe mode is enable or disable.
@@ -189,10 +193,19 @@ it's w3c valid, at least
                     <span class="term">SetAction</span>: moves the player's soul on any button.
                 </li><br>
                 <li>
+                    <span class="string"></span> <span class="term">GetCurrentAction</span>: gets current action player selects.
+                </li><br>
+                <li>
                     <span class="term">AllowPlayerDef</span>: whether include the player's def or not to calculate the damage of player.
                 </li><br>
                 <li>
                     <span class="term">BattleDialog or BattleDialogue</span>: sets text in dialog box and go to the state <span class="term">DIALOGRESULT</span>.
+                </li><br>
+                <li>
+                    <span class="term">CreateProjectileLayer</span>: IDK. See the section <span class="term">Projectile Managemnt</span>.
+                </li><br>
+                <li>
+                    <span class="userdata">bullet</span> <span class="term">CreateProjectile and CreateProjectileAbs</span>: creates bullet object.
                 </li><br>
                 <li>
                     <span class="boolean"></span> <span class="term">CreateLayer</span>: creates layer. returns whether success or not.
@@ -201,19 +214,22 @@ it's w3c valid, at least
                     <span class="boolean"></span> <span class="term">LayerExists</span>: returns whether layer exsits or not.
                 </li><br>
                 <li>
-                    <span class="userdata">sprite</span> <span class="term">CreateSprite</span>: creates sprite object.
+                    <span class="nullable_boolean"></span> <span class="term">IsEmptyLayer</span>: whether the layer is empty or not.
                 </li><br>
                 <li>
-                    <span class="term">CreateProjectileLayer</span>: IDK. See the section <span class="term">Projectile Managemnt</span>.
+                    <span class="userdata">sprite</span> <span class="term">CreateSprite</span>: creates sprite object.
                 </li><br>
                 <li>
                     <span class="userdata">text</span> <span class="term">CreateText</span>: creates text object.
                 </li><br>
                 <li>
-                    <span class="userdata">bullet</span> <span class="term">CreateProjectile and CreateProjectileAbs</span>: creates bullet object.
+                    <span class="term">SetPPCollision</span>: sets whether use PPCollisionSystem or not to check collide the player's soul and bullet.
                 </li><br>
                 <li>
-                    <span class="term">SetPPCollision</span>: sets whether use PPCollisionSystem or not to check collide the player's soul and bullet.
+                    <span class="term">CreateStaticText</span>: creates static text object.
+                </li><br>
+                <li>
+                    <span class="term">AutoRefreshStaticText</span>: whether <span class="term">StaticText.SetText</span> is called automatically or not.
                 </li><br>
                 <!--
                 <li>
@@ -235,31 +251,40 @@ it's w3c valid, at least
                     <span class="term">NewAudio</span>: the NewAudio object.
                 </li><br>
                 <li>
+                    <span class="term">Input</span>: the Input object.
+                </li><br>
+                <li>
+                    <span class="term">Time</span>: the Time object.
+                </li><br>
+                <li>
                     <span class="term">Inventory</span>: the Inventory object.
                 </li><br>
                 <li>
                     <span class="term">Misc</span>: the Misc object.
                 </li><br>
                 <li>
-                    <span class="term">Time</span>: the Time object.
-                </li><br>
-                <li>
                     <span class="term">Discord</span>: the Discord object.
                 </li><br>
                 <li>
-                    <span class="term">ButtonUtil</span>: the ButtonUtil object.
+                    <span class="term">Engine</span>: the Engine object.
                 </li><br>
                 <li>
                     <span class="term">PlayerUtil</span>: the PlayerUtil object.
                 </li><br>
                 <li>
+                    <span class="term">ButtonUtil</span>: the ButtonUtil object.
+                </li><br>
+                <li>
                     <span class="term">ArenaUtil</span>: the ArenaUtil object.
                 </li><br>
                 <li>
-                    <span class="term">StateEditor</span>: the StateEditor object.
+                    <span class="term">Lang</span>: the Lang object.
                 </li><br>
                 <li>
                     <span class="term">Arena</span>: the Arena object.
+                </li><br>
+                <li>
+                    <span class="term">StateEditor</span>: the StateEditor object.
                 </li><br>
             </ul></p>
         </div>
