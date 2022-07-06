@@ -611,7 +611,7 @@ lifeBar.fillcolor32 = {0, 64, 255}
             <h4 id="053ButtonUtil"><a href="api-buttonutil.html"><font color="#CCF">The ButtonUtil Object</font></a></h4><br>
 
             <p>
-                Below funtion is renamed:
+                Below function is renamed:
                 <ul>
                     <li><span class="term">ButtonUtil.RevertAll()</span> &nbsp;-&gt;&nbsp; <span class="term">ButtonUtil.Revert()</span></li>
                 </ul>
@@ -632,7 +632,7 @@ ButtonUtil.Revert(true, false)
             <h4 id="053Button"><a href="api-buttonutil.html#Button"><font color="#CCF">The Button Object</font></a></h4><br>
 
             <p>
-                The feature of the below function is changed into the variables.
+                The feature of the below function is changed into the variables:
                 <ul>
                     <li><span class="term">button.GetActive()</span> &nbsp;-&gt;&nbsp; <span class="term">button.isactive</span></li>
                     <li><span class="term">button.SetColor()</span> &nbsp;-&gt;&nbsp; <span class="term">button.color</span> (and <span class="term">button.alpha</span>)</li>
@@ -655,6 +655,12 @@ button.color32 = {252, 127, 0}
 </pre>
                 </div>
                 <br><br>
+                The below function have similar features to below function:
+                <ul>
+                    <li><span class="term">button.ResetColor()</span> &nbsp;-&gt;&nbsp; <span class="term">button.color = {1, 1, 1}</span> or <span class="term">button.color32 = {255, 255, 255}</span></li>
+                    <li><span class="term">button.SetSize()</span> &nbsp;-&gt;&nbsp; <span class="term">button.Scale()</span></li>
+                    <li><span class="term">button.ResetSize()</span> &nbsp;-&gt;&nbsp; <span class="term">button.Scale()</span></li>
+                </ul>
                 <br><br>
                 Below function is no longer experimental features:
                 <ul>
@@ -665,9 +671,71 @@ button.color32 = {252, 127, 0}
             <h4 id="053ArenaUtil"><a href="api-playerutil.html"><font color="#CCF">The ArenaUtil Object</font></a></h4><br>
 
             <p>
+
+                Below function is renamed:
                 <ul>
-                    <li><span class="term">ArenaUtil.</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.</span></li>
+                    <li><span class="term">ArenaUtil.SetDialogTextPosition()</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.DialogTextMoveTo()</span></li>
                 </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+ArenaUtil.SetDialogTextPosition(0, -6)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+ArenaUtil.DialogTextMoveTo(0, -6) -- or  ArenaUtil.dialogtexty = -6
+</pre>
+                </div>
+                <br><br>
+                The feature of the below function is changed into the variables:
+                <ul>
+                    <li><span class="term">ArenaUtil.SetAsteriskChar()</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.AsteriskChar</span></li>
+                    <li><span class="term">ArenaUtil.SetStarChar()</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.AsteriskChar</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+ArenaUtil.SetAsteriskChar('＊')
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+ArenaUtil.AsteriskChar = '＊'
+</pre>
+                </div>
+                <br><br>
+            <p>
+                Below functions are no longer experimental features:
+                <ul>
+                    <li><span class="term">ArenaUtil.SetDialogTextVolume()</span></li>
+                    <li><span class="term">ArenaUtil.GetDialogTextVolume()</span></li>
+                </ul>
+                The functions are deleted and use below instead of those:<br>
+                <ul>
+                    <li><span class="term">ArenaUtil.SetDialogTextMute()</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.SetDialogTextVolume()</span></li>
+                    <li><span class="term">ArenaUtil.GetDialogTextMute()</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.GetDialogTextVolume()</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+ArenaUtil.SetDialogTextMute(true)
+
+if ArenaUtil.GetDialogTextMute() then
+end
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+ArenaUtil.SetDialogTextVolume(0)
+
+if ArenaUtil.GetDialogTextVolume() == 0 then
+end
+</pre>
+                </div>
             </p><br><br>
 
             <!--
