@@ -796,7 +796,7 @@ public class LuaSpriteController {
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
         //* if ((!GlobalControls.retroMode && img.gameObject.name == "player") || (!GlobalControls.retroMode && tag == "projectile") || tag == "enemy" || tag == "bubble") {
-        if ((!GlobalControls.retroMode && img.gameObject.name == "player") || (!GlobalControls.retroMode && tag == "projectile") || tag == TAG_ENEMY || tag == TAG_BUBBLE || tag == TAG_UI) {
+        if ((!GlobalControls.retroMode && img.gameObject.name == "player") || (!GlobalControls.retroMode && tag == TAG_PROJECTILE) || tag == TAG_ENEMY || tag == TAG_BUBBLE || tag == TAG_UI) {
         // --------------------------------------------------------------------------------
             if (img.gameObject.name == "player")
                 throw new CYFException("sprite.Remove(): You can't remove the Player's sprite!");
@@ -816,13 +816,30 @@ public class LuaSpriteController {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        //* if (tag == "projectile") {
-        if (tag == TAG_PROJECTILE) {
-        // --------------------------------------------------------------------------------
+        /**
+        if (tag == "projectile") {
             Projectile[] pcs = img.GetComponentsInChildren<Projectile>();
             for (int i = 1; i < pcs.Length; i++)
                 pcs[i].ctrl.Remove();
         }
+        */
+        if (tag == TAG_PROJECTILE)
+        {
+            Projectile[] pcs = img.GetComponentsInChildren<Projectile>();
+            for (int i = 1; i < pcs.Length; i++)
+                pcs[i].ctrl.Remove();
+        }
+        else
+        {
+            try
+            {
+                Projectile[] pcs = img.GetComponentsInChildren<Projectile>();
+                for (int i = 1; i < pcs.Length; i++)
+                    pcs[i].ctrl.Remove();
+            }
+            catch (Exception ex) { Debug.Log("[AsteriskMod] Exception Log: LuaSpriteController.Remove()\n\nType: " + ex.GetType() + "\n\nMessage: " + ex.Message + "\n\nStackTrace: " + ex.StackTrace); }
+        }
+        // --------------------------------------------------------------------------------
         StopAnimation();
         Object.Destroy(GetTarget().gameObject);
         _img = null;

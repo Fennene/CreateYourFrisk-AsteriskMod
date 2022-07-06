@@ -143,7 +143,13 @@ target-version="v0.5.3"
                 Contents:
                 <ul>
                     <li><a href="#053namespace">namespace</a></li>
+                    <li><a href="#053Variables">Special Variables</a></li>
+                    <li><a href="#053GameEvent">Game Events</a></li>
+                    <li><a href="#053Text">The Text Object</a></li>
                     <li><a href="#053PlayerUtil">The PlayerUtil Object</a></li>
+                    <li><a href="#053ButtonUtil">The ButtonUtil Object</a></li>
+                    <li><a href="#053Button">The Button Object</a></li>
+                    <li><a href="#053ArenaUtil">The ArenaUtil Object</a></li>
                 </ul>
             </p><br><br>
 
@@ -161,10 +167,83 @@ target-version="v0.5.3"
                 </ul>
             </p><br><br>
 
+            <h4 id="053Variables"><a href="../pages/variables.html"><font color="#CCF">Special Variables</font></a></h4><br>
+
+            <p>
+                The variables that changes the color of bars showing enemy's HP are renamed:
+                <ul>
+                    <li><span class="term">minibgcolor</span> &nbsp;-&gt;&nbsp; <span class="term">menubgbarcolor</span></li>
+                    <li><span class="term">bgcolor</span> &nbsp;-&gt;&nbsp; <span class="term">bgbarcolor</span></li>
+                    <li><span class="term">fillcolor</span> &nbsp;-&gt;&nbsp; <span class="term">menufillbarcolor</span> and <span class="term">fillbarcolor</span></li>
+                </ul>
+                Since v0.5.3, you can set each color of each bar by using <span class="term">menufillbarcolor</span> and <span class="term">fillbarcolor</span>.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+minibgcolor = {127, 127, 127}
+
+bgcolor = {255, 0, 0}
+
+fillcolor = {0, 192, 0}
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+menubgbarcolor = {127, 127, 127}
+
+bgbarcolor = {255, 0, 0}
+
+menufillbarcolor = {0, 192, 0}
+fillbarcolor = {0, 192, 0}
+</pre>
+                </div>
+            </p><br><br>
+
+            <h4 id="053GameEvent"><a href="../pages/api-events.html"><font color="#CCF">Game Events</font></a></h4><br>
+
+            <p>
+                <span class="term">OnHPChanged()</span> is removed.<br>
+                The text showing the Player's HP does not reset color when the text is changed.
+            </p><br><br>
+
+            <h4 id="053Text"><a href="../pages/cyf-text.html"><font color="#CCF">The Text Object</font></a></h4><br>
+
+            <p>
+                Below functions are no longer experimental features:
+                <ul>
+                    <li><span class="term">Text.SetSoundVolume()</span></li>
+                    <li><span class="term">Text.GetSoundVolume()</span></li>
+                </ul>
+                The functions are deleted and use below instead of those:<br>
+                <ul>
+                    <li><span class="term">Text.SetSoundMute()</span> &nbsp;-&gt;&nbsp; <span class="term">Text.SetSoundVolume()</span></li>
+                    <li><span class="term">Text.GetSoundMute()</span> &nbsp;-&gt;&nbsp; <span class="term">Text.GetSoundVolume()</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+text.SetSoundMute(true)
+
+if text.GetSoundMute() then
+end
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+text.SetSoundVolume(0)
+
+if text.GetSoundVolume() == 0 then
+end
+</pre>
+                </div>
+            </p><br><br>
+
             <h4 id="053PlayerUtil"><a href="api-playerutil.html"><font color="#CCF">The PlayerUtil Object</font></a></h4><br>
 
             <p>
-                The functions of moving all UI's parent object is renamed:<br>
+                The functions of moving all UI's parent object are renamed:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.UIMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Move()</span></li>
                     <li><span class="term">PlayerUtil.UIMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.MoveTo()</span></li>
@@ -194,12 +273,13 @@ end
 </pre>
                 </div>
                 <br><br>
-                The functions of moving the texts showing name and love is renamed:<br>
+
+                The functions of moving the texts showing name and love are renamed:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.NameUIMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Name.Move()</span> and <span class="term">PlayerUtil.Love.Move()</span></li>
                     <li><span class="term">PlayerUtil.NameUIMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Name.MoveTo()</span> and <span class="term">PlayerUtil.Love.MoveTo()</span></li>
                 </ul>
-                Below variables getting position is added instead of <span>PlayerUtil.GetNameUIPosition()</span>:<br>
+                Below variables getting position are added instead of <span>PlayerUtil.GetNameUIPosition()</span>:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.Name.x</span></li>
                     <li><span class="term">PlayerUtil.Name.y</span></li>
@@ -239,17 +319,12 @@ end
 </pre>
                 </div>
                 <br><br>
+
                 Use variable of static text if the texts showing name and love wanna be colored:<br>
                 <ul>
                     <li><span class="term">PlayerUtil.SetNameColor()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Name.color</span></li>
-                </ul>
-                <ul>
                     <li><span class="term">PlayerUtil.SetNameColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Name.color32</span></li>
-                </ul>
-                <ul>
                     <li><span class="term">PlayerUtil.SetLVColor()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Love.color</span></li>
-                </ul>
-                <ul>
                     <li><span class="term">PlayerUtil.SetLVColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.Love.color32</span></li>
                 </ul>
                 If you wanna change that alpha, 
@@ -273,38 +348,325 @@ PlayerUtil.Love.color32 = {0, 192, 0}
 </pre>
                 </div>
                 <br><br>
-                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+                The functions of moving HP's UI's parent object are renamed:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.HPUIMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPMove()</span></li>
+                    <li><span class="term">PlayerUtil.HPUIMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPMoveTo()</span></li>
+                </ul>
+                Below variables getting position are added instead of <span>PlayerUtil.GetHPUIPosition()</span>:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.hpx</span></li>
+                    <li><span class="term">PlayerUtil.hpy</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPUIMove(-22, 48)
+PlayerUtil.HPUIMoveTo(14, -17)
+local pos = PlayerUtil.GetHPUIPosition()
+if pos[1] == 27 or pos[2] == 37 then
+end
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPMove(-22, 48)
+PlayerUtil.HPMoveTo(14, -17) -- or  PlayerUtil.hpx = 14  PlayerUtil.hpy = -17
+if PlayerUtil.hpx == 27 or PlayerUtil.hpy == 37 then
+end
+</pre>
+                </div>
+                <br><br>
+
+                Use variable of sprite object if the labels written "HP" wanna be colored:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.SetHPLabelColor()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPLabel.color</span></li>
+                    <li><span class="term">PlayerUtil.SetHPLabelColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPLabel.color32</span></li>
+                </ul>
+                If you wanna change that alpha, 
+                use <span class="term">sprite.alpha</span> or <span class="term">sprite.alpha32</span>.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.SetHPLabelColor(0.26, 0.89, 1)
+PlayerUtil.SetNameColor32(0, 60, 255)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPLabel.color = {0.26, 0.89, 1}
+PlayerUtil.HPLabel.color32 = {0, 60, 255}
+</pre>
+                </div>
+                <br><br>
+
+                Use variable of life bar if the length of the bar showing the Player's HP wanna be changed:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.SetHPBarLength()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPBar.maxhp</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.SetHPBarLength(85)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPBar.maxhp = 85
+</pre>
+                </div>
+                <br><br>
+
+                Use variable of life bar if the bar showing the Player's HP wanna be colored:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.SetHPBarBGColor()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPBar.bgcolor</span></li>
+                    <li><span class="term">PlayerUtil.SetHPBarBGColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPBar.bgcolor32</span></li>
+                    <li><span class="term">PlayerUtil.SetHPBarFillColor()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPBar.fillcolor</span></li>
+                    <li><span class="term">PlayerUtil.SetHPBarFillColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPBar.fillcolor32</span></li>
+                </ul>
+                If you wanna change that alpha, 
+                use <span class="term">LifeBar.bgalpha</span>, <span class="term">LifeBar.bgalpha32</span>, 
+                <span class="term">LifeBar.fillalpha</span> or <span class="term">LifeBar.fillalpha32</span>.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.SetHPBarBGColor(0.84, 0.21, 0.85)
+PlayerUtil.SetHPBarBGColor32(0, 162, 232)
+PlayerUtil.SetHPBarFillColor(0, 0, 0)
+PlayerUtil.SetHPBarFillColor32(127, 127, 127)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPBar.bgcolor = {0.84, 0.21, 0.85}
+PlayerUtil.HPBar.bgcolor32 = {0, 162, 232}
+PlayerUtil.HPBar.fillcolor = {0, 0, 0}
+PlayerUtil.HPBar.fillcolor32 = {127, 127, 127}
+</pre>
+                </div>
+                <br><br>
+
+                Use variable of static text if the text showing the Player's HP wanna be moved:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.HPTextMove()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.Move()</span></li>
+                    <li><span class="term">PlayerUtil.HPTextMoveTo()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.MoveTo()</span></li>
+                </ul>
+                Use below variables getting position instead of <span>PlayerUtil.GetHPTextPosition()</span>:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.HPText.x</span></li>
+                    <li><span class="term">PlayerUtil.HPText.y</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPTextMove(-22, -91)
+PlayerUtil.HPTextMoveTo(87, 62)
+local pos = PlayerUtil.GetHPTextPosition()
+if pos[1] == 1 or pos[2] == -102 then
+end
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPText.Move(-22, -91)
+PlayerUtil.HPText.MoveTo(87, 62) -- or  PlayerUtil.HPText.x = 87  PlayerUtil.HPText.y = 62
+if PlayerUtil.HPText.x == 1 or PlayerUtil.HPText.y == -102 then
+end
+</pre>
+                </div>
+                <br><br>
+
+                Use the function of static text if the text showing the Player's HP wanna be changed:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.SetHPText()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.SetText()</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.SetHPText("1 / 1")
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPText.SetText("1 / 1")
+</pre>
+                </div>
+                <br><br>
+
+                Use variables of static text if the text showing the Player's HP wanna be colored:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.SetHPTextColor()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.color</span></li>
+                    <li><span class="term">PlayerUtil.SetHPTextColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">PlayerUtil.HPText.color32</span></li>
+                </ul>
+                If you wanna change that alpha, 
+                use <span class="term">StaticText.alpha</span> or <span class="term">StaticText.alpha32</span>.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.SetHPTextColor(1, 1, 1)
+PlayerUtil.SetHPTextColor32(192, 192, 192)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+PlayerUtil.HPText.color = {1, 1, 1}
+PlayerUtil.HPText.color32 = {192, 192, 192}
+</pre>
+                </div>
+                <br><br>
+
+                Below the type of function's argument is changed:<br>
+                <ul>
+                    <li><span class="term">PlayerUtil.CreateLifeBar()</span> &nbsp;(<span class="boolean"></span> &nbsp;-&gt;&nbsp; <span class="string"></span>)</li>
+                </ul>
+                Since v0.5.3, sprite layer can be used on The LifeBar Object. 
+                See <a href="api-playerutil.html#LifeBar">The LifeBar Object</a> for more info.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+bar1 = PlayerUtil.CreateLifeBar()
+bar2 = PlayerUtil.CreateLifeBar(false)
+bar3 = PlayerUtil.CreateLifeBar(true)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+bar1 = PlayerUtil.CreateLifeBar()
+bar2 = PlayerUtil.CreateLifeBar("AboveHPBar")
+bar3 = PlayerUtil.CreateLifeBar("BelowHPBar")
+</pre>
+                </div>
             </p><br><br>
 
             <h4><a href="api-playerutil.html#LifeBar"><font color="#CCF">The LifeBar Object</font></a></h4><br>
 
             <p>
+                Below variables are renamed:
                 <ul>
-                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                    <li><span class="term">lifeBar.value</span> &nbsp;-&gt;&nbsp; <span class="term">lifeBar.hp</span></li>
+                    <li><span class="term">lifeBar.length</span> &nbsp;-&gt;&nbsp; <span class="term">lifeBar.maxhp</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+bar.length = 35
+bar.value = 24
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+bar.maxhp = 35
+bar.hp = 24
+</pre>
+                </div>
+                <br><br>
+                Use below parameters instead of <span class="term">lifeBar.SetValue()</span> and <span class="term">lifeBar.SetLength()</span>.
+                <ul>
+                    <li><span class="term">lifeBar.limited</span></li>
+                    <li><span class="term">lifeBar.hp</span></li>
+                    <li><span class="term">lifeBar.maxhp</span></li>
+                    <li><span class="term">lifeBar.SetHP()</span></li>
+                </ul>
+                <br><br>
+                Use variable of life bar if the bars wanna be colored:<br>
+                <ul>
+                    <li><span class="term">lifeBar.SetBackgroundColor()</span> &nbsp;-&gt;&nbsp; <span class="term">lifeBar.bgcolor</span></li>
+                    <li><span class="term">lifeBar.SetBackgroundColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">lifeBar.bgcolor32</span></li>
+                    <li><span class="term">lifeBar.SetFillColor()</span> &nbsp;-&gt;&nbsp; <span class="term">lifeBar.fillcolor</span></li>
+                    <li><span class="term">lifeBar.SetFillColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">lifeBar.fillcolor32</span></li>
+                </ul>
+                If you wanna change that alpha, 
+                use <span class="term">lifeBar.bgalpha</span>, <span class="term">lifeBar.bgalpha32</span>, 
+                <span class="term">lifeBar.fillalpha</span> or <span class="term">lifeBar.fillalpha32</span>.<br>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+lifeBar.SetBackgroundColor(0.7, 0, 0)
+lifeBar.SetBackgroundColor32(255, 64, 64)
+lifeBar.SetFillColor(0, 0.5, 1)
+lifeBar.SetFillColor32(0, 64, 255)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+lifeBar.bgcolor = {0.7, 0, 0}
+lifeBar.bgcolor32 = {255, 64, 64}
+lifeBar.fillcolor = {0, 0.5, 1}
+lifeBar.fillcolor32 = {0, 64, 255}
+</pre>
+                </div>
+            </p><br><br>
+
+            <h4 id="053ButtonUtil"><a href="api-buttonutil.html"><font color="#CCF">The ButtonUtil Object</font></a></h4><br>
+
+            <p>
+                Below funtion is renamed:
+                <ul>
+                    <li><span class="term">ButtonUtil.RevertAll()</span> &nbsp;-&gt;&nbsp; <span class="term">ButtonUtil.Revert()</span></li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+ButtonUtil.RevertAll()
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+ButtonUtil.Revert(true, false)
+</pre>
+                </div>
+            </p><br><br>
+
+            <h4 id="053Button"><a href="api-buttonutil.html#Button"><font color="#CCF">The Button Object</font></a></h4><br>
+
+            <p>
+                The feature of the below function is changed into the variables.
+                <ul>
+                    <li><span class="term">button.GetActive()</span> &nbsp;-&gt;&nbsp; <span class="term">button.isactive</span></li>
+                    <li><span class="term">button.SetColor()</span> &nbsp;-&gt;&nbsp; <span class="term">button.color</span> (and <span class="term">button.alpha</span>)</li>
+                    <li><span class="term">button.SetColor32()</span> &nbsp;-&gt;&nbsp; <span class="term">button.color32</span> (and <span class="term">button.alpha32</span>)</li>
+                </ul>
+                From
+                <div class="code-container">
+<pre class="brush: lua;">
+if not button.GetActive() then return end
+button.SetColor(0.5, 0.5, 0)
+button.SetColor32(252, 127, 0)
+</pre>
+                </div>
+                To
+                <div class="code-container">
+<pre class="brush: lua;">
+if not button.isactive then return end
+button.color = {0.5, 0.5, 0}
+button.color32 = {252, 127, 0}
+</pre>
+                </div>
+                <br><br>
+                <br><br>
+                Below function is no longer experimental features:
+                <ul>
+                    <li><span class="term">button.Scale()</span></li>
                 </ul>
             </p><br><br>
 
-            <h4><a href="api-buttonutil.html"><font color="#CCF">The ButtonUtil Object</font></a></h4><br>
+            <h4 id="053ArenaUtil"><a href="api-playerutil.html"><font color="#CCF">The ArenaUtil Object</font></a></h4><br>
 
             <p>
                 <ul>
-                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
-                </ul>
-            </p><br><br>
-
-            <h4><a href="api-buttonutil.html#Button"><font color="#CCF">The Button Object</font></a></h4><br>
-
-            <p>
-                <ul>
-                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
-                </ul>
-            </p><br><br>
-
-            <h4><a href="api-playerutil.html"><font color="#CCF">The ArenaUtil Object</font></a></h4><br>
-
-            <p>
-                <ul>
-                    <li><span class="term"></span> &nbsp;-&gt;&nbsp; <span class="term"></span></li>
+                    <li><span class="term">ArenaUtil.</span> &nbsp;-&gt;&nbsp; <span class="term">ArenaUtil.</span></li>
                 </ul>
             </p><br><br>
 

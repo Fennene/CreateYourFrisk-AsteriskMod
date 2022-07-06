@@ -727,7 +727,7 @@ namespace AsteriskMod
                 {
                     selectedItem = tempCount;
                     StaticInits.ENCOUNTER = filename;
-                    CurrentSelectedEncounter = selectedItem;
+                    CurrentSelectedEncounter = selectedItem - 1;
                     StartCoroutine(LaunchMod());
                 });
             }

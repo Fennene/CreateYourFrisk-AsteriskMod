@@ -359,7 +359,7 @@ it's w3c valid, at least
             <h4><span class="Future"></span> v0.5.3.2? ~ v0.5.3.4 [GameobjectModifyingSystemUpdate...?]</h4>
             <br>
 
-            <h4><span class="Future"></span> v0.5.3.1? [EngineModifyingScriptUpdate...?]</h4>
+            <h4><span class="Future"></span> v0.5.3.1? [GlobalScriptUpdate...?]</h4>
             <br>
 
             <h4>v0.5.3 [TakeNewStepUpdate]</h4>
@@ -376,6 +376,9 @@ it's w3c valid, at least
                         Fix the issue that 
                         the error has not occurred if the sprites are missed 
                         on <span class="term">ButtonUtil.SetSprites()</span> and <span class="term">button.SetSprite()</span>.
+                    </li>
+                    <li class="fix">
+                        <span class="asternew"></span> <font color="#FF0">Fix the issue that <span class="term">StaticText.DestroyText()</span> destroys sprite layers.</font>
                     </li>
                     <li class="modify">
                         More UNDERTALE-ish.
@@ -446,6 +449,12 @@ it's w3c valid, at least
                             <li>Add the variable <span class="term">Bullet.velocityy</span>.</li>
                         </ul>
                     </li>
+                    <li class="modify">
+                        Modify <span class="term">The Sprite Object</span>
+                        <ul>
+                            <li><span class="asternew"></span> Gets to try to remove projectile of sprites' children on <span class="term">Sprite.Remove()</span>.</li>
+                        </ul>
+                    </li>
                     <li>
                         Add the functions to <span class="term">The Text Object</span><br>
                         <ul>
@@ -508,6 +517,7 @@ it's w3c valid, at least
                             <li class="add">Add the function <span class="term">PlayerUtil.ResetTargetChoiceAnim()</span>.</li>
                             <li class="add">Add the function <span class="term">PlayerUtil.GetTargetChoiceX()</span>.</li>
                             <li class="add">Add the function <span class="term">PlayerUtil.SimulateDamage()</span>.</li>
+                            <li><span class="asternew"></span> The default argument of <span class="term">PlayerUtil.CreateLifeBar()</span> is <span class="term">"AboveHPBar"</span>.</li>
                         </ul>
                     </li>
                     <li class="modify">

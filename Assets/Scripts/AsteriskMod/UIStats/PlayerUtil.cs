@@ -226,7 +226,7 @@ namespace AsteriskMod
             return UIController.instance.fightUI.SimulateDamage(playerATK, playerWeaponATK, enemyDEF, targetChoiceX, randomValue);
         }
 
-        public PlayerLifeBar CreateLifeBar(string layer = "BelowHPBar")
+        public PlayerLifeBar CreateLifeBar(string layer = "AboveHPBar")
         {
             string layerName = layer;
             string prefabName;
