@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace AsteriskMod
 {
@@ -32,7 +30,7 @@ namespace AsteriskMod
             Font = _modInfo.ScreenFont;
             Title = _dir.Name;
             SubTitle = null;
-            Description = _modInfo.Description;
+            Description = _modInfo.Description ?? "";
 
             if (RealEncounters.Length == 1)
             {
@@ -47,7 +45,7 @@ namespace AsteriskMod
                 {
                     string fileName = RealEncounters[i];
                     string showName = fileName;
-                    if (i < _modInfo.EncounterNames.Length && !string.IsNullOrEmpty(_modInfo.EncounterNames[i]))
+                    if (_modInfo.EncounterNames != null && i < _modInfo.EncounterNames.Length && !string.IsNullOrEmpty(_modInfo.EncounterNames[i]))
                     {
                         showName = _modInfo.EncounterNames[i];
                     }
@@ -66,7 +64,7 @@ namespace AsteriskMod
                 EncounterIndexes = encounterIndexesTemp.ToArray();
             }
 
-            if (Asterisk.alwaysShowDesc)
+            if (Asterisk.displayModInfo)
             {
                 if (!string.IsNullOrEmpty(_modInfo.TitleOverride))    Title = _modInfo.TitleOverride;
                 if (!string.IsNullOrEmpty(_modInfo.SubtitleOverride)) SubTitle = _modInfo.SubtitleOverride;
@@ -140,7 +138,7 @@ namespace AsteriskMod
             Font = _modInfo.ScreenFont;
             Title = _dir.Name;
             SubTitle = null;
-            Description = _modInfo.Description;
+            Description = _modInfo.Description ?? "";
 
             if (RealEncounters.Length == 1)
             {
@@ -155,7 +153,7 @@ namespace AsteriskMod
                 {
                     string fileName = RealEncounters[i];
                     string showName = fileName;
-                    if (i < _modInfo.EncounterNames.Length && !string.IsNullOrEmpty(_modInfo.EncounterNames[i]))
+                    if (_modInfo.EncounterNames != null && i < _modInfo.EncounterNames.Length && !string.IsNullOrEmpty(_modInfo.EncounterNames[i]))
                     {
                         showName = _modInfo.EncounterNames[i];
                     }
@@ -174,7 +172,7 @@ namespace AsteriskMod
                 EncounterIndexes = encounterIndexesTemp.ToArray();
             }
 
-            if (Asterisk.alwaysShowDesc)
+            if (Asterisk.displayModInfo)
             {
                 if (!string.IsNullOrEmpty(_modInfo.TitleOverride))    Title = _modInfo.TitleOverride;
                 if (!string.IsNullOrEmpty(_modInfo.SubtitleOverride)) SubTitle = _modInfo.SubtitleOverride;
@@ -242,7 +240,7 @@ namespace AsteriskMod
                 {
                     string fileName = RealEncounters[i];
                     string showName = fileName;
-                    if (i < _modInfo.EncounterNames.Length && !string.IsNullOrEmpty(_modInfo.EncounterNames[i]))
+                    if (_modInfo.EncounterNames != null && i < _modInfo.EncounterNames.Length && !string.IsNullOrEmpty(_modInfo.EncounterNames[i]))
                     {
                         showName = _modInfo.EncounterNames[i];
                     }
@@ -261,7 +259,7 @@ namespace AsteriskMod
                 EncounterIndexes = encounterIndexesTemp.ToArray();
             }
 
-            if (Asterisk.alwaysShowDesc)
+            if (Asterisk.displayModInfo)
             {
                 if (!string.IsNullOrEmpty(_modInfo.SubtitleOverride)) SubTitle = _modInfo.SubtitleOverride;
             }

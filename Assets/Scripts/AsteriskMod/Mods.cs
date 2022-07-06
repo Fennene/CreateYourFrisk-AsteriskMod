@@ -1,10 +1,7 @@
-﻿using System;
+﻿using MoonSharp.Interpreter;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace AsteriskMod
 {
@@ -47,6 +44,16 @@ namespace AsteriskMod
                     mods.Add(realMods[i]);
                 }
             }
+            if (mods.Count <= 0)
+            {
+                Asterisk.TargetModPack = -1;
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(Asterisk.TargetModPack), true);
+                mods = new List<Mod>(realMods.Count);
+                for (var i = 0; i < realMods.Count; i++)
+                {
+                    mods.Add(realMods[i]);
+                }
+            }
             return mods.Count > 0;
         }
 
@@ -54,14 +61,24 @@ namespace AsteriskMod
         {
             modPacks = ModPack.GetModPacks(true);
 
+            /*
             string _ = "Load ModPacks\n";
             for (var i = 0; i < modPacks.Length; i++)
             {
                 _ += "\n" + modPacks[i].FileName;
             }
             UnityEngine.Debug.Log(_);
+            */
 
-            if (Asterisk.TargetModPack < -1 || Asterisk.TargetModPack >= modPacks.Length) Asterisk.TargetModPack = -1;
+            if (Asterisk.TargetModPack < -1 || Asterisk.TargetModPack >= modPacks.Length)
+            {
+                Asterisk.TargetModPack = -1;
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(Asterisk.TargetModPack), true);
+            }
         }
+
+        public static int FindIndex(string modDirName) { return mods.FindIndex(mod => mod.RealName == modDirName); }
+
+        public static int FindModPackIndex(string modPackName) { return modPacks.ToList().FindIndex(modPack => modPack.FileName == modPackName); }
     }
 }

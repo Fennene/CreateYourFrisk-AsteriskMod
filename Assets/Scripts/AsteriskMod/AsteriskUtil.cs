@@ -292,6 +292,18 @@ namespace AsteriskMod
             return false;
         }
 
+        public static bool PathExists(string fullPath, out string errorMessage)
+        {
+            errorMessage = "";
+            //string parentDir = Path.GetDirectoryName(path);
+            if (File.Exists(fullPath) || Directory.Exists(fullPath))
+            {
+                errorMessage = EngineLang.Get("InvalidPathMessage", "Duplication");
+                return true;
+            }
+            return false;
+        }
+
 
         public static void ThrowFakeNonexistentFunctionError(string className, string functionName)
         {

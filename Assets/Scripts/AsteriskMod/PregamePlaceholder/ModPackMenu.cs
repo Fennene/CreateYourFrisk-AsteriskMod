@@ -1,6 +1,6 @@
 ﻿using AsteriskMod.UnityUI;
+using MoonSharp.Interpreter;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,8 +10,7 @@ namespace AsteriskMod
 {
     internal class ModPackMenu : MonoBehaviour
     {
-        private static List<DirectoryInfo> modDirs;
-        private static List<LegacyModInfo> modInfos;
+        public static ModPackMenu Instance;
 
         public Text description;
 
@@ -29,19 +28,17 @@ namespace AsteriskMod
         
         public ModPackWindow window;
 
+        private void Awake() { Instance = this; }
+
         private void Start()
         {
-            DirectoryInfo di = new DirectoryInfo(Path.Combine(FileLoader.DataRoot, "Mods"));
-            var modDirsTemp = di.GetDirectories();
-            List<DirectoryInfo> purged = (from modDir in modDirsTemp
-                                          where new DirectoryInfo(Path.Combine(FileLoader.DataRoot, "Mods/" + modDir.Name + "/Lua/Encounters")).Exists
-                                          let hasEncounters = new DirectoryInfo(Path.Combine(FileLoader.DataRoot, "Mods/" + modDir.Name + "/Lua/Encounters")).GetFiles("*.lua").Any()
-                                          where hasEncounters && (modDir.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden && !modDir.Name.StartsWith("@")
-                                          select modDir).ToList();
-            modDirs = purged;
-            modDirs.Sort((a, b) => a.Name.CompareTo(b.Name));
-            modInfos = new List<LegacyModInfo>();
-            for (var i = 0; i < modDirs.Count; i++) modInfos.Add(LegacyModInfo.Get(modDirs[i].Name));
+            Mods.Reset();
+            
+            if (Asterisk.TargetModPack < -1 || Asterisk.TargetModPack >= Mods.modPacks.Length)
+            {
+                Asterisk.TargetModPack = -1;
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(Asterisk.TargetModPack), true);
+            }
 
             description.text = EngineLang.Get("ModPack", "Description");
 
@@ -50,43 +47,71 @@ namespace AsteriskMod
 
             toggles = new List<Toggle>(0);
 
-            ButtonCover.enabled = false;
-
             Reload.onClick.SetListener(() =>
             {
-                Asterisk.ModPackDatas = ModPack.GetModPacks();
+                Mods.LoadModPacks();
                 Asterisk.TargetModPack = -1;
-                UpdateSelecter();
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(Asterisk.TargetModPack), true);
+                UpdateSelecter(-1);
             });
-            Exit.onClick.SetListener(() => SceneManager.LoadScene("ModSelect"));
+            Exit.onClick.SetListener(() => SceneManager.LoadScene("AlternativeModSelect"));
 
             ModPackSelecter.onValueChanged.SetListener((value) =>
             {
                 Asterisk.TargetModPack = value - 1;
                 if (value == 0)
                 {
+                    LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(-1), true);
+                    ButtonCover.enabled = true;
                     RemoveToggles();
                     return;
                 }
                 if (value >= ModPackSelecter.options.Count - 1)
                 {
-                    Asterisk.TargetModPack = -1;
-                    //window.Title = "";
+                    window.ResetWindow();
                     window.StartAnimation();
                     return;
                 }
+                LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(Asterisk.TargetModPack), true);
+                ButtonCover.enabled = false;
                 ShowModPack();
             });
             ModPackSelecter.value = Asterisk.TargetModPack + 1;
+
+            Save.onClick.SetListener(() =>
+            {
+                if (Asterisk.TargetModPack == -1) return;
+                List<string> mods = new List<string>();
+                for (var i = 0; i < toggles.Count; i++)
+                {
+                    if (toggles[i].isOn) mods.Add(Mods.realMods[i].RealName);
+                }
+                if (mods.Count <= 0) return;
+                Mods.modPacks[Asterisk.TargetModPack].SaveToFile(mods.ToArray());
+            });
+            Revert.onClick.SetListener(() =>
+            {
+                if (Asterisk.TargetModPack == -1) return;
+                for (var i = 0; i < toggles.Count; i++)
+                {
+                    toggles[i].GetComponent<Toggle>().isOn = Mods.modPacks[Asterisk.TargetModPack].ShowingMods.Contains(Mods.realMods[i].RealName);
+                }
+            });
+            Delete.onClick.SetListener(() =>
+            {
+                if (Asterisk.TargetModPack == -1) return;
+                Mods.modPacks[Asterisk.TargetModPack].DeleteFile();
+                Reload.onClick.Invoke();
+            });
         }
 
         private void UpdateSelecter(int value = -2)
         {
             ModPackSelecter.options = new List<Dropdown.OptionData>();
             ModPackSelecter.options.Add(new Dropdown.OptionData { text = EngineLang.Get("ModPack", "SelecterOptionNoSelect") });
-            for (var i = 0; i < Asterisk.ModPackDatas.Length; i++)
+            for (var i = 0; i < Mods.modPacks.Length; i++)
             {
-                ModPackSelecter.options.Add(new Dropdown.OptionData { text = Asterisk.ModPackDatas[i].FileName });
+                ModPackSelecter.options.Add(new Dropdown.OptionData { text = Mods.modPacks[i].FileName });
             }
             ModPackSelecter.options.Add(new Dropdown.OptionData { text = EngineLang.Get("ModPack", "SelecterOptionCreate") });
             ModPackSelecter.RefreshShownValue();
@@ -95,21 +120,20 @@ namespace AsteriskMod
 
         private void ShowModPack()
         {
-            toggles = new List<Toggle>(modDirs.Count);
-            for (var i = 0; i < modDirs.Count; i++)
+            toggles = new List<Toggle>(Mods.realMods.Count);
+            for (var i = 0; i < Mods.realMods.Count; i++)
             {
                 GameObject toggle = Instantiate(TemplateToogle);
 
-                toggle.transform.parent = ToggleParent.transform;
+                //toggle.transform.parent = ToggleParent.transform;
+                toggle.transform.SetParent(ToggleParent.transform);
                 toggle.name = "ModName";
 
                 toggle.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 80 - i * 30);
 
-                string text = modDirs[i].Name;
-                if (modInfos[i].title != "" && Asterisk.displayModInfo) text = modInfos[i].title;
-                toggle.transform.Find("Label").GetComponent<Text>().text = text;
+                toggle.transform.Find("Label").GetComponent<Text>().text = Mods.realMods[i].Title;
 
-                toggle.GetComponent<Toggle>().isOn = Asterisk.ModPackDatas[Asterisk.TargetModPack].ShowingMods.Contains(modDirs[i].Name);
+                toggle.GetComponent<Toggle>().isOn = Mods.modPacks[Asterisk.TargetModPack].ShowingMods.Contains(Mods.realMods[i].RealName);
 
                 toggle.SetActive(true);
 
@@ -119,8 +143,26 @@ namespace AsteriskMod
 
         private void RemoveToggles()
         {
-            for (var i = 0; i < toggles.Count; i++) Destroy(toggles[i]);
+            for (var i = 0; i < toggles.Count; i++) Destroy(toggles[i].gameObject);
             toggles = new List<Toggle>(0);
+        }
+
+        public void ReloadModPack()
+        {
+            Mods.LoadModPacks();
+            UpdateSelecter();
+        }
+
+        public void SetSelecterIndex(int index = -1)
+        {
+            if (Asterisk.TargetModPack < -1 || Asterisk.TargetModPack >= Mods.modPacks.Length)
+            {
+                index = -1;
+            }
+            //Asterisk.TargetModPack = index;
+            //LuaScriptBinder.SetAlMighty(null, Asterisk.OPTION_MODPACK, DynValue.NewNumber(Asterisk.TargetModPack), true);
+            //ModPackSelecter.value = Asterisk.TargetModPack + 1;
+            ModPackSelecter.value = index + 1;
         }
     }
 }

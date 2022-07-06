@@ -20,7 +20,7 @@ namespace AsteriskMod.UnityUI
         private GameObject _child_text;
         private Image _child_image_image;
 
-        private InputField.OnChangeEvent _onValueChangedfromScript;
+        private InputField.OnChangeEvent _onValueChangedfromScript = new InputField.OnChangeEvent();
 
         private void Reset()
         {
@@ -154,18 +154,6 @@ namespace AsteriskMod.UnityUI
         {
             get { return _onValueChangedfromScript; }
             set { _onValueChangedfromScript = value; }
-        }
-
-        internal void SetOnValueChangedListener(UnityAction<string> call)
-        {
-            _inputField.onValueChanged.RemoveAllListeners();
-            _inputField.onValueChanged.AddListener(call);
-        }
-
-        internal void SetOnEndEditListener(UnityAction<string> call)
-        {
-            _inputField.onEndEdit.RemoveAllListeners();
-            _inputField.onEndEdit.AddListener(call);
         }
 
         /*

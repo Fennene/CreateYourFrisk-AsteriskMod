@@ -27,6 +27,15 @@ namespace AsteriskMod
 
         private static int selectedItem;                // Used to let users navigate the mod and encounter menus with the arrow keys!
 
+        public static bool openOptionWindow;
+        private Button.ButtonClickedEvent events;
+        private string[] CantOpenMHT = new string[] {
+            "@0.5.0_SEE_CRATE", "@OverWorld Test", "@Title",
+            "Encounter Skeleton", "Examples", "Examples 2", "RTLGeno",
+            "Encounter Skeleton (Asterisk Mod)",
+            "Asterisk Mod Features", "Asterisk Mod Features 2", "Asterisk Mod Features 3"
+        };
+
         public GameObject encounterBox, devMod, content;
         public GameObject btnList, btnBack, btnNext, btnExit, btnOptions;
         public Text ListText, ListShadow, BackText, BackShadow, NextText, NextShadow, ExitText, ExitShadow, OptionsText, OptionsShadow;
@@ -37,6 +46,10 @@ namespace AsteriskMod
         public GameObject AnimModDescShadow, AnimModDesc;
         public GameObject ENLabelShadow, ENLabel, JPLabelShadow, JPLabel, RetroWarningTextShadow, RetroWarningText;
         public GameObject NoEncounterLabelShadow, NoEncounterLabel;
+
+        public GameObject optionSelectWindow;
+        public GameObject modPackMan, newMod, moddingHelper, cyfOption, asteriskOption;
+        public GameObject descName, descDesc;
 
         private void Start()
         {
@@ -53,6 +66,11 @@ namespace AsteriskMod
                     + "Remember:\n1. Mods whose names start with \"@\" do not count\n2. Folders without encounter files do not count");
                 return;
             }
+
+            ExistDescInfoShadow.GetComponent<Text>().text = EngineLang.Get("ModSelect", "DescVisible");
+            ExistDescInfo      .GetComponent<Text>().text = EngineLang.Get("ModSelect", "DescVisible");
+            NoEncounterLabelShadow.GetComponent<Text>().text = EngineLang.Get("ModSelect", "NoEncounter");
+            NoEncounterLabel      .GetComponent<Text>().text = EngineLang.Get("ModSelect", "NoEncounter");
 
             // Bind button functions
             btnBack.GetComponent<Button>().onClick.SetListener(() =>
@@ -76,12 +94,19 @@ namespace AsteriskMod
             // Grab the exit button, and give it some functions
             btnExit.GetComponent<Button>().onClick.SetListener(() =>
             {
+                openOptionWindow = false;
                 SceneManager.LoadScene("Disclaimer");
                 DiscordControls.StartTitle();
             });
 
             // Add devMod button functions
-            if (GlobalControls.modDev) btnOptions.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("Options"));
+            if (GlobalControls.modDev) btnOptions.GetComponent<Button>().onClick.SetListener(() => ToggleOptionSelectWindow());
+
+            modPackMan.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("ModPack"));
+            //newMod.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("NewMod"));
+            moddingHelper.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("MHTMenu"));
+            cyfOption.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("Options"));
+            asteriskOption.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("AsteriskOptions"));
 
             // Crate Your Frisk initializer
             if (GlobalControls.crate)
@@ -155,7 +180,12 @@ namespace AsteriskMod
                 encounterListScroll = 0.0f;
             }
 
-            SelectOMaticOptionManager.instance.StartAlt(this);
+            optionSelectWindow.SetActive(false);
+            if (openOptionWindow)
+            {
+                openOptionWindow = false;
+                ToggleOptionSelectWindow();
+            }
         }
 
         // A special function used specifically for error handling
@@ -178,8 +208,10 @@ namespace AsteriskMod
                 yield break;
             }
 
+            // Mods.mods[CurrentSelectedMod].ReloadModInfo();
+
             // Dim the background to indicate loading
-            ModBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.1875f);
+            ModBackground.GetComponent<Image>().color = Mods.mods[CurrentSelectedMod].RawInfoData.LaunchingBackgroundColor;
 
             // Store the current position of the scrolly bit
             encounterListScroll = content.GetComponent<RectTransform>().anchoredPosition.y;
@@ -361,8 +393,18 @@ namespace AsteriskMod
                 JPLabel      .GetComponent<Text>().color = new Color32(64, 64, 64, 255);
             }
 
-            DevelopHint.ToDo();
-            SelectOMaticOptionManager.instance.ShowMod(Mods.mods[id].RealName, Mods.mods[id].RealEncounters[0]);
+            ModdingHelperTools.FakeStaticInits.MODFOLDER = Mods.mods[CurrentSelectedMod].RealName;
+            ModdingHelperTools.FakeStaticInits.ENCOUNTER = Mods.mods[CurrentSelectedMod].RealEncounters[0];
+            if (CantOpenMHT.Contains(ModdingHelperTools.FakeStaticInits.MODFOLDER))
+            {
+                moddingHelper.GetComponentInChildren<Text>().color = Color.gray;
+                moddingHelper.GetComponent<Button>().onClick.RemoveAllListeners();
+            }
+            else
+            {
+                moddingHelper.GetComponentInChildren<Text>().color = Color.white;
+                moddingHelper.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("MHTMenu"));
+            }
         }
 
         // Goes to the next or previous mod with a little scrolling animation.
@@ -476,12 +518,11 @@ namespace AsteriskMod
                 }
             }
 
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            DevelopHint.ToDo();
-            if (SelectOMaticOptionManager.opened) return;
-            // --------------------------------------------------------------------------------
+            if (openOptionWindow)
+            {
+                UpdateOptionWindow();
+                return;
+            }
 
             // Controls:
 
@@ -521,16 +562,12 @@ namespace AsteriskMod
                     else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
                         ModBackground.GetComponent<Button>().onClick.Invoke();
                     //content.transform.GetChild(selectedItem).GetComponent<MenuButton>().StartAnimation(1);
-                    // --------------------------------------------------------------------------------
-                    //                          Asterisk Mod Modification
-                    // --------------------------------------------------------------------------------
                     // Show/Hide Description
                     if (Input.GetKeyDown(KeyCode.V))
                     {
                         ModDesc.SetActive(!ModDesc.activeSelf);
                         ModDescShadow.SetActive(!ModDescShadow.activeSelf);
                     }
-                    // --------------------------------------------------------------------------------
                 }
 
                 // Return to the Disclaimer screen
@@ -632,8 +669,7 @@ namespace AsteriskMod
             selectedItem = 0;
 
             // Make clicking the background exit the encounter selection screen
-            ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
-            ModBackground.GetComponent<Button>().onClick.AddListener(() =>
+            ModBackground.GetComponent<Button>().onClick.SetListener(() =>
             {
                 if (animationDone)
                     modFolderSelection();
@@ -645,71 +681,22 @@ namespace AsteriskMod
 
             //give the back button its function
             GameObject back = content.transform.Find("Back").gameObject;
-            back.GetComponent<Button>().onClick.RemoveAllListeners();
-            back.GetComponent<Button>().onClick.AddListener(modFolderSelection);
+            back.GetComponent<Button>().onClick.SetListener(modFolderSelection);
 
-            DirectoryInfo di = new DirectoryInfo(Path.Combine(FileLoader.DataRoot, "Mods/" + StaticInits.MODFOLDER + "/Lua/Encounters"));
-            if (!di.Exists || di.GetFiles().Length <= 0) return;
-            FileInfo[] encounterFiles = di.GetFiles("*.lua");
+            int id = Mods.FindIndex(StaticInits.MODFOLDER);
+            Mods.mods[id].ReloadEncounters(true);
 
-            int count = 0;
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            int actualCount = -1;
-            NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
-            NoEncounterLabel.GetComponent<Text>().enabled = false;
-            LegacyModInfo info = modInfos[CurrentSelectedMod];
-            Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
-            bool needCheck = (info.showEncounters.Length > 0 || info.hideEncounters.Length > 0);
-            if (needCheck)
+            if (Mods.mods[id].Encounters.Length == 0)
             {
-                int safeCheckCounter = encounterFiles.Length;
-                if (info.showEncounters.Length > 0)
-                {
-                    safeCheckCounter = 0;
-                    foreach (FileInfo encounterFileName in encounterFiles)
-                    {
-                        if (info.showEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter++;
-                    }
-                }
-                else if (info.hideEncounters.Length > 0)
-                {
-                    foreach (FileInfo encounterFileName in encounterFiles)
-                    {
-                        if (info.hideEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter--;
-                    }
-                }
-                needCheck = (safeCheckCounter > 0);
-                if (safeCheckCounter == 0)
-                {
-                    NoEncounterLabelShadow.GetComponent<Text>().enabled = true;
-                    NoEncounterLabel.GetComponent<Text>().enabled = true;
-                    return;
-                }
+                NoEncounterLabelShadow.GetComponent<Text>().enabled = true;
+                NoEncounterLabel      .GetComponent<Text>().enabled = true;
+                return;
             }
-            // --------------------------------------------------------------------------------
-            foreach (FileInfo encounter in encounterFiles)
-            {
-                // --------------------------------------------------------------------------------
-                //                          Asterisk Mod Modification
-                // --------------------------------------------------------------------------------
-                actualCount++;
-                if (needCheck)
-                {
-                    string encounterName = Path.GetFileNameWithoutExtension(encounter.Name);
-                    if (info.showEncounters.Length > 0)
-                    {
-                        if (!info.showEncounters.Contains(encounterName)) continue;
-                    }
-                    else if (info.hideEncounters.Length > 0)
-                    {
-                        if (info.hideEncounters.Contains(encounterName)) continue;
-                    }
-                }
-                // --------------------------------------------------------------------------------
-                count += 1;
+            NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
+            NoEncounterLabel      .GetComponent<Text>().enabled = false;
 
+            for (var i = 0; i < Mods.mods[id].Encounters.Length; i++)
+            {
                 //create a button for each encounter file
                 GameObject button = Instantiate(back);
 
@@ -718,7 +705,7 @@ namespace AsteriskMod
                 button.name = "EncounterButton";
 
                 //set position
-                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100 - count * 30);
+                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 70 - i * 30);
 
                 //set color
                 button.GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 0.5f);
@@ -727,39 +714,16 @@ namespace AsteriskMod
                 button.transform.Find("Fill").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
                 // set text
-                // --------------------------------------------------------------------------------
-                //                          Asterisk Mod Modification
-                // --------------------------------------------------------------------------------
-                //button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
-                if (actualCount < info.encounterNames.Length && !string.IsNullOrEmpty(info.encounterNames[actualCount]))
-                {
-                    button.transform.Find("Text").GetComponent<Text>().text = info.encounterNames[actualCount];
-                }
-                else
-                {
-                    button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
-                }
-                // --------------------------------------------------------------------------------
+                button.transform.Find("Text").GetComponent<Text>().font = Mods.mods[id].Font;
+                button.transform.Find("Text").GetComponent<Text>().text = Mods.mods[id].Encounters[i];
                 if (GlobalControls.crate)
-                    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(Path.GetFileNameWithoutExtension(encounter.Name), true);
-                // --------------------------------------------------------------------------------
-                //                          Asterisk Mod Modification
-                // --------------------------------------------------------------------------------
-                button.transform.Find("Text").GetComponent<Text>().font = font;
-                // --------------------------------------------------------------------------------
+                    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(Mods.mods[id].Encounters[i], true);
 
                 //finally, set function!
-                string filename = Path.GetFileNameWithoutExtension(encounter.Name);
+                string filename = Path.GetFileNameWithoutExtension(Mods.mods[id].RealEncounters[Mods.mods[id].EncounterIndexes[i]]);
+                int tempCount = i + 1;
 
-                // --------------------------------------------------------------------------------
-                //                          Asterisk Mod Modification
-                // --------------------------------------------------------------------------------
-                int tempCount = count;
-                //int tempCount = actualCount;
-                // --------------------------------------------------------------------------------
-
-                button.GetComponent<Button>().onClick.RemoveAllListeners();
-                button.GetComponent<Button>().onClick.AddListener(() =>
+                button.GetComponent<Button>().onClick.SetListener(() =>
                 {
                     selectedItem = tempCount;
                     StaticInits.ENCOUNTER = filename;
@@ -780,8 +744,7 @@ namespace AsteriskMod
 
             // Give the back button its function
             GameObject back = content.transform.Find("Back").gameObject;
-            back.GetComponent<Button>().onClick.RemoveAllListeners();
-            back.GetComponent<Button>().onClick.AddListener(() =>
+            back.GetComponent<Button>().onClick.SetListener(() =>
             {
                 // Reset the encounter box's position
                 modListScroll = 0.0f;
@@ -789,8 +752,7 @@ namespace AsteriskMod
             });
 
             // Make clicking the background exit this menu
-            ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
-            ModBackground.GetComponent<Button>().onClick.AddListener(() =>
+            ModBackground.GetComponent<Button>().onClick.SetListener(() =>
             {
                 if (!animationDone) return;
                 // Store the encounter box's position so it can be remembered upon exiting a mod
@@ -802,18 +764,11 @@ namespace AsteriskMod
             // Move the encounter box to the stored position, for easier mod browsing
             content.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, modListScroll);
 
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
             NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
-            NoEncounterLabel.GetComponent<Text>().enabled = false;
-            // --------------------------------------------------------------------------------
+            NoEncounterLabel      .GetComponent<Text>().enabled = false;
 
-            int count = -1;
-            foreach (DirectoryInfo mod in modDirs)
+            for (var i = 0; i < Mods.mods.Count; i++)
             {
-                count += 1;
-
                 // Create a button for each mod
                 GameObject button = Instantiate(back);
 
@@ -822,7 +777,7 @@ namespace AsteriskMod
                 button.name = "ModButton";
 
                 //set position
-                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100 - (count + 1) * 30);
+                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 70 - i * 30);
 
                 //set color
                 button.GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 0.5f);
@@ -830,26 +785,15 @@ namespace AsteriskMod
                 button.GetComponent<MenuButton>().HoverColor = new Color(0.75f, 0.75f, 0.75f, 1f);
                 button.transform.Find("Fill").GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
-                //set text
-                // --------------------------------------------------------------------------------
-                //                          Asterisk Mod Modification
-                // --------------------------------------------------------------------------------
-                //button.transform.Find("Text").GetComponent<Text>().text = mod.Name;
-                //if (GlobalControls.crate)
-                //    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(mod.Name, true);
-                string text = mod.Name;
-                if (modInfos[count].title != "" && Asterisk.displayModInfo) text = modInfos[count].title;
-                button.transform.Find("Text").GetComponent<Text>().text = text;
-                if (GlobalControls.crate)
-                    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(text, true);
                 button.transform.Find("Text").GetComponent<Text>().font = ModTitle.GetComponent<Text>().font;
-                // --------------------------------------------------------------------------------
+                button.transform.Find("Text").GetComponent<Text>().text = Mods.mods[i].Title;
+                if (GlobalControls.crate)
+                    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(Mods.mods[i].Title, true);
 
                 //finally, set function!
-                int tempCount = count;
+                int tempCount = i;
 
-                button.GetComponent<Button>().onClick.RemoveAllListeners();
-                button.GetComponent<Button>().onClick.AddListener(() =>
+                button.GetComponent<Button>().onClick.SetListener(() =>
                 {
                     // Store the encounter box's position so it can be remembered upon exiting a mod
                     modListScroll = content.GetComponent<RectTransform>().anchoredPosition.y;
@@ -859,6 +803,88 @@ namespace AsteriskMod
                     ShowMod(CurrentSelectedMod);
                 });
             }
+        }
+
+        private void ToggleOptionSelectWindow()
+        {
+            if (!GlobalControls.modDev) return;
+            openOptionWindow = !openOptionWindow;
+            btnList.SetActive(!openOptionWindow);
+            btnBack.SetActive(!openOptionWindow);
+            btnNext.SetActive(!openOptionWindow);
+            if (openOptionWindow)
+            {
+                events = ModBackground.GetComponent<Button>().onClick;
+                ModBackground.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
+                ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
+                ModBackground.GetComponent<Button>().onClick.AddListener(() => ToggleOptionSelectWindow());
+                OptionsText.text = GlobalControls.crate ? "CLOES →" : "Close →";
+            }
+            else
+            {
+                ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
+                ModBackground.GetComponent<Button>().onClick = events;
+                OptionsText.text = "";
+                OptionsText.text = GlobalControls.crate ? "OPSHUNZ →" : "Options →";
+            }
+            OptionsShadow.text = OptionsText.text;
+            optionSelectWindow.SetActive(openOptionWindow);
+        }
+
+        private void UpdateOptionWindow()
+        {
+            int mousePosX = (int)((ScreenResolution.mousePosition.x / ScreenResolution.displayedSize.x) * 640);
+            int mousePosY = (int)((Input.mousePosition.y / ScreenResolution.displayedSize.y) * 480);
+            string descriptionTitle = "Option";
+            string description = EngineLang.Get("ModSelect", "OptionHover");
+            if (90 <= mousePosX && mousePosX <= 310)
+            {
+                if (335 < mousePosY && mousePosY <= 375)
+                {
+                    descriptionTitle = "Manage ModPack";
+                    description = EngineLang.Get("ModSelect", "OptionModPack");
+                }
+                else if (295 < mousePosY && mousePosY <= 335)
+                {
+                    descriptionTitle = "Create New Mod";
+                    description = EngineLang.Get("ModSelect", "OptionNewMod");
+                }
+                else if (255 < mousePosY && mousePosY <= 295)
+                {
+                    descriptionTitle = "Modding Helper Tools";
+                    description = EngineLang.Get("ModSelect", "OptionHelper");
+                }
+                else if (215 < mousePosY && mousePosY <= 255)
+                {
+                    descriptionTitle = "CYF Option";
+                    description = EngineLang.Get("ModSelect", "OptionCYF");
+                }
+                else if (175 < mousePosY && mousePosY <= 215)
+                {
+                    descriptionTitle = "Asterisk Mod Option";
+                    description = EngineLang.Get("ModSelect", "OptionAsterisk");
+                }
+            }
+            if (GlobalControls.crate && Asterisk.language != Languages.Japanese)
+            {
+                if (descriptionTitle.StartsWith("Create"))
+                {
+                    descriptionTitle = descriptionTitle.Replace("Create", "");
+                    description = description.Replace("Creates", "");
+                    descriptionTitle = "CRATE" + Temmify.Convert(descriptionTitle);
+                    description = "CRATES" + Temmify.Convert(description);
+                }
+                else
+                {
+                    descriptionTitle = Temmify.Convert(descriptionTitle);
+                    description = Temmify.Convert(description);
+                }
+            }
+            descName.GetComponent<Text>().text = descriptionTitle;
+            descDesc.GetComponent<Text>().text = description;
+
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+                ToggleOptionSelectWindow();
         }
     }
 }

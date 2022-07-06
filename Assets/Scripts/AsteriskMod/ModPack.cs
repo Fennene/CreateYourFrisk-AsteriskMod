@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace AsteriskMod
@@ -16,6 +17,10 @@ namespace AsteriskMod
             FileName = Path.GetFileNameWithoutExtension(FilePath);
             ShowingMods = File.ReadAllLines(FilePath);
         }
+
+        public void SaveToFile(string[] mods) { File.WriteAllLines(FilePath, mods); }
+
+        public void DeleteFile() { File.Delete(FilePath); }
 
         public static string ModPackDirectory { get { return Path.Combine(Application.persistentDataPath, "ModPack").Replace('\\', '/'); } }
 
@@ -36,9 +41,20 @@ namespace AsteriskMod
                 ModPack modPack;
                 try   { modPack = new ModPack(filePathes[i].Replace('\\', '/')); }
                 catch { continue; }
-                modPacks.Add(modPack);
+                if (modPack.ShowingMods.Length > 0) modPacks.Add(modPack);
             }
             return modPacks.ToArray();
+        }
+
+        public static void CreateFile(string fileName)
+        {
+            string path = ModPackDirectory + "/" + fileName + ".modpack";
+            string content = "Encounter Skeleton";
+            if (Mods.FindIndex(content) == -1)
+            {
+                if (Mods.realMods.Count > 0) content = Mods.realMods[0].RealName;
+            }
+            File.WriteAllText(path, content);
         }
     }
 }

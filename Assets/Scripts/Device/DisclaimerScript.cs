@@ -122,6 +122,11 @@ public class DisclaimerScript : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         GlobalControls.modDev = true;
         DiscordControls.StartModSelect(false);
-        SceneManager.LoadScene("ModSelect");
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //SceneManager.LoadScene("ModSelect");
+        SceneManager.LoadScene("AlternativeModSelect");
+        // --------------------------------------------------------------------------------
     }
 }

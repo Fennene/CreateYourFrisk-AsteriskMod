@@ -94,7 +94,7 @@ namespace AsteriskMod
             Experiment.GetComponentInChildren<Text>().text = "Experimental Features: " + (Asterisk.experimentMode ? "On" : "Off");
 
             // exit
-            Exit.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("ModSelect"); });
+            Exit.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("AlternativeModSelect"));
 
             // github
             Git.GetComponent<Button>().onClick.AddListener(() => { try { Process.Start("https://github.com/Fennene/CreateYourFrisk-AsteriskMod"); } catch { /* ignore */ } });

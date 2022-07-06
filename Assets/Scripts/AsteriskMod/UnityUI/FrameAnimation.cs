@@ -34,7 +34,7 @@ namespace AsteriskMod.UnityUI
 
         public void StopAnimation()
         {
-            PreStartAnimation();
+            PreStopAnimation();
             animationRequester = false;
             FrameCounter.StopCount();
         }

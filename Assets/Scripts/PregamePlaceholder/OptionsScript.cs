@@ -138,7 +138,12 @@ public class OptionsScript : MonoBehaviour {
         Discord.GetComponentInChildren<Text>().text = (!GlobalControls.crate ? "Discord Display: " : "DEESCORD DESPLAY: ") + DiscordControls.ChangeVisibilitySetting(0);
 
         // exit
-        Exit.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("ModSelect"); });
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //Exit.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("ModSelect"); });
+        Exit.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("AlternativeModSelect"); });
+        // --------------------------------------------------------------------------------
 
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification

@@ -86,6 +86,10 @@ namespace AsteriskMod
             English.SetParameter("ModPack", "SelecterLabel", new FakeIniParameter("Selecting ModPack:"));
             English.SetParameter("ModPack", "SelecterOptionNoSelect", new FakeIniParameter("No Select (Show All)"));
             English.SetParameter("ModPack", "SelecterOptionCreate", new FakeIniParameter("< Create New ModPack >"));
+            English.SetParameter("ModPack", "WindowTitle", new FakeIniParameter("Create New ModPack"));
+            English.SetParameter("ModPack", "WindowDescription", new FakeIniParameter("Input new ModPack's name.\nThe name is used to file's name."));
+            English.SetParameter("ModPack", "WindowCancel", new FakeIniParameter("Cancel"));
+            English.SetParameter("ModPack", "WindowAccept", new FakeIniParameter("Accept"));
 
             English.SetParameter("MHTMenu", "Hover", new FakeIniParameter("Hover over an option and its description will appear here!"));
             English.SetParameter("MHTMenu", "Document", new FakeIniParameter("<color=#FF0>Open CYF Documentation</color>\n\nOpens the documentation of\nCreate Your Frisk.\nIt is written about all of CYF\n and AsteriskMod.\n\nYou should read document before asking\nany question to CYF Discord."));
@@ -98,6 +102,7 @@ namespace AsteriskMod
             English.SetParameter("InvalidPathMessage", "StartWithDot", new FakeIniParameter("The path can not start with \".\"."));
             English.SetParameter("InvalidPathMessage", "InvalidChar", new FakeIniParameter("The path contains invalid characters."));
             English.SetParameter("InvalidPathMessage", "SpecialName", new FakeIniParameter(" can not use to name of the path."));
+            English.SetParameter("InvalidPathMessage", "Duplication", new FakeIniParameter("The name is duplicated.\n(That named File or Directory is already exist.)"));
 
             // Mod Loading
             English.SetParameter("Exception", "ModsDirectoryNotFound", new FakeIniParameter("The engine detected no Mods folder in your files: are you sure it exists?"));
@@ -188,6 +193,10 @@ namespace AsteriskMod
             Japanese.SetParameter("ModPack", "SelecterLabel", new FakeIniParameter("選択中のModPack:"));
             Japanese.SetParameter("ModPack", "SelecterOptionNoSelect", new FakeIniParameter("選択しない (全て表示)"));
             Japanese.SetParameter("ModPack", "SelecterOptionCreate", new FakeIniParameter("< ModPackを作成する >"));
+            Japanese.SetParameter("ModPack", "WindowTitle", new FakeIniParameter("新しいModPackの作成"));
+            Japanese.SetParameter("ModPack", "WindowDescription", new FakeIniParameter("新しいModPackの名前を入力してください。\n入力した文字がファイル名になります。"));
+            Japanese.SetParameter("ModPack", "WindowCancel", new FakeIniParameter("キャンセル"));
+            Japanese.SetParameter("ModPack", "WindowAccept", new FakeIniParameter("作成"));
 
             Japanese.SetParameter("MHTMenu", "Hover", new FakeIniParameter("オプションにカーソルを乗せると\nここに説明が表示されます。"));
             Japanese.SetParameter("MHTMenu", "Document", new FakeIniParameter("<color=#FF0>CYFドキュメントへの移動</color>\n\nCYFのドキュメントを開きます。\nドキュメントには\nCYFとAsteriskModについての\n全てが書かれています。\n\nCYF公式Discordチャンネルで聞く前に\nまずはドキュメントを確認してみましょう。"));
@@ -200,6 +209,7 @@ namespace AsteriskMod
             Japanese.SetParameter("InvalidPathMessage", "StartWithDot", new FakeIniParameter("パスは\".\"から始めてはいけません。"));
             Japanese.SetParameter("InvalidPathMessage", "InvalidChar", new FakeIniParameter("パスに使用できない文字が含まれています。"));
             Japanese.SetParameter("InvalidPathMessage", "SpecialName", new FakeIniParameter("はパスに使用できない名前です。"));
+            Japanese.SetParameter("InvalidPathMessage", "Duplication", new FakeIniParameter("名前が重複しています。\n（同じ名前のファイル名またはディレクトリ名が存在します。）"));
 
             // Mod Loading
             Japanese.SetParameter("Exception", "ModsDirectoryNotFound", new FakeIniParameter("エンジンはModsフォルダを検出できませんでした。\nModsフォルダが存在するか確認してください。"));

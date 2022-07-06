@@ -196,8 +196,14 @@ public class UIController : MonoBehaviour {
             PlayerCharacter.instance.Reset();
             // Discord Rich Presence
             DiscordControls.StartModSelect();
-            SceneManager.LoadScene("ModSelect");
-        } else {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            //SceneManager.LoadScene("ModSelect");
+            SceneManager.LoadScene("AlternativeModSelect");
+            // --------------------------------------------------------------------------------
+        }
+        else {
             foreach (string str in NewMusicManager.audioname.Keys.Where(str => str != "StaticKeptAudio"))
                 NewMusicManager.Stop(str);
             SceneManager.UnloadSceneAsync("Battle");

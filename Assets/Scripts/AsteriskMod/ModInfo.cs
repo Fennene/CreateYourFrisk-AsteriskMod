@@ -1,11 +1,7 @@
 ﻿using AsteriskMod.FakeIniLoader;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace AsteriskMod
 {
@@ -19,7 +15,7 @@ namespace AsteriskMod
         public string[] ShowEncounters { get; private set; }
         public string[] HideEncounters { get; private set; }
         public Color BackgroundColor { get; private set; }
-        [ToDo("will implemente")] internal Color LaunchingBackgroundColor { get; private set; }
+        public Color LaunchingBackgroundColor { get; private set; }
         public Font ScreenFont { get; private set; }
         public string TitleOverride { get; private set; }
         public string SubtitleOverride { get; private set; }
@@ -36,8 +32,8 @@ namespace AsteriskMod
             EncounterNames = null;
             ShowEncounters = null;
             HideEncounters = null;
-            //BackgroundColor = new Color(1f, 1f, 1f, 0.1875f);
             BackgroundColor = new Color(1f, 1f, 1f, 0.25f);
+            LaunchingBackgroundColor = new Color(1f, 1f, 1f, 0.1875f);
             ScreenFont = AsteriskResources.PixelOperator;
             TitleOverride = null;
             SubtitleOverride = null;
@@ -145,7 +141,35 @@ namespace AsteriskMod
                         if (byte.TryParse(ini.Main[realKey].String, out alpha32))
                         {
                             Color32 color32 = (Color32)info.BackgroundColor;
-                            info.BackgroundColor = new Color32(color32.r, color32.g, color32.a, alpha32);
+                            info.BackgroundColor = new Color32(color32.r, color32.g, color32.b, alpha32);
+                        }
+                        break;
+
+                    case "launch-bg-color":
+                    case "launch-background-color":
+                        info.LaunchingBackgroundColor = TryConvertToColor(info.LaunchingBackgroundColor, ini.Main[realKey].Array);
+                        break;
+                    case "launch-bg-color32":
+                    case "launch-background-color32":
+                        info.LaunchingBackgroundColor = TryConvertToColor32(info.LaunchingBackgroundColor, ini.Main[realKey].Array);
+                        break;
+
+                    case "launch-bg-alpha":
+                    case "launch-background-alpha":
+                        float alpha_;
+                        if (float.TryParse(ini.Main[realKey].String, out alpha_))
+                        {
+                            info.LaunchingBackgroundColor = new Color(info.LaunchingBackgroundColor.r, info.LaunchingBackgroundColor.g, info.LaunchingBackgroundColor.b, alpha_);
+                            info.LaunchingBackgroundColor = new Color(info.LaunchingBackgroundColor.r, info.LaunchingBackgroundColor.g, info.LaunchingBackgroundColor.b, alpha_);
+                        }
+                        break;
+                    case "launch-bg-alpha32":
+                    case "launch-background-alpha32":
+                        byte alpha32_;
+                        if (byte.TryParse(ini.Main[realKey].String, out alpha32_))
+                        {
+                            Color32 color32 = (Color32)info.LaunchingBackgroundColor;
+                            info.LaunchingBackgroundColor = new Color32(color32.r, color32.g, color32.b, alpha32_);
                         }
                         break;
 

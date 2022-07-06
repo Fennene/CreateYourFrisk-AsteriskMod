@@ -33,7 +33,7 @@ public class SelectOMatic : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    private static List<LegacyModInfo> modInfos;
+    private static List<ModInfo> modInfos;
 
     public GameObject     ModDescShadow,     ModDesc, ExistDescInfoShadow, ExistDescInfo;
     public GameObject AnimModDescShadow, AnimModDesc;
@@ -74,10 +74,10 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        modInfos = new List<LegacyModInfo>();
+        modInfos = new List<ModInfo>();
         for (var i = 0; i < modDirs.Count; i++)
         {
-            modInfos.Add(LegacyModInfo.Get(modDirs[i].Name));
+            modInfos.Add(ModInfo.GetFromFile(modDirs[i].Name));
         }
         // --------------------------------------------------------------------------------
 
@@ -216,7 +216,7 @@ public class SelectOMatic : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             AsteriskEngine.IsSimulator = false;
-            AsteriskEngine.PrepareMod(modDirs[CurrentSelectedMod].Name);
+            AsteriskEngine.PrepareMod(modDirs[CurrentSelectedMod].Name, ModInfo.GetFromFile(modDirs[CurrentSelectedMod].Name));
             // --------------------------------------------------------------------------------
             StaticInits.InitAll(true);
             if (UnitaleUtil.firstErrorShown)
@@ -317,30 +317,27 @@ public class SelectOMatic : MonoBehaviour {
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        LegacyModInfo info = modInfos[id];
+        ModInfo info = modInfos[id];
         // Set BG Color
-        if (Asterisk.displayModInfo)
-        {
-            ModBackground.GetComponent<Image>().color = info.bgColor;
-        }
+        ModBackground.GetComponent<Image>().color = info.BackgroundColor;
         // Change encounter count
-        if (encounters.Count > 1 && string.IsNullOrEmpty(info.subtitle))
+        if (encounters.Count > 1 && string.IsNullOrEmpty(info.SubtitleOverride))
         {
             int count = encounters.Count;
             //List<string> showEncounters = new List<string>();
-            if (info.showEncounters.Length > 0)
+            if (info.ShowEncounters != null && info.ShowEncounters.Length > 0)
             {
                 count = 0;
                 foreach (string encounterFileName in encounters)
                 {
-                    if (info.showEncounters.Contains(encounterFileName)) count++;
+                    if (info.ShowEncounters.Contains(encounterFileName)) count++;
                 }
             }
-            else if (info.hideEncounters.Length > 0)
+            else if (info.HideEncounters != null && info.HideEncounters.Length > 0)
             {
                 foreach (string encounterFileName in encounters)
                 {
-                    if (info.hideEncounters.Contains(encounterFileName)) count--;
+                    if (info.HideEncounters.Contains(encounterFileName)) count--;
                 }
             }
             if (count > 0)
@@ -372,11 +369,10 @@ public class SelectOMatic : MonoBehaviour {
         }
         */
         // Set Font
-        Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
-        ModTitleShadow.GetComponent<Text>().font = font;
-        ModTitle      .GetComponent<Text>().font = font;
-        EncounterCountShadow.GetComponent<Text>().font = font;
-        EncounterCount      .GetComponent<Text>().font = font;
+        ModTitleShadow.GetComponent<Text>().font = info.ScreenFont;
+        ModTitle      .GetComponent<Text>().font = info.ScreenFont;
+        EncounterCountShadow.GetComponent<Text>().font = info.ScreenFont;
+        EncounterCount      .GetComponent<Text>().font = info.ScreenFont;
         // RichText
         /**
         ModTitleShadow.GetComponent<Text>().supportRichText = info.richText;
@@ -387,36 +383,36 @@ public class SelectOMatic : MonoBehaviour {
         // Set Alt Text
         if (Asterisk.displayModInfo)
         {
-            if (info.subtitle != "")
+            if (!string.IsNullOrEmpty(info.SubtitleOverride))
             {
-                EncounterCountShadow.GetComponent<Text>().text = info.subtitle;
-                EncounterCount.GetComponent<Text>().text = info.subtitle;
+                EncounterCountShadow.GetComponent<Text>().text = info.SubtitleOverride;
+                EncounterCount      .GetComponent<Text>().text = info.SubtitleOverride;
             }
-            if (info.title != "")
+            if (!string.IsNullOrEmpty(info.TitleOverride))
             {
-                ModTitleShadow.GetComponent<Text>().text = info.title;
-                ModTitle.GetComponent<Text>().text = info.title;
+                ModTitleShadow.GetComponent<Text>().text = info.TitleOverride;
+                ModTitle      .GetComponent<Text>().text = info.TitleOverride;
             }
         }
         // Set Description's Alignment
-        ModDescShadow.GetComponent<Text>().alignment = info.descAnchor;
-        ModDesc      .GetComponent<Text>().alignment = info.descAnchor;
+        ModDescShadow.GetComponent<Text>().alignment = info.DescriptionAlign;
+        ModDesc      .GetComponent<Text>().alignment = info.DescriptionAlign;
         // Set Description's Active
-        bool hasDescription = !string.IsNullOrEmpty(info.description);
+        bool hasDescription = !string.IsNullOrEmpty(info.Description);
         ModDescShadow.SetActive(hasDescription && Asterisk.alwaysShowDesc);
         ModDesc      .SetActive(hasDescription && Asterisk.alwaysShowDesc);
         // Set Description
-        ModDescShadow.GetComponent<Text>().text = Regex.Replace(info.description, "<[^>]*?>", "");
-        ModDesc      .GetComponent<Text>().text = info.description;
+        ModDescShadow.GetComponent<Text>().text = Regex.Replace(info.Description ?? "", "<[^>]*?>", "");
+        ModDesc      .GetComponent<Text>().text = info.Description ?? "";
         ExistDescInfoShadow.SetActive(hasDescription);
         ExistDescInfo      .SetActive(hasDescription);
         // Languages
         bool en = false;
         bool jp = false;
-        if (info.supportedLanguages.Length > 0)
+        if (info.SupportedLanguagesOverride != null)
         {
-            en = info.supportedLanguages[0];
-            jp = info.supportedLanguages[1];
+            en = info.SupportedLanguagesOverride[0];
+            jp = info.SupportedLanguagesOverride[1];
         }
         else
         {
@@ -724,25 +720,24 @@ public class SelectOMatic : MonoBehaviour {
         int actualCount = -1;
         NoEncounterLabelShadow.GetComponent<Text>().enabled = false;
         NoEncounterLabel.GetComponent<Text>().enabled = false;
-        LegacyModInfo info = modInfos[CurrentSelectedMod];
-        Font font = Resources.Load<Font>("Fonts/" + ((info.font == DisplayFont.EightBitoperator) ? "8bitoperator_JVE/8bitoperator_jve" : "PixelOperator/PixelOperator-Bold"));
-        bool needCheck = (info.showEncounters.Length > 0 || info.hideEncounters.Length > 0);
+        ModInfo info = modInfos[CurrentSelectedMod];
+        bool needCheck = ((info.ShowEncounters != null && info.ShowEncounters.Length > 0) || (info.HideEncounters != null && info.HideEncounters.Length > 0));
         if (needCheck)
         {
             int safeCheckCounter = encounterFiles.Length;
-            if (info.showEncounters.Length > 0)
+            if (info.ShowEncounters != null && info.ShowEncounters.Length > 0)
             {
                 safeCheckCounter = 0;
                 foreach (FileInfo encounterFileName in encounterFiles)
                 {
-                    if (info.showEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter++;
+                    if (info.ShowEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter++;
                 }
             }
-            else if (info.hideEncounters.Length > 0)
+            else if (info.HideEncounters != null && info.HideEncounters.Length > 0)
             {
                 foreach (FileInfo encounterFileName in encounterFiles)
                 {
-                    if (info.hideEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter--;
+                    if (info.HideEncounters.Contains(Path.GetFileNameWithoutExtension(encounterFileName.Name))) safeCheckCounter--;
                 }
             }
             needCheck = (safeCheckCounter > 0);
@@ -762,13 +757,13 @@ public class SelectOMatic : MonoBehaviour {
             if (needCheck)
             {
                 string encounterName = Path.GetFileNameWithoutExtension(encounter.Name);
-                if (info.showEncounters.Length > 0)
+                if (info.ShowEncounters != null && info.ShowEncounters.Length > 0)
                 {
-                    if (!info.showEncounters.Contains(encounterName)) continue;
+                    if (!info.ShowEncounters.Contains(encounterName)) continue;
                 }
-                else if (info.hideEncounters.Length > 0)
+                else if (info.HideEncounters != null && info.HideEncounters.Length > 0)
                 {
-                    if (info.hideEncounters.Contains(encounterName)) continue;
+                    if (info.HideEncounters.Contains(encounterName)) continue;
                 }
             }
             // --------------------------------------------------------------------------------
@@ -795,9 +790,9 @@ public class SelectOMatic : MonoBehaviour {
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
             //button.transform.Find("Text").GetComponent<Text>().text = Path.GetFileNameWithoutExtension(encounter.Name);
-            if (actualCount < info.encounterNames.Length && !string.IsNullOrEmpty(info.encounterNames[actualCount]))
+            if (info.EncounterNames != null && actualCount < info.EncounterNames.Length && !string.IsNullOrEmpty(info.EncounterNames[actualCount]))
             {
-                button.transform.Find("Text").GetComponent<Text>().text = info.encounterNames[actualCount];
+                button.transform.Find("Text").GetComponent<Text>().text = info.EncounterNames[actualCount];
             }
             else
             {
@@ -809,7 +804,7 @@ public class SelectOMatic : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            button.transform.Find("Text").GetComponent<Text>().font = font;
+            button.transform.Find("Text").GetComponent<Text>().font = info.ScreenFont;
             // --------------------------------------------------------------------------------
 
             //finally, set function!
@@ -896,7 +891,7 @@ public class SelectOMatic : MonoBehaviour {
             //if (GlobalControls.crate)
             //    button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(mod.Name, true);
             string text = mod.Name;
-            if (modInfos[count].title != "" && Asterisk.displayModInfo) text = modInfos[count].title;
+            if (!string.IsNullOrEmpty(modInfos[count].TitleOverride) && Asterisk.displayModInfo) text = modInfos[count].TitleOverride;
             button.transform.Find("Text").GetComponent<Text>().text = text;
             if (GlobalControls.crate)
                 button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(text, true);
