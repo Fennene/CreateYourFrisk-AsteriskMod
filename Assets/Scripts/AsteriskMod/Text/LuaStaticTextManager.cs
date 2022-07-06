@@ -98,7 +98,8 @@ namespace AsteriskMod
             if (!isactive)
                 throw new CYFException("Attempt to remove a removed static text object.");
             autoDestroyed = true;
-            GameObject.Destroy(this.transform.parent.gameObject);
+            //* GameObject.Destroy(this.transform.parent.gameObject);
+            GameObject.Destroy(this.gameObject);
         }
 
         // DestroyText()呼び出しの省略形
@@ -475,6 +476,7 @@ namespace AsteriskMod
         {
             if (text == null)
                 throw new CYFException("StaticText.SetText: the text argument must be a simple string.");
+            CheckExists();
             try { SetText(new InstantTextMessage(text)); }
             catch { /* ignored */ }
         }
@@ -767,7 +769,11 @@ namespace AsteriskMod
 
         public string text
         {
-            get { return instantText.Text; }
+            get
+            {
+                CheckExists();
+                return instantText.Text;
+            }
         }
 
         /*

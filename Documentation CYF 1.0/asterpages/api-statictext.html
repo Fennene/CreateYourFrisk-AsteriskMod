@@ -122,7 +122,8 @@ it's w3c valid, at least
                 This is used in <span class="term">The PlayerUtil Object</span>, 
                 but this is made based on normal <span class="term">Text Object</span>.<br>
                 That means, the functions' names are same to normal Text Object, so you can call functions like calling functions as Text Object.<br>
-                So... what you need to see is <a href="#UIStaticTextObject">this</a>.
+                So... what you need to see are <a href="#UIStaticTextObject">this</a> and 
+                <a href="#Remove">this</a>.
             </p><br>
 
             <hr><br>
@@ -200,12 +201,14 @@ it's w3c valid, at least
 
             <h3>Common Variables and Functions</h3><br>
 
-            <p>
+            <p id="Remove">
                 <br><span class="function">StaticText.Remove()<br></span>
                 or<span class="function">StaticText.DestroyText()</span>
                 This function destroys a static text object, similar to <span class="term">.Remove()</span> for bullets and sprites.
                 <br><br>
                 Trying to get, set or call almost anything besides <span class="term">StaticText.isactive</span> on a destroyed static text object will error.
+                <br><br>
+                <font color="#FFF">On The StaticText Object, that the object will NOT reactive itself even if <span class="term">StaticText.SetText()</span> is called when the object is inactive.</font>
             </p>
             <p>
                 <br><span class="function"><span class="boolean"></span> StaticText.isactive (Read-Only)</span>
@@ -314,8 +317,7 @@ it's w3c valid, at least
             </p>
             <p>
                 <br><span class="function">StaticText.SetText(<span class="string"></span> text)</span>
-                Sets the text in the StaticText Object.<br>
-                If the static text object is inactive when this is called, the object will reactive itself.
+                Sets the text in the StaticText Object.
             </p>
             <p>
                 <br><span class="function">StaticText.SetFont(<span class="string"></span> fontName)</span>
