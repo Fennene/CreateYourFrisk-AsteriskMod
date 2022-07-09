@@ -1,6 +1,7 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -43,6 +44,8 @@ function EncounterStarting()
         Misc.cameraRotation = 180
         encountertext = encountertext .. "Camera is reversed horizontally\rand vertically."
     end
+
+    require("_").Check(3)
 end
 
 function EnemyDialogueStarting()
@@ -62,4 +65,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

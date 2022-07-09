@@ -1,6 +1,7 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -38,11 +39,26 @@ function EncounterStarting()
     fake_HP = fake_MaxHP
     Player.atk = 8 + 2 * fake_LV
 
-    PlayerUtil.SetLV(fake_LV)
+    PlayerUtil.SetLV(fake_LV) -- or  PlayerUtil.Love.SetText("LV " .. fake_LV)
+    PlayerUtil.HPBar.maxhp = fake_MaxHP
     PlayerUtil.SetHPControlOverride(true)
-    PlayerUtil.SetHPBarLength(fake_MaxHP)
+
+    -- If you wanna set PlayerUtil.HPBar.maxhp before calling PlayerUtil.SetHPControlOverride(true):
+    --[[
+    PlayerUtil.SetHPControlOverride(true)
+    PlayerUtil.HPBar.maxhp = fake_MaxHP
+    PlayerUtil.HPText.UpdatePosition()
+    --]]
+
+    --[[
+    PlayerUtil.HPBar.hpscale = 1.5
+    PlayerUtil.HPText.UpdatePosition()
+    --]]
+    --PlayerUtil.HPBar.limited = false -- WHAT.
 
     encountertext = "Determination."
+
+    require("_").Check(8)
 end
 
 -- defines alternative hurt function. It is called from Wave Scripts.
@@ -88,4 +104,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

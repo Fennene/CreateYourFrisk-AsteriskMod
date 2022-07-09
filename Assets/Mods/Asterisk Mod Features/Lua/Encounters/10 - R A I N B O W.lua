@@ -1,6 +1,7 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -39,10 +40,10 @@ function EncounterStarting()
     Inventory.AddCustomItems({"[starcolor:ffffff][color:ff0000]R [color:fca600]A [color:ffff00]I [color:00c000]N [color:42fcff]B [color:003cff]O [color:d535d9]W [color:ffffff]"}, {3})
     Inventory.SetInventory({"[starcolor:ffffff][color:ff0000]R [color:fca600]A [color:ffff00]I [color:00c000]N [color:42fcff]B [color:003cff]O [color:d535d9]W [color:ffffff]"})
 
-    ButtonUtil.FIGHT.SetSprite("UI/NonColoredButtons/fightbt_0", "UI/NonColoredButtons/fightbt_1")
-    ButtonUtil.ACT.SetSprite("UI/NonColoredButtons/actbt_0", "UI/NonColoredButtons/actbt_1")
-    ButtonUtil.ITEM.SetSprite("UI/NonColoredButtons/itembt_0", "UI/NonColoredButtons/itembt_1")
-    ButtonUtil.MERCY.SetSprite("UI/NonColoredButtons/mercybt_0", "UI/NonColoredButtons/mercybt_1")
+    ButtonUtil.FIGHT.SetSprite("fightbt_0", "fightbt_1", "UI/NonColoredButtons")
+    ButtonUtil.ACT.SetSprite("actbt_0", "actbt_1", "UI/NonColoredButtons")
+    ButtonUtil.ITEM.SetSprite("itembt_0", "itembt_1", "UI/NonColoredButtons")
+    ButtonUtil.MERCY.SetSprite("mercybt_0", "mercybt_1", "UI/NonColoredButtons")
     -- The above code is same to below code.
     -- ButtonUtil.SetSprites("UI/NonColoredButtons")
 
@@ -94,13 +95,13 @@ function Update()
         b = math.max(0, b - 3)
         if b == 0 then rainbow = 1 end
     end
-    PlayerUtil.SetHPBarFillColor32(r, g, b)
-    ButtonUtil.FIGHT.SetColor32(r, g, b)
-    ButtonUtil.ACT.SetColor32(r, g, b)
-    ButtonUtil.ITEM.SetColor32(r, g, b)
-    ButtonUtil.MERCY.SetColor32(r, g, b)
+    PlayerUtil.HPBar.fillcolor32 = {r, g, b}
+    ButtonUtil.FIGHT.color32 = {r, g, b}
+    ButtonUtil.ACT.color32 = {r, g, b}
+    ButtonUtil.ITEM.color32 = {r, g, b}
+    ButtonUtil.MERCY.color32 = {r, g, b}
     ArenaUtil.SetBorderColor32(r, g, b)
-    enemies[1].SetVar("fillcolor", {r, g, b})
+    enemies[1].SetVar("fillbarcolor", {r, g, b})
     UpdatePlayerSoul()
 end
 
@@ -139,4 +140,8 @@ end
 function HandleItem(ItemID)
     speed = speed + 2
     BattleDialog({"[starcolor:ffffff][color:ff0000]R [color:fca600]A [color:ffff00]I [color:00c000]N [color:42fcff]B [color:003cff]O [color:d535d9]W [color:ffffff]![health:99]"})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

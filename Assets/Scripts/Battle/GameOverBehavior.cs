@@ -436,8 +436,14 @@ public class GameOverBehavior : MonoBehaviour {
             if (GlobalControls.modDev) {
                 // Discord Rich Presence
                 DiscordControls.StartModSelect();
-                SceneManager.LoadScene("ModSelect");
-            } else {
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                // SceneManager.LoadScene("ModSelect");
+                SceneManager.LoadScene("AlternativeModSelect");
+                // --------------------------------------------------------------------------------
+            }
+            else {
                 foreach (string str in NewMusicManager.audioname.Keys)
                     if (str == "StaticKeptAudio") {
                         NewMusicManager.Stop(str);

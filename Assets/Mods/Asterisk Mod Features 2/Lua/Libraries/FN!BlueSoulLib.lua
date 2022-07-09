@@ -7,6 +7,8 @@ by Nil256 [Fennene]
 This code is NOT from Undertale, It's Nil256's unique code.
 このコードはUndertaleのものではなく、にるにころが作成した独自のコードです。
 
+|AsteriskMod v0.5.3|
+
 frame based (60 fps)
 60fps基準
 
@@ -59,6 +61,11 @@ BlueSoul.SetGravity(|str|gravityDirection = "down", |bool|resetSpeed = true)
 BlueSoul.HitToSurface(|int|shakeFrame = 3, |int|shakeStrength = 6)
 	Hits the player to surface or platforms.
 	プレイヤーを地面かプラットフォームに叩きつける。
+|bool| BlueSoul.IsMoving()
+	Checks whether the player is moving or not.
+	プレイヤーが動いている最中かどうかを返します。
+	You can use this even if Blue Soul Mode is not active.
+	青色ソウルでなくても使用できます。
 -- Platforms --
 I recommend you assgin platformID as string or number.
 platformIDは文字列(string)か数値(number)をお勧めします。
@@ -424,6 +431,14 @@ function BlueSoul.SetActive(active, changeColor, controlOverride)
 	end
 end
 function BlueSoul.GetActive() return _active end
+
+function BlueSoul.IsMoving()
+	if Input.Up ~= 0 or Input.Down ~= 0 or Input.Left ~= 0 or Input.Right ~= 0 then
+		return true
+	end
+	if not _active then return Player.ismoving end
+	return _jump_stat == JUMP_STAT.STAY or _jump_stat == JUMP_STAT.FALL
+end
 
 
 -- System --

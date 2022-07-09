@@ -33,3 +33,8 @@ function HandleCustomCommand(command)
     end
     BattleDialog({"[color:ff0000]You selected " .. command .. "."})
 end
+
+function OnDeath()
+    require("_").Check(6)
+    Kill()
+end

@@ -21,3 +21,8 @@ end
  
 function HandleCustomCommand(command)
 end
+
+function OnDeath()
+    require("_").Check(4)
+    Kill()
+end

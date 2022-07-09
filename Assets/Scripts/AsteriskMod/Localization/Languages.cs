@@ -130,9 +130,12 @@ namespace AsteriskMod
             //English.SetParameter("Exception", "FontNonRoot", new FakeIniParameter(""));
             English.SetParameter("Exception", "FontSpaceCharNotFound1", new FakeIniParameter("The fonts need a space character to compute their line height, and the font \""));
             English.SetParameter("Exception", "FontSpaceCharNotFound2", new FakeIniParameter("\" doesn't have one."));
-            // CYF IO Exceptions
-            //English.SetParameter("Exception", "MiscFile", new FakeIniParameter(""));
-            //English.SetParameter("Exception", "MiscFile", new FakeIniParameter(""));
+            // Misc.Functions
+            English.SetParameter("Exception", "StateNotFound1", new FakeIniParameter("The state \""));
+            English.SetParameter("Exception", "StateNotFound2", new FakeIniParameter("\" is not a valid state. Are you sure it exists?\n\nPlease double-check in the Misc. Functions section of the docs for a list of every valid state."));
+            English.SetParameter("Exception", "StateCustomStateNotFound1", new FakeIniParameter("The custom state \""));
+            English.SetParameter("Exception", "StateCustomStateNotFound2", new FakeIniParameter("\" doesn't exist.\nAre you sure it exists?"));
+            // The Misc Object
             English.SetParameter("Exception", "MiscCheckFileOutside", new FakeIniParameter("You cannot check for a file outside of a mod folder. The use of \"..\" is forbidden."));
             English.SetParameter("Exception", "MiscCheckDirOutside", new FakeIniParameter("You cannot check for a directory outside of a mod folder. The use of \"..\" is forbidden."));
             English.SetParameter("Exception", "MiscCreateDirOutside", new FakeIniParameter("You cannot create a directory outside of a mod folder. The use of \"..\" is forbidden."));
@@ -236,7 +239,12 @@ namespace AsteriskMod
             Japanese.SetParameter("Exception", "FontLoadingAnyError2", new FakeIniParameter("\"の読み込み中にエラーが発生しました。以下エラーメッセージ:"));
             Japanese.SetParameter("Exception", "FontSpaceCharNotFound1", new FakeIniParameter("フォントには行の高さを計算するための、半角空白(スペース)文字が必要です。しかし、フォント\""));
             Japanese.SetParameter("Exception", "FontSpaceCharNotFound2", new FakeIniParameter("\"には、半角空白(スペース)文字が定義されていません。"));
-            // CYF IO Exceptions
+            // Misc.Functions
+            Japanese.SetParameter("Exception", "StateNotFound1", new FakeIniParameter("State\""));
+            Japanese.SetParameter("Exception", "StateNotFound2", new FakeIniParameter("\"は存在しないState(状態)です。[不正なState]\n\n全ての有効なStateについては、ドキュメントの「Misc. Functions」セクションを確認してください。"));
+            Japanese.SetParameter("Exception", "StateCustomStateNotFound1", new FakeIniParameter("Custom State \""));
+            Japanese.SetParameter("Exception", "StateCustomStateNotFound2", new FakeIniParameter("\" は存在しません。\nStateフォルダに指定したStateの名前のついたLuaファイルがあるか確認してください。"));
+            // The Misc Object
             Japanese.SetParameter("Exception", "MiscCheckFileOutside", new FakeIniParameter("modフォルダの外のファイルを確認することはできません。 \"..\"の使用は許可されていません。"));
             Japanese.SetParameter("Exception", "MiscCheckDirOutside", new FakeIniParameter("modフォルダの外のディレクトリを確認することはできません。 \"..\"の使用は許可されていません。"));
             Japanese.SetParameter("Exception", "MiscCreateDirOutside", new FakeIniParameter("modフォルダの外にディレクトリを作成することはできません。 \"..\"の使用は許可されていません。"));

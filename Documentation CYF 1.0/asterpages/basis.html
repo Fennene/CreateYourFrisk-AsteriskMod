@@ -380,6 +380,9 @@ it's w3c valid, at least
                     <li class="fix">
                         <span class="asternew"></span> <font color="#FF0">Fix the issue that <span class="term">StaticText.DestroyText()</span> destroys sprite layers.</font>
                     </li>
+                    <li class="fix">
+                        <span class="asternew"></span> <font color="#FF0">Fix the issue that moves to incorrect ModSelect scene when player is gameover.</font>
+                    </li>
                     <li class="modify">
                         More UNDERTALE-ish.
                         <ul>
@@ -466,7 +469,12 @@ it's w3c valid, at least
                     </li>
                     <li>
                         Add the new content <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>.
-                        <br><span class="asternew"></span>Add the function <span class="term">UIStaticText.UpdatePosition()</span>.
+                        <br><ul>
+                        <li><span class="asternew"></span>Fix the issue that color has not changed after calling <span class="term">StaticText.SetText()</span> when color has changed.</li>
+                        <li><span class="asternew"></span>I forgot to add the variable <span class="term">StaticText.width</span>.</li>
+                        <li><span class="asternew"></span>I forgot to add the variable <span class="term">StaticText.height</span>.</li>
+                        <li><span class="asternew"></span>Add the function <span class="term">UIStaticText.UpdatePosition()</span>.</li>
+                        </ul>
                     </li>
                     <li>
                         Add the new content <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>

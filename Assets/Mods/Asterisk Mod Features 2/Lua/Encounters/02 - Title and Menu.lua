@@ -1,7 +1,8 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
-       .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
+       .. "\n\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
 
@@ -55,17 +56,17 @@ function EncounterStarting()
     Player.lv = 2
     Player.hp = 24
     PlayerUtil.SetHPControlOverride(true)
-    PlayerUtil.SetHPBarBGColor(0, 0, 0, 0)
-    PlayerUtil.SetHPBarFillColor(0, 0, 0, 0)
+    PlayerUtil.HPBar.bgcolor = {0, 0, 0, 0}
+    PlayerUtil.HPBar.fillcolor = {0, 0, 0, 0}
 
-    PlayerUtil.SetNameColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    PlayerUtil.SetLVColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    PlayerUtil.SetHPLabelColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    PlayerUtil.SetHPTextColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    ButtonUtil.FIGHT.SetColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    ButtonUtil.ACT.SetColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    ButtonUtil.ITEM.SetColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
-    ButtonUtil.MERCY.SetColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
+    PlayerUtil.Name.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    PlayerUtil.Love.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    PlayerUtil.HPLabel.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    PlayerUtil.HPText.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    ButtonUtil.FIGHT.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    ButtonUtil.ACT.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    ButtonUtil.ITEM.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
+    ButtonUtil.MERCY.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
     ArenaUtil.SetBorderColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
     sparetext = "[color:" .. MAIN_COLOR_HEX .. "]Spare"
 
@@ -131,49 +132,49 @@ function AcceptConfig()
     if not _no_hit_mode then
         if _difficulty == DIFFICULTY.EASY then
             current_maxhp_addition = 6
-            additional_hp_text = CreateText("[font:uibattlesmall][instant] + 6", {357, 63}, 1023, "BelowArena")
-            additional_hp_text.HideBubble()
-            additional_hp_text.progressmode = "none"
+            additional_hp_text = CreateStaticText("uibattlesmall", " + 6", {357, 63}, 1023, "BelowArena")
             additional_hp_text.color32 = {255, 115, 0}
         elseif _difficulty == DIFFICULTY.LUNATIC then
             kr = true
-            PlayerUtil.HPTextMoveTo(30, 0)
+            PlayerUtil.HPText.Move(30, 0)
             local label = CreateSprite("spr_krlabel_0", "BelowArena")
             label.MoveToAbs(325.4, 70)
             label.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
-            fake_fill_bar = CreateSprite("px", "BelowArena")
-            fake_fill_bar.SetPivot(0, 0.5)
-            fake_fill_bar.MoveToAbs(276, 70)
-            fake_fill_bar.color = {1, 1, 0}
-            fake_fill_bar.Scale((current_hp - karma) * 1.2, 20)
+            fake_fill_bar = PlayerUtil.CreateLifeBar("BelowArena")
+            fake_fill_bar.bgalpha = 0
+            fake_fill_bar.fillcolor = {1, 1, 0}
+            fake_fill_bar.maxhp = current_maxhp + current_maxhp_addition
+            fake_fill_bar.hp = current_hp - karma
         end
     else
         current_maxhp = 1
         current_maxhp_addition = 0
-        PlayerUtil.SetNameColor32(0, 0, 0, 0)
-        PlayerUtil.SetLVColor32(0, 0, 0, 0)
-        PlayerUtil.SetHPText("NO HIT!")
+        PlayerUtil.Name.color32 = {0, 0, 0, 0}
+        PlayerUtil.Love.color32 = {0, 0, 0, 0}
+        PlayerUtil.HPText.SetText("NO HIT!")
         ButtonUtil.SetActives(true, false, false, false)
         ButtonUtil.FIGHT.MoveTo(234, 0)
     end
-    additional_hp_bar = PlayerUtil.CreateLifeBar(true)
-    additional_hp_bar.SetBackgroundColor32(127, 57, 0)
-    additional_hp_bar.SetFillColor32(255, 115, 0)
-    hp_bar = PlayerUtil.CreateLifeBar(--[[false]])
-    PlayerUtil.SetHPBarLength(current_maxhp + current_maxhp_addition)
-    additional_hp_bar.length = current_maxhp + current_maxhp_addition
-    hp_bar.length = current_maxhp
+    additional_hp_bar = PlayerUtil.CreateLifeBar("BelowHPBar")
+    additional_hp_bar.bgcolor32 = {127, 57, 0}
+    additional_hp_bar.fillcolor32 = {255, 115, 0}
+    hp_bar = PlayerUtil.CreateLifeBar(--[["AboveHPBar"]])
+    PlayerUtil.HPBar.maxhp = current_maxhp + current_maxhp_addition
+    additional_hp_bar.maxhp = current_maxhp + current_maxhp_addition
+    PlayerUtil.HPText.UpdatePosition()
+    hp_bar.maxhp = current_maxhp
     current_hp = current_maxhp
     current_hp_addition = current_maxhp_addition
     if kr then
-        hp_bar.SetFillColor(1, 0, 1)
+        PlayerUtil.HPText.Move(30, 0)
+        hp_bar.fillcolor = {1, 0, 1}
     end
     _game_mode = GAMEMODE.GAME
 end
 
 function UpdateKarma()
     if not kr then return end
-    fake_fill_bar.Scale(math.max(1, current_hp - karma) * 1.2, 20)
+    fake_fill_bar.hp = math.max(1, current_hp - karma)
     if karma == 0 then return end
     karma_framecounter = karma_framecounter + 1
     local decrease_flag = false
@@ -197,25 +198,25 @@ function UpdateKarma()
             current_hp = current_hp - 1
         end
         if karma == 0 then
-            PlayerUtil.SetHPTextColor32(MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b)
+            PlayerUtil.HPText.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
         end
     end
 end
 
 function UpdateLifeStat()
     if _no_hit_mode then return end
-    additional_hp_bar.value = current_maxhp + current_hp_addition
-    hp_bar.value = current_hp
+    additional_hp_bar.hp = current_maxhp + current_hp_addition
+    hp_bar.hp = current_hp
     local text = current_hp
     if current_hp < 10 then
         text = "0" .. text
     end
     if current_maxhp_addition ~= 0 then
         text = text .. "    "
-        additional_hp_text.SetText("[font:uibattlesmall][instant] + " .. current_hp_addition)
+        additional_hp_text.SetText(" + " .. current_hp_addition)
     end
     text = text .. " / " .. current_maxhp
-    PlayerUtil.SetHPText(text)
+    PlayerUtil.HPText.SetText(text)
 end
 
 __debug = false
@@ -281,7 +282,7 @@ function PlayerHurt(amount, inv_time)
         Audio.PlaySound("hurtsound")
         karma = math.min(karma + amount, MAX_KARMA)
         current_hp = current_hp - 1
-        PlayerUtil.SetHPTextColor32(MAIN_COLOR32.r, 0, MAIN_COLOR32.b)
+        PlayerUtil.HPText.color32 = {MAIN_COLOR32.r, 0, MAIN_COLOR32.b}
         return
     end
     if Player.ishurting then return end
@@ -370,4 +371,8 @@ function DefenseEnding()
         current_hp_addition = current_maxhp_addition
     end
     encountertext = "[color:" .. MAIN_COLOR_HEX .. "]" .. RandomEncounterText()
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

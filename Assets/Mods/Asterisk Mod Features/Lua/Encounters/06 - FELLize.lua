@@ -1,6 +1,7 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -31,16 +32,16 @@ function EncounterStarting()
     Player.name = "Nil256"
 
     -- Set the texts' color of player's status to Red
-    PlayerUtil.SetNameColor(1, 0, 0)
-    PlayerUtil.SetLVColor(1, 0, 0)
-    PlayerUtil.SetHPLabelColor(1, 0, 0)
-    PlayerUtil.SetHPTextColor(1, 0, 0)
+    PlayerUtil.Name.color = {1, 0, 0}
+    PlayerUtil.Love.color = {1, 0, 0}
+    PlayerUtil.HPLabel.color = {1, 0, 0}
+    PlayerUtil.HPText.color = {1, 0, 0}
 
     -- Set the color of all button to Red(?)
-    ButtonUtil.FIGHT.SetColor(1, 0.5, 0)
-    ButtonUtil.ACT.SetColor(1, 0, 0)
-    ButtonUtil.ITEM.SetColor(1, 0, 0)
-    ButtonUtil.MERCY.SetColor(1, 0, 0)
+    ButtonUtil.FIGHT.color = {1, 0.5, 0}
+    ButtonUtil.ACT.color = {1, 0, 0}
+    ButtonUtil.ITEM.color = {1, 0, 0}
+    ButtonUtil.MERCY.color = {1, 0, 0}
 
     -- Set the color of arena's border
     ArenaUtil.SetBorderColor(1, 0, 0)
@@ -62,28 +63,28 @@ end
 function Update()
     if GetCurrentState() == "ACTIONSELECT" then
         local button = GetCurrentAction()
-        ButtonUtil.FIGHT.SetColor(1, 0, 0)
-        ButtonUtil.ACT.SetColor(1, 0, 0)
-        ButtonUtil.ITEM.SetColor(1, 0, 0)
-        ButtonUtil.MERCY.SetColor(1, 0, 0)
+        ButtonUtil.FIGHT.color = {1, 0, 0}
+        ButtonUtil.ACT.color = {1, 0, 0}
+        ButtonUtil.ITEM.color = {1, 0, 0}
+        ButtonUtil.MERCY.color = {1, 0, 0}
         if button == "FIGHT" then
-            ButtonUtil.FIGHT.SetColor(1, 0.5, 0)
+            ButtonUtil.FIGHT.color = {1, 0.5, 0}
         elseif button == "ACT" then
-            ButtonUtil.ACT.SetColor(1, 0.5, 0)
+            ButtonUtil.ACT.color = {1, 0.5, 0}
         elseif button == "ITEM" then
-            ButtonUtil.ITEM.SetColor(1, 0.5, 0)
+            ButtonUtil.ITEM.color = {1, 0.5, 0}
         elseif button == "MERCY" then
-            ButtonUtil.MERCY.SetColor(1, 0.5, 0)
+            ButtonUtil.MERCY.color = {1, 0.5, 0}
         end
     end
 end
 
 function EnteringState(newState, oldState)
     if newState == "ENEMYDIALOGUE" or newState == "DEFENDING" then
-        ButtonUtil.FIGHT.SetColor(1, 0, 0)
-        ButtonUtil.ACT.SetColor(1, 0, 0)
-        ButtonUtil.ITEM.SetColor(1, 0, 0)
-        ButtonUtil.MERCY.SetColor(1, 0, 0)
+        ButtonUtil.FIGHT.color = {1, 0, 0}
+        ButtonUtil.ACT.color = {1, 0, 0}
+        ButtonUtil.ITEM.color = {1, 0, 0}
+        ButtonUtil.MERCY.color = {1, 0, 0}
     end
 end
 
@@ -104,4 +105,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"[color:ff0000]Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

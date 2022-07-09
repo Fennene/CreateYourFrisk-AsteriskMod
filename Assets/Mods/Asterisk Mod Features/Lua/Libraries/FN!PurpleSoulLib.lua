@@ -7,6 +7,8 @@ by Nil256 [Fennene]
 This code is NOT from Undertale, It's Nil256's unique code.
 このコードはUndertaleのものではなく、にるにころが作成した独自のコードです。
 
+|AsteriskMod v0.5.3|
+
 frame based (60 fps)
 60fps基準
 

@@ -294,7 +294,7 @@ namespace AsteriskMod
             Mods.mods[CurrentSelectedMod].Reload();
 
             // Update the text
-            ModTitle.GetComponent<Text>().text = Mods.mods[id].RealName;
+            ModTitle.GetComponent<Text>().text = Mods.mods[id].Title;
             // Crate your frisk version
             if (GlobalControls.crate)
                 ModTitle.GetComponent<Text>().text = Temmify.Convert(Mods.mods[id].Title, true);

@@ -1,6 +1,7 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -41,8 +42,8 @@ function EncounterStarting()
     ButtonUtil.FIGHT.Move(-187, 0)
     ButtonUtil.ITEM.Move(187, 0)
 
-    -- Use "SetColor()" if you wanna just hide buttons.
-    -- ButtonUtil.ITEM.SetColor(1, 1, 1, 0)
+    -- Use the function "Hide()" if you wanna just hide buttons.
+    --ButtonUtil.ITEM.Hide()
 
     -- Don't hide them to place another buttons! You can change sprite with calling "button.SetSprite()"!
     -- ButtonUtil.FIGHT.SetSprite("UI/NonColoredButtons/fightbt_0", "UI/NonColoredButtons/fightbt_1")
@@ -50,6 +51,17 @@ function EncounterStarting()
     -- ButtonUtil.FIGHT.SetSprite("fightbt_0", "fightbt_1", "UI/NonColoredButtons")
     -- or
     -- ButtonUtil.SetSprites("UI/NonColoredButtons")
+
+    -- You can change player's position on button selection
+    -- ButtonUtil.ACT.playery = 10
+    -- If the variable "playerabs" is "true", the variables "playerx" and "playery" means Player.absx and Player.absy.
+    --[[
+    ButtonUtil.FIGHT.playerabs = true
+    ButtonUtil.FIGHT.playerx = 320
+    ButtonUtil.FIGHT.playery = 240
+    --]]
+
+    require("_").Check(5)
 end
 
 function EnemyDialogueStarting()
@@ -69,4 +81,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

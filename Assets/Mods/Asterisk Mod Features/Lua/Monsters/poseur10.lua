@@ -20,3 +20,8 @@ end
 function HandleCustomCommand(command)
     BattleDialog({"POSEUR " .. atk .. " ATK " .. def .. " DEF"})
 end
+
+function OnSpare()
+    require("_").Check(10)
+    Spare()
+end

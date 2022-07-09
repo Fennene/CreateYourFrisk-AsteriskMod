@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsteriskMod;
+using System;
 using System.IO;
 
 public class LuaFile {
@@ -145,12 +146,12 @@ public class LuaFile {
     }
 
     public void Move(string relativePath) {
+        string newPath = (FileLoader.ModDataPath + "/" + relativePath).Replace('\\', '/');
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (isUnsafe) throw new CYFException("file.Move: Cannot move a file in AppData.");
+        if (isUnsafe) newPath = CYFEngine.ConvertToAppDataFullPath(relativePath).Replace('\\', '/');
         // --------------------------------------------------------------------------------
-        string newPath = (FileLoader.ModDataPath + "/" + relativePath).Replace('\\', '/');
 
         if (!File.Exists(filePath)) throw new CYFException("The file at the path \"" + filePath + "\" doesn't exist, so you can't move it.");
         if (newPath.Contains("..")) throw new CYFException("You cannot move a file outside of a mod folder. The use of \"..\" is forbidden.");
@@ -164,12 +165,12 @@ public class LuaFile {
     }
 
     public void Copy(string relativePath, bool overwrite = false) {
+        string newPath = (FileLoader.ModDataPath + "/" + relativePath).Replace('\\', '/');
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
         // --------------------------------------------------------------------------------
-        if (isUnsafe) throw new CYFException("file.Copy: Cannot copy a file in AppData.");
+        if (isUnsafe) newPath = CYFEngine.ConvertToAppDataFullPath(relativePath).Replace('\\', '/');
         // --------------------------------------------------------------------------------
-        string newPath = (FileLoader.ModDataPath + "/" + relativePath).Replace('\\', '/');
 
         if (!File.Exists(filePath)) throw new CYFException("The file at the path \"" + filePath + "\" doesn't exist, so you can't move it.");
         if (newPath.Contains("..")) throw new CYFException("You cannot move a file outside of a mod folder. The use of \"..\" is forbidden.");

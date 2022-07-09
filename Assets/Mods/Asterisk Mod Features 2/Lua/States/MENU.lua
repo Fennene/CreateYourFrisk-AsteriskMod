@@ -47,10 +47,9 @@ function StateStarting(--[[oldState]]) -- required
 	title = CreateSprite("cyf_title", "Top")
 	-- There is no problem and it is very simple, isn't it?
 	-- Let's add other objects and modify them.
-	sub_title = CreateText("[font:uidialog][instant][color:c87f7f]Hard Mode? Poseur Fight", {0, -40}, 1023, "Top")
-	sub_title.MoveToAbs(320 - sub_title.GetTextWidth() / 2, 240)
-	sub_title.HideBubble()
-	sub_title.progressmode = "none"
+	sub_title = CreateStaticText("uidialog", "Hard Mode? Poseur Fight", {0, -40}, 1023, "Top")
+	sub_title.MoveToAbs(320 - sub_title.width / 2, 240) -- sub_title.MoveToAbs(320 - sub_title.GetTextWidth() / 2, 240)
+	sub_title.color32 = {MAIN_COLOR32.r, MAIN_COLOR32.g, MAIN_COLOR32.b}
 	title.Move(0, 30)
 	sub_title.Move(0, -30) -- Yeah! You can text.Move() on Asterisk Mod!!!!!!!!
 	-- Good, we have done preparing objects of title.
@@ -60,14 +59,12 @@ function StateStarting(--[[oldState]]) -- required
 	-- sub_title.Move(0, 150) -- for checking the positions of menu objects
 	local MENU_TEXTS = {"Start", "Difficulty: Medium", "NoHit: Off", "Quit"}
 	for i = 1, #MENU_TEXTS do
-		menu_texts[i] = CreateText("[font:uidialog][instant]" .. MENU_TEXTS[i], {0, -40}, 1023, "Top")
-		menu_texts[i].HideBubble()
-		menu_texts[i].progressmode = "none"
+		menu_texts[i] = CreateStaticText("uidialog", MENU_TEXTS[i], {0, -40}, 1023, "Top")
 	end
 	for i = 1, #MENU_TEXTS do
 		-- Sets the position based on the longest object.
 		-- There are some number values without no description, but these are just values to adjust the positions.
-		menu_texts[i].MoveToAbs(320 - menu_texts[2].GetTextWidth() / 2 + 20, 240 - 16 - ((i - 1) * 40))
+		menu_texts[i].MoveToAbs(320 - menu_texts[2].width / 2 + 20, 240 - 16 - ((i - 1) * 40))
 		-- hide
 		menu_texts[i].Move(0, -300)
 	end
@@ -155,14 +152,14 @@ local function ChangeDifficulty(easier)
 	elseif diff == DIFFICULTY.HARD    then text = "Hard"
 	elseif diff == DIFFICULTY.LUNATIC then text = "Lunatic"
 	end
-	menu_texts[2].SetText("[font:uidialog][instant]Difficulty: " .. text)
+	menu_texts[2].SetText("Difficulty: " .. text)
 end
 
 local function ChangeNoHitMode()
 	Encounter["_no_hit_mode"] = not Encounter["_no_hit_mode"]
 	local text = "Off"
 	if Encounter["_no_hit_mode"] then text = "On" end
-	menu_texts[3].SetText("[font:uidialog][instant]NoHit: " .. text)
+	menu_texts[3].SetText("NoHit: " .. text)
 end
 
 

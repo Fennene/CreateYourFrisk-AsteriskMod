@@ -83,6 +83,7 @@ namespace AsteriskMod
             foreach (string libPath in rawLibPathes)
             {
                 if (libPath.Contains("..")) continue;
+                /*
                 string tempPath = libPath;
                 if (tempPath.EndsWith("/"))
                 {
@@ -96,7 +97,18 @@ namespace AsteriskMod
                 {
                     continue;
                 }
-                else
+                else if (!tempPath.EndsWith("?.lua"))
+                {
+                    tempPath += "/?.lua";
+                }
+                libPathes.Add(tempPath);
+                */
+                string tempPath = libPath;
+                if (tempPath.EndsWith("/"))
+                {
+                    tempPath += "?.lua";
+                }
+                else if (!tempPath.EndsWith("/?.lua"))
                 {
                     tempPath += "/?.lua";
                 }

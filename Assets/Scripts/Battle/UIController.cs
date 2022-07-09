@@ -786,7 +786,12 @@ public class UIController : MonoBehaviour {
         } catch (Exception ex) {
             // invalid state was given
             if (ex.Message.Contains("The requested value '" + state + "' was not found."))
-                throw new CYFException("The state \"" + state + "\" is not a valid state. Are you sure it exists?\n\nPlease double-check in the Misc. Functions section of the docs for a list of every valid state.");
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //throw new CYFException("The state \"" + state + "\" is not a valid state. Are you sure it exists?\n\nPlease double-check in the Misc. Functions section of the docs for a list of every valid state.");
+                throw new CYFException(EngineLang.Get("Exception", "StateNotFound1") + state + EngineLang.Get("Exception", "StateNotFound2"));
+                // --------------------------------------------------------------------------------
             // a different error has occured
             throw new CYFException("An error occured while trying to enter the state \"" + state + "\":\n\n" + ex.Message + "\n\nTraceback (for devs):\n" + ex);
         }

@@ -2,6 +2,7 @@
 --[[
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -25,7 +26,9 @@ possible_attacks = { "bullettest_bouncy", "bullettest_chaserorb", "bullettest_to
 function EncounterStarting()
     DEBUG("isModifiedCYF = " .. tostring(isModifiedCYF))
     DEBUG("Asterisk = " .. tostring(Asterisk))
+    DEBUG("AsteriskMod = " .. tostring(AsteriskMod))
     DEBUG("AsteriskVersion = " .. tostring(AsteriskVersion))
+    DEBUG("Language = " .. tostring(Language))
     DEBUG("AsteriskExperiment = " .. tostring(AsteriskExperiment))
 
     if Asterisk then

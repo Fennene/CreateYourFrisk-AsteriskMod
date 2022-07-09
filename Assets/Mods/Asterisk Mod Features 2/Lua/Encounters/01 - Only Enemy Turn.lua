@@ -1,7 +1,8 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
-       .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
+       .. "\n\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
 
@@ -37,11 +38,10 @@ enemyshake = false
 function EncounterStarting()
     Player.name = "      "
 
-    -- You can hide buttons by calling SetColor() and setting 0 to argument#4
-    ButtonUtil.FIGHT.SetColor(0, 0, 0, 0)
-    ButtonUtil.ACT.SetColor(0, 0, 0, 0)
-    ButtonUtil.ITEM.SetColor(0, 0, 0, 0)
-    ButtonUtil.MERCY.SetColor(0, 0, 0, 0)
+    ButtonUtil.FIGHT.Hide()
+    ButtonUtil.ACT.Hide()
+    ButtonUtil.ITEM.Hide()
+    ButtonUtil.MERCY.Hide()
 
     nextwaves[1] = attacks[1]
     State("DEFENDING")
@@ -98,4 +98,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

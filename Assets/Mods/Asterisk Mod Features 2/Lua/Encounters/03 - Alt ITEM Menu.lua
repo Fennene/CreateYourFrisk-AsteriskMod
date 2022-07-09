@@ -1,7 +1,8 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
-       .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
+       .. "\n\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
 
@@ -85,4 +86,8 @@ function HandleItem(ItemID)
         Inventory.SetInventory({}) -- disable ITEM Menu by setting empty inventory.
     end
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

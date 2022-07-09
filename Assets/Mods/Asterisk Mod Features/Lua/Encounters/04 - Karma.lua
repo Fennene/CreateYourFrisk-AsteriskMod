@@ -1,6 +1,7 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
@@ -33,7 +34,7 @@ karma = 0 -- amount of karma
 MAX_KARMA = 40 -- constant. maximum value of karma
 karma_framecounter = 0 -- if karma > 0, it increases
 karma_label = CreateSprite("spr_krlabel_0", "BelowArena") -- KR
-fake_fill_bar = CreateSprite("px", "BelowArena") -- Yellow bar
+fake_fill_bar = PlayerUtil.CreateLifeBar(--[["AboveHPBar"]])
 -- Undertale works 30fps, but CYF works 60fps. if you hurt the player in 1 frame on CYF, it does not work like Undertale.
 framecounter = 0
 
@@ -52,19 +53,19 @@ function EncounterStarting()
 
     current_hp = Player.maxhp
     -- palces KR label
-    PlayerUtil.HPTextMoveTo(30, 0) -- makes space to place karma label
+    PlayerUtil.HPText.Move(30, 0) -- makes space to place karma label
     karma_label.MoveToAbs(296.6 + (Player.maxhp * 1.2), 70) -- places the label
     -- places fake yellow bar
-    fake_fill_bar.SetPivot(0, 0.5)
-    fake_fill_bar.MoveToAbs(276, 70)
-    fake_fill_bar.Scale((current_hp - karma) * 1.2, 20)
+    fake_fill_bar.maxhp = Player.maxhp
+    fake_fill_bar.hp = current_hp - karma
+    fake_fill_bar.bgalpha = 0 -- hide
     -- changes color
-    PlayerUtil.SetHPBarFillColor(1, 0, 1) -- purple
-    fake_fill_bar.color = {1, 1, 0} -- yellow
+    PlayerUtil.HPBar.fillcolor = {1, 0, 1} -- purple
+    fake_fill_bar.fillcolor = {1, 1, 0} -- yellow
     -- stops original process of the player's HP
     PlayerUtil.SetHPControlOverride(true)
     -- sets length of HP Bars
-    PlayerUtil.SetHPBarLength(Player.maxhp)
+    PlayerUtil.HPBar.maxhp = Player.maxhp
     PlayerUtil.SetHP(current_hp, Player.maxhp, true)
 end
 
@@ -128,13 +129,13 @@ function Update()
                 current_hp = current_hp - 1 -- decrease HP and karma at the same time.
             end
         end
-        PlayerUtil.SetHPTextColor(1, 0, 1) -- sets the color of the text to purple
+        PlayerUtil.HPText.color = {1, 0, 1} -- sets the color of the text to purple
     else
-        PlayerUtil.SetHPTextColor(1, 1, 1) -- reverts the color of the text
+        PlayerUtil.HPText.color = {1, 1, 1} -- reverts the color of the text
     end
     -- displaying
     PlayerUtil.SetHP(current_hp, Player.maxhp, true)
-    fake_fill_bar.Scale(math.max(1, current_hp - karma) * 1.2, 20)
+    fake_fill_bar.hp = math.max(1, current_hp - karma)
 
     -- checks gameover
     if current_hp <= 0 then
@@ -167,4 +168,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

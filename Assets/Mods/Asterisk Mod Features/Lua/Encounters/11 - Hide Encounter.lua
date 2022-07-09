@@ -1,24 +1,18 @@
 -- You need to check that the player use AsteriskMod.
 if Asterisk == nil then
     error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
        .. "\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
     )
 end
--- checks that the player enable Exprimental Features option.
-if not AsteriskExperiment then
-    error("You should enable Experimental Features in option.")
-end
 
--- We can't mute sounds when you spare enemies or you are gameover, unfortunately.
--- However, if you use CustomState, you can do that.
-
-encountertext = "Poseur strikes a pose!"
+encountertext = "This is the secret encounter!\r(but there is nothing special...)"
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 4.0
 arenasize = {155, 130}
 
 enemies = {
-    "poseur02"
+    "poseur"
 }
 
 enemypositions = {
@@ -31,18 +25,8 @@ possible_attacks = {
     "bluesoultest_smalljump", "bluesoultest_hittoplatform", "bluesoultest_movetoplatform"
 }
 
-registed_sounds = {"BeginBattle1", "BeginBattle2", "BeginBattle3", "dogsecret", "enemydust", "healsound", "heartbeatbreaker", "heartsplosion", "hitsound", "HotCat", "HotDog", "hurtsound", "LegHero", "levelup", "menuconfirm", "menumove", "runaway", "saved", "SeaTea", "ShopFail", "ShopSuccess", "slice", "success"}
---registed_voices = {"monsterfont", "tem1", "tem2", "tem3", "tem4", "tem5", "tem6", "uifont", "uifontold", "v_asriel", "v_flowey", "v_floweymad", "v_fluffybuns", "v_papyrus", "v_sans"}
-
 function EncounterStarting()
     Player.name = "Nil256"
-
-    Audio.Volume(0)
-    for i = 1, #registed_sounds do
-        Audio[registed_sounds[i]] = "silence"
-    end
-
-    ArenaUtil.SetDialogTextMute(true)
 end
 
 function EnemyDialogueStarting()
@@ -62,4 +46,8 @@ end
 
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
+end
+
+function BeforeDeath()
+    Player.sprite.color = {1, 0, 0}
 end

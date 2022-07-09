@@ -243,7 +243,7 @@ namespace AsteriskMod
             GameObject parent = GameObject.Find(layerName);
             if (parent == null)
             {
-                UnitaleUtil.DisplayLuaError("Creating a lifeBar", "The lifeBar layer " + layer + " doesn't exist.");
+                UnitaleUtil.DisplayLuaError("Creating a lifeBar", "The layer " + layer + " doesn't exist.");
                 return null;
             }
             PlayerLifeBar lifeBar = GameObject.Instantiate(Resources.Load<GameObject>(prefabName), parent.transform).GetComponent<PlayerLifeBar>();

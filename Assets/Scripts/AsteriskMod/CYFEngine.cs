@@ -60,7 +60,7 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
-        private string ConvertToAppDataFullPath(string path)
+        internal static string ConvertToAppDataFullPath(string path)
         {
             return Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER + "/" + path);
         }

@@ -504,7 +504,7 @@ public class EnemyEncounter : MonoBehaviour {
             {
                 //if (!GlobalControls.retroMode && !ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName.String))
                 if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.CUSTOMSTATE_PREFIX + customStateName))
-                    UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "The custom state \"" + customStateName + "\" doesn't exist.");
+                    UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, EngineLang.Get("Exception", "StateCustomStateNotFound1") + customStateName + EngineLang.Get("Exception", "StateCustomStateNotFound2"));
                 else
                     UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
             }

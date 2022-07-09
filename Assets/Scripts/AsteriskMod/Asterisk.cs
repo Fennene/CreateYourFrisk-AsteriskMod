@@ -68,7 +68,7 @@ namespace AsteriskMod
         public const string WindowBasisName = "*Create Your Frisk";
         public const string WinodwBsaisNmae = "*Crate Your Frisk";
 
-        public static readonly string[] nonOWScenes = { "ModPack", "NewMod", "MHTMenu", "CyfModFileEditor", "MHTSim", "AsteriskOptions" };
+        public static readonly string[] nonOWScenes = { "AlternativeModSelect", "ModPack", "NewMod", "MHTMenu", "CyfModFileEditor", "MHTSim", "AsteriskOptions" };
 
         /// <summary>
         /// Initialize AsteriskMod's variables and Modify CYF's global variables<br/>

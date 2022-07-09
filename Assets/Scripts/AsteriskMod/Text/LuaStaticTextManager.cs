@@ -9,7 +9,7 @@ namespace AsteriskMod
 {
     public class LuaStaticTextManager : StaticTextManager
     {
-        private GameObject container;
+        protected GameObject container;
         //* private GameObject containerBubble;
         //* private RectTransform speechThing;
         //* private RectTransform speechThingShadow;
@@ -342,11 +342,13 @@ namespace AsteriskMod
 
                 foreach (Image i in letterReferences)
                     if (i != null)
-                        if (i.color == defaultColor) i.color = _color;
-                        else break; // Only because we can't go back to the default color
+                        i.color = _color;
+                        //* if (i.color == defaultColor) i.color = _color;
+                        //* else                         break; // Only because we can't go back to the default color // <= What?? Why?????
 
-                if (currentColor == defaultColor)
-                    currentColor = _color;
+                //*if (currentColor == defaultColor)
+                //*    currentColor = _color;
+                currentColor = _color;
                 defaultColor = _color;
             }
         }
@@ -730,19 +732,19 @@ namespace AsteriskMod
         }
         */
 
-        public void Move(int x, int y)
+        public virtual void Move(int x, int y)
         {
             CheckExists();
             container.transform.localPosition = new Vector3(x + this.x, y + this.y, container.transform.localPosition.z);
         }
 
-        public void MoveTo(int newX, int newY)
+        public virtual void MoveTo(int newX, int newY)
         {
             CheckExists();
             container.transform.localPosition = new Vector3(newX, newY, container.transform.localPosition.z);
         }
 
-        public void MoveToAbs(int newX, int newY)
+        public virtual void MoveToAbs(int newX, int newY)
         {
             CheckExists();
             container.transform.position = new Vector3(newX, newY, container.transform.position.z);
@@ -775,6 +777,10 @@ namespace AsteriskMod
                 return instantText.Text;
             }
         }
+
+        public int width { get { return GetTextWidth(); } }
+
+        public int height { get { return GetTextHeight(); } }
 
         /*
         DO NOT

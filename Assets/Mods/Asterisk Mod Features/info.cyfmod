@@ -1,6 +1,7 @@
-target-version="v0.5.2.9"
+target-version="v0.5.3"
+hide-encounters={"11 - Hide Encounter"}
+supported-languages={"en"}
 font="8bitoperator"
-title="Asterisk Mod Features"
 subtitle="by Nil256"
 description-file="description.txt"
 description-align="MiddleCenter"
