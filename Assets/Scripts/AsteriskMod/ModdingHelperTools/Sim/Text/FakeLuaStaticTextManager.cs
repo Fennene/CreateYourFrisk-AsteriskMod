@@ -213,8 +213,7 @@ namespace AsteriskMod.ModdingHelperTools
 
                 foreach (Image i in letterReferences)
                     if (i != null)
-                        if (i.color == defaultColor) i.color = _color;
-                        else break; // Only because we can't go back to the default color
+                        i.color = _color;
 
                 if (currentColor == defaultColor)
                     currentColor = _color;

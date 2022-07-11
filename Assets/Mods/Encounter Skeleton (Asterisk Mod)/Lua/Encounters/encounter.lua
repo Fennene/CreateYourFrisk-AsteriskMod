@@ -1,5 +1,12 @@
 -- A basic encounter script skeleton you can copy and modify for your own creations.
-
+--[[
+if Asterisk == nil then
+    error("This mod can be launched on only CYF-AsteriskMod."
+       .. "\n[このModはCYF-AsteriskModでのみ起動できます。]"
+       .. "\n\nAsteriskMod -> https://github.com/Fennene/CreateYourFrisk-AsteriskMod"
+    )
+end
+]]
 -- music = "shine_on_you_crazy_diamond" --Either OGG or WAV. Extension is added automatically. Uncomment for custom music.
 encountertext = "Poseur strikes a pose!" --Modify as necessary. It will only be read out in the action select screen.
 nextwaves = {"bullettest_chaserorb"}

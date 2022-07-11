@@ -18,17 +18,17 @@
 
 ## Asterisk Mod
 
-現在の提供しているバージョンは**v0.5.2.9**です。 (最新(Experiment(実験))バージョンは*v0.5.2.A*です。)
+現在の提供しているバージョンは**v0.5.3**です。
 
 Asterisk Modは 公式のCYFを基に いくつかの便利な機能を追加します。
 
 例えば...
 
-"PlayerUtil.SimulateDamage()"を用いて、敵の受ける攻撃の量を計算することができます。 *(v0.5.2.A以降)*
+"PlayerUtil.SimulateDamage()"を用いて、敵の受ける攻撃の量を計算することができます。
 
 MERCY ボタンを"ButtonUtil.MERCY.SetActive(false)"で無効にできます。
 
-"ArenaUtil.DialogTextMoveTo()"を呼び出して、ダイアログボックス内のテキストを動かすことができます。 *(v0.5.2.A以降)*
+"ArenaUtil.DialogTextMoveTo()"を呼び出して、ダイアログボックス内のテキストを動かすことができます。
 
 さらに、**Stateスクリプト**を用いてCustomState(独自のState)を作成できます！！
 
@@ -42,7 +42,7 @@ MERCY ボタンを"ButtonUtil.MERCY.SetActive(false)"で無効にできます。
 
 ## Unity Version
 
-CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.2.9**. It was built using **Unity Personal 2018.2.13f1**.
+CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.3**. It was built using **Unity Personal 2018.2.13f1**.
 
 To get this version of Unity, either:
 

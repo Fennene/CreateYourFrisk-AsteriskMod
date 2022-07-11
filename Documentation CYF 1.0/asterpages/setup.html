@@ -130,6 +130,8 @@ it's w3c valid, at least
                 <span class="asternew"></span> This setup is important for the compatibility with prev AsteriskMod's version.<br>
                 Furthermore, you can add a description and change mod's title by using this.<br>
                 This is not required feature, but I recommend to setup this.
+                <br><br>
+                <span class="Future"></span> <font color="#DDD">Since v0.5.3.1, <span class="term">info.cyfmod</span> is required to the mod made with AsteriskMod because the engine will get to distinguish CYF's mods and AsteriskMod's mods.</font>
             </p><br>
 
             <!--
@@ -161,15 +163,15 @@ YOURMOD
                 There is <span class="term">.cyfmod</span> file's format:
             <div class="code-container">
 <pre class="brush: lua;">
-;this is comment out.
-;string
+;;this is comment out.
+;;string
 key="parameter"
-;table (can use since v0.5.3)
+;;table (can use since v0.5.3)
 key={"element1", "element2"}
-;You can use some escape sequence since v0.5.3.
+;;You can use some escape sequence since v0.5.3.
 NewLine="\n"
 CarriageReturn="\r"
-;You can use section in this format, but info.cyfmod ignores section.
+;;You can use section in this format, but info.cyfmod ignores section.
 </pre>
                 </div><br>
                 There are available keys in info.cyfmod:<br><br>

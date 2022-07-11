@@ -179,7 +179,7 @@ namespace AsteriskMod.ModdingHelperTools
             return luatm;
         }
 
-        private readonly byte MAX_STATIC_TEXT_OBJECT = 16;
+        private readonly byte MAX_STATIC_TEXT_OBJECT = 20;
 
         internal FakeLuaStaticTextManager[] StaticTexts;
 

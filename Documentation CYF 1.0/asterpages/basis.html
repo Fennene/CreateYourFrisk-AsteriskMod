@@ -321,7 +321,7 @@ it's w3c valid, at least
                 These compatibility mode is depended on mods, that is not like CYF's Retrocompatibility Mode. 
                 (This means that the players do not need to set some option.)
                 <br><br>
-                <font color="#FFF">If there's hardly mods made with before v0.5.3.x and I check that, I probably delete this compatibility.</font>
+                <font color="#FFF">I will delete the compatibility between v0.5.3.x and v0.5.2.x since v0.5.3.1.</font>
                 <br><br><br>
                 Well, I'll introduce some modification and addition of this update.<br>
                 (Concrete content of this update, see bottom of this page.)
@@ -364,7 +364,6 @@ it's w3c valid, at least
 
             <h4>v0.5.3 [TakeNewStepUpdate]</h4>
             <p>
-                There is a symbol <span class="asternew"></span> on the features that are not contained v0.5.2.A (v0.5.3.-1).
                 <ul class="rn">
                     <li class="fix">
                         <font color="#FFF">Fix the issue that we can't launch mods by Z key when we open encounter box by mouse clicking.</font>
@@ -377,23 +376,27 @@ it's w3c valid, at least
                         the error has not occurred if the sprites are missed 
                         on <span class="term">ButtonUtil.SetSprites()</span> and <span class="term">button.SetSprite()</span>.
                     </li>
-                    <li class="fix">
-                        <span class="asternew"></span> <font color="#FF0">Fix the issue that <span class="term">StaticText.DestroyText()</span> destroys sprite layers.</font>
-                    </li>
-                    <li class="fix">
-                        <span class="asternew"></span> <font color="#FF0">Fix the issue that moves to incorrect ModSelect scene when player is gameover.</font>
-                    </li>
                     <li class="modify">
                         More UNDERTALE-ish.
                         <ul>
                             <li>Positions of the UIs showing the HP is fixed.</li>
                         </ul>
                     </li>
+                    <li><font color="#FFF">Add <span class="term">ModPack</span> System.</font></li>
+                    <li>
+                        <font color="#FFF">
+                        Add <span class="term">Modding Helper Tools</span>.
+                        <ul>
+                            <li>Add <span class="term">Opening Document</span>.</li>
+                            <li>Add <span class="term">Battle Simulator</span>.</li>
+                        </ul>
+                        </font>
+                    </li>
                     <li class="modify">
                         Add and Delete options
                         <ul>
                             <li class="add">Add <span class="term">Language</span> option.</li>
-                            <li class="add"><span class="asternew"></span><span class="term">UIを日本語表記にするかどうか</span>オプションの追加。</li>
+                            <li class="add"><span class="term">UIを日本語表記にするかどうか</span>オプションの追加。</li>
                             <li class="add">Add <span class="term">Replace Prepared Mod's Name</span> option.</li>
                             <li class="del">Delete <span class="term">Show Error Dog</span> option.</li>
                         </ul>
@@ -402,16 +405,15 @@ it's w3c valid, at least
                         Add the parameters to <span class="term"><a href="setup.html#info">info.cyfmod</a></span>.<br>
                         <ul>
                             <li>Works <span class="term">target-version</span> parameter.</li>
-                            <li><span class="asternew"></span>Add the parameter <span class="term">encounter-names</span>.</li>
+                            <li>Add the parameter <span class="term">encounter-names</span>.</li>
                             <li>Add the parameter <span class="term">show-encounters</span>.</li>
                             <li>Add the parameter <span class="term">hide-encounters</span>.</li>
                             <li>Add the parameter <span class="term">bg-color</span>.</li>
                             <li>Add the parameter <span class="term">bg-color32</span>.</li>
-                            <li><span class="asternew"></span>Add the parameter <span class="term">launch-bg-color</span>.</li>
-                            <li><span class="asternew"></span>Add the parameter <span class="term">launch-bg-color32</span>.</li>
-                            <li><span class="asternew"></span>Add the parameter <span class="term">launch-bg-alpha</span>.</li>
-                            <li><span class="asternew"></span>Add the parameter <span class="term">launch-bg-alpha32</span>.</li>
-                            <li class="del"><span class="asternew"></span>You can not use <span class="term">description-font</span> instead of <span class="term">font</span>.</li>
+                            <li>Add the parameter <span class="term">launch-bg-color</span>.</li>
+                            <li>Add the parameter <span class="term">launch-bg-color32</span>.</li>
+                            <li>Add the parameter <span class="term">launch-bg-alpha</span>.</li>
+                            <li>Add the parameter <span class="term">launch-bg-alpha32</span>.</li>
                         </ul>
                     </li>
                     <li class="modify">
@@ -455,7 +457,7 @@ it's w3c valid, at least
                     <li class="modify">
                         Modify <span class="term">The Sprite Object</span>
                         <ul>
-                            <li><span class="asternew"></span> Gets to try to remove projectile of sprites' children on <span class="term">Sprite.Remove()</span>.</li>
+                            <li>Gets to try to remove projectile of sprites' children on <span class="term">Sprite.Remove()</span>.</li>
                         </ul>
                     </li>
                     <li>
@@ -469,12 +471,6 @@ it's w3c valid, at least
                     </li>
                     <li>
                         Add the new content <span class="term"><a href="api-statictext.html">The StaticText Object</a></span>.
-                        <br><ul>
-                        <li><span class="asternew"></span>Fix the issue that color has not changed after calling <span class="term">StaticText.SetText()</span> when color has changed.</li>
-                        <li><span class="asternew"></span>I forgot to add the variable <span class="term">StaticText.width</span>.</li>
-                        <li><span class="asternew"></span>I forgot to add the variable <span class="term">StaticText.height</span>.</li>
-                        <li><span class="asternew"></span>Add the function <span class="term">UIStaticText.UpdatePosition()</span>.</li>
-                        </ul>
                     </li>
                     <li>
                         Add the new content <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
@@ -482,14 +478,12 @@ it's w3c valid, at least
                             <li>Add the funtion <span class="term">Engine.SetTargetFrameRate()</span>.</li>
                             <li>Add the funtion <span class="term">Engine.ModExists()</span>.</li>
                             <li>Add the funtion <span class="term">Engine.OpenAppDataFile()</span>.</li>
-                            <li><span class="asternew"></span>Using <span class="term">/</span> to go down a folder is allowed on <span class="term">Engine.OpenAppDataFile()</span>.</li>
                             <li>Add the funtion <span class="term">Engine.AppDataFileExists()</span>.</li>
-                            <li><span class="asternew"></span>Using <span class="term">/</span> to go down a folder is allowed on <span class="term">Engine.AppDataFileExists()</span>.</li>
-                            <li><span class="asternew"></span>Add the funtion <span class="term">Engine.AppDataListDir()</span>.</li>
-                            <li><span class="asternew"></span>Add the funtion <span class="term">Engine.AppDataDirExists()</span>.</li>
-                            <li><span class="asternew"></span>Add the funtion <span class="term">Engine.CreateAppDataDir()</span>.</li>
-                            <li><span class="asternew"></span>Add the funtion <span class="term">Engine.MoveAppDataDir()</span>.</li>
-                            <li><span class="asternew"></span>Add the funtion <span class="term">Engine.RemoveAppDataDir()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.AppDataListDir()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.AppDataDirExists()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.CreateAppDataDir()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.MoveAppDataDir()</span>.</li>
+                            <li>Add the funtion <span class="term">Engine.RemoveAppDataDir()</span>.</li>
                             <li>Add the funtion <span class="term">Engine.RemoveAllProjectiles()</span>.</li>
                             <li>
                                 Add the <span class="AsteriskExperiment"></span> funtion <span class="term">Engine.SetSpriteFilterMode()</span>.
@@ -525,7 +519,6 @@ it's w3c valid, at least
                             <li class="add">Add the function <span class="term">PlayerUtil.ResetTargetChoiceAnim()</span>.</li>
                             <li class="add">Add the function <span class="term">PlayerUtil.GetTargetChoiceX()</span>.</li>
                             <li class="add">Add the function <span class="term">PlayerUtil.SimulateDamage()</span>.</li>
-                            <li><span class="asternew"></span> The default argument of <span class="term">PlayerUtil.CreateLifeBar()</span> is <span class="term">"AboveHPBar"</span>.</li>
                         </ul>
                     </li>
                     <li class="modify">
@@ -556,7 +549,7 @@ it's w3c valid, at least
                             <li class="add">Add the variable <span class="term">lifeBar.controlOverride</span>.</li>
                             <li class="add">Add the variable <span class="term">lifeBar.isactive</span>.</li>
                             <li class="add">Add the variable <span class="term">lifeBar.limited</span>.</li>
-                            <li class="add"><span class="asternew"></span>Add the variable <span class="term">lifeBar.hpscale</span>.</li>
+                            <li class="add">Add the variable <span class="term">lifeBar.hpscale</span>.</li>
                             <li class="add">Add the variable <span class="term">lifeBar.height</span>.</li>
                             <li class="add">Add the variable <span class="term">lifeBar.bgalpha</span>.</li>
                             <li class="add">Add the variable <span class="term">lifeBar.bgalpha32</span>.</li>

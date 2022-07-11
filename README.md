@@ -20,17 +20,17 @@ There is original CYF's [**Discord server**](https://discord.gg/GFJ5277)! Feel f
 
 ## Asterisk Mod
 
-Current version is **v0.5.2.9**. (Latest (experiment) version is *v0.5.2.A*.)
+Current version is **v0.5.3**.
 
 Asterisk Mod adds some strong functions and objects to original CYF.
 
 For example,
 
-Calculates the damage enemy takes with "PlayerUtil.SimulateDamage()". *(on v0.5.2.A)*
+Calculates the damage enemy takes with "PlayerUtil.SimulateDamage()".
 
 You can inactive MERCY Button by "ButtonUtil.MERCY.SetActive(false)".
 
-Moves the text in dialog box by calling "ArenaUtil.DialogTextMoveTo()". *(on v0.5.2.A)*
+Moves the text in dialog box by calling "ArenaUtil.DialogTextMoveTo()".
 
 Moreover, you can create your CustomState by **State Script**!!
 
@@ -44,7 +44,7 @@ To download the engine, go to [**the releases page**](https://github.com/Fennene
 
 ## Unity Version
 
-CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.2.9**. It was built using **Unity Personal 2018.2.13f1**.
+CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.3**. It was built using **Unity Personal 2018.2.13f1**.
 
 To get this version of Unity, either:
 

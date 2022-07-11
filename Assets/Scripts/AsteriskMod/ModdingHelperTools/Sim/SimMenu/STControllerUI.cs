@@ -1,5 +1,5 @@
 ﻿using AsteriskMod.ModdingHelperTools.UI;
-using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +57,15 @@ namespace AsteriskMod.ModdingHelperTools
 
         // --------------------------------------------------------------------------------
 
-        private bool FontExists(string value) { return SimInstance.FakeSpriteFontRegistry.Get(value) != null; }
+        private Dictionary<string, bool> checkedFont = new Dictionary<string, bool>();
+
+        private bool FontExists(string value)
+        {
+            if (checkedFont.ContainsKey(value)) return checkedFont[value];
+            bool exist = SimInstance.FakeSpriteFontRegistry.Get(value) != null;
+            checkedFont.Add(value, exist);
+            return exist;
+        }
 
         private bool CanNullableFloatParse(string value)
         {

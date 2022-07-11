@@ -106,8 +106,8 @@ namespace AsteriskMod.ModdingHelperTools
             return CreateProjectileAbs(sprite, FakeArenaManager.arenaCenter.x + xpos, FakeArenaManager.arenaCenter.y + ypos, layerName);
         }
 
-        private readonly byte MAX_SPRITE_OBJECT = 16;
-        private readonly byte MAX_BULLET_OBJECT = 16;
+        private readonly byte MAX_SPRITE_OBJECT = 20;
+        private readonly byte MAX_BULLET_OBJECT = 20;
 
         internal FakeSpriteController[] Sprites;
         internal FakeProjectileController[] Bullets;

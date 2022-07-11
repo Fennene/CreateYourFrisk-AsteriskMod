@@ -124,7 +124,7 @@ namespace AsteriskMod.ModdingHelperTools
             Exit.GetComponent<Button>().onClick.AddListener(() =>
             {
                 SimInstance.Dispose();
-                SceneManager.LoadScene("ModSelect");
+                SceneManager.LoadScene("AlternativeModSelect");
             });
 
             if (!GlobalControls.crate) return;
