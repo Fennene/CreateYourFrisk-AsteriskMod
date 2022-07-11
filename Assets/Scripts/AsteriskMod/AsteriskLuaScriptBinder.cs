@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AsteriskMod.GameobjectModifyingSystem;
+using System;
+using System.Collections.Generic;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 using UnityEngine;
@@ -114,12 +116,15 @@ namespace AsteriskMod
                 script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
                 script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
                 script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+
                 script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
             }
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
             {
                 script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
                 script.Globals["AutoRefreshStaticText"] = (Action<bool>)((value)=> { AsteriskEngine.AutoResetStaticText = value; });
+
+                script.Globals["GetLayerList"] = (Func<string[]>)GetLayerList;
             }
         }
 
@@ -372,5 +377,17 @@ namespace AsteriskMod
             return GameObject.Find(canvas + name + "Layer").transform.childCount == 0;
         }
 
+        [ToDo("Deletes when GMS is Implemented.")]
+        public static string[] GetLayerList()
+        {
+            Transform canvas = GameobjectModifyingSystemMain.Instance.Canvas.transform;
+            List<string> layers = new List<string>();
+            for (var i = 0; i < canvas.childCount; i++)
+            {
+                string name = canvas.GetChild(i).gameObject.name;
+                if (name.EndsWith("Layer")) layers.Add(name.Substring(0, name.Length - 5));
+            }
+            return layers.ToArray();
+        }
     }
 }

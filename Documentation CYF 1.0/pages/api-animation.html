@@ -117,7 +117,7 @@ it's w3c valid, at least
                 a result it is now in its own section.</p>-->
             <p>
                 <br><span class="function"><span class="CYF"></span> CreateLayer(<span class="string"></span> name,
-                <span class="string"></span> position = "BelowArena", <span class="boolean"></span> below = false) <span></span> returns <span class="boolean"></span> [E/M/W]</span>
+                <span class="string"></span> position = "BelowArena", <span class="boolean"></span> below = false) <span></span> returns <span class="boolean"></span> [E/M/W/S]</span>
                 Creates a layer named <span class="term">name</span> that sprites can be placed in. To create your new sprite layer, you'll need to choose a pre-existing layer. <span></span> Returns <span class="term">true</span> if the layer was successfully created, <span class="term">false</span> otherwise.
                 <br><br>
                 <span class="term">position</span> can be one of three values:
@@ -144,18 +144,23 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="Asterisk"></span> <span class="boolean"></span> LayerExists(<span class="string"></span> name) [E/M/W]</span>
+                <br><span class="function"><span class="Asterisk"></span> <span class="boolean"></span> LayerExists(<span class="string"></span> name) [E/M/W/S]</span>
                 Use this function to check if a layer exists.
             </p>
             <p>
-                <br><span class="function"><span class="Delete"></span> <span class="nullable_boolean"></span> IsEmptyLayer(<span class="string"></span> name) [E/M/W]</span>
+                <br><span class="function"><span class="Delete"></span> <span class="nullable_boolean"></span> IsEmptyLayer(<span class="string"></span> name) [E/M/W/S]</span>
                 Use this function to check if any sprites or texts (any GameObjects) in the layer.<br>
                 If layer does not exist, returns <span class="term">nil</span>.
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="Delete"></span> <span class="luatable"><span class="string"></span></span> GetLayerList() [E/M/W/S]</span>
+                Returns sprite layer's list as a table of string.<br>
+                Layer is in ascending order. (<span class="term">Bottom</span> -&gt; <span class="term">Top</span>)
             </p>
 
             <p>
                 <br><span class="function">CreateSprite(<span class="string"></span> spritename,
-                <span class="CYF"></span> <span class="string"></span> layer = "BelowArena", <span class="number"></span> childNumber = -1) returns <span class="userdata">sprite</span> [E/M/W]</span>
+                <span class="CYF"></span> <span class="string"></span> layer = "BelowArena", <span class="number"></span> childNumber = -1) returns <span class="userdata">sprite</span> [E/M/W/S]</span>
                 Creates a sprite at the center of the screen (at 320, 240) that you can modify in many ways.
                 <br><br>
                 <span class="CYF"></span> You can add a layer if you want - otherwise, the sprite will be below the arena.<br>
@@ -173,7 +178,7 @@ it's w3c valid, at least
                 (note that this is optional and only if you would like a better understanding of how layers work).
                 <br><br>
                 <span class="function"><span class="CYF"></span> CreateSprite(<span class="string"></span> spritename,
-                <span class="number"></span> childNumber = -1) returns <span class="userdata">sprite</span> [E/M/W]</span>
+                <span class="number"></span> childNumber = -1) returns <span class="userdata">sprite</span> [E/M/W/S]</span>
                 The same as <span class="term">CreateSprite</span> listed above, except you only need to provide a sprite name and child number.<br>
                 Uses the default layer <span class="term">"BelowArena"</span> in battles, or <span class="term">"Default"</span> in the Overworld.
             </p>
@@ -422,7 +427,8 @@ it's w3c valid, at least
             </p><br>
 
             <p>
-                <span class="function">sprite.Set(<span class="string"></span> newSprite)</span></span>
+                <span class="function">sprite.Set(<span class="string"></span> newSprite)<br></span>or
+                <span class="function"><span class="asternew"></span> <span class="Asterisk"></span> sprite.SetSprite(<span class="string"></span> newSprite)</span>
                 Change a sprite's current image. It retains its scaling and rotation.
                 <br><br>
                 If you have an animation running with <span class="term">SetAnimation</span>, the animation will override your sprite change.

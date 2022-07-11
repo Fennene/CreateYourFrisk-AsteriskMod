@@ -455,6 +455,11 @@ public class LuaSpriteController {
         // --------------------------------------------------------------------------------
             img.GetComponent<Projectile>().needUpdateTex = true;
     }
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    public void SetSprite(string name) { Set(name); }
+    // --------------------------------------------------------------------------------
 
     // Sets the parent of a sprite.
     public void SetParent(LuaSpriteController parent) {
