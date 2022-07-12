@@ -9,9 +9,14 @@ namespace AsteriskMod.GlobalScript
 {
     public class GlobalsScripts
     {
+        private readonly string selfName;
+
+        public GlobalsScripts(string scriptSelfName) { selfName = scriptSelfName; }
+
         //public class ScriptLoaderOption { }
 
-        private static Dictionary<string, DynValue> Scripts;
+        private static Dictionary<string, ScriptWrapper> Scripts;
+        private static Dictionary<string, DynValue> ScriptDatas;
 
         private static List<string> GetFiles(string rootDirFullPath, string relativeDirPath)
         {
@@ -52,7 +57,8 @@ namespace AsteriskMod.GlobalScript
             {
                 Debug.Log("AsteriskMod.GlobalScripts - Globals/Scripts luaFiles\nNo Lua Files.\n");
 
-                Scripts = new Dictionary<string, DynValue>(0);
+                Scripts = new Dictionary<string, ScriptWrapper>(0);
+                ScriptDatas = new Dictionary<string, DynValue>(0);
             }
             else
             {
@@ -65,7 +71,8 @@ namespace AsteriskMod.GlobalScript
                 }
                 Debug.Log(logText + "\n");
 
-                Scripts = new Dictionary<string, DynValue>(scriptsFiles.Length);
+                Scripts = new Dictionary<string, ScriptWrapper>(scriptsFiles.Length);
+                ScriptDatas = new Dictionary<string, DynValue>(scriptsFiles.Length);
 
                 for (var i = 0; i < scriptsFiles.Length; i++)
                 {
@@ -91,8 +98,13 @@ namespace AsteriskMod.GlobalScript
                                 UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
                             }
                         }
+
                         scriptWrapper.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
-                        Scripts.Add(scriptsFiles[i], UserData.Create(scriptWrapper));
+                        DynValue globals = UserData.Create(new GlobalsScripts(scriptsFiles[i]));
+                        scriptWrapper.script.Globals.Set("Globals", globals);
+
+                        Scripts.Add(scriptsFiles[i], scriptWrapper);
+                        ScriptDatas.Add(scriptsFiles[i], UserData.Create(scriptWrapper));
                     }
                     catch (InterpreterException ex)
                     {
@@ -102,20 +114,56 @@ namespace AsteriskMod.GlobalScript
             }
         }
 
+        public bool Exists(string scriptName)
+        {
+            if (scriptName.IsNullOrWhiteSpace()) throw new CYFException("Globals' index shouldn't be nil, empty string or white space string.");
+            return Scripts.ContainsKey(scriptName);
+        }
+
+        public string[] GetScriptList()
+        {
+            string[] scriptNames = new string[Scripts.Keys.Count];
+            int index = 0;
+            foreach (string scriptName in Scripts.Keys)
+            {
+                scriptNames[index] = scriptName;
+                index++;
+            }
+            return scriptNames;
+        }
+
+        private void CheckExists(string scriptName)
+        {
+            if (!Exists(scriptName)) throw new CYFException("Global Script Globals/Scripts/" + scriptName + ".lua is not found.");
+            if (scriptName == selfName) throw new CYFException("Attempted to access script itself.");
+        }
+
         public DynValue this[string scriptName]
         {
             get
             {
-                if (scriptName.IsNullOrWhiteSpace()) throw new CYFException("Globals' index shouldn't be nil, empty string or white space string.");
-                if (!Scripts.ContainsKey(scriptName)) throw new CYFException("Global Script Globals/Scripts/" + scriptName + ".lua is not found.");
-                return Scripts[scriptName];
+                CheckExists(scriptName);
+                return ScriptDatas[scriptName];
             }
         }
-
         public DynValue GetScript(string scriptName) { return this[scriptName]; }
 
-        public DynValue GetVar(string scriptName, string key) { return ((ScriptWrapper)this[scriptName].UserData.Object).GetVar(null, key); }
-        public void SetVar(string scriptName, string key, DynValue value) { ((ScriptWrapper)this[scriptName].UserData.Object).SetVar(key, value); }
-        public void Call(string scriptName, string function, params DynValue[] args) { ((ScriptWrapper)this[scriptName].UserData.Object).Call(function, args); }
+        private ScriptWrapper GetScriptWrapper(string scriptName)
+        {
+            CheckExists(scriptName);
+            return Scripts[scriptName];
+        }
+        public DynValue GetVar(string scriptName, string key) { return GetScriptWrapper(scriptName).GetVar(null, key); }
+        public DynValue Get(string scriptName, string key) { return GetVar(scriptName, key); }
+        public void SetVar(string scriptName, string key, DynValue value) { GetScriptWrapper(scriptName).SetVar(key, value); }
+        public void Set(string scriptName, string key, DynValue value) { SetVar(scriptName, key, value); }
+        public void Call(string scriptName, string function, params DynValue[] args) { GetScriptWrapper(scriptName).Call(function, args); }
+
+        public Table GetRawScript(string scriptName)
+        {
+            Asterisk.RequireExperimentalFeature("Globals.GetRawScript");
+            CheckExists(scriptName);
+            return Scripts[scriptName].script.Globals;
+        }
     }
 }

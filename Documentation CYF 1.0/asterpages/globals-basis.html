@@ -39,7 +39,7 @@ it's w3c valid, at least
                     <li><a href="../pages/controls.html">Controls</a></li>
                     <li><a href="../pages/basic.html">Basic setup</a></li>
                     <li><a href="../pages/unity.html"><span class="CYF"></span> Unity Setup (Optional)</a></li>
-                    <li class="aster"><a href="../pages/variables.html">Special Variables</a></li>
+                    <li class="asternew"><a href="../pages/variables.html">Special Variables</a></li>
                     <li><a href="../pages/terms.html">Terminology</a></li>
                 <li class="li-header">API</li>
                     <li><a href="../pages/api-text.html">Text commands</a></li>
@@ -123,35 +123,66 @@ it's w3c valid, at least
 
             <hr>
 
-            <h3>GlobalsScripts Script</h3>
+            <h3>GlobalsScripts Script</h3><br><br>
 
-            <h4>Basic Setup</h4>
+            <h4>Basic Setup</h4><br>
 
             <p>
                 The <i>GlobalsScripts scripts</i> are located in <span class="term">YOUR MOD/Lua/Globals/Scripts</span>.<br>
                 You can use this script as storing value with variable and as library containing general functions.<br>
                 Variables and functions of this scripts are same values anywhere unlike <span class="term">require</span>.
+                <br><br>
+                You should use the variable <span class="term">Globals</span> when you access GlobalsScripts scripts.
             </p><br>
 
-            <h4>How to access to GlobalsScripts Script</h4>
+            <br>
+
+            <h4>Globals variable (<span class="term">The Globals Objects</span>) [E/M/W/S/GS]</h4><br>
 
             <p>
-                <span class="function"><span class="Asterisk"></span> <span class="userdata">script</span> Globals[<span class="string"></span> scriptName] [E/M/W/S]</span>
-                Returns a script object according to <span class="term">scriptName</span>.<br>
+                This variable can also use in GlobalsScripts scripts, but an error will have occurred if you access that script itself from the script.
+            </p><br>
+
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="boolean"></span> Globals.Exists(<span class="string"></span> scriptName)</span>
+                Returns whether specified script exists or not.
+            </p><br>
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="luatable"><span class="string"></span></span> Globals.GetScriptList()</span>
+                Returns a list of loaded scripts.
+            </p><br>
+
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="userdata">script</span> Globals[<span class="string"></span> scriptName]<br></span>or
+                <span class="function"><span class="Asterisk"></span> <span class="userdata">script</span> Globals.GetScript(<span class="string"></span> scriptName)</span>
+                Returns specified script as a script object.<br>
                 If you specify the script that doesn't exist, an error will have occurred.
             </p><br>
 
             <p>
-                <span class="function"><span class="Asterisk"></span> <span class="userdata"><font color="#FFF">object</font></span> Globals.GetVar(<span class="string"></span> scriptName, <span class="string"></span> variable_name) [E/M/W/S]</span>
+                <span class="function"><span class="Asterisk"></span> <span class="userdata"><font color="#FFF">object</font></span> Globals.GetVar(<span class="string"></span> scriptName, <span class="string"></span> variable_name)<br></span>or
+                <span class="function"><span class="Asterisk"></span> <span class="userdata"><font color="#FFF">object</font></span> Globals.Get(<span class="string"></span> scriptName, <span class="string"></span> variable_name)</span>
+                This is same as <span class="ref">script.GetVar()</span>.
             </p><br>
             <p>
-                <span class="function"><span class="Asterisk"></span> Globals.SetVar(<span class="string"></span> scriptName, <span class="string"></span> variable_name, value) [E/M/W/S]</span>
+                <span class="function"><span class="Asterisk"></span> Globals.SetVar(<span class="string"></span> scriptName, <span class="string"></span> variable_name, value)<br></span>or
+                <span class="function"><span class="Asterisk"></span> Globals.Set(<span class="string"></span> scriptName, <span class="string"></span> variable_name, value)</span>
+                This is same as <span class="ref">script.SetVar()</span>.
             </p><br>
             <p>
-                <span class="function"><span class="Asterisk"></span> Globals.Call(<span class="string"></span> scriptName, <span class="string"></span> function_name, <span class="userdata">params</span> <span class="luatable">any types</span> arguments) [E/M/W/S]</span>
+                <span class="function"><span class="Asterisk"></span> Globals.Call(<span class="string"></span> scriptName, <span class="string"></span> function_name, <span class="userdata">params</span> <span class="luatable">any types</span> arguments)</span>
+                This is same as <span class="ref">script.Call()</span>.<br>
+                The argument <span class="term">arguments</span> is <span class="userdata">params</span>, so there is no problem even if the number of argumant's element is 0.
             </p><br>
 
-            <h4>Available variables, function and objects</h4>
+            <p>
+                <span class="function"><span class="AsteriskExperiment"></span> <span class="userdata"><font color="#FFF">Script(Table)</font></span> Globals.GetRawScript(<span class="string"></span> scriptName)</span>
+                Returns script as like <span class="term">require</span>.<br>
+            </p><br>
+
+            <br>
+
+            <h4>Available variables, function and objects</h4><br>
 
             <p>
                 You can use almost features written <span class="term">[E/M/W]</span> or <span class="term">[E/M/W/S]</span> in this document to the scripts.

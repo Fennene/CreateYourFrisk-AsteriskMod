@@ -152,7 +152,9 @@ namespace AsteriskMod
         {
             if (experimentMode) return true;
             if (!showError)     return false;
-            throw new CYFException(funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.");
+            string errorMessage = funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.";
+            if (language == Languages.Japanese) errorMessage = funcName + "()は実験的機能です。Asterisk Mod Optionから\"Experimental Features\"(実験的機能)を有効にしてください。";
+            throw new CYFException(errorMessage);
         }
 
         public static Versions ConvertToModVersion(string versionName)

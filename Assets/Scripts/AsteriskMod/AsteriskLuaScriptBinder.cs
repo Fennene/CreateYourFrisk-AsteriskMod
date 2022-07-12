@@ -84,7 +84,7 @@ namespace AsteriskMod
             script.Globals["isModifiedCYF"] = true;
             script.Globals["Asterisk"] = true;
             script.Globals["AsteriskMod"] = false; //v0.5.2.x -> nil  v0.5.3.x -> false  v0.5.4.x -> true
-            script.Globals["AsteriskVersion"] = AsteriskUtil.ConvertFromModVersionForLua(AsteriskEngine.ModTarget_AsteriskVersion);
+            script.Globals["AsteriskVersion"] = Asterisk.ModVersion;
             //script.Globals["AsteriskDevEdition"] = Asterisk.DevEdition;
             script.Globals["AsteriskExperiment"] = Asterisk.experimentMode;
 
@@ -114,25 +114,20 @@ namespace AsteriskMod
             script.Globals["SetJPStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
             */
 
-            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.QOLUpdate)
-            {
-                script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
-                script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
-                script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+            script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
+            script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
 
-                script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
-            }
-            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
-            {
-                script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
-                script.Globals["AutoRefreshStaticText"] = (Action<bool>)((value)=> { AsteriskEngine.AutoResetStaticText = value; });
+            script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
+            script.Globals["IsEmptyLayer"] = (Func<string, bool?>)IsEmptyLayer;
+            script.Globals["GetLayerList"] = (Func<string[]>)GetLayerList;
 
-                script.Globals["GetLayerList"] = (Func<string[]>)GetLayerList;
-            }
+            script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
+            script.Globals["AutoRefreshStaticText"] = (Action<bool>)((value) => { AsteriskEngine.AutoResetStaticText = value; });
+
             if (isGlobalScript) return;
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.GlobalsScriptsAddition)
             {
-                DynValue globalsScripts = UserData.Create(new GlobalsScripts());
+                DynValue globalsScripts = UserData.Create(new GlobalsScripts(null));
                 script.Globals.Set("Globals", globalsScripts);
             }
         }
@@ -141,58 +136,44 @@ namespace AsteriskMod
         {
             if (AsteriskUtil.IsCYFOverworld) return;
 
-            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.TakeNewStepUpdate)
+            DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
+            script.Globals.Set("ButtonUtil", buttonUtil);
+            DynValue playerUtil = UserData.Create(PlayerUtil.Instance);
+            script.Globals.Set("PlayerUtil", playerUtil);
+            DynValue arenaUtil = UserData.Create(new ArenaUtil());
+            script.Globals.Set("ArenaUtil", arenaUtil);
+
+            DynValue engine = UserData.Create(new CYFEngine());
+            script.Globals.Set("Engine", engine);
+            DynValue lang = UserData.Create(new Lang());
+            script.Globals.Set("Lang", lang);
+
+            if (AsteriskEngine.LuaCodeStyle.stringUtil)
             {
-                DynValue buttonUtil = UserData.Create(UIController.ActionButtonManager);
-                script.Globals.Set("ButtonUtil", buttonUtil);
-                DynValue playerUtil = UserData.Create(PlayerUtil.Instance);
-                script.Globals.Set("PlayerUtil", playerUtil);
-                DynValue arenaUtil = UserData.Create(new ArenaUtil());
-                script.Globals.Set("ArenaUtil", arenaUtil);
-
-                DynValue engine = UserData.Create(new CYFEngine());
-                script.Globals.Set("Engine", engine);
-                DynValue lang = UserData.Create(new Lang());
-                script.Globals.Set("Lang", lang);
-
-                /*
-                if (AsteriskEngine.LuaCodeStyle.gms)
-                {
-                    GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
-                    //if (goms == null) goms = new GameObjectModifyingSystem();
-                    DynValue gms = UserData.Create(goms);
-                    script.Globals.Set("GameObjectModifyingSystem", gms);
-                    script.Globals.Set("GMS", gms);
-                }
-                */
-
-                if (AsteriskEngine.LuaCodeStyle.stringUtil)
-                {
-                    DynValue stringutil = UserData.Create(new ExtendedUtil.LuaStringUtil());
-                    script.Globals.Set("StringUtil", stringutil);
-                }
-                if (AsteriskEngine.LuaCodeStyle.arrayUtil)
-                {
-                    DynValue arrayutil = UserData.Create(new ExtendedUtil.LuaArrayUtil());
-                    script.Globals.Set("ArrayUtil", arrayutil);
-                }
-                if (AsteriskEngine.LuaCodeStyle.cyfUtil)
-                {
-                    DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
-                    script.Globals.Set("Util", cyfutil);
-                }
+                DynValue stringutil = UserData.Create(new ExtendedUtil.LuaStringUtil());
+                script.Globals.Set("StringUtil", stringutil);
             }
-            else
+            if (AsteriskEngine.LuaCodeStyle.arrayUtil)
             {
-                // Obsolete Classes
-                Lua.LuaButtonController.Initialize();
-                DynValue oldButtonUtil = UserData.Create(new Lua.LuaButtonController());
-                script.Globals.Set("ButtonUtil", oldButtonUtil);
-                DynValue obs_playerUtil = UserData.Create(new Lua.PlayerUtil());
-                script.Globals.Set("PlayerUtil", obs_playerUtil);
-                DynValue obs_arenaUtil = UserData.Create(new Lua.ArenaUtil());
-                script.Globals.Set("ArenaUtil", obs_arenaUtil);
+                DynValue arrayutil = UserData.Create(new ExtendedUtil.LuaArrayUtil());
+                script.Globals.Set("ArrayUtil", arrayutil);
             }
+            if (AsteriskEngine.LuaCodeStyle.cyfUtil)
+            {
+                DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
+                script.Globals.Set("Util", cyfutil);
+            }
+
+            /*
+            if (AsteriskEngine.LuaCodeStyle.gms)
+            {
+                GameObjectModifyingSystem goms = GameObjectModifyingSystem.Instance;
+                //if (goms == null) goms = new GameObjectModifyingSystem();
+                DynValue gms = UserData.Create(goms);
+                script.Globals.Set("GameObjectModifyingSystem", gms);
+                script.Globals.Set("GMS", gms);
+            }
+            */
         }
 
         public static void SetAlMightySafely(Script script, string key, DynValue value)
@@ -375,7 +356,6 @@ namespace AsteriskMod
             //PlayerUIManager.Instance.Request();
         }
         */
-
 
         [ToDo("Deletes when GMS is Implemented.")]
         public static bool? IsEmptyLayer(string name)

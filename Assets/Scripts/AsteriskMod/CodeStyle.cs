@@ -9,7 +9,9 @@ namespace AsteriskMod
     public class CodeStyle
     {
         public bool gms;
+
         public string[] libPathes;
+
         public bool stringUtil;
         public bool arrayUtil;
         public bool cyfUtil;

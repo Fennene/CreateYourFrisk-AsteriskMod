@@ -110,8 +110,7 @@ namespace AsteriskMod
 
         internal void SetTextPosition(bool force = false)
         {
-            DevelopHint.ToDo("Boring Compatibility");
-            if (LifeTextMan._controlOverride && AsteriskUtil.IsV053 && !force) return;
+            if (LifeTextMan._controlOverride && !force) return;
             lifeTextRT.anchoredPosition = new Vector2(LifeBar.self.sizeDelta.x + 30, lifeTextRT.anchoredPosition.y);
         }
 

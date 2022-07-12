@@ -273,10 +273,7 @@ public class EnemyController : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            if (AsteriskUtil.IsV053)
-            {
-                script.Bind(MonsterFunc.GET_SHAKE_X, (Func<int>)(() => { return nowShakeX; }));
-            }
+            script.Bind(MonsterFunc.GET_SHAKE_X, (Func<int>)(() => { return nowShakeX; }));
             // --------------------------------------------------------------------------------
             script.SetVar("canmove", DynValue.NewBoolean(false));
             sprite = new LuaSpriteController(GetComponent<Image>());
@@ -470,10 +467,6 @@ public class EnemyController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
-    private const string VAR_NAME_OLD_FIGHT_BG_BAR_COLOR = "minibgcolor";
-    private const string VAR_NAME_OLD_BG_BAR_COLOR = "bgcolor";
-    private const string VAR_NAME_OLD_FILL_BAR_COLOR = "fillcolor";
-
     //private const string VAR_NAME_DAMAGE_TEXT_VISIBLE = "showdamagetext";
 
     private Color32 ConvertToColor(DynValue colorValue, DynValue alphaValue, byte init_r, byte init_g, byte init_b, byte init_a = 255)
@@ -501,8 +494,8 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_MENU_BG_BAR_COLOR : VAR_NAME_OLD_FIGHT_BG_BAR_COLOR);
-            DynValue dynAlpha = AsteriskUtil.IsV053 ? script.GetVar(MonsterVar.FIGHT_MENU_BG_BAR_ALPHA) : null;
+            DynValue dynColor = script.GetVar(MonsterVar.FIGHT_MENU_BG_BAR_COLOR);
+            DynValue dynAlpha = script.GetVar(MonsterVar.FIGHT_MENU_BG_BAR_ALPHA);
             /*
             int[] color = new int[3] { 255, 0, 0 };
             int alpha = 255;
@@ -529,8 +522,8 @@ public class EnemyController : MonoBehaviour {
         {
             Color32 _ = value;
             DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
-            script.SetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_MENU_BG_BAR_COLOR : VAR_NAME_OLD_FIGHT_BG_BAR_COLOR, DynValue.NewTuple(values));
-            if (AsteriskUtil.IsV053) script.SetVar(MonsterVar.FIGHT_MENU_BG_BAR_ALPHA, DynValue.NewNumber(_.a));
+            script.SetVar(MonsterVar.FIGHT_MENU_BG_BAR_COLOR, DynValue.NewTuple(values));
+            script.SetVar(MonsterVar.FIGHT_MENU_BG_BAR_ALPHA, DynValue.NewNumber(_.a));
         }
     }
 
@@ -538,16 +531,16 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_MENU_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR);
-            DynValue dynAlpha = AsteriskUtil.IsV053 ? script.GetVar(MonsterVar.FIGHT_MENU_FILL_BAR_ALPHA) : null;
+            DynValue dynColor = script.GetVar(MonsterVar.FIGHT_MENU_FILL_BAR_COLOR);
+            DynValue dynAlpha = script.GetVar(MonsterVar.FIGHT_MENU_FILL_BAR_ALPHA);
             return ConvertToColor(dynColor, dynAlpha, 0, 255, 0);
         }
         set
         {
             Color32 _ = value;
             DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
-            script.SetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_MENU_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR, DynValue.NewTuple(values));
-            if (AsteriskUtil.IsV053) script.SetVar(MonsterVar.FIGHT_MENU_FILL_BAR_ALPHA, DynValue.NewNumber(_.a));
+            script.SetVar(MonsterVar.FIGHT_MENU_FILL_BAR_COLOR, DynValue.NewTuple(values));
+            script.SetVar(MonsterVar.FIGHT_MENU_FILL_BAR_ALPHA, DynValue.NewNumber(_.a));
         }
     }
 
@@ -555,14 +548,14 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_UI_BG_BAR_COLOR : VAR_NAME_OLD_BG_BAR_COLOR);
+            DynValue dynColor = script.GetVar(MonsterVar.FIGHT_UI_BG_BAR_COLOR);
             return ConvertToColor(dynColor, null, 64, 64, 64);
         }
         set
         {
             Color32 _ = value;
             DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
-            script.SetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_UI_BG_BAR_COLOR : VAR_NAME_OLD_BG_BAR_COLOR, DynValue.NewTuple(values));
+            script.SetVar(MonsterVar.FIGHT_UI_BG_BAR_COLOR, DynValue.NewTuple(values));
         }
     }
 
@@ -570,14 +563,14 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            DynValue dynColor = script.GetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_UI_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR);
+            DynValue dynColor = script.GetVar(MonsterVar.FIGHT_UI_FILL_BAR_COLOR);
             return ConvertToColor(dynColor, null, 0, 255, 0);
         }
         set
         {
             Color32 _ = value;
             DynValue[] values = new DynValue[3] { DynValue.NewNumber(_.r), DynValue.NewNumber(_.g), DynValue.NewNumber(_.b) };
-            script.SetVar(AsteriskUtil.IsV053 ? MonsterVar.FIGHT_UI_FILL_BAR_COLOR : VAR_NAME_OLD_FILL_BAR_COLOR, DynValue.NewTuple(values));
+            script.SetVar(MonsterVar.FIGHT_UI_FILL_BAR_COLOR, DynValue.NewTuple(values));
         }
     }
 
@@ -585,13 +578,11 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            if (!AsteriskUtil.IsV053) return true;
             DynValue value = script.GetVar(MonsterVar.FIGHT_UI_BARS_VISIBILITY);
             return (value != null && value.Type == DataType.Boolean) ? value.Boolean : true;
         }
         set
         {
-            if (!AsteriskUtil.IsV053) return;
             script.SetVar(MonsterVar.FIGHT_UI_BARS_VISIBILITY, DynValue.NewBoolean(value));
         }
     }
@@ -600,13 +591,11 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            if (!AsteriskUtil.IsV053) return null;
             DynValue value = script.GetVar(MonsterVar.FIGHT_UI_FORCIBLY_CHANGE_DAMAGE_TEXT);
             return (value != null && value.Type == DataType.String) ? value.String : null;
         }
         set
         {
-            if (!AsteriskUtil.IsV053) return;
             script.SetVar(MonsterVar.FIGHT_UI_FORCIBLY_CHANGE_DAMAGE_TEXT, value == null ? DynValue.NewNil() : DynValue.NewString(value));
         }
     }
@@ -615,14 +604,12 @@ public class EnemyController : MonoBehaviour {
     {
         get
         {
-            if (!AsteriskUtil.IsV053) return true;
             DynValue value = script.GetVar(MonsterVar.FIGHT_UI_NO_SHAKE);
             if (value == null || value.Type != DataType.Boolean) return true;
             return !value.Boolean;
         }
         set
         {
-            if (!AsteriskUtil.IsV053) return;
             script.SetVar(MonsterVar.FIGHT_UI_NO_SHAKE, DynValue.NewBoolean(!value));
         }
     }

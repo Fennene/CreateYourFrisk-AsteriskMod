@@ -42,8 +42,8 @@ namespace AsteriskMod
         public GameObject ModContainer, ModBackground, ModTitle, ModTitleShadow, EncounterCount, EncounterCountShadow;
         public GameObject AnimContainer, AnimModBackground, AnimModTitle, AnimModTitleShadow, AnimEncounterCount, AnimEncounterCountShadow;
 
-        public GameObject ModDescShadow, ModDesc, ExistDescInfoShadow, ExistDescInfo;
-        public GameObject AnimModDescShadow, AnimModDesc;
+        public GameObject ModDescShadow, ModDesc, ExistDescInfoShadow, ExistDescInfo, UnsupportedErrorIcon;
+        public GameObject AnimModDescShadow, AnimModDesc, AnimUnsupportedErrorIcon;
         public GameObject ENLabelShadow, ENLabel, JPLabelShadow, JPLabel, RetroWarningTextShadow, RetroWarningText;
         public GameObject NoEncounterLabelShadow, NoEncounterLabel;
 
@@ -220,6 +220,7 @@ namespace AsteriskMod
             StaticInits.Initialized = false;
             try
             {
+                if (Mods.mods[CurrentSelectedMod].RawInfoData.TargetVersion < Asterisk.Versions.TakeNewStepUpdate) throw new CYFException("old AsteriskMod version");
                 // --------------------------------------------------------------------------------
                 //                          Asterisk Mod Modification
                 // --------------------------------------------------------------------------------
@@ -256,8 +257,7 @@ namespace AsteriskMod
             StaticInits.MODFOLDER = Mods.mods[id].RealName;
 
             // Make clicking the background go to the encounter select screen
-            ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
-            ModBackground.GetComponent<Button>().onClick.AddListener(() =>
+            ModBackground.GetComponent<Button>().onClick.SetListener(() =>
             {
                 if (animationDone)
                     encounterSelection();
@@ -350,6 +350,9 @@ namespace AsteriskMod
             EncounterCountShadow.GetComponent<Text>().font = Mods.mods[CurrentSelectedMod].Font;
             EncounterCount      .GetComponent<Text>().font = Mods.mods[CurrentSelectedMod].Font;
 
+            EncounterCount.GetComponent<Text>().color = new Color(1f, 1f, 1f, 1f);
+            ModTitle      .GetComponent<Text>().color = new Color(1f, 1f, 1f, 1f);
+
             // RichText
             /**
             ModTitleShadow.GetComponent<Text>().supportRichText = info.richText;
@@ -405,6 +408,15 @@ namespace AsteriskMod
                 moddingHelper.GetComponentInChildren<Text>().color = Color.white;
                 moddingHelper.GetComponent<Button>().onClick.SetListener(() => SceneManager.LoadScene("MHTMenu"));
             }
+
+            UnsupportedErrorIcon.SetActive(false);
+            if (Mods.mods[CurrentSelectedMod].RawInfoData.TargetVersion < Asterisk.Versions.TakeNewStepUpdate)
+            {
+                UnsupportedErrorIcon.SetActive(true);
+                EncounterCount.GetComponent<Text>().color = new Color32(255, 32, 32, 255);
+                ModTitle      .GetComponent<Text>().color = new Color32(255, 32, 32, 255);
+                ModBackground.GetComponent<Button>().onClick.RemoveAllListeners();
+            }
         }
 
         // Goes to the next or previous mod with a little scrolling animation.
@@ -432,10 +444,13 @@ namespace AsteriskMod
             AnimEncounterCount      .GetComponent<Text>().font = EncounterCount      .GetComponent<Text>().font;
             AnimEncounterCountShadow.GetComponent<Text>().text = EncounterCountShadow.GetComponent<Text>().text;
             AnimEncounterCount      .GetComponent<Text>().text = EncounterCount      .GetComponent<Text>().text;
+            AnimEncounterCount.GetComponent<Text>().color = EncounterCount.GetComponent<Text>().color;
+            AnimModTitle      .GetComponent<Text>().color = ModTitle      .GetComponent<Text>().color;
             AnimModDescShadow.GetComponent<Text>().alignment = ModDescShadow.GetComponent<Text>().alignment;
             AnimModDesc      .GetComponent<Text>().alignment = ModDesc.GetComponent<Text>().alignment;
             AnimModDescShadow.GetComponent<Text>().text = ModDesc.activeSelf ? ModDescShadow.GetComponent<Text>().text : "";
             AnimModDesc      .GetComponent<Text>().text = ModDesc.activeSelf ? ModDesc      .GetComponent<Text>().text : "";
+            AnimUnsupportedErrorIcon.SetActive(UnsupportedErrorIcon.activeSelf);
 
             // Move all real assets to the side
             ModBackground.transform.Translate(640 * dir, 0, 0);
@@ -445,6 +460,7 @@ namespace AsteriskMod
             EncounterCount      .transform.Translate(640 * dir, 0, 0);
             ModDescShadow.transform.Translate(640 * dir, 0, 0);
             ModDesc      .transform.Translate(640 * dir, 0, 0);
+            UnsupportedErrorIcon.transform.Translate(640 * dir, 0, 0);
 
             // Actually choose the new mod
             CurrentSelectedMod = (CurrentSelectedMod + dir) % Mods.mods.Count;
@@ -787,6 +803,10 @@ namespace AsteriskMod
 
                 button.transform.Find("Text").GetComponent<Text>().font = ModTitle.GetComponent<Text>().font;
                 button.transform.Find("Text").GetComponent<Text>().text = Mods.mods[i].Title;
+                if (Mods.mods[i].RawInfoData.TargetVersion < Asterisk.Versions.TakeNewStepUpdate)
+                {
+                    button.transform.Find("Text").GetComponent<Text>().color = new Color32(255, 16, 16, 255);
+                }
                 if (GlobalControls.crate)
                     button.transform.Find("Text").GetComponent<Text>().text = Temmify.Convert(Mods.mods[i].Title, true);
 
