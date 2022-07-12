@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--
+since you're here anyway: there's a small easter egg on the text commands page but it's probably not worth finding, sorry
+you may notice this page's code is garbage: i'm not a web designer! ;-;
+it's w3c valid, at least
+-->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>*CYF Documentation - Global Script</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../css/themesidebar.css" rel="stylesheet">
+    <link href="../css/shThemeRDark.css" rel="stylesheet">
+
+    <!-- Syntax highlighting -->
+    <script type="text/javascript" src="../js/shCore.js"></script>
+    <script type="text/javascript" src="../js/shBrushLua.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+<body>
+<img src="../img/bg2.png" alt="Undertale background" class="backimg">
+<div class="container arena black">
+    <div class="col-md-2">
+        <!--navigation-->
+        <nav class="nav-sidebar">
+            <ul class="nav tabs">
+                <li class="li-header">Basics</li>
+                    <li><a href="../documentation.html">Welcome</a></li>
+                    <li><a href="../pages/howtoread.html">How to read this documentation</a></li>
+                    <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
+                    <li><a href="../pages/controls.html">Controls</a></li>
+                    <li><a href="../pages/basic.html">Basic setup</a></li>
+                    <li><a href="../pages/unity.html"><span class="CYF"></span> Unity Setup (Optional)</a></li>
+                    <li class="aster"><a href="../pages/variables.html">Special Variables</a></li>
+                    <li><a href="../pages/terms.html">Terminology</a></li>
+                <li class="li-header">API</li>
+                    <li><a href="../pages/api-text.html">Text commands</a></li>
+                    <li class="aster"><a href="../pages/api-events.html">Game events</a></li>
+                    <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
+                    <li class="li-indent">Functions &amp; Objects:</li>
+                        <li class="li-indent aster"><a href="../pages/api-functions-main.html">Misc. Functions</a></li>
+                        <li class="li-indent aster"><a href="../pages/api-functions-player.html">The Player Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-script.html">The Script Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-audio.html">The Audio Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-newaudio.html"><span class="CYF"></span> The NewAudio Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-input.html">The Input Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-time.html">The Time Object</a></li>
+                        <li class="li-indent"><a href="../pages/cyf-inventory.html"><span class="CYF"></span> The Inventory Object</a></li>
+                        <li class="li-indent aster"><a href="../pages/api-functions-misc.html"><span class="CYF"></span>The Misc Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-discord.html"><span class="CYF"></span> The Discord Object</a></li>
+                        <li class="li-indent"><a href="../pages/api-functions-waves.html">The Arena Object</a></li>
+                    <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
+                    <li class="aster"><a href="../pages/api-projectile.html">Projectile management</a></li>
+                    <li><a href="../pages/cyf-ppcollision.html"><span class="CYF"></span> The Pixel-Perfect Collision System</a></li>
+                    <li class="aster"><a href="../pages/api-animation.html">Sprites &amp; Animation</a></li>
+                    <li class="aster"><a href="../pages/cyf-text.html"><span class="CYF"></span> The Text Object</a></li>
+                    <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
+                <li class="li-header"><span class="Asterisk"></span> AsteriskMod</li>
+                    <li><a href="basis.html">About</a></li>
+                    <li class="asternew"><a href="setup.html">Additional Setup</a></li>
+                    <li><a href="misc.html">Misc.Changes</a></li>
+                    <li><a href="update-guide.html">Update Migration Guide</a></li>
+                    <li>Functions &amp; Objects:</li>
+                    <li class="li-indent"><a href="api-engine.html">The Engine Object</a></li>
+                    <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
+                    <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
+                    <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent"><a href="api-statictext.html">The StaticText Object</a></li>
+                    <li>Japanese Localization<br>[日本語対応]:</li>
+                    <li class="li-indent"><a href="jp-basis.html">Basis [基本]</a></li>
+                    <li class="li-indent"><a href="jp-lang.html">The .lang File &amp; The Lang Object<br>[.langファイル &amp; Langオブジェクト]</a></li>
+                    <li><span class="asternew"></span> GlobalScript:</li>
+                    <li class="li-indent active" style="margin-left:5px;">&gt; Basis &lt;</li>
+                    <li>CustomState:</li>
+                    <li class="li-indent"><a href="customstate-basis.html">Basis</a></li>
+                    <li class="li-indent"><a href="customstate-variable.html">Available Var/Fun/Obj</a></li>
+                    <li class="li-indent"><a href="customstate-event.html">Available Events</a></li>
+                    <li class="li-indent"><a href="customstate-stateeditor.html">The StateEditor Object</a></li>
+                    <hr style="margin-top:10px;margin-bottom:10px;">
+                <li class="li-header"></span><span class="CYF"></span> Shaders</li>
+                    <li><a href="../pages/shaders.html">Introduction</a></li>
+                    <li><a href="../pages/shaders-object.html">The Shader Object</a></li>
+                    <li><a href="../pages/shaders-coding.html">Coding a Shader</a></li>
+                    <hr style="margin-top:10px;margin-bottom:10px;">
+                <li class="li-header"><span class="CYF"></span> Overworld</li>
+                    <li><a href="../pages/overworld.html">Basics</a></li>
+                    <li><a href="../pages/overworld-howto-map.html">How to create a map</a></li>
+                    <li><a href="../pages/overworld-howto-event.html">How to create an event</a></li>
+                    <li><a href="../pages/overworld-howto-animevent.html">How to animate an event</a></li>
+                    <li><a href="../pages/overworld-howto-shop.html">How to create a shop</a></li>
+                    <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
+                    <li class="li-indent"><span class="CYF"></span> Overworld Objects:</li>
+                        <li class="li-indent"><a href="../pages/overworld-object-general.html">The General Object</a></li>
+                        <li class="li-indent"><a href="../pages/overworld-object-event.html">The Event Object</a></li>
+                        <li class="li-indent"><a href="../pages/overworld-object-player.html">The Player Object</a></li>
+                        <li class="li-indent"><a href="../pages/overworld-object-screen.html">The Screen Object</a></li>
+                        <li class="li-indent"><a href="../pages/overworld-object-inventory.html">The Inventory Object</a></li>
+                        <li class="li-indent"><a href="../pages/overworld-object-map.html">The Map Object</a></li>
+                    <hr style="margin-top:-2.5px;margin-bottom:2.5px;">
+                <li class="li-header">Resources</li>
+                    <li><a href="../media/dialogoptions.png">Dialog bubble names</a></li>
+                    <li><a href="../pages/api-keys.html"><span class="CYF"></span> Key List</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!--tabs'n'shit-->
+    <div class="tab-content col-md-10">
+        <div class="tab-pane active text-style" id="asterisk-globals">
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> GlobalScript</h2><br><br>
+            <p>
+                GlobalScript is one of very strong feature in Asterisk Mod.<br>
+                Asterisk Mod adds new type of script, named <span class="term">GlobalsScripts Script</span>.<br>
+                You don't need to define many variables and functions in Encounter Script anymore!
+            </p><br>
+
+            <hr>
+
+            <h3>GlobalsScripts Script</h3>
+
+            <h4>Basic Setup</h4>
+
+            <p>
+                The <i>GlobalsScripts scripts</i> are located in <span class="term">YOUR MOD/Lua/Globals/Scripts</span>.<br>
+                You can use this script as storing value with variable and as library containing general functions.<br>
+                Variables and functions of this scripts are same values anywhere unlike <span class="term">require</span>.
+            </p><br>
+
+            <h4>How to access to GlobalsScripts Script</h4>
+
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="userdata">script</span> Globals[<span class="string"></span> scriptName] [E/M/W/S]</span>
+                Returns a script object according to <span class="term">scriptName</span>.<br>
+                If you specify the script that doesn't exist, an error will have occurred.
+            </p><br>
+
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="userdata"><font color="#FFF">object</font></span> Globals.GetVar(<span class="string"></span> scriptName, <span class="string"></span> variable_name) [E/M/W/S]</span>
+            </p><br>
+            <p>
+                <span class="function"><span class="Asterisk"></span> Globals.SetVar(<span class="string"></span> scriptName, <span class="string"></span> variable_name, value) [E/M/W/S]</span>
+            </p><br>
+            <p>
+                <span class="function"><span class="Asterisk"></span> Globals.Call(<span class="string"></span> scriptName, <span class="string"></span> function_name, <span class="userdata">params</span> <span class="luatable">any types</span> arguments) [E/M/W/S]</span>
+            </p><br>
+
+            <h4>Available variables, function and objects</h4>
+
+            <p>
+                You can use almost features written <span class="term">[E/M/W]</span> or <span class="term">[E/M/W/S]</span> in this document to the scripts.
+            </p><br>
+
+            <hr><br>
+        </div>
+
+        <div class="tab-pane text-style" id="mercy">
+            <h2 style="text-decoration: none; line-height:50px;">
+                * YOU WON!<br>
+                * You earned 0 EXP and 0 gold.<br>
+                * also the nav menu is broken now
+            </h2><br>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-xs-3"><img class="centerbt black" alt="Undertale fake button" src="../img/fightbt_0.png" height="42">
+    </div>
+    <div class="col-xs-3"><img class="centerbt black" alt="Undertale fake button" src="../img/actbt_0.png" height="42">
+    </div>
+    <div class="col-xs-3"><img class="centerbt black" alt="Undertale fake button" src="../img/itembt_0.png" height="42">
+    </div>
+    <div class="col-xs-3"><a href="#mercy" data-toggle="tab"><img class="centerbt black" alt="Undertale fake button"
+                                                                  src="../img/mercybt_0.png" height="42"></a>
+    </div>
+</div>
+<br>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/show_hide_comments.js"></script>
+
+<script type="text/javascript" src="../js/FontToggleButton.js"></script>
+</body>
+</html>

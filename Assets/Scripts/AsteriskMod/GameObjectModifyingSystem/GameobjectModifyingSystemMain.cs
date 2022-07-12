@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MoonSharp.Interpreter;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ namespace AsteriskMod.GameobjectModifyingSystem
 {
     public class GameobjectModifyingSystemMain : MonoBehaviour
     {
-        public static GameobjectModifyingSystemMain Instance;
+        [MoonSharpHidden] public static GameobjectModifyingSystemMain Instance;
 
         internal GameObject Canvas;
 
@@ -15,6 +14,11 @@ namespace AsteriskMod.GameobjectModifyingSystem
         {
             Canvas = gameObject;
             Instance = this;
+        }
+
+        public UnityObject Find(string name)
+        {
+            return new UnityObject(transform.Find(name).gameObject);
         }
     }
 }

@@ -23,7 +23,7 @@ If not provided, the script will automatically use 7-Zip to package all of your 
 
 # This is the version of CYF to name the executables and the Documentation folder
 CYFversion = "0.6.5"
-AsteriskVersion = "0.5.3"
+AsteriskVersion = "0.5.3.0.1"
 
 # This is the path we will build to
 buildPath = os.getcwd() + "\\bin"
