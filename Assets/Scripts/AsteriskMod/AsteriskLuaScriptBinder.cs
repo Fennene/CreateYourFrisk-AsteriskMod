@@ -1,4 +1,5 @@
 ﻿using AsteriskMod.GameobjectModifyingSystem;
+using AsteriskMod.GlobalScript;
 using System;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
@@ -13,7 +14,7 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
-            UserData.RegisterType<GlobalScripts>();
+            UserData.RegisterType<GlobalsScripts>();
 
             UserData.RegisterType<CYFEngine>();
             UserData.RegisterType<ActionButton>();
@@ -131,7 +132,7 @@ namespace AsteriskMod
             if (isGlobalScript) return;
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.GlobalsScriptsAddition)
             {
-                DynValue globalsScripts = UserData.Create(new GlobalScripts());
+                DynValue globalsScripts = UserData.Create(new GlobalsScripts());
                 script.Globals.Set("Globals", globalsScripts);
             }
         }

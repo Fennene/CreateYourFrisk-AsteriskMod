@@ -1,4 +1,5 @@
 ﻿using AsteriskMod;
+using AsteriskMod.GlobalScript;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ public class EnemyEncounter : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            GlobalScripts.Load();
+            GlobalsScripts.Load();
             // --------------------------------------------------------------------------------
             doNotGivePreviousEncounterToSelf = true;
             script = new ScriptWrapper { scriptname = StaticInits.ENCOUNTER };

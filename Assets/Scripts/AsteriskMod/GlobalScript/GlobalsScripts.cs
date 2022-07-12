@@ -5,9 +5,9 @@ using System.IO;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace AsteriskMod
+namespace AsteriskMod.GlobalScript
 {
-    public class GlobalScripts
+    public class GlobalsScripts
     {
         //public class ScriptLoaderOption { }
 
@@ -72,7 +72,6 @@ namespace AsteriskMod
                     try
                     {
                         ScriptWrapper scriptWrapper = new ScriptWrapper(true) { scriptname = scriptsFiles[i] };
-                        scriptWrapper.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
                         try
                         {
                             scriptWrapper.DoString(ScriptRegistry.Get(ScriptRegistry.GLOBAL_SCRIPT_PREFIX + scriptsFiles[i]));
@@ -85,13 +84,14 @@ namespace AsteriskMod
                         {
                             if (!ScriptRegistry.dict.ContainsKey(ScriptRegistry.GLOBAL_SCRIPT_PREFIX + scriptsFiles[i]))
                             {
-                                UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "<Internal Error> The Global Script \"" + scriptsFiles[i] + "\".lua isn't found.");
+                                UnitaleUtil.DisplayLuaError(StaticInits.ENCOUNTER, "<Internal Error> The Global Script " + scriptsFiles[i] + ".lua isn't found.");
                             }
                             else
                             {
                                 UnitaleUtil.DisplayLuaError("<UNKNOWN LOCATION>", ex.Message + "\n\n" + ex.StackTrace);
                             }
                         }
+                        scriptWrapper.script.Globals["State"] = (Action<Script, string>)UIController.SwitchStateOnString;
                         Scripts.Add(scriptsFiles[i], UserData.Create(scriptWrapper));
                     }
                     catch (InterpreterException ex)
@@ -116,5 +116,6 @@ namespace AsteriskMod
 
         public DynValue GetVar(string scriptName, string key) { return ((ScriptWrapper)this[scriptName].UserData.Object).GetVar(null, key); }
         public void SetVar(string scriptName, string key, DynValue value) { ((ScriptWrapper)this[scriptName].UserData.Object).SetVar(key, value); }
+        public void Call(string scriptName, string function, params DynValue[] args) { ((ScriptWrapper)this[scriptName].UserData.Object).Call(function, args); }
     }
 }

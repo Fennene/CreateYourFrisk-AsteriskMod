@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 namespace AsteriskMod
 {
-    public class LuaImageComponent
+    public class LuaImageComponent_
     {
         private Image _image;
         internal bool _isUserCreated = true;
-        private UnityObject _unityObject;
+        private UnityObject_ _unityObject;
 
         private string name { get { return _unityObject.name; } }
 
-        public LuaImageComponent(UnityObject unityObject, bool userCrated)
+        public LuaImageComponent_(UnityObject_ unityObject, bool userCrated)
         {
             _unityObject = unityObject;
             if (_unityObject._gameObject == null) return;

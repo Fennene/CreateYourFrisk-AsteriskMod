@@ -4,22 +4,22 @@ using UnityEngine.UI;
 
 namespace AsteriskMod
 {
-    public class UnityObject
+    public class UnityObject_
     {
         internal GameObject _gameObject;
         internal bool _isUserCreated;
-        private LuaImageComponent _image;
+        private LuaImageComponent_ _image;
 
-        public UnityObject(GameObject gameObject, bool found)
+        public UnityObject_(GameObject gameObject, bool found)
         {
             _gameObject = gameObject;
             _isUserCreated = !found;
-            _image = new LuaImageComponent(this, _isUserCreated);
+            _image = new LuaImageComponent_(this, _isUserCreated);
             if (_gameObject == null || !_isUserCreated) return;
             _gameObject.transform.localPosition = new Vector3(0, 0, _gameObject.transform.localPosition.z);
         }
 
-        public LuaImageComponent Image {
+        public LuaImageComponent_ Image {
             get {
                 if (!isactive) throw new CYFException("Attempt to get ImageComponent from a removed GameObject object.");
                 return _image;
@@ -37,15 +37,15 @@ namespace AsteriskMod
             Object.Destroy(_gameObject);
         }
 
-        public UnityObject Find(string name)
+        public UnityObject_ Find(string name)
         {
             if (!isactive) throw new CYFException("Attempt to perform action on a removed GameObject object.");
             Transform child = _gameObject.transform.Find(name);
             if (child == null) throw new CYFException("GameObject \"" + name + "\" is not found in GameObject \"" + name + "\"");
-            return new UnityObject(child.gameObject, true);
+            return new UnityObject_(child.gameObject, true);
         }
 
-        public UnityObject CreateObject(string name)
+        public UnityObject_ CreateObject(string name)
         {
             if (!isactive) throw new CYFException("Attempt to create GameObject on a removed GameObject object.");
             GameObject child = new GameObject(name);
@@ -54,7 +54,7 @@ namespace AsteriskMod
             child.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
             child.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
             //child.transform.localPosition = new Vector3(0, 0, child.transform.localPosition.z);
-            return new UnityObject(child, false);
+            return new UnityObject_(child, false);
         }
 
         public string name

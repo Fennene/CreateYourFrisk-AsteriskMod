@@ -13,6 +13,7 @@ public class ScriptRegistry {
     // --------------------------------------------------------------------------------
     internal static string CUSTOMSTATE_PREFIX = "state_";
     internal static string GLOBAL_SCRIPT_PREFIX = "gls_";
+    internal static string GLOBAL_ENGINE_PREFIX = "gle_";
     // --------------------------------------------------------------------------------
 
     public static Dictionary<string, string> dict = new Dictionary<string, string>();
