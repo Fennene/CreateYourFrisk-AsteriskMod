@@ -14,8 +14,18 @@ public class ScriptWrapper {
         set { SetVar(key, value); }
     }
 
-    public ScriptWrapper(/*bool overworld = false*/) {
-        script = LuaScriptBinder.BoundScript(/*overworld*/);
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //* public ScriptWrapper(/*bool overworld = false*/) {
+    public ScriptWrapper(bool isGlobalScript = false) {
+        // --------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        //* script = LuaScriptBinder.BoundScript(/*overworld*/);
+        script = LuaScriptBinder.BoundScript(isGlobalScript);
+        // --------------------------------------------------------------------------------
         Bind("_getv", (Func<Script, string, DynValue>)this.GetVar);
         script.DoString(toDoString, null, scriptname);
         instances.Add(this);

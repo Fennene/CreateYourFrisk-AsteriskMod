@@ -38,6 +38,11 @@ public class EnemyEncounter : MonoBehaviour {
     /// <returns>True if initialization succeeded, false if there was an error.</returns>
     private bool InitScript {
         get {
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            GlobalScripts.Load();
+            // --------------------------------------------------------------------------------
             doNotGivePreviousEncounterToSelf = true;
             script = new ScriptWrapper { scriptname = StaticInits.ENCOUNTER };
             string scriptText = ScriptRegistry.Get(ScriptRegistry.ENCOUNTER_PREFIX + StaticInits.ENCOUNTER);

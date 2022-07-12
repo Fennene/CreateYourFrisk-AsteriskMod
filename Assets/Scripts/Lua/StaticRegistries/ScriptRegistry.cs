@@ -12,6 +12,7 @@ public class ScriptRegistry {
     //                          Asterisk Mod Modification
     // --------------------------------------------------------------------------------
     internal static string CUSTOMSTATE_PREFIX = "state_";
+    internal static string GLOBAL_SCRIPT_PREFIX = "gls_";
     // --------------------------------------------------------------------------------
 
     public static Dictionary<string, string> dict = new Dictionary<string, string>();
@@ -21,8 +22,8 @@ public class ScriptRegistry {
     // --------------------------------------------------------------------------------
     //private static readonly string[] folders = { "Waves", "Encounters", "Monsters", "Events", "Shops" };
     //private static readonly string[] prefixes = { WAVE_PREFIX, ENCOUNTER_PREFIX, MONSTER_PREFIX, EVENT_PREFIX, SHOP_PREFIX };
-    private static readonly string[] folders = { "Waves", "Encounters", "Monsters", "States", "Events", "Shops" };
-    private static readonly string[] prefixes = { WAVE_PREFIX, ENCOUNTER_PREFIX, MONSTER_PREFIX, CUSTOMSTATE_PREFIX, EVENT_PREFIX, SHOP_PREFIX };
+    private static readonly string[] folders = { "Waves", "Encounters", "Monsters", "States", "Globals/Scripts", "Events", "Shops" };
+    private static readonly string[] prefixes = { WAVE_PREFIX, ENCOUNTER_PREFIX, MONSTER_PREFIX, CUSTOMSTATE_PREFIX, GLOBAL_SCRIPT_PREFIX, EVENT_PREFIX, SHOP_PREFIX };
     // --------------------------------------------------------------------------------
 
     public static string Get(string key) {

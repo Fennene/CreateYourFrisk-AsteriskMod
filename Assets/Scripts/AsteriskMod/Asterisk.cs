@@ -12,7 +12,7 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
 
         public const string ModName = "Asterisk Mod";
-        public const string ModVersion = "0.5.3";
+        public const string ModVersion = "0.5.3.0.1";
         public const string ModAuthor = "Nil256";
         public const string ModAuthorJP = "にるにころ";
         public const string ModAuthorAlt = "FenneneProject";
@@ -31,6 +31,8 @@ namespace AsteriskMod
             QOLUpdate, // v0.5.2.9
             /// <summary>v0.5.3<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3"/></summary>
             TakeNewStepUpdate,
+            /// <summary>v0.5.3.0.1<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.1"/></summary>
+            GlobalsScriptsAddition,
             // <summary>v0.5.3.2 ?</summary>
             //GMSUpdate,
             // <summary>v0.5.4</summary>
@@ -173,6 +175,8 @@ namespace AsteriskMod
                     return Versions.QOLUpdate;
                 case "v0.5.3":
                     return Versions.TakeNewStepUpdate;
+                case "v0.5.3.0.1":
+                    return Versions.GlobalsScriptsAddition;
             }
             return Versions.Unknwon;
         }
@@ -186,6 +190,7 @@ namespace AsteriskMod
                 case Versions.UtilUpdate:        return "v0.5.2.8";
                 case Versions.QOLUpdate:         return "v0.5.2.9";
                 case Versions.TakeNewStepUpdate: return "v0.5.3";
+                case Versions.GlobalsScriptsAddition: return "v0.5.3.0.1";
             }
             return "Unknwon";
         }

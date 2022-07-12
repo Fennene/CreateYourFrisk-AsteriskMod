@@ -13,6 +13,8 @@ namespace AsteriskMod
     {
         public static void Initialize()
         {
+            UserData.RegisterType<GlobalScripts>();
+
             UserData.RegisterType<CYFEngine>();
             UserData.RegisterType<ActionButton>();
             UserData.RegisterType<ButtonManager>();
@@ -93,7 +95,7 @@ namespace AsteriskMod
 
         private delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8);
 
-        public static void BoundScriptFunctions(Script script)
+        public static void BoundScriptFunctions(Script script, bool isGlobalScript)
         {
             if (AsteriskUtil.IsCYFOverworld) return;
 
@@ -125,6 +127,12 @@ namespace AsteriskMod
                 script.Globals["AutoRefreshStaticText"] = (Action<bool>)((value)=> { AsteriskEngine.AutoResetStaticText = value; });
 
                 script.Globals["GetLayerList"] = (Func<string[]>)GetLayerList;
+            }
+            if (isGlobalScript) return;
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.GlobalsScriptsAddition)
+            {
+                DynValue globalsScripts = UserData.Create(new GlobalScripts());
+                script.Globals.Set("Globals", globalsScripts);
             }
         }
 

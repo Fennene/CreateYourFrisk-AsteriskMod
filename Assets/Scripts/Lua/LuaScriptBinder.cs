@@ -58,7 +58,12 @@ public static class LuaScriptBinder {
     /// Generates Script object with globally defined functions and objects bound, and the os/io/file modules taken out.
     /// </summary>
     /// <returns>Script object for use within Unitale</returns>
-    public static Script BoundScript(/*bool overworld = false*/) {
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //* public static Script BoundScript(/*bool overworld = false*/) {
+    public static Script BoundScript(bool isGlobalScript = false) {
+    // --------------------------------------------------------------------------------
         Script script = new Script(CoreModules.Preset_Complete ^ CoreModules.IO ^ CoreModules.OS_System) { Options = { ScriptLoader = new FileSystemScriptLoader() } };
         // library support
         // --------------------------------------------------------------------------------
@@ -104,13 +109,26 @@ public static class LuaScriptBinder {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            AsteriskLuaScriptBinder.BoundScriptFunctions(script);
+            AsteriskLuaScriptBinder.BoundScriptFunctions(script, isGlobalScript);
             // --------------------------------------------------------------------------------
 
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            /**
             if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
                 EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
             else
                 script.Globals["Encounter"] = EnemyEncounter.script;
+            */
+            if (!isGlobalScript)
+            {
+                if (EnemyEncounter.doNotGivePreviousEncounterToSelf)
+                    EnemyEncounter.doNotGivePreviousEncounterToSelf = false;
+                else
+                    script.Globals["Encounter"] = EnemyEncounter.script;
+            }
+            // --------------------------------------------------------------------------------
 
             DynValue PlayerStatus = UserData.Create(PlayerController.luaStatus);
             script.Globals.Set("Player", PlayerStatus);
