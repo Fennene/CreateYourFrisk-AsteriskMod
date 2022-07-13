@@ -50,6 +50,8 @@ namespace AsteriskMod
                 _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath = path;
             }
             _normalSpritePath = _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath;
+
+            shader = new LuaSpriteShader("sprite", _gameObject);
         }
 
         [MoonSharpHidden]
@@ -72,6 +74,9 @@ namespace AsteriskMod
         private Vector2 _relativePlayerPosition;
         private bool _playerPositionOverride;
         private Vector3 _internalRotation;
+
+        [ShouldAddToDocument]
+        public LuaSpriteShader shader;
 
         /// <summary>Initialize parameters for customize button</summary>
         private void Initialize()

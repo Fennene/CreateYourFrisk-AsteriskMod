@@ -59,11 +59,11 @@ namespace AsteriskMod
             //* else if (whenDamage) fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * whenDamageValue, fill.rectTransform.offsetMin.y);
             //* else
             //* {
-                //*if (fillvalue > 1)
-                //*    fillvalue = 1;
-                if (_limited && fillvalue > 1) fillvalue = 1;
-                //fill.rectTransform.offsetMax = new Vector2(-(Mathf.Min(PlayerCharacter.instance.MaxHP, 100) * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
-                fill.rectTransform.offsetMax = new Vector2(-(realMaxLength * (1 - fillvalue)) * _hpscale, fill.rectTransform.offsetMin.y);
+            //*if (fillvalue > 1)
+            //*    fillvalue = 1;
+            if (_limited && fillvalue > 1) fillvalue = 1;
+            //fill.rectTransform.offsetMax = new Vector2(-(Mathf.Min(PlayerCharacter.instance.MaxHP, 100) * (1 - fillvalue)) * 1.2f, fill.rectTransform.offsetMin.y);
+            fill.rectTransform.offsetMax = new Vector2(-(realMaxLength * (1 - fillvalue)) * _hpscale, fill.rectTransform.offsetMin.y);
             //* }
             //fill.rectTransform.offsetMax = new Vector2(-(1 - fillvalue) * PlayerCharacter.instance.MaxHP * 1.2f, fill.rectTransform.offsetMin.y);
         }
@@ -125,7 +125,8 @@ namespace AsteriskMod
             //fill.rectTransform.sizeDelta = new Vector2(0, -(1-currentFill) * totalwidth);
             //* if (player) fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * PlayerCharacter.instance.HP * 1.2f, fill.rectTransform.offsetMin.y);
             //* else if (whenDamage) fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * whenDamageValue, fill.rectTransform.offsetMin.y);
-            /** else*/ fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * totalwidth, fill.rectTransform.offsetMin.y);
+            /** else*/
+            fill.rectTransform.offsetMax = new Vector2(-(1 - currentFill) * totalwidth, fill.rectTransform.offsetMin.y);
             fillTimer += Time.deltaTime;
         }
 
@@ -134,9 +135,18 @@ namespace AsteriskMod
         //                            Asterisk Mod Addition
         // --------------------------------------------------------------------------------
         [MoonSharpHidden] internal RectTransform self;
+
+        [ShouldAddToDocument] public LuaSpriteShader bgshader;
+        [ShouldAddToDocument] public LuaSpriteShader fillshader;
+
         //private Dictionary<string, Image> subbars;
 
-        private void Awake() { self = GetComponent<RectTransform>(); }
+        private void Awake()
+        {
+            self = GetComponent<RectTransform>();
+            bgshader = new LuaSpriteShader("sprite", background.gameObject);
+            fillshader = new LuaSpriteShader("sprite", fill.gameObject);
+        }
 
         [MoonSharpHidden]
         internal void setHP(float hpCurrent)
@@ -220,7 +230,7 @@ namespace AsteriskMod
                 }
                 else
                 {
-                    setMaxHP(resetTextPosition:true);
+                    setMaxHP(resetTextPosition: true);
                 }
             }
         }
@@ -573,7 +583,7 @@ namespace AsteriskMod
                 return relativePosition.y;
             }
             set
-            { 
+            {
                 MoveTo(x, value);
             }
         }
@@ -605,6 +615,17 @@ namespace AsteriskMod
             relativePosition = new Vector2(newX, newY);
             self.anchoredPosition = initPos + relativePosition;
         }
+
+        /*
+        [ShouldAddToDocument]
+        public void MoveToAbs(float newX, float newY)
+        {
+            CheckExists(false, true);
+            Vector2 initPos = self.anchoredPosition - relativePosition;
+            self.gameObject.transform.position = new Vector3(newX, newY, self.gameObject.transform.position.z);
+            relativePosition = self.anchoredPosition - initPos;
+        }
+        */
 
         public string layer
         {
