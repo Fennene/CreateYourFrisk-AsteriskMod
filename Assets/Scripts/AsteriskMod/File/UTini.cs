@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace AsteriskMod
 {
+    [ShouldAddToDocument]
     public class UTini
     {
         private string _path;

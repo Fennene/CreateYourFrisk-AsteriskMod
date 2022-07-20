@@ -28,7 +28,7 @@ namespace AsteriskMod.ModdingHelperTools
         {
             if (!isactive) throw new CYFException("Attempt to remove a removed static text object.");
             autoDestroyed = true;
-            GameObject.Destroy(this.transform.parent.gameObject);
+            GameObject.Destroy(this.gameObject);
         }
 
 
