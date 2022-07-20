@@ -133,6 +133,7 @@ namespace AsteriskMod
         internal static void AwakeMod()
         {
             CYFEngine.Initialize();
+            AppDataFileManager.Initialize();
             UIController.InitalizeButtonManager();
             PlayerUtil.Initialize();
             ArenaUI.Initialize();

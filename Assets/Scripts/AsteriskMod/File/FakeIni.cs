@@ -7,7 +7,7 @@ namespace AsteriskMod.FakeIniLoader
         private FakeIniSection _main;
         private Dictionary<string, FakeIniSection> _sections;
 
-        public FakeIni()
+        internal FakeIni()
         {
             _main = new FakeIniSection();
             _sections = new Dictionary<string, FakeIniSection>();

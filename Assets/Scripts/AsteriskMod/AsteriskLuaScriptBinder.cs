@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace AsteriskMod
@@ -17,6 +18,8 @@ namespace AsteriskMod
             UserData.RegisterType<GlobalsScripts>();
 
             UserData.RegisterType<CYFEngine>();
+            UserData.RegisterType<AppDataFileManager>();
+            UserData.RegisterType<UTini>();
             UserData.RegisterType<ActionButton>();
             UserData.RegisterType<ButtonManager>();
             UserData.RegisterType<PlayerUtil>();
@@ -130,6 +133,12 @@ namespace AsteriskMod
                 DynValue globalsScripts = UserData.Create(new GlobalsScripts(null));
                 script.Globals.Set("Globals", globalsScripts);
             }
+
+            DevelopHint.ToDo("Update version");
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.Unknwon)
+            {
+                script.Globals["CreateSpriteFromFont"] = (Func<string, char, string, int, DynValue>)MakeIngameSpriteFromFont;
+            }
         }
 
         public static void BoundScriptUserDatas(Script script)
@@ -147,6 +156,13 @@ namespace AsteriskMod
             script.Globals.Set("Engine", engine);
             DynValue lang = UserData.Create(new Lang());
             script.Globals.Set("Lang", lang);
+
+            DevelopHint.ShouldAddToDocument();
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData)
+            {
+                DynValue appData = UserData.Create(new AppDataFileManager());
+                script.Globals.Set("AppData", appData);
+            }
 
             if (AsteriskEngine.LuaCodeStyle.stringUtil)
             {
@@ -377,6 +393,39 @@ namespace AsteriskMod
                 if (name.EndsWith("Layer")) layers.Add(name.Substring(0, name.Length - 5));
             }
             return layers.ToArray();
+        }
+
+        public static DynValue MakeIngameSpriteFromFont(string fontName, char character, string tag = "BelowArena", int childNumber = -1)
+        {
+            Asterisk.RequireExperimentalFeature("CreateSpriteFromFont");
+            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
+            tag = (UnitaleUtil.IsOverworld && tag == "BelowArena") ? "Default" : tag;
+            if (ParseUtil.TestInt(tag) && childNumber == -1)
+            {
+                childNumber = ParseUtil.GetInt(tag);
+                tag = UnitaleUtil.IsOverworld ? "Default" : "BelowArena";
+            }
+
+            Image i = Object.Instantiate(SpriteRegistry.GENERIC_SPRITE_PREFAB);
+            AsteriskUtil.SwapSprite(i, AsteriskUtil.GetSpriteFromFont(fontName, character));
+
+            if (!GameObject.Find(tag + "Layer") && tag != "none")
+                if ((!UnitaleUtil.IsOverworld && tag == "BelowArena") || (UnitaleUtil.IsOverworld && tag == "Default"))
+                    i.transform.SetParent(GameObject.Find(canvas).transform);
+                else
+                    UnitaleUtil.DisplayLuaError("Creating a sprite from font", EngineLang.Get("Exception", "SpriteLayerNotFound1") + tag + EngineLang.Get("Exception", "SpriteLayerNotFound2"));
+            else
+            {
+                i.transform.SetParent(GameObject.Find(tag == "none" ? canvas : tag + "Layer").transform, true);
+                if (childNumber != -1)
+                    i.transform.SetSiblingIndex(childNumber - 1);
+            }
+            return UserData.Create(new LuaSpriteController(i), LuaSpriteController.data);
+        }
+
+        public static DynValue MakeIngameSpriteFromFont(string fontName, char character, int childNumber = -1)
+        {
+            return MakeIngameSpriteFromFont(fontName, character, "BelowArena", childNumber);
         }
     }
 }

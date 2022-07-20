@@ -51,7 +51,8 @@ namespace AsteriskMod
             }
             _normalSpritePath = _button.GetComponent<AutoloadResourcesFromRegistry>().SpritePath;
 
-            shader = new LuaSpriteShader("sprite", _gameObject);
+            //shader = new LuaSpriteShader("sprite", _gameObject);
+            _shader = new LuaSpriteShader("sprite", _gameObject);
         }
 
         [MoonSharpHidden]
@@ -76,7 +77,21 @@ namespace AsteriskMod
         private Vector3 _internalRotation;
 
         [ShouldAddToDocument]
-        public LuaSpriteShader shader;
+        //public LuaSpriteShader shader;
+        private LuaSpriteShader _shader;
+        public LuaSpriteShader shader
+        {
+            get
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("ActionButton", "shader");
+                return _shader;
+            }
+            set
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("ActionButton", "shader");
+                _shader = value;
+            }
+        }
 
         /// <summary>Initialize parameters for customize button</summary>
         private void Initialize()

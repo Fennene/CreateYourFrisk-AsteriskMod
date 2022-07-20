@@ -100,6 +100,9 @@ namespace AsteriskMod
             _playerOffset = Vector2.zero;
         }
 
+        [ShouldAddToDocument] internal static LuaSpriteShader outerShader;
+        [ShouldAddToDocument] internal static LuaSpriteShader innerShader;
+
         private void Awake()
         {
             border = transform.Find("arena_border_outer").gameObject;
@@ -108,6 +111,8 @@ namespace AsteriskMod
             mainTextManPos = Vector2.zero;
             Target = arena.transform.Find("FightUI").gameObject;
             TargetChoice = Target.transform.Find("FightUILine").gameObject;
+            outerShader = new LuaSpriteShader("sprite", border);
+            innerShader = new LuaSpriteShader("sprite", arena);
         }
 
         public static void SetBorderColor(Color color)

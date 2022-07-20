@@ -33,6 +33,8 @@ namespace AsteriskMod
             TakeNewStepUpdate,
             /// <summary>v0.5.3.0.1<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.1"/></summary>
             GlobalsScriptsAddition,
+            /// <summary>v0.5.3.0.2<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.2"/></summary>
+            BeAddedShaderAndAppData,
             // <summary>v0.5.3.2 ?</summary>
             //GMSUpdate,
             // <summary>v0.5.4</summary>
@@ -195,6 +197,11 @@ namespace AsteriskMod
                 case Versions.GlobalsScriptsAddition: return "v0.5.3.0.1";
             }
             return "Unknwon";
+        }
+
+        public static void FakeNotFoundError(string className, string memberName, bool isAsteriskMod = true)
+        {
+            throw new CYFException("cannot access field " + memberName + " of userdata<" + (isAsteriskMod ? "AsteriskMod." : "") + className + ">");
         }
     }
 }

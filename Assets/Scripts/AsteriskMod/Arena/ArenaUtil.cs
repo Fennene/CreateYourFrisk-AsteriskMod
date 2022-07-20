@@ -59,12 +59,20 @@ namespace AsteriskMod
             ArenaUI.SetBorderColor(new Color32(r, g, b, a));
         }
 
-        /*
-        public static void SetBorderColor()
+        [ShouldAddToDocument]
+        public LuaSpriteShader bordershader
         {
-            ArenaUI.SetBorderColor(new Color32(255, 255, 255, 255));
+            get
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("ArenaUtil", "bordershader");
+                return ArenaUI.outerShader;
+            }
+            set
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("ArenaUtil", "bordershader");
+                ArenaUI.outerShader = value;
+            }
         }
-        */
 
         public void SetInnerColor(float r, float g, float b, float a = 1.0f)
         {
@@ -76,12 +84,20 @@ namespace AsteriskMod
             ArenaUI.SetInnerColor(new Color32(r, g, b, a));
         }
 
-        /*
-        public static void SetInnerColor()
+        [ShouldAddToDocument]
+        public LuaSpriteShader innershader
         {
-            ArenaUI.SetInnerColor(new Color32(0, 0, 0, 255));
+            get
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("ArenaUtil", "innershader");
+                return ArenaUI.innerShader;
+            }
+            set
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("ArenaUtil", "innershader");
+                ArenaUI.innerShader = value;
+            }
         }
-        */
 
 
         public int dialogtextx

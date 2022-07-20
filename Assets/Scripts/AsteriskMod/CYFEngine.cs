@@ -60,6 +60,7 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
+        [ShouldAddToDocument("↓")]
         internal static string ConvertToAppDataFullPath(string path)
         {
             return Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER + "/" + path);
@@ -82,6 +83,7 @@ namespace AsteriskMod
 
         public LuaFile OpenAppDataFile(string path, string mode = "rw")
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "OpenAppDataFile");
             CheckDirectory();
             return new LuaFile(ConvertToAppDataFullPath(path), mode, true);
         }
@@ -89,6 +91,7 @@ namespace AsteriskMod
 
         public bool AppDataFileExists(string path)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "AppDataFileExists");
             CheckDirectory();
             if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscCheckFileOutside"));
             return File.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'));
@@ -97,6 +100,7 @@ namespace AsteriskMod
 
         public bool AppDataDirExists(string path)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "AppDataDirExists");
             CheckDirectory();
             if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscCheckDirOutside"));
             return Directory.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'));
@@ -105,6 +109,7 @@ namespace AsteriskMod
 
         public bool CreateAppDataDir(string path)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "CreateAppDataDir");
             if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscCreateDirOutside"));
 
             if (Directory.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'))) return false;
@@ -117,6 +122,7 @@ namespace AsteriskMod
 
         public bool MoveAppDataDir(string path, string newPath)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "MoveAppDataDir");
             if (path.Contains("..") || newPath.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscMoveDirOutside"));
 
             if (!AppDataDirExists(path) || AppDataDirExists(newPath) || !PathValid(path)) return false;
@@ -127,6 +133,7 @@ namespace AsteriskMod
 
         public bool RemoveAppDataDir(string path, bool force = false)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "RemoveAppDataDir");
             if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscRemoveDirOutside"));
 
             if (!Directory.Exists(ConvertToAppDataFullPath(path).Replace('\\', '/'))) return false;
@@ -139,6 +146,7 @@ namespace AsteriskMod
 
         public string[] ListAppDataDir(string path, bool getFolders = false)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("CYFEngine", "ListAppDataDir");
             if (path == null) throw new CYFException(EngineLang.Get("Exception", "MiscNullListDir"));
             if (path.Contains("..")) throw new CYFException(GetAppDataErrorMessage("MiscListDirOutside"));
 
@@ -152,6 +160,7 @@ namespace AsteriskMod
             return retval.ToArray();
         }
         public string[] ListDir(string path, bool getFolders = false) { return ListAppDataDir(path, getFolders); }
+        [ShouldAddToDocument("↑")]
 
         /*
         public static void RegistSprite(string filename)

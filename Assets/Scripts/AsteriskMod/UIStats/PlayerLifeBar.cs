@@ -136,16 +136,45 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
         [MoonSharpHidden] internal RectTransform self;
 
-        [ShouldAddToDocument] public LuaSpriteShader bgshader;
-        [ShouldAddToDocument] public LuaSpriteShader fillshader;
+        //public LuaSpriteShader bgshader;
+        //public LuaSpriteShader fillshader;
+        [ShouldAddToDocument]
+        private LuaSpriteShader _bgshader;
+        private LuaSpriteShader _fillshader;
+        public LuaSpriteShader bgshader
+        {
+            get
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("PlayerLifeBar", "bgshader");
+                return _bgshader;
+            }
+            set
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("PlayerLifeBar", "bgshader");
+                _bgshader = value;
+            }
+        }
+        public LuaSpriteShader fillshader
+        {
+            get
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("PlayerLifeBar", "fillshader");
+                return _fillshader;
+            }
+            set
+            {
+                if (AsteriskEngine.ModTarget_AsteriskVersion < Asterisk.Versions.BeAddedShaderAndAppData) Asterisk.FakeNotFoundError("PlayerLifeBar", "fillshader");
+                _fillshader = value;
+            }
+        }
 
         //private Dictionary<string, Image> subbars;
 
         private void Awake()
         {
             self = GetComponent<RectTransform>();
-            bgshader = new LuaSpriteShader("sprite", background.gameObject);
-            fillshader = new LuaSpriteShader("sprite", fill.gameObject);
+            _bgshader = new LuaSpriteShader("sprite", background.gameObject);
+            _fillshader = new LuaSpriteShader("sprite", fill.gameObject);
         }
 
         [MoonSharpHidden]
@@ -616,8 +645,7 @@ namespace AsteriskMod
             self.anchoredPosition = initPos + relativePosition;
         }
 
-        /*
-        [ShouldAddToDocument]
+        [MoonSharpHidden, ToDo("Add")]
         public void MoveToAbs(float newX, float newY)
         {
             CheckExists(false, true);
@@ -625,7 +653,6 @@ namespace AsteriskMod
             self.gameObject.transform.position = new Vector3(newX, newY, self.gameObject.transform.position.z);
             relativePosition = self.anchoredPosition - initPos;
         }
-        */
 
         public string layer
         {

@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AsteriskMod
 {
@@ -130,6 +131,52 @@ namespace AsteriskMod
             return GetSafeSetAlMightyGlobalStatus();
         }
 
+
+        [ToDo("Translate Error")]
+        public static Sprite GetSpriteFromFont(string fontName, char character)
+        {
+            if (fontName == null) throw new CYFException("SpriteFromFont: The first argument (the font name) is nil.");//\n\nSee the documentation for proper usage.");
+            UnderFont uf = SpriteFontRegistry.Get(fontName);
+            if (uf == null) throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
+            if (!uf.Letters.ContainsKey(character)) throw new CYFException("The font \"" + fontName + "\" doesn't contain character\'" + character + "\'");
+            return uf.Letters[character];
+        }
+
+        public static void SwapSprite(Component target, Sprite sprite)
+        {
+            /*
+            try
+            {
+                UIController.instance.encounter.EnabledEnemies[-1].bubbleWidth = 0;
+            }
+            catch (Exception)
+            {
+                UIController.instance.encounter.EnabledEnemies[-1].bubbleWidth = 0;
+            }
+            */
+            if (sprite== null)
+            {
+                Debug.LogError("SwapSprite: Sprite is empty!");
+            }
+            Image img = target.GetComponent<Image>();
+            if (!img)
+            {
+                SpriteRenderer img2 = target.GetComponent<SpriteRenderer>();
+                Vector2 pivot = img2.GetComponent<RectTransform>().pivot;
+                img2.sprite = sprite;
+                img2.GetComponent<RectTransform>().sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
+                img2.GetComponent<RectTransform>().pivot = pivot;
+            }
+            else
+            {
+                Vector2 pivot = img.rectTransform.pivot;
+                img.sprite = sprite;
+                //enemyImg.SetNativeSize();
+                img.rectTransform.sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
+                img.rectTransform.pivot = pivot;
+            }
+
+        }
 
         public static float CalcTextWidth(StaticTextManager txtmgr, int fromLetter = -1, int toLetter = -1, bool countEOLSpace = false, bool getLastSpace = false)
         {
