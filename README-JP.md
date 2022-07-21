@@ -18,7 +18,8 @@
 
 ## Asterisk Mod
 
-現在の提供しているバージョンは**v0.5.3**です。
+現在の推奨バージョンは**v0.5.3**です。
+現在の最新バージョンは**v0.5.3.0.2**です。
 
 Asterisk Modは 公式のCYFを基に いくつかの便利な機能を追加します。
 
@@ -42,7 +43,7 @@ MERCY ボタンを"ButtonUtil.MERCY.SetActive(false)"で無効にできます。
 
 ## Unity Version
 
-CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.3**. It was built using **Unity Personal 2018.2.13f1**.
+CYF's version is **v0.6.5** and AsteriskMod's latest version is **v0.5.3.0.2**. It was built using **Unity Personal 2018.2.13f1**.
 
 To get this version of Unity, either:
 
