@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace AsteriskMod
 {
-    [ShouldAddToDocument]
     public class AppDataFileManager
     {
         private static string _appDataDirPath;
@@ -112,7 +111,6 @@ namespace AsteriskMod
             return retval.ToArray();
         }
 
-        [ShouldAddToDocument]
         public bool RemoveAll()
         {
             _dirCreated = false;
@@ -121,10 +119,11 @@ namespace AsteriskMod
             return true;
         }
 
-        [ShouldAddToDocument]
         public UTini OpenIniFile(string path)
         {
             CheckDirectory();
+            if (path == null) throw new CYFException("Cannot open a file with a nil path.");
+            if (path.Contains("..")) throw new CYFException("You cannot open a file outside of a AppData folder. The use of \"..\" is forbidden.");
             return new UTini(GetFullPath(path));
         }
         public UTini OpenFileAsIni(string path) { return OpenIniFile(path); }

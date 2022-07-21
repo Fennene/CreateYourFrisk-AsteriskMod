@@ -14,7 +14,7 @@ it's w3c valid, at least
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>*CYF Documentation - The Engine Object</title>
+    <title>*CYF Documentation - The AppData Object</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../css/themesidebar.css" rel="stylesheet">
@@ -69,8 +69,8 @@ it's w3c valid, at least
                     <li><a href="misc.html">Misc.Changes</a></li>
                     <li><a href="update-guide.html">Update Migration Guide</a></li>
                     <li>Functions &amp; Objects:</li>
-                    <li class="li-indent asternew active" style="margin-left:5px;">&gt; The Engine Object &lt;</li>
-                    <li class="li-indent asternew"><a href="api-appdata.html">The AppData Object</a></li>
+                    <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
+                    <li class="li-indent asternew active" style="margin-left:5px;">&gt; The AppData Object &lt;</li>
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
@@ -115,82 +115,24 @@ it's w3c valid, at least
     <!--tabs'n'shit-->
     <div class="tab-content col-md-10">
         <div class="tab-pane active text-style" id="asterisk-api-engine">
-            <h2><span class="Asterisk"></span> The Engine object [E/M/W]</h2><br>
+            <h2><span class="asternew"></span> <span class="Asterisk"></span> The AppData object [E/M/W/S]</h2><br>
             <p>
                 <font color="#DDD">namespace:</font> AsteriskMod<br>
-                <font color="#DDD">code:</font> AsteriskMod/CYFEngine.cs
+                <font color="#DDD">code:</font> AsteriskMod/File/AppDataFileManager.cs
             </p><br>
-            <p>The Engine Object provides functions to control CYF engine-self.</p><br>
-
             <p>
-                <br><span class="function">Engine.SetTargetFrameRate(<span class="int"></span> frameRate = 60)</span>
-                Sets the frame rate of CYF.
-                The frame rate should be integer number as between <span class="term">30</span> and <span class="term">120</span>.<br>
-                You can reset the frame rate by calling this without any arguments.
-                <br><br>
-                <span class="AsteriskExperiment"></span> You can assign any positive number.
+                The AppData Object provides IO of AppData.<br>
+                You can use a directory of CYF's AppData.<br>
+                On Windows, the path of that directory is <span class="term">C:\Users\%USERNAME%\AppData\LocalLow\Nobody's Getting Paid Here\Create Your Frisk - Asterisk Mod\Mods\[YOUR_MOD_DIR_NAME]</span>.
             </p><br>
 
             <p>
-                <br><span class="function"><span class="boolean"></span> Engine.ModExists(<span class="string"></span> modFolderName)</span>
-                Checks to exists that named mod.<br>
-                Using <span class="term">../</span> to go up a folder is NOT allowed.                
-            </p>
-
-
-            <p>
-                <br><span class="function">Engine.RemoveAllProjectiles()<br></span>
-                or <span class="function">Engine.RemoveAllBullets()</span>
-                Attempts to remove all projectiles (bullet objects).
-            </p>
-            <!--
-            <p>
-                <br><span class="function">Engine.RegistSprite(<span class="string"></span> filename)</span>
-                Regists sprite from files forcibly even if it is not in Sprites folder.<br>
-                However supported file format is <span class="term">png</span>.
-                <br><br>
-                If you use registed sprite, make the beginning of your registed sprite's name to be *(Asterisk) and assgin that to functions for example <span class="term">CreateSprite()</span>.
-            </p>
-            -->
-            <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetSpriteFilterMode(<span class="string"></span> filename, <span class="string"></span> filtermode = "POINT")</span>
-                Sets sprites' filter mode.<br>
-                <span class="term">filtermode</span> can be only <span class="term">POINT</span>, <span class="term">BILINEAR</span>, or <span class="term">TRILINEAR</span>.<br>
-                Default by "<span class="term">POINT</span>".
-            </p>
-
-            <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetProjectilesAutoRemovingActive(<span class="boolean"></span> active)</span>
-                Default by true.<br>
-                If <span class="term">false</span>, the engine will not remove projectiles when wave is ended.
-            </p>
-            <p>
-                <br><span class="function"><span class="AsteriskExperiment"></span> Engine.SetBulletPoolSize(<span class="int"></span> newSize = 100)</span>
-                Sets the size of bullet pool.
-                The size should be positive integer number<br>
-                <span class="term">bullet pool</span> is one of CYF's system for <span class="term">the bullet object</span>.
-                The number of creating <span class="term">the bullet object</span> is limited, the number of that is 100.<br>
-                You can call this for more bullet.
-                <br><br>
-                You can reset the size of bullet pool by calling this without any arguments.
-                <br><br>
-                <strike>I think it may not work... be needed more debug or experiment</strike>
-            </p>
-
-            <br><hr>
-
-            <p><font color="#FFF" size="+1">
-                <span class="asternew"></span> Since v0.5.3.1(v0.5.3.0.2), IO of a mod's AppData is migrated to <span class="ref"><a href="api-appdata.html">The AppData Object</a></span>.
-            </font></p>
-
-            <p>
-                <br><span class="function">Engine.OpenAppDataFile(<span class="string"></span> path, <span class="string"></span> mode = "rw") returns <span class="userdata">File</span></span>
+                <br><span class="function">AppData.OpenFile(<span class="string"></span> path, <span class="string"></span> mode = "rw") returns <span class="userdata">File</span></span>
                 This function opens a file <u>in your Mod's AppData folder ONLY</u>, for reading and writing.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
                 <ul>
                     <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
-                        (On Windows, This relative path is <span class="term">C:\Users\%USERNAME%\AppData\LocalLow\Nobody's Getting Paid Here\Create Your Frisk - Asterisk Mod\Mods\YOURMOD</span>)<br>
                         Can enter subfolders.</li><br>
                     <li>
                         <span class="term">mode</span>: Determines how the file should be opened:
@@ -206,7 +148,7 @@ it's w3c valid, at least
                 about The <span class="userdata">file</span> object.
             </p>
             <p>
-                <br><span class="function"><span class="boolean"></span> Engine.AppDataFileExists(<span class="string"></span> path)</span>
+                <br><span class="function"><span class="boolean"></span> AppData.FileExists(<span class="string"></span> path)</span>
                 Use this function to check if a file <u>in your Mod's AppData folder ONLY</u> exists.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
@@ -214,10 +156,20 @@ it's w3c valid, at least
                     <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
                         Can enter subfolders.</li><br>
                 </ul>
-                Use this before <span class="term">Engine.OpenAppDataFile</span> if you plan to read from a file.
+                Use this before <span class="term">AppData.OpenAppDataFile</span> if you plan to read from a file.
             </p>
             <p>
-                <br><span class="function"><span class="luatable"><span class="string"></span></span> Engine.AppDataListDir(<span class="string"></span> path, <span class="boolean"></span> getFolders = false)</span>
+                <br><span class="function"><span class="boolean"></span> AppData.DirExists(<span class="string"></span> path)</span>
+                Use this function to check if a folder <u>in your Mod's AppData folder ONLY</u> exists.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
+                        Can enter subfolders.</li>
+                </ul>
+            </p>
+            <p>
+                <br><span class="function"><span class="luatable"><span class="string"></span></span> AppData.ListDir(<span class="string"></span> path, <span class="boolean"></span> getFolders = false)</span>
                 This function returns a list of either files or folders <u>in your Mod's AppData folder ONLY</u>.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
@@ -229,24 +181,14 @@ it's w3c valid, at least
                 </ul>
             </p>
             <p>
-                <br><span class="function"><span class="boolean"></span> Engine.AppDataDirExists(<span class="string"></span> path)</span>
-                Use this function to check if a folder <u>in your Mod's AppData folder ONLY</u> exists.<br>
-                Using <span class="term">../</span> to go up a folder is NOT allowed.
-                <br><br>
-                <ul>
-                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
-                        Can enter subfolders.</li>
-                </ul>
-            </p>
-            <p>
-                <br><span class="function"><span class="boolean"></span> Engine.CreateAppDataDir(<span class="string"></span> path)</span>
+                <br><span class="function"><span class="boolean"></span> AppData.CreateDir(<span class="string"></span> path)</span>
                 Attempts to create a folder with the path <span class="term">path</span> relative to your Mod's AppData folder.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
                 Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
             </p>
             <p>
-                <br><span class="function"><span class="boolean"></span> Engine.MoveAppDataDir(<span class="string"></span> path, <span class="string"></span> newPath)</span>
+                <br><span class="function"><span class="boolean"></span> AppData.MoveDir(<span class="string"></span> path, <span class="string"></span> newPath)</span>
                 Attempts to move a folder with the path <span class="term">path</span> relative to your Mod's AppData folder to a new location <span class="term">newPath</span>
                 also relative to your mod's AppData folder.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.
@@ -254,7 +196,7 @@ it's w3c valid, at least
                 Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
             </p>
             <p>
-                <br><span class="function"><span class="boolean"></span> Engine.RemoveAppDataDir(<span class="string"></span> path, <span class="boolean"></span> force = false)</span>
+                <br><span class="function"><span class="boolean"></span> AppData.RemoveDir(<span class="string"></span> path, <span class="boolean"></span> force = false)</span>
                 Attempts to delete a folder with the path <span class="term">path</span> relative to your Mod's AppData folder.<br>
                 Using <span class="term">../</span> to go up a folder is NOT allowed.
                 <br><br>
@@ -263,6 +205,83 @@ it's w3c valid, at least
                 </ul>
                 Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
             </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="boolean"></span> AppData.RemoveAll()</span>
+                Attempts to delete your Mod's AppData folder.<br>
+                Returns <span class="term">true</span> if the operation was successful, <span class="term">false</span> otherwise.
+            </p>
+
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="userdata">iniFile</span> AppData.OpenIniFile(<span class="string"></span> path)<br></span>
+                or <span class="function"><span class="asternew"></span> <span class="userdata">iniFile</span> AppData.OpenFileAsIni(<span class="string"></span> path)</span>
+                This function opens a file <u>in your Mod's AppData folder ONLY</u>, as ini file.<br>
+                Using <span class="term">../</span> to go up a folder is NOT allowed.
+                <br><br>
+                <ul>
+                    <li><span class="term">path</span>: Path to the file to open, relative to your Mod's AppData folder.<br>
+                        Can enter subfolders.</li>
+                </ul><br>
+                You can open file even if file does not exist.<br>
+                This function returns a <span class="userdata">iniFile</span> object representing the file:
+            </p>
+
+            <p id="ini">
+                <br><span class="function"><span class="asternew"></span> The iniFile object [E/M/W/S]</span>
+            </p>
+
+            <p><br><ul>
+                <li>
+                    <span class="term">iniFile.Load()</span>: loads a file to temporary ini data.<br>
+                    You can call this even if file does not exist.<br>
+                    This is called automatically when <span class="term">AppData.OpenIniFile()</span> and <span class="term">AppData.OpenFileAsIni()</span> is called.
+                </li><br>
+                <li>
+                    <span class="term">iniFile.Save()</span>: save temporary ini data to a file.
+                </li><br>
+
+                <li>
+                    <span class="boolean"></span> <span class="term">iniFile.FileExists()</span>: returns whether a file exists or not.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">iniFile.SectionExists(<span class="string"></span> sectionName)</span>: returns whether the section exists or not.
+                </li><br>
+                <li>
+                    <span class="boolean"></span> <span class="term">iniFile.ParameterExists(<span class="string"></span> sectionName, <span class="string"></span> parameterName)</span>: returns whether the section and parameter exist or not.
+                </li><br>
+
+                <li>
+                    <span class="string"></span> <span class="term">iniFile.GetString(<span class="string"></span> sectionName, <span class="string"></span> parameterName)</span>: gets the parameter from <span class="term">sectionName</span> and <span class="term">parameterName</span>.<br>
+                    Returns <span class="term">""</span> (empty string) if section or parameter do not exist.
+                </li><br>
+                <li>
+                    <span class="number"></span> <span class="term">iniFile.GetNumber(<span class="string"></span> sectionName, <span class="string"></span> parameterName)</span>: gets the parameter <font color="#FFF">as number</font> from <span class="term">sectionName</span> and <span class="term">parameterName</span>.<br>
+                    Returns <span class="term">0</span> if section or parameter do not exist.
+                </li><br>
+
+                <li>
+                    <span class="term">iniFile.SetString(<span class="string"></span> sectionName, <span class="string"></span> parameterName, <span class="string"></span> parameter)</span>: sets the parameter to temporary ini data.<br>
+                    You should call <span class="term">iniFile.Save()</span> if you wanna save to file.<br>
+                    If section or parameter do not exists, add that automatically.
+                </li><br>
+                <li>
+                    <span class="term">iniFile.SetNumber(<span class="string"></span> sectionName, <span class="string"></span> parameterName, <span class="number"></span> parameter)</span>: sets the parameter to temporary ini data.<br>
+                    You should call <span class="term">iniFile.Save()</span> if you wanna save to file.<br>
+                    If section or parameter do not exists, add that automatically.
+                </li><br>
+
+                <li>
+                    <span class="term">iniFile.RemoveSection(<span class="string"></span> sectionName)</span>: removes the section.<br>
+                    If section does not exist, nothing happened.
+                </li><br>
+                <li>
+                    <span class="term">iniFile.RemoveParameter(<span class="string"></span> sectionName, <span class="string"></span> parameterName)</span>: removes the parameter.<br>
+                    If section or parameter do not exist, nothing happened.
+                </li><br>
+
+                <li>
+                    <span class="term">iniFile.ChangePath(<span class="string"></span> path, <span class="boolean"></span> reload = false)</span>: changes the path of file.
+                </li>
+            </ul></p>
         </div>
 
         <div class="tab-pane text-style" id="mercy">

@@ -64,10 +64,11 @@ it's w3c valid, at least
                     <li><a href="misc.html">Misc.Changes</a></li>
                     <li><a href="update-guide.html">Update Migration Guide</a></li>
                     <li>Functions &amp; Objects:</li>
-                    <li class="li-indent"><a href="api-engine.html">The Engine Object</a></li>
-                    <li class="li-indent"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
-                    <li class="li-indent"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
-                    <li class="li-indent"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
+                    <li class="li-indent asternew"><a href="api-engine.html">The Engine Object</a></li>
+                    <li class="li-indent asternew"><a href="api-appdata.html">The AppData Object</a></li>
+                    <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
+                    <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
+                    <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li class="li-indent"><a href="api-statictext.html">The StaticText Object</a></li>
                     <li>Japanese Localization<br>[日本語対応]:</li>
                     <li class="li-indent"><a href="jp-basis.html">Basis [基本]</a></li>
@@ -241,7 +242,10 @@ it's w3c valid, at least
                 Asterisk Mod has below features:<br><br>
                 <ul>
                     <li>
-                        <span class="term">Engine</span>: controls the engine itself and opens AppData directory.
+                        <span class="term">Engine</span>: controls the engine itself.
+                    </li><br>
+                    <li>
+                        <span class="term">AppData</span>: opens AppData directory.
                     </li><br>
                     <li>
                         <span class="term">PlayerUtil</span>: controls the UIs displaying the player's status, changes default damage and invincible of the player, changes the sprite and animation of Fight UI, and gets enemy's damage with some arguments.
@@ -382,6 +386,60 @@ it's w3c valid, at least
                     </li>
                     <li class="fix">
                         Fixes the issue static text object is destroy also layer, in Battle Simulator.
+                    </li>
+                    <li class="modify">
+                        Some functions of <span class="term">The Engine Object</span> are migrated to <span class="term">The AppData Object</span>.
+                    </li>
+                    <li>
+                        Add <span class="term"><a href="api-appdata.html">The AppData Object</a></span>.<br>
+                        <ul>
+                            <li>Add <span class="term">AppData.OpenFile()</span>.</li>
+                            <li>Add <span class="term">AppData.FileExists()</span>.</li>
+                            <li>Add <span class="term">AppData.DirExists()</span>.</li>
+                            <li>Add <span class="term">AppData.ListDir()</span>.</li>
+                            <li>Add <span class="term">AppData.CreateDir()</span>.</li>
+                            <li>Add <span class="term">AppData.MoveDir()</span>.</li>
+                            <li>Add <span class="term">AppData.RemoveDir()</span>.</li>
+                            <li>Add <span class="term">AppData.RemoveAll()</span>.</li>
+                            <li>Add <span class="term">AppData.OpenIniFile()</span>/<span class="term">AppData.OpenFileAsIni()</span>.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add <span class="term"><a href="api-appdata.html#ini">The iniFile Object</a></span>.<br>
+                        <ul>
+                            <li>Add <span class="term">iniFile.Load()</span>.</li>
+                            <li>Add <span class="term">iniFile.Save()</span>.</li>
+                            <li>Add <span class="term">iniFile.FileExists()</span>.</li>
+                            <li>Add <span class="term">iniFile.SectionExists()</span>.</li>
+                            <li>Add <span class="term">iniFile.ParameterExists()</span>.</li>
+                            <li>Add <span class="term">iniFile.GetString()</span>.</li>
+                            <li>Add <span class="term">iniFile.GetNumber()</span>.</li>
+                            <li>Add <span class="term">iniFile.SetString()</span>.</li>
+                            <li>Add <span class="term">iniFile.SetNumber()</span>.</li>
+                            <li>Add <span class="term">iniFile.RemoveSection()</span>.</li>
+                            <li>Add <span class="term">iniFile.RemoveParameter()</span>.</li>
+                            <li>Add <span class="term">iniFile.ChangePath()</span>.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add variables to <span class="term"><a href="api-playerutil.html#LifeBar">The LifeBar Object</a></span>.
+                        <ul>
+                            <li>Add the variable <span class="term">lifeBar.bgshader</span>.</li>
+                            <li>Add the variable <span class="term">lifeBar.fillshaders</span>.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add a variable to <span class="term"><a href="api-buttonutil.html#Button">The Button Object</a></span>.
+                        <ul>
+                            <li>Add the variable <span class="term">button.shader</span>.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add variables to <span class="term"><a href="api-arenautil.html">The ArenaUtil Object</a></span>.
+                        <ul>
+                            <li>Add the variable <span class="term">ArenaUtil.bordershader</span>.</li>
+                            <li>Add the variable <span class="term">ArenaUtil.innershader</span>.</li>
+                        </ul>
                     </li>
                 </ul>
             </p>

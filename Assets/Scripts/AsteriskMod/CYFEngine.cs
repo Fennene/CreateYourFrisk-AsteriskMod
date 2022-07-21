@@ -60,7 +60,8 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
-        [ShouldAddToDocument("↓")]
+
+
         internal static string ConvertToAppDataFullPath(string path)
         {
             return Path.Combine(Application.persistentDataPath + "/Mods", StaticInits.MODFOLDER + "/" + path);
@@ -160,7 +161,8 @@ namespace AsteriskMod
             return retval.ToArray();
         }
         public string[] ListDir(string path, bool getFolders = false) { return ListAppDataDir(path, getFolders); }
-        [ShouldAddToDocument("↑")]
+
+
 
         /*
         public static void RegistSprite(string filename)

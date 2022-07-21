@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace AsteriskMod
 {
-    [ShouldAddToDocument]
     public class UTini
     {
         private string _path;
@@ -122,6 +121,7 @@ namespace AsteriskMod
                     if (parameterValue[i] == literal)
                     {
                         isInStringLiteral = false;
+                        continue;
                     }
                     parameter += parameterValue[i];
                 }
@@ -255,17 +255,19 @@ namespace AsteriskMod
             {
                 if (decimalPoint == 0) // maybe impossible
                 {
-                    _ = "0" + _;
+                    _ = "0." + _;
                     decimalPoint = 1;
                 }
-                if (_.Length <= decimalPoint + 6)
+
+                int digitsAfterDecimal = _.Length - (decimalPoint + 1);
+
+                if (digitsAfterDecimal <= 6)
                 {
-                    for (var i = 0; i < decimalPoint + 6 - _.Length; i++)
+                    for (var i = 0; i < 6 - digitsAfterDecimal; i++)
                     {
                         _ += "0";
                     }
                 }
-                _ = _.Substring(0, decimalPoint + 6);
             }
             SetString(sectionName, parameterName, _);
         }
@@ -279,6 +281,15 @@ namespace AsteriskMod
         {
             if (!SectionExists(sectionName)) return;
             _ini.Remove(sectionName);
+        }
+
+        public void ChangePath(string path, bool reload = false)
+        {
+            if (path == null) throw new CYFException("Cannot open a file with a nil path.");
+            if (path.Contains("..")) throw new CYFException("You cannot open a file outside of a AppData folder. The use of \"..\" is forbidden.");
+            _path =  AppDataFileManager.GetFullPath(path);
+            if (!reload) return;
+            Load();
         }
     }
 }

@@ -76,7 +76,6 @@ namespace AsteriskMod
         private bool _playerPositionOverride;
         private Vector3 _internalRotation;
 
-        [ShouldAddToDocument]
         //public LuaSpriteShader shader;
         private LuaSpriteShader _shader;
         public LuaSpriteShader shader

@@ -100,8 +100,8 @@ namespace AsteriskMod
             _playerOffset = Vector2.zero;
         }
 
-        [ShouldAddToDocument] internal static LuaSpriteShader outerShader;
-        [ShouldAddToDocument] internal static LuaSpriteShader innerShader;
+        internal static LuaSpriteShader outerShader;
+        internal static LuaSpriteShader innerShader;
 
         private void Awake()
         {

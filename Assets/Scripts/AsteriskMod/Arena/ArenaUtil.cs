@@ -59,7 +59,6 @@ namespace AsteriskMod
             ArenaUI.SetBorderColor(new Color32(r, g, b, a));
         }
 
-        [ShouldAddToDocument]
         public LuaSpriteShader bordershader
         {
             get
@@ -84,7 +83,6 @@ namespace AsteriskMod
             ArenaUI.SetInnerColor(new Color32(r, g, b, a));
         }
 
-        [ShouldAddToDocument]
         public LuaSpriteShader innershader
         {
             get

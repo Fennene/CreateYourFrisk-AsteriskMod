@@ -138,7 +138,6 @@ namespace AsteriskMod
 
         //public LuaSpriteShader bgshader;
         //public LuaSpriteShader fillshader;
-        [ShouldAddToDocument]
         private LuaSpriteShader _bgshader;
         private LuaSpriteShader _fillshader;
         public LuaSpriteShader bgshader

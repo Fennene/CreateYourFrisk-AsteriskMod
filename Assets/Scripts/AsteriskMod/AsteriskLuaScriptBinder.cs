@@ -103,20 +103,6 @@ namespace AsteriskMod
         {
             if (AsteriskUtil.IsCYFOverworld) return;
 
-            /*
-            script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
-            script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
-            script.Globals["LayerExists"] = (Func<string, bool>)LayerExists;
-
-            script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
-            script.Globals["CreateSTText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
-
-            script.Globals["SetJapaneseMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-            script.Globals["SetJapaneseStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-            script.Globals["SetJPMode"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-            script.Globals["SetJPStyle"] = (Action<bool>)AsteriskEngine.SetJapaneseMode;
-            */
-
             script.Globals["SetAlMightyGlobal"] = (Action<Script, string, DynValue>)SetAlMightySafely;
             script.Globals["GetCurrentAction"] = (Func<string>)GetCurrentAction;
 
@@ -134,8 +120,7 @@ namespace AsteriskMod
                 script.Globals.Set("Globals", globalsScripts);
             }
 
-            DevelopHint.ToDo("Update version");
-            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.Unknwon)
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData)
             {
                 script.Globals["CreateSpriteFromFont"] = (Func<string, char, string, int, DynValue>)MakeIngameSpriteFromFont;
             }
@@ -157,7 +142,6 @@ namespace AsteriskMod
             DynValue lang = UserData.Create(new Lang());
             script.Globals.Set("Lang", lang);
 
-            DevelopHint.ShouldAddToDocument();
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData)
             {
                 DynValue appData = UserData.Create(new AppDataFileManager());
