@@ -192,24 +192,24 @@ CarriageReturn="\r"
                             <li><span class="term">v0.5.2.9</span></li>
                             <li><span class="term">v0.5.2.8</span></li>
                         </ul>
-                    </li><!--<br>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">encounter-names</span> - replaces encounters' names.<br>
                         Array's indexes correspond to Lua files' order.<br>
                         Name will not be override by specifying empty string.
-                    </li><!--<br>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">show-encounters</span> or <span class="term">show</span> - limits encounters the player can select.<br>
                         You can choose encounters you wanna SHOW by using this.<br>
                         Each element is the file's name (without extension) of encounter.<br>
                         <font color="#DDD"><span class="term">show-encounters</span> parameter has a priority to <span class="term">hide-encounters</span> parameter</font>
-                    </li><!--<br>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">hide-encounters</span> or <span class="term">hide</span> - limits encounters the player can select.<br>
                         You can choose encounters you wanna HIDE by using this.<br>
                         Each element is the file's name (without extension) of encounter.<br>
                         <font color="#DDD"><span class="term">show-encounters</span> parameter has a priority to <span class="term">hide-encounters</span> parameter</font>
-                    </li><!--<br>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">supported-languages</span> - sets languages mod supports, displaying on mod selection.<br>
                         <font color="#FFF">
@@ -218,7 +218,7 @@ CarriageReturn="\r"
                             This parameter is override of that displaying.<br>
                         </font>
                         You can check available languages in <span class="ref">Language</span> variable (in <span class="ref">Special Variables</span> section).
-                    </li><!--<br>-->
+                    </li><br>
 
                     <li>
                         <span class="string"></span> <span class="term">title</span> - replaces the mod's title.
@@ -247,7 +247,7 @@ CarriageReturn="\r"
                             <li>LowerCenter</li>
                             <li>LowerRight</li>
                         </ul>
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="string"></span> <span class="term">font</span> - sets the font of mod's title and sub-title(the number of encount).<br>
                         You can choose the paramter in the following:
@@ -255,10 +255,10 @@ CarriageReturn="\r"
                             <li>8bitoperator</li>
                             <li>pixeloperator</li>
                         </ul>
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">bg-color</span> - sets the background's color, as a table of 3 or 4 values from 0 to 1.
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">bg-color32</span> - sets the background's color, as a table of 3 or 4 values from 0 to 255.
                     </li><br>
@@ -267,19 +267,27 @@ CarriageReturn="\r"
                     </li><br>
                     <li>
                         <span class="string"></span> <span class="term">bg-alpha32</span> - sets the background's alpha (transparency), as value from 0 to 255.
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">launch-bg-color</span> - sets the color of the background when the mod is launching, as a table of 3 or 4 values from 0 to 1.
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="luatable"><span class="string"></span></span> <span class="term">launch-bg-color32</span> - sets the color of the background when the mod is launching, as a table of 3 or 4 values from 0 to 255.
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="string"></span> <span class="term">launch-bg-alpha</span> - sets the alpha (transparency) of the background when the mod is launching, as value from 0 to 1.
-                    </li><!--<be>-->
+                    </li><br>
                     <li>
                         <span class="string"></span> <span class="term">launch-bg-alpha32</span> - sets the alpha (transparency) of the background when the mod is launching, as value from 0 to 255.
                     </li>
+                    <!--
+                    <li>
+                        <span class="asternew"></span> <span class="term">encounter-box-bg-color</span> - 
+                    </li>
+                    <li>
+                        <span class="asternew"></span> <span class="term">encounter-box-bg-color32</span> - 
+                    </li>
+                    -->
                 </ul><br>
                 Invalid format is ignored on loading file.
             </p>

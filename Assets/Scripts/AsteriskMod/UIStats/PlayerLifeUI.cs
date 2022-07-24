@@ -45,7 +45,7 @@ namespace AsteriskMod
 
         private void Start()
         {
-            LifeTextMan._UpdatePosition = () => { SetTextPosition(true); };
+            LifeTextMan._UpdatePosition = (force) => { SetTextPosition(force); };
             LifeTextMan.SetFont(SpriteFontRegistry.Get(SpriteFontRegistry.UI_SMALLTEXT_NAME));
             SetMaxHP();
 
@@ -76,7 +76,7 @@ namespace AsteriskMod
             lifebar.setInstant(hpFrac);
             */
             LifeBar.setHP(hpCurrent);
-            if (LifeTextMan._controlOverride) return;
+            if (LifeTextMan._textOverride) return;
             int count = UnitaleUtil.DecimalCount(hpCurrent);
             string sHpCurrent = hpCurrent < 10 ? "0" + hpCurrent.ToString("F" + count) : hpCurrent.ToString("F" + count);
             //* string sHpMax = hpMax < 10 ? "0" + hpMax : "" + hpMax;
@@ -97,14 +97,15 @@ namespace AsteriskMod
 
         internal void SetTextPosition(bool force = false)
         {
-            if (LifeTextMan._controlOverride && !force) return;
-            lifeTextRT.anchoredPosition = new Vector2(LifeBar.self.sizeDelta.x + 30, lifeTextRT.anchoredPosition.y);
+            if (LifeTextMan._positionOverride && !force) return;
+            lifeTextRT.anchoredPosition = new Vector2(LifeBar.self.sizeDelta.x + 30 + Mathf.RoundToInt(LifeTextMan._relativePosition.x), lifeTextRT.anchoredPosition.y + Mathf.RoundToInt(LifeTextMan._relativePosition.y));
         }
 
-        public void SetHPControlOverride(bool active)
+        public void SetHPControlOverride(bool active, bool positionOverride = false)
         {
             LifeBar.SetControlOverride(active);
-            LifeTextMan.SetControlOverride(active);
+            LifeTextMan.SetTextOverride(active);
+            LifeTextMan.SetPositionOverride(active && positionOverride);
         }
 
         public void SetHPOverride(float hp, float maxhp, bool updateText = true)

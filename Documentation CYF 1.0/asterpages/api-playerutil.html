@@ -166,10 +166,13 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">PlayerUtil.SetControlOverride(<span class="boolean"></span> active)</span>
+                <br><span class="function">PlayerUtil.SetControlOverride(<span class="boolean"></span> active, <span class="asternew"></span> <span class="boolean"></span> positionOverride = false)</span>
                 Either true or false. If true, bars and texts showing the Player's status do <b>NOT</b> update anymore.<br>
                 You should call this if you modify objects displaying the Player's status.<br>
-                This is same to call <span class="term">PlayerUtil.Name.SetControlOverride()</span> <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
+                This is same to call <span class="term">PlayerUtil.Name.SetControlOverride()</span>, <span class="term">PlayerUtil.Love.SetControlOverride()</span> and <span class="term">PlayerUtil.SetHPControlOverride()</span> at the same time.
+                <br><br>
+                <span class="asternew"></span> <span class="term">positionOverride</span> means <span class="term">PlayerUtil.Love.SetPositionOverride()</span> and <span class="term">PlayerUtil.HPText.SetPositionOverride()</span>.<br>
+                This works only if <span class="term">active</span> is true.
             </p>
 
             <br><hr>
@@ -319,10 +322,13 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active)</span>
+                <br><span class="function">PlayerUtil.SetHPControlOverride(<span class="boolean"></span> active, <span class="asternew"></span> positionOverride = false)</span>
                 Either true or false. If true, bars and texts showing HP do <b>NOT</b> update anymore.<br>
                 You should call this if you modify objects displaying the Player's HP.<br>
                 This is same to <span class="term">PlayerUtil.HPBar.SetControlOverride()</span> and <span class="term">PlayerUtil.HPText.SetControlOverride()</span> at the same time.
+                <br><br>
+                <span class="asternew"></span> <span class="term">positionOverride</span> means <span class="term">PlayerUtil.HPText.SetPositionOverride()</span>.<br>
+                This works only if <span class="term">active</span> is true.
             </p>
 
             <br><hr>

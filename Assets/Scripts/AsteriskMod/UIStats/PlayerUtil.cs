@@ -151,16 +151,19 @@ namespace AsteriskMod
         }
 
 
-        public void SetHPControlOverride(bool active)
+        public void SetHPControlOverride(bool active, bool positionOverride = false)
         {
-            PlayerLifeUI.instance.SetHPControlOverride(active);
+            if (AsteriskEngine.ModTarget_AsteriskVersion <= Asterisk.Versions.BeAddedShaderAndAppData) positionOverride = true;
+            PlayerLifeUI.instance.SetHPControlOverride(active, positionOverride);
         }
 
-        public void SetControlOverride(bool active)
+        public void SetControlOverride(bool active, bool positionOverride = false)
         {
+            if (AsteriskEngine.ModTarget_AsteriskVersion <= Asterisk.Versions.BeAddedShaderAndAppData) positionOverride = true;
             Name.SetControlOverride(active);
-            Love.SetControlOverride(active);
-            SetHPControlOverride(active);
+            Love.SetTextOverride(active);
+            Love.SetPositionOverride(active && positionOverride);
+            SetHPControlOverride(active, positionOverride);
         }
 
 

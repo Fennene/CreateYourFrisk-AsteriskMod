@@ -22,6 +22,9 @@ namespace AsteriskMod
         [ToDo("will implemente")] internal bool RichText { get; private set; }
         public string Description { get; private set; }
         public TextAnchor DescriptionAlign { get; private set; }
+        [ShouldAddToDocument] public Color EncounterBox { get; private set; }
+        [ShouldAddToDocument] public Color[] EncounterButtons { get; private set; }
+        [ShouldAddToDocument] public Color[] EncounterButtonsBorders { get; private set; }
         public bool[] SupportedLanguagesOverride { get; private set; }
         [ToDo("will implemente")] internal bool RetroMode { get; private set; }
 
@@ -39,6 +42,9 @@ namespace AsteriskMod
             SubtitleOverride = null;
             Description = null;
             DescriptionAlign = TextAnchor.UpperLeft;
+            EncounterBox = new Color32(32, 32, 32, 128);
+            EncounterButtons = null;
+            EncounterButtonsBorders = null;
             SupportedLanguagesOverride = null;
         }
 
@@ -213,6 +219,21 @@ namespace AsteriskMod
                         try   { info.DescriptionAlign = (TextAnchor)Enum.Parse(typeof(TextAnchor), ini.Main[realKey].String); }
                         catch { /* ignore */ }
                         break;
+
+                    /*
+                    case "encounter-box-bg-color":
+                    case "encounter-box-bg":
+                        info.EncounterBox = TryConvertToColor(info.EncounterBox, ini.Main[realKey].Array);
+                        break;
+                    case "encounter-box-bg-color32":
+                        info.EncounterBox = TryConvertToColor32(info.EncounterBox, ini.Main[realKey].Array);
+                        break;
+
+                    case "encounter-box-button-color":
+                        break;
+                    case "encounter-box-button-color32":
+                        break;
+                    */
 
                     case "supported-languages":
                     case "languages":

@@ -69,7 +69,7 @@ it's w3c valid, at least
                     <li class="li-indent asternew"><a href="api-playerutil.html">The PlayerUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-buttonutil.html">The ButtonUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
-                    <li class="li-indent"><a href="api-statictext.html">The StaticText Object</a></li>
+                    <li class="li-indent asternew"><a href="api-statictext.html">The StaticText Object</a></li>
                     <li>Japanese Localization<br>[日本語対応]:</li>
                     <li class="li-indent"><a href="jp-basis.html">Basis [基本]</a></li>
                     <li class="li-indent"><a href="jp-lang.html">The .lang File &amp; The Lang Object<br>[.langファイル &amp; Langオブジェクト]</a></li>
@@ -114,7 +114,7 @@ it's w3c valid, at least
 
             <font color="#FFF">
             <p>* Create Your Frisk - Asterisk Mod</p>
-            <p>* v0.5.3.0.2<!-- &nbsp;[TakeNewStepUpdate]--></p>
+            <p>* v0.5.3.0.3<!-- &nbsp;[TakeNewStepUpdate]--></p>
             <p>* by Nil256</p>
             </font>
 
@@ -378,6 +378,30 @@ it's w3c valid, at least
             <h4><span class="Future"></span> v0.5.3.1? [GlobalScriptUpdate...?]</h4>
             <br>
 
+            <h4><span class="Future"></span> v0.5.3.0.3 <font color="#F44">(Internal)</font></h4>
+            <p>
+                <ul class="rn">
+                    <li class="fix">
+                    </li>
+                    <li>
+                        Add parameters to <span class="term"><a href="api-statictext.html#UIStaticTextObject">The UIStaticText Object</a></span>.<br>
+                        <ul>
+                            <li>Add the variable <span class="term">UIStaticText.relativex</span>.</li>
+                            <li>Add the variable <span class="term">UIStaticText.relativey</span>.</li>
+                            <li>Add the function <span class="term">UIStaticText.SetRelativePosition()</span>.</li>
+                        </ul>
+                    </li>
+                    <li class="modify">
+                        Add arguments to functions of <span class="term"><a href="api-playerutil.html">The PlayerUtil Object</a></span>.<br>
+                        <ul>
+                            <li>Add the 2nd argument <span class="term">positionOverride</span> to <span class="term">PlayerUtil.SetControlOverride()</span></li>
+                            <li>Add the 2nd argument <span class="term">positionOverride</span> to <span class="term">PlayerUtil.SetHPControlOverride()</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+            <br>
+
             <h4>v0.5.3.0.2 (Beta/Debug version)</h4>
             <p>
                 <ul class="rn">
@@ -393,32 +417,32 @@ it's w3c valid, at least
                     <li>
                         Add <span class="term"><a href="api-appdata.html">The AppData Object</a></span>.<br>
                         <ul>
-                            <li>Add <span class="term">AppData.OpenFile()</span>.</li>
-                            <li>Add <span class="term">AppData.FileExists()</span>.</li>
-                            <li>Add <span class="term">AppData.DirExists()</span>.</li>
-                            <li>Add <span class="term">AppData.ListDir()</span>.</li>
-                            <li>Add <span class="term">AppData.CreateDir()</span>.</li>
-                            <li>Add <span class="term">AppData.MoveDir()</span>.</li>
-                            <li>Add <span class="term">AppData.RemoveDir()</span>.</li>
-                            <li>Add <span class="term">AppData.RemoveAll()</span>.</li>
-                            <li>Add <span class="term">AppData.OpenIniFile()</span>/<span class="term">AppData.OpenFileAsIni()</span>.</li>
+                            <li>Add the function <span class="term">AppData.OpenFile()</span>.</li>
+                            <li>Add the function <span class="term">AppData.FileExists()</span>.</li>
+                            <li>Add the function <span class="term">AppData.DirExists()</span>.</li>
+                            <li>Add the function <span class="term">AppData.ListDir()</span>.</li>
+                            <li>Add the function <span class="term">AppData.CreateDir()</span>.</li>
+                            <li>Add the function <span class="term">AppData.MoveDir()</span>.</li>
+                            <li>Add the function <span class="term">AppData.RemoveDir()</span>.</li>
+                            <li>Add the function <span class="term">AppData.RemoveAll()</span>.</li>
+                            <li>Add the function <span class="term">AppData.OpenIniFile()</span>/<span class="term">AppData.OpenFileAsIni()</span>.</li>
                         </ul>
                     </li>
                     <li>
                         Add <span class="term"><a href="api-appdata.html#ini">The iniFile Object</a></span>.<br>
                         <ul>
-                            <li>Add <span class="term">iniFile.Load()</span>.</li>
-                            <li>Add <span class="term">iniFile.Save()</span>.</li>
-                            <li>Add <span class="term">iniFile.FileExists()</span>.</li>
-                            <li>Add <span class="term">iniFile.SectionExists()</span>.</li>
-                            <li>Add <span class="term">iniFile.ParameterExists()</span>.</li>
-                            <li>Add <span class="term">iniFile.GetString()</span>.</li>
-                            <li>Add <span class="term">iniFile.GetNumber()</span>.</li>
-                            <li>Add <span class="term">iniFile.SetString()</span>.</li>
-                            <li>Add <span class="term">iniFile.SetNumber()</span>.</li>
-                            <li>Add <span class="term">iniFile.RemoveSection()</span>.</li>
-                            <li>Add <span class="term">iniFile.RemoveParameter()</span>.</li>
-                            <li>Add <span class="term">iniFile.ChangePath()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.Load()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.Save()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.FileExists()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.SectionExists()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.ParameterExists()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.GetString()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.GetNumber()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.SetString()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.SetNumber()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.RemoveSection()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.RemoveParameter()</span>.</li>
+                            <li>Add the function <span class="term">iniFile.ChangePath()</span>.</li>
                         </ul>
                     </li>
                     <li>
@@ -465,7 +489,6 @@ it's w3c valid, at least
                         <ul>
                             <li class="add">Add the variable <span class="term">Globals</span>.</li>
                         </ul>
-                    </li>
                     </li>
                 </ul>
             </p>

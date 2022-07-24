@@ -87,7 +87,8 @@ namespace AsteriskMod
         */
 
         // テキストオブジェクトが存在しているか調べる用
-        private void CheckExists()
+        //* private void CheckExists()
+        protected void CheckExists()
         {
             if (!isactive)
                 throw new CYFException("Attempt to perform action on removed static text object.");
