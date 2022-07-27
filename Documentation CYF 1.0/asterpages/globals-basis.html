@@ -118,13 +118,13 @@ it's w3c valid, at least
             <h2><span class="asternew"></span> <span class="Asterisk"></span> GlobalScript</h2><br><br>
             <p>
                 GlobalScript is one of very strong feature in Asterisk Mod.<br>
-                Asterisk Mod adds new type of script, named <span class="term">GlobalsScripts Script</span>.<br>
-                You don't need to define many variables and functions in Encounter Script anymore!
+                Asterisk Mod adds new types of scripts and files, 
+                named <span class="term">GlobalsScripts Script</span> and <span class="term">Enum Files</span>.
             </p><br>
 
             <hr>
 
-            <h3>GlobalsScripts Script</h3><br><br>
+            <h3 id="Globals">GlobalsScripts Script</h3><br><br>
 
             <h4>Basic Setup</h4><br>
 
@@ -134,6 +134,7 @@ it's w3c valid, at least
                 Variables and functions of this scripts are same values anywhere unlike <span class="term">require</span>.
                 <br><br>
                 You should use the variable <span class="term">Globals</span> when you access GlobalsScripts scripts.
+                You don't need to define many variables and functions in Encounter Script anymore!
             </p><br>
 
             <br>
@@ -189,7 +190,60 @@ it's w3c valid, at least
                 You can use almost features written <span class="term">[E/M/W]</span> or <span class="term">[E/M/W/S]</span> in this document to the scripts.
             </p><br>
 
-            <hr><br>
+            <hr>
+
+            <h3 id="Enums">Enum Files</h3><br><br>
+
+            <p><span class="NeedCodeStyle"></span></p><br>
+
+            <h4>Basic Setup</h4><br>
+
+            <p>
+                The <i>Enum Files</i> are located in <span class="term">YOUR MOD/Lua/Globals/Enums</span>.<br>
+                The Engine creates enum dynamically from those files.<br>
+                The extension is <span class="term">.enum</span>.
+                <br><br>
+                You should use the variable <span class="term">Enums</span> when you access the enums.
+            </p><br>
+
+            <br>
+
+            <h4>Enums variable (<span class="term">The Enums Objects</span>) [E/M/W/S/GS]</h4><br>
+
+            <p>
+                Should assign path relative <span class="term">Lua/Globals/Enums</span> without extension to <span class="term">fileName</span>.
+            </p><br>
+
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="boolean"></span> Enums.Exists(<span class="string"></span> fileName)</span>
+                Returns whether specified file exists or not.
+            </p><br>
+            <p>
+                <span class="function"><span class="Asterisk"></span> <span class="userdata">enum</span> Enums.Get(<span class="string"></span> fileName)<be></span>or
+                <span class="function"><span class="Asterisk"></span> <span class="userdata">enum</span> Enums[<span class="string"></span> fileName]</span>
+                Gets specified enum.
+            </p><br>
+
+            <br>
+
+            <h4>The format &amp; Example</h4><br>
+
+            <p>
+                The format have been made based on C#'s enum.<br>
+                .enum file format
+                <div class="code-container">
+<pre class="brush: lua;">
+// this is comment out.
+// Test.enum
+A,
+B,
+C,
+D,
+E
+</pre>
+                </div>
+                -&gt; <span class="term">Enums["Test"].A</span> ~ <span class="term">Enums["Test"].E</span>
+            </p>
         </div>
 
         <div class="tab-pane text-style" id="mercy">

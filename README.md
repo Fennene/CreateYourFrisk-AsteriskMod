@@ -21,7 +21,7 @@ There is original CYF's [**Discord server**](https://discord.gg/GFJ5277)! Feel f
 ## Asterisk Mod
 
 Current version is **v0.5.3**.
-Lateset version is **v0.5.3.0.2**.
+Lateset version is **v0.5.3.0.4**.
 
 Asterisk Mod adds some strong functions and objects to original CYF.
 

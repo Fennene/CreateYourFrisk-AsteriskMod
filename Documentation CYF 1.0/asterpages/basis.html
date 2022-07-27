@@ -114,7 +114,7 @@ it's w3c valid, at least
 
             <font color="#FFF">
             <p>* Create Your Frisk - Asterisk Mod</p>
-            <p>* v0.5.3.0.3<!-- &nbsp;[TakeNewStepUpdate]--></p>
+            <p>* v0.5.3.0.4<!-- &nbsp;[TakeNewStepUpdate]--></p>
             <p>* by Nil256</p>
             </font>
 
@@ -145,7 +145,7 @@ it's w3c valid, at least
             -->
             <h3>The Purpose of Asterisk Mod</h3><br><br>
             <p>
-                AsteriskMod is developed focus on customizability of UIs and ease to write lua codes.<br>
+                AsteriskMod is developed focus on customizability of UIs, ease to write lua codes, and ease to create overworld.<br>
                 Based on CYF v0.6.5, it has added features I have thought I want, as much as I can have modified.<br>
                 It provides the objects that related each UIs are put themselves together into one object. 
                 For example, it define UIs displaying the player's status as "<span class="term">The PlayerUtil Object</span>".<br>
@@ -216,6 +216,9 @@ it's w3c valid, at least
                     </li><br>
                     <li>
                         <span class="term">Mod's Info</span>: modifies mod's information and working.
+                    </li><!-- <br> -->
+                    <li>
+                        <span class="term">Code's Style</span>: modifies script's working.
                     </li><br>
                     <li>
                         <span class="term">Special Variables</span>: provides variables: checking whether modified CYF or not, modifying the text of MERCYMENU, changing states, modifying the bar's color of enemy's HP, and controlling FightUI.
@@ -257,10 +260,16 @@ it's w3c valid, at least
                         <span class="term">ArenaUtil</span>: changes default position and size of arena, changes the color of arena, changes the position of dialog text, gets sprites of dialog text object, and changes the position of player on selection.
                     </li><br>
                     <li>
-                        <span class="term">CustomState</span>: You can create your own state with state scripts and <span class="term">The StateEditor Object</span>!!1!!!!!1!!!!!!
+                        <span class="term">Japanese Localization</span>: CYFの日本語対応！？
                     </li><br>
                     <li>
-                        <span class="term">Japanese Localization</span>: CYFの日本語対応！？
+                        <span class="term">GlobalsScript Script &amp; Globals</span>: Global's script.
+                    </li><br>
+                    <li>
+                        <span class="term">.enum file &amp; Enums</span>: Dynamic enum.
+                    </li><br>
+                    <li>
+                        <span class="term">CustomState</span>: You can create your own state with state scripts and <span class="term">The StateEditor Object</span>!!1!!!!!1!!!!!!
                     </li>
                 </ul><br>
                 See each sections for more information.<br>
@@ -283,22 +292,22 @@ it's w3c valid, at least
                         <span class="AsteriskExperiment"></span> are only usable in AsteriskMod 
                         when "Experimental Features" is enabled.
                     </li><br>
-                    <!--
                     <li>
                         <span class="Delete"></span> means it may be deleted by Asterisk Mod v0.5.4.
-                    </li><br>
+                    </li>
+                    <!--
                     <li>
                         <span class="Asterisk052x"></span> means it was deleted by Asterisk Mod v0.5.3.<br>
                         This is different from <span class="Delete"></span>, the content was really DELETED and you can NOT use that in v0.5.3.
                     </li><br>
                     <li>
-                        <span class="Future"></span> means it will be added in future update.
-                    </li>
-                    -->
-                    <li>
                         <span class="Asterisk052x"></span> means it was deleted by Asterisk Mod v0.5.3.<br>
                         That content was deleted and you can not use that in v0.5.3.
                     </li>
+                    <li>
+                        <span class="Future"></span> means it will be added in future update.
+                    </li>
+                    -->
                     <li>
                         <span class="aster"></span> Indicates <u>new or changed CYF's content</u> in Asterisk Mod.
                     </li>
@@ -378,10 +387,18 @@ it's w3c valid, at least
             <h4><span class="Future"></span> v0.5.3.1? [GlobalScriptUpdate...?]</h4>
             <br>
 
-            <h4><span class="Future"></span> v0.5.3.0.3 <font color="#F44">(Internal)</font></h4>
+            <h4><span class="Future"></span> v0.5.3.0.4 (Beta/Debug version)</h4>
             <p>
                 <ul class="rn">
                     <li class="fix">
+                        [Something (I forgot to write that.)]
+                    </li>
+                    <li>Add new content <span class="term"><a href="setup.html#style">codestyle.cyfmod</a></span>.</li>
+                    <li>
+                        Add the variable to <span class="term">Special Variables</span>.<br>
+                        <ul>
+                            <li>Add the variable <span class="term">Enums</span>.</li>
+                        </ul>
                     </li>
                     <li>
                         Add parameters to <span class="term"><a href="api-statictext.html#UIStaticTextObject">The UIStaticText Object</a></span>.<br>
@@ -398,6 +415,7 @@ it's w3c valid, at least
                             <li>Add the 2nd argument <span class="term">positionOverride</span> to <span class="term">PlayerUtil.SetHPControlOverride()</span></li>
                         </ul>
                     </li>
+                    <li>Add new content <span class="term"><a href="globals-basis.html#Enums">Enum Files</a></span>.</li>
                 </ul>
             </p>
             <br>

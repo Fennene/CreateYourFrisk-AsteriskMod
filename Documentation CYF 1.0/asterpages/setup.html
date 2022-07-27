@@ -181,7 +181,7 @@ CarriageReturn="\r"
 ;;You can use section in this format, but info.cyfmod ignores section.
 </pre>
                 </div><br>
-                There are available keys in info.cyfmod:<br><br>
+                There are available keys in <span class="term">info.cyfmod</span>:<br><br>
                 <ul>
                     <li>
                         <span class="string"></span> <span class="term">target-version</span> - sets AsteriskMod's version that your mod supports.<br>
@@ -294,11 +294,55 @@ CarriageReturn="\r"
 
             <br><hr>
 
-            <h3>Code Style</h3><br><br>
+            <h3 id="style">Code Style</h3><br><br>
 
-            <p>This is secret feature on AsteriskMod.</p>
+            <p>
+                This feature controls to use additional features which is not enabled normally.<br>
+                There is features which it can enable below:<br>
+                <ul>
+                    <li><span class="term"><a href="globals-basis.html#Enums">Global Enums (.enum files)</a></span></li>
+                    <li><span class="term">Addition of Library Pathes</span></li>
+                    <li><font color="#000">
+                        <!-- <span class="term"> -->StringUtil<!-- </span> -->,
+                        <!-- <span class="term"> -->ArrayUtil<!-- </span> -->,
+                        <!-- <span class="term"> -->CYFUtil<!-- </span> -->
+                    </font></li>
+                </ul>
+            </p><br>
 
-            <br>
+            <p>
+                If you wanna enable those, you should write <span class="term">codestyle.cyfmod</span>.<br>
+                <span class="term">codestyle.cyfmod</span> is located in <span class="term">YOUR MOD/Lua</span>.<br>
+                There are available keys in <span class="term">codestyle.cyfmod</span>:<br><br>
+                <ul>
+                    <li>
+                        <span class="string"></span> <span class="term">load-global-enums</span> - controls enabling Global Enums. Available parameter is <span class="term">True</span> or <span class="term">False</span>.
+                    </li><br>
+                    <li>
+                        <span class="luatable"><span class="string"></span></span> <span class="term">lib-pathes</span> - adds environment paths. pathes are relative path from mod's root directory. <span class="term"></span>
+                    </li>
+                    <!--
+                    <li>
+                        <span class="string"></span> <span class="term">aaaa</span> - desc
+                    </li><br>
+                    <li>
+                        <span class="luatable"><span class="string"></span></span> <span class="term">vvv</span> - desc
+                    </li><br>
+                    -->
+                </ul>
+            </p><br>
+
+            <p>That's all.</p>
+
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <p><font size="+1">Why do you scroll below?</font></p>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
             <h4>StringUtil</h4><br>
             <p><span class="function"><span class="boolean"></span> StringUtil.IsNullOrEmpty(<span class="string"></span> text)</span></p>

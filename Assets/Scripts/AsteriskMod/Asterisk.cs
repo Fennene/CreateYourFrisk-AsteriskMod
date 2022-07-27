@@ -12,7 +12,7 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
 
         public const string ModName = "Asterisk Mod";
-        public const string ModVersion = "0.5.3.0.3";
+        public const string ModVersion = "0.5.3.0.4";
         public const string ModAuthor = "Nil256";
         public const string ModAuthorJP = "にるにころ";
         public const string ModAuthorAlt = "FenneneProject";
@@ -35,8 +35,8 @@ namespace AsteriskMod
             GlobalsScriptsAddition,
             /// <summary>v0.5.3.0.2<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.2"/></summary>
             BeAddedShaderAndAppData,
-            /// <summary>v0.5.3.0.3 [Internal]</summary>
-            UISTTextRelativePos,
+            /// <summary>v0.5.3.0.4<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.4"/></summary>
+            DynamicEnumAddition,
             // <summary>v0.5.3.1 ?</summary>
             //GlobalScriptUpdate,
             // <summary>v0.5.3.2 ?</summary>
@@ -188,7 +188,8 @@ namespace AsteriskMod
                 case "v0.5.3.0.2":
                     return Versions.BeAddedShaderAndAppData;
                 case "v0.5.3.0.3":
-                    return Versions.UISTTextRelativePos;
+                case "v0.5.3.0.4":
+                    return Versions.DynamicEnumAddition;
             }
             return Versions.Unknwon;
         }
@@ -204,7 +205,7 @@ namespace AsteriskMod
                 case Versions.TakeNewStepUpdate: return "v0.5.3";
                 case Versions.GlobalsScriptsAddition:  return "v0.5.3.0.1";
                 case Versions.BeAddedShaderAndAppData: return "v0.5.3.0.2";
-                case Versions.UISTTextRelativePos:     return "v0.5.3.0.3";
+                case Versions.DynamicEnumAddition:     return "v0.5.3.0.4";
             }
             return "Unknwon";
         }

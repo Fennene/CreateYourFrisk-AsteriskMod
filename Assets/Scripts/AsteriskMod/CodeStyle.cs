@@ -8,9 +8,11 @@ namespace AsteriskMod
 {
     public class CodeStyle
     {
-        public bool gms;
+        public bool loadGlobalEnum;
 
         public string[] libPathes;
+
+        public bool gms;
 
         public bool stringUtil;
         public bool arrayUtil;
@@ -23,6 +25,7 @@ namespace AsteriskMod
             stringUtil = false;
             arrayUtil = false;
             cyfUtil = false;
+            loadGlobalEnum = false;
         }
 
         public const string CODESTYLE_FILE_NAME = "Lua/codestyle.cyfmod";
@@ -34,9 +37,8 @@ namespace AsteriskMod
 
         private static bool ConvertToBoolean(string text)
         {
-            text = text.ToLower();
-            if (text == "true") return true;
-            if (text == "false") return false;
+            if (text == "true" || text == "True" || text == "TRUE" || text == "yes" || text == "Yes" || text == "YES") return true;
+            if (text == "false" || text == "False" || text == "FALSE" || text == "no" || text == "No" || text == "NO") return false;
             return false;
         }
 
@@ -54,6 +56,10 @@ namespace AsteriskMod
                 if (realKey != keyName && ini.Main.ParameterExists(keyName)) continue;
                 switch (keyName)
                 {
+                    case "load-global-enums":
+                    case "load-enums":
+                        style.loadGlobalEnum = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
                     case "environment-pathes":
                     case "env-pathes":
                     case "library-pathes":

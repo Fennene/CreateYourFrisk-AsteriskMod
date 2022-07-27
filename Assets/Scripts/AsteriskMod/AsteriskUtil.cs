@@ -1,6 +1,8 @@
 ﻿using AsteriskMod.ModdingHelperTools;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,6 +54,7 @@ namespace AsteriskMod
 
 
         public static bool IsCYFOverworld { get { return !GlobalControls.modDev; } }
+
 
         public static Languages ConvertToLanguage(string languageName, bool ignoreUnknown = true)
         {
@@ -238,7 +241,6 @@ namespace AsteriskMod
             return maxY - minY;
         }
 
-
         internal static float CalcTextWidth(FakeStaticTextManager txtmgr, int fromLetter = -1, int toLetter = -1, bool countEOLSpace = false, bool getLastSpace = false)
         {
             float totalWidth = 0, totalWidthSpaceTest = 0, totalMaxWidth = 0, hSpacing = txtmgr.Charset.CharSpacing;
@@ -348,6 +350,81 @@ namespace AsteriskMod
             }
             return false;
         }
+
+        public static List<string> GetFilesWithoutExtension(string rootDirFullPath, string relativeDirPath, string searchPattern = "*.lua")
+        {
+            List<string> relativeFileNames = new List<string>();
+
+            string realDirPath = rootDirFullPath;
+            if (!relativeDirPath.IsNullOrWhiteSpace()) realDirPath = Path.Combine(rootDirFullPath, relativeDirPath);
+
+            string[] files = Directory.GetFiles(realDirPath, searchPattern, SearchOption.TopDirectoryOnly);
+            for (var i = 0; i < files.Length; i++)
+            {
+                string path = Path.GetFileNameWithoutExtension(files[i]);
+                if (!relativeDirPath.IsNullOrWhiteSpace()) path = Path.Combine(relativeDirPath, path).Replace('\\', '/');
+                relativeFileNames.Add(path);
+            }
+
+            string[] directories = Directory.GetDirectories(realDirPath);
+            for (var i = 0; i < directories.Length; i++)
+            {
+                string newRelativePath = Path.GetFileName(directories[i]);
+                if (!relativeDirPath.IsNullOrWhiteSpace()) newRelativePath = Path.Combine(relativeDirPath, newRelativePath);
+                List<string> dirFiles = GetFilesWithoutExtension(rootDirFullPath, newRelativePath, searchPattern);
+                for (var j = 0; j < dirFiles.Count; j++)
+                {
+                    relativeFileNames.Add(dirFiles[j]);
+                }
+            }
+
+            return relativeFileNames;
+        }
+
+
+        public static readonly char[] ValidVariableNameChars = new char[] {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G',
+            'H', 'I', 'J', 'K', 'L', 'M', 'N',
+            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g',
+            'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z',
+            '_'
+        };
+
+        public static bool StartsWithNumber(this string value)
+        {
+            if (string.IsNullOrEmpty(value)) return false;
+            char first = value[0];
+            return (first == '0' || first == '1' || first == '2' || first == '3' || first == '4' || first == '5' || first == '6' || first == '7' || first == '8' || first == '9');
+        }
+
+        public static bool IsValidVariableName(string value)
+        {
+            if (value.StartsWithNumber()) return false;
+            for (var i = 0; i < value.Length; i++)
+            {
+                if (!ValidVariableNameChars.Contains(value[i])) return false;
+            }
+            return true;
+        }
+
+        public static string ConvertToVariableName(string value)
+        {
+            string varName = value.Replace(' ', '_').Replace('　', '_').Replace('\'', '_');
+            if (varName.StartsWithNumber()) varName = "_" + varName;
+            string temp = varName;
+            varName = "";
+            for (var i = 0; i < temp.Length; i++)
+            {
+                if (ValidVariableNameChars.Contains(temp[i])) varName += temp[i];
+            }
+            return varName;
+        }
+
 
 
         public static void ThrowFakeNonexistentFunctionError(string className, string functionName)

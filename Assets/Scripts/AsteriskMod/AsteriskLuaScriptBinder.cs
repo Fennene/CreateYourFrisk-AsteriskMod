@@ -29,18 +29,13 @@ namespace AsteriskMod
             UserData.RegisterType<ArenaUtil>();
             UserData.RegisterType<StateEditor>();
             UserData.RegisterType<Lang>();
+            UserData.RegisterType<DynamicEnums>();
 
             /*
             UserData.RegisterType<GameObjectModifyingSystem>();
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
             */
-
-            UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();
-            UserData.RegisterType<ExtendedUtil.LuaStringUtil>();
-            UserData.RegisterType<ExtendedUtil.LuaArrayUtil>();
-            UserData.RegisterType<ExtendedUtil.LuaVector>();
-            //UserData.RegisterType<ExtendedUtil.LuaVectorClass>();
 
             // Obsolete Classes
             UserData.RegisterType<Lua.LuaButton>();
@@ -113,16 +108,16 @@ namespace AsteriskMod
             script.Globals["CreateStaticText"] = (Func<Script, string, string, DynValue, int, string, float?, float, LuaStaticTextManager>)CreateStaticText;
             script.Globals["AutoRefreshStaticText"] = (Action<bool>)((value) => { AsteriskEngine.AutoResetStaticText = value; });
 
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData)
+            {
+                script.Globals["CreateSpriteFromFont"] = (Func<string, char, string, int, DynValue>)MakeIngameSpriteFromFont;
+            }
+
             if (isGlobalScript) return;
             if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.GlobalsScriptsAddition)
             {
                 DynValue globalsScripts = UserData.Create(new GlobalsScripts(null));
                 script.Globals.Set("Globals", globalsScripts);
-            }
-
-            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.BeAddedShaderAndAppData)
-            {
-                script.Globals["CreateSpriteFromFont"] = (Func<string, char, string, int, DynValue>)MakeIngameSpriteFromFont;
             }
         }
 
@@ -148,18 +143,33 @@ namespace AsteriskMod
                 script.Globals.Set("AppData", appData);
             }
 
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.DynamicEnumAddition && AsteriskEngine.LuaCodeStyle.loadGlobalEnum)
+            {
+                DynValue dynamicEnums = UserData.Create(new DynamicEnums());
+                script.Globals.Set("Enums", dynamicEnums);
+            }
+
+            //DynamicEnumTest.StaticTest(script);
+            //DynamicEnumTest.DynamicTest(script);
+
+
+
             if (AsteriskEngine.LuaCodeStyle.stringUtil)
             {
+                UserData.RegisterType<ExtendedUtil.LuaStringUtil>();
                 DynValue stringutil = UserData.Create(new ExtendedUtil.LuaStringUtil());
                 script.Globals.Set("StringUtil", stringutil);
             }
             if (AsteriskEngine.LuaCodeStyle.arrayUtil)
             {
+                UserData.RegisterType<ExtendedUtil.LuaArrayUtil>();
+                UserData.RegisterType<ExtendedUtil.LuaVector>();
                 DynValue arrayutil = UserData.Create(new ExtendedUtil.LuaArrayUtil());
                 script.Globals.Set("ArrayUtil", arrayutil);
             }
             if (AsteriskEngine.LuaCodeStyle.cyfUtil)
             {
+                UserData.RegisterType<ExtendedUtil.LuaCYFUtil>();
                 DynValue cyfutil = UserData.Create(new ExtendedUtil.LuaCYFUtil());
                 script.Globals.Set("Util", cyfutil);
             }

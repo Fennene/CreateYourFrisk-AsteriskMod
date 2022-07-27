@@ -18,6 +18,7 @@ namespace AsteriskMod.GlobalScript
         private static Dictionary<string, ScriptWrapper> Scripts;
         private static Dictionary<string, DynValue> ScriptDatas;
 
+        /*
         private static List<string> GetFiles(string rootDirFullPath, string relativeDirPath)
         {
             List<string> relativeFileNames = new List<string>();
@@ -47,6 +48,7 @@ namespace AsteriskMod.GlobalScript
 
             return relativeFileNames;
         }
+        */
 
         internal static void Load()
         {
@@ -62,7 +64,7 @@ namespace AsteriskMod.GlobalScript
             }
             else
             {
-                string[] scriptsFiles = GetFiles(scriptsDirPath, "").ToArray();
+                string[] scriptsFiles = AsteriskUtil.GetFilesWithoutExtension(scriptsDirPath, "").ToArray();
 
                 string logText = "AsteriskMod.GlobalScripts - Globals/Scripts luaFiles";
                 for (var i = 0; i < scriptsFiles.Length; i++)
