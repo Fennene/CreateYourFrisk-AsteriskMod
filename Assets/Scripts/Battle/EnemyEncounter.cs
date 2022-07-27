@@ -42,8 +42,8 @@ public class EnemyEncounter : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            GlobalsScripts.Load();
             DynamicEnums.Load();
+            GlobalsScripts.Load();
             // --------------------------------------------------------------------------------
             doNotGivePreviousEncounterToSelf = true;
             script = new ScriptWrapper { scriptname = StaticInits.ENCOUNTER };
