@@ -8,9 +8,10 @@ namespace AsteriskMod
 {
     public class CodeStyle
     {
-        public bool loadGlobalEnum;
-
         public string[] libPathes;
+
+        public bool loadGlobalEnum;
+        public bool scriptWrapperCheckExistFunction;
 
         public bool gms;
 
@@ -26,6 +27,7 @@ namespace AsteriskMod
             arrayUtil = false;
             cyfUtil = false;
             loadGlobalEnum = false;
+            scriptWrapperCheckExistFunction = false;
         }
 
         public const string CODESTYLE_FILE_NAME = "Lua/codestyle.cyfmod";
@@ -56,15 +58,19 @@ namespace AsteriskMod
                 if (realKey != keyName && ini.Main.ParameterExists(keyName)) continue;
                 switch (keyName)
                 {
-                    case "load-global-enums":
-                    case "load-enums":
-                        style.loadGlobalEnum = ConvertToBoolean(ini.Main[realKey].String);
-                        break;
                     case "environment-pathes":
                     case "env-pathes":
                     case "library-pathes":
                     case "lib-pathes":
                         rawLibPathes = ini.Main[realKey].Array;
+                        break;
+                    case "load-global-enums":
+                    case "load-enums":
+                        style.loadGlobalEnum = ConvertToBoolean(ini.Main[realKey].String);
+                        break;
+                    case "script-call-check-exist":
+                    case "call-check-exist":
+                        style.scriptWrapperCheckExistFunction = ConvertToBoolean(ini.Main[realKey].String);
                         break;
                     case "gameobjectmodifyingsystem":
                     case "gameobject-modifying-system":

@@ -194,7 +194,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function"><span class="string"></span> Language [E/M/W/S]</span>
+                <br><span class="function"><span class="string"></span> Language [E/M/W/S/GS]</span>
                 ユーザーの使用している（表示言語の設定で設定してある）言語を取得します。<br>
                 この変数は次の値をとります：
                 <ul>
@@ -204,7 +204,7 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">PlayerUtil.SetJapaneseNameActive(<span class="boolean"></span> active)</span>
+                <br><span class="function">PlayerUtil.SetJapaneseNameActive(<span class="boolean"></span> active) [E/M/W/S/GS]</span>
                 <span class="term">true</span>を代入した場合、 プレイヤー名が日本語フォントで表示されます。<br>
                 デフォルト値（初期値）は エンジンの表示言語の設定に依存し、 
                 ユーザーが 表示言語を日本語にしている場合、 <span class="term">true</span>です。<br>
@@ -222,7 +222,7 @@ PlayerUtil.Name.Move(0, -6) -- 位置調整
             </p>
 
             <p>
-                <br><span class="function"><span class="char"></span> ArenaUtil.AsteriskChar [E/M/W/S]</span>
+                <br><span class="function"><span class="char"></span> ArenaUtil.AsteriskChar [E/M/W/S/GS]</span>
                 アスタリスク（<span class="term">*</span>）の 文字を変更します。<br>
                 <span class="term">＊</span>を指定して、日本語のフォントで日本語用のアスタリスクを使用できます。<br>
                 全角のアスタリスク（フォントで指定してある空白の２倍の大きさの時）を指定した場合、後述の
@@ -231,7 +231,7 @@ PlayerUtil.Name.Move(0, -6) -- 位置調整
             </p>
 
             <p>
-                <br><span class="function">ArenaUtil.SetFullWidthAsterisk(<span class="boolean"></span> active) [E/M/W/S]</span>
+                <br><span class="function">ArenaUtil.SetFullWidthAsterisk(<span class="boolean"></span> active) [E/M/W/S/GS]</span>
                 <span class="term">ArenaUtil.AsteriskChar</span>にて、
                 全角のアスタリスク（フォントで指定してある空白の２倍の大きさの時）を指定した場合、
                 <span class="term">true</span>を指定して呼び出してください。<br>
@@ -240,7 +240,7 @@ PlayerUtil.Name.Move(0, -6) -- 位置調整
             </p>
 
             <p>
-                <br><span class="function">ArenaUtil.SetAutoFontCommandActive(<span class="boolean"></span> active) [E/M/W/S]</span>
+                <br><span class="function">ArenaUtil.SetAutoFontCommandActive(<span class="boolean"></span> active) [E/M/W/S/GS]</span>
                 エンジン側で自動的に、文字列（テキスト）の先頭に fontコマンド（<span class="term">[font:xxx]</span>）を追加します。<br>
                 対応しているのは以下の通り：
                 <ul>
@@ -273,7 +273,7 @@ end
             </div>
             </p>
             <p>
-                <br><span class="function">ArenaUtil.SetAutoFontCommandFont(<span class="string"></span> fontName) [E/M/W/S]</span>
+                <br><span class="function">ArenaUtil.SetAutoFontCommandFont(<span class="string"></span> fontName) [E/M/W/S/GS]</span>
                 前述の<span class="term">ArenaUtil.SetAutoFontCommandActive()</span>にて、
                 フォントを決めることができます。<br>
                 デフォルトでは "<span class="term">jp</span>"。

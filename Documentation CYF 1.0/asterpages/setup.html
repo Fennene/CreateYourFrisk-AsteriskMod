@@ -294,14 +294,15 @@ CarriageReturn="\r"
 
             <br><hr>
 
-            <h3 id="style">Code Style</h3><br><br>
+            <h3 id="style"><span class="asternew"></span> Code Style</h3><br><br>
 
             <p>
                 This feature controls to use additional features which is not enabled normally.<br>
                 There is features which it can enable below:<br>
                 <ul>
-                    <li><span class="term"><a href="globals-basis.html#Enums">Global Enums (.enum files)</a></span></li>
                     <li><span class="term">Addition of Library Pathes</span></li>
+                    <li><span class="term"><a href="globals-basis.html#Enums">Global Enums (.enum files)</a></span></li>
+                    <li>On <span class="term"><a href="../pages/api-functions-script.html">script.Call()</a></span>, checks exist of funtions.</li>
                     <li><font color="#000">
                         <!-- <span class="term"> -->StringUtil<!-- </span> -->,
                         <!-- <span class="term"> -->ArrayUtil<!-- </span> -->,
@@ -316,10 +317,16 @@ CarriageReturn="\r"
                 There are available keys in <span class="term">codestyle.cyfmod</span>:<br><br>
                 <ul>
                     <li>
-                        <span class="string"></span> <span class="term">load-global-enums</span> - controls enabling Global Enums. Available parameter is <span class="term">True</span> or <span class="term">False</span>.
+                        <span class="luatable"><span class="string"></span></span> <span class="term">Lib-Pathes</span> - adds environment paths. pathes are relative path from mod's root directory. <span class="term"></span>
                     </li><br>
                     <li>
-                        <span class="luatable"><span class="string"></span></span> <span class="term">lib-pathes</span> - adds environment paths. pathes are relative path from mod's root directory. <span class="term"></span>
+                        <span class="string"></span> <span class="term">Load-Global-Enums</span> - controls enabling Global Enums.<br>
+                        <font color="#DDD">Available parameter is <span class="term">True</span> or <span class="term">False</span>.</font>
+                    </li><br>
+                    <li>
+                        <span class="string"></span> <span class="term">Script-Call-Check-Exist</span> - whether check exist of functions or not on <span class="term">script.Call()</span>.<br>
+                        If this is true and functions don't exist, error will occur.<br>
+                        <font color="#DDD">Available parameter is <span class="term">True</span> or <span class="term">False</span>.</font>
                     </li>
                     <!--
                     <li>

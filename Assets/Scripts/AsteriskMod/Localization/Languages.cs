@@ -135,6 +135,9 @@ namespace AsteriskMod
             English.SetParameter("Exception", "StateNotFound2", new FakeIniParameter("\" is not a valid state. Are you sure it exists?\n\nPlease double-check in the Misc. Functions section of the docs for a list of every valid state."));
             English.SetParameter("Exception", "StateCustomStateNotFound1", new FakeIniParameter("The custom state \""));
             English.SetParameter("Exception", "StateCustomStateNotFound2", new FakeIniParameter("\" doesn't exist.\nAre you sure it exists?"));
+            // The Script Object
+            English.SetParameter("Exception", "ScriptCallNotFound1", new FakeIniParameter("Attempted to call the function \""));
+            English.SetParameter("Exception", "ScriptCallNotFound2", new FakeIniParameter("\", but it didn't exist."));
             // The Misc Object
             English.SetParameter("Exception", "MiscCheckFileOutside", new FakeIniParameter("You cannot check for a file outside of a mod folder. The use of \"..\" is forbidden."));
             English.SetParameter("Exception", "MiscCheckDirOutside", new FakeIniParameter("You cannot check for a directory outside of a mod folder. The use of \"..\" is forbidden."));
@@ -244,6 +247,9 @@ namespace AsteriskMod
             Japanese.SetParameter("Exception", "StateNotFound2", new FakeIniParameter("\"は存在しないState(状態)です。[不正なState]\n\n全ての有効なStateについては、ドキュメントの「Misc. Functions」セクションを確認してください。"));
             Japanese.SetParameter("Exception", "StateCustomStateNotFound1", new FakeIniParameter("Custom State \""));
             Japanese.SetParameter("Exception", "StateCustomStateNotFound2", new FakeIniParameter("\" は存在しません。\nStateフォルダに指定したStateの名前のついたLuaファイルがあるか確認してください。"));
+            // The Script Object
+            Japanese.SetParameter("Exception", "ScriptCallNotFound1", new FakeIniParameter("関数\""));
+            Japanese.SetParameter("Exception", "ScriptCallNotFound2", new FakeIniParameter("\"を呼び出そうとしましたが、存在しません。"));
             // The Misc Object
             Japanese.SetParameter("Exception", "MiscCheckFileOutside", new FakeIniParameter("modフォルダの外のファイルを確認することはできません。 \"..\"の使用は許可されていません。"));
             Japanese.SetParameter("Exception", "MiscCheckDirOutside", new FakeIniParameter("modフォルダの外のディレクトリを確認することはできません。 \"..\"の使用は許可されていません。"));

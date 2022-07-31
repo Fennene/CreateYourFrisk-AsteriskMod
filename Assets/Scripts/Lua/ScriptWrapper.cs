@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AsteriskMod;
+using UnityEngine;
 using MoonSharp.Interpreter;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,14 @@ public class ScriptWrapper {
             if (checkExist &&!GlobalControls.retroMode)
                 UnitaleUtil.DisplayLuaError(scriptname, "Attempted to call the function \"" + function + "\", but it didn't exist.");
             //Debug.LogWarning("Attempted to call the function " + function + " but it didn't exist.");
+            // --------------------------------------------------------------------------------
+            //                          Asterisk Mod Modification
+            // --------------------------------------------------------------------------------
+            if (AsteriskEngine.LuaCodeStyle != null && AsteriskEngine.LuaCodeStyle.scriptWrapperCheckExistFunction)
+            {
+                UnitaleUtil.DisplayLuaError(scriptname, EngineLang.Get("Exception", "ScriptCallNotFound1") + function + EngineLang.Get("Exception", "ScriptCallNotFound2"));
+            }
+            // --------------------------------------------------------------------------------
             return DynValue.Nil;
         }
         if (args != null) {
