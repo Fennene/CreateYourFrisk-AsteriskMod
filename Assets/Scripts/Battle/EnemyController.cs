@@ -273,7 +273,8 @@ public class EnemyController : MonoBehaviour {
             // --------------------------------------------------------------------------------
             //                          Asterisk Mod Modification
             // --------------------------------------------------------------------------------
-            script.Bind(MonsterFunc.GET_SHAKE_X, (Func<int>)(() => { return nowShakeX; }));
+            script.Bind("GetShakeX", (Func<int>)(() => { return nowShakeX; }));
+            script.Bind("SetDamageText", (Action<string>)SetDamageText);
             // --------------------------------------------------------------------------------
             script.SetVar("canmove", DynValue.NewBoolean(false));
             sprite = new LuaSpriteController(GetComponent<Image>());
@@ -469,6 +470,10 @@ public class EnemyController : MonoBehaviour {
     // --------------------------------------------------------------------------------
     //private const string VAR_NAME_DAMAGE_TEXT_VISIBLE = "showdamagetext";
 
+    internal int nowShakeX = 0;
+    internal Action<string> _SetDamageText = (_ => { });
+    private void SetDamageText(string damageText) { _SetDamageText(damageText);  }
+
     private Color32 ConvertToColor(DynValue colorValue, DynValue alphaValue, byte init_r, byte init_g, byte init_b, byte init_a = 255)
     {
         int[] color = new int[4] { init_r, init_g, init_b, init_a };
@@ -613,7 +618,5 @@ public class EnemyController : MonoBehaviour {
             script.SetVar(MonsterVar.FIGHT_UI_NO_SHAKE, DynValue.NewBoolean(!value));
         }
     }
-
-    internal int nowShakeX = 0;
     // --------------------------------------------------------------------------------
 }

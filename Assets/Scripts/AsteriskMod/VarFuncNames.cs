@@ -19,8 +19,3 @@ internal static class MonsterVar
     public const string FIGHT_UI_FORCIBLY_CHANGE_DAMAGE_TEXT = "damagetext";
     public const string FIGHT_UI_NO_SHAKE = "noshaking";
 }
-
-internal static class MonsterFunc
-{
-    public const string GET_SHAKE_X = "GetShakeX";
-}

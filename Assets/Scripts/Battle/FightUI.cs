@@ -57,12 +57,31 @@ public class FightUI : MonoBehaviour {
         damageText.SetMute(true);
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    internal void SetDamageText(string text)
+    {
+        if (shakeInProgress)
+        {
+            damageText.SetText(new TextMessage(text, false, true));
+            Vector3 currentPosition = damageTextRt.localPosition;
+            damageTextRt.localPosition = new Vector3(-UnitaleUtil.CalcTextWidth(damageText) / 2 + enemy.offsets[2].x, currentPosition.y);
+        }
+    }
+    // --------------------------------------------------------------------------------
+
     public void Init(int enemyIndex) {
         Start();
         Damage = -478294;
         lifeBar.setVisible(false);
         lifeBar.whenDamage = true;
         enemy = UIController.instance.encounter.EnabledEnemies[enemyIndex];
+        // --------------------------------------------------------------------------------
+        //                          Asterisk Mod Modification
+        // --------------------------------------------------------------------------------
+        enemy._SetDamageText = SetDamageText;
+        // --------------------------------------------------------------------------------
         lifeBar.transform.SetParent(enemy.transform);
         // --------------------------------------------------------------------------------
         //                          Asterisk Mod Modification
