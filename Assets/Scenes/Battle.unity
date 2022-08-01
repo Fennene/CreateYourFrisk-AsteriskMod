@@ -1632,7 +1632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cfbad1de05141b4f885c3d44735db84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 0}
 --- !u!114 &930260310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3843,7 +3842,6 @@ GameObject:
   - component: {fileID: 2026747198}
   - component: {fileID: 2026747199}
   - component: {fileID: 2026747200}
-  - component: {fileID: 2026747197}
   m_Layer: 0
   m_Name: Stats
   m_TagString: Untagged
@@ -3874,18 +3872,6 @@ RectTransform:
   m_AnchoredPosition: {x: 30, y: 74}
   m_SizeDelta: {x: 580, y: 15}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2026747197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2026747195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b514dfeb486b0d458d81615eee6075a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpbarControlOverride: 0
 --- !u!114 &2026747198
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,14 +8,12 @@ namespace AsteriskMod
 {
     public class CYFEngine
     {
-        [MoonSharpHidden]
         internal static void Initialize()
         {
             Application.targetFrameRate = 60;
             BulletPool.POOLSIZE = 100;
         }
 
-        [MoonSharpHidden]
         internal static void Reset()
         {
             Application.targetFrameRate = 60;
@@ -60,6 +58,50 @@ namespace AsteriskMod
         }
         public static void RemoveAllBullets() { RemoveAllProjectiles(); }
 
+        [ToDo("Translate Error / Deletes when GMS is Implemented.")]
+        public static void SetLayerActive(string layerName, bool active)
+        {
+            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
+            if (string.IsNullOrEmpty(layerName)) throw new CYFException("Engine.SetLayerActive: Layer's name shouldn't be nil or empty string.");
+            GameObject layer = GameObject.Find(canvas + layerName + "Layer");
+            if (layer == null) throw new CYFException("Engine.SetLayerActive: Layer \"" + layerName + "\" is not found.");
+            layer.SetActive(active);
+        }
+
+        [ToDo("Translate Error / Deletes when GMS is Implemented.")]
+        public static bool GetLayerActive(string layerName)
+        {
+            string canvas = UnitaleUtil.IsOverworld ? "Canvas Two/" : "Canvas/";
+            if (string.IsNullOrEmpty(layerName)) throw new CYFException("Engine.GetLayerActive: Layer's name shouldn't be nil or empty string.");
+            GameObject layer = GameObject.Find(canvas + layerName + "Layer");
+            if (layer == null) throw new CYFException("Engine.GetLayerActive: Layer \"" + layerName + "\" is not found.");
+            return layer.activeSelf;
+        }
+
+        public static void GCCollect()
+        {
+            Asterisk.RequireExperimentalFeature("Engine.GCCollect");
+            System.GC.Collect();
+        }
+        public static void GCCollect(int generation)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.GCCollect");
+            System.GC.Collect(generation);
+        }
+        public static void GCCollect(int generation, string mode)
+        {
+            Asterisk.RequireExperimentalFeature("Engine.GCCollect");
+            GCCollectionMode gcCollectionMode;
+            try
+            {
+                gcCollectionMode = (GCCollectionMode)Enum.Parse(typeof(GCCollectionMode), mode);
+            }
+            catch
+            {
+                throw new CYFException("Engine.GCCollect: mode should be \"Default\", \"Forced\", or \"Optimized\"");
+            }            
+            System.GC.Collect(generation, gcCollectionMode);
+        }
 
 
         internal static string ConvertToAppDataFullPath(string path)

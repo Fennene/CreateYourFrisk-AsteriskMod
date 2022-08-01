@@ -184,8 +184,9 @@ namespace AsteriskMod
             if (uf == null)
                 throw new CYFException("The font \"" + fontName + "\" doesn't exist.\nYou should check if you made a typo, or if the font really is in your mod.");
             UIController.instance.mainTextManager.GetComponent<TextManager>().SetFont(uf, firstTime);
-            //if (!firstTime)
-            //    UIController.instance.mainTextManager.GetComponent<TextManager>().default_charset = uf; // impossible.
+            if (!firstTime)
+                //* UIController.instance.mainTextManager.GetComponent<TextManager>().default_charset = uf; // impossible.
+                UIController.instance.mainTextManager.GetComponent<TextManager>().SetDefaultCharset(uf);
         }
 
         public static void SetTargetSprite(string path)

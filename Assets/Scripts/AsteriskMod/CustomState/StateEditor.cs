@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace AsteriskMod
 {
+    [ToDo("FIGHT(ATTACKING)でのtargetchoiceの表示")]
     public class StateEditor
     {
         public static void SetDialogText(string text)

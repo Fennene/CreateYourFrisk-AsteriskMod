@@ -143,6 +143,21 @@ it's w3c valid, at least
                 or <span class="function">Engine.RemoveAllBullets()</span>
                 Attempts to remove all projectiles (bullet objects).
             </p>
+
+
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="Delete"></span> Engine.SetLayerActive(<span class="string"></span> layerName, <span class="boolean"></span> active)</span>
+                Sets activate of layer's object itself.<br>
+                <font color="#FFF">
+                    !CAUTION! This function is same to Unity's <span class="term">GameObject.SetActive()</span>!<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    if attempts to action to any objetcts in disabled layer, an error will occur.
+                </font>
+            </p>
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="Delete"></span> <span class="boolean"></span> Engine.GetLayerActive(<span class="string"></span> layerName)</span>
+                Returns activate of layer's object itself.
+            </p>
             <!--
             <p>
                 <br><span class="function">Engine.RegistSprite(<span class="string"></span> filename)</span>
@@ -175,6 +190,14 @@ it's w3c valid, at least
                 You can reset the size of bullet pool by calling this without any arguments.
                 <br><br>
                 <strike>I think it may not work... be needed more debug or experiment</strike>
+            </p>
+
+            <p>
+                <br><span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> Engine.GCCollect()</span>
+                <span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> Engine.GCCollect(<span class="int"></span> generation)</span>
+                <span class="function"><span class="asternew"></span> <span class="AsteriskExperiment"></span> Engine.GCCollect(<span class="int"></span> generation, <span class="string"></span> mode)</span>
+                This is same to <span class="term">System.GC.Collect();</span>.
+                See <a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.gc.collect?view=net-6.0">here</a> for more info.
             </p>
 
             <br><hr>

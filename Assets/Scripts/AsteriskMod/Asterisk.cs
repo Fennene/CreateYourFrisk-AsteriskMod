@@ -12,7 +12,7 @@ namespace AsteriskMod
         // --------------------------------------------------------------------------------
 
         public const string ModName = "Asterisk Mod";
-        public const string ModVersion = "0.5.3.0.4";
+        public const string ModVersion = "0.5.3.0.5";
         public const string ModAuthor = "Nil256";
         public const string ModAuthorJP = "にるにころ";
         public const string ModAuthorAlt = "FenneneProject";
@@ -37,6 +37,8 @@ namespace AsteriskMod
             BeAddedShaderAndAppData,
             /// <summary>v0.5.3.0.4<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.4"/></summary>
             DynamicEnumAddition,
+            /// <summary>v0.5.3.0.5<br/><see href="https://github.com/Fennene/CreateYourFrisk-AsteriskMod/releases/tag/v0.5.3.0.5"/></summary>
+            LayerActivator,
             // <summary>v0.5.3.1 ?</summary>
             //GlobalScriptUpdate,
             // <summary>v0.5.3.2 ?</summary>
@@ -144,10 +146,6 @@ namespace AsteriskMod
             {
                 TargetModPack = (int)LuaScriptBinder.GetAlMighty(null, OPTION_MODPACK).Number;
             }
-
-#if UNITY_EDITOR
-            //Test.Tset();
-#endif
         }
 
         /// <summary>"Experimental Features"オプションが有効になっているかどうか調べます。<br/>有効になっていない場合はエラーを発生させます。</summary>
@@ -161,6 +159,54 @@ namespace AsteriskMod
             string errorMessage = funcName + "() is experimental feature. You need to enable \"Experimental Features\" in AsteriskMod's option.";
             if (language == Languages.Japanese) errorMessage = funcName + "()は実験的機能です。Asterisk Mod Optionから\"Experimental Features\"(実験的機能)を有効にしてください。";
             throw new CYFException(errorMessage);
+        }
+
+        [ToDo] public static Versions NewConvertToModVersion(string versionName)
+        {
+            versionName = versionName.ToLower();
+            if (!versionName.Contains(".")) return Versions.Unknwon;
+            if (versionName.StartsWith("v"))
+            {
+                versionName = versionName.Substring(1);
+            }
+            string[] _ = versionName.Split('.');
+            int parseNum = 6;
+            if (_.Length < 6)
+            {
+                parseNum = _.Length;
+            }
+            /*
+            for (var i = parseNum; i > 0; i--)
+            {
+            }
+            */
+            int[] versionNumbers = new int[parseNum];
+            for (var i = 0; i < parseNum; i++)
+            {
+                try   { versionNumbers[i] = int.Parse(_[i], System.Globalization.NumberStyles.None); }
+                catch { return Versions.Unknwon; }
+            }
+            if (versionNumbers[0] != 0) return Versions.Unknwon;
+            if (versionNumbers.Length <= 1) return Versions.Unknwon;
+            if (versionNumbers[1] != 5) return Versions.Unknwon;
+            if (versionNumbers.Length <= 2) return Versions.InitialVersion;
+            if (versionNumbers[2] < 2)
+            {
+                return Versions.InitialVersion;
+            }
+            else if (versionNumbers[2] == 2)
+            {
+                if (versionNumbers.Length <= 3) return Versions.InitialVersion;
+                if (versionNumbers[3] <= 0)
+                {
+                }
+
+            }
+            else if (versionNumbers[2] == 3)
+            {
+                if (versionNumbers.Length <= 3) return Versions.TakeNewStepUpdate;
+            }
+            return Versions.Unknwon;
         }
 
         public static Versions ConvertToModVersion(string versionName)
@@ -190,6 +236,8 @@ namespace AsteriskMod
                 case "v0.5.3.0.3":
                 case "v0.5.3.0.4":
                     return Versions.DynamicEnumAddition;
+                case "v0.5.3.0.5":
+                    return Versions.LayerActivator;
             }
             return Versions.Unknwon;
         }
@@ -206,6 +254,7 @@ namespace AsteriskMod
                 case Versions.GlobalsScriptsAddition:  return "v0.5.3.0.1";
                 case Versions.BeAddedShaderAndAppData: return "v0.5.3.0.2";
                 case Versions.DynamicEnumAddition:     return "v0.5.3.0.4";
+                case Versions.LayerActivator:          return "v0.5.3.0.5";
             }
             return "Unknwon";
         }

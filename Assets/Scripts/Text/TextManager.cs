@@ -1190,4 +1190,10 @@ public class TextManager : MonoBehaviour {
             return -number;
         return number;
     }
+
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    [MoonSharpHidden] internal void SetDefaultCharset(UnderFont uf) { default_charset = uf; }
+    // --------------------------------------------------------------------------------
 }

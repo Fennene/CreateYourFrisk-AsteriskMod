@@ -161,8 +161,15 @@ namespace AsteriskMod
         {
             if (AsteriskEngine.ModTarget_AsteriskVersion <= Asterisk.Versions.BeAddedShaderAndAppData) positionOverride = true;
             Name.SetControlOverride(active);
-            Love.SetTextOverride(active);
-            Love.SetPositionOverride(active && positionOverride);
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.DynamicEnumAddition)
+            {
+                Love.SetTextOverride(active);
+                Love.SetPositionOverride(active && positionOverride);
+            }
+            else
+            {
+                Love.SetControlOverride(active);
+            }
             SetHPControlOverride(active, positionOverride);
         }
 

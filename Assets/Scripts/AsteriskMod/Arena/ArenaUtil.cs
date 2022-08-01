@@ -135,10 +135,8 @@ namespace AsteriskMod
             return DynValue.NewTable(ArenaUI.GetMainTextLetters());
         }
 
-        [MoonSharpHidden]
         public void SetDialogTextFont(string fontName, bool firstTime = false)
         {
-            DevelopHint.ToDo("It does not work.");
             ArenaUI.SetTextFont(fontName, firstTime);
         }
 

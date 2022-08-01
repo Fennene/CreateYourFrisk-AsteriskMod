@@ -36,14 +36,6 @@ namespace AsteriskMod
             UserData.RegisterType<UnityObject>();
             UserData.RegisterType<LuaImageComponent>();
             */
-
-            // Obsolete Classes
-            UserData.RegisterType<Lua.LuaButton>();
-            UserData.RegisterType<Lua.LuaButtonController>();
-            UserData.RegisterType<Lua.PlayerUtil>();
-            UserData.RegisterType<Lua.ArenaUtil>();
-            UserData.RegisterType<Lua.StateEditor>();
-            UserData.RegisterType<Lua.LuaLifeBar>();
         }
 
         public static void SetModulePaths(Script script)

@@ -71,7 +71,7 @@ it's w3c valid, at least
                     <li class="li-indent asternew"><a href="api-arenautil.html">The ArenaUtil Object</a></li>
                     <li class="li-indent asternew"><a href="api-statictext.html">The StaticText Object</a></li>
                     <li>Japanese Localization<br>[日本語対応]:</li>
-                    <li class="li-indent"><a href="jp-basis.html">Basis [基本]</a></li>
+                    <li class="li-indent asternew"><a href="jp-basis.html">Basis [基本]</a></li>
                     <li class="li-indent"><a href="jp-lang.html">The .lang File &amp; The Lang Object<br>[.langファイル &amp; Langオブジェクト]</a></li>
                     <li><span class="asternew"></span> GlobalScript:</li>
                     <li class="li-indent"><a href="globals-basis.html">Basis</a></li>
@@ -391,9 +391,23 @@ it's w3c valid, at least
             <p>
                 <ul class="rn">
                     <li>
-                        Add new parameter to <span class="term"><a href="setup.html#style">codestyle.cyfmod</a></span>.
+                        Add new parameter to <span class="term"><a href="setup.html#style">codestyle.cyfmod</a></span>.<br>
                         <ul>
-                            <li>Add a parameter <span class="term">Script-Call-Check-Exist</span>.</li>
+                            <li>Add the parameter <span class="term">Script-Call-Check-Exist</span>.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add new functions to <span class="term"><a href="api-engine.html">The Engine Object</a></span>.<br>
+                        <ul>
+                            <li>Add the function <span class="term">Engine.SetLayerActive()</span>.</li>
+                            <li>Add the function <span class="term">Engine.GetLayerActive()</span>.</li>
+                            <li>Add the <span class="AsteriskExperiment"></span> function <span class="term">Engine.GCCollect()</span>.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Add new function to <span class="term"><a href="api-arenautil.html">The ArenaUtil Object</a></span>.<br>
+                        <ul>
+                            <li>Add the function <span class="term">ArenaUtil.SetDialogTextFont()</span>.</li>
                         </ul>
                     </li>
                 </ul>
@@ -403,9 +417,6 @@ it's w3c valid, at least
             <h4>v0.5.3.0.4 (Beta/Debug version)</h4>
             <p>
                 <ul class="rn">
-                    <li class="fix">
-                        [Something (I forgot to write that.)]
-                    </li>
                     <li>Add new content <span class="term"><a href="setup.html#style">codestyle.cyfmod</a></span>.</li>
                     <li>
                         Add the variable to <span class="term">Special Variables</span>.<br>
@@ -418,6 +429,8 @@ it's w3c valid, at least
                         <ul>
                             <li>Add the variable <span class="term">UIStaticText.relativex</span>.</li>
                             <li>Add the variable <span class="term">UIStaticText.relativey</span>.</li>
+                            <li>Add the function <span class="term">UIStaticText.SetPositionOverride()</span>.</li>
+                            <li>Add the function <span class="term">UIStaticText.SetTextOverride()</span>.</li>
                             <li>Add the function <span class="term">UIStaticText.SetRelativePosition()</span>.</li>
                         </ul>
                     </li>

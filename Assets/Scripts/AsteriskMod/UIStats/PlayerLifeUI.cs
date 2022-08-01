@@ -104,8 +104,15 @@ namespace AsteriskMod
         public void SetHPControlOverride(bool active, bool positionOverride = false)
         {
             LifeBar.SetControlOverride(active);
-            LifeTextMan.SetTextOverride(active);
-            LifeTextMan.SetPositionOverride(active && positionOverride);
+            if (AsteriskEngine.ModTarget_AsteriskVersion >= Asterisk.Versions.DynamicEnumAddition)
+            {
+                LifeTextMan.SetTextOverride(active);
+                LifeTextMan.SetPositionOverride(active && positionOverride);
+            }
+            else
+            {
+                LifeTextMan.SetControlOverride(active);
+            }
         }
 
         public void SetHPOverride(float hp, float maxhp, bool updateText = true)

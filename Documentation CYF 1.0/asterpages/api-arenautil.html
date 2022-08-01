@@ -76,7 +76,7 @@ it's w3c valid, at least
                     <li class="li-indent asternew active" style="margin-left:5px;">&gt; The ArenaUtil Object &lt;</li>
                     <li class="li-indent"><a href="api-statictext.html">The StaticText Object</a></li>
                     <li>Japanese Localization<br>[日本語対応]:</li>
-                    <li class="li-indent"><a href="jp-basis.html">Basis [基本]</a></li>
+                    <li class="li-indent asternew"><a href="jp-basis.html">Basis [基本]</a></li>
                     <li class="li-indent"><a href="jp-lang.html">The .lang File &amp; The Lang Object<br>[.langファイル &amp; Langオブジェクト]</a></li>
                     <li><span class="asternew"></span> GlobalScript:</li>
                     <li class="li-indent"><a href="globals-basis.html">Basis</a></li>
@@ -252,6 +252,15 @@ it's w3c valid, at least
             </p>
 
             <p>
+                <br><span class="function"><span class="asternew"></span> ArenaUtil.SetDialogTextFont(<span class="string"></span> fontName)</span>
+                Sets the default font of the dialog text. 
+                It's the same as the text command <span class="term">[font]</span>, but whatever.<br>
+                Returns an error if the font doesn't exist.
+                <br><br>
+                This is useful to translate.<br>
+                日本語訳や詳細は <span class="ref">Japanese Localization [日本語対応]</span>を参照してください。
+            </p>
+            <p>
                 <br><span class="function"><span class="luatable"><span class="userdata">sprite</span></span> ArenaUtil.GetDialogTextLetters()</span>
                 Returns a table containing sprite objects representing every letter to be displayed in the text object's current line of text.
                 <br><br>
@@ -276,14 +285,20 @@ it's w3c valid, at least
             </p>
 
             <p>
-                <br><span class="function">ArenaUtil.SetAutoFontCommandActive(<span class="boolean"></span> active)</span>
+                <br><span class="function"><span class="Delete"></span> ArenaUtil.SetAutoFontCommandActive(<span class="boolean"></span> active)</span>
                 This is useful to translate.<br>
                 日本語訳や詳細は <span class="ref">Japanese Localization [日本語対応]</span>を参照してください。
+                <br><br>
+                <span class="asternew"></span> <span class="Delete"></span> 代替として<span class="term">ArenaUtil.SetDialogTextFont()</span>を使用してください。<br>
+                [Instead of this, please use <span class="term">ArenaUtil.SetDialogTextFont()</span>.]
             </p>
             <p>
-                <br><span class="function">ArenaUtil.SetAutoFontCommandFont(<span class="string"></span> fontName)</span>
+                <br><span class="function"><span class="Delete"></span> ArenaUtil.SetAutoFontCommandFont(<span class="string"></span> fontName)</span>
                 This is useful to translate.<br>
                 日本語訳や詳細は <span class="ref">Japanese Localization [日本語対応]</span>を参照してください。
+                <br><br>
+                <span class="asternew"></span> <span class="Delete"></span> 代替として<span class="term">ArenaUtil.SetDialogTextFont()</span>を使用してください。<br>
+                [Instead of this, please use <span class="term">ArenaUtil.SetDialogTextFont()</span>.]
             </p>
 
             <p>

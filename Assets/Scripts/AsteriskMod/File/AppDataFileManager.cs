@@ -43,7 +43,7 @@ namespace AsteriskMod
             }
         }
 
-        private string GetAppDataErrorMessage(string keyName) { return EngineLang.Get("Exception", keyName).Replace("mod", "AppData"); }
+        private static string GetAppDataErrorMessage(string keyName) { return EngineLang.Get("Exception", keyName).Replace("mod", "AppData"); }
 
         public LuaFile OpenFile(string path, string mode = "rw")
         {

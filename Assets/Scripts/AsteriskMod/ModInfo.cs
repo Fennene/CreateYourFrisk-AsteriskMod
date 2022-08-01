@@ -22,9 +22,9 @@ namespace AsteriskMod
         [ToDo("will implemente")] internal bool RichText { get; private set; }
         public string Description { get; private set; }
         public TextAnchor DescriptionAlign { get; private set; }
-        [ShouldAddToDocument] public Color EncounterBox { get; private set; }
-        [ShouldAddToDocument] public Color[] EncounterButtons { get; private set; }
-        [ShouldAddToDocument] public Color[] EncounterButtonsBorders { get; private set; }
+        [ToDo("will implemente")] public Color EncounterBox { get; private set; }
+        [ToDo("will implemente")] public Color[] EncounterButtons { get; private set; }
+        [ToDo("will implemente")] public Color[] EncounterButtonsBorders { get; private set; }
         public bool[] SupportedLanguagesOverride { get; private set; }
         [ToDo("will implemente")] internal bool RetroMode { get; private set; }
 
@@ -42,9 +42,9 @@ namespace AsteriskMod
             SubtitleOverride = null;
             Description = null;
             DescriptionAlign = TextAnchor.UpperLeft;
-            EncounterBox = new Color32(32, 32, 32, 128);
-            EncounterButtons = null;
-            EncounterButtonsBorders = null;
+            //EncounterBox = new Color32(32, 32, 32, 128);
+            //EncounterButtons = null;
+            //EncounterButtonsBorders = null;
             SupportedLanguagesOverride = null;
         }
 
