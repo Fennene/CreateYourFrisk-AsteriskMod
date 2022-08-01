@@ -443,7 +443,7 @@ public class EnemyEncounter : MonoBehaviour {
                 oldstatename = oldCustomState;
             else
                 oldstatename = oldState.ToString();
-            CustomStateScript.script.Call(CustomStateScript.script.Globals["StateStarting"], DynValue.NewString(oldstatename));
+            CustomStateScript.Call("StateStarting", new[] { DynValue.NewString(oldstatename) });
         }
         catch (InterpreterException ex)
         {
@@ -540,7 +540,7 @@ public class EnemyEncounter : MonoBehaviour {
                 newstatename = newCustomState;
             else
                 newstatename = newState.ToString();
-            scr.Call("StateEnding", DynValue.NewString(newstatename));
+            scr.Call("StateEnding", new[] { DynValue.NewString(newstatename) });
             ScriptWrapper.instances.Remove(scr);
             LuaScriptBinder.scriptlist.Remove(scr.script);
         }

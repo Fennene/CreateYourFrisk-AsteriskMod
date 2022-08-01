@@ -407,7 +407,7 @@ public class EnemyController : MonoBehaviour {
                 if (script.GetVar("OnActive") != null)
                 {
                     canSetActive = false;
-                    script.Call("OnActive", DynValue.NewBoolean(active));
+                    script.Call("OnActive", new[] { DynValue.NewBoolean(active) });
                     canSetActive = true;
                 }
             }

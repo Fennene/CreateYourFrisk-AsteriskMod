@@ -55,23 +55,43 @@ public class ScriptWrapper {
         return script.Globals[key] != null ? MoonSharpUtil.CloneIfRequired(caller, value) : null;
     }
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    [MoonSharpHidden]
+    // --------------------------------------------------------------------------------
     public DynValue Call(string function, DynValue[] args = null, bool checkExist = false) { return Call(null, function, args, checkExist); }
 
-    public DynValue Call(string function, DynValue arg) { return Call(null, function, new[] { arg }); }
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    //* public DynValue Call(string function, DynValue arg) { return Call(null, function, new[] { arg }); }
+    public DynValue Call(string function, DynValue arg)
+    {
+        bool checkExist = false;
+        if (!AsteriskUtil.IsCYFOverworld)
+        {
+            checkExist = (AsteriskEngine.LuaCodeStyle != null && AsteriskEngine.LuaCodeStyle.scriptWrapperCheckExistFunction);
+        }
+        return Call(null, function, new[] { arg }, checkExist);
+    }
+    // --------------------------------------------------------------------------------
 
+    // --------------------------------------------------------------------------------
+    //                          Asterisk Mod Modification
+    // --------------------------------------------------------------------------------
+    [MoonSharpHidden]
+    // --------------------------------------------------------------------------------
     public DynValue Call(Script caller, string function, DynValue[] args = null, bool checkExist = false) {
         if (script.Globals[function] == null || script.Globals.Get(function) == null) {
             if (checkExist &&!GlobalControls.retroMode)
-                UnitaleUtil.DisplayLuaError(scriptname, "Attempted to call the function \"" + function + "\", but it didn't exist.");
-            //Debug.LogWarning("Attempted to call the function " + function + " but it didn't exist.");
-            // --------------------------------------------------------------------------------
-            //                          Asterisk Mod Modification
-            // --------------------------------------------------------------------------------
-            if (AsteriskEngine.LuaCodeStyle != null && AsteriskEngine.LuaCodeStyle.scriptWrapperCheckExistFunction)
-            {
+                // --------------------------------------------------------------------------------
+                //                          Asterisk Mod Modification
+                // --------------------------------------------------------------------------------
+                //* UnitaleUtil.DisplayLuaError(scriptname, "Attempted to call the function \"" + function + "\", but it didn't exist.");
                 UnitaleUtil.DisplayLuaError(scriptname, EngineLang.Get("Exception", "ScriptCallNotFound1") + function + EngineLang.Get("Exception", "ScriptCallNotFound2"));
-            }
-            // --------------------------------------------------------------------------------
+                // --------------------------------------------------------------------------------
+            //Debug.LogWarning("Attempted to call the function " + function + " but it didn't exist.");
             return DynValue.Nil;
         }
         if (args != null) {
